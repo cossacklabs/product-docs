@@ -13,3 +13,6 @@ Themis provides 4 important cryptographic services:
 * **[Secure Comparator](/docs/themis/crypto-theory/crypto-systems/secure-comparator)**: Zero knowledge-based cryptographic protocol for **authentication** and comparing secrets.
 
 We created Themis to build other products on top of it - i.e. [Acra](https://www.cossacklabs.com/acra/) and [Hermes](https://www.cossacklabs.com/hermes/).
+
+
+![](/files/wiki/themis_cryptosystems.png)

@@ -39,4 +39,9 @@ Our cryptosystems are:
 * [Secure Session](/docs/themis/crypto-theory/rypto-systems/secure-session);
 * [Secure Comparator](/docs/themis/crypto-theory/crypto-systems/secure-comparator).
 
+
+![](/files/wiki/themis_cryptosystems.png)
+
+
 Please check out the documentation pages for the corresponding cryptosystems listed above to determine, which one(s) to use in your specific case(s). If you still have doubts, don't hesitate to [contact us](mailto:dev@cossacklabs.com).
+

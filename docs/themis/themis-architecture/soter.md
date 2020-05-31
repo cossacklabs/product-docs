@@ -1,5 +1,5 @@
 ---
-weight: 5
+weight: 1
 title: "Soter"
 ---
 
