@@ -1,12 +1,12 @@
 ---
-weight: 1
-title: "C++"
+weight: 7
+title:  Kotlin
 bookCollapseSection: true
 ---
 
-# Using Themis in C++
+# Using Themis in Kotlin
 
-**ThemisPP** wrapper provides access to features of Themis cryptographic library for C++:
+**JavaThemis** wrapper provides access to features of Themis cryptographic library for Android applications in Kotlin:
 
 - **[Key generation](features#key-generation)**:
   securely generate strong key pairs and symmetric keys.
@@ -23,17 +23,22 @@ bookCollapseSection: true
   without disclosing anything about the secret to anyone —
   using _[zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof)_.
 
-## Supported C++ standards
+Themis can also be used with [Java](../java).
 
-C++03, C++11, C++14, C++17 are tested and fully supported.
+## Supported Java versions
+
+JavaThemis supports Java 8 or any later version.
 
 ## Getting started
 
-[Follow these instructions](installation) to install ThemisPP.
+For Android development,
+[follow these instructions](installation-android) to install AndroidThemis.
+If you want to develop desktop or server software with Kotlin,
+you need to [install JavaThemis](installation-desktop) with JNI library.
 
 Here are other things that might interest you:
 
-<!-- [API reference](when-it-is-done) -->
-- [browse code samples](examples) to get a feel of ThemisPP API
+<!-- JavaDocs when they are ready -->
+- [browse code samples](examples) to get a feel of JavaThemis API
 - [use interactive simulator](/docs/themis/debugging/themis-server/) to cross-verify your code
-- [read feature guides](features) to learn how to use ThemisPP effectively
+- [read feature guides](features) to learn how to use JavaThemis effectively
