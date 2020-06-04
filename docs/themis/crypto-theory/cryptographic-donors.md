@@ -73,3 +73,21 @@ However, for RSA you can change the key length at compilation time using the `RS
 What to use as a default backend is a matter of personal preferences and specific constraints of the task in question. So since [0.9.5](https://github.com/cossacklabs/themis/releases/tag/0.9.5) release version, Themis' `make` system enables you to build Themis based on different backends yourself. 
 
 Our goal is not only to keep developing Themis with the best implementations of the best cryptographic algorithms available under the hood. Our goal lies as much in being able to consciously choose the optimal cryptographic algorithms for each use case, on every Themis build.
+
+
+## On leaving OpenSSL
+
+We rely on the following list of crypto-primitives and ciphers for Themis:   
+
+* AES    
+* RSA    
+* ChaCha   
+* KDF   
+* Rand   
+* SHA / HMAC, ECDSA, ECDH 
+
+We consider OpenSSL, LibreSSL, and BoringSSL to be crypto engines that fully support these crypto-primitives and ciphers on Linux, macOS, Windows, iOS and Android. However, we're planning to move away from OpenSSL everywhere some day and use BoringSSL as a default crypto engine on every platform supported by Themis.
+
+We shall accumulate various sources of algorithms for different platforms to roadmap the migration away from the **libcrypto** dependency soon.
+
+You can out check our plans concerning the support and migration to BoringSSL [in the list of issues](https://github.com/cossacklabs/themis/issues?utf8=%E2%9C%93&q=is%3Aissue+boringssl).

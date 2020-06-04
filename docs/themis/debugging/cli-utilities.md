@@ -1,6 +1,6 @@
 ---
 weight: 2
-title: "Command line utilities"
+title: "CLI utilities"
 ---
 
 ## Encryption/decryption command line utils

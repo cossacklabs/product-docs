@@ -51,15 +51,15 @@ deb https://pkgs.cossacklabs.com/stable/$OS_NAME $RELEASE main
 
 where
 
-  - `$OS_NAME` should be `debian` or `ubuntu`     
-  - `$RELEASE` should be Debian or Ubuntu release name (like `stretch`).     
-    You can determine this by running `lsb_release -cs`, if you have `lsb_release` installed.
+  - `$OS_NAME` should be `debian` or `ubuntu`  
+  - `$RELEASE` should be Debian or Ubuntu release name (like `stretch`).
+ You can determine this by running `lsb_release -cs`, if you have `lsb_release` installed.
 
 We currently build packages for the following OS_NAME and RELEASE combinations:
 
-  - `debian jessie` — Debian 8 "Jessie"    
-  - `debian stretch` — Debian 9 "Stretch"    
-  - `ubuntu xenial` — Ubuntu 16.04 LTS "Xenial Xerus"    
+  - `debian jessie` — Debian 8 "Jessie" 
+  - `debian stretch` — Debian 9 "Stretch" 
+  - `ubuntu xenial` — Ubuntu 16.04 LTS "Xenial Xerus" 
   - `ubuntu bionic` — Ubuntu 18.04 LTS "Bionic Beaver"
 
 For example, if you are running _Debian 9 "Stretch"_, run:
@@ -125,10 +125,10 @@ Themis is available on macOS via Homebrew.
 
 Supported systems:
 
-  - macOS 10.12 Sierra    
-  - macOS 10.13 High Sierra     
-  - macOS 10.14 Mojave  
-  - macOS 10.15 Catalina  
+  - macOS 10.12 Sierra 
+  - macOS 10.13 High Sierra
+  - macOS 10.14 Mojave
+  - macOS 10.15 Catalina
 
 **1. Add Cossack Labs tap**
 
@@ -146,27 +146,27 @@ brew update
 
 ```bash
 brew install libthemis
-```    
+``` 
 
 Congratulations! You're done!
 
-### Windows    
+### Windows 
 
 {{< hint info >}}
-Note: This is an experimental feature!   
+Note: This is an experimental feature!
 {{< /hint >}}
 
-Starting with Themis 0.12.0, there are now two ways to install Themis Core on Windows: compile in MSYS2 environment and install manually, or use NSIS installer.        
+Starting with Themis 0.12.0, there are now two ways to install Themis Core on Windows: compile in MSYS2 environment and install manually, or use NSIS installer.
 
-MSYS2 is a popular and easy way to compile POSIX-compliant software on Windows. It provides GNU development environment and API compatibility layer between POSIX and WinAPI.      
+MSYS2 is a popular and easy way to compile POSIX-compliant software on Windows. It provides GNU development environment and API compatibility layer between POSIX and WinAPI.
 
 To compile Themis Core for Windows using **[MSYS2 environment](https://www.msys2.org/)**, follow next steps:
 
-**1.** [Install MSYS2](https://www.msys2.org/) for x86_64 platform.    
+**1.** [Install MSYS2](https://www.msys2.org/) for x86_64 platform. 
 
-**2.** Open a new MSYS2 terminal (Start > MSYS2 > MSYS2 MSYS).    
+**2.** Open a new MSYS2 terminal (Start > MSYS2 > MSYS2 MSYS). 
 
-**3.** Install build tools and dependencies:    
+**3.** Install build tools and dependencies: 
 
 ```bash
 pacman -S git make gcc openssl-devel
@@ -182,14 +182,14 @@ make test
 
 The resulting binaries will be placed into the **build** directory:
 
-  - `msys-soter-0.dll`, `msys-themis-0.dll`: DLLs to be distributed with your application,       
-  - `libsoter.dll.a`, `libthemis.dll.a`: import libraries to be used when building your application.           
+  - `msys-soter-0.dll`, `msys-themis-0.dll`: DLLs to be distributed with your application, 
+  - `libsoter.dll.a`, `libthemis.dll.a`: import libraries to be used when building your application.  
 
 Note that Themis DLLs depend on some MSYS2 DLLs which need to be distributed together with Themis:
 
-  - msys-2.0.dll     
-  - msys-crypto-1.1.dll     
-  - msys-z.dll      
+  - msys-2.0.dll
+  - msys-crypto-1.1.dll
+  - msys-z.dll
 
 They can be found in `/usr/bin` directory of MSYS2 environment (typically `C:\msys64\usr\bin` from Windows point of view).
 
@@ -211,7 +211,7 @@ cd themis
 make nsis_installer
 ```
 
-**3.** Use NSIS installer GUI (steps 1., 2., 3. below) to install Themis and all necessary dependencies.       
+**3.** Use NSIS installer GUI (steps 1., 2., 3. below) to install Themis and all necessary dependencies. 
 
 ![](https://docs.cossacklabs.com/files/wiki/cossack-labs-themis-win-installer.png)
 
@@ -219,20 +219,31 @@ make nsis_installer
 ## Installing Themis language wrappers from packages
 
 Installing language-specific wrappers is done after you've installed the core library itself.
-Check out the corresponding language guides for more details on how to install Themis wrapper for your language:    
+Check out the corresponding language guides for more details on how to install Themis wrapper for your language.
 
-* [C++](/docs/themis/languages/cpp)     
-* [Go](/docs/themis/languages/go)
+
+### Server-side and desktop languages
+
+{{< hint info >}}
+**Note:** Remember to [install Themis Core](/docs/themis/installation/installation-from-packages/#installing-themis-core-from-packages) first.
+{{< /hint>}}
+
+
+* [C++](/docs/themis/languages/cpp)
+* [Go](/docs/themis/languages/go) 
+* [Java (Desktop)](/docs/themis/languages/java-desktop) 
+* [Node.js](/docs/themis/languages/nodejs)
+* [PHP](/docs/themis/languages/php) 
+* [Python](/docs/themis/languages/python) 
+* [Ruby](/docs/themis/languages/ruby) 
+* [Rust](/docs/themis/languages/rust)
+
+
+### Mobile platforms and WebAssembly
+
+* [Swift](/docs/themis/languages/swift)
+* [Objective-C](/docs/themis/languages/objc)
 * [Java (Android)](/docs/themis/languages/java-android)
-* [Kotlin (Android)](/docs/themis/languages/kotlin-android) 
-* [Java (Desktop)](/docs/themis/languages/java-desktop)    
+* [Kotlin (Android)](/docs/themis/languages/kotlin-android)
 * [JavaScript (WebAssembly)](/docs/themis/languages/wasm)
-* [Node.js](/docs/themis/languages/nodejs)    
-* [Objective-C](/docs/themis/languages/objc)    
-* [Swift](/docs/themis/languages/swift)    
-* [PHP](/docs/themis/languages/php)    
-* [Python](/docs/themis/languages/python)    
-* [Ruby](/docs/themis/languages/ruby)    
-* [Rust](/docs/themis/languages/rust)        
 
-You may also want to check out the [Building from sources page](/docs/themis/installation/installation-from-sources) if you do not wish to use the repositories for installation and prefer to do everything manually.  

@@ -56,18 +56,4 @@ We want Themis to be as easy to use as it is secure. We understand that the effo
 
 While maintaining a general common object model across all the covered languages, we try to tailor each binding to make Themis look most natural in each specific language. 
 
-Currently, Themis supports:
-
-* [C++](/docs/themis/languages/cpp/)
-* [Go](/docs/themis/languages/go/)
-* [Java Android](/docs/themis/languages/java-android/)
-* [Kotlin Android](/docs/themis/languages/kotlin-android/) 
-* [Java Desktop](/docs/themis/languages/java-desktop/)
-* [Javascript (WebAssembly)](/docs/themis/languages/wasm/)
-* [Node.js](/docs/themis/languages/nodejs/)
-* [Objective-C](/docs/themis/languages/objc/) (iOS, macOS)
-* [Swift](/docs/themis/languages/swift/) (iOS, macOS)
-* [PHP](/docs/themis/languages/php/)
-* [Python](/docs/themis/languages/python/)
-* [Ruby](/docs/themis/languages/ruby/)
-* [Rust](/docs/themis/languages/rust/)
+Currently, Themis supports [these languages](/docs/themis/getting-started/#language-howtos).

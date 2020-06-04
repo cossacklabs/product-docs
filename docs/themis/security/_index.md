@@ -12,3 +12,9 @@ Each change in Themis core library is being reviewed and approved by our interna
 We use a lot of automated security testing, i.e. static code analysers, fuzzing tools, memory analysers, unit tests (per each platform), integration tests (to find compatibility issues between different Themis-supported languages, OS and x86/x64 architectures). Read more about our security testing practices [on this page](/docs/themis/security/).
 
 If you believe that you've found a security-related issue, please drop us an email to [dev@cossacklabs.com](mailto:dev@cossacklabs.com). Bug bounty program may apply.
+
+
+Learn more about:
+
+* [Themis and OWASP](/docs/themis/security/owasp/) 
+* [Themis development security practices](/docs/themis/security/dev-security-practices/) 

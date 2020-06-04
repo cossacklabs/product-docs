@@ -1,9 +1,9 @@
 ---
 weight: 6
-title: "Tutorials"
+title: "Tutorials, workshops and talks"
 ---
 
-## Tutorials
+## Tutorials and workshops
 
 As long as it remains feasible, we'll be accumulating the list of all our tutorials on how to use Themis in different cases here:
 
@@ -16,3 +16,8 @@ As long as it remains feasible, we'll be accumulating the list of all our tutori
 * [Releasing Themis into public: usability testing](https://www.cossacklabs.com/02-usability-testing.html) which provides some explanation of how to use Secure Message for iOS and Python. Go directly into [corresponding GitHub repository](https://github.com/cossacklabs/themis-ux-testing) to play with code. 
 
 * [Building encrypted chat service with Themis and mobile websocket example](https://www.cossacklabs.com/building-secure-chat), which outlines the stages necessary for building an encrypted chat service around Ruby websocket server with clients in iOS and Android. [GitHub repository](https://github.com/cossacklabs/mobile-websocket-example) with the accompanying code.
+
+
+## Talks
+
+TODO: talks
