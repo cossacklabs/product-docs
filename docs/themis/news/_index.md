@@ -1,17 +1,18 @@
 ---
 weight: 30
-title: "FAQ and news"
+title:  News & FAQ
 bookCollapseSection: true
 ---
 
+# News and FAQs
 
-## News and FAQs
+## Changelog
 
-### Changelog
+New API, general improvements, fixed issues, and security announcements
+are published in the [`CHANGELOG.md`](https://github.com/cossacklabs/themis/blob/master/CHANGELOG.md#themis-changelog) file on GitHub.
 
-The latest Changelog is available in [Themis Github repository](https://github.com/cossacklabs/themis/blob/master/CHANGELOG.md). We update it continuously with implementing new features and releases.
+We update it continuously during development and after making the next release.
 
+## FAQ
 
-### FAQ
-
-Checkout [frequenty asked questions and answers](/docs/themis/news/faq/).
+Check out the list of [Frequenty Asked Questions](faq/) and answers to them.
