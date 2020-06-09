@@ -7,19 +7,21 @@ title:  Examples
 
 Once you have [installed ObjCThemis](../installation), it’s time to give it some action!
 
-Some code samples for Themis features are available at
-[`docs/examples/objc`](https://github.com/cossacklabs/themis/tree/master/docs/examples/objc)
+## Code samples
+
+Some code samples for Themis features are available
+at [`docs/examples/objc`](https://github.com/cossacklabs/themis/tree/master/docs/examples/objc)
 on GitHub:
 
-  - data encryption with Secure Cell
+  - data encryption using Secure Cell
   - message encryption using Secure Message
-  - secret authentication using Secure Comparator
+  - password authentication using Secure Comparator
   - integration with CocoaPods and Carthage for macOS and iOS
 
-[Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/Obj-C)
-can be used with [Themis Interactive Simulator](https://docs.cossacklabs.com/simulator/interactive/):
-you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/docs/themis/debugging/themis-server).
+You can also take a look at unit tests
+in [ObjCThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/objcthemis).
+
+## Blog posts
 
 You can read our blog post on [building encrypted chat service](https://www.cossacklabs.com/building-secure-chat),
 which includes iOS client using Secure Session and Secure Cell.
@@ -28,7 +30,14 @@ Another blog post on [usability testing](https://www.cossacklabs.com/02-usabilit
 explored usage of Secure Message in iOS and Python.
 Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) with the code
 
-You can also take a look at unit tests in [ObjCThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/objcthemis).
+## Debugging aids
+
+[Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/Obj-C)
+can be used with [Themis Interactive Simulator](https://docs.cossacklabs.com/simulator/interactive/):
+you can generate the keys and simulate whole client-server communication.
+Read more in the [Themis Server guide](/docs/themis/debugging/themis-server).
+
+## What’s next
 
 [Read the feature guide](../features)
-in order to learn how to use Themis effectively in Objective-C.
+to learn how to use Themis effectively in Objective-C.

@@ -7,8 +7,10 @@ title:  Examples
 
 Once you have [installed PyThemis](../installation), it’s time to give it some action!
 
-Some code samples for Themis features are available at
-[`docs/examples/python`](https://github.com/cossacklabs/themis/tree/master/docs/examples/python)
+## Code samples
+
+Some code samples for Themis features are available
+at [`docs/examples/python`](https://github.com/cossacklabs/themis/tree/master/docs/examples/python)
 on GitHub:
 
   - key generation utilities
@@ -16,6 +18,17 @@ on GitHub:
   - message encryption using Secure Message
   - a simple chat server and client using Secure Session
   - password authentication using Secure Comparator
+
+You can also take a look at unit tests
+in [PyThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/pythemis).
+
+## Blog posts
+
+A blog post on [usability testing](https://www.cossacklabs.com/02-usability-testing.html)
+explores usage of Secure Message in iOS and Python.
+Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) with the code.
+
+## Debugging aids
 
 There are [command-line utilities](/docs/themis/debugging/cli-utilities#python-console-utils)
 that you can run from GitHub source code
@@ -26,11 +39,7 @@ can be used with [Themis Interactive Simulator](https://docs.cossacklabs.com/sim
 you can generate the keys and simulate whole client-server communication.
 Read more in the [Themis Server guide](/docs/themis/debugging/themis-server).
 
-A blog post on [usability testing](https://www.cossacklabs.com/02-usability-testing.html)
-explores usage of Secure Message in iOS and Python.
-Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) with the code.
-
-You can also take a look at unit tests in [PyThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/pythemis).
+## What’s next
 
 [Read the feature guide](../features)
-in order to learn how to use Themis effectively with Python.
+to learn how to use Themis effectively in Python.

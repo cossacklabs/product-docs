@@ -126,27 +126,14 @@ to learn more about managing toolchain versions.
     emmake make wasmthemis
     ```
 
-The resulting Android library (AAR) will be placed into `XXX`.
-You then need to add it to your project and you’re done.
+The resulting package will be placed into `build/wasm-themis.tgz`
+in Themis source tree.
 
-If you wish, you can run JavaThemis test suite on the connected device or emulator.
-Make sure ADB is installed and enabled, then run:
-
-```bash
-./gradlew :android:connectedAndroidTest
-```
-
-
-
-To run the test suite for WasmThemis wrapper (and a more extensive one for the core library), type:
+To run the test suite for WasmThemis wrapper
+(and a more extensive one for the Themis Core library),
+run the following commands:
 
 ```bash
 emmake make test_wasm
 emmake make test
-```
-
-To install WasmThemis, type:
-
-```bash
-make wasmthemis_install
 ```

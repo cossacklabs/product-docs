@@ -52,8 +52,9 @@ docker run --rm -it -v $(pwd):/projects cossacklabs/android-build \
              ./gradlew :android:assembleRelease'
 ```
 
-The resulting Android library (AAR) will be placed into `XXX`.
-You then need to add it to your project and you’re done.
+The resulting Android library (AAR) will be placed into
+`src/wrappers/themis/android/build/outputs/aar/android.aar`.
+You can then rename it and add to your project.
 
 ### Manual setup
 
@@ -113,8 +114,9 @@ You don’t need the full Android Studio to build Themis, just the command line 
     ./gradlew :android:assembleRelease
     ```
 
-The resulting Android library (AAR) will be placed into `XXX`.
-You then need to add it to your project and you’re done.
+   The resulting Android library (AAR) will be placed into
+   `src/wrappers/themis/android/build/outputs/aar/android.aar`.
+   You can then rename it and add to your project.
 
 If you wish, you can run JavaThemis test suite on the connected device or emulator.
 Make sure ADB is installed and enabled, then run:
