@@ -2,6 +2,7 @@
 weight: 1
 bookFlatSection: true
 title: "Themis"
+Menu: "main"
 ---
 
 # What is Themis
