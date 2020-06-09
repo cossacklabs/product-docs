@@ -61,7 +61,7 @@ The easiest way to install Themis on macOS is to use Homebrew.
  2. Install Themis Core package:
 
     ```bash
-    brew install themis pkg-config
+    brew install libthemis pkg-config
     ```
 
  3. Add the following lines to your `Cargo.toml` file:

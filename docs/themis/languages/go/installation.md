@@ -55,7 +55,7 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
  2. Install Themis Core package:
 
     ```bash
-    brew install themis
+    brew install libthemis
     ```
 
  3. `go get` the GoThemis package:

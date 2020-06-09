@@ -46,7 +46,7 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
  2. Install ThemisPP package:
 
     ```bash
-    brew install themis --with-cpp
+    brew install libthemis --with-cpp
     ```
 
 Once ThemisPP is installed, you can [try out code examples](../examples).

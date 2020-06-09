@@ -60,7 +60,7 @@ The easiest way to install Themis on macOS is to use Homebrew.
  2. Install Themis Core package:
 
     ```bash
-    brew install themis
+    brew install libthemis
     ```
 
  3. Install PyThemis via PyPi:
