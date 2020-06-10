@@ -5,7 +5,7 @@ title:  Examples
 
 # Example projects with WasmThemis
 
-Once you have [installed WasmThemis](../installation), it’s time to give it some action!
+Once you have [installed WasmThemis](../installation/), it’s time to give it some action!
 
 ## Code samples
 
@@ -30,5 +30,5 @@ at [`tools/js/wasm-themis`](https://github.com/cossacklabs/themis/tree/master/to
 
 ## What’s next
 
-[Read the feature guide](../features)
+[Read the feature guide](../features/)
 to learn how to use Themis effectively with WebAssembly.

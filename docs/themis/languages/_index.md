@@ -17,20 +17,20 @@ general guidance and how-tos.
 
 ## Server-side and desktop platforms
 
-  - [C++](cpp)
-  - [Go](go)
-  - [JavaScript (Node.js)](nodejs)
-  - [Java](java)
-  - [Kotlin](kotlin)
-  - [PHP](php)
-  - [Python](python)
-  - [Ruby](ruby)
-  - [Rust](rust)
+  - [C++](cpp/)
+  - [Go](go/)
+  - [JavaScript (Node.js)](nodejs/)
+  - [Java](java/)
+  - [Kotlin](kotlin/)
+  - [PHP](php/)
+  - [Python](python/)
+  - [Ruby](ruby/)
+  - [Rust](rust/)
 
 ## Mobile and Web platforms
 
-  - [Swift](swift)
-  - [Kotlin](kotlin)
-  - [Objective-C](objc)
-  - [Java](java)
-  - [JavaScript (WebAssembly)](wasm)
+  - [Swift](swift/)
+  - [Kotlin](kotlin/)
+  - [Objective-C](objc/)
+  - [Java](java/)
+  - [JavaScript (WebAssembly)](wasm/)

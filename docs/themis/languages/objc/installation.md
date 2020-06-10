@@ -28,7 +28,7 @@ Themis is [available via **CocoaPods**](https://cocoapods.org/pods/themis).
     pod install
     ```
 
-[Here are examples](../examples) of CocoaPods projects with Themis in Swift and Objective-C.
+[Here are examples](../examples/) of CocoaPods projects with Themis in Swift and Objective-C.
 
 #### Using BoringSSL
 
@@ -67,4 +67,4 @@ Themis is also available via [**Carthage**](https://github.com/Carthage/Carthage
  3. Integrate **objcthemis.framework** into your project
     according to [Carthage instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
-[Here are examples](../examples) of Carthage projects with Themis in Swift and Objective-C.
+[Here are examples](../examples/) of Carthage projects with Themis in Swift and Objective-C.

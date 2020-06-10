@@ -8,14 +8,14 @@ bookCollapseSection: true
 
 **PHPThemis** extension provides access to features of Themis cryptographic library in PHP:
 
-- **[Key generation](features#key-generation)**:
+- **[Key generation](features/#key-generation)**:
   securely generate strong key pairs and symmetric keys.
-- **[Data storage at rest](features#secure-cell)**:
+- **[Data storage at rest](features/#secure-cell)**:
   encrypt sensitive data for storage with symmetric cryptography.
-- **[Authenticated messaging](features#secure-message)**:
+- **[Authenticated messaging](features/#secure-message)**:
   exchange messages which are readable only by the recipent using asymmetric cryptography,
   or sign messages with your private key to prove identity.
-- **[Protect data in motion](features#secure-session)**:
+- **[Protect data in motion](features/#secure-session)**:
   establish a session between a client and a server for secure data exchange
   with _[perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy)_ guarantees.
 
@@ -38,11 +38,11 @@ Please [contact us](mailto:dev@cossacklabs.com) if you need support.
 
 ## Getting started
 
-[Follow these instructions](installation) to install PHPThemis.
+[Follow these instructions](installation/) to install PHPThemis.
 
 Here are other things that might interest you:
 
 <!-- [API reference](when-it-is-done) -->
-- [browse code samples](examples) to get a feel of PHPThemis API
+- [browse code samples](examples/) to get a feel of PHPThemis API
 - [use interactive simulator](/docs/themis/debugging/themis-server/) to cross-verify your code
-- [read feature guides](features) to learn how to use PHPThemis effectively
+- [read feature guides](features/) to learn how to use PHPThemis effectively

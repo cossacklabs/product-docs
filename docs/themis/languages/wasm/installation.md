@@ -18,7 +18,7 @@ Just run the following line to install WasmThemis for your project:
 npm install wasm-themis
 ```
 
-Once WasmThemis is installed, you can [try out code examples](../examples).
+Once WasmThemis is installed, you can [try out code examples](../examples/).
 
 ## Deploying apps with WasmThemis
 

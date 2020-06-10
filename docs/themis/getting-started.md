@@ -25,7 +25,7 @@ If you'd like to help improve or bring Themis to your favourite platform or lang
 ## Installation
 
 Refer to the [Installation](/docs/themis/installation/) page to install Themis for your mobile, web, desktop, or server-side application.
-We highly recommend [**installation packages**](/docs/themis/installation/installation-from-packages) instead of building from source.
+We highly recommend [**installation packages**](/docs/themis/installation/installation-from-packages/) instead of building from source.
 
 ## Language HowTos
 

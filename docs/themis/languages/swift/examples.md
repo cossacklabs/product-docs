@@ -5,7 +5,7 @@ title:  Examples
 
 # Example projects with SwiftThemis
 
-Once you have [installed SwiftThemis](../installation), it’s time to give it some action!
+Once you have [installed SwiftThemis](../installation/), it’s time to give it some action!
 
 ## Code samples
 
@@ -32,9 +32,9 @@ with a live server.
 [Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/swift)
 can be used with [Themis Interactive Simulator](https://docs.cossacklabs.com/simulator/interactive/):
 you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/docs/themis/debugging/themis-server).
+Read more in the [Themis Server guide](/docs/themis/debugging/themis-server/).
 
 ## What’s next
 
-[Read the feature guide](../features)
+[Read the feature guide](../features/)
 to learn how to use Themis effectively in Swift.

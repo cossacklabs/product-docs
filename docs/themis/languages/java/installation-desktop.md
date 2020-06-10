@@ -18,7 +18,7 @@ However, you can also build and install the latest version of JNI library from t
 The easiest way to install JavaThemis on Linux is to use package repositories for your system.
 Currently we build packages for a multitude of Linux distributions.
 
- 1. [Add Cossack Labs package repositories](/docs/themis/installation/installation-from-packages) to your system.
+ 1. [Add Cossack Labs package repositories](/docs/themis/installation/installation-from-packages/) to your system.
 
  2. Install Themis JNI package.
 
@@ -36,7 +36,7 @@ Currently we build packages for a multitude of Linux distributions.
 
  3. [Build JavaThemis JAR](#build-jar-with-java-code) and add it to your project.
 
-Once JavaThemis is installed, you can [try out examples on your machine](../examples).
+Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
 ## Installing stable version on macOS
 
@@ -76,7 +76,7 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
 
  4. [Build JavaThemis JAR](#build-jar-with-java-code) and add it to your project.
 
-Once JavaThemis is installed, you can [try out examples on your machine](../examples).
+Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
 ## Building latest version from source
 
@@ -94,7 +94,7 @@ in [Oracle documentation](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli
 
 ### Build JNI library with native code
 
- 1. [Build and install Themis Core library](/docs/themis/installation/installation-from-sources)
+ 1. [Build and install Themis Core library](/docs/themis/installation/installation-from-sources/)
     into your system.
 
  2. In the same source tree, build and and then install the JNI library:

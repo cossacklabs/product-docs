@@ -24,9 +24,9 @@ Go, Python, Ruby, PHP, Java, JavaScript (for Node.js), Rust, C++, C.
 
 Installation for server-side platforms consists of **two steps:**
 
- 1. Install [Themis Core library](installation-from-packages)
+ 1. Install [Themis Core library](installation-from-packages/)
     into the system.
- 2. Install [Themis language wrapper](installation-from-packages#installing-language-wrappers)
+ 2. Install [Themis language wrapper](installation-from-packages/#installing-language-wrappers)
     used by your application.
 
 Server-side platforms can receive security updates for the core library
@@ -43,7 +43,7 @@ Swift, Objective-C, Java, Kotlin, JavaScript (for WebAssembly).
 
 Installation for mobile platforms consists of just **one step:**
 
- 1. Install [Themis language wrapper](installation-from-packages#installing-language-wrappers)
+ 1. Install [Themis language wrapper](installation-from-packages/#installing-language-wrappers)
     used by your application.
 
 Installation for mobile platforms (iOS, Android) and WebAssembly is easier:
@@ -53,4 +53,4 @@ Themis package for mobile and web platforms includes the Themis Core library.
 ## Building from the source code
 
 If you need the latest development version of Themis or your system is not supported yet,
-you can [build and install Themis from the source code](installation-from-sources).
+you can [build and install Themis from the source code](installation-from-sources/).

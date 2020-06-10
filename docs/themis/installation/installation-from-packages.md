@@ -257,20 +257,20 @@ For iOS, Android, and WebAssembly you do not need to install Themis Core separat
 
 ### Server-side and desktop platforms
 
-  - [C++](/docs/themis/languages/cpp/installation)
-  - [Go](/docs/themis/languages/go/installation)
-  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/installation)
-  - [Java](/docs/themis/languages/java/installation-desktop)
-  - [Kotlin](/docs/themis/languages/kotlin/installation-desktop)
-  - [PHP](/docs/themis/languages/php/installation)
-  - [Python](/docs/themis/languages/python/installation)
-  - [Ruby](/docs/themis/languages/ruby/installation)
-  - [Rust](/docs/themis/languages/rust/installation)
+  - [C++](/docs/themis/languages/cpp/installation/)
+  - [Go](/docs/themis/languages/go/installation/)
+  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/installation/)
+  - [Java](/docs/themis/languages/java/installation-desktop/)
+  - [Kotlin](/docs/themis/languages/kotlin/installation-desktop/)
+  - [PHP](/docs/themis/languages/php/installation/)
+  - [Python](/docs/themis/languages/python/installation/)
+  - [Ruby](/docs/themis/languages/ruby/installation/)
+  - [Rust](/docs/themis/languages/rust/installation/)
 
 ### Mobile and Web platforms
 
-  - [Swift](/docs/themis/languages/swift/installation)
-  - [Objective-C](/docs/themis/languages/objc/installation)
-  - [Kotlin](/docs/themis/languages/kotlin/installation-android)
-  - [Java](/docs/themis/languages/java/installation-android)
-  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/installation)
+  - [Swift](/docs/themis/languages/swift/installation/)
+  - [Objective-C](/docs/themis/languages/objc/installation/)
+  - [Kotlin](/docs/themis/languages/kotlin/installation-android/)
+  - [Java](/docs/themis/languages/java/installation-android/)
+  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/installation/)

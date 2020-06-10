@@ -14,7 +14,7 @@ However, you can also build and install the latest ThemisPP from the source code
 The easiest way to install ThemisPP on Linux is to use package repositories for your system.
 We build packages for a multitude of Linux distributions.
 
- 1. [Add Cossack Labs package repositories](/docs/themis/installation/installation-from-packages)
+ 1. [Add Cossack Labs package repositories](/docs/themis/installation/installation-from-packages/)
     to your system.
 
  2. Install ThemisPP package.
@@ -31,7 +31,7 @@ We build packages for a multitude of Linux distributions.
     sudo yum install libthemispp-devel
     ```
 
-Once ThemisPP is installed, you can [try out code examples](../examples).
+Once ThemisPP is installed, you can [try out code examples](../examples/).
 
 ## Installing stable version on macOS
 
@@ -49,14 +49,14 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
     brew install libthemis --with-cpp
     ```
 
-Once ThemisPP is installed, you can [try out code examples](../examples).
+Once ThemisPP is installed, you can [try out code examples](../examples/).
 
 ## Building latest version from source
 
 If the stable package version does not suit your needs,
 you can manually build and install the latest version of Themis from source code.
 
- 1. [Build and install Themis Core library](/docs/themis/installation/installation-from-sources)
+ 1. [Build and install Themis Core library](/docs/themis/installation/installation-from-sources/)
     into your system.
 
  2. Install ThemisPP from the source code:

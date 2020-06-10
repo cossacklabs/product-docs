@@ -9,7 +9,7 @@ title:  Installation from sources
 Building Themis from source is not recommended for casual or first-time use.
 
 Unless you really know what you are doing and why —
-[install prebuilt Themis from packages](../installation-from-packages).
+[install prebuilt Themis from packages](../installation-from-packages/).
 {{< /hint >}}
 
 ## Building Themis Core
@@ -253,20 +253,20 @@ For iOS, Android, and WebAssembly you do not need to build Themis Core separatel
 
 ### Server-side and desktop platforms
 
-  - [C++](/docs/themis/languages/cpp/installation#building-latest-version-from-source)
-  - [Go](/docs/themis/languages/go/installation#building-latest-version-from-source)
-  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/installation#building-latest-version-from-source)
-  - [Java](/docs/themis/languages/java/installation-desktop#building-latest-version-from-source)
-  - [Kotlin](/docs/themis/languages/kotlin/installation-desktop#building-latest-version-from-source)
-  - [PHP](/docs/themis/languages/php/installation#building-latest-version-from-source)
-  - [Python](/docs/themis/languages/python/installation#building-latest-version-from-source)
-  - [Ruby](/docs/themis/languages/ruby/installation#building-latest-version-from-source)
-  - [Rust](/docs/themis/languages/rust/installation#building-latest-version-from-source)
+  - [C++](/docs/themis/languages/cpp/installation#building-latest-version-from-source/)
+  - [Go](/docs/themis/languages/go/installation#building-latest-version-from-source/)
+  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/installation#building-latest-version-from-source/)
+  - [Java](/docs/themis/languages/java/installation-desktop#building-latest-version-from-source/)
+  - [Kotlin](/docs/themis/languages/kotlin/installation-desktop#building-latest-version-from-source/)
+  - [PHP](/docs/themis/languages/php/installation#building-latest-version-from-source/)
+  - [Python](/docs/themis/languages/python/installation#building-latest-version-from-source/)
+  - [Ruby](/docs/themis/languages/ruby/installation#building-latest-version-from-source/)
+  - [Rust](/docs/themis/languages/rust/installation#building-latest-version-from-source/)
 
 ### Mobile and Web platforms
 
-  - [Swift](/docs/themis/languages/swift/installation#building-latest-version-from-source)
-  - [Objective-C](/docs/themis/languages/objc/installation#building-latest-version-from-source)
-  - [Kotlin](/docs/themis/languages/kotlin/installation-android#building-latest-version-from-source)
-  - [Java](/docs/themis/languages/java/installation-android#building-latest-version-from-source)
-  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/installation#building-latest-version-from-source)
+  - [Swift](/docs/themis/languages/swift/installation#building-latest-version-from-source/)
+  - [Objective-C](/docs/themis/languages/objc/installation#building-latest-version-from-source/)
+  - [Kotlin](/docs/themis/languages/kotlin/installation-android#building-latest-version-from-source/)
+  - [Java](/docs/themis/languages/java/installation-android#building-latest-version-from-source/)
+  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/installation#building-latest-version-from-source/)

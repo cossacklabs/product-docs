@@ -31,7 +31,7 @@ dependencies {
 }
 ```
 
-Once JavaThemis is installed, you can [try out examples on your machine](../examples).
+Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
 ## Building latest version from source
 

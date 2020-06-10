@@ -5,7 +5,7 @@ title:  Examples
 
 # Example projects with RustThemis
 
-Once you have [installed RustThemis](../installation), it’s time to give it some action!
+Once you have [installed RustThemis](../installation/), it’s time to give it some action!
 
 ## Code samples
 
@@ -29,5 +29,5 @@ at [`tools/rust`](https://github.com/cossacklabs/themis/tree/master/tools/rust).
 
 ## What’s next
 
-[Read the feature guide](../features)
+[Read the feature guide](../features/)
 to learn how to use Themis effectively in Rust.
