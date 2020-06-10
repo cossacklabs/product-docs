@@ -24,7 +24,7 @@ in [JsThemis source code](https://github.com/cossacklabs/themis/tree/master/src/
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities#nodejs-console-utils)
+There are [command-line utilities](/docs/themis/debugging/cli-utilities/#javascript-nodejs)
 that you can run with `node` from GitHub source code
 at [`tools/js/jsthemis`](https://github.com/cossacklabs/themis/tree/master/tools/js/jsthemis).
 

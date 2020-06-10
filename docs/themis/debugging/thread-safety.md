@@ -1,42 +1,70 @@
 ---
 weight: 4
-title: "Thread Safety"
+title:  Thread safety
 ---
 
-## Thread Safety
+# Thread safety
 
-Themis as a library is safe to use from multiple threads for non-interactive cryptosystems ([Secure Cell](/docs/themis/crypto-theory/crypto-systems/secure-cell/) and [Secure Message](/docs/themis/crypto-theory/crypto-systems/secure-message/)) and isn't thread safe for interactive protocols ([Secure Comparator](/docs/themis/crypto-theory/crypto-systems/secure-comparator/) and [Secure Session](/docs/themis/crypto-theory/crypto-systems/secure-session/)).
-
-However, access to individual shared objects may need to be synchronized by your application locks.
-
+Some parts of Themis API are thread-safe.
+Other parts may require external synchronisation to be used safely.
 Particular cryptographic backends and language wrappers may impose additional safety considerations described below.
 
 ## Themis objects
 
-### Secure Message, Secure Cell
+### Secure Cell, Secure Message
 
-_Secure Message_ and _Secure Cell_ objects are generally immutable. They can be safely used from multiple threads concurrently. However, some language wrappers have specific exceptions, [see details below](#language-wrappers).
+[Secure Cell](/docs/themis/crypto-theory/crypto-systems/secure-cell/) and
+[Secure Message](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+objects are generally immutable.
+You can safely use these objects concurrently from multiple threads.
+
+However, some language wrappers have historical exceptions,
+[see details below](#language-wrappers).
 
 ### Secure Comparator, Secure Session
 
-_Secure Comparator_ and _Secure Session_ objects implement stateful interactive protocols.
-Therefore you must never share them between multiple threads. You may create a handle in one thread and then pass it to another, but you must never use a single object from more than one thread at any given time.
+[Secure Comparator](/docs/themis/crypto-theory/crypto-systems/secure-comparator/) and
+[Secure Session](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+objects implement stateful interactive protocols.
+You need to use application locks to synchronise access to those objecs,
+if you share them between threads.
+
+However, it is safe to create a handle in one thread then pass it to the other thread,
+as long as only one thread is using an interactive object.
 
 #### Shared Secure Session transport objects
 
-If you use Secure Session in [wrap/unwrap mode](/docs/themis/crypto-theory/crypto-systems/secure-session/#usage-modes), you may share the transport callbacks between multiple Secure Session objects and between multiple threads, provided that your callback implementation is correctly synchronized internally.
+If you use Secure Session in [wrap/unwrap mode](/docs/themis/crypto-theory/crypto-systems/secure-session/#usage-modes),
+you may share the transport callbacks between multiple Secure Session objects
+and between multiple threads,
+provided that your callback implementation is correctly synchronised internally.
 
-Secure Sessions in [send/receive mode](/docs/themis/crypto-theory/crypto-systems/secure-session/#usage-modes) requires individual transport objects that must never be shared between multiple Secure Sessions (and by extension, between multiple threads).
+Secure Sessions in [send/receive mode](/docs/themis/crypto-theory/crypto-systems/secure-session/#usage-modes)
+require individual transport objects that must never be shared between multiple Secure Sessions
+(and by extension, between multiple threads).
+You cannot use locks here, you need to create separate transport callback instances.
 
 ## Crypto backends
 
 ### OpenSSL
 
-[Modern OpenSSL 1.1.0+](https://www.openssl.org/docs/man1.1.0/man3/CRYPTO_THREAD_lock_new.html) can be safely used in multi-threaded applications, provided that support for the underlying OS threading API is built-in. This is usually the case with distribution-provided packages for OpenSSL.
+[Modern OpenSSL 1.1.1+](https://www.openssl.org/docs/man1.1.0/man3/CRYPTO_THREAD_lock_new.html)
+can be safely used in multi-threaded applications,
+provided that support for the underlying OS threading API is built-in.
+This is usually the case with distribution-provided packages of OpenSSL.
 
-[Older OpenSSL 1.0.2](https://www.openssl.org/docs/man1.0.2/man3/CRYPTO_lock.html) requires developers to install several callbacks in order to be used safely in multithreaded environment. 
+[Older OpenSSL 1.0.2](https://www.openssl.org/docs/man1.0.2/man3/CRYPTO_lock.html)
+requires developers to install several callbacks
+in order to be used safely in multithreaded environment.
+Refer to [OpenSSL documentation](https://www.openssl.org/docs/man1.0.2/man3/CRYPTO_lock.html)
+on what functions you need to implement and call.
 
-Note that you always **have to** install these callbacks, regardless of synchronization for individual Themis objects and function calls (unless all Themis and OpenSSL usage throughout the application is restricted to a single thread).
+{{< hint info >}}
+**Note:**
+With OpenSSL 1.0.2, you _have to_ install these callbacks,
+regardless of synchronisation for individual Themis objects and function calls.
+(Unless your application is single-threaded.)
+{{< /hint >}}
 
 ### LibreSSL
 
@@ -48,6 +76,13 @@ Themis uses BoringSSL in a way that is fully thread-safe.
 
 ## Language wrappers
 
+<!-- TODO: remove this section in 2021 -->
 ### ThemisPP (C++)
 
-_Secure Cell_ and _Secure Message_ objects are **not thread-safe** in C++, contrary to other language wrappers. You must never use the same object from multiple threads.
+In ThemisPP 0.12 and earlier,
+_Secure Cell_ and _Secure Message_ objects were **not thread-safe**,
+contrary to other language wrappers.
+You have to use proper synchronisation if you share those objects between threads.
+
+Starting with Themis 0.13.0,
+Secure Cell and Secure Message objects are thread-safe in ThemisPP as well.

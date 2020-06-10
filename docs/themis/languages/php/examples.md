@@ -22,7 +22,7 @@ in [PHPThemis source code](https://github.com/cossacklabs/themis/tree/master/tes
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities#php-console-utils)
+There are [command-line utilities](/docs/themis/debugging/cli-utilities/#php)
 that you can run from GitHub source code
 at [`tools/php`](https://github.com/cossacklabs/themis/tree/master/tools/php).
 

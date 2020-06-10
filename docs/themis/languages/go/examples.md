@@ -24,7 +24,7 @@ in [GoThemis source code](https://github.com/cossacklabs/themis/tree/master/goth
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities#go-console-utils)
+There are [command-line utilities](/docs/themis/debugging/cli-utilities/#go)
 that you can `go run` from GitHub source code
 at [`tools/go`](https://github.com/cossacklabs/themis/tree/master/tools/go).
 

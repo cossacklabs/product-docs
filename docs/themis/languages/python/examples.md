@@ -30,7 +30,7 @@ Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) wit
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities#python-console-utils)
+There are [command-line utilities](/docs/themis/debugging/cli-utilities/#python)
 that you can run from GitHub source code
 at [`tools/python`](https://github.com/cossacklabs/themis/tree/master/tools/python).
 

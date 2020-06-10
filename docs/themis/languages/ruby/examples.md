@@ -30,7 +30,7 @@ The code is [available on GitHub](https://github.com/cossacklabs/mobile-websocke
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities#ruby-console-utils)
+There are [command-line utilities](/docs/themis/debugging/cli-utilities/#ruby)
 that you can run from GitHub source code
 at [`tools/ruby`](https://github.com/cossacklabs/themis/tree/master/tools/ruby).
 

@@ -24,7 +24,7 @@ in [WasmThemis source code](https://github.com/cossacklabs/themis/tree/master/sr
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities#wasm-console-utils)
+There are [command-line utilities](/docs/themis/debugging/cli-utilities/#javascript-webassembly)
 that you can run with `node` from GitHub source code
 at [`tools/js/wasm-themis`](https://github.com/cossacklabs/themis/tree/master/tools/js/wasm-themis).
 
