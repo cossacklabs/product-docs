@@ -34,7 +34,7 @@ If you would like to request specific features, get support for your language of
 
 As a basic choice for sourcing crypto primitives, we are using **libcrypto** from OpenSSL/LibreSSL/BoringSSL, which is one of the most frequently used and audited open-source implementations of cryptographic primitives. We strongly suggest you use the LibreSSL version (now set at the default build choice), which is free from the shortcomings of OpenSSL (i.e. tons of poor legacy code).
 
-Read more about [cryptographic engines that Themis uses](/docs/themis/crypto-theory/cryptographic-donors/).
+Read more about [cryptographic engines that Themis uses](/docs/themis/crypto-theory/cryptography-donors/).
 
 ## What sets Themis apart from other cryptographic libraries?
 
