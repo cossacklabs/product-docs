@@ -270,7 +270,7 @@ node ./tools/js/wasm-themis/smessage_encryption.js \
     "ICcEJkcAAAAAAQFADAAAABAAAAATAAAAJXdy8Px5OU5U4clXuHbfxXa74+dK3OdI1NKWrAebNsSpqJjv7XTth1t+TssilAk="
 ```
 
-### Javascript (Node.js)
+### JavaScript (Node.js)
 
 [Follow the instructions](/docs/themis/languages/nodejs/installation/) to install JsThemis.
 

@@ -40,5 +40,5 @@ and make sure that you are using correct encoding and keys.
 ## Thread safety
 
 Themis is safe to use from multiple threads for non-interactive cryptosystems
-but interactive protocols have to be correctly synchornised.
+but interactive protocols have to be correctly synchronised.
 [Learn more about thread safety](/docs/themis/debugging/thread-safety/).
