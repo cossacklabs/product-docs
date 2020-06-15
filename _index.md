@@ -1,20 +1,14 @@
 ---
-title: Introduction
+title: Introduction grid
 type: docs
+BookToC: false
 ---
 
-# DOCUMENTATION SERVER
+<!--
+# Cossack Labs Knowledge Base
 
-## GUIDES AND TUTORIALS FOR COSSACK LABS PRODUCTS
+Convenient and affordable data security and encryption solutions. Face the ever-changing cybersecurity threat landscape with calm and strong security posture: mitigate whole classes of risk, comply with privacy regulations without drastically increasing cost.
+-->
 
-### Themis
+{{< products-grid >}}
 
-Open-source high-level cryptographic library for secure data exchange and storage.
-
-{{< button relref="/docs/themis" >}}Themis{{< /button >}}
-
-### Acra
-
-Database security suite for distributed apps with intrusion detection capabilities.
-
-{{< button relref="/docs/acra" >}}Acra{{< /button >}}
