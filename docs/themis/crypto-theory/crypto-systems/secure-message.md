@@ -48,7 +48,7 @@ Secure Message comes in two flavours:
   - **encrypted message** – confidentiality, integrity, and authenticity
   - **signed message** – integrity and authenticity, but no confidentiality
 
-### Encrypted message
+### Encrypted messages
 
 Encrypted messages are useful when you need the full stack of protection for your data –
 in most cases you will be using this flavour.
@@ -56,6 +56,20 @@ The encrypted message currently uses [Secure Cell](../secure-cell/)
 in **Seal** mode for data protection.
 
 ![](/files/wiki/encrypted_message.png)
+
+When elliptic keypairs are used,
+the intermediate key is derived from the sender and receiver keys with ECDH.
+Only the sender and receiver can derive the same key,
+using their private key and the public key of the other party.
+The key is not included into the message in any way.
+
+RSA keypairs do not support secure intermediate key derivation.
+In this case Themis generates a new random key of sufficient length,
+encrypts it for the receiver, and attaches the encrypted key to the message.
+
+In either case, the intermediate key is immediately destroyed by the sender
+after encrypting the message,
+so only the receiver can get recover it back for decryption.
 
 ### Signed messages
 
@@ -65,6 +79,9 @@ while still allowing intermediate nodes to process it accordingly
 (for example, route data based on its type).
 
 ![](/files/wiki/signed_message.png)
+
+When elliptic keypairs are used, ECDSA is used to sign the message.
+For RSA keypairs, the RSA+PSS+PKCS#7 digital signature is used.
 
 ## Implementation details
 
