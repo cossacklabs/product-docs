@@ -5,22 +5,24 @@ title:  Features
 
 # Features of ThemisPP
 
-<a id="importing-themis"></a>
 ## Using Themis
 
-In order to use Themis, you need to import it first.
-
-Add relevant headers to your code:
+In order to use ThemisPP,
+you need to include headers for relevant cryptosystems:
 
 ```cpp
-#include <themispp/secure_cell.hpp>
-#include <themispp/secure_comparator.hpp>
 #include <themispp/secure_keygen.hpp>
+#include <themispp/secure_cell.hpp>
 #include <themispp/secure_message.hpp>
 #include <themispp/secure_session.hpp>
+#include <themispp/secure_comparator.hpp>
 ```
 
-and you're good to go!
+ThemisPP API is contained within the `themispp` namespace.
+
+Additionally, you need to link Themis Core libraries to your project.
+On UNIX systems this is done with the following compiler flags:
+`-lthemis -lsoter`.
 
 ## Key generation
 
