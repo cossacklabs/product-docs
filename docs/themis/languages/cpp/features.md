@@ -371,6 +371,67 @@ Read more about
 [Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
 to understand better the underlying considerations, limitations, and features of each mode.
 
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** initialises Secure Message using their keypair:
+
+```cpp
+#include <themispp/secure_keygen.hpp>
+#include <themispp/secure_message.hpp>
+
+themispp::secure_key_pair_generator_t<themispp::EC> keypair;
+std::vector<uint8_t> private_key = keypair.get_priv();
+std::vector<uint8_t> public_key = keypair.get_pub();
+
+auto secure_message = themispp::secure_message_t(private_key, public_key);
+```
+
+Messages can be signed using the `sign` method:
+
+```cpp
+std::vector<uint8_t> message = ...;
+
+std::vector<uint8_t> signed_message = secure_message.sign(message);
+```
+
+The `sign` method has many overloads, supporting iterators, etc.
+
+To verify messages, the **recipient** first has to obtain the sender's public key.
+Since the recipient does not need a private key, an empty vector should be used to
+initialise Secure Message:
+
+```cpp
+std::vector<uint8_t> peer_public_key = ...;
+
+std::vector<uint8_t> empty;
+auto secure_message = themispp::secure_message_t(empty, peer_public_key);
+```
+
+Now the receipent may verify messages signed by the sender using the `verify` method:
+
+```cpp
+try {
+    std::vector<uint8_t> verified_message = secure_message.verify(signed_message);
+    // process verified data
+}
+catch (const themispp::exception_t& e) {
+    // handle verification failure
+}
+```
+
+Secure Message will throw an exception if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
+
 #### Interface
 
 ```cpp
