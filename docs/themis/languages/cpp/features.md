@@ -506,26 +506,41 @@ or if the message was actually encrypted by Alice but *for Carol* instead, not f
 
 ## Secure Session
 
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
 
-Secure Session operates in two stages:
-* **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys and
-* **data exchange** where exchanging of messages can be carried out between peers.
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
 
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
+Communication over Secure Session consists of two stages:
 
-Put simply, Secure Session takes the following form:
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
 
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application level protocol was chosen.
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
 
-### Secure Session interface
+Secure Session supports two operation modes:
+
+  - [**Buffer-aware API**](#buffer-aware-api)
+    in which encrypted messages are handled explicitly, with data buffers you provide.
+  - [**Callback-oriented API**](#callback-oriented-api)
+    in which Secure Session handles buffer allocation implicitly
+    and uses callbacks to notify about incoming messages or request sending outgoing messages.
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+#### Secure Session Interface
 
 ```cpp
 class themispp::secure_session_t {
