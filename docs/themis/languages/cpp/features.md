@@ -26,23 +26,31 @@ On UNIX systems this is done with the following compiler flags:
 
 ## Key generation
 
-### Asymmetric keypair generation
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
 Algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate asymmetric keypairs, use:
 
 ```cpp
+#include <themispp/secure_keygen.hpp>
+
 // Use themispp::RSA to generate RSA keys instead
 themispp::secure_key_pair_generator_t<themispp::EC> keypair;
 
@@ -50,24 +58,24 @@ std::vector<uint8_t> private_key = keypair.get_priv();
 std::vector<uint8_t> public_key = keypair.get_pub();
 ```
 
-### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for ThemisPP starting with 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-<!--
-> ⚠️ **WARNING:**
-> When you store generated keys, make sure they are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
 ```cpp
+#include <themispp/secure_keygen.hpp>
+
 std::vector<uint8_t> master_key = themispp::gen_sym_key();
 ```
--->
 
 ## Secure Message
 
