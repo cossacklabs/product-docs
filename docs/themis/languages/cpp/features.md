@@ -379,66 +379,67 @@ or if the data or the authentication token was corrupted.
 
 ### Context Imprint mode
 
-#### Interface
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Context Imprint mode supports only [symmetric keys](#symmetric-keys).
 
 ```cpp
-class themispp::secure_cell_context_imprint_t {
-    secure_cell_context_imprint_t(const std::vector<uint8_t>& master_key);
+#include <themispp/secure_keygen.hpp>
+#include <themispp/secure_cell.hpp>
 
-    const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data,
-                                        const std::vector<uint8_t>& context);
-    const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data,
-                                        const std::vector<uint8_t>& context);
-};
+std::vector<uint8_t> symmetric_key = themispp::gen_sym_key();
+
+auto cell = themispp::secure_cell_context_imprint_with_key(symmetric_key);
 ```
 
-Description:
-
-- `secure_cell_context_imprint_t(const std::vector<uint8_t>& master_key)`<br/>
-  Initialise Secure Cell in _context-imprint mode_ with **master_key** (must be non-empty).<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data, const std::vector<uint8_t>& context)`<br/>
-  Encrypt **data** with additional **context**, return encrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data, const std::vector<uint8_t>& context)`<br/>
-  Decrypt **data** with additional **context**, return decrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-All methods provide additional overloads that accept pairs of iterators instead of vector references.
-
-Note that context-imprint mode always _requires_ a non-empty context.
-
-#### Example
-
-Initialise encrypter/decrypter:
+Now you can encrypt the data using the `encrypt` method:
 
 ```cpp
-themispp::secure_cell_context_imprint_t sm(master_key);
+std::vector<uint8_t> plaintext = ...;
+std::vector<uint8_t> context = ...;
+
+std::vector<uint8_t> encrypted = cell.encrypt(plaintext, context);
 ```
 
-Encrypt:
+The `encrypt` method has many overloads, supporting other STL containers, iterators, etc.
+
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
+
+Context Imprint mode produces encrypted text of the same size as the input:
 
 ```cpp
-try {
-    std::vector<uint8_t> encrypted_message = sm.encrypt(message, context);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
+assert(encrypted.size() == plaintext.size());
 ```
 
-Decrypt:
+You can decrypt the data back using the `decrypt` method:
 
 ```cpp
-try {
-    std::vector<uint8_t> decrypted_message = sm.decrypt(message, context);
-}
-catch (const themispp::exception& e) {
-    e.what();
+std::vector<uint8_t> decrypted = cell.decrypt(encrypted, context);
+if (looks_correct(decrypted)) {
+    // process decrypted data
 }
 ```
+
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without throwing an exception.
+{{< /hint >}}
+
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
 
 ## Secure Session
 
