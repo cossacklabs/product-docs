@@ -432,6 +432,78 @@ catch (const themispp::exception_t& e) {
 Secure Message will throw an exception if the message has been modified since the sender signed it,
 or if the message has been signed by someone else, not the expected sender.
 
+### Encryption mode
+
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
+
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
+
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
+
+**Alice** initialises Secure Message with her private key and Bob's public key:
+
+```cpp
+#include <themispp/secure_keygen.hpp>
+#include <themispp/secure_message.hpp>
+
+themispp::secure_key_pair_generator_t<themispp::EC> alice_keypair;
+std::vector<uint8_t> alice_private_key = alice_keypair.get_priv();
+std::vector<uint8_t> bob_public_key = ...; // received securely
+
+auto alice_secure_message = themispp::secure_message_t(alice_private_key,
+                                                       bob_public_key);
+```
+
+Now Alice can encrypt messages for Bob using the `encrypt` method:
+
+```cpp
+std::vector<uint8_t> message = ...;
+
+std::vector<uint8_t> encrypted_message = alice_secure_message.encrypt(message);
+```
+
+The `encrypt` method has many overloads, supporting iterators, etc.
+
+**Bob** initialises Secure Message with his private key and Alice's public key:
+
+```cpp
+themispp::secure_key_pair_generator_t<themispp::EC> bob_keypair;
+std::vector<uint8_t> bob_private_key = bob_keypair.get_priv();
+std::vector<uint8_t> alice_public_key = ...; // received securely
+
+auto bob_secure_message = themispp::secure_message_t(bob_private_key,
+                                                     alice_public_key);
+```
+
+With this, Bob is able to decrypt messages received from Alice
+using the `decrypt` method:
+
+```cpp
+try {
+    std::vector<uint8_t> decrypted_message =
+            bob_secure_message.decrypt(encrypted_message);
+    // process decryped data
+}
+catch (const themispp::exception_t& e) {
+    // handle decryption failure
+}
+```
+
+Bob's Secure Message will throw an exception
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
 #### Interface
 
 ```cpp
