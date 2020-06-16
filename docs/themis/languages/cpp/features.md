@@ -318,85 +318,64 @@ Secure Cell will throw an exception if those are incorrect or if the encrypted d
 
 ### Token Protect mode
 
-#### Interface
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Token Protect mode supports only [symmetric keys](#symmetric-keys).
 
 ```cpp
-class themispp::secure_cell_token_protect_t {
-    secure_cell_token_protect_t(const std::vector<uint8_t>& master_key);
+#include <themispp/secure_keygen.hpp>
+#include <themispp/secure_cell.hpp>
 
-    const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data);
-    const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data,
-                                        const std::vector<uint8_t>& context);
-    const std::vector<uint8_t>& get_token();
+std::vector<uint8_t> symmetric_key = themispp::gen_sym_key();
 
-    void set_token(const std::vector<uint8_t>& token);
-    const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data);
-    const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data,
-                                        const std::vector<uint8_t>& context);
-};
+auto cell = themispp::secure_cell_token_protect_with_key(symmetric_key);
 ```
 
-Description:
-
-- `secure_cell_token_protect_t(const std::vector<uint8_t>& master_key)`<br/>
-  Initialise Secure Cell in _token-protect mode_ with **master_key** (must be non-empty).<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data, const std::vector<uint8_t>& context)`<br/>
-  Encrypt **data** with additional **context**, return encrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data** without context, return encrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& get_token()`<br/>
-  Get authentication **token** after encryption.
-
-- `void set_token(const std::vector<uint8_t>& token)`<br/>
-  Set authentication **token** before decryption.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data, const std::vector<uint8_t>& context)`<br/>
-  Decrypt **data** with additional **context**, return decrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data)`<br/>
-  Decrypt **data** without context, return decrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-All methods provide additional overloads that accept pairs of iterators instead of vector references.
-
-#### Example
-
-Initialise encrypter/decrypter:
+Now you can encrypt the data using the `encrypt` method:
 
 ```cpp
-themispp::secure_cell_token_protect_t sm(master_key);
+std::vector<uint8_t> plaintext = ...;
+std::vector<uint8_t> context = ...;
+
+auto [encrypted, token] = cell.encrypt(plaintext, context);
+// The output type is compatible with std::tuple of std::vector<uint8_t>.
+// Use encrypted() and token() methods to access components.
 ```
 
-Encrypt:
+The `encrypt` method has many overloads, supporting other STL containers, iterators, etc.
+The _associated context_ argument is optional and can be omitted.
+
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same size as the input:
+
+```cpp
+assert(encrypted.size() == plaintext.size());
+```
+
+You need to save both the encrypted data and the token, they are necessary for decryption.
+Use the `decrypt` method for that:
 
 ```cpp
 try {
-    std::vector<uint8_t> encrypted_message = sm.encrypt(message, context);
-    std::vector<uint8_t> token = sm.get_token();
+    std::vector<uint8_t> decrypted = cell.decrypt(encrypted, token, context);
+    // process decrypted data
 }
 catch (const themispp::exception_t& e) {
-    e.what();
+    // handle decryption failure
 }
 ```
 
-Decrypt:
-
-```cpp
-try {
-    sm.set_token(token);
-    std::vector<uint8_t> decrypted_message = sm.decrypt(encrypted_message, context);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
-```
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect
+or if the data or the authentication token was corrupted.
 
 ### Context Imprint mode
 
