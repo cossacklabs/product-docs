@@ -77,115 +77,6 @@ To generate symmetric keys, use:
 std::vector<uint8_t> master_key = themispp::gen_sym_key();
 ```
 
-## Secure Message
-
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected by using appropriate methods. The sender uses `wrap` and `unwrap` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `sign` and `verify` methods should be used. They only require a private key for signing and a public key for verification respectively.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-### Secure Message interface
-
-```cpp
-class themispp::secure_message_t
-{
-     secure_message_t(const std::vector<uint8_t>& private_key,
-                      const std::vector<uint8_t>& peer_public_key);
-
-     const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data);
-     const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data);
-     const std::vector<uint8_t>& sign(const std::vector<uint8_t>& data);
-     const std::vector<uint8_t>& verify(const std::vector<uint8_t>& data);
-};
-```
-
-Description:
-
-- `secure_message_t(const std::vector<uint8_t>& private_key, const std::vector<uint8_t>& peer_public_key)`<br/>
-  Initialise Secure Message object with **private_key** and **peer_public_key** (possibly empty).<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data**, return encrypted message container.<br/>
-  Requires both **private_key** and **peer_public_key** to be set.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data)`<br/>
-  Decrypt encrypted **data**, return decrypted data.<br/>
-  Requires both **private_key** and **peer_public_key** to be set.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& sign(const std::vector<uint8_t>& data)`<br/>
-  Sign **data** with private key, return signed message container.<br/>
-  Requires **private_key** to be set.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& verify(const std::vector<uint8_t>& data)`<br/>
-  Verify signed **data** with public key, return verified data.<br/>
-  Requires **peer_public_key** to be set. Peer public key should be from the same keypair as private key.<br/>
-  Throws `themispp::exception_t` on failure.
-
-All methods provide additional overloads that accept pairs of iterators instead of vector references.
-
-### Example
-
-Initialise encrypter:
-
-```cpp
-themispp::secure_message_t b(private_key, peer_public_key);
-```
-
-Encrypt message:
-
-```cpp
-try {
-    std::vector<uint8_t> encrypted_message = b.encrypt(plaintext_message);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
-```
-
-Decrypt message:
-
-```cpp
-try {
-    std::vector<uint8_t> decrypted_message = b.decrypt(encrypted_message);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
-```
-
-Sign message:
-
-```cpp
-try {
-    std::vector<uint8_t> signed_message = b.sign(plaintext_message);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
-```
-
-Verify message:
-
-```cpp
-try {
-    std::vector<uint8_t> verified_message = b.verify(signed_message);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
-```
-
 ## Secure Cell
 
 [**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
@@ -440,6 +331,115 @@ Secure Cell will return garbage output without throwing an exception.
 Make sure to initialise the Secure Cell with the same secret
 and provide the same associated context as used for encryption.
 You should also do some sanity checks after decryption.
+
+## Secure Message
+
+The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
+
+The Secure Message functions offer two modes of operation:
+
+In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
+
+In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
+
+The mode is selected by using appropriate methods. The sender uses `wrap` and `unwrap` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `sign` and `verify` methods should be used. They only require a private key for signing and a public key for verification respectively.
+
+Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
+
+### Secure Message interface
+
+```cpp
+class themispp::secure_message_t
+{
+     secure_message_t(const std::vector<uint8_t>& private_key,
+                      const std::vector<uint8_t>& peer_public_key);
+
+     const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data);
+     const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data);
+     const std::vector<uint8_t>& sign(const std::vector<uint8_t>& data);
+     const std::vector<uint8_t>& verify(const std::vector<uint8_t>& data);
+};
+```
+
+Description:
+
+- `secure_message_t(const std::vector<uint8_t>& private_key, const std::vector<uint8_t>& peer_public_key)`<br/>
+  Initialise Secure Message object with **private_key** and **peer_public_key** (possibly empty).<br/>
+  Throws `themispp::exception_t` on failure.
+
+- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data)`<br/>
+  Encrypt **data**, return encrypted message container.<br/>
+  Requires both **private_key** and **peer_public_key** to be set.<br/>
+  Throws `themispp::exception_t` on failure.
+
+- `const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data)`<br/>
+  Decrypt encrypted **data**, return decrypted data.<br/>
+  Requires both **private_key** and **peer_public_key** to be set.<br/>
+  Throws `themispp::exception_t` on failure.
+
+- `const std::vector<uint8_t>& sign(const std::vector<uint8_t>& data)`<br/>
+  Sign **data** with private key, return signed message container.<br/>
+  Requires **private_key** to be set.<br/>
+  Throws `themispp::exception_t` on failure.
+
+- `const std::vector<uint8_t>& verify(const std::vector<uint8_t>& data)`<br/>
+  Verify signed **data** with public key, return verified data.<br/>
+  Requires **peer_public_key** to be set. Peer public key should be from the same keypair as private key.<br/>
+  Throws `themispp::exception_t` on failure.
+
+All methods provide additional overloads that accept pairs of iterators instead of vector references.
+
+### Example
+
+Initialise encrypter:
+
+```cpp
+themispp::secure_message_t b(private_key, peer_public_key);
+```
+
+Encrypt message:
+
+```cpp
+try {
+    std::vector<uint8_t> encrypted_message = b.encrypt(plaintext_message);
+}
+catch (const themispp::exception_t& e) {
+    e.what();
+}
+```
+
+Decrypt message:
+
+```cpp
+try {
+    std::vector<uint8_t> decrypted_message = b.decrypt(encrypted_message);
+}
+catch (const themispp::exception_t& e) {
+    e.what();
+}
+```
+
+Sign message:
+
+```cpp
+try {
+    std::vector<uint8_t> signed_message = b.sign(plaintext_message);
+}
+catch (const themispp::exception_t& e) {
+    e.what();
+}
+```
+
+Verify message:
+
+```cpp
+try {
+    std::vector<uint8_t> verified_message = b.verify(signed_message);
+}
+catch (const themispp::exception_t& e) {
+    e.what();
+}
+```
 
 ## Secure Session
 
