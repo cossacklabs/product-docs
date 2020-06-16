@@ -256,76 +256,65 @@ to understand better the underlying considerations, limitations, and features of
 
 ### Seal mode
 
-#### Interface
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
+
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
 
 ```cpp
-class themispp::secure_cell_seal_t
-{
-    secure_cell_seal_t(const std::vector<uint8_t>& master_key);
+#include <themispp/secure_keygen.hpp>
+#include <themispp/secure_cell.hpp>
 
-    const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data);
-    const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data,
-                                        const std::vector<uint8_t>& context);
+std::vector<uint8_t> symmetric_key = themispp::gen_sym_key();
+auto cell = themispp::secure_cell_seal_with_key(symmetric_key);
 
-    const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data);
-    const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data,
-                                        const std::vector<uint8_t>& context);
-};
+// OR
+
+auto cell = themispp::secure_cell_seal_with_passphrase("a password");
 ```
 
-Description:
-
-- `secure_cell_seal_t(const std::vector<uint8_t>& master_key)`<br/>
-  Construct Secure Cell in _seal mode_ with **master_key** (must be non-empty).
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data, const std::vector<uint8_t>& context)`<br/>
-  Encrypt **data** with additional **context**, return encrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& encrypt(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data** without context, return encrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data, const std::vector<uint8_t>& context)`<br/>
-  Decrypt **data** with additional **context**, return decrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& decrypt(const std::vector<uint8_t>& data)`<br/>
-  Decrypt **data** without context, return decrypted message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-All methods provide additional overloads that accept pairs of iterators instead of vector references.
-
-#### Example
-
-Initialise encrypter/decrypter:
+Now you can encrypt your data using the `encrypt` method:
 
 ```cpp
-themispp::secure_cell_seal_t sm(master_key);
+std::vector<uint8_t> plaintext = ...;
+std::vector<uint8_t> context = ...;
+
+std::vector<uint8_t> encrypted = cell.encrypt(plaintext, context);
 ```
 
-Encrypt (with context):
+The `encrypt` method has many overloads, supporting other STL containers, iterators, etc.
+The _associated context_ argument is optional and can be omitted.
+
+Seal mode produces encrypted cells that are slightly bigger than the input:
+
+```cpp
+assert(encrypted.size() > plaintext.size());
+```
+
+You can decrypt the data back using the `decrypt` method:
 
 ```cpp
 try {
-    std::vector<uint8_t> encrypted_message = sm.encrypt(message, context);
+    std::vector<uint8_t> decrypted = cell.decrypt(encrypted, context);
+    // process decrypted data
 }
 catch (const themispp::exception_t& e) {
-    e.what();
+    // handle decryption failure
 }
 ```
 
-Decrypt (without context):
-
-```cpp
-try {
-    std::vector<uint8_t> decrypted_message = sm.decrypt(message);
-}
-catch (const themispp::exception_t& e) {
-    e.what();
-}
-```
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
 
 ### Token Protect mode
 
