@@ -104,7 +104,7 @@ These calls will be operating with client-provided buffers directly.
 
 ![](/files/wiki/secure_session_buffer_aware_api.png)
 
-### Callback API
+### Callback-oriented API
 
 Instead of integrating Secure Session into network processing path you can do the reverse:
 implement a set of simple callback methods and register them within the Secure Session framework.

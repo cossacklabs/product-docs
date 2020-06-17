@@ -506,307 +506,361 @@ or if the message was actually encrypted by Alice but *for Carol* instead, not f
 
 ## Secure Session
 
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
 
-Secure Session operates in two stages:
-* **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys and
-* **data exchange** where exchanging of messages can be carried out between peers.
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
 
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
+Communication over Secure Session consists of two stages:
 
-Put simply, Secure Session takes the following form:
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
 
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application level protocol was chosen.
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
 
-### Secure Session interface
+Secure Session supports two operation modes:
 
-```cpp
-class themispp::secure_session_t {
-    secure_session_t(const std::vector<uint8_t>& id,
-                     const std::vector<uint8_t>& private_key,
-                     std::shared_ptr<themispp::secure_session_callback_interface_t> transport);
+  - [**Buffer-aware API**](#buffer-aware-api)
+    in which encrypted messages are handled explicitly, with data buffers you provide.
+  - [**Callback-oriented API**](#callback-oriented-api)
+    in which Secure Session handles buffer allocation implicitly
+    and uses callbacks to notify about incoming messages or request sending outgoing messages.
 
-    bool is_established() const;
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
 
-    const std::vector<uint8_t>& init();
-    const std::vector<uint8_t>& wrap(const std::vector<uint8_t>& data);
-    const std::vector<uint8_t>& unwrap(const std::vector<uint8_t>& data);
+### Setting up Secure Session
 
-    void connect();
-    const std::vector<uint8_t>& receive();
-    void send(const std::vector<uint8_t>& data);
-};
-```
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
 
-- `secure_session_t(const std::vector<uint8_t>& id, const std::vector<uint8_t>& private_key, std::shared_ptr<themispp::secure_session_transport_interface_t> transport)`<br/>
-  Initialise Secure Session with (non-empty) peer **id**, **private_key**, and **transport** callbacks.<br/>
-  Throws `themispp::exception_t` on failure.
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/c++`](https://github.com/cossacklabs/themis/tree/master/docs/examples/c++) directory on GitHub.
+There you can find examples of Secure Session setup and usage in all modes.
+{{< /hint >}}
 
-- `bool is_established() const`<br/>
-  Checks if the session has been established and ready to use.
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
 
-- `const std::vector<uint8_t>& init()`<br/>
-  Return a Secure Session initialisation message, send it to peer.<br/>
-  Throws `themispp::exception_t` on failure.
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
 
-- `const std::vector<uint8_t>& wrap(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data**, return wrapped message that can be sent to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& unwrap(const std::vector<uint8_t>& data)`<br/>
-  Decrypt **data**, return unwrapped message.<br/>
-  If `is_established()` returns `false` then send result to peer without modifications. Otherwise, the decrypted message is returned.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `void connect()`<br/>
-  Create and send a Secure Session initialisation message to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `void send(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data** and send it to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& receive()`<br/>
-  Receive a message from the peer, decrypt, and return it.<br/>
-  If `is_established()` is false then proceed with connection, returns empty message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-### Secure Session Workflow
-
-Secure Session can be used in two ways:
- - send/receive - when communication flow is fully controlled by the Secure Session object.
- - wrap/unwrap  - when communication is controlled by the user.
-
-Secure Session has two parties that are called client and server for the sake of simplicity, but they could be more precisely called initiator and acceptor - the only difference between them is in who starts the communication.
-
-Secure Session relies on the user's passing a number of callback functions to send/receive messages - and the keys are retrieved from local storage (see more in [Secure Session cryptosystem description](/pages/secure-session-cryptosystem/)).
-
-### Send/Receive mode
-
-Implement and initialise callbacks:
+To identify peers, Secure Session uses a **callback interface**.
+It calls the `get_pub_key_by_id` method to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
 
 ```cpp
-class transport: public themispp::secure_session_callback_interface_t {
+#include <themispp/secure_session.hpp>
+
+class session_callbacks : public themispp::secure_session_callback_interface_t {
 public:
-    transport(...)
+    session_callbacks(...)
     {
-        // Initialize trusted public keys storage.
-        // Open communication channel with peer.
+        // Initialise trusted public key storage (file directory, DB, etc.)
     }
 
     std::vector<uint8_t> get_pub_key_by_id(const std::vector<uint8_t>& id) override
     {
-        // Retrieve public key for peer "id" from trusted storage (file, DB, etc.)
-        // Return empty vector if there is no associated key.
+        // Retrieve public key for peer "id" from the trusted storage.
+        // Return an empty vector if there is no associated key.
         return public_key;
-    }
-
-    void send(const std::vector<uint8_t>& data) override
-    {
-        // Send "data" to peer.
-    }
-
-    const std::vector<uint8_t>& receive() override
-    {
-        // Receive a message for peer and store it.
-        // Return a reference to the transport object field.
-        return this->received_message;
     }
 };
 ```
 
-#### Secure Session client
-
-First, initialise the session:
+Each peer initialises Secure Session with their ID, their private key,
+and an instance of the callback interface:
 
 ```cpp
-auto t = std::make_shared<transport>(...);
-themispp::secure_session_t session(client_id, client_private_key, t);
+#include <themispp/secure_session.hpp>
 
-// Client initiates connection.
-session.connect();
+std::vector<uint8_t> peer_id = ...;
+std::vector<uint8_t> private_key = ...;
 
-while (!session.is_established()) {
-    session.receive();
+auto session_callbacks = std::make_shared<session_callbacks>(...);
+
+auto session = themispp::secure_session_t(peer_id, private_key,
+                                          std::move(session_callbacks));
+```
+
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+#### Transport callbacks
+
+If you wish to use the **callback-oriented API** of Secure Session,
+you have to implement two additional methods of the callback interface:
+
+```cpp
+#include <themispp/secure_session.hpp>
+
+class transport_callbacks : public themispp::secure_session_callback_interface_t {
+public:
+    void send(const std::vector<uint8_t>& data) override
+    {
+        // Send "data" to the peer over the network.
+        // You may throw an exception if that fails.
+    }
+
+    const std::vector<uint8_t>& receive() override
+    {
+        // Receive a message for peer and store it in the transport object.
+        // You may throw an exception if that fails.
+        // Return a reference to the transport object field.
+        return this->received_message;
+    }
+
+    // ...
+};
+```
+
+{{< hint warning >}}
+**Warning:**
+In send–receive mode, each Secure Session needs its own instance of transport callback interface.
+The same instance cannot be shared by multiple sessions.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+### Buffer-aware API
+
+[**Buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode)
+is easier to integrate into existing application with established network processing path.
+Here the application handles message buffers explicitly.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server.
+Then they communicate to negotiate the keys and other details
+until the connection is established:
+
+```cpp
+std::vector<uint8_t> negotiation_message = client_session.init();
+do {
+    send_to_server(negotiation_message);
+    negotiation_message = receive_from_server();
+    negotiation_message = client_session.unwrap(negotiation_message);
+} while (!client_session.is_established());
+```
+
+Conversely, the server accepts the connection request and communicates with the client
+until the connection is established from the other side too:
+
+```cpp
+while (!server_session.is_established()) {
+    std::vector<uint8_t> request = receive_from_client();
+    std::vector<uint8_t> reply = server_session.unwrap(request);
+    send_to_client(reply);
 }
 ```
 
-After the loop finishes, Secure Session is established and is ready to be used.
+#### Exchanging messages
 
-To send a message over established session use:
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+In buffer-aware API, the messages are wrapped into Secure Session protocol and sent separately:
 
 ```cpp
+std::vector<uint8_t> message = ...;
+
+std::vector<uint8_t> encrypted_message = session.wrap(message);
+
+send_to_peer(encrypted_message);
+```
+
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
+
+```cpp
+std::vector<uint8_t> encrypted_message = receive_from_peer();
+
+try {
+    std::vector<uint8_t> decrypted_message = session.unwrap(encrypted_message);
+    // process a message
+}
+catch (const themispp::exception_t& e) {
+    // handle corrupted messages
+}
+```
+
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
+### Callback-oriented API
+
+[**Callback-oriented API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+(aka *send–receive* mode)
+uses Secure Session as a framework for network communication, handling data buffers implicitly.
+It allows for simpler messaging code at an expense of more complex setup code.
+
+{{< hint info >}}
+**Note:**
+Remember to [configure transport callbacks](#transport-callbacks) for Secure Session,
+they are required to use the callback-oriented API.
+{{< /hint >}}
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server.
+Then they communicate to negotiate the keys and other details
+until the connection is established:
+
+```cpp
+client_session.connect();
+while (!client_session.is_established()) {
+    client_session.receive();
+}
+```
+
+Conversely, the server accepts the connection request and communicates with the client
+until the connection is established from the other side too:
+
+```cpp
+while (!server_session.is_established()) {
+    server_session.receive();
+}
+```
+
+Note that actual networking happens implicitly, within the Secure Session object
+which calls appropriate transport callbacks to send and receive data over the network.
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Send messages as if the Secure Session were a network socket,
+using the `send` method:
+
+```cpp
+std::vector<uint8_t> message = ...;
+
 session.send(message);
 ```
 
-To receive the message from session:
+Secure Session encrypts the message, wraps it into the protocol,
+and synchronously calls the `send` transport callback to ship the message out.
+Networking errors are reported by throwing appropriate exceptions.
+
+The receiving side uses the `receive` method to receive messages:
 
 ```cpp
 std::vector<uint8_t> message = session.receive();
 ```
 
-#### Secure Session server
+Secure Session synchronously calls the `receive` transport callback
+to wait for the next message, then unwraps and decrypts it,
+and returns already decrypted message to the application.
 
-First, initialise the session:
-
-```cpp
-auto t = std::make_shared<transport>(...);
-themispp::secure_session_t session(server_id, server_private_key, t);
-
-// There is no connect() call for server, just wait for the client.
-while (!session.is_established()) {
-    session.receive();
-}
-```
-
-Sending/receiving messages is exactly the same as for the client.
-
-### Wrap/Unwrap mode
-
-Implement and initialise callbacks. You need to implement only one of them:
-
-```cpp
-class pub_key_storage: public themispp::secure_session_callback_interface_t
-{
-public:
-    pub_key_storage(...)
-    {
-        // Initialize trusted public keys storage.
-    }
-
-    std::vector<uint8_t> get_pub_key_by_id(const std::vector<uint8_t>& id) override
-    {
-        // Retrieve public key for peer "id" from trusted storage (file, DB, etc.)
-        // Return empty vector if there is no associated key.
-        return public_key;
-    }
-};
-```
-
-#### Secure Session client
-
-First, initialisation:
-
-```cpp
-auto t = std::make_shared<pub_key_storage>(...);
-themispp::secure_session_t session(client_id, client_private_key, t);
-
-// The client initiates connection.
-std::vector<uint8_t> message = session.init();
-do {
-   send_to_server(message);
-   message = receive_from_server();
-   message = session.unwrap(message);
-} while (!session.is_established());
-```
-
-After the loop finishes, Secure Session is established and is ready to be used.
-
-To encrypt the outgoing message use:
-
-```cpp
-std::vector<uint8_t> encrypted_message = session.wrap(message);
-send_to_server(encrypted_message);
-```
-
-To decrypt the received message use:
-
-```cpp
-std::vector<uint8_t> encrypted_message = receive_from_server();
-std::vector<uint8_t> message = session.unwrap(encrypted_message);
-```
-
-#### Secure Session server
-
-First, initialise everything:
-
-```cpp
-auto t = std::make_shared<pub_key_storage>(...);
-themispp::secure_session_t session(server_id, server_private_key, t);
-
-// The server simply waits for the client to arrive.
-while (!session.is_established()) {
-     std::vector<uint8_t> request = receive_from_client();
-     std::vector<uint8_t> reply = session.unwrap(request);
-     send_to_client(reply);
-}
-```
-
-Secure Session is ready.
-Send/receive works in the same way as the client's example above. See the full example available in [docs/examples/c++](https://github.com/cossacklabs/themis/tree/master/docs/examples/c%2B%2B).
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
 
 ## Secure Comparator
 
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
 
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
 
-### Secure Comparator interface
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
 
 ```cpp
-class secure_comparator_t
-{
-   secure_comparator_t(const std::vector<uint8_t>& shared_secret);
+#include <themispp/secure_comparator.hpp>
 
-   const std::vector<uint8_t>& init();
-   const std::vector<uint8_t>& proceed(const std::vector<uint8_t>& data);
+std::vector<uint8_t> secret = ...;
 
-   bool get() const;
-};
+auto comparison = themispp::secure_comparator_t(secret);
 ```
 
-Description:
-
-- `secure_comparator_t(const std::vector<uint8_t>& shared_secret)`<br/>
-  Initialise Secure Comparator with a **shared_secret** to compare.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& init()`<br/>
-  Start comparison and return an initialisation message to send.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& proceed(const std::vector<uint8_t>& data)`<br/>
-  Process **data** and return the next message to send (empty if comparison is complete). <br/>
-  Throws `themispp::exception_t` on failure.
-
-- `bool get() const`<br/>
-  Return `true` if compared data matches, `false` otherwise.
-
-### Secure Comparator workflow
-
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
-
-### Example
+The client initiates the protocol and sends the message to the server:
 
 ```cpp
-std::string secret_string("shared_secret");
-std::vector<uint8_t> secret_bytes(secret_string.begin(), secret_string.end());
+std::vector<uint8_t> message = comparison.init();
 
-themispp::secure_comparator_t client(secret_bytes);
-themispp::secure_comparator_t server(secret_bytes);
+send_to_peer(message);
+```
 
-// Think of this shared buffer as the network channel.
-std::vector<uint8_t> buf;
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back.
+The comparison is complete when the response is empty:
 
-// The client initiates the comparison.
-buf = client.init();
-
-while (!buf.empty()) {
-    buf = server.proceed(buf);
-    buf = client.proceed(buf);
+```cpp
+for (;;) {
+    std::vector<uint8_t> message = receive_from_peer();
+    std::vector<uint8_t> response = comparison.proceed(message);
+    if (response.empty()) {
+        break;
+    }
+    send_to_peer(response);
 }
-
-bool result_client = client.get();
-bool result_server = server.get();
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `comparator.get()`.
+Once the comparison is complete, you can get the results (on each side):
 
-That's it! See the full example available in [docs/examples/cpp](https://github.com/cossacklabs/themis/tree/master/docs/examples/c%2B%2B).
+```cpp
+bool secrets_equal = comparison.get();
+```
+
+Secure Comparator performs consistency checks on the protocol messages
+and will throw an exception if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will only return a negative result.
