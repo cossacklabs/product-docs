@@ -642,69 +642,6 @@ The same instance cannot be shared by multiple sessions.
 Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
 {{< /hint >}}
 
-#### Secure Session Interface
-
-```cpp
-class themispp::secure_session_t {
-    secure_session_t(const std::vector<uint8_t>& id,
-                     const std::vector<uint8_t>& private_key,
-                     std::shared_ptr<themispp::secure_session_callback_interface_t> transport);
-
-    bool is_established() const;
-
-    const std::vector<uint8_t>& init();
-    const std::vector<uint8_t>& wrap(const std::vector<uint8_t>& data);
-    const std::vector<uint8_t>& unwrap(const std::vector<uint8_t>& data);
-
-    void connect();
-    const std::vector<uint8_t>& receive();
-    void send(const std::vector<uint8_t>& data);
-};
-```
-
-- `secure_session_t(const std::vector<uint8_t>& id, const std::vector<uint8_t>& private_key, std::shared_ptr<themispp::secure_session_transport_interface_t> transport)`<br/>
-  Initialise Secure Session with (non-empty) peer **id**, **private_key**, and **transport** callbacks.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `bool is_established() const`<br/>
-  Checks if the session has been established and ready to use.
-
-- `const std::vector<uint8_t>& init()`<br/>
-  Return a Secure Session initialisation message, send it to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& wrap(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data**, return wrapped message that can be sent to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& unwrap(const std::vector<uint8_t>& data)`<br/>
-  Decrypt **data**, return unwrapped message.<br/>
-  If `is_established()` returns `false` then send result to peer without modifications. Otherwise, the decrypted message is returned.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `void connect()`<br/>
-  Create and send a Secure Session initialisation message to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `void send(const std::vector<uint8_t>& data)`<br/>
-  Encrypt **data** and send it to peer.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& receive()`<br/>
-  Receive a message from the peer, decrypt, and return it.<br/>
-  If `is_established()` is false then proceed with connection, returns empty message.<br/>
-  Throws `themispp::exception_t` on failure.
-
-### Secure Session Workflow
-
-Secure Session can be used in two ways:
- - send/receive - when communication flow is fully controlled by the Secure Session object.
- - wrap/unwrap  - when communication is controlled by the user.
-
-Secure Session has two parties that are called client and server for the sake of simplicity, but they could be more precisely called initiator and acceptor - the only difference between them is in who starts the communication.
-
-Secure Session relies on the user's passing a number of callback functions to send/receive messages - and the keys are retrieved from local storage (see more in [Secure Session cryptosystem description](/pages/secure-session-cryptosystem/)).
-
 ### Send/Receive mode
 
 Implement and initialise callbacks:
