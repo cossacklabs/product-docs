@@ -642,6 +642,86 @@ The same instance cannot be shared by multiple sessions.
 Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
 {{< /hint >}}
 
+### Buffer-aware API
+
+[**Buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode)
+is easier to integrate into existing application with established network processing path.
+Here the application handles message buffers explicitly.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server.
+Then they communicate to negotiate the keys and other details
+until the connection is established:
+
+```cpp
+std::vector<uint8_t> negotiation_message = client_session.init();
+do {
+    send_to_server(negotiation_message);
+    negotiation_message = receive_from_server();
+    negotiation_message = client_session.unwrap(negotiation_message);
+} while (!client_session.is_established());
+```
+
+Conversely, the server accepts the connection request and communicates with the client
+until the connection is established from the other side too:
+
+```cpp
+while (!server_session.is_established()) {
+    std::vector<uint8_t> request = receive_from_client();
+    std::vector<uint8_t> reply = server_session.unwrap(request);
+    send_to_client(reply);
+}
+```
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+In buffer-aware API, the messages are wrapped into Secure Session protocol and sent separately:
+
+```cpp
+std::vector<uint8_t> message = ...;
+
+std::vector<uint8_t> encrypted_message = session.wrap(message);
+
+send_to_peer(encrypted_message);
+```
+
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
+
+```cpp
+std::vector<uint8_t> encrypted_message = receive_from_peer();
+
+try {
+    std::vector<uint8_t> decrypted_message = session.unwrap(encrypted_message);
+    // process a message
+}
+catch (const themispp::exception_t& e) {
+    // handle corrupted messages
+}
+```
+
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
 ### Send/Receive mode
 
 Implement and initialise callbacks:
