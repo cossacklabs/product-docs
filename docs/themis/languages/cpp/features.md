@@ -797,69 +797,70 @@ such as unexpected messages, outdated messages, etc.
 
 ## Secure Comparator
 
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
 
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
 
-### Secure Comparator interface
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
 
 ```cpp
-class secure_comparator_t
-{
-   secure_comparator_t(const std::vector<uint8_t>& shared_secret);
+#include <themispp/secure_comparator.hpp>
 
-   const std::vector<uint8_t>& init();
-   const std::vector<uint8_t>& proceed(const std::vector<uint8_t>& data);
+std::vector<uint8_t> secret = ...;
 
-   bool get() const;
-};
+auto comparison = themispp::secure_comparator_t(secret);
 ```
 
-Description:
-
-- `secure_comparator_t(const std::vector<uint8_t>& shared_secret)`<br/>
-  Initialise Secure Comparator with a **shared_secret** to compare.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& init()`<br/>
-  Start comparison and return an initialisation message to send.<br/>
-  Throws `themispp::exception_t` on failure.
-
-- `const std::vector<uint8_t>& proceed(const std::vector<uint8_t>& data)`<br/>
-  Process **data** and return the next message to send (empty if comparison is complete). <br/>
-  Throws `themispp::exception_t` on failure.
-
-- `bool get() const`<br/>
-  Return `true` if compared data matches, `false` otherwise.
-
-### Secure Comparator workflow
-
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
-
-### Example
+The client initiates the protocol and sends the message to the server:
 
 ```cpp
-std::string secret_string("shared_secret");
-std::vector<uint8_t> secret_bytes(secret_string.begin(), secret_string.end());
+std::vector<uint8_t> message = comparison.init();
 
-themispp::secure_comparator_t client(secret_bytes);
-themispp::secure_comparator_t server(secret_bytes);
+send_to_peer(message);
+```
 
-// Think of this shared buffer as the network channel.
-std::vector<uint8_t> buf;
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back.
+The comparison is complete when the response is empty:
 
-// The client initiates the comparison.
-buf = client.init();
-
-while (!buf.empty()) {
-    buf = server.proceed(buf);
-    buf = client.proceed(buf);
+```cpp
+for (;;) {
+    std::vector<uint8_t> message = receive_from_peer();
+    std::vector<uint8_t> response = comparison.proceed(message);
+    if (response.empty()) {
+        break;
+    }
+    send_to_peer(response);
 }
-
-bool result_client = client.get();
-bool result_server = server.get();
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `comparator.get()`.
+Once the comparison is complete, you can get the results (on each side):
 
-That's it! See the full example available in [docs/examples/cpp](https://github.com/cossacklabs/themis/tree/master/docs/examples/c%2B%2B).
+```cpp
+bool secrets_equal = comparison.get();
+```
+
+Secure Comparator performs consistency checks on the protocol messages
+and will throw an exception if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will only return a negative result.
