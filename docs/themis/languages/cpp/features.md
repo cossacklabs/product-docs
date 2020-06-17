@@ -540,6 +540,108 @@ to understand better the underlying considerations,
 get an overview of the protocol and its features,
 etc.
 
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/c++`](https://github.com/cossacklabs/themis/tree/master/docs/examples/c++) directory on GitHub.
+There you can find examples of Secure Session setup and usage in all modes.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+It calls the `get_pub_key_by_id` method to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
+
+```cpp
+#include <themispp/secure_session.hpp>
+
+class session_callbacks : public themispp::secure_session_callback_interface_t {
+public:
+    session_callbacks(...)
+    {
+        // Initialise trusted public key storage (file directory, DB, etc.)
+    }
+
+    std::vector<uint8_t> get_pub_key_by_id(const std::vector<uint8_t>& id) override
+    {
+        // Retrieve public key for peer "id" from the trusted storage.
+        // Return an empty vector if there is no associated key.
+        return public_key;
+    }
+};
+```
+
+Each peer initialises Secure Session with their ID, their private key,
+and an instance of the callback interface:
+
+```cpp
+#include <themispp/secure_session.hpp>
+
+std::vector<uint8_t> peer_id = ...;
+std::vector<uint8_t> private_key = ...;
+
+auto session_callbacks = std::make_shared<session_callbacks>(...);
+
+auto session = themispp::secure_session_t(peer_id, private_key,
+                                          std::move(session_callbacks));
+```
+
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+#### Transport callbacks
+
+If you wish to use the **callback-oriented API** of Secure Session,
+you have to implement two additional methods of the callback interface:
+
+```cpp
+#include <themispp/secure_session.hpp>
+
+class transport_callbacks : public themispp::secure_session_callback_interface_t {
+public:
+    void send(const std::vector<uint8_t>& data) override
+    {
+        // Send "data" to the peer over the network.
+        // You may throw an exception if that fails.
+    }
+
+    const std::vector<uint8_t>& receive() override
+    {
+        // Receive a message for peer and store it in the transport object.
+        // You may throw an exception if that fails.
+        // Return a reference to the transport object field.
+        return this->received_message;
+    }
+
+    // ...
+};
+```
+
+{{< hint warning >}}
+**Warning:**
+In send–receive mode, each Secure Session needs its own instance of transport callback interface.
+The same instance cannot be shared by multiple sessions.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
 #### Secure Session Interface
 
 ```cpp
