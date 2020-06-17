@@ -722,6 +722,79 @@ if the message has been modified in-flight.
 It will also detect and report protocol anomalies,
 such as unexpected messages, outdated messages, etc.
 
+### Callback-oriented API
+
+[**Callback-oriented API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+(aka *send–receive* mode)
+uses Secure Session as a framework for network communication, handling data buffers implicitly.
+It allows for simpler messaging code at an expense of more complex setup code.
+
+{{< hint info >}}
+**Note:**
+Remember to [configure transport callbacks](#transport-callbacks) for Secure Session,
+they are required to use the callback-oriented API.
+{{< /hint >}}
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server.
+Then they communicate to negotiate the keys and other details
+until the connection is established:
+
+```cpp
+client_session.connect();
+while (!client_session.is_established()) {
+    client_session.receive();
+}
+```
+
+Conversely, the server accepts the connection request and communicates with the client
+until the connection is established from the other side too:
+
+```cpp
+while (!server_session.is_established()) {
+    server_session.receive();
+}
+```
+
+Note that actual networking happens implicitly, within the Secure Session object
+which calls appropriate transport callbacks to send and receive data over the network.
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Send messages as if the Secure Session were a network socket,
+using the `send` method:
+
+```cpp
+std::vector<uint8_t> message = ...;
+
+session.send(message);
+```
+
+Secure Session encrypts the message, wraps it into the protocol,
+and synchronously calls the `send` transport callback to ship the message out.
+Networking errors are reported by throwing appropriate exceptions.
+
+The receiving side uses the `receive` method to receive messages:
+
+```cpp
+std::vector<uint8_t> message = session.receive();
+```
+
+Secure Session synchronously calls the `receive` transport callback
+to wait for the next message, then unwraps and decrypts it,
+and returns already decrypted message to the application.
+
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
 ### Send/Receive mode
 
 Implement and initialise callbacks:
