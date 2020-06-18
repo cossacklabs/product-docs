@@ -5,11 +5,13 @@ title:  Features
 
 # Features of GoThemis
 
+After you have [installed GoThemis](../installation/),
+it is ready to use in your application!
+
 ## Using Themis
 
-In order to use Themis, you need to import it first.
-
-Add relevant modules to your code:
+In order to use GoThemis,
+you need to import modules for relevant cryptosystems:
 
 ```go
 import "github.com/cossacklabs/themis/gothemis/cell"
@@ -19,27 +21,33 @@ import "github.com/cossacklabs/themis/gothemis/message"
 import "github.com/cossacklabs/themis/gothemis/session"
 ```
 
-And you're good to go!
+## Key generation
 
-### Key generation
-
-#### Asymmetric keypair generation
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
 Algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate asymmetric keypairs, use:
 
 ```golang
+import "github.com/cossacklabs/themis/gothemis/keys"
+
 // Use keys.TypeRSA to generate RSA keys instead
 keypair, err := keys.New(keys.TypeEC)
 
@@ -47,388 +55,722 @@ privateKey := keypair.Private
 publicKey := keypair.Public
 ```
 
-#### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for gothemis starting with Themis 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-<!--
-> ⚠️ **WARNING:**
-> When you store generated keys, make sure they are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
 ```golang
+import "github.com/cossacklabs/themis/gothemis/keys"
+
 masterKey, err := keys.NewSymmetricKey()
 ```
--->
 
-### Secure Message
+## Secure Cell
 
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected by using appropriate methods. The sender uses `wrap` and `unwrap` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `sign` and `verify` methods should be used. They only require a private key for signing and a public key for verification respectively.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-
-#### Processing messages
-
-**1.** Create `SecureMessage` object with your PrivateKey and recipient's PublicKey:
-
-```golang
-import "github.com/cossacklabs/themis/gothemis/message"
-
-// for encryption & decryption
-encryptor := message.New(yourPrivateKey, peerPublicKey)
-
-// for signing messages
-signer := message.New(yourPrivateKey, nil)
-
-// for signature verification
-verifier := message.New(nil, peerPublicKey)
-```
-
-For signing/verifying make sure that you use keys from the same keypair – private key for signing message and public key for verifying message.
-
-**2.** Process each outgoing message:
-
-```golang
-encryptedMessage, err := encryptor.Wrap(messageToSend)
-signedMessage, err := signer.Sign(messageToSign)
-```
-
-**3.** Process each incoming message:
-
-```golang
-receivedMessage, err := encryptor.Unwrap(encryptedMessage)
-verifiedMessage, err := verifier.Verify(signedMessage)
-```
-
-### Secure Cell
-
-The **Secure Сell** functions provide the means of protection for arbitrary data contained in stores, i.e. database records or filesystem files. These functions provide both strong symmetric encryption and data authentication mechanisms.
+[**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+is a high-level cryptographic container
+aimed at protecting arbitrary data stored in various types of storage
+(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+It provides both strong symmetric encryption and data authentication mechanism.
 
 The general approach is that given:
 
-- _input_: some source data to protect,
-- _key_: secret byte array,
-- _context_: plus an optional “context information”,
+  - _input:_ some source data to protect
+  - _secret:_ symmetric key or a password
+  - _context:_ and an optional “context information”
 
-Secure Cell functions will produce:
+Secure Cell will produce:
 
-- _cell_: the encrypted data,
-- _authentication tag_: some authentication data.
+  - _cell:_ the encrypted data
+  - _authentication token:_ some authentication data
 
-The purpose of the optional “context information” (i.e. a database row number or file name) is to establish a secure association between this context and the protected data. In short, even when the secret is known, if the context is incorrect, the decryption will fail.
+The purpose of the optional context information
+(e.g., a database row number or file name)
+is to establish a secure association between this context and the protected data.
+In short, even when the secret is known, if the context is incorrect then decryption will fail.
 
-The purpose of the authentication data is to verify that given a correct key (and context), the decrypted data is indeed the same as the original source data.
+The purpose of the authentication data is to validate
+that given a correct key or passphrase (and context),
+the decrypted data is indeed the same as the original source data,
+and the encrypted data has not been modified.
 
-The authentication data must be stored somewhere. The most convenient way is to simply append it to the encrypted data, but this is not always possible due to the storage architecture of an application. The Secure Cell functions offer different variants that address this issue.
+The authentication data must be stored somewhere.
+The most convenient way is to simply append it to the encrypted data,
+but this is not always possible due to the storage architecture of your application.
+Secure Cell offers variants that address this issue in different ways.
 
-By default, the Secure Cell uses the AES-256 encryption algorithm. The generated authentication data is 16 bytes long.
+By default, Secure Cell uses AES-256 for encryption.
+Authentication data takes additional 44 bytes when symmetric keys are used
+and 70 bytes in case the data is secured with a passphrase.
 
-Secure Cell is available in 3 modes:
+Secure Cell supports 2 kinds of secrets:
 
-- **[Seal mode](#secure-cell-seal-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Token protect mode](#secure-cell-token-protect-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Context imprint mode](#secure-cell-context-imprint-mode)**: length-preserving version of Secure Cell with no additional data stored. Should be used with care and caution.
+  - **Symmetric keys** are convenient to store and efficient to use for machines.
+    However, they are relatively long and hard for humans to remember.
 
-You can learn more about the underlying considerations, limitations, and features [here](/pages/secure-cell-cryptosystem/).
+  - **Passphrases**, in contrast, can be shorter and easier to remember.
 
+    However, passphrases are typically much less random than keys.
+    Secure Cell uses a [_key derivation function_][KDF] (KDF) to compensate for that
+    and achieves security comparable to keys with shorter passphrases.
+    This comes at a significant performance cost though.
 
-#### Initialising Secure Cell
+    [KDF]: /docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
 
-Create `SecureCell` object to protect your data:
+Secure Cell supports 3 operation modes:
 
-```golang
+  - **[Seal mode](#seal-mode)** is the most secure and easy to use.
+    Your best choice most of the time.
+    This is also the only mode that supports passphrases at the moment.
+
+  - **[Token Protect mode](#token-protect-mode)** is just as secure, but a bit harder to use.
+    This is your choice if you need to keep authentication data separate.
+
+  - **[Context Imprint mode](#context-imprint-mode)** is a length-preserving version of Secure Cell
+    with no additional data stored. Should be used carefully.
+
+Read more about
+[Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Seal mode
+
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
+
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
+
+```go
 import "github.com/cossacklabs/themis/gothemis/cell"
+import "github.com/cossacklabs/themis/gothemis/keys"
 
-secureCell := cell.New(masterKey, cell.ModeSeal)
-// or in other modes:
-//   - cell.ModeTokenProtect
-//   - cell.ModeContextImprint
+symmetricKey, _ := keys.NewSymmetricKey()
+scell, err := cell.SealWithKey(symmetricKey)
+if err != nil {
+        // construction fails if key is empty
+}
+
+// OR
+
+scell, err := cell.SealWithPassphrase("a password")
+if err != nil {
+        // construction fails if passphrase is empty
+}
 ```
 
-> **NOTE:** Read more about Secure Cell modes and which to choose [here](/pages/secure-cell-cryptosystem/).
+Now you can encrypt your data using the `Encrypt` method:
 
-#### Secure Cell Seal Mode
+```go
+plaintext := []byte("a message")
+context := []byte("code sample")
 
-Initialise cell:
-
-```golang
-secureCell := cell.New(masterKey, cell.ModeSeal)
+encrypted, err := scell.Encrypt(plaintext, context)
+if err != nil {
+        // plaintext must not be empty
+}
 ```
 
-Encrypt:
+The _associated context_ argument is optional and can be set to `nil`.
 
-```golang
-// context may be "nil"
-protectedData, _, err := secureCell.Protect(data, context)
+Seal mode produces encrypted cells that are slightly bigger than the input:
+
+```go
+assert.True(len(encrypted) > len(plaintext))
 ```
 
-Second result `_` is additional data that is always `nil` in this mode.
+You can decrypt the data back using the `Decrypt` method:
 
-Decrypt:
-
-The context should be same as in the protect function call for successful decryption (and may be `nil`).
-
-```golang
-data, err := secureCell.Unprotect(protectedData, nil, context)
+```go
+decrypted, err := scell.Decrypt(encrypted, context)
+if err != nil {
+        // handle decryption failure
+}
 ```
 
-#### Secure Cell Token-Protect Mode
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will return an error if those are incorrect or if the encrypted data was corrupted.
 
-Initialise cell:
+### Token Protect mode
 
-```golang
-secureCell := cell.New(masterKey, cell.ModeTokenProtect)
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Token Protect mode supports only [symmetric keys](#symmetric-keys).
+
+```go
+import "github.com/cossacklabs/themis/gothemis/cell"
+import "github.com/cossacklabs/themis/gothemis/keys"
+
+symmetricKey, _ := keys.NewSymmetricKey()
+scell, err := cell.TokenProtectWithKey(symmetricKey)
+if err != nil {
+        // construction fails if key is empty
+}
 ```
 
-Encrypt:
+Now you can encrypt the data using the `Encrypt` method:
 
-```golang
-// context may be "nil"
-protectedData, additionalData, err := secureCell.Protect(data, context)
+```go
+plaintext := []byte("a message")
+context := []byte("code sample")
+
+encrypted, token, err := scell.Encrypt(plaintext, context)
+if err != nil {
+        // plaintext must not be empty
+}
 ```
 
-In this mode, the result has additional data (which is opaque to the user but is necessary for successful decryption).
+The _associated context_ argument is optional and can be set to `nil`.
 
-Decrypt:
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same size as the input:
 
-The context should be the same as in the protect function call for successful decryption.
-
-```golang
-data, err := secureCell.Unprotect(protectedData, additionalData, context)
+```go
+assert.Equal(len(encrypted), len(plaintext))
 ```
 
-##### Secure Cell Context-Imprint Mode
+You need to save both the encrypted data and the token, they are necessary for decryption.
+Use the `Decrypt` method for that:
 
-Initialise cell:
-
-```golang
-secureCell := cell.New(masterKey, cell.ModeContextImprint)
+```go
+decrypted, err := scell.Decrypt(encrypted, token, context)
+if err != nil {
+        // handle decryption failure
+}
 ```
 
-Encrypt:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will return an error if those are incorrect
+or if the data or the authentication token was corrupted.
 
-```golang
-// context is *required* in context-imprint mode
-protectedData, _, err := secureCell.Protect(data, context)
+### Context Imprint mode
+
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Context Imprint mode supports only [symmetric keys](#symmetric-keys).
+
+```go
+import "github.com/cossacklabs/themis/gothemis/cell"
+import "github.com/cossacklabs/themis/gothemis/keys"
+
+symmetricKey, _ := keys.NewSymmetricKey()
+scell, err := cell.ContextImprintWithKey(symmetricKey)
+if err != nil {
+        // construction fails if key is empty
+}
 ```
 
-Second parameter `_` is additional data that is `nil` in this mode.
+Now you can encrypt the data using the `Encrypt` method:
 
-Decrypt:
+```go
+plaintext := []byte("a message")
+context := []byte("code sample")
 
-The context should be the same as in the protect function call for successful decryption.
-
-```golang
-data, err := secureCell.Unprotect(protectedData, nil, context)
+encrypted, err := scell.Encrypt(plaintext, context)
+if err != nil {
+        // plaintext and context must not be empty
+}
 ```
 
-### Secure Session
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
 
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
+Context Imprint mode produces encrypted text of the same size as the input:
 
-Secure Session operates in two stages:
-* **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys and
-* **data exchange** where exchanging of messages can be carried out between peers.
+```go
+assert.Equal(len(encrypted), len(plaintext))
+```
 
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
+You can decrypt the data back using the `Decrypt` method:
 
-Put simply, Secure Session takes the following form:
+```go
+decrypted, err := scell.Decrypt(encrypted, context)
+if err != nil {
+        // encrypted data and context must not be empty
+}
+if !correct(decrypted) {
+        // handle decryption failure
+}
+```
 
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application level protocol was chosen.
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without reporting an error.
+{{< /hint >}}
 
-#### Secure Session Workflow
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
 
-Secure Session has two parties called "client" and "server" for the sake of simplicity, but they could be more precisely called "initiator" and "acceptor" — the only difference between them is in who starts the communication.
+## Secure Message
 
-Secure Session relies on the user's passing a number of callback functions to send/receive messages — and the keys are retrieved from local storage (see more in [Secure Session cryptosystem description](/pages/secure-session-cryptosystem/)).
+[**Secure Message**](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+is a lightweight container
+that can help deliver some message or data to your peer in a secure manner.
+It provides a sequence-independent, stateless, contextless messaging system.
+This may be preferred in cases that don't require frequent sequential message exchange
+and/or in low-bandwidth contexts.
 
-#### Using Secure Session
+Secure Message is secure enough to exchange messages from time to time,
+but if you'd like to have [_perfect forward secrecy_](https://en.wikipedia.org/wiki/Forward_secrecy)
+and higher security guarantees,
+consider using [Secure Session](#secure-session) instead.
 
-**1.** Implement `session.SessionCallbacks` interface:
-  * `GetPublicKeyForId` which will return peer's trusted public key when needed by the system
-  * `StateChanged` is just a notification callback. You may use it for informational purpose, to update your UI or just have a dummy (do-nothing) implementation
+Secure Message offers two modes of operation:
+
+  - In [**Sign–Verify mode**](#signature-mode),
+    the message is signed by the sender using their private key,
+    then it is verified by the recipient using the sender's public key.
+
+    The message is packed in a suitable container and signed with an appropriate algorithm,
+    based on the provided keypair type.
+    Note that the message is _not encrypted_ in this mode.
+
+  - In [**Encrypt–Decrypt mode**](#encryption-mode),
+    the message will be additionally encrypted
+    with an intermediate symmetric key using [Secure Cell](#secure-cell) in Seal mode.
+
+    The intermediate key is generated in such way that only the recipient can recover it.
+    The sender needs to provide their own private key
+    and the public key of the intended recipient.
+    Correspondingly, to get access to the message content,
+    the recipient will need to use their private key
+    along with the public key of the expected sender.
+
+Read more about
+[Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** initialises Secure Message using their private key:
+
+```go
+import "github.com/cossacklabs/themis/gothemis/keys"
+import "github.com/cossacklabs/themis/gothemis/message"
+
+keypair, _ := keys.New(keys.TypeEC)
+
+secureMessage := message.New(keypair.Private, nil)
+```
+
+Messages can be signed using the `Sign` method:
+
+```go
+message := []byte("example message")
+
+signed, err := secureMessage.Sign(message)
+if err != nil {
+        // message must not be empty
+}
+```
+
+To verify messages, the **recipient** first has to obtain the sender's public key.
+Secure Message should be initialised with only the public key:
+
+```go
+peerPublicKey := &keys.PublicKey{
+        Value: // ...
+}
+secureMessage := message.New(nil, peerPublicKey)
+```
+
+Now the receipent may verify messages signed by the sender using the `Verify` method:
+
+```go
+verified, err := secureMessage.Verify(signed)
+if err != nil {
+        // handle verification failure
+}
+```
+
+Secure Message will return an error if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
+
+### Encryption mode
+
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
+
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
+
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
+
+**Alice** initialises Secure Message with her private key and Bob's public key:
+
+```go
+import "github.com/cossacklabs/themis/gothemis/keys"
+import "github.com/cossacklabs/themis/gothemis/message"
+
+aliceKeypair, _ := keys.New(keys.TypeEC)
+bobPublicKey := &keys.PublicKey{
+        Value: // received securely
+}
+
+aliceSecureMessage := message.New(aliceKeypair.Private, bobPublicKey)
+```
+
+Now Alice can encrypt messages for Bob using the `Wrap` method:
+
+```go
+message := []byte("example message")
+
+encrypted, err := aliceSecureMessage.Wrap(message)
+if err != nil {
+        // message must not be empty
+}
+```
+
+**Bob** initialises Secure Message with his private key and Alice's public key:
+
+```go
+import "github.com/cossacklabs/themis/gothemis/keys"
+import "github.com/cossacklabs/themis/gothemis/message"
+
+bobKeypair, _ := keys.New(keys.TypeEC)
+alicePublicKey := &keys.PublicKey{
+        Value: // received securely
+}
+
+bobSecureMessage := message.New(bobKeypair.Private, alicePublicKey)
+```
+
+With this, Bob is able to decrypt messages received from Alice
+using the `Unwrap` method:
+
+```go
+decrypted, err := bobSecureMessage.Unwrap(encrypted)
+if err != nil {
+        // handle decryption failure
+}
+```
+
+Bob's Secure Message will return an error
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+## Secure Session
+
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
+
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
+
+Communication over Secure Session consists of two stages:
+
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
+
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/go`](https://github.com/cossacklabs/themis/tree/master/docs/examples/go) directory on GitHub.
+There you can find examples of Secure Session setup and usage in all modes.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+It calls the `GetPublicKeyForId` method to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
 
 ```golang
 import "github.com/cossacklabs/themis/gothemis/session"
 import "github.com/cossacklabs/themis/gothemis/keys"
 
-type callbacks struct {
+type sessionCallbacks struct {
         // ...
 }
 
-func (clb *callbacks) GetPublicKeyForId(ss *session.SecureSession, id []byte) (*keys.PublicKey) {
-        pub := getPublicKeyFromDatabaseOrSomeOtherStorageOrSource(id)
-
-        return pub // or nil if key was not found
+func (c *sessionCallbacks) GetPublicKeyForId(s *session.SecureSession, id []byte) (*keys.PublicKey) {
+        // Retrieve public key for peer "id" from the trusted storage.
+        // Return nil if there is no associated key.
+        return publicKey
 }
 
-func (clb *callbacks) StateChanged(ss *session.SecureSession, state int) {
-        // Do something if you wish.
-        // state constants:
+func (c *sessionCallbacks) StateChanged(s *session.SecureSession, state int) {
+        // Informational callback method, it is called when Secure Session
+        // changes state.
+        //
+        // State constants:
         //   - session.StateIdle
         //   - session.StateNegotiating
         //   - session.StateEstablished
 }
 ```
 
-**2.** Create `SecureSession` object:
+Each peer initialises Secure Session with their ID, their private key,
+and an instance of the callback interface:
 
 ```golang
-session, err := session.New(yourId, yourPrivateKey, &callbacks{})
-```
+import "github.com/cossacklabs/themis/gothemis/session"
 
-**3.** On the client side, initiate Secure Session negotiation by generating and sending connection request:
+var peerID []byte = // ...
+var privateKey *keys.PrivateKey = // ...
 
-```golang
-connectRequest, err = session.ConnectRequest();
-// send connectRequest to the server
-```
-
-**4.** Start receiving and parsing incoming data on both sides:
-
-```golang
-// receive some data and store it in receiveBuffer
-
-// "receiveBuffer" contains encrypted data from your peer,
-// try decrypting it...
-data, sendPeer, err := session.Unwrap(receiveBuffer)
-if err != nil {
-        // handle error
+sessionCallbacks := &sessionCallbacks{
+        // ...
 }
-if sendPeer {
-        // "receiveBuffer" is a part of the negotiation protocol:
-        // so "data" contains the response to this protocol,
-        // which needs to be forwarded to your peer as is.
+session, err := session.New(peerID, privateKey, sessionCallbacks)
+```
 
-        // Just send "data" to your peer.
-} else {
-        // "data" may be nil on the client when the Secure Session
-        // completes connection negotiation.
-        if data != nil {
-                // Now "data" contains decrypted data.
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
 
-                // Process "data" according to your application.
+### Using Secure Session
+
+GoThemis supports only
+[**buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode).
+It is easy to integrate into existing applications with established network processing path.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
+
+```go
+connectionRequest, err := session.ConnectRequest()
+
+serverTX <- connectionRequest
+```
+
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
+
+```go
+var peerRX <-chan []byte
+var peerTX chan<- []byte
+
+for request := range peerRX {
+        reply, sendToPeer, err := session.Unwrap(request)
+        if err != nil {
+                // Handle negotiation error
+        }
+        if sendToPeer {
+                // Continue negotiation...
+                peerTX <- reply
+                continue
+        }
+        if reply == nil {
+                // Secure Session established!
+                break
         }
 }
 ```
 
-**5.** When the protocol negotiation finishes, you may send the encrypted data to your peer:
+#### Exchanging messages
 
-```golang
-wrappedData, err := session.Wrap(yourData);
-// send wrappedData to your peer
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Wrap the messages into Secure Session protocol and send them:
+
+```go
+message := []byte("example message")
+
+encryptedMessage, err := session.Wrap(message)
+
+peerTX <- message
 ```
 
-See[Secure Session test](https://github.com/cossacklabs/themis/blob/master/gothemis/session/session_test.go) and [Secure Session Examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/go) to get the complete vision how Secure Session works.
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
 
-### Secure Comparator
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
 
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
+After receiving an encrypted message, you need to unwrap it:
 
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
+```go
+for encryptedMessage := range peerRX {
+        decryptedMessage, _, err := session.Unwrap(encryptedMessage)
+        if err != nil {
+                // handle corrupted messages
+        }
+        // ...
+}
+```
 
-#### Secure Comparator workflow
+Secure Session ensures message integrity and will return an error
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
 
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
+## Secure Comparator
 
-#### Secure Comparator client
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
+
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
+
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
 
 ```golang
 import "github.com/cossacklabs/themis/gothemis/compare"
 
-// create secure comparator and append secret
-scomparator, err := compare.New()
-err = scomparator.Append(sharedSecret) // some byte[]
+comparison, err := compare.New()
 
-// Client initiates secure comparison.
-buffer, err := scomparator.Begin()
+comparison.Append([]byte("shared secret"))
+```
 
-for {
-        // Stop if the comparison is ready.
-        res, err := scomparator.Result()
-        if res != compare.NotReady {
+The client initiates the protocol and sends the message to the server:
+
+```go
+firstMessage, err := comparison.Begin()
+
+serverTX <- firstMessage
+```
+
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back.
+The comparison is complete when the response is empty:
+
+```go
+var peerRX <-chan []byte
+var peerTX chan<- []byte
+
+for message := range peerRX {
+        response, err := comparison.Proceed(message)
+        if err != nil {
+                // Handle comparison protocol error
+        }
+        if response == nil {
+                // Comparison is complete!
                 break
         }
-
-        // Send "buffer" to the server and receive "reply".
-
-        // Proceed with comparison...
-        buffer, err = scomparator.Proceed(reply)
-}
-
-res, err := scomparator.Result()
-if err != nil {
-        // handle failed comparison
-}
-if res == compare.Match {
-        fmt.Println("match")
-} else {
-        fmt.Println("not match")
+        peerTX <- response
 }
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `scomparator.Result()`.
+Once the comparison is complete, you can get the results (on each side):
 
-#### Secure Comparator server
-
-The server part can be described in any language, but let's pretend here that both client and server are using Go.
-
-```golang
-import "github.com/cossacklabs/themis/gothemis/compare"
-
-// create secure comparator and append secret
-scomparator, err := compare.New()
-err = scomparator.Append(sharedSecret) // byte[]
-
-// The server does not initiate connection.
-
-for {
-        // Stop if the comparison is ready.
-        res, err := scomparator.Result()
-        if res != compare.NotReady {
-                break
-        }
-
-        // Receive "buffer" from the client.
-
-        // Proceed with comparison...
-        reply, err = scomparator.Proceed(buffer)
-
-        // Send "reply" back to the client, if not empty.
-}
-
-res, err := scomparator.Result()
+```go
+result, err := comparison.Result()
 if err != nil {
-        // handle failed comparison
+        // Result() will fail if called too early
 }
-if res == compare.Match {
-        fmt.Println("match")
-} else {
-        fmt.Println("not match")
+if result == compare.Match {
+        // Shared secrets match
 }
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `scomparator.Result()`.
-
-Check out [Secure Comparator Examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/go) to gain a complete understanding of how Secure Comparator works.
+Secure Comparator performs consistency checks on the protocol messages
+and will return an error if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will only return a negative result.
