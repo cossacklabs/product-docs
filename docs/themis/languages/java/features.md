@@ -5,555 +5,948 @@ title:  Features
 
 # Features of JavaThemis
 
-<a id="importing-themis"></a>
+After you have installed JavaThemis
+(for [Android](../installation-android/) or [desktop](../installation-desktop/) development),
+it is ready to use in your application!
+
 ## Using Themis
 
-In order to use Themis, you need to import it.
-
-Import Themis packages into your Java files:
+In order to use JavaThemis,
+you need to import classes for relevant cryptosystems:
 
 ```java
 import com.cossacklabs.themis.*;
 ```
 
-### Key generation
+## Key generation
 
-#### Asymmetric keypair generation
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
-The algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Algorithm type is chosen according to the generated key type.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
-You can generate asymmetric keypairs the following way:
+To generate asymmetric keypairs, use:
 
 ```java
-// Generate EC keys by default. Use AsymmetricKey.KEYTYPE_EC
-// or AsymmetricKey.KEYTYPE_RSA to specify the type explicitly.
+import com.cossacklabs.themis.AsymmetricKey;
+import com.cossacklabs.themis.KeypairGenerator;
+import com.cossacklabs.themis.Keypair;
+import com.cossacklabs.themis.PrivateKey;
+import com.cossacklabs.themis.PublicKey;
+
+// EC keys are used by default. Use AsymmetricKey constants to explicitly
+// specify key type: AsymmetricKey.KEYTYPE_EC or or AsymmetricKey.KEYTYPE_RSA.
 Keypair pair = KeypairGenerator.generateKeypair();
 PrivateKey privateKey = pair.getPrivateKey();
 PublicKey publicKey = pair.getPublicKey();
 ```
 
-#### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for Java and Android starting with Themis 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-<!--
-
-> ⚠️ **WARNING:**
-> When storing generated keys, make sure they are sufficiently protected.
-> See the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
 ```java
+import com.cossacklabs.themis.SymmetricKey;
+
 SymmetricKey masterKey = new SymmetricKey();
 ```
 
--->
+## Secure Cell
 
-### Secure Message
-
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected by using appropriate methods. The sender uses `wrap` and `unwrap` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `sign` and `verify` methods should be used. They only require a private key for signing and a public key for verification respectively.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-#### Sending many messages to the same recipient
-
-**1.** Create a Secure Message object with your PrivateKey and recipient's PublicKey:
-
-```java
-SecureMessage encryptor = new SecureMessage(yourPrivateKey, peerPublicKey);
-```
-
-**2.** Encrypt each outgoing message:
-
-```java
-byte[] encryptedMessage = encryptor.wrap(messageToSend);
-```
-
-**3.** Decrypt each incoming message:
-
-```java
-byte[] receivedMessage = encryptor.unwrap(wrappedMessage);
-```
-
-#### Sending messages to many recipients
-
-**1.** Create Secure Message object with your PrivateKey:
-
-```java
-SecureMessage encryptor = new SecureMessage(yourPrivateKey);
-```
-
-**2.** Encrypt each outgoing message specifying recipients' PublicKey:
-
-```java
-byte[] encryptedMessage = encryptor.wrap(messageToSend, peerPublicKey);
-```
-
-**3.** Decrypt each incoming message specifying the sender's PublicKey:
-
-```java
-byte[] receivedMessage = encryptor.unwrap(wrappedMessage, peerPublicKey);
-```
-
-#### Signing messages
-
-**1.** Create Secure Message object with your PrivateKey:
-
-```java
-SecureMessage signer = new SecureMessage(yourPrivateKey);
-```
-
-**2.** Sign one or more messages:
-
-```java
-byte[] signedMessage = signer.sign(message);
-```
-
-#### Verifying the signed messages
-
-**1.** Create Secure Message object with your PublicKey. Remember to use PublicKey from the same keypair as Private key you used for signing message.
-
-```java
-SecureMessage verifier = new SecureMessage(yourPublicKey);
-```
-
-**2.** Verify the messages received from your peer:
-
-```java
-try {
-    byte[] verifiedMessage = verifier.verify(signedMessage);
-} catch (SecureMessageWrapException e) {
-    // invalid signature or other error occurred
-}
-```
-
-### Secure Cell
-
-The **Secure Сell** functions provide the means of protection for arbitrary data contained in stores, i.e. database records or filesystem files. These functions provide both strong symmetric encryption and data authentication mechanisms.
+[**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+is a high-level cryptographic container
+aimed at protecting arbitrary data stored in various types of storage
+(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+It provides both strong symmetric encryption and data authentication mechanism.
 
 The general approach is that given:
 
-- _input_: some source data to protect,
-- _key_: secret byte array,
-- _context_: plus an optional “context information”,
+  - _input:_ some source data to protect
+  - _secret:_ symmetric key or a password
+  - _context:_ and an optional “context information”
 
-Secure Cell functions will produce:
+Secure Cell will produce:
 
-- _cell_: the encrypted data,
-- _authentication tag_: some authentication data.
+  - _cell:_ the encrypted data
+  - _authentication token:_ some authentication data
 
-The purpose of the optional “context information” (i.e. a database row number or file name) is to establish a secure association between this context and the protected data. In short, even when the secret is known, if the context is incorrect, the decryption will fail.
+The purpose of the optional context information
+(e.g., a database row number or file name)
+is to establish a secure association between this context and the protected data.
+In short, even when the secret is known, if the context is incorrect then decryption will fail.
 
-The purpose of the authentication data is to verify that given a correct key (and context), the decrypted data is indeed the same as the original source data.
+The purpose of the authentication data is to validate
+that given a correct key or passphrase (and context),
+the decrypted data is indeed the same as the original source data,
+and the encrypted data has not been modified.
 
-The authentication data must be stored somewhere. The most convenient way is to simply append it to the encrypted data, but this is not always possible due to the storage architecture of an application. The Secure Cell functions offer different variants that address this issue.
+The authentication data must be stored somewhere.
+The most convenient way is to simply append it to the encrypted data,
+but this is not always possible due to the storage architecture of your application.
+Secure Cell offers variants that address this issue in different ways.
 
-By default, the Secure Cell uses the AES-256 encryption algorithm. The generated authentication data is 16 bytes long.
+By default, Secure Cell uses AES-256 for encryption.
+Authentication data takes additional 44 bytes when symmetric keys are used
+and 70 bytes in case the data is secured with a passphrase.
 
-Secure Cell is available in 3 modes:
+Secure Cell supports 2 kinds of secrets:
 
-- **[Seal mode](#secure-cell-seal-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Token protect mode](#secure-cell-token-protect-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Context imprint mode](#secure-cell-context-imprint-mode)**: length-preserving version of Secure Cell with no additional data stored. Should be used with care and caution.
+  - **Symmetric keys** are convenient to store and efficient to use for machines.
+    However, they are relatively long and hard for humans to remember.
 
-You can learn more about the underlying considerations, limitations, and features [here](/pages/secure-cell-cryptosystem/).
+  - **Passphrases**, in contrast, can be shorter and easier to remember.
 
-#### Initialising Secure Cell
+    However, passphrases are typically much less random than keys.
+    Secure Cell uses a [_key derivation function_][KDF] (KDF) to compensate for that
+    and achieves security comparable to keys with shorter passphrases.
+    This comes at a significant performance cost though.
 
-Create Secure Cell using `key` as a byte array.
+    [KDF]: /docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
+
+Secure Cell supports 3 operation modes:
+
+  - **[Seal mode](#seal-mode)** is the most secure and easy to use.
+    Your best choice most of the time.
+    This is also the only mode that supports passphrases at the moment.
+
+  - **[Token Protect mode](#token-protect-mode)** is just as secure, but a bit harder to use.
+    This is your choice if you need to keep authentication data separate.
+
+  - **[Context Imprint mode](#context-imprint-mode)** is a length-preserving version of Secure Cell
+    with no additional data stored. Should be used carefully.
+
+Read more about
+[Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Seal mode
+
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
+
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
 
 ```java
-// Keep this key secret.
-String base64key = "b2doYWVwYWVyb3U0cGhpZDVwaG9XZWlnOGVleDFjYW8K";
-byte[] masterKey = Base64.Decoder.decode(base64key);
+import com.cossacklabs.themis.SecureCell;
+import com.cossacklabs.themis.SymmetricKey;
 
-SecureCell cell = new SecureCell(masterKey);
+SymmetricKey symmetricKey = new SymmetricKey();
+SecureCell.Seal cell = SecureCell.SealWithKey(symmetricKey);
+
+// OR
+
+SecureCell.Seal cell = SecureCell.SealWithPassphrase("a password");
 ```
 
-> **NOTE:**
-> When unspecified, Secure Cell will use `SecureCell.MODE_SEAL` by default.
-> Read more about the Secure Cell modes and which mode to choose
-> [here](/pages/secure-cell-cryptosystem/).
-
-#### Secure Cell Seal Mode
-
-Initialise cell:
+Now you can encrypt your data using the `encrypt` method:
 
 ```java
-SecureCell cell = new SecureCell(masterKey, SecureCell.MODE_SEAL);
+byte[] plaintext = ...;
+byte[] context = ...;
+
+byte[] encrypted = cell.encrypt(plaintext, context);
 ```
 
-Encrypt:
+The _associated context_ argument is optional and can be omitted.
+
+Seal mode produces encrypted cells that are slightly bigger than the input:
 
 ```java
-// context is optional
-SecureCellData cellData = cell.protect(context, data);
+assert encrypted.length > plaintext.length;
 ```
 
-The result of the function call is `SecureCellData` object, which is a simple container for protected data. You may get the actual protected data:
+You can decrypt the data back using the `decrypt` method:
 
 ```java
-byte[] protectedData = cellData.getProtectedData();
-```
+import com.cossacklabs.themis.SecureCellException;
 
-Decrypt:
-
-The context should be the same as in the protect function call for successful decryption.
-
-```java
-// context is optional
-byte[] data = cell.unprotect(context, cellData);
-```
-
-#### Secure Cell Token-protect Mode
-
-Initialise cell:
-
-```java
-SecureCell cell = new SecureCell(masterKey, SecureCell.MODE_TOKEN_PROTECT);
-```
-
-Encrypt:
-
-```java
-// context is optional
-SecureCellData cellData = cell.protect(context, data);
-```
-
-In this mode, the result holds additional data (opaque to the user, but necessary for successful decryption):
-
-```java
-byte[] protectedData = cellData.getProtectedData();
-
-if (cellData.hasAdditionalData()) {
-    byte[] additionalData = cellData.getAdditionalData();
+try {
+    byte[] decrypted = cell.decrypt(encrypted, context);
+    // process decrypted data
+}
+catch (SecureCellException e) {
+    // handle decryption failure
 }
 ```
 
-Decrypt:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
+
+### Token Protect mode
+
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Token Protect mode supports only [symmetric keys](#symmetric-keys).
 
 ```java
-// context is optional
-byte[] data = cell.unprotect(context, cellData);
+import com.cossacklabs.themis.SecureCell;
+import com.cossacklabs.themis.SymmetricKey;
+
+SymmetricKey symmetricKey = new SymmetricKey();
+
+SecureCell.TokenProtect cell = SecureCell.TokenProtectWithKey(symmetricKey);
 ```
 
-#### Secure Cell Context-Imprint Mode
-
-Initialise cell:
+Now you can encrypt the data using the `encrypt` method:
 
 ```java
-SecureCell cell = new SecureCell(masterKey, SecureCell.MODE_CONTEXT_IMPRINT);
+import com.cossacklabs.themis.SecureCellData;
+
+byte[] plaintext = ...;
+byte[] context = ...;
+
+SecureCellData result = cell.encrypt(plaintext, context);
+byte[] encrypted = result.getProtectedData();
+byte[] authToken = result.getAdditionalData();
 ```
 
-Encrypt:
+The _associated context_ argument is optional and can be omitted.
+
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same size as the input:
 
 ```java
-// context required
-SecureCellData cellData = cell.protect(context, data);
-
-byte[] protectedData = cellData.getProtectedData();
+assert encrypted.length == plaintext.length;
 ```
 
-Decrypt:
-
-> **NOTE:**
-> For successful decryption, the context should be the same as in the protect function call.
+You need to save both the encrypted data and the token, they are necessary for decryption.
+Use the `decrypt` method for that:
 
 ```java
-// context is required
-byte[] data = cell.unprotect(context, cellData);
+import com.cossacklabs.themis.SecureCellException;
+
+try {
+    byte[] decrypted = cell.decrypt(encrypted, authToken, context);
+    // process decrypted data
+}
+catch (SecureCellException e) {
+    // handle decryption failure
+}
 ```
 
-You can also use one object to encrypt different data with different keys:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect
+or if the data or the authentication token was corrupted.
+
+### Context Imprint mode
+
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Context Imprint mode supports only [symmetric keys](#symmetric-keys).
 
 ```java
-SecureCellData cellData1 = cell.protect(key1, context1, data1);
-...
-SecureCellData cellData2 = cell.protect(key2, context2, data2);
-...
+import com.cossacklabs.themis.SecureCell;
+import com.cossacklabs.themis.SymmetricKey;
+
+SymmetricKey symmetricKey = new SymmetricKey();
+
+SecureCell.ContextImprint cell = SecureCell.ContextImprintWithKey(symmetricKey);
 ```
 
-### Secure Session
-
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
-
-Secure Session operates in two stages:
-* **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys and
-* **data exchange** where exchanging of messages can be carried out between peers.
-
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
-
-Put simply, Secure Session takes the following form:
-
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application-level protocol was chosen.
-
-#### Secure Session Workflow
-
-Secure Session has two parties called "client" and "server" for the sake of simplicity, but they could be more precisely called "initiator" and "acceptor" — the only difference between them is in who starts the communication.
-
-Secure Session relies on the user's passing a number of callback functions to send/receive messages — and the keys are retrieved from local storage (see more in [Secure Session cryptosystem description](/pages/secure-session-cryptosystem/)).
-
-#### Secure Sockets
-
-If your application already uses Java sockets for communication, you can easily add/increase security by replacing them with our `SecureSocket` and `SecureServerSocket`.
-
-**1.** Implement `ISessionCallbacks` interface:
-
-  * `getPublicKeyForId` will return the peer's trusted public key when it is needed by the system.
-
-  * `stateChanged` is just a notification callback. You may use it for informational purpose, to update your UI, or just to create a dummy (do-nothing) implementation.
-
-
-Example using anonymous class:
+Now you can encrypt the data using the `encrypt` method:
 
 ```java
-ISessionCallbacks callbacks = new ISessionCallbacks() {
+byte[] plaintext = ...;
+byte[] context = ...;
+
+byte[] encrypted = cell.encrypt(plaintext, context);
+```
+
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
+
+Context Imprint mode produces encrypted text of the same size as the input:
+
+```java
+assert encrypted.length == plaintext.length;
+```
+
+You can decrypt the data back using the `decrypt` method:
+
+```java
+byte[] decrypted = cell.decrypt(encrypted, context);
+if (looksCorrect(decrypted)) {
+    // process decrypted data
+}
+```
+
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without throwing an exception.
+{{< /hint >}}
+
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
+
+## Secure Message
+
+[**Secure Message**](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+is a lightweight container
+that can help deliver some message or data to your peer in a secure manner.
+It provides a sequence-independent, stateless, contextless messaging system.
+This may be preferred in cases that don't require frequent sequential message exchange
+and/or in low-bandwidth contexts.
+
+Secure Message is secure enough to exchange messages from time to time,
+but if you'd like to have [_perfect forward secrecy_](https://en.wikipedia.org/wiki/Forward_secrecy)
+and higher security guarantees,
+consider using [Secure Session](#secure-session) instead.
+
+Secure Message offers two modes of operation:
+
+  - In [**Sign–Verify mode**](#signature-mode),
+    the message is signed by the sender using their private key,
+    then it is verified by the recipient using the sender's public key.
+
+    The message is packed in a suitable container and signed with an appropriate algorithm,
+    based on the provided keypair type.
+    Note that the message is _not encrypted_ in this mode.
+
+  - In [**Encrypt–Decrypt mode**](#encryption-mode),
+    the message will be additionally encrypted
+    with an intermediate symmetric key using [Secure Cell](#secure-cell) in Seal mode.
+
+    The intermediate key is generated in such way that only the recipient can recover it.
+    The sender needs to provide their own private key
+    and the public key of the intended recipient.
+    Correspondingly, to get access to the message content,
+    the recipient will need to use their private key
+    along with the public key of the expected sender.
+
+Read more about
+[Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** initialises Secure Message using their private key:
+
+```java
+import com.cossacklabs.themis.Keypair;
+import com.cossacklabs.themis.KeypairGenerator;
+import com.cossacklabs.themis.SecureMessage;
+
+Keypair keypair = KeypairGenerator.generateKeypair();
+// Publish "keypair.getPublicKey()"
+
+SecureMessage secureMessage = new SecureMessage(keypair.getPrivateKey());
+```
+
+Messages can be signed using the `sign` method:
+
+```java
+byte[] message = ...;
+
+byte[] signedMessage = secureMessage.sign(message);
+```
+
+To verify messages, the **recipient** first has to obtain the sender's public key.
+Secure Message should be initialised using the public key:
+
+```java
+import com.cossacklabs.themis.PublicKey;
+
+PublicKey peerPublicKey = new PublicKey(...);
+
+SecureMessage secureMessage = new SecureMessage(peerPublicKey);
+```
+
+Now the receipent may verify messages signed by the sender using the `verify` method:
+
+```java
+import com.cossacklabs.themis.SecureMessageWrapException;
+
+try {
+    byte[] verifiedMessage = secureMessage.verify(signedMessage);
+    // process verified data
+}
+catch (SecureMessageWrapException e) {
+    // handle verification failure
+}
+```
+
+Secure Message will throw an exception if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
+
+### Encryption mode
+
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
+
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
+
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
+
+**Alice** initialises Secure Message with her private key and Bob's public key:
+
+```java
+import com.cossacklabs.themis.Keypair;
+import com.cossacklabs.themis.KeypairGenerator;
+import com.cossacklabs.themis.PrivateKey;
+import com.cossacklabs.themis.PublicKey;
+import com.cossacklabs.themis.SecureMessage;
+
+Keypair aliceKeypair = KeypairGenerator.generateKeypair();
+PrivateKey alicePrivateKey = aliceKeypair.getPrivateKey();
+// Publish "aliceKeypair.getPublicKey()"
+PublicKey bobPublicKey = new PublicKey(...); // received securely
+
+SecureMessage aliceSecureMessage = new SecureMessage(alicePrivateKey,
+                                                     bobPublicKey);
+```
+
+Now Alice can encrypt messages for Bob using the `wrap` method:
+
+```java
+byte[] message = ...;
+
+byte[] encryptedMessage = aliceSecureMessage.wrap(message);
+```
+
+**Bob** initialises Secure Message with his private key and Alice's public key:
+
+```java
+Keypair bobKeypair = KeypairGenerator.generateKeypair();
+PrivateKey bobPrivateKey = bobKeypair.getPrivateKey();
+// Publish "bobKeypair.getPublicKey()"
+PublicKey alicePublicKey = new PublicKey(...); // received securely
+
+SecureMessage bobSecureMessage = new SecureMessage(bobPrivateKey,
+                                                   alicePublicKey);
+```
+
+With this, Bob is able to decrypt messages received from Alice
+using the `unwrap` method:
+
+```java
+import com.cossacklabs.themis.SecureMessageWrapException;
+
+try {
+    byte[] decryptedMessage = bobSecureMessage.unwrap(encryptedMessage);
+    // process decryped data
+}
+catch (SecureMessageWrapException e) {
+    // handle decryption failure
+}
+```
+
+Bob's Secure Message will throw an exception
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+## Secure Session
+
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
+
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
+
+Communication over Secure Session consists of two stages:
+
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
+
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
+
+Secure Session supports two operation modes:
+
+  - [**Secure Socket**](#secure-socket-api)
+    which adds Secure Session layer to exiting Java socket API.
+  - [**Buffer-aware API**](#buffer-aware-api)
+    in which encrypted messages are handled explicitly, with data buffers you provide.
+<!-- (That's an alternative that exists, but does not work correctly now.)
+  - [**Callback-oriented API**](#callback-oriented-api)
+    in which Secure Session handles buffer allocation implicitly
+    and uses callbacks to notify about incoming messages or request sending outgoing messages.
+-->
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [Java Examples](https://github.com/cossacklabs/themis-java-examples)
+and [Secure Mobile WebSocket](https://github.com/cossacklabs/mobile-websocket-example)
+repositories on GitHub.
+There you can find examples of Secure Session setup and usage in all modes.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+It calls the `getPublicKeyForId` method to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
+
+```java
+import com.cossacklabs.themis.ISessionCallbacks;
+import com.cossacklabs.themis.PublicKey;
+import com.cossacklabs.themis.SecureSession;
+
+ISessionCallbacks sessionCallbacks = new ISessionCallbacks() {
     @Override
     public PublicKey getPublicKeyForId(SecureSession session, byte[] id) {
-        // get trusted PublicKey of user id
-        PublicKey publicKey = getUserPublicKeyFromDatabaseOrOtherStorageOrSource(id);
-        return publicKey; // or null if key is not found
+        // Retrieve public key for peer "id" from the trusted storage.
+        if (!found) {
+            return null;
+        }
+        return publicKey;
     }
 
     @Override
     public void stateChanged(SecureSession session) {
-       // update UI: for example, draw a nice padlock signaling to the user that his/her communication is now secured
+        // Informational callback method, it is called when Secure Session
+        // changes state. Use it, for example, to update UI indication
+        // based on session.getState() value.
     }
 }
 ```
 
-**2.** Replace all of your sockets with our secure versions:
-
-**On client:**
+Each peer initialises Secure Session with their ID, their private key,
+and an instance of the callback interface:
 
 ```java
-// Socket clientSocket = new Socket(...);
-Socket clientSocket = new SecureSocket(..., clientId, clientPrivateKey, callbacks);
+byte[] peerID = ...;
+PrivateKey privateKey = ...;
+
+SecureSession session = new SecureSession(peerID, privateKey, sessionCallbacks);
 ```
 
-**On server:**
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+When you no longer need the session, close it using the `close` method:
 
 ```java
-// ServerSocket serverSocket = new ServerSocket(...);
-ServerSocket serverSocket = new SecureServerSocket(..., serverId, serverPrivateKey, callbacks);
+session.close();
 ```
 
-**3.** Enjoy!
+This frees up system resources associated with Secure Session.
+You cannot use the session object after this call.
 
-#### Basic Secure Session
+<!--
+(This API exists, but it does not work correctly. Let's hide it for now.)
 
-This API is useful when your application has an already established network processing path and this path is doing more than just use sockets. In this case, you would just want to add some function calls that wrap/unwrap the outgoing/incoming data buffers.
+#### Transport callbacks
 
-**1.** Similarly to the case with Secure Sockets — implement `ISessionCallbacks` interface:
-
-```java
-ISessionCallbacks callbacks = new ISessionCallbacks() {
-    @Override
-    public PublicKey getPublicKeyForId(SecureSession session, byte[] id) {
-        // get trusted PublicKey of user id
-        PublicKey publicKey = getUserPublicKeyFromDatabaseOrOtherStorageOrSource(id);
-        return publicKey; // or null if key is not found
-    }
-
-    @Override
-    public void stateChanged(SecureSession session) {
-       // update UI: for example, draw a nice padlock indicating to the user that his/her communication is now secured
-    }
-}
-```
-
-**2.** Create a `SecureSession` object:
+If you wish to use the **callback-oriented API** of Secure Session,
+you have to implement two additional methods of the callback interface:
 
 ```java
-SecureSession session = new SecureSession(yourId, yourPrivateKey, callbacks);
-```
+import com.cossacklabs.themis.ITransportSessionCallbacks;
 
-**3.** On the client side, initiate the Secure Session negotiation by generating and sending a connection request:
-
-```java
-byte[] connectRequest = session.generateConnectRequest();
-// send connectRequest to the server
-```
-
-**4.** Start receiving and parsing incoming data on both sides:
-
-```java
-// receive some data and store it in receiveBuffer
-SecureSession.UnwrapResult result = session.unwrap(receiveBuffer);
-
-switch (result.getDataType()) {
-    case USER_DATA:
-        // this is the actual data that was encrypted by your peer using SecureSession.wrap
-        byte[] data = result.getData();
-        // process the data according to your application's flow for incoming data
-        break;
-    case PROTOCOL_DATA:
-        // this is the internal Secure Session protocol data. An opaque response was generated, just send it to your peer
-        byte[] data = result.getData();
-        // send the data to your peer as is
-        break;
-    case NO_DATA:
-        // this is the internal Secure Session protocol data, but no response is needed (this usually takes place on the client side when protocol negotiation completes)
-        // do nothing
-        break;
-}
-```
-
-**5.** When the protocol negotiation is completed, you may send the encrypted data to your peer:
-
-```java
-byte[] wrappedData = session.wrap(yourData);
-// send wrappedData to your peer
-```
-
-#### Secure Session with transport callbacks
-
-This API is useful when you want to clearly decouple the security from the network communication in your application:
-
-**1.** Implement `ITransportSessionCallbacks` interface. This interface extends `ISessionCallbacks` interface, which means you have to implement two additional functions:
-
-```java
-ITransportSessionCallbacks callbacks = new ITransportSessionCallbacks() {
-    // implement getPublicKeyForId and stateChanged as in basic ISessionCallbacks
-    ...
-
+ITransportSessionCallbacks transportCallbacks = new ITransportSessionCallbacks() {
     @Override
     public void write(byte[] buffer) {
-        // it will be called when Secure Session needs to send something to your peer
-        // just send buffer to your peer
+        // Send "buffer" to the peer over the network.
+        // You may throw an exception if that fails.
     }
 
     @Override
     public byte[] read() {
-        // here you should issue a read request to your underlying transport (for example, read data from socket or pipe)
-        // return the buffer with read data
+        // Receive a message for peer from the network.
+        // Return a buffer with the data.
+        // You may throw an exception if that fails.
+    }
+
+    // ITransportSessionCallbacks inherits from ISessionCallbacks,
+    // so you have to implement two other methods as well.
+}
+```
+
+{{< hint warning >}}
+**Warning:**
+In send–receive mode, each Secure Session needs its own instance of transport callback interface.
+The same instance cannot be shared by multiple sessions.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+You also have to construct a subclass of Secure Session to use the callback API:
+
+```java
+import com.cossacklabs.themis.SecureTransportSession;
+
+byte[] peerID = ...;
+PrivateKey privateKey = ...;
+
+SecureTransportSession session = new SecureTransportSession(peerID, privateKey,
+                                                            transportCallbacks);
+```
+-->
+
+### Secure Socket API
+
+If your application already uses Java sockets for communication,
+you can easily make them more secure by using `SecureSocket` and `SecureServerSocket`.
+
+{{< hint info >}}
+**Note:**
+Secure Socket protocol is currently exclusive to JavaThemis.
+Please [send us an email](mailto:dev@cossacklabs.com)
+if you need to support other platforms.
+{{< /hint >}}
+
+Instantiate client sockets like this:
+
+```java
+import com.cossacklabs.themis.SecureSocket;
+import java.net.Socket;
+
+byte[] clientID = ...;
+PrivateKey privateKey = ...;
+ISessionCallbacks sessionCallbacks = ...;
+
+Socket clientSocket = new SecureSocket(clientID, privateKey, sessionCallbacks);
+```
+
+Server socket should be created like this:
+
+```java
+import com.cossacklabs.themis.SecureServerSocket;
+import java.net.ServerSocket;
+
+byte[] serverID = ...;
+PrivateKey privateKey = ...;
+ISessionCallbacks sessionCallbacks = ...;
+
+ServerSocket serverSocket = new SecureServerSocket(serverID, privateKey,
+                                                   sessionCallbacks);
+```
+
+Use Secure Sockets just like you would use regular Java sockets.
+
+### Buffer-aware API
+
+[**Buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode)
+is easier to integrate into existing application with established network processing path.
+Here the application handles message buffers explicitly.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
+
+```java
+byte[] connectionRequest = session.generateConnectRequest();
+
+sendToServer(connectionRequest);
+```
+
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
+
+```java
+while (!session.isEstablished()) {
+    byte[] request = receiveFromPeer();
+    SecureSession.UnwrapResult result = session.unwrap(request);
+    if (result.getDataType() == SecureSession.SessionDataType.PROTOCOL_DATA) {
+        // Negotiation continues...
+        byte[] reply = result.getData();
+        sendToPeer(reply);
     }
 }
 ```
 
-**2.** Create a `SecureTransportSession` object:
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+In buffer-aware API, the messages are wrapped into Secure Session protocol and sent separately:
 
 ```java
-SecureTransportSession session = new SecureTransportSession(yourId, yourPrivateKey, callbacks);
+byte[] message = ...;
+
+byte[] encryptedMessage = session.wrap(message);
+
+sendToPeer(encryptedMessage);
 ```
 
-**3.** On the client side, initiate the Secure Session negotiation by sending a connection request:
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
 
 ```java
-session.connect();
-```
+byte[] encryptedMessage = receiveFromPeer();
 
-**4.** When the negotiation is complete, you may send/receive the data on both sides:
-
-```java
-// sending data
-session.write(dataToSend);
-
-...
-
-// receiving data (probably, through a receive loop)
-byte[] receivedData = session.read();
-```
-
-That's it!
-
-See the [tests](https://github.com/cossacklabs/themis/tree/stable/tests/themis/wrappers/android/com/cossacklabs/themis/test) and [Mobile WebSocket Example](https://github.com/cossacklabs/mobile-websocket-example) to get a more complete understanding of how Secure Session works.
-
-### Secure Comparator
-
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
-
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
-
-#### Secure Comparator workflow
-
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
-
-#### Secure Comparator client
-
-```java
-byte[] compareData = ... // shared secret to compare
-SecureCompare client = new SecureCompare(compareData);
-
-// Initiating secure compare (client, step1)
-byte[] peerData = client.begin();
-
-while (client.getResult() == SecureCompare.CompareResult.NOT_READY) {
-    // send data on server and receive response
-    sendDataOnServer(peerData);
-    peerData = receiveFromServer();
-
-    // proceed and send again
-    peerData = client.proceed(peerData);
+try {
+    SecureSession.UnwrapResult result = session.unwrap(request);
+    assert result.getDataType() == SecureSession.SessionDataType.USER_DATA;
+    byte[] decryptedMessage = result.getData();
+    // process a message
+}
+catch (SecureSessionException e) {
+    // handle corrupted messages
 }
 ```
 
-After the loop ends, the comparison is over and its result can be checked by calling `getResult`:
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
+<!--
+(This API exists, but it's currently broken so we hide this section.)
+
+### Callback-oriented API
+
+[**Callback-oriented API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+(aka *send–receive* mode)
+uses Secure Session as a framework for network communication, handling data buffers implicitly.
+It allows for simpler messaging code at an expense of more complex setup code.
+
+{{< hint info >}}
+**Note:**
+Remember to [configure transport callbacks](#transport-callbacks) for Secure Session,
+they are required to use the callback-oriented API.
+{{< /hint >}}
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server.
+Then they communicate to negotiate the keys and other details
+until the connection is established:
 
 ```java
-if (client.getResult() == SecureCompare.CompareResult.MATCH) {
-    // secrets match
-} else {
-    // secrets don't match
+clientSession.connect();
+while (!clientSession.isEstablished()) {
+    clientSession.read();
 }
 ```
 
-#### Secure Comparator server
-
-The server part can be described in any language, but let's pretend here that both client and server are using Java:
+Conversely, the server accepts the connection request and communicates with the client
+until the connection is established from the other side too:
 
 ```java
-byte[] compareData = // shared secret to compare
-SecureCompare server = new SecureCompare(compareData);
-
-// Initiating secure compare (client, step1)
-byte[] peerData = new byte[0];
-
-while (server.getResult() == SecureCompare.CompareResult.NOT_READY) {
-    // receive from client
-    peerData = receiveFromClient();
-
-    // proceed and send again
-    peerData = server.proceed(peerData);
-    sendDataOnClient(peerData);
+while (!serverSession.isEstablished()) {
+    serverSession.read();
 }
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `getResult`:
+Note that actual networking happens implicitly, within the Secure Session object
+which calls appropriate transport callbacks to send and receive data over the network.
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Send messages as if the Secure Session were a network socket,
+using the `write` method:
 
 ```java
-if (server.getResult() == SecureCompare.CompareResult.MATCH) {
-    // secrets match
-} else {
-    // secrets don't match
+byte[] message = ...;
+
+session.write(message);
+```
+
+Secure Session encrypts the message, wraps it into the protocol,
+and synchronously calls the `write` transport callback to ship the message out.
+Networking errors are reported by throwing appropriate exceptions.
+
+The receiving side uses the `read` method to receive messages:
+
+```java
+byte[] message = session.read();
+```
+
+Secure Session synchronously calls the `read` transport callback
+to wait for the next message, then unwraps and decrypts it,
+and returns already decrypted message to the application.
+
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+-->
+
+## Secure Comparator
+
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
+
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
+
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
+
+```java
+import com.cossacklabs.themis.SecureCompare;
+
+byte[] sharedSecret = ...;
+
+SecureCompare comparison = new SecureCompare(sharedSecret);
+```
+
+The client initiates the protocol and prepares the first message:
+
+```java
+byte[] message = comparison.begin();
+```
+
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back,
+until the comparison is complete:
+
+```java
+import com.cossacklabs.themis.SecureCompareException;
+
+try {
+    while (comparison.getResult() == SecureCompare.CompareResult.NOT_READY) {
+        sendToPeer(message);
+        message = receiveFromPeer();
+
+        message = comparison.proceed(message);
+    }
+}
+catch (SecureCompareException e) {
+    // handle protocol failure
 }
 ```
+
+Secure Comparator performs consistency checks on the protocol messages
+and will throw an exception if they were corrupted.
+
+Once the comparison is complete, you can get the results (on each side):
+
+```java
+if (comparison.getResult() == SecureCompare.CompareResult.MATCH) {
+    // shared secrets are equal
+}
+```
+
+If the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will return a `NO_MATCH` result.
