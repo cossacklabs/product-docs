@@ -96,6 +96,10 @@ sudo apt install libthemis-dev
 
 Supported systems:
 
+  - RHEL 7
+  - RHEL 8
+  - OEL 7
+  - OEL 8
   - CentOS 7
   - CentOS 8
 
