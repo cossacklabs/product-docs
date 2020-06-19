@@ -5,7 +5,7 @@ title:  Themis Server
 
 # Themis Server
 
-[**Themis Server**](https://docs.cossacklabs.com/simulator/interactive/)
+[**Themis Server**](/simulator/interactive/)
 (aka _Interactive Simulator_)
 is an interactive simulator that can be used as a remote debugging aid.
 We built this server to help engineers understand Themis.
@@ -42,7 +42,7 @@ To use the interactive simulator for Themis,
 you need to register—or login if you are already registered—using your email address
 (don't worry, no spam from us):
 
- 1. Go to the [Themis Server](https://docs.cossacklabs.com/simulator/interactive/) page
+ 1. Go to the [Themis Server](/simulator/interactive/) page
     and click the **Register** button.
     This is what you'll see:
 
@@ -103,7 +103,7 @@ or [Secure Messages](/docs/themis/crypto-theory/crypto-systems/secure-message/).
 
 ### Secure Cell
 
-Go to the [Secure Cell Datasim](https://docs.cossacklabs.com/simulator/data-cell/) page.
+Go to the [Secure Cell Datasim](/simulator/data-cell/) page.
 
 {{< hint info >}}
 Make sure you're logged in before you start!
@@ -117,7 +117,7 @@ Follow the on-screen instructions.
 
 ### Secure Message
 
-Go to the [Secure Message Datasim](https://docs.cossacklabs.com/simulator/data-message/) page.
+Go to the [Secure Message Datasim](/simulator/data-message/) page.
 
 {{< hint info >}}
 Make sure you're logged in before you start!

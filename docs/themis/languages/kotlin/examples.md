@@ -36,7 +36,7 @@ which includes Android client using Secure Session and Secure Cell.
 ## Debugging aids
 
 [Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/java)
-can be used with [Themis Interactive Simulator](https://docs.cossacklabs.com/simulator/interactive/):
+can be used with [Themis Interactive Simulator](/simulator/interactive/):
 you can generate the keys and simulate whole client-server communication.
 Read more in the [Themis Server guide](/docs/themis/debugging/themis-server/).
 

@@ -242,7 +242,7 @@ which can be used to redistribute Themis to systems without MSYS2.
  3. Use NSIS installer GUI (steps 1–3 below)
     to install Themis along with all necessary dependencies.
 
-![](https://docs.cossacklabs.com/files/wiki/cossack-labs-themis-win-installer.png)
+![](/files/wiki/cossack-labs-themis-win-installer.png)
 
 ## Installing Themis language wrappers
 
