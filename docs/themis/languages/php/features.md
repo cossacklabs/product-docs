@@ -5,46 +5,52 @@ title:  Features
 
 # Features of PHPThemis
 
-## Using Themis
+After you have [installed PHPThemis](../installation/),
+it is ready to use in your application!
 
-### Key generation
+## Key generation
 
-#### Asymmetric keypair generation
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
 Algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate asymmetric keypairs, use:
 
 ```php
-// Use phpthemis_gen_rsa_key_pair() to generate RSA keys instead
+// Use phpthemis_gen_rsa_key_pair() to generate RSA keys instead.
 $keypair = phpthemis_gen_ec_key_pair();
 
-// Keys are strings containing binary data
+// Keys are strings containing binary data:
 $private_key = $keypair['private_key'];
-$public_key = $keypair['public_key'];
+$public_key  = $keypair['public_key'];
 ```
 
-#### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for phpthemis starting with Themis 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-<!--
-> ⚠️ **WARNING:**
-> When you store generated keys, make sure they are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
@@ -52,409 +58,535 @@ To generate symmetric keys, use:
 // Keys are strings containing binary data
 $master_key = phpthemis_gen_sym_key();
 ```
--->
 
-### Secure Message
+## Secure Cell
 
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected by using appropriate methods. The sender uses `wrap` and `unwrap` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `sign` and `verify` methods should be used. They only require a private key for signing and a public key for verification respectively.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-#### Secure Message interface
-
-```php
-mixed phpthemis_secure_message_wrap( string $senders_private_key,
-                                     string $receivers_public_key,
-                                     string $message )
-
-mixed phpthemis_secure_message_unwrap( string $receivers_private_key,
-                                       string $senders_public_key,
-                                       string $secure_message )
-```
-
-_Parameters:_
-
-`phpthemis_secure_message_wrap` is used for encryption/signing; returns encrypted or signed message, returns a string of binary data containing the encrypted or signed message on success. NULL is returned on error.
-
-- `senders_private_key` is the private (EC or RSA) key of the entity sending the message — we assume that the receiver has safely acquired the associated public key through other channels.
-
-- `receivers_public_key` is the public (EC or RSA) key of the entity receiving the message — we assume that the sender has safely acquired this key through other channels.
-
-- `message` is plaintext message.
-
-
-`phpthemis_secure_message_unwrap` is used for decryption/verifying; returns a string containing the original message on success. NULL is returned on error.
-
-- `receivers_private_key` is the private (EC or RSA) key of the entity receiving the message.
-
-- `senders_public_key` is the public (EC or RSA) key of the entity sending the message - it is assumed that the receiver has safely acquired this key through other means.
-
-- `secure_message` is encrypted/signed message.
-
-#### Examples
-
-_Encrypt/Decrypt:_
-
-```php
-$sender_keys   = phpthemis_gen_ec_key_pair();
-$receiver_keys = phpthemis_gen_ec_key_pair();
-$message = 'The best laid schemes of mice and men go oft awry';
-$smessage = phpthemis_secure_message_wrap($sender_keys['private_key'],
-                                          $receiver_keys['public_key'],
-                                          $message);
-$rmessage = phpthemis_secure_message_unwrap($receiver_keys['private_key'],
-                                            $sender_keys['public_key'],
-                                            $message_to_send);
-echo "Received : $rmessage\n";
-```
-
-_Sign/Verify:_
-
-Use private key for signing message and public key from the same keypair for verifying the message.
-
-```php
-$sender_keys   = phpthemis_gen_ec_key_pair();
-$receiver_keys = phpthemis_gen_ec_key_pair();
-$message = 'The best laid schemes of mice and men go oft awry';
-
-// Passing NULL as receiver keys enables Sign/Verify mode
-$smessage = phpthemis_secure_message_wrap($sender_keys['private_key'], NULL, $message);
-$rmessage = phpthemis_secure_message_unwrap(NULL, $sender_keys['public_key'], $message_to_send);
-echo "Received : $rmessage\n";
-```
-
-### Secure Cell
-
-The **Secure Сell** functions provide the means of protection for arbitrary data contained in stores, i.e. database records or filesystem files. These functions provide both strong symmetric encryption and data authentication mechanisms.
+[**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+is a high-level cryptographic container
+aimed at protecting arbitrary data stored in various types of storage
+(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+It provides both strong symmetric encryption and data authentication mechanism.
 
 The general approach is that given:
 
-- _input_: some source data to protect,
-- _key_: secret byte array,
-- _context_: plus an optional “context information”,
+  - _input:_ some source data to protect
+  - _secret:_ symmetric key or a password
+  - _context:_ and an optional “context information”
 
-Secure Cell functions will produce:
+Secure Cell will produce:
 
-- _cell_: the encrypted data,
-- _authentication tag_: some authentication data.
+  - _cell:_ the encrypted data
+  - _authentication token:_ some authentication data
 
-The purpose of the optional “context information” (i.e. a database row number or file name) is to establish a secure association between this context and the protected data. In short, even when the secret is known, if the context is incorrect, the decryption will fail.
+The purpose of the optional context information
+(e.g., a database row number or file name)
+is to establish a secure association between this context and the protected data.
+In short, even when the secret is known, if the context is incorrect then decryption will fail.
 
-The purpose of the authentication data is to verify that given a correct key (and context), the decrypted data is indeed the same as the original source data.
+The purpose of the authentication data is to validate
+that given a correct key or passphrase (and context),
+the decrypted data is indeed the same as the original source data,
+and the encrypted data has not been modified.
 
-The authentication data must be stored somewhere. The most convenient way is to simply append it to the encrypted data, but this is not always possible due to the storage architecture of an application. The Secure Cell functions offer different variants that address this issue.
+The authentication data must be stored somewhere.
+The most convenient way is to simply append it to the encrypted data,
+but this is not always possible due to the storage architecture of your application.
+Secure Cell offers variants that address this issue in different ways.
 
-By default, the Secure Cell uses the AES-256 encryption algorithm. The generated authentication data is 16 bytes long.
+By default, Secure Cell uses AES-256 for encryption.
+Authentication data takes additional 44 bytes when symmetric keys are used
+and 70 bytes in case the data is secured with a passphrase.
 
-Secure Cell is available in 3 modes:
+Secure Cell supports 2 kinds of secrets:
 
-- **[Seal mode](#secure-cell-seal-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Token protect mode](#secure-cell-token-protect-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Context imprint mode](#secure-cell-context-imprint-mode)**: length-preserving version of Secure Cell with no additional data stored. Should be used with care and caution.
+  - **Symmetric keys** are convenient to store and efficient to use for machines.
+    However, they are relatively long and hard for humans to remember.
 
-You can learn more about the underlying considerations, limitations, and features [here](/pages/secure-cell-cryptosystem/).
+  - **Passphrases**, in contrast, can be shorter and easier to remember.
 
+    However, passphrases are typically much less random than keys.
+    Secure Cell uses a [_key derivation function_][KDF] (KDF) to compensate for that
+    and achieves security comparable to keys with shorter passphrases.
+    This comes at a significant performance cost though.
 
-#### Secure Cell Seal mode interface
+    [KDF]: /docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
 
-##### Encryption
+Secure Cell supports 3 operation modes:
+
+  - **[Seal mode](#seal-mode)** is the most secure and easy to use.
+    Your best choice most of the time.
+    This is also the only mode that supports passphrases at the moment.
+
+  - **[Token Protect mode](#token-protect-mode)** is just as secure, but a bit harder to use.
+    This is your choice if you need to keep authentication data separate.
+
+  - **[Context Imprint mode](#context-imprint-mode)** is a length-preserving version of Secure Cell
+    with no additional data stored. Should be used carefully.
+
+Read more about
+[Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Seal mode
+
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
+
+<!-- See API reference here. -->
+
+Secure Cell in Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
+
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
+
+Here is how you encrypt data:
 
 ```php
-mixed phpthemis_scell_seal_encrypt( string $master_key, string $source_data [, string $context] )
+$plaintext = '...';
+$context = '...';
+
+$symmetric_key = phpthemis_gen_sym_key();
+$encrypted = phpthemis_scell_seal_encrypt($symmetric_key,
+                                          $plaintext,
+                                          $context);
+// OR
+
+$encrypted = phpthemis_scell_seal_encrypt_with_passphrase("a password",
+                                                          $plaintext,
+                                                          $context);
 ```
 
-_Parameters:_
+The _associated context_ argument is optional and can be omitted.
 
-- `master_key` the key to be used for encryption.
-- `source_data` the data to be encrypted.
-- `context` the optional context (see above).
-
-_Return Values_
-
-Returns a string of binary data containing the encrypted data with the authentication data appended on success. NULL is returned on error.
-
-##### Decryption
+Seal mode produces encrypted cells that are slightly bigger than the input:
 
 ```php
-mixed phpthemis_scell_seal_decrypt( string $master_key, string $encrypted_data [, string $context] )
+assert(strlen($encrypted) > strlen($plaintext));
 ```
 
-_Parameters:_
-
-- `master_key` the key to be used for decryption.
-- `encrypted_data` the data to be decrypted.
-- `context` the optional context (see above).
-
-_Return Values_
-
-On success returns a string of binary data containing the original data. NULL is returned on error.
-
-##### Example
+You can decrypt the data back like this:
 
 ```php
-$base64_key  = 'SDlYVEdlQ0R4SGdxSTN4Mk9BQ2w5Y2hyZld1SzY4UFoK';
-$master_key  = base64_decode($base64_key);
-$message     = 'The best laid schemes of mice and men go oft awry';
-$context     = '12345';
-$secure_cell = phpthemis_scell_seal_encrypt($master_key, $message, $context);
-$decrypted   = phpthemis_scell_seal_decrypt($master_key, $secure_cell, $context);
-echo "Decrypted: $decrypted\n";
-```
-
-#### Secure Cell Token protect Mode
-
-For cases where it is not feasible to simply append authentication data to the encrypted data, the `phpthemis_scell_token_protect_encrypt` and `phpthemis_scell_token_protect_decrypt` functions allow these two elements to be handled separately.
-
-##### Encryption
-
-```php
-mixed phpthemis_scell_token_protect_encrypt( string $master_key, string $source_data [, string $context] )
-```
-
-_Parameters:_
-
-- `master_key` the key to be used for encryption.
-- `source_data` the data to be encrypted.
-- `context` the optional context (see above).
-
-_Return Values_
-
-Returns an associative array, the elements of which are strings of binary data containing the encrypted data and the authentication data on success. NULL is returned on error.
-
-##### Decryption
-
-```php
-mixed phpthemis_scell_token_protect_decrypt( string $master_key, string $encrypted_data, string $token [, string $context] )
-```
-
-_Parameters:_
-
-- `master_key` the key to be used for decryption.
-- `encrypted_data` the data to be decrypted.
-- `token` relevant authentication data (token).
-- `context` optional context (see above).
-
-_Return Values_
-
-Returns a string of binary data containing the original data on success. NULL is returned on error.
-
-##### Example
-
-```php
-$base64_key  = 'SDlYVEdlQ0R4SGdxSTN4Mk9BQ2w5Y2hyZld1SzY4UFoK';
-$master_key  = base64_decode($base64_key);
-$message     = 'The best laid schemes of mice and men go oft awry';
-$context     = '12345';
-$secure_cell = phpthemis_scell_token_protect_encrypt($master_key, $message, $context);
-$decrypted   = phpthemis_scell_token_protect_decrypt($master_key, $secure_cell['encrypted_message'], $secure_cell['token'], $context);
-echo "Decrypted: $decrypted\n";
-```
-
-#### Secure Cell Context Imprint Mode
-
-When it's impossible to simply append authentication data to the encrypted data and when there are no auxiliary storage media to retain the authentication data, the `phpthemis_scell_context_imprint_encrypt` and `phpthemis_scell_context_imprint_decrypt` functions provide encryption with the user supplied context, but without the benefit of authentication. This means that the integrity of the data cannot be enforced and these functions should only be the preferred choice when the alternatives above are not viable.
-
-> **NOTE:** In Context Imprint mode, the context is mandatory.
-
-
-##### Encryption
-
-```php
-mixed phpthemis_scell_context_imprint_encrypt( string $master_key, string $source_data, string $context )
-```
-
-_Parameters:_
-
-- `master_key` the key to be used for encryption.
-- `source_data` the data to be encrypted.
-- `context` the mandatory context (see above).
-
-_Return Values_
-
-Returns a string of binary data containing the encrypted data without any authentication data on success. NULL is returned on error.
-
-##### Decryption
-
-```php
-mixed phpthemis_scell_context_imprint_decrypt( string $master_key, string $encrypted_data, string $context )
-```
-
-_Parameters:_
-
-- `master_key` the key to be used for decryption.
-- `encrypted_data` the data to be decrypted.
-- `context` the mandatory context (see above).
-
-_Return Values_
-
-Returns a string of binary data containing the original data on success. NULL is returned on error.
-
-##### Example
-
-```php
-$base64_key  = 'SDlYVEdlQ0R4SGdxSTN4Mk9BQ2w5Y2hyZld1SzY4UFoK';
-$master_key  = base64_decode($base64_key);
-$message     = 'The best laid schemes of mice and men go oft awry';
-$context     = '12345';
-$secure_cell = phpthemis_scell_context_imprint_encrypt($master_key, $message, $context);
-$decrypted   = phpthemis_scell_context_imprint_decrypt($master_key, $secure_cell, $context);
-echo "Decrypted: $decrypted\n";
-```
-
-### Secure Session
-
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
-
-Secure Session operates in two stages:
-* **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys and
-* **data exchange** where exchanging of messages can be carried out between peers.
-
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
-
-As noted above, Secure Session is stateful. It is therefore implemented by phpthemis as an object rather than as static functions. It's important to note at this point that persisting a Secure Session object (for example across HTTP requests to PHP as either a CGI or an Apache Module) would:
-
-a) present a range of unwanted security issues and
-
-b) is simply not supported.
-
-Thus PHP use of Secure Session should only be considered in the context of daemonised PHP processes and there are definitely alternatives to that you may wish to consider.
-
-> **NOTE:** The phpthemis implementation uses exceptions to handle error states.
-
-Put simply, Secure Session takes the following form:
-
-- Both clients and server construct a Secure Session object, providing
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request"
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application level protocol was chosen.
-
-In order to focus on the specific functionality of Secure session (rather than the communication required between the client and the server), the example code below simulates a client / server interaction.
-
-
-#### The Callback for Peer Public Key Access
-
-```php
-function get_pub_key_by_id($id)	{
-    global $key_store;
-    $pubkey = '';
-    if(!empty($key_store[$id])) {
-        $pubkey = $key_store[$id]['public_key'];
-    }
-    return($pubkey);
-}
-```
-
-The function name `get_pub_key_by_id` is required. The function should return a public key generated by `phpthemis_gen_ec_key_pair` or `phpthemis_gen_rsa_key_pair`.
-
-#### Initialisation
-
-The client and server keys are generated and stored in a global (accessible to the `get_pub_key_by_id`) function above. Both the client and the server session objects are constructed.
-
-Secure Session is established and messages are exchanged.
-
-> **NOTE:** The second and the third message do not require session negotiation.
-
-```php
-global $key_store; // An arbitrary global
-
-//Set up client and server keys
-$key_store['server'] = phpthemis_gen_ec_key_pair();
-$key_store['client'] = phpthemis_gen_ec_key_pair();
-
-// Create Secure Session Objects
 try {
-    $server_session = new themis_secure_session('server', $key_store['server']['private_key']);
-    $client_session = new themis_secure_session('client', $key_store['client']['private_key']);
+    $decrypted = phpthemis_scell_seal_decrypt($symmetric_key,
+                                              $encrypted,
+                                              $context);
 }
 catch (Exception $e) {
-    echo "Session setup failed ...".$e->getMessage()."\n";
-    exit;
+    // handle decryption failure
 }
-
-// Test messages:
-$response=secure_session_client('This is a test message 1',$client_session,$server_session);
-echo "Receiving ... (".$response['status'].") ".$response['message']."\n";
-$response=secure_session_client('This is a test message 2',$client_session,$server_session);
-echo "Receiving ... (".$response['status'].") ".$response['message']."\n";
-$response=secure_session_client('This is a test message 3',$client_session,$server_session);
-echo "Receiving ... (".$response['status'].") ".$response['message']."\n";
-
 ```
 
-#### The client side
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
 
-Initially, if the session is not established, the client generates a connect request. Subsequently, the client "negotiates" with the server by replying with its stateful interpretation of the server's response. Once "negotiation" is complete, the initial application level message is sent and the server's response is processed.
+### Token Protect mode
+
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
+
+<!-- See API reference here. -->
+
+Secure Cell in Token Protect mode supports only [symmetric keys](#symmetric-keys).
+
+Here is how you encrypt data:
 
 ```php
-function secure_session_client($message_to_send,$client_session,$server_session) {
-    $client_message = '';
-    $server_response = array('status' => 0, 'message' => '');
-    try {
-        if (!$client_session->is_established()) {
-            echo "Connecting ... \n";
-            $client_message = $client_session->connect_request();
-        }
+$plaintext = '...';
+$context = '...';
 
-        $ii = 1;
-        while (!$client_session->is_established()) {
-            echo "Negotiating ... ".$ii++."\n";
-            $server_response=secure_session_server($client_message,$server_session);
-            if ($server_response['status'] != 0) {
-                return($server_response);
-            }
-            $client_message=$client_session->unwrap($server_response['message']);
-        }
+$symmetric_key = phpthemis_gen_sym_key();
 
-        // With the session established handle the actual message to send
-        echo "Sending ... ".$message_to_send." \n";
-        $client_message = $client_session->wrap($message_to_send);
-        $server_response = secure_session_server($client_message,$server_session);
-        if ($server_response['status'] != 0) {
-            return($server_response);
-        }
-        $server_response['message'] = $client_session->unwrap($server_response['message']);
-    }
-    catch (Exception $e) {
-        $server_response['status'] = -2; // A Client Error
-        $server_response['message'] = $e->getMessage();
-    }
-    return($server_response);
-}
+$result = phpthemis_scell_token_protect_encrypt($symmetric_key,
+                                                $plaintext,
+                                                $context);
+$encrypted  = $result['encrypted_message'];
+$auth_token = $result['token'];
 ```
 
-#### The server side
+The _associated context_ argument is optional and can be omitted.
 
-A minimal "application" level protocol returns an associative array containing "status" (0 for success, -1 on error) and "message" containing either the negotiation phase data, the application level response, or the exception message on error.
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same size as the input:
 
 ```php
-function secure_session_server($client_message,$server_session) {
-    $server_response = array('status' => 0, 'message' => '');
-    try {
-        if (!$server_session->is_established()) {
-            $server_response['message'] = $server_session->unwrap($client_message);
-        } else {
-            $client_message = $server_session->unwrap($client_message);
-            $server_response['message'] = $server_session->wrap('Response to: '.$client_message);
-        }
-    }
-    catch (Exception $e) {
-        $server_response['status'] = -1; // A Server Error
-        $server_response['message'] = $e->getMessage();
-    }
-    return($server_response);
+assert(strlen($encrypted) == strlen($plaintext));
+```
+
+You need to save both the encrypted data and the token, they are necessary for decryption.
+
+```php
+try {
+    $decrypted = phpthemis_scell_token_protect_decrypt($symmetric_key,
+                                                       $encrypted,
+                                                       $auth_token,
+                                                       $context);
+}
+catch (Exception $e) {
+    // handle decryption failure
 }
 ```
 
-That's it! See the full example available in [docs/examples/php](https://github.com/cossacklabs/themis/tree/master/docs/examples/php).
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect
+or if the data or the authentication token was corrupted.
+
+### Context Imprint mode
+
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
+
+<!-- See API reference here. -->
+
+Secure Cell in Context Imprint mode supports only [symmetric keys](#symmetric-keys).
+
+Here is how you encrypt data:
+
+```php
+$plaintext = '...';
+$context = '...';
+
+$symmetric_key = phpthemis_gen_sym_key();
+
+$encrypted = phpthemis_scell_context_imprint_encrypt($symmetric_key,
+                                                     $plaintext,
+                                                     $context);
+```
+
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
+
+Context Imprint mode produces encrypted text of the same size as the input:
+
+```php
+assert(strlen($encrypted) == strlen($plaintext));
+```
+
+You can decrypt the data back like this:
+
+```php
+$decrypted = phpthemis_scell_context_imprint_decrypt($symmetric_key,
+                                                     $encrypted,
+                                                     $context);
+if (looks_correct($decrypted)) {
+    // process data
+}
+```
+
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without throwing an exception.
+{{< /hint >}}
+
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
+
+## Secure Message
+
+[**Secure Message**](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+is a lightweight container
+that can help deliver some message or data to your peer in a secure manner.
+It provides a sequence-independent, stateless, contextless messaging system.
+This may be preferred in cases that don't require frequent sequential message exchange
+and/or in low-bandwidth contexts.
+
+Secure Message is secure enough to exchange messages from time to time,
+but if you'd like to have [_perfect forward secrecy_](https://en.wikipedia.org/wiki/Forward_secrecy)
+and higher security guarantees,
+consider using [Secure Session](#secure-session) instead.
+
+Secure Message offers two modes of operation:
+
+  - In [**Sign–Verify mode**](#signature-mode),
+    the message is signed by the sender using their private key,
+    then it is verified by the recipient using the sender's public key.
+
+    The message is packed in a suitable container and signed with an appropriate algorithm,
+    based on the provided keypair type.
+    Note that the message is _not encrypted_ in this mode.
+
+  - In [**Encrypt–Decrypt mode**](#encryption-mode),
+    the message will be additionally encrypted
+    with an intermediate symmetric key using [Secure Cell](#secure-cell) in Seal mode.
+
+    The intermediate key is generated in such way that only the recipient can recover it.
+    The sender needs to provide their own private key
+    and the public key of the intended recipient.
+    Correspondingly, to get access to the message content,
+    the recipient will need to use their private key
+    along with the public key of the expected sender.
+
+Read more about
+[Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** uses Secure Message with only their private key:
+
+```php
+$message = '...';
+
+$keypair = phpthemis_gen_ec_key_pair();
+$private_key = $keypair['private_key'];
+$public_key  = $keypair['public_key']; // publish this
+
+$signed_message = phpthemis_secure_message_wrap($private_key, null,
+                                                $message);
+```
+
+To verify messages, the **recipient** first has to obtain the sender's public key.
+Secure Message should be used with only that public key:
+
+```php
+try {
+    $verified_message = phpthemis_secure_message_unwrap(null,
+                                                        $public_key,
+                                                        $signed_message);
+}
+catch (Exception $e) {
+    // handle verification failure
+}
+```
+
+Secure Message will throw an exception if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
+
+### Encryption mode
+
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
+
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
+
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
+
+**Alice** uses Secure Message with her private key and Bob's public key:
+
+```php
+$alice_keypair = phpthemis_gen_ec_key_pair();
+$alice_private_key = $alice_keypair['private_key'];
+$bob_public_key    = ...; // received securely
+
+$message = '...';
+
+$encrypted_message = phpthemis_secure_message_wrap($alice_private_key,
+                                                   $bob_public_key,
+                                                   $message);
+```
+
+**Bob** uses Secure Message with his private key and Alice's public key:
+
+```php
+$bob_keypair = phpthemis_gen_ec_key_pair();
+$bob_private_key  = $bob_keypair['private_key'];
+$alice_public_key = ...; // received securely
+
+try {
+    $decrypted_message =
+        phpthemis_secure_message_unwrap($bob_private_key,
+                                        $alice_public_key,
+                                        $encrypted_message);
+}
+catch (Exception $e) {
+    // handle decryption failure
+}
+```
+
+Bob's Secure Message will throw an exception
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+## Secure Session
+
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
+
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
+
+Communication over Secure Session consists of two stages:
+
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
+
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/php`](https://github.com/cossacklabs/themis/tree/master/docs/examples/php) directory on GitHub.
+There you can find examples of Secure Session setup and usage in all modes.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+It calls a global function `` to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
+
+```php
+// The function MUST be named "get_pub_key_by_id()".
+// It is shared by all Secure Sessions.
+function get_pub_key_by_id($peer_id) {
+    // Retrieve public key for "$peer_id" from the trusted storage.
+    if (!$found) {
+        return NULL;
+    }
+    return $public_key;
+}
+```
+
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+Each peer initialises Secure Session with their ID and their private key:
+
+```php
+$session = new themis_secure_session($peer_id, $private_key);
+```
+
+### Using Secure Session
+
+PHPThemis supports only
+[**buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode).
+It is easy to integrate into existing applications with established network processing path.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
+
+```php
+$connection_request = $session->connect_request();
+
+send_to_peer($connection_request);
+```
+
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
+
+```php
+for (;;) {
+    $request = receive_from_peer();
+    $reply = $session->unwrap($request);
+    if ($session->is_established()) {
+        // Secure Session established!
+        break;
+    }
+    send_to_peer($reply);
+}
+```
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Wrap the messages into Secure Session protocol and send them:
+
+```php
+$message = '...';
+
+$encrypted_message = $session->wrap($message);
+
+send_to_peer($encrypted_message);
+```
+
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
+
+```php
+$encrypted_message = receive_from_peer();
+
+$decrypted_message = $session->unwrap($encrypted_message);
+```
+
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
+<!-- (Describe Secure Comparator here when it is implemented for PHPThemis.)
+
+## Secure Comparator
+
+-->
