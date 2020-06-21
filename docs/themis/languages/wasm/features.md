@@ -516,14 +516,6 @@ Communication over Secure Session consists of two stages:
   - **Actual data exchange**,
     when the peers securely exchange data provided by higher-layer application protocols.
 
-Secure Session supports two operation modes:
-
-  - [**Buffer-aware API**](#buffer-aware-api)
-    in which encrypted messages are handled explicitly, with data buffers you provide.
-  - [**Callback-oriented API**](#callback-oriented-api)
-    in which Secure Session handles buffer allocation implicitly
-    and uses callbacks to notify about incoming messages or request sending outgoing messages.
-
 Read more about
 [Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
 to understand better the underlying considerations,
