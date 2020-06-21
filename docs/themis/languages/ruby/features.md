@@ -4,525 +4,680 @@ title:  Features
 ---
 
 # Features of RbThemis
-<a id="importing-themis"></a>
+
+After you have [installed RbThemis](../installation/),
+it is ready to use in your application!
+
 ## Using Themis
 
-In order to use Themis, you need to import it first.
-
-Add the following to your code:
+In order to use RbThemis, you need to import it like this:
 
 ```ruby
 require 'rbthemis'
 ```
 
-and you're good to go!
+## Key generation
 
-### Key generation
-
-#### Asymmetric keypair generation
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
 Algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate asymmetric keypairs, use:
 
 ```ruby
 generator = Themis::SKeyPairGen.new
 
-# Keys are strings containing binary data
+# Keys are strings with binary data
 private_key, public_key = generator.ec
 private_key, public_key = generator.rsa
 ```
 
-#### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for rbthemis starting with Themis 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-
-<!--
-> ⚠️ **WARNING:**
-> When you store generated keys, make sure they are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
 ```ruby
-# Keys are strings containing binary data
+# Keys are strings with binary data
 master_key = Themis::gen_sym_key
 ```
--->
 
-### Secure Message
+## Secure Cell
 
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected by using appropriate methods. For encrypt/decrypt mode use `wrap` and `unwrap` methods of the `Smessage` class. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `s_sign` and `s_verify` functions should be used. They only require a private key for signing and a public key for verification respectively.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-
-#### Secure Message interface:
-
-```ruby
-class Smessage
-  def initialize(private_key, peer_public_key)
-  def wrap(message)
-  def unwrap(message)
-end
-
-def s_sign(private_key, message)
-def s_verify(peer_public_key, message)
-```
-
-_Description_:
-
-`class SMessage` provides Secure Message encryption:
-
-  - `initialize(private_key, peer_public_key)`<br/>
-    Initialise encrypted Secure Message object with **private_key** and **peer_public_key**.<br/>
-    Raises **ThemisError** on failure.
-
-  - `wrap(message)`<br/>
-    Encrypt **message**.<br/>
-    Returns encrypted Secure Message container as a binary string.<br/>
-    Raises **ThemisError** on failure.
-
-  - `unwrap(message)`<br/>
-    Decrypt binary **message**.<br/>
-    Returns decrypted message as a binary string.<br/>
-    Raises **ThemisError** on failure.
-
-Secure Message signing is provided by standalone functions:
-
-  - `s_sign(private_key, message)`<br/>
-    Sign **message** with **private_key**.<br/>
-    Returns signed Secure Message container as a binary string.<br/>
-    Raises **ThemisError** on failure.
-
-  - `s_verify(peer_public_key, message)`<br/>
-    Verify **message** with **peer_public_key**.<br/>
-    Returns original message without signature as a binary string.<br/>
-    Raises **ThemisError** on failure.
-
-> **NOTE**: For verifying the message, use public key from the same keypair as private key used for signing.
-
-#### Example
-
-For a detailed explanation of Secure Message, see [Secure Message description](/pages/secure-message-cryptosystem/).
-
-Initialise encrypter:
-
-```ruby
-smessage = Themis::Smessage.new(private_key, peer_public_key)
-```
-
-Encrypt message:
-
-```ruby
-begin
-  encrypted_message = smessage.wrap(message)
-rescue ThemisError => e
-  # error occured
-end
-```
-
-Decrypt message:
-
-```ruby
-begin
-  decrypted_message = smessage.unwrap(encrypted_message)
-rescue ThemisError => e
-  # error occured
-end
-```
-Sign message:
-
-```ruby
-begin
-  signed_message = Themis.s_sign(private_key, message)
-rescue ThemisError => e
-  # error occured
-end
-```
-
-Verify message:
-
-Peer public key should be from the same keypair as private key.
-
-```ruby
-begin
-  message = Themis.s_verify(peer_public_key, message_signed_by_peer)
-rescue ThemisError => e
-  # error occured
-end
-```
-
-### Secure Cell
-
-The **Secure Сell** functions provide the means of protection for arbitrary data contained in stores, i.e. database records or filesystem files. These functions provide both strong symmetric encryption and data authentication mechanisms.
+[**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+is a high-level cryptographic container
+aimed at protecting arbitrary data stored in various types of storage
+(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+It provides both strong symmetric encryption and data authentication mechanism.
 
 The general approach is that given:
 
-- _input_: some source data to protect,
-- _key_: secret byte array,
-- _context_: plus an optional “context information”,
+  - _input:_ some source data to protect
+  - _secret:_ symmetric key or a password
+  - _context:_ and an optional “context information”
 
-Secure Cell functions will produce:
+Secure Cell will produce:
 
-- _cell_: the encrypted data,
-- _authentication tag_: some authentication data.
+  - _cell:_ the encrypted data
+  - _authentication token:_ some authentication data
 
-The purpose of the optional “context information” (i.e. a database row number or file name) is to establish a secure association between this context and the protected data. In short, even when the secret is known, if the context is incorrect, the decryption will fail.
+The purpose of the optional context information
+(e.g., a database row number or file name)
+is to establish a secure association between this context and the protected data.
+In short, even when the secret is known, if the context is incorrect then decryption will fail.
 
-The purpose of the authentication data is to verify that given a correct key (and context), the decrypted data is indeed the same as the original source data.
+The purpose of the authentication data is to validate
+that given a correct key or passphrase (and context),
+the decrypted data is indeed the same as the original source data,
+and the encrypted data has not been modified.
 
-The authentication data must be stored somewhere. The most convenient way is to simply append it to the encrypted data, but this is not always possible due to the storage architecture of an application. The Secure Cell functions offer different variants that address this issue.
+The authentication data must be stored somewhere.
+The most convenient way is to simply append it to the encrypted data,
+but this is not always possible due to the storage architecture of your application.
+Secure Cell offers variants that address this issue in different ways.
 
-By default, the Secure Cell uses the AES-256 encryption algorithm. The generated authentication data is 16 bytes long.
+By default, Secure Cell uses AES-256 for encryption.
+Authentication data takes additional 44 bytes when symmetric keys are used
+and 70 bytes in case the data is secured with a passphrase.
 
-Secure Cell is available in 3 modes:
+Secure Cell supports 2 kinds of secrets:
 
-- **[Seal mode](#secure-cell-seal-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Token protect mode](#secure-cell-token-protect-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Context imprint mode](#secure-cell-context-imprint-mode)**: length-preserving version of Secure Cell with no additional data stored. Should be used with care and caution.
+  - **Symmetric keys** are convenient to store and efficient to use for machines.
+    However, they are relatively long and hard for humans to remember.
 
-You can learn more about the underlying considerations, limitations, and features [here](/pages/secure-cell-cryptosystem/).
+  - **Passphrases**, in contrast, can be shorter and easier to remember.
 
-#### Secure Cell interface:
+    However, passphrases are typically much less random than keys.
+    Secure Cell uses a [_key derivation function_][KDF] (KDF) to compensate for that
+    and achieves security comparable to keys with shorter passphrases.
+    This comes at a significant performance cost though.
+
+    [KDF]: /docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
+
+Secure Cell supports 3 operation modes:
+
+  - **[Seal mode](#seal-mode)** is the most secure and easy to use.
+    Your best choice most of the time.
+    This is also the only mode that supports passphrases at the moment.
+
+  - **[Token Protect mode](#token-protect-mode)** is just as secure, but a bit harder to use.
+    This is your choice if you need to keep authentication data separate.
+
+  - **[Context Imprint mode](#context-imprint-mode)** is a length-preserving version of Secure Cell
+    with no additional data stored. Should be used carefully.
+
+Read more about
+[Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Seal mode
+
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
+
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
 
 ```ruby
-class Scell
-  def initialize(key, mode)
-  def encrypt(message, context = nil)
-  def decrypt(message, context = nil)
+symmetric_key = Themis::gen_sym_key
+cell = Themis::ScellSeal.new(symmetric_key)
+
+# OR
+
+cell = Themis::ScellSealPassphrase.new('a password')
+```
+
+Now you can encrypt your data using the `encrypt` method:
+
+```ruby
+plaintext = 'a message'
+context = 'code sample'
+
+encrypted = cell.encrypt(plaintext, context)
+```
+
+The _associated context_ argument is optional and can be omitted.
+
+Seal mode produces encrypted cells that are slightly longer than the input:
+
+```ruby
+assert(encrypted.length > plaintext.length)
+```
+
+You can decrypt the data back using the `decrypt` method:
+
+```ruby
+begin
+    decrypted = cell.decrypt(encrypted, context)
+    # process decrypted data
+rescue Themis::ThemisError => e:
+    # handle decryption failure
 end
 ```
 
-_Description_:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
 
-- `initialize(key, mode)`<br/>
-  Initialise Secure Cell object with master **key** and **mode**. Where _mode_ is one of:
+### Token Protect mode
 
-    - `SEAL_MODE` – for Seal mode.
-    - `TOKEN_PROTECT_MODE` – for Token-Protect mode.
-    - `CONTEXT_IMPRINT_MODE` – for Context-Imprint mode.
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
 
-- `encrypt(message, context = nil)`<br/>
-  Encrypt **message** with optional **context**.<br/>
-  Returns encrypted binary string in _seal_ and _context-imprint_ modes.<br/>
-  Returns an array of two strings (encrypted string and token) in _token-protect_ mode.<br/>
-  Raises **ThemisError** on failure.
+<!-- See API reference here. -->
 
-- `decrypt(message, context = nil)`<br/>
-  Decrypt **message** with optional **context**.<br/>
-  (For _token-protect_ mode pass an array of message and token.)<br/>
-  Returns decrypted binary string.<br/>
-  Raises **ThemisError** on failure.
-
-#### Examples
+Initialise a Secure Cell with a secret of your choice to start using it.
+Token Protect mode supports only [symmetric keys](#symmetric-keys).
 
 ```ruby
-base64_key = 'cURxVjQ1WlFQSFN1Y0Fwa1lINmlUUjBKUFNOSGQwa0sK'
-master_key = Base64.decode64(base64_key)
+symmetric_key = Themis::gen_sym_key
+
+cell = Themis::ScellTokenProtect.new(symmetric_key)
 ```
 
-##### Secure Cell Seal Mode
+Now you can encrypt the data using the `encrypt` method:
 
 ```ruby
-scell_seal = Themis::Scell.new(master_key, Themis::Scell::SEAL_MODE)
+plaintext = 'a message'
+context = 'code sample'
 
-encrypted_message = scell_seal.encrypt(message, context)
-
-decrypted_message = scell_seal.decrypt(encrypted_message, context)
+encrypted, token = cell.encrypt(plaintext, context)
 ```
 
-##### Secure Cell Token-Protect Mode
+The _associated context_ argument is optional and can be omitted.
+
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same length as the input:
 
 ```ruby
-scell_token = Themis::Scell.new(master_key, Themis::Scell::TOKEN_PROTECT_MODE)
-
-encrypted_message, token = scell_token.encrypt(message, context)
-
-decrypted_message = scell_token.decrypt([encrypted_message, token], context)
+assert(encrypted.length == plaintext.length)
 ```
 
-##### Secure Cell Context-Imprint Mode
-
-> **NOTE:**
-> Context is _required_ in context-imprint mode.
+You need to save both the encrypted data and the token, they are necessary for decryption.
+Use the `decrypt` method for that:
 
 ```ruby
-scell_context = Themis::Scell.new(master_key, Themis::Scell::CONTEXT_IMPRINT_MODE)
-
-encrypted_message = scell_context.encrypt(message, context)
-
-decrypted_message = scell_context.decrypt(encrypted_message, context)
-```
-
-### Secure Session
-
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
-
-Secure Session operates in two stages:
-
-- **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys, and
-- **data exchange** where exchanging of messages can be carried out between peers.
-
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
-
-Put simply, Secure Session takes the following form:
-
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application level protocol was chosen.
-
-
-
-#### Secure Session interface
-
-```ruby
-class Ssession
-  def initialize(id, private_key, transport)
-  def established?
-  def connect_request
-  def wrap(message)
-  def unwrap(message)
+begin
+    decrypted = cell.decrypt(encrypted, token, context)
+    # process decrypted data
+rescue Themis::ThemisError => e:
+    # handle decryption failure
 end
 ```
 
-_Description_:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect
+or if the data or the authentication token was corrupted.
 
-- `initialize(id, private_key, transport)`<br/>
-  Initialize Secure Session object with peer **id**, **private_key** and a **transport**.<br/>
-  Raises **ThemisError** on failure.<br/>
-  Transport must be a callback object with the following interface:
+### Context Imprint mode
+
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Context Imprint mode supports only [symmetric keys](#symmetric-keys).
+
 ```ruby
-class transport < Themis::Callbacks
-  def get_pub_key_by_id(id)
-  # - return public_key associated with id
+symmetric_key = Themis::gen_sym_key
+
+cell = Themis::ScellContextImprint.new(symmetric_key)
+```
+
+Now you can encrypt the data using the `encrypt` method:
+
+```ruby
+plaintext = 'a message'
+context = 'code sample'
+
+encrypted = cell.encrypt(plaintext, context)
+```
+
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
+
+Context Imprint mode produces encrypted text of the same length as the input:
+
+```ruby
+assert(encrypted.length == plaintext.length)
+```
+
+You can decrypt the data back using the `decrypt` method:
+
+```ruby
+decrypted = cell.decrypt(encrypted, context)
+if looks_correct(decrypted)
+    # process decrypted data
 end
 ```
 
-- `established?`<br/>
-  Checks whether the connection has been established.<br/>
-  Raises **ThemisError** on failure.
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without throwing an exception.
+{{< /hint >}}
 
-- `connect_request`<br/>
-  Create connection initialisation message, send it to the peer.<br/>
-  Raises **ThemisError** on failure.
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
 
-- `wrap(message)`<br/>
-  Encrypts user **message** for sending.<br/>
-  Raises **ThemisError** on failure.
+## Secure Message
 
-- `unwrap(message)`<br/>
-  Decrypts **message** from the peer.<br/>
-  Returns a pair of status code and message. If the status is `Themis::SEND_AS_IS`, the returned message is a connection reply that must be sent to the peer without any corrections. Otherwise it is a decrypted user message received from the peer.<br/>
-  Raises **ThemisError** on failure.
+[**Secure Message**](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+is a lightweight container
+that can help deliver some message or data to your peer in a secure manner.
+It provides a sequence-independent, stateless, contextless messaging system.
+This may be preferred in cases that don't require frequent sequential message exchange
+and/or in low-bandwidth contexts.
 
-#### Secure Session Workflow
+Secure Message is secure enough to exchange messages from time to time,
+but if you'd like to have [_perfect forward secrecy_](https://en.wikipedia.org/wiki/Forward_secrecy)
+and higher security guarantees,
+consider using [Secure Session](#secure-session) instead.
 
-Secure Session can be used in two ways:
+Secure Message offers two modes of operation:
 
-- _send/receive_ – when communication flow is fully controlled by a Secure Session object.
-- _wrap/unwrap_ – when communication is controlled by the user.
+  - In [**Sign–Verify mode**](#signature-mode),
+    the message is signed by the sender using their private key,
+    then it is verified by the recipient using the sender's public key.
 
-> **NOTE:**
-> We consider **wrap/unwrap** more fit for typical Ruby frameworks
-> (we've looked into Ruby on Rails and Eventmachine),
-> so currently Secure Session supports wrap/unwrap mode only.
-> However, if you find that a fully-automatic send/receive mode might be a good use case for something,
-> [let us know](mailto:dev@cossacklabs.com).
+    The message is packed in a suitable container and signed with an appropriate algorithm,
+    based on the provided keypair type.
+    Note that the message is _not encrypted_ in this mode.
 
-Secure Session has two parties called "client" and "server" for the sake of simplicity, but they could be more precisely called "initiator" and "acceptor" — the only difference between them is in who starts the communication.
+  - In [**Encrypt–Decrypt mode**](#encryption-mode),
+    the message will be additionally encrypted
+    with an intermediate symmetric key using [Secure Cell](#secure-cell) in Seal mode.
 
-Secure Session relies on the user's passing a number of callback functions to send/receive messages — and the keys are retrieved from local storage (see more in [Secure Session cryptosystem description](/pages/secure-session-cryptosystem/)).
+    The intermediate key is generated in such way that only the recipient can recover it.
+    The sender needs to provide their own private key
+    and the public key of the intended recipient.
+    Correspondingly, to get access to the message content,
+    the recipient will need to use their private key
+    along with the public key of the expected sender.
 
-#### Wrap/Unwrap
+Read more about
+[Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+to understand better the underlying considerations, limitations, and features of each mode.
 
-Initialise callbacks:
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** uses Secure Message with only their private key:
 
 ```ruby
-class CallbacksForThemis < Themis::Callbacks
-  def get_pub_key_by_id(id)
-    # retrieve public_key for id from trusted storage (file, db, etc.)
-    return public_key
-  end
+generator = Themis::SKeyPairGen.new
+private_key, public_key = generator.ec
+
+message = 'a message'
+
+signed_message = Themis.s_sign(private_key, message)
+```
+
+To verify messages, the **recipient** first has to obtain the sender's public key.
+The public key is used to verify Secure Message:
+
+```ruby
+public_key = Base64.decode64('VUVDMgAAAC360AdaAvpf33yOGJyIJG24Eg3qGHDhpzuz29DbQb0sHiAY1Rni')
+
+begin
+    verified_message = Themis.s_verify(public_key, signed_message)
+    # process verified data
+rescue Themis::ThemisError => e:
+    # handle verification failure
 end
 ```
 
-##### Secure Session client
+Secure Message will throw an exception if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
 
-First, initialisation:
+### Encryption mode
+
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
+
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
+
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
+
+**Alice** initialises Secure Message with her private key and Bob's public key:
 
 ```ruby
-@callbacks = CallbacksForThemis.new
-@session = Themis::Ssession.new(id, client_private_key, @callbacks)
+generator = Themis::SKeyPairGen.new
+alice_private_key, alice_public_key = generator.ec
+bob_public_key = Base64.decode64('VUVDMgAAAC3ppgNuA3zW+TjNPBnDLvKteNrmvzXV2FXmJYRhLqm6A55+eL0Q')
 
-# only the client calls this method
-connect_request = @session.connect_request
-send_to_server(connect_request)
+alice_secure_message = \
+    Themis::Smessage.new(alice_private_key, bob_public_key)
+```
 
-connection_message = receive_from_server()
-res, message = @session.unwrap(connection_message)
+Now Alice can encrypt messages for Bob using the `wrap` method:
 
-while res == Themis::SEND_AS_IS
-  send_to_server(message)
+```ruby
+message = 'a message'
 
-  connection_message = receive_from_server()
-  res, message = @session.unwrap(connection_message)
+encrypted_message = alice_secure_message.wrap(message)
+```
+
+**Bob** initialises Secure Message with his private key and Alice's public key:
+
+```ruby
+generator = Themis::SKeyPairGen.new
+bob_private_key, bob_public_key = generator.ec
+alice_public_key = Base64.decode64('VUVDMgAAAC0i5Jd9AryrpVKUXMZDKuAdjKq7u/6XPLZbE3T7u46sgCu9xZWs')
+
+bob_secure_message = \
+    Themis::Smessage.new(bob_private_key, alice_public_key)
+```
+
+With this, Bob is able to decrypt messages received from Alice
+using the `unwrap` method:
+
+```ruby
+begin
+    decrypted_message = bob_secure_message.unwrap(encrypted_message)
+    # process decrypted data
+rescue Themis::ThemisError => e:
+    # handle decryption failure
 end
 ```
 
-After the loop finishes, Secure Session is established and is ready to be used.
+Bob's Secure Message will throw an exception
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
 
-To encrypt an outgoing message use:
+## Secure Session
+
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
+
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
+
+Communication over Secure Session consists of two stages:
+
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
+
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/ruby`](https://github.com/cossacklabs/themis/tree/master/docs/examples/ruby) directory on GitHub.
+There you can find examples of Secure Session setup and usage.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+It calls the `get_pub_key_by_id` method to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
 
 ```ruby
-encrypted_message = @session.wrap(message)
-send_to_server(encrypted_message)
-```
-
-To decrypt the received message use:
-
-```ruby
-encrypted_message = receive_from_server()
-message = @session.unwrap(encrypted_message)
-```
-
-##### Secure Session server
-
-First, initialise everything:
-
-```ruby
-@callbacks = CallbacksForThemis.new
-@session = Themis::Ssession.new(id, server_private_key, @callbacks)
-
-# there is not connect_request call - it is a server
-
-# receive message from client
-connection_message = receive_from_client()
-res, message = @session.unwrap(connection_message)
-
-while res == Themis::SEND_AS_IS
-  send_to_client(message)
-
-  connection_message = receive_from_client()
-  res, message = @session.unwrap(connection_message)
+class SessionCallbacks < Themis::Callbacks
+    def get_pub_key_by_id(peer_id)
+        # Retrieve public key for "peer_id" from the trusted storage.
+        unless found
+            return nil
+        end
+        return public_key
+    end
 end
 ```
 
-Secure Session is ready. Sending and receiving encrypted messages are the same.
-
-Send encrypted:
+Each peer initialises Secure Session with their ID, their private key,
+and an instance of the callback interface:
 
 ```ruby
-encrypted_message = @session.wrap(message)
-send_to_client(encrypted_message)
+peer_id = 'Alice'
+public_key, private_key = keypair
+callbacks = SessionCallbacks.new(...)
+
+session = Themis::Ssession.new(peer_id, private_key, callbacks)
 ```
 
-Receive and decrypt:
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+### Using Secure Session
+
+RbThemis supports only
+[**buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode).
+It is easy to integrate into existing applications with established network processing path.
+
+{{< hint info >}}
+**Note:**
+We consider buffer-aware API more fit for typical Ruby applications,
+so currently Secure Session supports only this mode.
+However, if you find that [callback-oriented API](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+might be a good fit for your use case,
+[let us know](mailto:dev@cossacklabs.com).
+{{< /hint >}}
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
 
 ```ruby
-encrypted_message = receive_from_client()
-message = @session.unwrap(encrypted_message)
+request = session.connect_request
+
+send_to_server(request)
 ```
 
-That's it! See the full example available in [docs/examples/ruby](https://github.com/cossacklabs/themis/tree/master/docs/examples/ruby).
-
-### Secure Comparator
-
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
-
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
-
-#### Secure Comparator interface
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
 
 ```ruby
-class Scomparator
-   def initialize(shared_secret)
-   def begin_compare
-   def proceed_compare(control_message)
-   def result
+until session.established?
+    request = receive_from_peer()
+    status, reply = session.unwrap(request)
+    if status == Themis::SEND_AS_IS
+        send_to_peer(reply)
+    end
 end
 ```
 
-_Description_:
+#### Exchanging messages
 
-- `initialize(shared_secret)`<br/>
-  Initialise Secure Comparator object with a **shared_secret** to compare.<br/>
-  Raises **ThemisError** on failure.
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
 
-- `begin_compare`<br/>
-  Return a Secure Comparator initialisation message.<br/>
-  Raises **ThemisError** on failure.
-
-- `proceed_compare(control_message)`<br/>
-  Process **control_message** and return the next one.<br/>
-  Raises **ThemisError** on failure.
-
-- `result`<br/>
-  Return the status of comparison:
-
-    - `NOT_READY` – continue calling `proceed_compare`
-    - `MATCH` or `NOT_MATCH` – comparison result
-
-#### Secure Comparator workflow
-
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
-
-#### Secure Comparator client
+Wrap the messages into Secure Session protocol and send them:
 
 ```ruby
-@comparator = Themis::Scomparator.new('Test shared secret')
+message = 'a message'
 
-# this call is specific to the client
-comparison_message = @comparator.begin_compare
+encrypted_message = session.wrap(message)
 
-while @comparator.result == Themis::Scomparator::NOT_READY do
-    user_send_function(comparison_message)
-    comparison_message = user_receive_function()
-    comparison_message = @comparator.proceed_compare(comparison_message)
+send_to_peer(encrypted_message)
+```
+
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
+
+```ruby
+encrypted_message = receive_from_peer()
+
+begin
+    _, decrypted_message = session.unwrap(encrypted_message)
+    # process a message
+rescue Themis::ThemisError => e:
+    # handle corrupted messages
 end
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `@comparator.result`.
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
 
-#### Secure Comparator server
+## Secure Comparator
+
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
+
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
+
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
 
 ```ruby
-@comparator = Themis::Scomparator.new('Test shared secret')
+comparison = Themis::Scomparator.new('shared secret')
+```
 
-while @comparator.result == Themis::Scomparator::NOT_READY do
-    comparison_message = user_receive_function()
-    comparison_message = @comparator.proceed_compare(comparison_message)
-    user_send_function(comparison_message)
+The client initiates the protocol and sends the message to the server:
+
+```ruby
+message = comparison.begin_compare()
+
+send_to_peer(message)
+```
+
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back.
+This should repeat until the comparison is complete:
+
+```ruby
+while comparison.result == Themis::Scomparator.NOT_READY
+    request = receive_from_peer()
+    reply = comparison.proceed_compare(request)
+    send_to_peer(reply) if reply
 end
 ```
 
-After the loop finishes, the comparison is over and its result can be checked by calling `@comparator.result`.
+Once the comparison is complete, you can get the results (on each side):
 
-That's it! See the full example available in [docs/examples/ruby](https://github.com/cossacklabs/themis/tree/master/docs/examples/ruby).
+```ruby
+if comparison.result == Themis::Scomparator.MATCH
+    # shared secret is the same
+end
+```
+
+Secure Comparator performs consistency checks on the protocol messages
+and will throw an exception if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will only return a negative result.
