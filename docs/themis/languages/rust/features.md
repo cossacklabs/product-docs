@@ -5,54 +5,65 @@ title:  Features
 
 # Features of RustThemis
 
+After you have [installed RustThemis](../installation/),
+it is ready to use in your application!
+
 ## Using Themis
 
-In order to use Themis, you need to import it first.
-
-Import the necessary modules and you're good to go:
+In order to use RustThemis,
+you need to import modules for relevant cryptosystems:
 
 ```rust
-use themis::*;
+use themis::keygen;
+use themis::secure_cell;
+use themis::secure_message;
+use themis::secure_session;
+use themis::secure_comparator;
 ```
 
-### Key generation
+## Key generation
 
-#### Asymmetric keypair generation
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
 Algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate asymmetric keypairs, use:
 
 ```rust
 use themis::keygen;
 
-// Use gen_rsa_key_pair to generate RSA keys instead
+// Use gen_rsa_key_pair() to generate RSA keys instead.
 let key_pair = keygen::gen_ec_key_pair();
 
 let (private_key, public_key) = key_pair.split();
 ```
 
-#### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for Rust-Themis starting with Themis 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-<!--
-> ⚠️ **WARNING:**
-> When you store generated keys, make sure they are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
@@ -61,292 +72,788 @@ use themis::keys::SymmetricKey;
 
 let master_key = SymmetricKey::new();
 ```
--->
 
-### Secure Message
+## Secure Cell
 
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](#secure-session) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected by using appropriate methods. The sender uses `wrap` and `unwrap` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode `sign` and `verify` methods should be used. They only require a private key for signing and a public key for verification respectively.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-#### Secure Message example
-
-```
-use themis::secure_message::SecureMessage;
-use themis::keygen::gen_ec_key_pair;
-
-let key_pair = gen_ec_key_pair();
-
-let secure = SecureMessage::new(key_pair);
-
-let encrypted = secure.encrypt(b"message")?;
-let decrypted = secure.decrypt(&encrypted)?;
-assert_eq!(decrypted, b"message");
-```
-
-_Description_:
-
-- `SecureMessage` – Secure Message encryption and decryption.
-- `SecureSign` – Secure Message signing.
-- `SecureVerify` – Secure Message verification.
-
-> **NOTE:** For signing/verifying make sure that you use keys from the same keypair: private key for signing message and public key for verifying message.
-
-
-### Secure Cell
-
-The **Secure Сell** functions provide the means of protection for arbitrary data contained in stores, i.e. database records or filesystem files. These functions provide both strong symmetric encryption and data authentication mechanisms.
+[**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+is a high-level cryptographic container
+aimed at protecting arbitrary data stored in various types of storage
+(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+It provides both strong symmetric encryption and data authentication mechanism.
 
 The general approach is that given:
 
-- _input_: some source data to protect,
-- _key_: secret byte array,
-- _context_: plus an optional “context information”,
+  - _input:_ some source data to protect
+  - _secret:_ symmetric key or a password
+  - _context:_ and an optional “context information”
 
-Secure Cell functions will produce:
+Secure Cell will produce:
 
-- _cell_: the encrypted data,
-- _authentication tag_: some authentication data.
+  - _cell:_ the encrypted data
+  - _authentication token:_ some authentication data
 
-The purpose of the optional “context information” (i.e. a database row number or file name) is to establish a secure association between this context and the protected data. In short, even when the secret is known, if the context is incorrect, the decryption will fail.
+The purpose of the optional context information
+(e.g., a database row number or file name)
+is to establish a secure association between this context and the protected data.
+In short, even when the secret is known, if the context is incorrect then decryption will fail.
 
-The purpose of the authentication data is to verify that given a correct key (and context), the decrypted data is indeed the same as the original source data.
+The purpose of the authentication data is to validate
+that given a correct key or passphrase (and context),
+the decrypted data is indeed the same as the original source data,
+and the encrypted data has not been modified.
 
-The authentication data must be stored somewhere. The most convenient way is to simply append it to the encrypted data, but this is not always possible due to the storage architecture of an application. The Secure Cell functions offer different variants that address this issue.
+The authentication data must be stored somewhere.
+The most convenient way is to simply append it to the encrypted data,
+but this is not always possible due to the storage architecture of your application.
+Secure Cell offers variants that address this issue in different ways.
 
-By default, the Secure Cell uses the AES-256 encryption algorithm. The generated authentication data is 16 bytes long.
+By default, Secure Cell uses AES-256 for encryption.
+Authentication data takes additional 44 bytes when symmetric keys are used
+and 70 bytes in case the data is secured with a passphrase.
 
-Secure Cell is available in 3 modes:
+Secure Cell supports 2 kinds of secrets:
 
-- **[Seal mode](#secure-cell-seal-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Token protect mode](#secure-cell-token-protect-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Context imprint mode](#secure-cell-context-imprint-mode)**: length-preserving version of Secure Cell with no additional data stored. Should be used with care and caution.
+  - **Symmetric keys** are convenient to store and efficient to use for machines.
+    However, they are relatively long and hard for humans to remember.
 
-You can learn more about the underlying considerations, limitations, and features [here](/pages/secure-cell-cryptosystem/).
+  - **Passphrases**, in contrast, can be shorter and easier to remember.
 
-#### Secure Cell examples
+    However, passphrases are typically much less random than keys.
+    Secure Cell uses a [_key derivation function_][KDF] (KDF) to compensate for that
+    and achieves security comparable to keys with shorter passphrases.
+    This comes at a significant performance cost though.
 
-Here is how you use Secure Cell to seal away your data:
+    [KDF]: /docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
 
-```rust
-use themis::secure_cell::SecureCell;
+Secure Cell supports 3 operation modes:
 
-let cell = SecureCell::with_key(&master_key)?.seal();
+  - **[Seal mode](#seal-mode)** is the most secure and easy to use.
+    Your best choice most of the time.
+    This is also the only mode that supports passphrases at the moment.
 
-let encrypted = cell.encrypt(b"source data")?;
-let decrypted = cell.decrypt(&encrypted)?;
-assert_eq!(decrypted, b"source data");
-```
+  - **[Token Protect mode](#token-protect-mode)** is just as secure, but a bit harder to use.
+    This is your choice if you need to keep authentication data separate.
 
-_Description_:
+  - **[Context Imprint mode](#context-imprint-mode)** is a length-preserving version of Secure Cell
+    with no additional data stored. Should be used carefully.
 
-- `SecureCell` – basic Secure Cell.
-    - `SecureCellTokenProtect` – Secure Cell in token protect operation mode.
-    - `SecureCellContextImprint` – Secure Cell in context imprint operation mode.
-    - `SecureCellSeal` – Secure Cell in sealing operation mode.
+Read more about
+[Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+to understand better the underlying considerations, limitations, and features of each mode.
 
-#### Secure Cell Token-protect Mode
+See [full API reference here](https://docs.rs/themis/latest/themis/secure_cell/index.html).
 
-In this mode the input data is mixed with the provided context and encrypted, then the authentication token is computed and returned separately, along with the encrypted container. You will have to provide the authentication token later to decrypt the data, but it can be stored or transmitted separately. The encrypted data has the same length as the original input.
+### Seal mode
 
-```rust
-use themis::secure_cell::SecureCell;
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
 
-let cell = SecureCell::with_key(&master_key)?.token_protect();
+Initialise a Secure Cell with a secret of your choice to start using it.
+Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
 
-let input = b"test input";
-let (output, token) = cell.encrypt(input)?;
-
-assert!(output.len() == input.len());
-```
-
-#### Secure Cell Context-Imprint Mode
-
-In this mode, the input data is mixed with the provided context and encrypted, but there is no authentication token. Use this mode when you have no additional storage available for the authentication data and you absolutely need the output data to have the same length as the original input.
-
-```rust
-use themis::secure_cell::SecureCell;
-
-let cell = SecureCell::with_key(&master_key)?.context_imprint();
-
-let input = b"test input";
-let output = cell.encrypt_with_context(input, b"context")?;
-
-assert!(output.len() == input.len());
-```
-
-Note that in context imprint mode you must provide non-empty context. Also keep in mind that Secure Cell cannot verify integrity and correctness of the decrypted data so you have to have some other means in place to validate the output.
-
-#### Secure Cell Seal mode
-
-In this mode the input data is mixed with the provided context and encrypted, then the authentication tag is appended to the data, resulting in a single encrypted and authenticated container. Note that the resulting sealed cell takes more space than the input data.
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
 
 ```rust
+use themis::keys::SymmetricKey;
 use themis::secure_cell::SecureCell;
 
-let cell = SecureCell::with_key(&master_key)?.seal();
+let symmetric_key = SymmetricKey::new();
+let cell = SecureCell::with_key(&symmetric_key)?.seal();
 
-let input = b"test input";
-let output = cell.encrypt(input)?;
+// OR
 
-assert!(output.len() > input.len());
+let cell = SecureCell::with_passphrase("a password")?.seal();
 ```
 
-### Secure Session
+Now you can encrypt your data using the `encrypt_with_context` method:
 
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
+```rust
+let plaintext = b"a message";
+let context = b"code sample";
 
-Secure Session operates in two stages:
-
-- **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys, and
-- **data exchange** where exchanging of messages can be carried out between peers.
-
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
-
-Put simply, Secure Session takes the following form:
-
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application level protocol was chosen.
-
-#### Secure Session interface
-
-Secure Session usage is relatively involved so you can see a complete working example in the documentation for [client](https://github.com/cossacklabs/themis/blob/master/docs/examples/rust/secure_session_echo_client.rs) and [server](https://github.com/cossacklabs/themis/blob/master/docs/examples/rust/secure_session_echo_server.rs).
-
-To sum it up, you begin by implementing a `SecureSessionTransport`. You have to implement at least the `get_public_key_for_id` method and may want to implement some others. Then you acquire the asymmetric key pairs and distribute the public keys associated with peer IDs — arbitrary byte strings used to identify communicating Secure Sessions. With that, you can create an instance of SecureSession on both the client and the server.
-
-Next, you go through the negotiation stage using `connect` and `negotiate` methods until the connection `is_established`. After that, the Secure Sessions are ready for data exchange which is performed using `send` and `receive` methods.
-
-There is also an alternative buffer-oriented API.
-
-#### Secure Session callback API
-
-> **NOTE:** SecureSessionTransport is an interface you need to provide for Secure Session operation. The only required method is `get_public_key_for_id`. It is required for public key authentication. Other methods are optional, you can use Secure Session without them, but some functionality may be unavailable.
-
-Secure Session only provides security services and doesn’t do actual network communication. In fact, Secure Session is decoupled and independent from any networking implementation. It is your responsibility to provide network transport for Secure Session using the `SecureSessionTransport` trait. There are two types of APIs available: callback API and buffer-aware API. You can choose whatever API is more suitable for your application, or you can even mix them when appropriate.
-
-##### Callback API
-
-With the callback API, you delegate network communication to Secure Session. In order to use it, you have to implement the `send_data` and `receive_data` callbacks of SecureSessionTransport. Then you use `connect` and `negotiate` methods to negotiate and establish a connection. After that, `send` and `receive` methods can be used for data exchange. Secure Session will synchronously call the provided transport methods when necessary to perform network communication.
-
-There is an [example of server using the callback API](https://github.com/cossacklabs/themis/blob/master/docs/examples/rust/secure_session_echo_server.rs) available.
-
-##### Buffer-aware API
-
-With the buffer-aware API, you are responsible for transporting Secure Session messages between peers. Secure Session does not use `send_data` and `receive_data` callbacks in this mode. Instead, the `connect_request` and `negotiate_reply` methods return and receive data buffers that have to be exchanged between peers via some external transport (e.g., TLS). Similarly, `wrap` and `unwrap` methods are used to encrypt and decrypt data exchange messages after the connection has been negotiated. They too accept plaintext messages and return encrypted containers or vice versa.
-
-There is an [example of a using the buffer-aware API](https://github.com/cossacklabs/themis/blob/master/docs/examples/rust/secure_session_echo_client.rs) available.
-
-### Secure Comparator
-
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
-
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
-
-#### Secure Comparator workflow
-
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
-
-Before initiating the protocol both parties should append their secrets to be compared. This can be done incrementally so even multi-gigabyte data sets can be compared with ease.
-
+let encrypted = cell.encrypt_with_context(plaintext, context)?;
 ```
+
+The _associated context_ argument is optional, it can be empty
+(or use `encrypt` which accept just the plaintext).
+
+Seal mode produces encrypted cells that are slightly longer than the input:
+
+```rust
+assert!(encrypted.len() > plaintext.len());
+```
+
+You can decrypt the data back using the `decrypt_with_context` method
+(or `decrypt` if there is no associated context):
+
+```rust
+match cell.decrypt_with_context(encrypted, context) {
+    Ok(decrypted) => {
+        // process decrypted data
+    }
+    Err(error) => {
+        // handle decryption failure
+    }
+}
+```
+
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will return an error if those are incorrect or if the encrypted data was corrupted.
+
+### Token Protect mode
+
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Token Protect mode supports only [symmetric keys](#symmetric-keys).
+
+```rust
+use themis::keys::SymmetricKey;
+use themis::secure_cell::SecureCell;
+
+let symmetric_key = SymmetricKey::new();
+
+let cell = SecureCell::with_key(&symmetric_key)?.token_protect();
+```
+
+Now you can encrypt your data using the `encrypt_with_context` method:
+
+```rust
+let plaintext = b"a message";
+let context = b"code sample";
+
+let (encrypted, token) = cell.encrypt_with_context(plaintext, context)?;
+```
+
+The _associated context_ argument is optional, it can be empty
+(or use `encrypt` which accept just the plaintext).
+
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same length as the input:
+
+```rust
+assert!(encrypted.len() == plaintext.len());
+```
+
+You need to save both the encrypted data and the token, they are necessary for decryption.
+Use the `decrypt_with_context` method for that
+(or `decrypt` if there is no associated context):
+
+```rust
+match cell.decrypt_with_context(encrypted, token, context) {
+    Ok(decrypted) => {
+        // process decrypted data
+    }
+    Err(error) => {
+        // handle decryption failure
+    }
+}
+```
+
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will return an error if those are incorrect
+or if the data or the authentication token was corrupted.
+
+### Context Imprint mode
+
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Context Imprint mode supports only [symmetric keys](#symmetric-keys).
+
+```rust
+use themis::keys::SymmetricKey;
+use themis::secure_cell::SecureCell;
+
+let symmetric_key = SymmetricKey::new();
+
+let cell = SecureCell::with_key(&symmetric_key)?.context_imprint();
+```
+
+Now you can encrypt your data using the `encrypt_with_context` method:
+
+```rust
+let plaintext = b"a message";
+let context = b"code sample";
+
+let encrypted = cell.encrypt_with_context(plaintext, context)?;
+```
+
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
+
+Context Imprint mode produces encrypted text of the same length as the input:
+
+```rust
+assert!(encrypted.len() == plaintext.len());
+```
+
+You can decrypt the data back using the `decrypt_with_context` method:
+
+```rust
+let decrypted = cell.decrypt_with_context(encrypted, context)?;
+if !correct(&decrypted) {
+    // handle decryption failure
+}
+```
+
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without reporting an error.
+{{< /hint >}}
+
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
+
+## Secure Message
+
+[**Secure Message**](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+is a lightweight container
+that can help deliver some message or data to your peer in a secure manner.
+It provides a sequence-independent, stateless, contextless messaging system.
+This may be preferred in cases that don't require frequent sequential message exchange
+and/or in low-bandwidth contexts.
+
+Secure Message is secure enough to exchange messages from time to time,
+but if you'd like to have [_perfect forward secrecy_](https://en.wikipedia.org/wiki/Forward_secrecy)
+and higher security guarantees,
+consider using [Secure Session](#secure-session) instead.
+
+Secure Message offers two modes of operation:
+
+  - In [**Sign–Verify mode**](#signature-mode),
+    the message is signed by the sender using their private key,
+    then it is verified by the recipient using the sender's public key.
+
+    The message is packed in a suitable container and signed with an appropriate algorithm,
+    based on the provided keypair type.
+    Note that the message is _not encrypted_ in this mode.
+
+  - In [**Encrypt–Decrypt mode**](#encryption-mode),
+    the message will be additionally encrypted
+    with an intermediate symmetric key using [Secure Cell](#secure-cell) in Seal mode.
+
+    The intermediate key is generated in such way that only the recipient can recover it.
+    The sender needs to provide their own private key
+    and the public key of the intended recipient.
+    Correspondingly, to get access to the message content,
+    the recipient will need to use their private key
+    along with the public key of the expected sender.
+
+Read more about
+[Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+See [full API reference here](https://docs.rs/themis/latest/themis/secure_message/index.html).
+
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** initialises Secure Message using their private key:
+
+```rust
+use themis::keygen;
+use themis::secure_message::SecureSign;
+
+let (private_key, public_key) = keygen::gen_ec_key_pair().split();
+
+let secure_message = SecureSign::new(private_key);
+```
+
+Messages can be signed using the `sign` method:
+
+```rust
+let message = b"example message";
+
+let signed = secure_message.sign(&message)?;
+```
+
+To verify messages, the **recipient** first has to obtain the sender's public key.
+Secure Message should be initialised with only the public key:
+
+```rust
+use themis::keys::PublicKey;
+use themis::secure_message::SecureVerify;
+
+let peer_public_key = PublicKey::try_from_slice(...)?;
+
+let secure_message = SecureVerify::new(peer_public_key);
+```
+
+Now the receipent may verify messages signed by the sender using the `verify` method:
+
+```rust
+match secure_message.verify(&signed) {
+    Ok(verified) => {
+        // process verified message
+    }
+    Err(error) => {
+        // handle verification failure
+    }
+}
+```
+
+Secure Message will return an error if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
+
+### Encryption mode
+
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
+
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
+
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
+
+**Alice** initialises Secure Message with her private key and Bob's public key:
+
+```rust
+use themis::keys::PublicKey;
+use themis::keygen;
+use themis::secure_message::SecureSign;
+
+let (alice_private_key, alice_public_key) = keygen::gen_ec_key_pair().split();
+let bob_public_key = PublicKey::try_from_slice(...)?; // received securely
+
+let alice_secure_message =
+    SecureMessage::new(alice_private_key, bob_public_key);
+```
+
+Now Alice can encrypt messages for Bob using the `encrypt` method:
+
+```rust
+let message = b"example message";
+
+let encrypted = alice_secure_message.encrypt(message)?;
+```
+
+**Bob** initialises Secure Message with his private key and Alice's public key:
+
+```rust
+let (bob_private_key, bob_public_key) = keygen::gen_ec_key_pair().split();
+let alice_public_key = PublicKey::try_from_slice(...)?; // received securely
+
+let bob_secure_message =
+    SecureMessage::new(bob_private_key, alice_public_key);
+```
+
+With this, Bob is able to decrypt messages received from Alice
+using the `decrypt` method:
+
+```rust
+match secure_message.decrypt(&encrypted) {
+    Ok(decrypted) => {
+        // process decrypted message
+    }
+    Err(error) => {
+        // handle decryption failure
+    }
+}
+```
+
+Bob's Secure Message will return an error
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+## Secure Session
+
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
+
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
+
+Communication over Secure Session consists of two stages:
+
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
+
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
+
+Secure Session supports two operation modes:
+
+  - [**Buffer-aware API**](#buffer-aware-api)
+    in which encrypted messages are handled explicitly, with data buffers you provide.
+  - [**Callback-oriented API**](#callback-oriented-api)
+    in which Secure Session handles buffer allocation implicitly
+    and uses callbacks to notify about incoming messages or request sending outgoing messages.
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+See [full API reference here](https://docs.rs/themis/latest/themis/secure_session/index.html).
+
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/rust`](https://github.com/cossacklabs/themis/tree/master/docs/examples/rust) directory on GitHub.
+There you can find examples of Secure Session setup and usage in all modes.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+{{< hint warning >}}
+**Note:**
+Currently, Secure Session in RustThemis supports only Elliptic Curve keys.
+RSA keys are not supported.
+[Please tell us](mailto:dev@cossacklabs.com)
+if this is a problem for your application.
+{{< /hint >}}
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+It calls the `get_public_key_for_id` method to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
+
+```rust
+use themis::keys::EcdsaPublicKey;
+use themis::secure_session::SecureSessionTransport;
+
+struct SessionCallbacks {
+    // ...
+}
+
+impl SecureSessionTransport for SessionCallbacks {
+    fn get_public_key_for_id(&mut self, id: &[u8]) -> Option<EcdsaPublicKey> {
+        // Retrieve public key for peer "id" from the trusted storage.
+        if !found {
+            return None;
+        }
+        Some(public_key)
+    }
+}
+```
+
+Each peer initialises Secure Session with their ID, their private key,
+and an instance of the callback interface:
+
+```rust
+use themis::keygen;
+use themis::secure_session::SecureSession;
+
+let peer_id = b"Alice";
+let (private_key, public_key) = keygen::gen_ec_key_pair().split();
+let callbacks = SessionCallbacks::new(...);
+
+let mut session = SecureSession::new(peer_id, private_key, callbacks)?;
+```
+
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+#### Transport callbacks
+
+If you wish to use the **callback-oriented API** of Secure Session,
+you have to implement two additional methods of the callback interface:
+
+```rust
+use themis::secure_session::TransportError;
+
+impl SecureSessionTransport for TransportCallbacks {
+    fn send_data(&mut self, data: &[u8]) -> Result<usize, TransportError> {
+        // Send "data" to the peer over the network.
+        // Return an error if that fails.
+        Ok(data.len())
+    }
+
+    fn receive_data(&mut self, data: &mut [u8]) -> Result<usize, TransportError> {
+        // Receive a message for peer into the provided buffer.
+        // Return the actual length of the message, or an error.
+        Ok(used_bytes_of_data)
+    }
+
+    fn get_public_key_for_id(&mut self, id: &[u8]) -> Option<EcdsaPublicKey> {
+        // Retrieve public key for peer "id" from the trusted storage.
+    }
+}
+```
+
+{{< hint warning >}}
+**Warning:**
+In send–receive mode, each Secure Session needs its own instance of transport callback interface.
+The same instance cannot be shared by multiple sessions.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+### Buffer-aware API
+
+[**Buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode)
+is easier to integrate into existing application with established network processing path.
+Here the application handles message buffers explicitly.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
+
+```rust
+let request = session.connect_request()?
+
+send_to_peer(&requst);
+```
+
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
+
+```rust
+loop {
+    let reply = receive_from_peer();
+    let response = session.negotiate_reply(&reply)?;
+    if session.is_established() {
+        break;
+    }
+    send_to_peer(&response);
+}
+```
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+In buffer-aware API, the messages are wrapped into Secure Session protocol and sent separately:
+
+```rust
+let message = b"a message";
+
+let encrypted_message = session.wrap(&message)?;
+
+send_to_peer(&encrypted_message);
+```
+
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
+
+```rust
+let encrypted_message = receive_from_peer();
+
+match session.unwrap(&encrypted_message) {
+    Ok(decrypted_message) => {
+        // process a message
+    }
+    Err(error) => {
+        // handle corrupted messages
+    }
+}
+```
+
+Secure Session ensures message integrity and will return an error
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
+### Callback-oriented API
+
+[**Callback-oriented API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+(aka *send–receive* mode)
+uses Secure Session as a framework for network communication, handling data buffers implicitly.
+It allows for simpler messaging code at an expense of more complex setup code.
+
+{{< hint info >}}
+**Note:**
+Remember to [configure transport callbacks](#transport-callbacks) for Secure Session,
+they are required to use the callback-oriented API.
+{{< /hint >}}
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
+
+```rust
+session.connect()?;
+```
+
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
+
+```rust
+while !session.is_established() {
+    session.negotiate()?;
+}
+```
+
+Note that actual networking happens implicitly, within the Secure Session object
+which calls appropriate transport callbacks to send and receive data over the network.
+
+#### Exchanging messages
+
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Send messages as if the Secure Session were a network socket,
+using the `send` method:
+
+```rust
+let message = b"a message";
+
+session.send(&message)?;
+```
+
+Secure Session encrypts the message, wraps it into the protocol,
+and synchronously calls the `send` transport callback to ship the message out.
+
+The receiving side uses the `receive` method to receive messages:
+
+```rust
+let message = session.receive(MAX_LENGTH)?;
+```
+
+Secure Session synchronously calls the `receive` transport callback
+to wait for the next message, then unwraps and decrypts it,
+and returns already decrypted message to the application.
+
+Secure Session ensures message integrity and will return an erro
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
+
+## Secure Comparator
+
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
+
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
+
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+See [full API reference here](https://docs.rs/themis/latest/themis/secure_comparator/index.html).
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
+
+```rust
 use themis::secure_comparator::SecureComparator;
 
 let mut comparison = SecureComparator::new();
 
-comparison.append_secret(b"999-04-1234")?;
+comparison.append_secret("shared secret")?;
 ```
 
-After that, the client initiates the comparison and runs a loop:
+The client initiates the protocol and sends the message to the server:
 
 ```rust
-let mut request = comparison.begin_compare()?;
+let first_message = comparison.begin_compare()?;
 
-while !comparison.is_complete() {
-    send(&request);         // This function should send the `request` to the server.
-    let reply = receive();  // This function should receive a `reply` from the server.
-
-    request = comparison.proceed_compare(&reply)?;
-}
-
-if !comparison.result()? {
-    unimplemented!("handle failed comparison here");
-}
+send_to_peer(&first_message);
 ```
 
-While the server does almost the same thing:
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back.
+The comparison is complete when the response is empty:
 
 ```rust
 while !comparison.is_complete() {
-    // This function should receive a `request` from the client.
-    let request = receive();
-
-    let reply = comparison.proceed_compare(&request)?;
-
-    send(&reply);   // This function should send the `reply` to the client.
-}
-
-if !comparison.result()? {
-    unimplemented!("handle failed comparison here");
+    let request = receive_from_peer();
+    let response = comparison.proceed_compare(&request)?;
+    if !response.is_empty() {
+        send_to_peer(&response);
+    }
 }
 ```
 
-Both the server and the client use `result` to get the comparison result after it `is_complete`.
+Once the comparison is complete, you can get the results (on each side):
 
-
-## Developing Themis for Rust
-
-Rust-Themis uses standard Cargo tooling
-so developing the library itself is equally easy.
-Check out the latest source code from GitHub:
-
-```
-git clone https://github.com/cossacklabs/themis.git
+```rust
+if comparison.result()? {
+    // shared secrets match
+}
 ```
 
-Then you can go ahead and, for example, build and run the test suite:
-
-```
-cargo test
-```
-
-or build and read the latest API documentation:
-
-```
-cargo doc --open
-```
-
-You can test your application with your local working copy of Themis
-by adding the following override to the application's Cargo.toml file:
-
-```toml
-[patch.crates-io]
-themis = { path = "/path/to/themis/repo" }
-```
-
-We use the following Cargo tools to maintain the quality of the code base:
-
-  - [**rustfmt:**](https://github.com/rust-lang/rustfmt)
-    automated code formatting keeps the code style consistent.
-
-  - [**clippy:**](https://github.com/rust-lang/rust-clippy)
-    static code analyzer detects possible issues early on.
-
-If you wish to help develop and expand Rust-Themis,
-we strongly advise you to install and use these tools.
-
-Please follow the general contribution process
-[outlined in our guide](/pages/documentation-themis/#contributing-contacts-assistance).
+Secure Comparator performs consistency checks on the protocol messages
+and will return an error if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will only return a negative result.
