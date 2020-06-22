@@ -23,7 +23,7 @@ apply for the [Customer Success Program](https://www.cossacklabs.com/services/cu
 
 You may also want to read about the ways
 our [database encryption system **Acra**](https://www.cossacklabs.com/acra/)
-can help you [meet the demands of several GDPR articles at once](https://docs.cossacklabs.com/pages/acra-and-gdpr-compliance/).
+can help you [meet the demands of several GDPR articles at once](/pages/acra-and-gdpr-compliance/).
 
 ## Cryptography regulations
 
