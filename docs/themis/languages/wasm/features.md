@@ -3,13 +3,15 @@ weight: 4
 title:  Features
 ---
 
-# Features of JsThemis
+# Features of WasmThemis
+
+After you have [installed WasmThemis](../installation/),
+it is ready to use in your application!
 
 ## Using Themis
 
-In order to use Themis, you need to import it first.
-
-Add the following lines to your code:
+In order to use WasmThemis,
+you need to import it like this:
 
 ```javascript
 const themis = require('wasm-themis')
@@ -19,31 +21,45 @@ themis.initialized.then(function() {
 })
 ```
 
-> ⚠️ **IMPORTANT:** WebAssembly code is loaded and compiled asynchronously so you have to wait for the `themis.initialized` promise to complete before using any Themis functions. If Themis is called too early, you will see an error message like this:
->
-> ```
-> Assertion failed: you need to wait for the runtime to be ready (e.g. wait for main() to be called)
-> ```
+{{< hint warning >}}
+**Important:**
+WebAssembly code is loaded and compiled asynchronously
+so you have to wait for the `themis.initialized` promise to complete
+before using any Themis functions.
+If Themis is called too early, you will see an error message like this:
 
-### Key generation
+    Assertion failed: you need to wait for the runtime to be ready
+    (e.g. wait for main() to be called)
 
-#### Asymmetric keypair generation
+{{< /hint >}}
+
+## Key generation
+
+### Asymmetric keypairs
 
 Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptography.
 Algorithm type is chosen according to the generated key type.
-Asymmetric keys are necessary for [Secure Message](/pages/secure-message-cryptosystem/) and [Secure Session](/pages/secure-session-cryptosystem/) objects.
+Asymmetric keys are used by [Secure Message](#secure-message)
+and [Secure Session](#secure-session) objects.
 
-For learning purposes, you can play with [Themis Interactive Simulator](/simulator/interactive/) to get the keys and simulate the whole client-server communication.
+For learning purposes,
+you can play with [Themis Interactive Simulator](/docs/themis/debugging/themis-server/)
+to use the keys and simulate the whole client-server communication.
 
-> ⚠️ **WARNING:**
-> When you distribute private keys to your users, make sure the keys are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When using public keys of other peers, make sure they come from trusted sources
+to prevent Man-in-the-Middle attacks.
 
-> **NOTE:** When using public keys of other peers, make sure they come from trusted sources.
+When handling private keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate asymmetric keypairs, use:
 
 ```javascript
+const themis = require('wasm-themis')
+
 let keypair = new themis.KeyPair()
 
 // Keys are Uint8Arrays
@@ -51,559 +67,665 @@ let privateKey = keypair.privateKey
 let publicKey = keypair.publicKey
 ```
 
-#### Symmetric key generation
+### Symmetric keys
 
 Themis uses highly efficient and secure AES algorithm for symmetric cryptography.
-A symmetric key is necessary for [Secure Cell](/pages/secure-cell-cryptosystem/) objects.
+A symmetric key is necessary for [Secure Cell](#secure-cell) objects.
 
-> **NOTE:** Symmetric key generation API will become available for WasmThemis starting with Themis 0.13.0. For now, use common sense or consult [the wisdom of the Internet](https://stackoverflow.com/search?q=generate+cryptographically+secure+keys).
-
-<!--
-> ⚠️ **WARNING:**
-> When you store generated keys, make sure they are sufficiently protected.
-> You can find the guidelines [here](/pages/documentation-themis/#key-management).
+{{< hint warning >}}
+**Warning:**
+When handling symmetric keys of your users, make sure the keys are sufficiently protected.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
 To generate symmetric keys, use:
 
 ```javascript
+const themis = require('wasm-themis')
+
 // Keys are Uint8Arrays
 let masterKey = new themis.SymmetricKey()
 ```
--->
 
-### Secure Message
+## Secure Cell
 
-The Secure Message functions provide a sequence-independent, stateless, contextless messaging system. This may be preferred in cases that don't require frequent sequential message exchange and/or in low-bandwidth contexts. This is secure enough to exchange messages from time to time, but if you'd like to have Perfect Forward Secrecy and higher security guarantees, consider using [Secure Session](/pages/secure-session-cryptosystem/) instead.
-
-The Secure Message functions offer two modes of operation:
-
-In **Sign/Verify** mode, the message is signed using the sender's private key and is verified by the receiver using the sender's public key. The message is packed in a suitable container and ECDSA is used by default to sign the message (when RSA key is used, RSA+PSS+PKCS#7 digital signature is used).
-
-In **Encrypt/Decrypt** mode, the message will be encrypted with a randomly generated key (in RSA) or a key derived by ECDH (in ECDSA), via symmetric algorithm with Secure Cell in seal mode (keys are 256 bits long).
-
-The mode is selected at construction time. _SecureMessage_ objects provide `encrypt` and `decrypt` methods for encrypt/decrypt mode. A valid public key of the receiver and a private key of the sender are required in this mode. For sign/verify mode _SecureMessageSign_ and _SecureMessageVerify_ objects provide `sign` and `verify` methods respectively. They only require a private key for signing and a public key for verification.
-
-Read more about the Secure Message's cryptographic internals [here](/pages/secure-message-cryptosystem/).
-
-#### Secure Message interface
-
-##### Encrypt/Decrypt mode
-
-```javascript
-class SecureMessage {
-    constructor(keyPair)
-    constructor(privateKey, publicKey)
-    encrypt(message)
-    decrypt(message)
-}
-```
-
-_Description_:
-
-- `new themis.SecureMessage(keyPair)`<br/>
-  Create a new Secure Message with **keyPair** holding your private key and public key of the peer.<br/>
-  Raises **ThemisError** on failure.
-
-- `new themis.SecureMessage(privateKey, publicKey)`<br/>
-  Create a new Secure Message with your **privateKey** and **publicKey** of the peer separately.<br/>
-  Raises **ThemisError** on failure.
-
-- `encrypt(message)`<br/>
-  Encrypt **message**, return encrypted Secure Message container as _Uint8Array_.<br/>  Raises **ThemisError** on failure.
-
-- `decrypt(message)`<br/>
-  Decrypt **message**, return decrypted original message as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
-
-##### Sign/Verify mode
-
-```javascript
-class SecureMessageSign {
-    constructor(privateKey)
-    sign(message)
-}
-class SecureMessageVerify {
-    constructor(publicKey)
-    verify(message)
-}
-```
-
-_Description_:
-
-- `new themis.SecureMessageSign(privateKey)`<br/>
-  Create a new Secure Message for signing with your **privateKey**.<br/>
-  Raises **ThemisError** on failure.
-
-- `sign(message)`<br/>
-  Sign **message**, return signed Secure Message container as _Uint8Array_.<br/>
-  Raises **Error** on failure.
-
-- `new themis.SecureMessageVerify(publicKey)`<br/>
-  Create a new Secure Message for verifying with **publicKey** of the peer.<br/>
-  Raises **ThemisError** on failure.
-
-- `verify(message)`<br/>
-  Verify **message** signature, return _Uint8Array_ with original message.<br/>
-  Raises **ThemisError** on failure.
-
-#### Example
-
-##### Encrypt/Decrypt mode
-
-Initialise encrypter and decypter:
-
-```javascript
-let smessage_alice = new themis.SecureMessage(alice.privateKey, bob.publicKey)
-
-let smessage_bob = new themis.SecureMessage(bob.privateKey, alice.publicKey)
-```
-
-Always make sure that you use keys from the same keypair.
-For decryption, you need to use a private key matching the public one used for encryption.
-
-Encrypt message:
-
-```javascript
-try {
-    let encryptedMessage = smessage_alice.encrypt(message)
-} catch (error) {
-    // See error.message for a human-readable text message
-    // and error.code for integer code like themis.ThemisErrorCode.FAIL
-}
-```
-
-Decrypt message:
-
-```javascript
-try {
-    let message = smessage_bob.decrypt(encryptedMessage)
-} catch (error) {
-    // See error.message for a human-readable text message
-    // and error.code for integer code like themis.ThemisErrorCode.FAIL
-}
-```
-
-##### Sign/Verify mode
-
-Initialise signer and verifier:
-
-```javascript
-let smessage_sign = new themis.SecureMessageSign(alice.privateKey)
-
-let smessage_verify = new themis.SecureMessageVerify(alice.publicKey)
-```
-
-Always make sure that you use keys from the same keypair. You need to use a matching public key to verify messages signed by the private key.
-
-Sign message:
-
-```javascript
-try {
-    let signedMessage = smessage_sign.sign(message)
-} catch (error) {
-    // See error.message for a human-readable text message
-    // and error.code for integer code like themis.ThemisErrorCode.FAIL
-}
-```
-
-Verify message:
-
-```javascript
-try {
-    let message = smessage_verify.verify(signedMessage)
-} catch (error) {
-    // See error.message for a human-readable text message
-    // and error.code for integer code like themis.ThemisErrorCode.INVALID_SIGNATURE
-}
-```
-
-### Secure Cell
-
-The **Secure Сell** functions provide the means of protection for arbitrary data contained in stores, i.e. database records or filesystem files. These functions provide both strong symmetric encryption and data authentication mechanisms.
+[**Secure Сell**](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+is a high-level cryptographic container
+aimed at protecting arbitrary data stored in various types of storage
+(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+It provides both strong symmetric encryption and data authentication mechanism.
 
 The general approach is that given:
 
-- _input_: some source data to protect,
-- _key_: secret byte array,
-- _context_: plus an optional “context information”,
+  - _input:_ some source data to protect
+  - _secret:_ symmetric key or a password
+  - _context:_ and an optional “context information”
 
-Secure Cell functions will produce:
+Secure Cell will produce:
 
-- _cell_: the encrypted data,
-- _authentication tag_: some authentication data.
+  - _cell:_ the encrypted data
+  - _authentication token:_ some authentication data
 
-The purpose of the optional “context information” (i.e. a database row number or file name) is to establish a secure association between this context and the protected data. In short, even when the secret is known, if the context is incorrect, the decryption will fail.
+The purpose of the optional context information
+(e.g., a database row number or file name)
+is to establish a secure association between this context and the protected data.
+In short, even when the secret is known, if the context is incorrect then decryption will fail.
 
-The purpose of the authentication data is to verify that given a correct key (and context), the decrypted data is indeed the same as the original source data.
+The purpose of the authentication data is to validate
+that given a correct key or passphrase (and context),
+the decrypted data is indeed the same as the original source data,
+and the encrypted data has not been modified.
 
-The authentication data must be stored somewhere. The most convenient way is to simply append it to the encrypted data, but this is not always possible due to the storage architecture of an application. The Secure Cell functions offer different variants that address this issue.
+The authentication data must be stored somewhere.
+The most convenient way is to simply append it to the encrypted data,
+but this is not always possible due to the storage architecture of your application.
+Secure Cell offers variants that address this issue in different ways.
 
-By default, the Secure Cell uses the AES-256 encryption algorithm. The generated authentication data is 16 bytes long.
+By default, Secure Cell uses AES-256 for encryption.
+Authentication data takes additional 44 bytes when symmetric keys are used
+and 70 bytes in case the data is secured with a passphrase.
 
-Secure Cell is available in 3 modes:
+Secure Cell supports 2 kinds of secrets:
 
-- **[Seal mode](/pages/secure-cell-cryptosystem/#seal-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Token protect mode](/pages/secure-cell-cryptosystem/#token-protect-mode)**: the most secure and user-friendly mode. Your best choice most of the time.
-- **[Context imprint mode](/pages/secure-cell-cryptosystem/#context-imprint-mode)**: length-preserving version of Secure Cell with no additional data stored. Should be used with care and caution.
+  - **Symmetric keys** are convenient to store and efficient to use for machines.
+    However, they are relatively long and hard for humans to remember.
 
-You can learn more about the underlying considerations, limitations, and features [here](/pages/secure-cell-cryptosystem/).
+  - **Passphrases**, in contrast, can be shorter and easier to remember.
 
-#### Secure Cell interface
+    However, passphrases are typically much less random than keys.
+    Secure Cell uses a [_key derivation function_][KDF] (KDF) to compensate for that
+    and achieves security comparable to keys with shorter passphrases.
+    This comes at a significant performance cost though.
 
-##### Seal mode
+    [KDF]: /docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
+
+Secure Cell supports 3 operation modes:
+
+  - **[Seal mode](#seal-mode)** is the most secure and easy to use.
+    Your best choice most of the time.
+    This is also the only mode that supports passphrases at the moment.
+
+  - **[Token Protect mode](#token-protect-mode)** is just as secure, but a bit harder to use.
+    This is your choice if you need to keep authentication data separate.
+
+  - **[Context Imprint mode](#context-imprint-mode)** is a length-preserving version of Secure Cell
+    with no additional data stored. Should be used carefully.
+
+Read more about
+[Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Seal mode
+
+[**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+is the most secure and easy to use mode of Secure Cell.
+This should be your default choice unless you need specific features of the other modes.
+
+<!-- See API reference here. -->
+
+Initialise a Secure Cell with a secret of your choice to start using it.
+Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
+
+{{< hint info >}}
+Each secret type has its pros and cons.
+Read about [Key derivation functions](/docs/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+{{< /hint >}}
 
 ```javascript
-class SecureCellSeal {
-    constructor(masterKey)
-    encrypt(message)
-    encrypt(message, context)
-    decrypt(message)
-    decrypt(message, context)
+const themis = require('wasm-themis')
+
+let symmetricKey = new themis.SymmetricKey()
+let cell = themis.SecureCellSeal.withKey(symmetricKey)
+
+// OR
+
+let cell = themis.SecureCellSeal.withPassphrase('a password')
+```
+
+Now you can encrypt your data using the `encrypt` method:
+
+```javascript
+let plaintext = Uint8Array(...)
+let context = Uint8Array(...)
+
+let encrypted = cell.encrypt(plaintext, context)
+```
+
+The _associated context_ argument is optional and can be omitted.
+
+Seal mode produces encrypted cells that are slightly bigger than the input:
+
+```javascript
+assert(encrypted.length > plaintext.length)
+```
+
+You can decrypt the data back using the `decrypt` method:
+
+```javascript
+try {
+    let decrypted = cell.decrypt(encrypted, context)
+    // process decrypted data
+}
+catch (error) {
+    // handle decryption failure
 }
 ```
 
-_Description_:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
 
-- `new themis.SecureCellSeal(masterKey)`<br/>
-  Create a Secure Cell in _seal mode_ with **masterKey** (a non-empty _Uint8Array_).<br/>
-  Raises **ThemisError** on failure.
+### Token Protect mode
 
-- `encrypt(message)`, `encrypt(message, context)`<br/>
-  Encrypt **message** with additional **context** (optional argument).<br/>
-  Returns encrypted message as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
+[**Token Protect mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+should be used if you cannot allow the length of the encrypted data to grow
+but have additional storage available elsewhere for the authentication token.
+Other than that,
+Token Protect mode has the same security properties as the Seal mode.
 
-- `decrypt(message)`, `decrypt(message, context)`<br/>
-  Decrypt **message** with additional **context** (optional argument).<br/>
-  Returns original message as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
+<!-- See API reference here. -->
 
-##### Tokan Protect mode
+Initialise a Secure Cell with a secret of your choice to start using it.
+Token Protect mode supports only [symmetric keys](#symmetric-keys).
 
 ```javascript
-class SecureCellTokenProtect {
-    constructor(masterKey)
-    encrypt(message)
-    encrypt(message, context)
-    decrypt(message, token)
-    decrypt(message, token, context)
+const themis = require('wasm-themis')
+
+let symmetricKey = new themis.SymmetricKey()
+
+let cell = themis.SecureCellTokenProtect.withKey(symmetricKey)
+```
+
+Now you can encrypt the data using the `encrypt` method:
+
+```javascript
+let plaintext = Uint8Array(...)
+let context = Uint8Array(...)
+
+let result = cell.encrypt(plaintext, context)
+let encrypted = result.data
+let token = result.token
+```
+
+The _associated context_ argument is optional and can be omitted.
+
+Token Protect mode produces encrypted text and authentication token separately.
+Encrypted data has the same size as the input:
+
+```javascript
+assert(encrypted.length == plaintext.length)
+```
+
+You need to save both the encrypted data and the token, they are necessary for decryption.
+Use the `decrypt` method for that:
+
+```javascript
+try {
+    let decrypted = cell.decrypt(encrypted, token, context)
+    // process decrypted data
+}
+catch (error) {
+    // handle decryption failure
 }
 ```
 
-_Description_:
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect
+or if the data or the authentication token was corrupted.
 
-- `new themis.SecureCellTokenProtect(masterKey)`<br/>
-  Create a Secure Cell in _token-protect mode_ with **masterKey** (a non-empty _Uint8Array_).<br/>
-  Raises **ThemisError** on failure.
+### Context Imprint mode
 
-- `encrypt(message)`, `encrypt(message, context)`<br/>
-  Encrypt **message** with additional **context** (optional argument).<br/>
-  Returns an object with two _Uint8Array_ fields: encrypted message (`data`) and authentication token (`token`).<br/>
-  Raises **ThemisError** on failure.
+[**Context Imprint mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+should be used if you absolutely cannot allow the length of the encrypted data to grow.
+This mode is a bit harder to use than the Seal and Token Protect modes.
+Context Imprint mode also provides slightly weaker integrity guarantees.
 
-- `decrypt(message, token)`, `decrypt(message, token, context)`<br/>
-  Decrypt **message** with **token** and additional **context** (optional argument).<br/>
-  Returns original message as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
+<!-- See API reference here. -->
 
-##### Context Imprint mode
+Initialise a Secure Cell with a secret of your choice to start using it.
+Context Imprint mode supports only [symmetric keys](#symmetric-keys).
 
 ```javascript
-class SecureCellContextImprint {
-    constructor(masterKey)
-    encrypt(message, context)
-    decrypt(message, context)
+const themis = require('wasm-themis')
+
+let symmetricKey = new themis.SymmetricKey()
+
+let cell = themis.SecureCellContextImprint.withKey(symmetricKey)
+```
+
+Now you can encrypt the data using the `encrypt` method:
+
+```javascript
+let plaintext = Uint8Array(...)
+let context = Uint8Array(...)
+
+let encrypted = cell.encrypt(plaintext, context)
+```
+
+{{< hint info >}}
+**Note:**
+Context Imprint mode **requires** associated context for encryption and decryption.
+For the highest level of security, use a different context for each data piece.
+{{< /hint >}}
+
+Context Imprint mode produces encrypted text of the same size as the input:
+
+```javascript
+assert(encrypted.length == plaintext.length)
+```
+
+You can decrypt the data back using the `decrypt` method:
+
+```javascript
+let decrypted = cell.decrypt(encrypted, context)
+if (looksCorrect(decrypted)) {
+    // process decrypted data
 }
 ```
 
-_Description_:
+{{< hint warning >}}
+**Warning:**
+In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
+If an incorrect secret or context is used, or if the data has been corrupted,
+Secure Cell will return garbage output without throwing an exception.
+{{< /hint >}}
 
-- `new themis.SecureCellSeal(masterKey)`<br/>
-  Create a Secure Cell in _context-imprint mode_ with **masterKey** (a non-empty _Uint8Array_).<br/>
-  Raises **ThemisError** on failure.
+Make sure to initialise the Secure Cell with the same secret
+and provide the same associated context as used for encryption.
+You should also do some sanity checks after decryption.
 
-- `encrypt(message, context)`<br/>
-  Encrypt **message** with mandatory **context** argument.<br/>
-  Returns encrypted message as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
+## Secure Message
 
-- `decrypt(message, context)`<br/>
-  Decrypt **message** with mandatory **context** argument.<br/>
-  Returns original message as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
+[**Secure Message**](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+is a lightweight container
+that can help deliver some message or data to your peer in a secure manner.
+It provides a sequence-independent, stateless, contextless messaging system.
+This may be preferred in cases that don't require frequent sequential message exchange
+and/or in low-bandwidth contexts.
 
-#### Examples
+Secure Message is secure enough to exchange messages from time to time,
+but if you'd like to have [_perfect forward secrecy_](https://en.wikipedia.org/wiki/Forward_secrecy)
+and higher security guarantees,
+consider using [Secure Session](#secure-session) instead.
 
-Secure Cell seal mode
+Secure Message offers two modes of operation:
+
+  - In [**Sign–Verify mode**](#signature-mode),
+    the message is signed by the sender using their private key,
+    then it is verified by the recipient using the sender's public key.
+
+    The message is packed in a suitable container and signed with an appropriate algorithm,
+    based on the provided keypair type.
+    Note that the message is _not encrypted_ in this mode.
+
+  - In [**Encrypt–Decrypt mode**](#encryption-mode),
+    the message will be additionally encrypted
+    with an intermediate symmetric key using [Secure Cell](#secure-cell) in Seal mode.
+
+    The intermediate key is generated in such way that only the recipient can recover it.
+    The sender needs to provide their own private key
+    and the public key of the intended recipient.
+    Correspondingly, to get access to the message content,
+    the recipient will need to use their private key
+    along with the public key of the expected sender.
+
+Read more about
+[Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+to understand better the underlying considerations, limitations, and features of each mode.
+
+### Signature mode
+
+[**Signature mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+only adds cryptographic signatures over the messages,
+enough for anyone to authenticate them and prevent tampering
+but without additional confidentiality guarantees.
+
+To begin, the sender needs to generate an [asymmetric keypair](#asymmetric-keypairs).
+The private key stays with the sender and the public key should be published.
+Any recipient with the public key will be able to verify messages
+signed by the sender which owns the corresponding private key.
+
+The **sender** initialises Secure Message using their private key:
 
 ```javascript
-let base64Key = 'eGJIVlBFRmdHck04Z0tsdmxpTEtJbTA0cWs1MGk1WUQK'
-let masterKey = Base64ToUint8Array(base64Key)
+const themis = require('wasm-themis')
 
-let scell = new themis.SecureCellSeal(masterKey)
+let keyPair = new themis.KeyPair()
 
-let encrypted_message = scell.encrypt(message, context)
-let decrypted_message = scell.decrypt(encrypted_message, context)
+let secureMessage = new themis.SecureMessageSign(keyPair.privateKey)
 ```
 
-Secure Cell token-protect mode:
+Messages can be signed using the `sign` method:
 
 ```javascript
-let scell = new themis.SecureCellTokenProtect(masterKey)
+let message = Uint8Array(...)
 
-let encrypted = scell.encrypt(message, context)
-let encrypted_message = encrypted.data
-let encrypted_token = encrypted.token
-
-let decrypted_message = scell.decrypt(encrypted.data, encrypted.token, context)
+let signedMessage = secureMessage.sign(message)
 ```
 
-Secure Cell context-imprint mode:
+To verify messages, the **recipient** first has to obtain the sender's public key.
+The public key is used to initialise Secure Message for verification:
 
 ```javascript
-let scell = new themis.SecureCellContextImprint(masterKey)
+let peerPublicKey = Uint8Array(...)
 
-// "context" is mandatory for context-imprint mode
-let encrypted_message = scell.encrypt(message, context)
-let decrypted_message = scell.decrypt(encrypted_message, context)
+let secureMessage = new themis.SecureMessageVerify(peerPublicKey)
 ```
 
-### Secure Session
-
-Secure Session is a sequence- and session- dependent, stateful messaging system. It is suitable for protecting long-lived peer-to-peer message exchanges where the secure data exchange is tied to a specific session context.
-
-Secure Session operates in two stages:
-
-* **session negotiation** where the keys are established and cryptographic material is exchanged to generate ephemeral keys,
-* and **data exchange** where exchanging of messages can be carried out between peers.
-
-You can read a more detailed description of the process [here](/pages/secure-session-cryptosystem/).
-
-Put simply, Secure Session takes the following form:
-
-- Both clients and server construct a Secure Session object, providing:
-    - an arbitrary identifier,
-    - a private key, and
-    - a callback function that enables it to acquire the public key of the peers with which they may establish communication.
-- A client will generate a "connect request" and by whatever means it will dispatch that to the server.
-- A server will enter a negotiation phase in response to a client's "connect request".
-- Clients and servers will exchange messages until a "connection" is established.
-- Once a connection is established, clients and servers may exchange secure messages according to whatever application-level protocol was chosen.
-
-#### Secure Session interface
+Now the receipent may verify messages signed by the sender using the `verify` method:
 
 ```javascript
-class SecureSession {
-    constructor(sessionID, privateKey, keyCallback)
-    destroy()
-    established()
-    connectionRequest()
-    negotiateReply(message)
-    wrap(message)
-    unwrap(message)
+try {
+    let verifiedMessage = secureMessage.verify(signedMessage)
+    // process verified data
+}
+catch (error) {
+    // handle verification failure
 }
 ```
 
-_Description_:
+Secure Message will throw an exception if the message has been modified since the sender signed it,
+or if the message has been signed by someone else, not the expected sender.
 
-- `new themis.SecureSession(sessionID, privateKey, keyCallback)`<br/>
-  Create Secure Session with **sessionID**, **privateKey** and a **keyCallback**.<br/>
-  The callback is `function(peerID)` that gets a _Uint8Array_ with remote session ID and should return either the _PublicKey_ of the peer, or `null` if the peer is unknown.<br/>
-  Raises **ThemisError** on failure.
+### Encryption mode
 
-- `destroy()`<br/>
-  Destroy Secure Session and deallocate resources used by it.<br/>
-  You _must_ call this method when Secure Session is no longer needed.
+[**Encryption mode**](/docs/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+not only certifies the integrity and authenticity of the message,
+it also guarantees its confidentialty.
+That is, only the intended recipient is able to read the encrypted message,
+as well as to verify that it has been signed by the expected sender and arrived intact.
 
-- `established()`<br/>
-  Returns `true` if the connection has been established and messages can be exchanged.
+For this mode, both the sender and the recipient—let's call them
+Alice and Bob—each need to generate an [asymmetric keypair](#symmetric-keypairs) of their own,
+and then send their public keys to the other party.
 
-- `connectionRequest()`<br/>
-  Initiate connection. This is the first method to be called by the client. Send result to the server.<br/>
-  Returns _Uint8Array_ with connection initialisation message.<br/>
-  Raises **ThemisError** on failure.
+{{< hint info >}}
+**Note:**
+Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle attacks.
+You can find [key management guidelines here](/docs/themis/crypto-theory/key-management/).
+{{< /hint >}}
 
-- `negotiateReply(message)`<br/>
-  Process connection initialisation or negotiation message. Send result to the peer if `established()` returns `false`.<br/>
-  Returns _Uint8Array_ with connection negotation message.<br/>
-  Raises **ThemisError** on failure.
-
-- `wrap(message)`<br/>
-  Encrypts **message** and returns a _Uint8Array_ with encrypted message.<br/>
-  Raises **ThemisError** on failure.
-
-- `unwrap(message)`<br/>
-  Decrypts encrypted **message** and returns the original one as _Uint8Array_.<br/>
-  Raises **ThemisError** on failure.
-
-#### Secure Session workflow
-
-Secure Session has two parties called "client" and "server" for the sake of simplicity, but they could be more precisely called "initiator" and "acceptor" — the only difference between them is in who starts the communication.
-
-Secure Session relies on a callback functions to retrieve the keys from local storage (see more in [Secure Session cryptosystem description](/pages/secure-session-cryptosystem/)).
-
-#### Secure Session client
-
-First you need to prepare a session:
+**Alice** initialises Secure Message with her private key and Bob's public key:
 
 ```javascript
-let clientSession = new themis.SecureSession(clientID, clientPrivateKey,
+const themis = require('wasm-themis')
+
+let aliceKeyPair = new themis.KeyPair()
+let bobPublicKey = Uint8Array(...) // received securely
+
+let aliceSecureMessage = new themis.SecureMessage(aliceKeyPair.privateKey,
+                                                  bobPublicKey)
+```
+
+Now Alice can encrypt messages for Bob using the `encrypt` method:
+
+```javascript
+let message = Uint8Array(...)
+
+let encryptedMessage = aliceSecureMessage.encrypt(message)
+```
+
+**Bob** initialises Secure Message with his private key and Alice's public key:
+
+```javascript
+let bobKeyPair = new themis.KeyPair()
+let alicePublicKey = Uint8Array(...) // received securely
+
+let bobSecureMessage = new themis.SecureMessage(bobKeyPair.privateKey,
+                                                alicePublicKey)
+```
+
+With this, Bob is able to decrypt messages received from Alice
+using the `decrypt` method:
+
+```javascript
+try {
+    let decryptedMessage = bobSecureMessage.decrypt(encryptedMessage)
+    // process decryped data
+}
+catch (error) {
+    // handle decryption failure
+}
+```
+
+Bob's Secure Message will throw an exception
+if the message has been modified since Alice encrypted it;
+or if the message was encrypted by Carol, not by Alice;
+or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+## Secure Session
+
+[**Secure Session**](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+is a lightweight protocol for securing any kind of network communication,
+on both private and public networks, including the Internet.
+It operates on the 5th layer of the network OSI model (the session layer).
+
+Secure Session provides a stateful, sequence-dependent messaging system.
+This approach is suitable for protecting long-lived peer-to-peer message exchanges
+where the secure data exchange is tied to a specific session context.
+
+Communication over Secure Session consists of two stages:
+
+  - **Session negotiation** (key agreement),
+    during which the peers exchange their cryptographic material and authenticate each other.
+    After a successful mutual authentication,
+    each peer derives a session-shared secret and other auxiliary data
+    (session ID, sequence numbers, etc.)
+
+  - **Actual data exchange**,
+    when the peers securely exchange data provided by higher-layer application protocols.
+
+Secure Session supports two operation modes:
+
+  - [**Buffer-aware API**](#buffer-aware-api)
+    in which encrypted messages are handled explicitly, with data buffers you provide.
+  - [**Callback-oriented API**](#callback-oriented-api)
+    in which Secure Session handles buffer allocation implicitly
+    and uses callbacks to notify about incoming messages or request sending outgoing messages.
+
+Read more about
+[Secure Session cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-session/)
+to understand better the underlying considerations,
+get an overview of the protocol and its features,
+etc.
+
+### Setting up Secure Session
+
+Secure Session has two parties called “client” and “server” for the sake of simplicity,
+but they could be more precisely called “initiator” and “acceptor” –
+the only difference between the two is in who starts the communication.
+After the session is established, either party can send messages to their peer whenever it wishes to.
+
+{{< hint info >}}
+Take a look at code samples in the [`docs/examples/js`](https://github.com/cossacklabs/themis/tree/master/docs/examples/js) directory on GitHub.
+There you can find examples of Secure Session setup and usage.
+{{< /hint >}}
+
+First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
+and exchange their public keys.
+The private keys should never be shared with anyone else.
+
+Each party should also choose a unique *peer ID* –
+arbitrary byte sequence identifying their public key.
+Read more about peer IDs in [Secure Session cryptosystem overview](/docs/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+The peer IDs need to be exchanged along with the public keys.
+
+To identify peers, Secure Session uses a **callback interface**.
+This is just a callable function used to locate a public key associated with presented peer ID.
+Typically, each peer keeps some sort of a database of known public keys
+and fulfills Secure Session requests from that database.
+
+Each peer initialises Secure Session with their ID, their private key,
+and an appropriate key callback:
+
+```javascript
+const themis = require('wasm-themis')
+
+let peerID = Uint8Array(...)
+let privateKey = Uint8Array(...)
+
+let session = new themis.SecureSession(peerID, privateKey,
     function(peerID) {
         // Get public key for the specified ID from local storage,
         // read it from file, etc.
         if (!found) {
-            return null
+              return null
         }
-        return serverPublicKey
+        return publicKey
     })
+```
 
-var request = clientSession.connectionRequest()
-while (!clientSession.established()) {
-    // Send "request" to the server, receive "reply"
-    request = clientSession.negotiateReply(reply)
+{{< hint info >}}
+**Note:**
+The same callback interface may be shared by multiple Secure Session instances,
+provided it is correctly synchronised.
+Read more about [thread safety of Secure Session](/docs/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
+{{< /hint >}}
+
+### Using Secure Session
+
+WasmThemis supports only
+[**buffer-aware API**](/docs/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+(aka *wrap–unwrap* mode).
+It is easy to integrate into existing applications with established network processing path.
+
+#### Establishing connection
+
+The client initiates the connection and sends the first request to the server:
+
+```javascript
+let request = clientSession.connectionRequest()
+
+sendToServer(request)
+```
+
+Then both parties communicate to negotiate the keys and other details
+until the connection is established:
+
+```javascript
+while (!session.established()) {
+    let request = receiveFromPeer()
+    let reply = session.negotiateReply(request)
+    sendToPeer(reply)
 }
 ```
 
-After the loop finishes, Secure Session is established and is ready to be used.
+#### Exchanging messages
 
-To encrypt the outgoing message, use:
+After the session is established,
+the parties can proceed with actual message exchange.
+At this point the client and the server are equal peers –
+they can both send and receive messages independently, in a duplex manner.
+
+Wrap the messages into Secure Session protocol and send them:
 
 ```javascript
-var encryptedMessage = clientSession.wrap(message)
-// Send "encryptedMessage" to the server
+let message = Uint8Array(...)
+
+let encryptedMessage = session.wrap(message)
+
+sendToPeer(encryptedMessage)
 ```
 
-To decrypt the received message, use:
+You can wrap multiple messages before sending them out.
+Encrypted messages are independent.
+
+{{< hint info >}}
+**Note:**
+Secure Session allows occasional message loss,
+slight degree of out-of-order delivery, and some duplication.
+However, it is still a sequence-dependent protocol.
+Do your best to avoid interrupting the message stream.
+{{< /hint >}}
+
+After receiving an encrypted message, you need to unwrap it:
 
 ```javascript
-// Receive "encryptedMessage" from the server
-var message = clientSession.unwrap(encryptedMessage)
-```
+let encryptedMessage = receiveFromPeer()
 
-#### Secure Session server
-
-First you need to prepare a session:
-
-```javascript
-let serverSession = new themis.SecureSession(serverID, serverPrivateKey,
-    function(peerID) {
-        // Get public key for the specified ID from local storage,
-        // read it from file, etc.
-        if (!found) {
-            return null
-        }
-        return clientPublicKey
-    })
-
-while (!serverSession.established()) {
-    // Receive "request" from the client
-    reply = serverSession.negotiateReply(request)
-    // Send "reply" to the client
+try {
+    let decryptedMessage = session.unwrap(encryptedMessage)
+    // process a message
+}
+catch (error) {
+    // handle corrupted messages
 }
 ```
 
-Secure Session is ready. See the full example available in [docs/examples/js](https://github.com/cossacklabs/themis/tree/master/docs/examples/js)
+Secure Session ensures message integrity and will throw an exception
+if the message has been modified in-flight.
+It will also detect and report protocol anomalies,
+such as unexpected messages, outdated messages, etc.
 
-### Secure Comparator
+## Secure Comparator
 
-Secure Comparator is an interactive protocol for two parties that compares whether they share the same secret or not. It is built around a [Zero Knowledge Proof](https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html)-based protocol ([Socialist Millionaire's Protocol](https://en.wikipedia.org/wiki/Socialist_millionaires)), with a number of [security enhancements](https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf).
+[**Secure Comparator**](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+is an interactive protocol for two parties that compares whether they share the same secret or not.
+It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
+([Socialist Millionaire's Protocol][SMP]),
+with a number of [security enhancements][paper].
 
-Secure Comparator is transport-agnostic and only requires the user(s) to pass messages in a certain sequence. The protocol itself is ingrained into the functions and requires minimal integration efforts from the developer.
+[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
+[paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
 
-#### Secure Comparator interface
+Secure Comparator is transport-agnostic.
+That is, the implementation handles all intricacies of the protocol,
+but the application has to supply networking capabilities to exchange the messages.
+
+Read more about
+[Secure Comparator cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+to understand better the underlying considerations,
+get an overview of the protocol, etc.
+
+### Comparing secrets
+
+Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
+but the only difference between the two is in who initiates the comparison.
+
+Both parties start by initialising Secure Comparator with the secret they need to compare:
 
 ```javascript
-class SecureComparator {
-    constructor(sharedSecret...)
-    destroy()
-    append(secret)
-    begin()
-    proceed(request)
-    complete()
-    compareEqual()
+const themis = require('wasm-themis')
+
+let sharedSecret = Uint8Array(...)
+
+let comparison = new themis.SecureComparator(sharedSecret)
+```
+
+The client initiates the protocol and sends the message to the server:
+
+```javascript
+let message = comparison.begin()
+
+sendToPeer(message)
+```
+
+Now, each peer waits for a message from the other one,
+passes it to Secure Comparator, and gets a response that needs to be sent back.
+This should repeat until the comparison is complete:
+
+```javascript
+for (;;) {
+    let request = receiveFromPeer()
+    let reply = comparison.proceed(request)
+    if (comparison.complete()) {
+        break
+    }
+    sentToPeer(reply)
 }
 ```
 
-_Description_:
-
-- `new themis.SecureComparator(sharedSecret...)`<br/>
-  Prepare a new secure comparison of **sharedSecrets** which are _Uint8Arrays_ of data to compare.<br/>
-  Specifying multiple secrets is the same as calling `append()` for them sequentially.<br/>
-  You _must_ provide at least one byte of data to be compared.<br/>
-  Raises **ThemisError** on failure.
-
-- `destroy()`<br/>
-  Destroy Secure Comparator and deallocate resources used by it.<br/>
-  You _must_ call this method when Secure Comparator is no longer needed.
-
-- `append(secret)`<br/>
-  Append more **secret** data to be compared before you begin the comparison.<br/>
-  Raises **ThemisError** on failure.
-
-- `begin()`<br/>
-  Return a _Uint8Array_ with initial client message. Send it to the server.<br/>
-  Raises **ThemisError** on failure.
-
-- `proceed(request)`<br/>
-  Process **request** and return a _Uint8Array_ with reply. Send it to the peer.<br/>
-  Raises **ThemisError** on failure.
-
-- `complete()`<br/>
-  Returns `true` if the comparison is complete.
-
-- `compareEqual()`<br/>
-  Returns boolean result of the comparison.<br/>
-  Raises **ThemisError** is the comparison is not complete.
-
-#### Secure Comparator workflow
-
-Secure Comparator has two parties — called "client" and "server" — the only difference between them is in who starts the comparison.
-
-#### Secure Comparator client
+Once the comparison is complete, you can get the results (on each side):
 
 ```javascript
-let clientComparison = new themis.SecureComparator(new Buffer("shared secret"))
-
-// Client initiates comparison
-var request = clientComparison.begin()
-while (!clientComparison.complete()) {
-    // Send "request" to server and receive "reply"
-    request = clientComparison.proceed(reply)
+if (comparison.compareEqual()) {
+    // secret equal
 }
 ```
 
-After the loop finishes, the comparison is over and you can check if the secrets `compareEqual()`:
-
-```javascript
-if (clientComparison.compareEqual()) {
-    // secrets match
-} else {
-    // secrets don't match
-}
-```
-
-#### Secure Comparator server
-
-The server part can be described in any language, but let's pretend here that both client and server are using JavaScript.
-
-```javascript
-let serverComparison = new themis.SecureComparator(new Buffer("shared secret"))
-
-while (!serverComparison.complete()) {
-    // Receive "request" from the client
-    reply = serverComparison.proceed(request)
-    // Send "reply" to the client
-}
-```
-
-After the loop finishes, the comparison is over and you can check if the secrets `compareEqual()`:
-
-```javascript
-if (serverComparison.compareEqual()) {
-    // secrets match
-} else {
-    // secrets don't match
-}
-```
-
-This is it. See the full examples in [docs/examples/js](https://github.com/cossacklabs/themis/tree/master/docs/examples/js).
+Secure Comparator performs consistency checks on the protocol messages
+and will throw an exception if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret,
+Secure Comparator will only return a negative result.

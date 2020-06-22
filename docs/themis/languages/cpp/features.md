@@ -5,6 +5,9 @@ title:  Features
 
 # Features of ThemisPP
 
+After you have [installed ThemisPP](../installation/),
+it is ready to use in your application!
+
 ## Using Themis
 
 In order to use ThemisPP,
