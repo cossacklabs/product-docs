@@ -673,7 +673,7 @@ Once the comparison is complete, you can get the results (on each side):
 
 ```ruby
 if comparison.result == Themis::Scomparator.MATCH
-    # shared secret is the same
+    # shared secrets match
 end
 ```
 

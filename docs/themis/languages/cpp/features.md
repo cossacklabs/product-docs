@@ -860,7 +860,9 @@ for (;;) {
 Once the comparison is complete, you can get the results (on each side):
 
 ```cpp
-bool secrets_equal = comparison.get();
+if (comparison.get()) {
+    // shared secrets match
+}
 ```
 
 Secure Comparator performs consistency checks on the protocol messages

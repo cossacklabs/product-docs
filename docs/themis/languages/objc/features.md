@@ -863,7 +863,7 @@ Once the comparison is complete, you can get the results (on each side):
 
 ```objc
 if ([comparison status] == TSComparatorMatch) {
-    // secrets match
+    // shared secrets match
 }
 ```
 

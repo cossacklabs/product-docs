@@ -793,7 +793,7 @@ Once the comparison is complete, you can get the results (on each side):
 
 ```python
 if comparison.is_equal():
-    # shared secret is the same
+    # shared secrets match
 ```
 
 Secure Comparator performs consistency checks on the protocol messages

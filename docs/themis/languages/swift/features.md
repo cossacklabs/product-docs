@@ -821,7 +821,7 @@ Once the comparison is complete, you can get the results (on each side):
 
 ```swift
 if client.status() == TSComparatorStateType.comparatorMatch {
-    // secrets match
+    // shared secrets match
 }
 ```
 

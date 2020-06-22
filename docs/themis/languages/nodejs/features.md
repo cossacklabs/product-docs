@@ -706,7 +706,7 @@ Once the comparison is complete, you can get the results (on each side):
 
 ```javascript
 if (comparison.isMatch()) {
-    // secret equal
+    // shared secrets match
 }
 ```
 
