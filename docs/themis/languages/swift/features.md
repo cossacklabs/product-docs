@@ -289,8 +289,8 @@ You can decrypt the data back using the `decrypt` method:
 ```swift
 let decryptedMessage = try! cell.decrypt(encryptedMessage,
                                          context: context)
-if looksCorrect(decryptedMessage) {
-    // process decrypted data
+if !correct(decryptedMessage) {
+    // handle decryption failure
 }
 ```
 

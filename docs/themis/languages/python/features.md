@@ -310,8 +310,8 @@ You can decrypt the data back using the `decrypt` method:
 
 ```python
 decrypted = cell.decrypt(encrypted, context)
-if looks_correct(decrypted):
-    # process decrypted data
+if not correct(decrypted):
+    # handle decryption failure
 ```
 
 {{< hint warning >}}

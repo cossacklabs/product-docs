@@ -309,8 +309,8 @@ You can decrypt the data back using the `decrypt` method:
 
 ```kotlin
 ByteArray decrypted = cell.decrypt(encrypted, context)
-if (looksCorrect(decrypted)) {
-    // process decrypted data
+if (!correct(decrypted)) {
+    // handle decryption failure
 }
 ```
 

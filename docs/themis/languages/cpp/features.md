@@ -319,8 +319,8 @@ You can decrypt the data back using the `decrypt` method:
 
 ```cpp
 std::vector<uint8_t> decrypted = cell.decrypt(encrypted, context);
-if (looks_correct(decrypted)) {
-    // process decrypted data
+if (!correct(decrypted)) {
+    // handle decryption failure
 }
 ```
 

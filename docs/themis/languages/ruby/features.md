@@ -288,8 +288,8 @@ You can decrypt the data back using the `decrypt` method:
 
 ```ruby
 decrypted = cell.decrypt(encrypted, context)
-if looks_correct(decrypted)
-    # process decrypted data
+unless correct(decrypted)
+    # handle decryption failure
 end
 ```
 

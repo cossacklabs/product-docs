@@ -281,8 +281,8 @@ You can decrypt the data back like this:
 $decrypted = phpthemis_scell_context_imprint_decrypt($symmetric_key,
                                                      $encrypted,
                                                      $context);
-if (looks_correct($decrypted)) {
-    // process data
+if (!correct($decrypted)) {
+    // handle decryption failure
 }
 ```
 
