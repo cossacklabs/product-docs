@@ -176,7 +176,7 @@ use the corresponding buttons (see the screenshot above).
 **Note:**
 Once a day, the session is reset on our side and you'll get a warning:
 
-> You must start session on https://docs.cossacklabs.com/interactive-simulator/setup/
+> You must start session on...
 
 meaning that you need to press the appropriate
 "Start Secure session" or "Start Secure message" button for it to work again.
