@@ -9,8 +9,8 @@ Some of the language wrappers for Themis are supplied with console utilities.
 They help to understand the specific mechanics of encryption/decryption processes.
 
 The command-line tools can encrypt and decrypt data through
-[Secure Cell](/docs/themis/using-themis/crypto-systems/secure-cell/)
-or [Secure Message](/docs/themis/using-themis/crypto-systems/secure-message/)
+[Secure Cell](/themis/using-themis/crypto-systems/secure-cell/)
+or [Secure Message](/themis/using-themis/crypto-systems/secure-message/)
 modes on your local machine using the command line.
 
 The tools are located in the
@@ -49,7 +49,7 @@ The console utilities are currently available in the following languages:
     cd themis
     ```
 
- 2. [Install the corresponding Themis language wrapper](/docs/themis/installation/).
+ 2. [Install the corresponding Themis language wrapper](/themis/installation/).
 
 
  3. Navigate to the [`tools`](https://github.com/cossacklabs/themis/tree/master/tools) directory.
@@ -104,7 +104,7 @@ Alternatively, use the `keygen` utility to generate new keys of your own.
 
 ### Python
 
-[Follow the instructions](/docs/themis/languages/python/installation/) to install PyThemis.
+[Follow the instructions](/themis/languages/python/installation/) to install PyThemis.
 
 #### Secure Cell
 
@@ -146,7 +146,7 @@ python ./tools/python/smessage_encryption.py \
 
 ### Ruby
 
-[Follow the instructions](/docs/themis/languages/ruby/installation/) to install RbThemis.
+[Follow the instructions](/themis/languages/ruby/installation/) to install RbThemis.
 
 #### Secure Cell
 
@@ -188,7 +188,7 @@ ruby ./tools/ruby/smessage_encryption.rb \
 
 ### Go
 
-[Follow the instructions](/docs/themis/languages/go/installation/) to install GoThemis.
+[Follow the instructions](/themis/languages/go/installation/) to install GoThemis.
 
 #### Secure Cell
 
@@ -230,7 +230,7 @@ go run ./tools/go/smessage_encryption.go \
 
 ### JavaScript (WebAssembly)
 
-[Follow the instructions](/docs/themis/languages/wasm/installation/) to install WasmThemis.
+[Follow the instructions](/themis/languages/wasm/installation/) to install WasmThemis.
 
 #### Secure Cell
 
@@ -272,7 +272,7 @@ node ./tools/js/wasm-themis/smessage_encryption.js \
 
 ### JavaScript (Node.js)
 
-[Follow the instructions](/docs/themis/languages/nodejs/installation/) to install JsThemis.
+[Follow the instructions](/themis/languages/nodejs/installation/) to install JsThemis.
 
 #### Secure Cell
 
@@ -314,7 +314,7 @@ node ./tools/js/jsthemis/smessage_encryption.js \
 
 ### Rust
 
-[Follow the instructions](/docs/themis/languages/rust/installation/) to install RustThemis dependencies.
+[Follow the instructions](/themis/languages/rust/installation/) to install RustThemis dependencies.
 
 #### Secure Cell
 
@@ -356,7 +356,7 @@ cargo run --package themis-integration-tools --bin smessage_encryption \
 
 ### PHP
 
-[Follow the instructions](/docs/themis/languages/php/installation/) to install PHPThemis.
+[Follow the instructions](/themis/languages/php/installation/) to install PHPThemis.
 
 #### Secure Cell
 

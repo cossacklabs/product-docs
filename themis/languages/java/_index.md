@@ -40,5 +40,5 @@ Here are other things that might interest you:
 
 <!-- JavaDocs when they are ready -->
 - [browse code samples](examples/) to get a feel of JavaThemis API
-- [use interactive simulator](/docs/themis/debugging/themis-server/) to cross-verify your code
+- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use JavaThemis effectively

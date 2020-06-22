@@ -36,5 +36,5 @@ Here are other things that might interest you:
 
 - [browse API reference](https://pkg.go.dev/github.com/cossacklabs/themis/gothemis?tab=overview)
   and [code samples](examples/) to get a feel of GoThemis API
-- [use interactive simulator](/docs/themis/debugging/themis-server/) to cross-verify your code
+- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use GoThemis effectively

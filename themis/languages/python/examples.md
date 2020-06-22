@@ -30,14 +30,14 @@ Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) wit
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities/#python)
+There are [command-line utilities](/themis/debugging/cli-utilities/#python)
 that you can run from GitHub source code
 at [`tools/python`](https://github.com/cossacklabs/themis/tree/master/tools/python).
 
 [Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/python)
 can be used with [Themis Interactive Simulator](/simulator/interactive/):
 you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/docs/themis/debugging/themis-server/).
+Read more in the [Themis Server guide](/themis/debugging/themis-server/).
 
 ## What’s next
 

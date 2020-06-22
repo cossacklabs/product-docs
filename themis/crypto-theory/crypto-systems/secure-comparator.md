@@ -51,17 +51,17 @@ Being the most recent addition to the mainline Themis code to the date,
 Secure Comparator is yet to get all the shine and polish that our other features have.
 However, Secure Comparator is already available in multiple languages:
 
-  - [C++](/docs/themis/languages/cpp/features/#secure-comparator)
-  - [Go](/docs/themis/languages/go/features/#secure-comparator)
-  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/features/#secure-comparator)
-  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/features/#secure-comparator)
-  - [Java](/docs/themis/languages/java/features/#secure-comparator)
-  - [Kotlin](/docs/themis/languages/kotlin/features/#secure-comparator)
-  - [Objective-C](/docs/themis/languages/objc/features/#secure-comparator)
-  - [Swift](/docs/themis/languages/swift/features/#secure-comparator)
-  - [Python](/docs/themis/languages/python/features/#secure-comparator)
-  - [Ruby](/docs/themis/languages/ruby/features/#secure-comparator)
-  - [Rust](/docs/themis/languages/rust/features/#secure-comparator)
+  - [C++](/themis/languages/cpp/features/#secure-comparator)
+  - [Go](/themis/languages/go/features/#secure-comparator)
+  - [JavaScript (WebAssembly)](/themis/languages/wasm/features/#secure-comparator)
+  - [JavaScript (Node.js)](/themis/languages/nodejs/features/#secure-comparator)
+  - [Java](/themis/languages/java/features/#secure-comparator)
+  - [Kotlin](/themis/languages/kotlin/features/#secure-comparator)
+  - [Objective-C](/themis/languages/objc/features/#secure-comparator)
+  - [Swift](/themis/languages/swift/features/#secure-comparator)
+  - [Python](/themis/languages/python/features/#secure-comparator)
+  - [Ruby](/themis/languages/ruby/features/#secure-comparator)
+  - [Rust](/themis/languages/rust/features/#secure-comparator)
 
 ## Protocol description
 
@@ -188,4 +188,4 @@ themis_status_t secure_comparator_get_result(const secure_comparator_t *ctx);
 ## Thread safety
 
 Secure Comparator requires additional synchronisation to be used concurrently from multiple threads.
-Read more about [Themis thread safety guarantees](/docs/themis/debugging/thread-safety/).
+Read more about [Themis thread safety guarantees](/themis/debugging/thread-safety/).

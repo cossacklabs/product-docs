@@ -23,7 +23,7 @@ in [RustThemis source code](https://github.com/cossacklabs/themis/tree/master/te
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities/#rust)
+There are [command-line utilities](/themis/debugging/cli-utilities/#rust)
 which you can `cargo run` from GitHub source code
 at [`tools/rust`](https://github.com/cossacklabs/themis/tree/master/tools/rust).
 

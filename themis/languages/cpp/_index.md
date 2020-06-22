@@ -35,5 +35,5 @@ Here are other things that might interest you:
 
 <!-- [API reference](when-it-is-done) -->
 - [browse code samples](examples/) to get a feel of ThemisPP API
-- [use interactive simulator](/docs/themis/debugging/themis-server/) to cross-verify your code
+- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use ThemisPP effectively

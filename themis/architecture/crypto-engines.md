@@ -24,7 +24,7 @@ The following values are supported:
   - `libressl`
   - `boringssl`
 
-Check out the page on [building and installing Themis](/docs/themis/installation/installation-from-sources/) to learn more.
+Check out the page on [building and installing Themis](/themis/installation/installation-from-sources/) to learn more.
 
 #### Adding new cryptography engines
 

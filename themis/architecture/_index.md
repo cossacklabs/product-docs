@@ -63,7 +63,7 @@ as only bindings with corresponding donor libraries have to be updated.
 We usually follow best practices and sensible recommendations of each platform maintainer
 and try to utilise cryptographic implementations native to each platform.
 
-Read more on the [cryptography donors](/docs/themis/crypto-theory/cryptography-donors/)
+Read more on the [cryptography donors](/themis/crypto-theory/cryptography-donors/)
 supported by Themis.
 
 #### Soter library
@@ -88,13 +88,13 @@ Instead, we've picked common scenarios for a set of use cases that Themis' users
 are likely to stumble upon,
 and polished up the cryptosystems to support a broad range of similar use cases.
 
-So far, there are [4 separate cryptosystems](/docs/themis/crypto-theory/crypto-systems/)
+So far, there are [4 separate cryptosystems](/themis/crypto-theory/crypto-systems/)
 available in Themis:
 
-- [Secure Cell](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
-- [Secure Message](/docs/themis/crypto-theory/crypto-systems/secure-message/)
-- [Secure Session](/docs/themis/crypto-theory/crypto-systems/secure-session/)
-- [Secure Comparator](/docs/themis/crypto-theory/crypto-systems/secure-comparator/)
+- [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
+- [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+- [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
+- [Secure Comparator](/themis/crypto-theory/crypto-systems/secure-comparator/)
 
 ![](/files/wiki/themis_cryptosystems.png)
 
@@ -110,4 +110,4 @@ and minimise the efforts necessary on your side.
 While maintaining a general common object model across all the covered languages,
 we try to tailor each binding to make Themis look most natural in each specific language.
 
-See the [list of languages supported by Themis here](/docs/themis/getting-started/#language-howtos).
+See the [list of languages supported by Themis here](/themis/getting-started/#language-howtos).

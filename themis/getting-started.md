@@ -24,8 +24,8 @@ If you'd like to help improve or bring Themis to your favourite platform or lang
 
 ## Installation
 
-Refer to the [Installation](/docs/themis/installation/) page to install Themis for your mobile, web, desktop, or server-side application.
-We highly recommend [**installation packages**](/docs/themis/installation/installation-from-packages/) instead of building from source.
+Refer to the [Installation](/themis/installation/) page to install Themis for your mobile, web, desktop, or server-side application.
+We highly recommend [**installation packages**](/themis/installation/installation-from-packages/) instead of building from source.
 
 ## Language HowTos
 
@@ -33,18 +33,18 @@ Pick your language and read about Themis API, HowTos, code examples, etc.
 
 | Platform | Documentation |
 | :----- | :----- |
-| 🔶 Swift (iOS, macOS) | [Swift HowTo](/docs/themis/languages/swift/)|
-| 📱 Objective-C (iOS, macOS) | [Objective-C HowTo](/docs/themis/languages/objc/) |
-| 📞 Kotlin (Android) | [Kotlin HowTo](/docs/themis/languages/kotlin/) |
-| ☕️ Java (Android, desktop) | [Java HowTo](/docs/themis/languages/java/) |
-| 🖥 JavaScript (WebAssembly) | [WebAssembly HowTo](/docs/themis/languages/wasm/) |
-| 🍭 JavaScript (Node.js) | [Node.js HowTo](/docs/themis/languages/nodejs/) |
-| 🔻 Ruby | [Ruby HowTo](/docs/themis/languages/ruby/) |
-| 🐍 Python | [Python HowTo](/docs/themis/languages/python/) |
-| ➕ C++ | [C++ HowTo](/docs/themis/languages/cpp/) |
-| 🐹 Go | [Go HowTo](/docs/themis/languages/go/)|
-| 🦀 Rust | [Rust HowTo](/docs/themis/languages/rust/)|
-| 🐘 PHP | [PHP HowTo](/docs/themis/languages/php/) |
+| 🔶 Swift (iOS, macOS) | [Swift HowTo](/themis/languages/swift/)|
+| 📱 Objective-C (iOS, macOS) | [Objective-C HowTo](/themis/languages/objc/) |
+| 📞 Kotlin (Android) | [Kotlin HowTo](/themis/languages/kotlin/) |
+| ☕️ Java (Android, desktop) | [Java HowTo](/themis/languages/java/) |
+| 🖥 JavaScript (WebAssembly) | [WebAssembly HowTo](/themis/languages/wasm/) |
+| 🍭 JavaScript (Node.js) | [Node.js HowTo](/themis/languages/nodejs/) |
+| 🔻 Ruby | [Ruby HowTo](/themis/languages/ruby/) |
+| 🐍 Python | [Python HowTo](/themis/languages/python/) |
+| ➕ C++ | [C++ HowTo](/themis/languages/cpp/) |
+| 🐹 Go | [Go HowTo](/themis/languages/go/)|
+| 🦀 Rust | [Rust HowTo](/themis/languages/rust/)|
+| 🐘 PHP | [PHP HowTo](/themis/languages/php/) |
 
 ## Plugins
 

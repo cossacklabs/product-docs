@@ -14,20 +14,20 @@ It can come in handy if you're just starting out with this library.
 Using the Themis Server, you can avoid spending a lot of time and effort
 to build your own client and server, make sure you get the keys right, etc.
 With a simple “remote party simulator” you can try out
-[Secure Session](/docs/themis/crypto-theory/crypto-systems/secure-session/) and
-[Secure Message](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+[Secure Session](/themis/crypto-theory/crypto-systems/secure-session/) and
+[Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
 in an interactive mode.
 You can also easily encrypt and decrypt data with
-[Secure Cell](/docs/themis/crypto-theory/crypto-systems/secure-cell/).
+[Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/).
 
 #### What Themis server does for you
 
 Themis Server helps you to verify:
 
-- encryption and decryption with [Secure Cell](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
-- encryption, decryption, signatures with [Secure Message](/docs/themis/crypto-theory/crypto-systems/secure-message/)
-- interactive client-server communication with [Secure Session](/docs/themis/crypto-theory/crypto-systems/secure-session/)
-  and [Secure Message](/docs/themis/crypto-theory/crypto-systems/secure-message/)
+- encryption and decryption with [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
+- encryption, decryption, signatures with [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+- interactive client-server communication with [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
+  and [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
 
 #### When would you need Themis Server?
 
@@ -98,8 +98,8 @@ Verbose mode is off when the lightbulb assistant indicator is grey:
 ## Data simulators
 
 Data simulator (_datasim_) allows you to copy/paste base64-encoded objects
-containing [Secure Cells](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
-or [Secure Messages](/docs/themis/crypto-theory/crypto-systems/secure-message/).
+containing [Secure Cells](/themis/crypto-theory/crypto-systems/secure-cell/)
+or [Secure Messages](/themis/crypto-theory/crypto-systems/secure-message/).
 
 ### Secure Cell
 
@@ -109,7 +109,7 @@ Go to the [Secure Cell Datasim](/simulator/data-cell/) page.
 Make sure you're logged in before you start!
 {{< /hint>}}
 
-Select the [Secure Cell mode](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
+Select the [Secure Cell mode](/themis/crypto-theory/crypto-systems/secure-cell/)
 from the menu, input the parameters, and encrypt/decrypt messages.
 Follow the on-screen instructions.
 

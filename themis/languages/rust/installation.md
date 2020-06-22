@@ -22,7 +22,7 @@ It is an optional but highly recommended dependency.
 The easiest way to install Themis on Linux is to use package repositories for your system.
 We build packages for a multitude of Linux distributions.
 
- 1. [Add Cossack Labs package repositories](/docs/themis/installation/installation-from-packages/)
+ 1. [Add Cossack Labs package repositories](/themis/installation/installation-from-packages/)
     to your system.
 
  2. Install Themis Core _development_ package.
@@ -78,7 +78,7 @@ Once Themis Core is installed, you can [try out code examples](../examples/).
 If the stable package version does not suit your needs,
 you can manually build and install the latest version of Themis from source code.
 
- 1. [Build and install Themis Core library](/docs/themis/installation/installation-from-sources/)
+ 1. [Build and install Themis Core library](/themis/installation/installation-from-sources/)
     into your system.
 
  2. Add the following lines to your `Cargo.toml` file:

@@ -34,7 +34,7 @@ while still providing a consistent interface for its users.
 
 We are currently using OpenSSL's `libcrypto` by default,
 but plan to replace it in the future releases.
-Read more about [cryptography providers for Themis](/docs/themis/crypto-theory/cryptography-donors/).
+Read more about [cryptography providers for Themis](/themis/crypto-theory/cryptography-donors/).
 
 ## Soter crypto stack
 

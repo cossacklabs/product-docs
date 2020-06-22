@@ -41,12 +41,12 @@ If you'd like to participate in the core development more closely,
 
 ### Getting ready
 
- 1. Read the [Themis architecture](/docs/themis/themis-architecture/) section of the documentation,
+ 1. Read the [Themis architecture](/themis/themis-architecture/) section of the documentation,
     make sure that you understand everything
     (or at least you start thinking you understand everything).
 
- 2. Get familiar with the [directory structure](/docs/themis/themis-architecture/directory-structure/)
-    and the way the [build system](/docs/themis/installation/installation-from-sources/) works.
+ 2. Get familiar with the [directory structure](/themis/themis-architecture/directory-structure/)
+    and the way the [build system](/themis/installation/installation-from-sources/) works.
 
  3. Brace yourself for a lengthy session of reading the source code.
 

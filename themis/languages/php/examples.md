@@ -22,14 +22,14 @@ in [PHPThemis source code](https://github.com/cossacklabs/themis/tree/master/tes
 
 ## Debugging aids
 
-There are [command-line utilities](/docs/themis/debugging/cli-utilities/#php)
+There are [command-line utilities](/themis/debugging/cli-utilities/#php)
 that you can run from GitHub source code
 at [`tools/php`](https://github.com/cossacklabs/themis/tree/master/tools/php).
 
 [Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/php)
 can be used with [Themis Interactive Simulator](/simulator/interactive/):
 you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/docs/themis/debugging/themis-server/).
+Read more in the [Themis Server guide](/themis/debugging/themis-server/).
 
 ## What’s next
 

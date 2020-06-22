@@ -22,5 +22,5 @@ Bug bounty program may apply.
 
 Learn more about:
 
-  - [Themis and OWASP](/docs/themis/security/owasp/)
-  - [Themis development security practices](/docs/themis/security/dev-security-practices/)
+  - [Themis and OWASP](/themis/security/owasp/)
+  - [Themis development security practices](/themis/security/dev-security-practices/)

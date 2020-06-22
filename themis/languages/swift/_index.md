@@ -30,7 +30,7 @@ Themis can also be used with [Objective-C](../objc/).
 If your application uses Themis and you want to submit it to the Apple App Store,
 there are certain requirements towards declaring use of any cryptography.
 
-Read about [Apple export regulations on cryptography for Themis](/docs/themis/regulations/apple-crypto-regulations/) to find out what to do.
+Read about [Apple export regulations on cryptography for Themis](/themis/regulations/apple-crypto-regulations/) to find out what to do.
 {{< /hint >}}
 
 ## Supported platforms
@@ -51,5 +51,5 @@ Here are other things that might interest you:
 
 <!-- API docs when they are ready -->
 - [browse code samples](examples/) to get a feel of SwiftThemis API
-- [use interactive simulator](/docs/themis/debugging/themis-server/) to cross-verify your code
+- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use SwiftThemis effectively

@@ -204,7 +204,7 @@ Note that **both** `libcrypto.a` and `libdecrepit.a` have to be put into `ENGINE
 #### Selecting algorithm parameters
 
 Themis is designed to be algorithm-agnostic thanks to its special abstraction layer,
-[Soter](/docs/themis/themis-architecture/).
+[Soter](/themis/themis-architecture/).
 It could be built with custom ciphers or cipher implementations
 specific to your regulatory needs or available in your environment.
 
@@ -253,20 +253,20 @@ For iOS, Android, and WebAssembly you do not need to build Themis Core separatel
 
 ### Server-side and desktop platforms
 
-  - [C++](/docs/themis/languages/cpp/installation#building-latest-version-from-source/)
-  - [Go](/docs/themis/languages/go/installation#building-latest-version-from-source/)
-  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/installation#building-latest-version-from-source/)
-  - [Java](/docs/themis/languages/java/installation-desktop#building-latest-version-from-source/)
-  - [Kotlin](/docs/themis/languages/kotlin/installation-desktop#building-latest-version-from-source/)
-  - [PHP](/docs/themis/languages/php/installation#building-latest-version-from-source/)
-  - [Python](/docs/themis/languages/python/installation#building-latest-version-from-source/)
-  - [Ruby](/docs/themis/languages/ruby/installation#building-latest-version-from-source/)
-  - [Rust](/docs/themis/languages/rust/installation#building-latest-version-from-source/)
+  - [C++](/themis/languages/cpp/installation#building-latest-version-from-source/)
+  - [Go](/themis/languages/go/installation#building-latest-version-from-source/)
+  - [JavaScript (Node.js)](/themis/languages/nodejs/installation#building-latest-version-from-source/)
+  - [Java](/themis/languages/java/installation-desktop#building-latest-version-from-source/)
+  - [Kotlin](/themis/languages/kotlin/installation-desktop#building-latest-version-from-source/)
+  - [PHP](/themis/languages/php/installation#building-latest-version-from-source/)
+  - [Python](/themis/languages/python/installation#building-latest-version-from-source/)
+  - [Ruby](/themis/languages/ruby/installation#building-latest-version-from-source/)
+  - [Rust](/themis/languages/rust/installation#building-latest-version-from-source/)
 
 ### Mobile and Web platforms
 
-  - [Swift](/docs/themis/languages/swift/installation#building-latest-version-from-source/)
-  - [Objective-C](/docs/themis/languages/objc/installation#building-latest-version-from-source/)
-  - [Kotlin](/docs/themis/languages/kotlin/installation-android#building-latest-version-from-source/)
-  - [Java](/docs/themis/languages/java/installation-android#building-latest-version-from-source/)
-  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/installation#building-latest-version-from-source/)
+  - [Swift](/themis/languages/swift/installation#building-latest-version-from-source/)
+  - [Objective-C](/themis/languages/objc/installation#building-latest-version-from-source/)
+  - [Kotlin](/themis/languages/kotlin/installation-android#building-latest-version-from-source/)
+  - [Java](/themis/languages/java/installation-android#building-latest-version-from-source/)
+  - [JavaScript (WebAssembly)](/themis/languages/wasm/installation#building-latest-version-from-source/)

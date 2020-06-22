@@ -24,4 +24,4 @@ and in every release announcement.
 If you're updating Themis, you might need to take extra steps for some versions.
 Check out the corresponding migration guide.
 
-- [Updating Themis 0.9.6 ⟹ 0.10.0](/docs/themis/debugging/migration-guides/migration-0.9.6-0.10.0/)
+- [Updating Themis 0.9.6 ⟹ 0.10.0](/themis/debugging/migration-guides/migration-0.9.6-0.10.0/)

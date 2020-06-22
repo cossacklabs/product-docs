@@ -27,7 +27,7 @@ is distributed across the following directories:
   - [`tests`](https://github.com/cossacklabs/themis/tree/master/tests) —
     exactly what it says on the tin
   - [`tools`](https://github.com/cossacklabs/themis/tree/master/tools) —
-    [command-line utilities](/docs/themis/debugging/cli-utilities/)
+    [command-line utilities](/themis/debugging/cli-utilities/)
     and other tools for testing Themis
   - [`third_party/boringssl`](https://github.com/cossacklabs/themis/tree/master/third_party/boringssl) —
     submodule of [BoringSSL](https://boringssl.googlesource.com/boringssl/)

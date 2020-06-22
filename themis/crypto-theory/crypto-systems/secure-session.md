@@ -33,18 +33,18 @@ with [SRP](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol).
 
 Secure Session is available in all languages supported by Themis:
 
-  - [C++](/docs/themis/languages/cpp/features/#secure-session)
-  - [Go](/docs/themis/languages/go/features/#secure-session)
-  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/features/#secure-session)
-  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/features/#secure-session)
-  - [Java](/docs/themis/languages/java/features/#secure-session)
-  - [Kotlin](/docs/themis/languages/kotlin/features/#secure-session)
-  - [Objective-C](/docs/themis/languages/objc/features/#secure-session)
-  - [Swift](/docs/themis/languages/swift/features/#secure-session)
-  - [PHP](/docs/themis/languages/php/features/#secure-session)
-  - [Python](/docs/themis/languages/python/features/#secure-session)
-  - [Ruby](/docs/themis/languages/ruby/features/#secure-session)
-  - [Rust](/docs/themis/languages/rust/features/#secure-session)
+  - [C++](/themis/languages/cpp/features/#secure-session)
+  - [Go](/themis/languages/go/features/#secure-session)
+  - [JavaScript (WebAssembly)](/themis/languages/wasm/features/#secure-session)
+  - [JavaScript (Node.js)](/themis/languages/nodejs/features/#secure-session)
+  - [Java](/themis/languages/java/features/#secure-session)
+  - [Kotlin](/themis/languages/kotlin/features/#secure-session)
+  - [Objective-C](/themis/languages/objc/features/#secure-session)
+  - [Swift](/themis/languages/swift/features/#secure-session)
+  - [PHP](/themis/languages/php/features/#secure-session)
+  - [Python](/themis/languages/python/features/#secure-session)
+  - [Ruby](/themis/languages/ruby/features/#secure-session)
+  - [Rust](/themis/languages/rust/features/#secure-session)
 
 ## Protocol description
 
@@ -198,7 +198,7 @@ The public key should be known to the other communication peers,
 it will be requested during the key negotiation stage of Secure Session.
 
 {{< hint info >}}
-Please consult the [key management guidelines](/docs/themis/crypto-theory/key-management/)
+Please consult the [key management guidelines](/themis/crypto-theory/key-management/)
 to learn more about storing and exchanging keys securely after you have generated them.
 {{< /hint >}}
 
@@ -331,11 +331,11 @@ ssize_t secure_session_receive(
 ## Thread safety
 
 Secure Session requires additional synchronisation to be used concurrently from multiple threads.
-Read more about [Themis thread safety guarantees](/docs/themis/debugging/thread-safety/).
+Read more about [Themis thread safety guarantees](/themis/debugging/thread-safety/).
 
 ## Themis Server simulator
 
-[Themis Server](/docs/themis/debugging/themis-server/)
+[Themis Server](/themis/debugging/themis-server/)
 is an interactive simulator that can be used as a remote debugging aid.
 We built this server to help engineers understand Themis.
 It can come in handy if you're just starting out with this library.

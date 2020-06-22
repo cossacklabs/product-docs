@@ -74,7 +74,7 @@ Such test sets contain both the initialsation vectors and the expected output.
 
 The only cryptographic implementation provided by Themis directly
 (ed25519-driven Socialist Millionaire Protocol
-used in [Secure Comparator](/docs/themis/crypto-theory/crypto-systems/secure-comparator/))
+used in [Secure Comparator](/themis/crypto-theory/crypto-systems/secure-comparator/))
 is tested against known attacks via a separate [security test](https://github.com/cossacklabs/themis/blob/master/tests/themis/themis_secure_comparator_security.c).
 
 ## Testing compatibility

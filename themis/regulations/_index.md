@@ -59,4 +59,4 @@ we strongly recommend that you seek professional legal advice.
 
 Generally, you should indicate that you’re using encryption
 and submit annual self-classification reports.
-Read more about [submitting applications using Themis to the App Store](/docs/themis/regulations/apple-crypto-regulations/).
+Read more about [submitting applications using Themis to the App Store](/themis/regulations/apple-crypto-regulations/).

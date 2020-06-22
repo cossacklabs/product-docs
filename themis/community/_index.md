@@ -26,7 +26,7 @@ Start from the [Contributing to Themis](contributing/) page.
 If you would like to receive a one-time or prolonged customised assistance
 with Themis for the needs of your app or service,
 consider taking a look at our
-[commercial support and security engineering services](/docs/themis/support/).
+[commercial support and security engineering services](/themis/support/).
 
 
 ## Getting in touch

@@ -23,18 +23,18 @@ Some of the features of Secure Message are:
 
 Secure Message is available in all languages supported by Themis:
 
-  - [C++](/docs/themis/languages/cpp/features/#secure-message)
-  - [Go](/docs/themis/languages/go/features/#secure-message)
-  - [JavaScript (WebAssembly)](/docs/themis/languages/wasm/features/#secure-message)
-  - [JavaScript (Node.js)](/docs/themis/languages/nodejs/features/#secure-message)
-  - [Java](/docs/themis/languages/java/features/#secure-message)
-  - [Kotlin](/docs/themis/languages/kotlin/features/#secure-message)
-  - [Objective-C](/docs/themis/languages/objc/features/#secure-message)
-  - [Swift](/docs/themis/languages/swift/features/#secure-message)
-  - [PHP](/docs/themis/languages/php/features/#secure-message)
-  - [Python](/docs/themis/languages/python/features/#secure-message)
-  - [Ruby](/docs/themis/languages/ruby/features/#secure-message)
-  - [Rust](/docs/themis/languages/rust/features/#secure-message)
+  - [C++](/themis/languages/cpp/features/#secure-message)
+  - [Go](/themis/languages/go/features/#secure-message)
+  - [JavaScript (WebAssembly)](/themis/languages/wasm/features/#secure-message)
+  - [JavaScript (Node.js)](/themis/languages/nodejs/features/#secure-message)
+  - [Java](/themis/languages/java/features/#secure-message)
+  - [Kotlin](/themis/languages/kotlin/features/#secure-message)
+  - [Objective-C](/themis/languages/objc/features/#secure-message)
+  - [Swift](/themis/languages/swift/features/#secure-message)
+  - [PHP](/themis/languages/php/features/#secure-message)
+  - [Python](/themis/languages/python/features/#secure-message)
+  - [Ruby](/themis/languages/ruby/features/#secure-message)
+  - [Rust](/themis/languages/rust/features/#secure-message)
 
 ## Usage model
 
@@ -124,7 +124,7 @@ Send the public key to the parties you want to communicate with and get their pu
 Public keys are used to encrypt outgoing messages and to verify messages sent to you.
 
 {{< hint info >}}
-Please consult the [key management guidelines](/docs/themis/crypto-theory/key-management/)
+Please consult the [key management guidelines](/themis/crypto-theory/key-management/)
 to learn more about storing and exchanging keys securely after you have generated them.
 {{< /hint >}}
 
@@ -184,11 +184,11 @@ themis_status_t themis_secure_message_verify(
 
 Secure Message objects are generally immutable.
 You can safely use them concurrently from multiple threads.
-Read more about [Themis thread safety guarantees](/docs/themis/debugging/thread-safety/).
+Read more about [Themis thread safety guarantees](/themis/debugging/thread-safety/).
 
 ## Themis Server simulator
 
-[Themis Server](/docs/themis/debugging/themis-server/)
+[Themis Server](/themis/debugging/themis-server/)
 is an interactive simulator that can be used as a remote debugging aid.
 We built this server to help engineers understand Themis.
 It can come in handy if you're just starting out with this library.
