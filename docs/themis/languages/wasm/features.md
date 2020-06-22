@@ -582,6 +582,15 @@ WasmThemis supports only
 (aka *wrap–unwrap* mode).
 It is easy to integrate into existing applications with established network processing path.
 
+{{< hint info >}}
+**Note:**
+We consider buffer-aware API more fit for typical JavaScript applications,
+so currently Secure Session supports only this mode.
+However, if you find that [callback-oriented API](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+might be a good fit for your use case,
+[let us know](mailto:dev@cossacklabs.com).
+{{< /hint >}}
+
 #### Establishing connection
 
 The client initiates the connection and sends the first request to the server:

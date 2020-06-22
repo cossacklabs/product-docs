@@ -603,6 +603,14 @@ SwiftThemis supports only
 (aka *wrap–unwrap* mode).
 It is easy to integrate into existing applications with established network processing path.
 
+{{< hint info >}}
+**Note:**
+Support for [callback-oriented API](/docs/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+in SwiftThemis is currently in development.
+If you find that it might be a good fit for your use case,
+please [let us know](mailto:dev@cossacklabs.com).
+{{< /hint >}}
+
 #### Establishing connection
 
 The client initiates the connection and sends the first request to the server:
