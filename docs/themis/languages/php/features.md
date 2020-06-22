@@ -127,13 +127,15 @@ Read more about
 [Secure Cell cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-cell/)
 to understand better the underlying considerations, limitations, and features of each mode.
 
+<!-- TODO: uncomment this when API docs are hosted there (T1682)
+See [full API reference here](/docs/themis/api/php/latest/secure_cell/).
+-->
+
 ### Seal mode
 
 [**Seal mode**](/docs/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
 is the most secure and easy to use mode of Secure Cell.
 This should be your default choice unless you need specific features of the other modes.
-
-<!-- See API reference here. -->
 
 Secure Cell in Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
 
@@ -192,8 +194,6 @@ but have additional storage available elsewhere for the authentication token.
 Other than that,
 Token Protect mode has the same security properties as the Seal mode.
 
-<!-- See API reference here. -->
-
 Secure Cell in Token Protect mode supports only [symmetric keys](#symmetric-keys).
 
 Here is how you encrypt data:
@@ -245,8 +245,6 @@ or if the data or the authentication token was corrupted.
 should be used if you absolutely cannot allow the length of the encrypted data to grow.
 This mode is a bit harder to use than the Seal and Token Protect modes.
 Context Imprint mode also provides slightly weaker integrity guarantees.
-
-<!-- See API reference here. -->
 
 Secure Cell in Context Imprint mode supports only [symmetric keys](#symmetric-keys).
 
@@ -335,6 +333,10 @@ Secure Message offers two modes of operation:
 Read more about
 [Secure Message cryptosystem design](/docs/themis/crypto-theory/crypto-systems/secure-message/)
 to understand better the underlying considerations, limitations, and features of each mode.
+
+<!-- TODO: uncomment this when API docs are hosted there (T1682)
+See [full API reference here](/docs/themis/api/php/latest/secure_message/).
+-->
 
 ### Signature mode
 
@@ -460,6 +462,10 @@ Read more about
 to understand better the underlying considerations,
 get an overview of the protocol and its features,
 etc.
+
+<!-- TODO: uncomment this when API docs are hosted there (T1682)
+See [full API reference here](/docs/themis/api/php/latest/secure_session/).
+-->
 
 ### Setting up Secure Session
 
