@@ -2,7 +2,7 @@
 weight: 1
 bookFlatSection: true
 title: "Themis in a nutshell"
-secondTitle: "Themis"
+productMenuTitle: "Themis"
 Menu: "main"
 ---
 
