@@ -1,5 +1,5 @@
 ---
-title: Introduction grid
+title: Cossack Labs Documentation Server
 type: docs
 BookToC: false
 ---
