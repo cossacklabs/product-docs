@@ -5,7 +5,7 @@ title:  Themis Server
 
 # Themis Server
 
-[**Themis Server**](https://docs.cossacklabs.com/simulator/interactive/) (aka _Interactive Simulator_) is web server that can be used as a remote debugging aid.
+[**Themis Server**](/simulator/interactive/) (aka _Interactive Simulator_) is web server that can be used as a remote debugging aid.
 We built this server to help engineers understand Themis.
 It can come in handy if you're just starting out with this library.
 
@@ -37,7 +37,7 @@ To use the interactive simulator for Themis,
 you need to register—or login if you are already registered—using your email address
 (don't worry, no spam from us):
 
- 1. Go to the [Themis Server](https://docs.cossacklabs.com/simulator/interactive/) page
+ 1. Go to the [Themis Server](/simulator/interactive/) page
     and click the **Register** button.
     This is what you'll see:
 
@@ -98,7 +98,7 @@ or [Secure Messages](/themis/crypto-theory/crypto-systems/secure-message/).
 
 ### Secure Cell
 
-Go to the [Secure Cell Datasim](https://docs.cossacklabs.com/simulator/data-cell/) page.
+Go to the [Secure Cell Datasim](/simulator/data-cell/) page.
 
 {{< hint info >}}
 Make sure you're logged in before you start!
@@ -112,7 +112,7 @@ Follow the on-screen instructions.
 
 ### Secure Message
 
-Go to the [Secure Message Datasim](https://docs.cossacklabs.com/simulator/data-message/) page.
+Go to the [Secure Message Datasim](/simulator/data-message/) page.
 
 {{< hint info >}}
 Make sure you're logged in before you start!
@@ -129,7 +129,7 @@ Follow the on-screen instructions.
 
 ### Secure Session
 
-The [interactive simulator](https://docs.cossacklabs.com/simulator/interactive/) on Themis Server allows your code to connect to our server in real-time
+The [interactive simulator](/simulator/interactive/) on Themis Server allows your code to connect to our server in real-time
 and use debug console (appears at the bottom of the screen) to actually test client-server interaction.
 
 When you log in,
@@ -164,7 +164,7 @@ To talk to the server, you need to write a client application which will:
   - send encrypted test messages encoded in base64,
   - decode received messages from base64, then decrypt them.
 
-To start or stop [Secure Session or Secure Message](https://docs.cossacklabs.com/simulator/interactive/) on our Server side,
+To start or stop [Secure Session or Secure Message](/simulator/interactive/) on our Server side,
 use the corresponding buttons (see the screenshot above).
 
 {{< hint info >}}
