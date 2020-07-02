@@ -16,6 +16,8 @@ In order to use SwiftThemis, you need to import its module:
 import themis
 ```
 
+---
+
 ## Key generation
 
 ### Asymmetric keypairs
@@ -64,6 +66,8 @@ To generate symmetric keys, use:
 ```swift
 let masterKey: Data = TSGenerateSymmetricKey()!
 ```
+
+---
 
 ## Secure Cell
 
@@ -303,6 +307,8 @@ Make sure to initialise the Secure Cell with the same secret
 and provide the same associated context as used for encryption.
 You should also do some sanity checks after decryption.
 
+---
+
 ## Secure Message
 
 [**Secure Message**](/themis/crypto-theory/crypto-systems/secure-message/)
@@ -465,6 +471,8 @@ Bob's Secure Message will return an error
 if the message has been modified since Alice encrypted it;
 or if the message was encrypted by Carol, not by Alice;
 or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+---
 
 ## Secure Session
 
@@ -761,6 +769,8 @@ It will also detect and report protocol anomalies,
 such as unexpected messages, outdated messages, etc.
 
 -->
+
+---
 
 ## Secure Comparator
 

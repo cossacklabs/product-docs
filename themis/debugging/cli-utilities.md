@@ -100,6 +100,8 @@ You can use the test keys from
 [`tests/integration/keys`](https://github.com/cossacklabs/themis/tree/master/tests/_integration/keys).
 Alternatively, use the `keygen` utility to generate new keys of your own.
 
+---
+
 ## Languages
 
 ### Python
@@ -186,6 +188,8 @@ ruby ./tools/ruby/smessage_encryption.rb \
     "ICcEJkcAAAAAAQFADAAAABAAAAATAAAADYX8pj+OYfzOxlqeDHnRiYTEA63oeLrBGKH8zzs1Kcd32knF8cI1na24GHl96vg="
 ```
 
+---
+
 ### Go
 
 [Follow the instructions](/themis/languages/go/installation/) to install GoThemis.
@@ -227,6 +231,8 @@ go run ./tools/go/smessage_encryption.go \
         ./tests/_integration/keys/client.pub \
     "ICcEJkUAAAAAAQFADAAAABAAAAARAAAAyUsE67JJjkkGX2qn1s6cTJRroTxu0df/qDYd18IEOMKz7KAxhC7qboDBsbJP"
 ```
+
+---
 
 ### JavaScript (WebAssembly)
 
@@ -270,6 +276,8 @@ node ./tools/js/wasm-themis/smessage_encryption.js \
     "ICcEJkcAAAAAAQFADAAAABAAAAATAAAAJXdy8Px5OU5U4clXuHbfxXa74+dK3OdI1NKWrAebNsSpqJjv7XTth1t+TssilAk="
 ```
 
+---
+
 ### JavaScript (Node.js)
 
 [Follow the instructions](/themis/languages/nodejs/installation/) to install JsThemis.
@@ -312,6 +320,8 @@ node ./tools/js/jsthemis/smessage_encryption.js \
     "ICcEJkcAAAAAAQFADAAAABAAAAATAAAAf3lRPakq215vCwbkhQ/TO0XnhDFOOSeKvJs+zTczQZtx8I8KZ7QXnIaf5cwVHOM="
 ```
 
+---
+
 ### Rust
 
 [Follow the instructions](/themis/languages/rust/installation/) to install RustThemis dependencies.
@@ -353,6 +363,8 @@ cargo run --package themis-integration-tools --bin smessage_encryption \
         ./tests/_integration/keys/client.pub \
     "ICcEJkcAAAAAAQFADAAAABAAAAATAAAAJw+BEVHvkJc1ypodGwxLgWneH9wEcXcFO2GYacSjnW/QyzwKAr+WmU7xlwOvT+E="
 ```
+
+---
 
 ### PHP
 

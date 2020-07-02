@@ -7,9 +7,10 @@ title:  Secure Cell
 
 **Secure Сell** is a high-level cryptographic container
 aimed at protecting arbitrary data stored in various types of storages
-(e.g., databases, filesystem files, document archives, cloud storage, etc.)
+(e.g., databases, filesystem files, document archives, cloud storage, etc.).
+
 It provides a simple way of securing your data using strong encryption and data authentication mechanisms,
-with easy-to-use interfaces for a broad range of use-cases.
+with easy-to-use interfaces for a broad range of use cases.
 
 ## Availability in Themis
 
