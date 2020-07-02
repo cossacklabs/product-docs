@@ -15,7 +15,7 @@ It will help you to avoid some typical mistakes.
 In the current version of Themis,
 key management is left to the discretion of the end-user.
 However, we've got some helpful tips for those willing to develop in a truly secure way.
-According to the [_Kerckhoffs's principle_](https://en.wikipedia.org/wiki/Kerckhoffs%27_principle),
+According to the [Kerckhoffs's principle](https://en.wikipedia.org/wiki/Kerckhoffs%27_principle),
 cryptosystems should be treated as secure as the keys.
 The highest level of cryptography is negligible if your keys are not protected well.
 
