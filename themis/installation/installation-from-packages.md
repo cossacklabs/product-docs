@@ -92,6 +92,8 @@ sudo apt update
 sudo apt install libthemis-dev
 ```
 
+---
+
 ### CentOS, RHEL, Oracle Linux
 
 Supported systems:
@@ -141,6 +143,9 @@ wget -qO - https://pkgs-ce.cossacklabs.com/stable/centos/cossacklabs.repo | \
 sudo yum install libthemis-devel
 ```
 
+
+---
+
 ### macOS
 
 Themis is available on macOS via Homebrew.
@@ -165,6 +170,9 @@ brew install libthemis
 ```
 
 Congratulations! You're done!
+
+
+---
 
 ### Windows
 
@@ -243,6 +251,9 @@ which can be used to redistribute Themis to systems without MSYS2.
     to install Themis along with all necessary dependencies.
 
 ![](/files/wiki/cossack-labs-themis-win-installer.png)
+
+
+---
 
 ## Installing Themis language wrappers
 

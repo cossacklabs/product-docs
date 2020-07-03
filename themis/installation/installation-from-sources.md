@@ -253,20 +253,20 @@ For iOS, Android, and WebAssembly you do not need to build Themis Core separatel
 
 ### Server-side and desktop platforms
 
-  - [C++](/themis/languages/cpp/installation#building-latest-version-from-source/)
-  - [Go](/themis/languages/go/installation#building-latest-version-from-source/)
-  - [JavaScript (Node.js)](/themis/languages/nodejs/installation#building-latest-version-from-source/)
-  - [Java](/themis/languages/java/installation-desktop#building-latest-version-from-source/)
-  - [Kotlin](/themis/languages/kotlin/installation-desktop#building-latest-version-from-source/)
-  - [PHP](/themis/languages/php/installation#building-latest-version-from-source/)
-  - [Python](/themis/languages/python/installation#building-latest-version-from-source/)
-  - [Ruby](/themis/languages/ruby/installation#building-latest-version-from-source/)
-  - [Rust](/themis/languages/rust/installation#building-latest-version-from-source/)
+  - [C++](/themis/languages/cpp/installation#building-latest-version-from-source)
+  - [Go](/themis/languages/go/installation#building-latest-version-from-source)
+  - [JavaScript (Node.js)](/themis/languages/nodejs/installation#building-latest-version-from-source)
+  - [Java](/themis/languages/java/installation-desktop#building-latest-version-from-source)
+  - [Kotlin](/themis/languages/kotlin/installation-desktop#building-latest-version-from-source)
+  - [PHP](/themis/languages/php/installation#building-latest-version-from-source)
+  - [Python](/themis/languages/python/installation#building-latest-version-from-source)
+  - [Ruby](/themis/languages/ruby/installation#building-latest-version-from-source)
+  - [Rust](/themis/languages/rust/installation#building-latest-version-from-source)
 
 ### Mobile and Web platforms
 
-  - [Swift](/themis/languages/swift/installation#building-latest-version-from-source/)
-  - [Objective-C](/themis/languages/objc/installation#building-latest-version-from-source/)
-  - [Kotlin](/themis/languages/kotlin/installation-android#building-latest-version-from-source/)
-  - [Java](/themis/languages/java/installation-android#building-latest-version-from-source/)
-  - [JavaScript (WebAssembly)](/themis/languages/wasm/installation#building-latest-version-from-source/)
+  - [Swift](/themis/languages/swift/installation#building-latest-version-from-source)
+  - [Objective-C](/themis/languages/objc/installation#building-latest-version-from-source)
+  - [Kotlin](/themis/languages/kotlin/installation-android#building-latest-version-from-source)
+  - [Java](/themis/languages/java/installation-android#building-latest-version-from-source)
+  - [JavaScript (WebAssembly)](/themis/languages/wasm/installation#building-latest-version-from-source)

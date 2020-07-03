@@ -80,9 +80,11 @@ To generate symmetric keys, use:
 std::vector<uint8_t> master_key = themispp::gen_sym_key();
 ```
 
+---
+
 ## Secure Cell
 
-[**Secure Сell**](/themis/crypto-theory/crypto-systems/secure-cell/)
+[**Secure Сell**](/themis/crypto-theory/cryptosystems/secure-cell/)
 is a high-level cryptographic container
 aimed at protecting arbitrary data stored in various types of storage
 (e.g., databases, filesystem files, document archives, cloud storage, etc.)
@@ -130,7 +132,7 @@ Secure Cell supports 2 kinds of secrets:
     and achieves security comparable to keys with shorter passphrases.
     This comes at a significant performance cost though.
 
-    [KDF]: /themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions
+    [KDF]: /themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions
 
 Secure Cell supports 3 operation modes:
 
@@ -145,7 +147,7 @@ Secure Cell supports 3 operation modes:
     with no additional data stored. Should be used carefully.
 
 Read more about
-[Secure Cell cryptosystem design](/themis/crypto-theory/crypto-systems/secure-cell/)
+[Secure Cell cryptosystem design](/themis/crypto-theory/cryptosystems/secure-cell/)
 to understand better the underlying considerations, limitations, and features of each mode.
 
 <!-- TODO: uncomment this when API docs are hosted there (T1682)
@@ -154,7 +156,7 @@ See [full API reference here](/themis/api/cpp/latest/secure_cell/).
 
 ### Seal mode
 
-[**Seal mode**](/themis/crypto-theory/crypto-systems/secure-cell/#seal-mode)
+[**Seal mode**](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode)
 is the most secure and easy to use mode of Secure Cell.
 This should be your default choice unless you need specific features of the other modes.
 
@@ -163,7 +165,7 @@ Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
 
 {{< hint info >}}
 Each secret type has its pros and cons.
-Read about [Key derivation functions](/themis/crypto-theory/crypto-systems/secure-cell/#key-derivation-functions) to learn more.
+Read about [Key derivation functions](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions) to learn more.
 {{< /hint >}}
 
 ```cpp
@@ -214,7 +216,7 @@ Secure Cell will throw an exception if those are incorrect or if the encrypted d
 
 ### Token Protect mode
 
-[**Token Protect mode**](/themis/crypto-theory/crypto-systems/secure-cell/#token-protect-mode)
+[**Token Protect mode**](/themis/crypto-theory/cryptosystems/secure-cell/#token-protect-mode)
 should be used if you cannot allow the length of the encrypted data to grow
 but have additional storage available elsewhere for the authentication token.
 Other than that,
@@ -273,7 +275,7 @@ or if the data or the authentication token was corrupted.
 
 ### Context Imprint mode
 
-[**Context Imprint mode**](/themis/crypto-theory/crypto-systems/secure-cell/#context-imprint-mode)
+[**Context Imprint mode**](/themis/crypto-theory/cryptosystems/secure-cell/#context-imprint-mode)
 should be used if you absolutely cannot allow the length of the encrypted data to grow.
 This mode is a bit harder to use than the Seal and Token Protect modes.
 Context Imprint mode also provides slightly weaker integrity guarantees.
@@ -333,9 +335,12 @@ Make sure to initialise the Secure Cell with the same secret
 and provide the same associated context as used for encryption.
 You should also do some sanity checks after decryption.
 
+
+---
+
 ## Secure Message
 
-[**Secure Message**](/themis/crypto-theory/crypto-systems/secure-message/)
+[**Secure Message**](/themis/crypto-theory/cryptosystems/secure-message/)
 is a lightweight container
 that can help deliver some message or data to your peer in a secure manner.
 It provides a sequence-independent, stateless, contextless messaging system.
@@ -369,7 +374,7 @@ Secure Message offers two modes of operation:
     along with the public key of the expected sender.
 
 Read more about
-[Secure Message cryptosystem design](/themis/crypto-theory/crypto-systems/secure-message/)
+[Secure Message cryptosystem design](/themis/crypto-theory/cryptosystems/secure-message/)
 to understand better the underlying considerations, limitations, and features of each mode.
 
 <!-- TODO: uncomment this when API docs are hosted there (T1682)
@@ -378,7 +383,7 @@ See [full API reference here](/themis/api/cpp/latest/secure_message/).
 
 ### Signature mode
 
-[**Signature mode**](/themis/crypto-theory/crypto-systems/secure-message/#signed-messages)
+[**Signature mode**](/themis/crypto-theory/cryptosystems/secure-message/#signed-messages)
 only adds cryptographic signatures over the messages,
 enough for anyone to authenticate them and prevent tampering
 but without additional confidentiality guarantees.
@@ -439,7 +444,7 @@ or if the message has been signed by someone else, not the expected sender.
 
 ### Encryption mode
 
-[**Encryption mode**](/themis/crypto-theory/crypto-systems/secure-message/#encrypted-messages)
+[**Encryption mode**](/themis/crypto-theory/cryptosystems/secure-message/#encrypted-messages)
 not only certifies the integrity and authenticity of the message,
 it also guarantees its confidentialty.
 That is, only the intended recipient is able to read the encrypted message,
@@ -509,9 +514,11 @@ if the message has been modified since Alice encrypted it;
 or if the message was encrypted by Carol, not by Alice;
 or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
 
+---
+
 ## Secure Session
 
-[**Secure Session**](/themis/crypto-theory/crypto-systems/secure-session/)
+[**Secure Session**](/themis/crypto-theory/cryptosystems/secure-session/)
 is a lightweight protocol for securing any kind of network communication,
 on both private and public networks, including the Internet.
 It operates on the 5th layer of the network OSI model (the session layer).
@@ -540,7 +547,7 @@ Secure Session supports two operation modes:
     and uses callbacks to notify about incoming messages or request sending outgoing messages.
 
 Read more about
-[Secure Session cryptosystem design](/themis/crypto-theory/crypto-systems/secure-session/)
+[Secure Session cryptosystem design](/themis/crypto-theory/cryptosystems/secure-session/)
 to understand better the underlying considerations,
 get an overview of the protocol and its features,
 etc.
@@ -567,7 +574,7 @@ The private keys should never be shared with anyone else.
 
 Each party should also choose a unique *peer ID* –
 arbitrary byte sequence identifying their public key.
-Read more about peer IDs in [Secure Session cryptosystem overview](/themis/crypto-theory/crypto-systems/secure-session/#peer-ids-and-keys).
+Read more about peer IDs in [Secure Session cryptosystem overview](/themis/crypto-theory/cryptosystems/secure-session/#peer-ids-and-keys).
 The peer IDs need to be exchanged along with the public keys.
 
 To identify peers, Secure Session uses a **callback interface**.
@@ -653,7 +660,7 @@ Read more about [thread safety of Secure Session](/themis/debugging/thread-safet
 
 ### Buffer-aware API
 
-[**Buffer-aware API**](/themis/crypto-theory/crypto-systems/secure-session/#buffer-aware-api)
+[**Buffer-aware API**](/themis/crypto-theory/cryptosystems/secure-session/#buffer-aware-api)
 (aka *wrap–unwrap* mode)
 is easier to integrate into existing application with established network processing path.
 Here the application handles message buffers explicitly.
@@ -733,7 +740,7 @@ such as unexpected messages, outdated messages, etc.
 
 ### Callback-oriented API
 
-[**Callback-oriented API**](/themis/crypto-theory/crypto-systems/secure-session/#callback-oriented-api)
+[**Callback-oriented API**](/themis/crypto-theory/cryptosystems/secure-session/#callback-oriented-api)
 (aka *send–receive* mode)
 uses Secure Session as a framework for network communication, handling data buffers implicitly.
 It allows for simpler messaging code at an expense of more complex setup code.
@@ -804,9 +811,11 @@ if the message has been modified in-flight.
 It will also detect and report protocol anomalies,
 such as unexpected messages, outdated messages, etc.
 
+---
+
 ## Secure Comparator
 
-[**Secure Comparator**](/themis/crypto-theory/crypto-systems/secure-comparator/)
+[**Secure Comparator**](/themis/crypto-theory/cryptosystems/secure-comparator/)
 is an interactive protocol for two parties that compares whether they share the same secret or not.
 It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
 ([Socialist Millionaire's Protocol][SMP]),
@@ -821,7 +830,7 @@ That is, the implementation handles all intricacies of the protocol,
 but the application has to supply networking capabilities to exchange the messages.
 
 Read more about
-[Secure Comparator cryptosystem design](/themis/crypto-theory/crypto-systems/secure-comparator/)
+[Secure Comparator cryptosystem design](/themis/crypto-theory/cryptosystems/secure-comparator/)
 to understand better the underlying considerations,
 get an overview of the protocol, etc.
 

@@ -15,7 +15,7 @@ It will help you to avoid some typical mistakes.
 In the current version of Themis,
 key management is left to the discretion of the end-user.
 However, we've got some helpful tips for those willing to develop in a truly secure way.
-According to the [_Kerckhoffs's principle_](https://en.wikipedia.org/wiki/Kerckhoffs%27_principle),
+According to the [Kerckhoffs's principle](https://en.wikipedia.org/wiki/Kerckhoffs%27_principle),
 cryptosystems should be treated as secure as the keys.
 The highest level of cryptography is negligible if your keys are not protected well.
 
@@ -80,7 +80,7 @@ Themis provides API for generating keys used by all its cryptosystems.
 
 #### Symmetric keys in Secure Cell
 
-[Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
+[Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/)
 cryptosystem uses symmetric encryption keys.
 They do not have a particular format, but must be reasonably long to provide security.
 Themis uses key stretching and key-derivation functions under the hood,
@@ -91,7 +91,7 @@ Consult a [how-to guide for your language](/themis/languages/).
 
 #### Passphrases in Secure Cell
 
-Themis also provides a separate “passphrase” interface for [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/).
+Themis also provides a separate “passphrase” interface for [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/).
 This interface allows using relatively short passphrases to encrypt and decrypt the data.
 Passphrases are easier for humans to remember than random 32-byte strings
 and may be easier to generate for most applications.
@@ -113,8 +113,8 @@ from the [Serious Cryptography](https://nostarch.com/seriouscrypto) book.
 
 #### Keypairs in Secure Message and Secure Session
 
-[Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
-and [Secure Session](/themis/crypto-theory/crypto-systems/secure-cell/)
+[Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
+and [Secure Session](/themis/crypto-theory/cryptosystems/secure-cell/)
 cryptosystems use asymmetric keypairs.
 RSA and EC keypairs have a specific format and mathematical requirements for them to be secure.
 Not only they must be created for random data of sufficient length,
@@ -137,7 +137,7 @@ storing them in an encrypted form makes the overall security level of your solut
 The simplest way you can choose (that requires little effort and no infrastructure)
 is to use some kind of a master key to encrypt all your keys in the application.
 The master key can be passed as some parameter on application startup,
-and you can use [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
+and you can use [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/)
 to protect all your keys and other sensitive data.
 
 ### Signature keys vs encryption keys
@@ -202,8 +202,8 @@ a man-in-the-middle (MitM) attacker may take over all your communications.
 Relying on integrity through encryption is a bad practice,
 please use a separate integrity mechanism.
 
-Both [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
-and [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
+Both [Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
+and [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
 provided by Themis ensure confidentiality, integrity,
 and authenticity of the transmitted data,
 which means they can be safely used for key exchange.

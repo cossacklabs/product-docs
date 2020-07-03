@@ -5,29 +5,24 @@ title:  Themis Server
 
 # Themis Server
 
-[**Themis Server**](/simulator/interactive/)
-(aka _Interactive Simulator_)
-is an interactive simulator that can be used as a remote debugging aid.
+[**Themis Server**](/simulator/interactive/) (aka _Interactive Simulator_) is web server that can be used as a remote debugging aid.
 We built this server to help engineers understand Themis.
 It can come in handy if you're just starting out with this library.
 
 Using the Themis Server, you can avoid spending a lot of time and effort
 to build your own client and server, make sure you get the keys right, etc.
 With a simple “remote party simulator” you can try out
-[Secure Session](/themis/crypto-theory/crypto-systems/secure-session/) and
-[Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+[Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) and
+[Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
 in an interactive mode.
 You can also easily encrypt and decrypt data with
-[Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/).
+[Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/).
 
-#### What Themis server does for you
+#### What Themis Server helps you with
 
-Themis Server helps you to verify:
-
-- encryption and decryption with [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
-- encryption, decryption, signatures with [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
-- interactive client-server communication with [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
-  and [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+- verifying encryption and decryption with [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/)
+- verifying encryption, decryption, signatures with [Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
+- working as second party (_like Bob to Alice_) during interactive client-server communication with [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) and [Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
 
 #### When would you need Themis Server?
 
@@ -98,8 +93,8 @@ Verbose mode is off when the lightbulb assistant indicator is grey:
 ## Data simulators
 
 Data simulator (_datasim_) allows you to copy/paste base64-encoded objects
-containing [Secure Cells](/themis/crypto-theory/crypto-systems/secure-cell/)
-or [Secure Messages](/themis/crypto-theory/crypto-systems/secure-message/).
+containing [Secure Cells](/themis/crypto-theory/cryptosystems/secure-cell/)
+or [Secure Messages](/themis/crypto-theory/cryptosystems/secure-message/).
 
 ### Secure Cell
 
@@ -109,7 +104,7 @@ Go to the [Secure Cell Datasim](/simulator/data-cell/) page.
 Make sure you're logged in before you start!
 {{< /hint>}}
 
-Select the [Secure Cell mode](/themis/crypto-theory/crypto-systems/secure-cell/)
+Select the [Secure Cell mode](/themis/crypto-theory/cryptosystems/secure-cell/)
 from the menu, input the parameters, and encrypt/decrypt messages.
 Follow the on-screen instructions.
 
@@ -134,7 +129,7 @@ Follow the on-screen instructions.
 
 ### Secure Session
 
-The interactive simulator on Themis Server allows your code to connect to our server in real-time
+The [interactive simulator](/simulator/interactive/) on Themis Server allows your code to connect to our server in real-time
 and use debug console (appears at the bottom of the screen) to actually test client-server interaction.
 
 When you log in,
@@ -169,7 +164,7 @@ To talk to the server, you need to write a client application which will:
   - send encrypted test messages encoded in base64,
   - decode received messages from base64, then decrypt them.
 
-To start or stop Secure Session or Secure Message on our Server side,
+To start or stop [Secure Session or Secure Message](/simulator/interactive/) on our Server side,
 use the corresponding buttons (see the screenshot above).
 
 {{< hint info >}}
