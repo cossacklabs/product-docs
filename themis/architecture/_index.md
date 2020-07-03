@@ -88,13 +88,13 @@ Instead, we've picked common scenarios for a set of use cases that Themis' users
 are likely to stumble upon,
 and polished up the cryptosystems to support a broad range of similar use cases.
 
-So far, there are [4 separate cryptosystems](/themis/crypto-theory/crypto-systems/)
+So far, there are [4 separate cryptosystems](/themis/crypto-theory/cryptosystems/)
 available in Themis:
 
-- [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
-- [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
-- [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
-- [Secure Comparator](/themis/crypto-theory/crypto-systems/secure-comparator/)
+- [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/)
+- [Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
+- [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
+- [Secure Comparator](/themis/crypto-theory/cryptosystems/secure-comparator/)
 
 ![](/files/wiki/themis_cryptosystems.png)
 

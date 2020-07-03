@@ -55,7 +55,7 @@ Context Imprint mode doesn't calculate an authentication tag,
 which means that integrity checks cannot be performed.
 If decryption is not possible, corrupted data is returned, no error is raised.
 Please see the following page
-on the [Secure Cell cryptosystem](/themis/crypto-theory/crypto-systems/secure-cell/)
+on the [Secure Cell cryptosystem](/themis/crypto-theory/cryptosystems/secure-cell/)
 for the details.
 
 ## RubyThemis: gem rename

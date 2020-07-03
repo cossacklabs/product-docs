@@ -13,8 +13,8 @@ Particular cryptographic backends and language wrappers may impose additional sa
 
 ### Secure Cell, Secure Message
 
-[Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/) and
-[Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+[Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/) and
+[Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
 objects are generally immutable.
 You can safely use these objects concurrently from multiple threads.
 
@@ -23,8 +23,8 @@ However, some language wrappers have historical exceptions,
 
 ### Secure Comparator, Secure Session
 
-[Secure Comparator](/themis/crypto-theory/crypto-systems/secure-comparator/) and
-[Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
+[Secure Comparator](/themis/crypto-theory/cryptosystems/secure-comparator/) and
+[Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
 objects implement stateful interactive protocols.
 You need to use application locks to synchronise access to those objecs,
 if you share them between threads.
@@ -34,12 +34,12 @@ as long as only one thread is using an interactive object.
 
 #### Shared Secure Session transport objects
 
-If you use Secure Session in [wrap/unwrap mode](/themis/crypto-theory/crypto-systems/secure-session/#usage-models),
+If you use Secure Session in [wrap/unwrap mode](/themis/crypto-theory/cryptosystems/secure-session/#usage-models),
 you may share the transport callbacks between multiple Secure Session objects
 and between multiple threads,
 provided that your callback implementation is correctly synchronised internally.
 
-Secure Sessions in [send/receive mode](/themis/crypto-theory/crypto-systems/secure-session/#usage-models)
+Secure Sessions in [send/receive mode](/themis/crypto-theory/cryptosystems/secure-session/#usage-models)
 require individual transport objects that must never be shared between multiple Secure Sessions
 (and by extension, between multiple threads).
 You cannot use locks here, you need to create separate transport callback instances.
