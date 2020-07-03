@@ -6,7 +6,7 @@ title:  Credits and honours
 # Credits and honourable mentions
 
 Significant contributions to Themis encryption library have been made
-by Ignat Korchagin ([@secumod](https://github.com/secumod))
+by Ignat Korchagin ([@ignatk](https://github.com/ignatk))
 and Andrey Mnazakanov ([@mnaza](https://www.github.com/mnaza)).
 
 As for 2020, Themis is supported by core crew:
@@ -45,7 +45,7 @@ A special thank you goes to the awesome contributors that help us make Themis be
   a possible null pointer deference caused by the misusage of short-circuit evaluation
   ([#314](https://github.com/cossacklabs/themis/pull/314)).
 - [@valeriyvan](https://github.com/valeriyvan) for numerous improvements in iOS support and examples.
-- [@bryongloden](https://github.com/bryongloden) for numerous changes and suggestions.
+- [@bryongloden](https://github.com/bryonglodencissp) for numerous changes and suggestions.
 - [@outspace](https://github.com/outspace) for spotting code imperfections like a hawk,
   when even the mighty Valgrind failed to do so
   ([#514](https://github.com/cossacklabs/themis/issues/514),
