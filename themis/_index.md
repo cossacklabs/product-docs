@@ -17,7 +17,6 @@ Themis is a cross-platform high-level cryptographic library for mobile, web, and
 
 Themis provides ready-made building blocks _(["cryptosystems"](#cryptosystems))_ which simplify usage of core cryptographic security operations.
 
-
 {{< hint info >}}
 Learn more about [cryptography in Themis](/themis/crypto-theory/).
 {{< /hint>}}
@@ -28,7 +27,7 @@ Learn more about [cryptography in Themis](/themis/crypto-theory/).
 
 Unlike many other cryptographic libraries, Themis is a high-level, easy-to-use and hard-to-misuse library _(["boring crypto"](https://speakerdeck.com/vixentael/use-cryptography-dont-learn-it))_. 
 
-Themis is made by cryptographers, but targeted on developers, so it hides cryptographic details under the hood _("secure by design")_.
+Themis is made by cryptographers, but is targeted at developers, so it hides cryptographic details under the hood _("secure by design")_.
 
 Themis helps to build both simple and complex cryptographic features easily, quickly, and securely. Themis allows developers to focus on the main thing: developing their applications.
 
@@ -51,14 +50,12 @@ Learn more about [security design ideas behind Themis](/themis/architecture/) an
 * Build **end-to-end encryption schemes** with centralised or decentralised architecture:
   encrypt data locally on one app, use it encrypted everywhere, decrypt only for authenticated user.
 
-* Maintain **real-time secure sessions**:
-  send encrypted messages to control connected devices from your app,
+* Maintain **real-time secure sessions**: send encrypted messages to control connected devices from your app,
   receive real-time sensitive data from your apps to your backend.
 
 * **Compare secrets** between parties without revealing them (zero-knowledge proof-based authentication).
 
-* **One cryptographic library that fits them all**:
-  Themis is the best fit for multi-platform apps (e.g., iOS+Android+Electron app with Node.js backend)
+* **One cryptographic library that fits them all**: Themis is the best fit for multi-platform apps (e.g., iOS+Android+Electron app with Node.js backend)
   because it provides 100% compatible API and works in the same way across all supported platforms.
 
 
@@ -91,7 +88,7 @@ We created Themis to build other products on top of it - i.e. [Acra](https://www
 
 1. Themis doesn't provide a low-level/raw cryptographic API for encryption and hashing.
 
-   For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function (there is no API like `encrypt(cipher: AES, keylenght:256, mode:GCM)`). 
+   For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function (there is no API like `encrypt(cipher: AES, key-length:256, mode:GCM)`). 
 
    Instead of thinking about cryptographic parameters, developers take Themis to solve certain functions/requirement of their products. Themis is designed in a way that eliminates typical cryptographic mistakes, and makes development faster, but Themis is not as flexible as OpenSSL.
 

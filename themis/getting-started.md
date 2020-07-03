@@ -7,7 +7,7 @@ title:  Getting started
 
 ## Availability
 
-Themis supports big-endian CPU architectures: x86_64/i386, ARM, various Android architectures.
+Themis supports following CPU architectures: x86_64/i386, ARM, various Android architectures.
 
 We build and verify Themis on the latest stable OS versions:
 
