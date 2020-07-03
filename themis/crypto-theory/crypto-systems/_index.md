@@ -6,20 +6,20 @@ bookCollapseSection: true
 
 # Cryptosystems
 
-There are strict definitions of what a _cryptosystem_ is,
+There are strict definitions of what a cryptosystem is,
 but in practice, the answer still varies depending on the point of view.
 
 According to [Wikipedia](http://en.wikipedia.org/wiki/Cryptosystem),
-_cryptosystem_ refers to a suite of cryptographic algorithms
+**cryptosystem** refers to a suite of cryptographic algorithms
 necessary for implementing a particular security service,
 most commonly – to achieve confidentiality.
 We agree that most of the time
-the term _cryptography_ is associated with data encryption (confidentiality).
+the term **cryptography** is associated with data encryption (confidentiality).
 
 Nowadays, however, driven by the continuously growing complexity of IT systems
 and due to the expansion of the vector space of possible security attacks,
-_cryptography_ is now much more than being simply about encryption.
-Cryptography is now associated with the tuple of {confidentiality, integrity, authenticity}.
+cryptography is now much more than being simply about encryption.
+Cryptography is now associated with the tuple of _{confidentiality, integrity, authenticity}_.
 
 ## Cryptosystems and cryptoalgorithms
 
@@ -29,7 +29,7 @@ message authentication code for authenticity, etc.
 It is a sequence of operations to be performed.
 Like any other algorithm, it has input and output.
 
-A **cryptosystem**, as stated above, is a suite of _cryptoalgorithms_.
+A **cryptosystem**, as stated above, is a suite of cryptoalgorithms.
 It may be a combination of one or more algorithms aimed at implementing a certain security service.
 This implies that a particular cryptosystem is designed to support a specific security use case,
 so cryptosystems more closely reflect the real-world security requirements.

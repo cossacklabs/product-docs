@@ -46,7 +46,7 @@ but it's always better to stay on the safe side.
 {{< /hint >}}
 
 If you have any questions or encounter some difficulties during the migration process,
-don't hesitate to send us an email to [dev@cossacklabs.com](mailto:dev@cossacklabs.com),
+don't hesitate to [send us an email](mailto:dev@cossacklabs.com),
 we can help.
 
 #### Context Imprint

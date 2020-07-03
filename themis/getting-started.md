@@ -7,15 +7,14 @@ title:  Getting started
 
 ## Availability
 
-Themis supports multiple CPU architectures:
-x86_64/i386, ARM, various Android architectures.
+Themis supports following CPU architectures: x86_64/i386, ARM, various Android architectures.
 
 We build and verify Themis on the latest stable OS versions:
 
   - Debian (9, 10), CentOS (7, 8), Ubuntu (16.04, 18.04, 20.04)
-  - macOS (10.12–10.15)
+  - macOS (10.12–10.15, 11)
   - Android (4–11)
-  - iOS (9–13), iPadOS
+  - iOS (9–14), iPadOS
   - Windows (experimenal MSYS2 support)
 
 We plan to expand this list with a broader set of platforms.

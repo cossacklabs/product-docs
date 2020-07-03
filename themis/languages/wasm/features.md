@@ -33,6 +33,8 @@ If Themis is called too early, you will see an error message like this:
 
 {{< /hint >}}
 
+---
+
 ## Key generation
 
 ### Asymmetric keypairs
@@ -86,6 +88,8 @@ const themis = require('wasm-themis')
 // Keys are Uint8Arrays
 let masterKey = new themis.SymmetricKey()
 ```
+
+---
 
 ## Secure Cell
 
@@ -333,6 +337,8 @@ Make sure to initialise the Secure Cell with the same secret
 and provide the same associated context as used for encryption.
 You should also do some sanity checks after decryption.
 
+---
+
 ## Secure Message
 
 [**Secure Message**](/themis/crypto-theory/crypto-systems/secure-message/)
@@ -495,6 +501,8 @@ Bob's Secure Message will throw an exception
 if the message has been modified since Alice encrypted it;
 or if the message was encrypted by Carol, not by Alice;
 or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
+
+---
 
 ## Secure Session
 
@@ -664,6 +672,8 @@ Secure Session ensures message integrity and will throw an exception
 if the message has been modified in-flight.
 It will also detect and report protocol anomalies,
 such as unexpected messages, outdated messages, etc.
+
+---
 
 ## Secure Comparator
 

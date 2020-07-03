@@ -15,9 +15,9 @@ and a more complete list is as follows (in alphabetical order):
 
 * [Bear App](https://bear.app/) —
   [endorsed by Apple](https://www.apple.com/ios/app-store/principles-practices/) iOS note-taking app.
-  (Read more about how we've helped to add end-to-end encryption of user notes
+  Read more about how we've helped to add end-to-end encryption of user notes
   in this blog post:
-  [Implementing End-to-End encryption in Bear App](https://www.cossacklabs.com/blog/end-to-end-encryption-in-bear-app.html).)
+  [Implementing End-to-End encryption in Bear App](https://www.cossacklabs.com/blog/end-to-end-encryption-in-bear-app.html).
 
 * [GoClinic](https://goclinic.io/) —
   healthcare information exchange platform from the Netherlands

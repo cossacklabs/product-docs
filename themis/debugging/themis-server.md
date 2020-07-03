@@ -5,9 +5,7 @@ title:  Themis Server
 
 # Themis Server
 
-[**Themis Server**](/simulator/interactive/)
-(aka _Interactive Simulator_)
-is an interactive simulator that can be used as a remote debugging aid.
+[**Themis Server**](/simulator/interactive/) (aka _Interactive Simulator_) is web server that can be used as a remote debugging aid.
 We built this server to help engineers understand Themis.
 It can come in handy if you're just starting out with this library.
 
@@ -20,14 +18,11 @@ in an interactive mode.
 You can also easily encrypt and decrypt data with
 [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/).
 
-#### What Themis server does for you
+#### What Themis Server helps you with
 
-Themis Server helps you to verify:
-
-- encryption and decryption with [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
-- encryption, decryption, signatures with [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
-- interactive client-server communication with [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/)
-  and [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+- verifying encryption and decryption with [Secure Cell](/themis/crypto-theory/crypto-systems/secure-cell/)
+- verifying encryption, decryption, signatures with [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
+- working as second party (_like Bob to Alice_) during interactive client-server communication with [Secure Session](/themis/crypto-theory/crypto-systems/secure-session/) and [Secure Message](/themis/crypto-theory/crypto-systems/secure-message/)
 
 #### When would you need Themis Server?
 
@@ -134,7 +129,7 @@ Follow the on-screen instructions.
 
 ### Secure Session
 
-The interactive simulator on Themis Server allows your code to connect to our server in real-time
+The [interactive simulator](/simulator/interactive/) on Themis Server allows your code to connect to our server in real-time
 and use debug console (appears at the bottom of the screen) to actually test client-server interaction.
 
 When you log in,
@@ -169,7 +164,7 @@ To talk to the server, you need to write a client application which will:
   - send encrypted test messages encoded in base64,
   - decode received messages from base64, then decrypt them.
 
-To start or stop Secure Session or Secure Message on our Server side,
+To start or stop [Secure Session or Secure Message](/simulator/interactive/) on our Server side,
 use the corresponding buttons (see the screenshot above).
 
 {{< hint info >}}

@@ -34,12 +34,12 @@ as long as only one thread is using an interactive object.
 
 #### Shared Secure Session transport objects
 
-If you use Secure Session in [wrap/unwrap mode](/themis/crypto-theory/crypto-systems/secure-session/#usage-modes),
+If you use Secure Session in [wrap/unwrap mode](/themis/crypto-theory/crypto-systems/secure-session/#usage-models),
 you may share the transport callbacks between multiple Secure Session objects
 and between multiple threads,
 provided that your callback implementation is correctly synchronised internally.
 
-Secure Sessions in [send/receive mode](/themis/crypto-theory/crypto-systems/secure-session/#usage-modes)
+Secure Sessions in [send/receive mode](/themis/crypto-theory/crypto-systems/secure-session/#usage-models)
 require individual transport objects that must never be shared between multiple Secure Sessions
 (and by extension, between multiple threads).
 You cannot use locks here, you need to create separate transport callback instances.
