@@ -18,10 +18,10 @@ for their core security needs.
 
 We've built Themis to have easy-to-use large building blocks
 bound to precise security guarantees and use cases—these are
-[Secure Cell](../crypto-systems/secure-cell/),
-[Secure Message](../crypto-systems/secure-message/),
-[Secure Session](../crypto-systems/secure-session/),
-and [Secure Comparator](../crypto-systems/secure-comparator/) cryptosystems.
+[Secure Cell](../cryptosystems/secure-cell/),
+[Secure Message](../cryptosystems/secure-message/),
+[Secure Session](../cryptosystems/secure-session/),
+and [Secure Comparator](../cryptosystems/secure-comparator/) cryptosystems.
 They are composed according to the best modern practices of achieving certain security guarantees.
 
 ## What should you use
