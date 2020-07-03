@@ -13,9 +13,9 @@ _What Themis is and why it's awesome_
 
 ## What Themis is
 
-Themis is a cross-platform high-level cryptographic library for mobile, web and server platforms. Themis solves 90% of typical data protection use cases that are common for most apps. 
+Themis is a cross-platform high-level cryptographic library for mobile, web, and server platforms. Themis solves 90% of typical data protection use cases that are common for most apps. 
 
-Themis provides ready-made building blocks _(["crypto-systems"](#crypto-systems))_, which simplify usage of core cryptographic security operations.
+Themis provides ready-made building blocks _(["cryptosystems"](#cryptosystems))_ which simplify usage of core cryptographic security operations.
 
 
 {{< hint info >}}
@@ -30,41 +30,47 @@ Unlike many other cryptographic libraries, Themis is a high-level, easy-to-use a
 
 Themis is made by cryptographers, but targeted on developers, so it hides cryptographic details under the hood _("secure by design")_.
 
-Themis helps to build both simple and complex cryptographic features easily, quickly and securely. Themis allows developers to focus on the main thing: developing their applications.
+Themis helps to build both simple and complex cryptographic features easily, quickly, and securely. Themis allows developers to focus on the main thing: developing their applications.
 
 {{< hint info >}}
-Learn more about [security design ideas behind Themis](/themis/architecture/) and [how team maintains Themis](https://speakerdeck.com/vixentael/maintaining-cryptographic-library-for-12-languages) for last 6 years.
+Learn more about [security design ideas behind Themis](/themis/architecture/) and [how our team maintains Themis](https://speakerdeck.com/vixentael/maintaining-cryptographic-library-for-12-languages) for the last 6 years.
 {{< /hint>}}
 
 
 
 ## Use cases that Themis solves
 
-* **Encrypt stored secrets** in your apps and backend (API keys, session tokens, files).
+* **Encrypt stored secrets** in your apps and backend: API keys, session tokens, files.
 
 * **Encrypt sensitive data fields** before storing in database (_"application-side field-level encryption"_).
 
 * Support **searchable encryption**, data tokenisation (FPE) and data masking using Themis and [Acra](https://www.cossacklabs.com/acra/).
 
-* Exchange secrets securely (**share sensitive data** between parties, build simple chat app between patients and doctors).
+* Exchange secrets securely: **share sensitive data** between parties, build simple chat app between patients and doctors.
 
-* Build **end-to-end encryption schemes** with centralised or decentralised architecture (encrypt data locally on one app, use it encrypted everywhere, decrypt only for authenticated user).
+* Build **end-to-end encryption schemes** with centralised or decentralised architecture:
+  encrypt data locally on one app, use it encrypted everywhere, decrypt only for authenticated user.
 
-* Maintain **real-time secure sessions** (send encrypted messages to control connected devices from your app, receive real-time sensitive data from your apps to your backend).
+* Maintain **real-time secure sessions**:
+  send encrypted messages to control connected devices from your app,
+  receive real-time sensitive data from your apps to your backend.
 
 * **Compare secrets** between parties without revealing them (zero-knowledge proof-based authentication).
 
-* **One crypto-library that fits them all**: Themis is a best fit for multi-platform apps (f.e. iOS+Android+Electron app with Node.js backend), because it provides 100% compatible API and works in a same way across all supported platforms.
+* **One cryptographic library that fits them all**:
+  Themis is the best fit for multi-platform apps (e.g., iOS+Android+Electron app with Node.js backend)
+  because it provides 100% compatible API and works in the same way across all supported platforms.
 
 
-Themis works in a wide range of projects: power grids, banking apps, telemed apps, documents' exchange platforms, note-taking apps, no-code platforms, remote-debuging platforms, and so on. Themis is recommended by OWASP MSTG to use in mobile apps.
+Themis works in a wide range of projects: power grids, banking apps, telemed apps, documents' exchange platforms, note-taking apps, no-code platforms, remote-debuging platforms, and so on.
+[Themis is recommended by OWASP MSTG](https://github.com/OWASP/owasp-mstg/blob/master/Document/0x06e-Testing-Cryptography.md#third-party-libraries) to use in mobile apps.
 
 {{< hint info >}}
 Learn about [projects built using Themis](/themis/community/projects-that-use-themis/) and [regulations](/themis/regulations/) that Themis helps to cover.
 {{< /hint>}}
 
 
-## Crypto-systems
+## Cryptosystems
 
 Themis provides 4 important cryptographic services:
 
@@ -93,7 +99,8 @@ We created Themis to build other products on top of it - i.e. [Acra](https://www
 
 2. Themis doesn't have an API for homomorphic or PQ encryption.
 
-3. Themis is not designed to run on low-energy hardware, 16-bit microcontrollers and big-endian devices. Themis supports 32-bits/64-bits CPUs, little-endian.
+3. Themis is not designed to run on low-power hardware, microcontrollers, etc.
+   Themis targets mobile, desktop, and server hardware with x86 and ARM CPUs.
 
 {{< hint info >}}
 If some of these points are critical for you, consider [commercial support](/themis/support/).
