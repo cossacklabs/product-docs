@@ -10,6 +10,7 @@ Menu: "main"
 
 _What Themis is and why it's awesome_
 
+![](/files/wiki/themis_cossack_labs_docs_logo.png)
 
 ## What Themis is
 
