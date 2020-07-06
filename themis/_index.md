@@ -91,6 +91,7 @@ We created Themis to build other products on top of it – i.e. [Acra](https://w
 
    For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function.
    There is no API like
+
    ```swift
    let encrypted = encrypt(data, cipher: AES, keyLength: 256, mode: GCM)
    ```
