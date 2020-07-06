@@ -113,3 +113,4 @@ If some of these points are critical for you, consider [commercial support](/the
 ## Community behind Themis
 
 Open [Community page](/themis/community/) to learn more about authors, projects that use Themis, example apps and tutorials, and engineering talks about Themis.
+
