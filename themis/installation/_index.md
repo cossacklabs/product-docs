@@ -26,7 +26,7 @@ Installation for server-side platforms consists of **two steps:**
 
  1. Install [Themis Core library](installation-from-packages/)
     into the system.
- 2. Install [Themis language wrapper](installation-from-packages/#installing-language-wrappers)
+ 2. Install [Themis language wrapper](installation-from-packages/#installing-themis-language-wrappers)
     used by your application.
 
 Server-side platforms can receive security updates for the core library
@@ -43,7 +43,7 @@ Swift, Objective-C, Java, Kotlin, JavaScript (for WebAssembly).
 
 Installation for mobile platforms consists of just **one step:**
 
- 1. Install [Themis language wrapper](installation-from-packages/#installing-language-wrappers)
+ 1. Install [Themis language wrapper](installation-from-packages/#installing-themis-language-wrappers)
     used by your application.
 
 Installation for mobile platforms (iOS, Android) and WebAssembly is easier:
