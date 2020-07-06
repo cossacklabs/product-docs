@@ -10,10 +10,11 @@ Menu: "main"
 
 _What Themis is and why it's awesome_
 
+![](/files/wiki/themis_cossack_labs_docs_logo.png)
 
 ## What Themis is
 
-Themis is a cross-platform high-level cryptographic library for mobile, web, and server platforms. Themis solves 90% of typical data protection use cases that are common for most apps. 
+Themis is a cross-platform high-level cryptographic library for mobile, web, and server platforms. Themis solves 90% of typical data protection use cases that are common for most apps.
 
 Themis provides ready-made building blocks _(["cryptosystems"](#cryptosystems))_ which simplify usage of core cryptographic security operations.
 
@@ -25,7 +26,7 @@ Learn more about [cryptography in Themis](/themis/crypto-theory/).
 
 ## Why Themis
 
-Unlike many other cryptographic libraries, Themis is a high-level, easy-to-use and hard-to-misuse library _(["boring crypto"](https://speakerdeck.com/vixentael/use-cryptography-dont-learn-it))_. 
+Unlike many other cryptographic libraries, Themis is a high-level, easy-to-use and hard-to-misuse library _(["boring crypto"](https://speakerdeck.com/vixentael/use-cryptography-dont-learn-it))_.
 
 Themis is made by cryptographers, but is targeted at developers, so it hides cryptographic details under the hood _("secure by design")_.
 
@@ -76,7 +77,7 @@ Themis provides [4 important cryptographic services](/themis/crypto-theory/crypt
 * **[Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)**: **session-oriented encrypted data exchange** with forward secrecy for better security guarantees and more demanding infrastructures. Secure Session can perfectly function as socket encryption, session security, or a high-level messaging primitive (with some additional infrastructure like PKI). ECDH key agreement, ECC & AES encryption.
 * **[Secure Comparator](/themis/crypto-theory/cryptosystems/secure-comparator/)**: Zero knowledge proofs-based cryptographic protocol for **authentication** and comparing secrets.
 
-We created Themis to build other products on top of it - i.e. [Acra](https://www.cossacklabs.com/acra/) and [Hermes](https://www.cossacklabs.com/hermes/).
+We created Themis to build other products on top of it – i.e. [Acra](https://www.cossacklabs.com/acra/) and [Hermes](https://www.cossacklabs.com/hermes/).
 
 
 ![](/files/wiki/themis_cryptosystems.png)
@@ -88,7 +89,12 @@ We created Themis to build other products on top of it - i.e. [Acra](https://www
 
 1. Themis doesn't provide a low-level/raw cryptographic API for encryption and hashing.
 
-   For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function (there is no API like `encrypt(cipher: AES, key-length:256, mode:GCM)`). 
+   For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function.
+   There is no API like
+
+   ```swift
+   let encrypted = encrypt(data, cipher: AES, keyLength: 256, mode: GCM)
+   ```
 
    Instead of thinking about cryptographic parameters, developers take Themis to solve certain functions/requirement of their products. Themis is designed in a way that eliminates typical cryptographic mistakes, and makes development faster, but Themis is not as flexible as OpenSSL.
 
