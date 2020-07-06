@@ -61,7 +61,7 @@ If you'd like to participate in the core development more closely,
     The first parameter in most calls is an object context pointer
     passed back and forth through all calls of related functions (object methods).
 
-    Each object has a "constructor" - `themis_object_create()` method
+    Each object has a "constructor" – `themis_object_create()` method
     that allocates an object in the memory, initialises it, and returns the pointer to it.
 
     Each object also has a "destructor" – `themis_object_destroy()` method
