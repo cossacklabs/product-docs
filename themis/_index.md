@@ -14,7 +14,7 @@ _What Themis is and why it's awesome_
 
 ## What Themis is
 
-Themis is a cross-platform high-level cryptographic library for mobile, web, and server platforms. Themis solves 90% of typical data protection use cases that are common for most apps. 
+Themis is a cross-platform high-level cryptographic library for mobile, web, and server platforms. Themis solves 90% of typical data protection use cases that are common for most apps.
 
 Themis provides ready-made building blocks _(["cryptosystems"](#cryptosystems))_ which simplify usage of core cryptographic security operations.
 
@@ -26,7 +26,7 @@ Learn more about [cryptography in Themis](/themis/crypto-theory/).
 
 ## Why Themis
 
-Unlike many other cryptographic libraries, Themis is a high-level, easy-to-use and hard-to-misuse library _(["boring crypto"](https://speakerdeck.com/vixentael/use-cryptography-dont-learn-it))_. 
+Unlike many other cryptographic libraries, Themis is a high-level, easy-to-use and hard-to-misuse library _(["boring crypto"](https://speakerdeck.com/vixentael/use-cryptography-dont-learn-it))_.
 
 Themis is made by cryptographers, but is targeted at developers, so it hides cryptographic details under the hood _("secure by design")_.
 
