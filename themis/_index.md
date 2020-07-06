@@ -76,7 +76,7 @@ Themis provides [4 important cryptographic services](/themis/crypto-theory/crypt
 * **[Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)**: **session-oriented encrypted data exchange** with forward secrecy for better security guarantees and more demanding infrastructures. Secure Session can perfectly function as socket encryption, session security, or a high-level messaging primitive (with some additional infrastructure like PKI). ECDH key agreement, ECC & AES encryption.
 * **[Secure Comparator](/themis/crypto-theory/cryptosystems/secure-comparator/)**: Zero knowledge proofs-based cryptographic protocol for **authentication** and comparing secrets.
 
-We created Themis to build other products on top of it - i.e. [Acra](https://www.cossacklabs.com/acra/) and [Hermes](https://www.cossacklabs.com/hermes/).
+We created Themis to build other products on top of it – i.e. [Acra](https://www.cossacklabs.com/acra/) and [Hermes](https://www.cossacklabs.com/hermes/).
 
 
 ![](/files/wiki/themis_cryptosystems.png)
