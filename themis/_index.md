@@ -88,7 +88,11 @@ We created Themis to build other products on top of it – i.e. [Acra](https://w
 
 1. Themis doesn't provide a low-level/raw cryptographic API for encryption and hashing.
 
-   For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function (there is no API like `encrypt(cipher: AES, key-length:256, mode:GCM)`). 
+   For example, Themis doesn't provide a way to select a certain cryptographic cipher, or key length, or exact elliptic curve, or hash function.
+   There is no API like
+   ```swift
+   let encrypted = encrypt(data, cipher: AES, keyLength: 256, mode: GCM)
+   ```
 
    Instead of thinking about cryptographic parameters, developers take Themis to solve certain functions/requirement of their products. Themis is designed in a way that eliminates typical cryptographic mistakes, and makes development faster, but Themis is not as flexible as OpenSSL.
 
