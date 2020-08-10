@@ -571,6 +571,10 @@ There you can find examples of Secure Session setup and usage in all modes.
 First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
 and exchange their public keys.
 The private keys should never be shared with anyone else.
+{{< hint info >}}
+**Note:**
+Secure Session only supports EC keys. RSA support is available per request only.
+{{< /hint >}}
 
 Each party should also choose a unique *peer ID* –
 arbitrary byte sequence identifying their public key.
