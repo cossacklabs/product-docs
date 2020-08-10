@@ -167,19 +167,14 @@ The only requirement for peer ID is that it cannot be empty
 and it must uniquely identify the public key used by a peer.
 
 **Keypairs** can be securely generated with Themis key generation functions.
-Secure Session supports both EC and RSA key pairs.
+Secure Session only supports EC keys. RSA support is available per request only.
+Please [contact us](mailto:dev@cossacklabs.com) if you need to use RSA or other key types.
 
 The API is described in
 [`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/blob/master/src/themis/secure_keygen.h):
 
 ```c
 themis_status_t themis_gen_ec_key_pair(
-    uint8_t* private_key,
-    size_t*  private_key_length,
-    uint8_t* public_key,
-    size_t*  public_key_length);
-
-themis_status_t themis_gen_rsa_key_pair(
     uint8_t* private_key,
     size_t*  private_key_length,
     uint8_t* public_key,
