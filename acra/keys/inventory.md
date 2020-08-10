@@ -9,6 +9,7 @@ bookCollapseSection: true
 There are several types of keys used in Acra:
 
   - **Storage keypairs.**
+<!-- TODO: describe keypairs in more details: what is keypair, private and public part, introduce "client-side" encryption and "server-side/proxy-side" encryption --> 
     AcraWriter uses the public key to encrypt data to be stored in the database.
     AcraServer and AcraTranslator use corresponding private storage key
     to decrypt data queried from the database.

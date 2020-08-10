@@ -28,4 +28,7 @@ These are typical operations that you will need to perform:
 
 If something goes wrong, please refer the the [troubleshooting](troubleshooting/) page
 for instructions on dealing with common issues.
+
+Refer to NIST key management guidelines ([NIST SP 800-57](https://csrc.nist.gov/Projects/Key-Management/key-management-guidelines)) to learn more about key management procedures.
+
 Feel free to [contact us](mailto:dev@cossacklabs.com) if you need additional assistance.
