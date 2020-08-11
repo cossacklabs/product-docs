@@ -15,9 +15,9 @@ acra-migrate-keys \
     --dst_keystore=v2 --dst_keys_dir ".acrakeys.v2"
 ```
 
-You need to have `ACRA_MASTER_KEY` environment variable set to access the source key store.
-The `ACRA_MASTER_ENCRYPTION_KEY` and `ACRA_MASTER_SIGNATURE_KEY` variables need to be set as well
-in order to access the destination key store which will be created at `.acrakeys.v2`.
+You need to put the master key to the source key store into `SRC_ACRA_MASTER_KEY`
+and the destination master key into `DST_ACRA_MASTER_KEY`.
+New key store will be created at `.acrakeys.v2`.
 
 {{< hint info >}}
 **Note:**

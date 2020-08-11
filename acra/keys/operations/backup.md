@@ -87,8 +87,8 @@ acra-keys export --all --private_keys \
 
 {{< hint info >}}
 **Note:**
-You need to have `ACRA_MASTER_ENCRYPTION_KEY` and `ACRA_MASTER_SIGNATURE_KEY`
-environment variables set up to access the source key store for export.
+You need to have `ACRA_MASTER_KEY` environment varible set up
+to access the source key store for export.
 {{< /hint >}}
 
 This command will export all keys in the keystore,
@@ -104,8 +104,7 @@ Store the encrypted backup and the keys used to decrypt it separately.
 
 To restore a key store from a backup copy, start with an empty key store
 then import the backup with `acra-keys import`.
-You need to set the `ACRA_MASTER_ENCRYPTION_KEY` and `ACRA_MASTER_SIGNATURE_KEY`
-environment variable for the new key store.
+You need to set the `ACRA_MASTER_KEY` environment variable for the new key store.
 
 ```shell
 acra-keys import \

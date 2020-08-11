@@ -30,9 +30,9 @@ Current key store version 1 uses one master key called `ACRA_MASTER_KEY`.
 It is used only to encrypt the stored private keys.
 
 New key store version 2 uses two distinct master keys:
-`ACRA_MASTER_ENCRYPTION_KEY` and `ACRA_MASTER_SIGNATURE_KEY`.
-One is used to encrypt private key material,
+one is used to encrypt private key material,
 the other one is used to sign public key store data.
+Both of them are still encoded as a single `ACRA_MASTER_KEY` value.
 
 ## 1. Setting up AcraServer
 
@@ -48,20 +48,18 @@ such as hardware security modules (HSM) and key management services (KMS).
 Generate a new key and assign it to the environment variable on the corresponding server:
 
 ```shell
-acra-keymaker --generate_master_key=master.key
+acra-keymaker --keystore=v1 --generate_master_key=master.key
 
 export ACRA_MASTER_KEY=$(cat master.key | base64)
 ```
 
-With key store version 2 you will need to generate two different master keys:
+With key store version 2 you will need to use `acra-keymaker --keystore=v2`.
 
-```shell
-acra-keymaker --generate_master_key=master_encryption.key
-acra-keymaker --generate_master_key=master_signature.key
-
-export ACRA_MASTER_ENCRYPTION_KEY=$(cat master_encryption.key | base64)
-export ACRA_MASTER_SIGNATURE_KEY=$(cat master_signature.key | base64)
-```
+{{< hint info >}}
+**Note:**
+If you are using Acra 0.85 or earier,
+please omit the `--keystore` parameter here and onward.
+{{< /hint >}}
 
 ### 1.2. Generating transport and encryption keys
 
@@ -76,11 +74,6 @@ acra-keymaker --keystore=v1 --client_id=Alice --generate_acratranslator_keys
 acra-keymaker --keystore=v1 --client_id=Alice --generate_acrawriter_keys
 acra-keymaker --keystore=v1 --client_id=Alice --generate_acrawebconfig_keys
 ```
-
-{{< hint info >}}
-**Note:**
-If you are using Acra 0.85 or earier, please omit the `--keystore` parameter.
-{{< /hint >}}
 
 Carry out these operations on the machine running AcraServer or AcraTranslator
 to make sure that the private keys for Acra never leak outside from the server.
@@ -142,20 +135,18 @@ Generate a second set of master keys for AcraConnector in the same way,
 but on the server that runs AcraConnector:
 
 ```shell
-acra-keymaker --generate_master_key=master.key
+acra-keymaker --keystore=v1 --generate_master_key=master.key
 
 export ACRA_MASTER_KEY=$(cat master.key | base64)
 ```
 
-If you are going to use key store version 2, you will need two master keys:
+(Or with `--keystore=v2` to set up for key store version 2.)
 
-```shell
-acra-keymaker --generate_master_key=master_encryption.key
-acra-keymaker --generate_master_key=master_signature.key
-
-export ACRA_MASTER_ENCRYPTION_KEY=$(cat master_encryption.key | base64)
-export ACRA_MASTER_SIGNATURE_KEY=$(cat master_signature.key | base64)
-```
+{{< hint info >}}
+**Note:**
+If you are using Acra 0.85 or earier,
+please omit the `--keystore` parameter here and onward.
+{{< /hint >}}
 
 ### 2.2. Generating transport keys
 
@@ -164,11 +155,6 @@ Similarly, generate transport key for AcraConnector:
 ```shell
 acra-keymaker --keystore=v1 --client_id=Alice --generate_acraconnector_keys
 ```
-
-{{< hint info >}}
-**Note:**
-If you are using Acra 0.85 or earier, please omit the `--keystore` parameter.
-{{< /hint >}}
 
 Carry out this operation on the machine running AcraConnector to make sure that the private key of AcraConnector never leaks outside it.
 
