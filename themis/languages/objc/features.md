@@ -13,7 +13,7 @@ it is ready to use in your application!
 In order to use ObjCThemis, you need to import its headers:
 
 ```objc
-#import <objcthemis/objcthemis.h>
+@import themis;
 ```
 
 ---

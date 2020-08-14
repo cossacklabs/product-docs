@@ -64,22 +64,12 @@ Themis is also available via [**Carthage**](https://github.com/Carthage/Carthage
     carthage update
     ```
 
- 3. Integrate **objcthemis.framework** into your project
+ 3. Integrate **themis.framework** into your project
     according to [Carthage instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
-    <!-- TODO: remove this with Themis 0.14 -->
     {{< hint warning >}}
 **Important:**
-"objcthemis.framework" is the new name of the framework, starting from Themis 0.13.
-You should integrate *this* framework into your applications.
-
-Currently, for Themis 0.13,
-Carthage will build both new "objcthemis.framework" and old "themis.framework"
-to allow existing users to migrate.
-Do not use "themis.framework" in new applications
-and update existing applications to use "objcthemis.framework" instead.
-
-The old "themis.framework" is scheduled to be **removed** in Themis 0.14.
+You should integrate *themis.framework* into your applications.
     {{< /hint >}}
 
 [Here are examples](../examples/) of Carthage projects with Themis in Swift and Objective-C.
