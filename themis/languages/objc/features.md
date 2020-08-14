@@ -10,7 +10,7 @@ it is ready to use in your application!
 
 ## Using Themis
 
-In order to use ObjCThemis, you need to import its headers:
+In order to use ObjCThemis, you need to import it:
 
 ```objc
 @import themis;
