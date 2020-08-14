@@ -69,7 +69,7 @@ Themis is also available via [**Carthage**](https://github.com/Carthage/Carthage
 
     {{< hint warning >}}
 **Important:**
-You should integrate *themis.framework* into your applications.
+You should integrate only *themis.framework* into your applications. Do not integrate *openssl.framework* manually, as it is statically linked with Themis (Carthage handles linking.).
     {{< /hint >}}
 
 [Here are examples](../examples/) of Carthage projects with Themis in Swift and Objective-C.
