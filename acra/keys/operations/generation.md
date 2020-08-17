@@ -57,7 +57,7 @@ With key store version 2 you will need to use `acra-keymaker --keystore=v2`.
 
 {{< hint info >}}
 **Note:**
-If you are using Acra 0.85 or earier,
+If you are using Acra 0.85 or earlier,
 please omit the `--keystore` parameter here and onward.
 {{< /hint >}}
 
@@ -144,7 +144,7 @@ export ACRA_MASTER_KEY=$(cat master.key | base64)
 
 {{< hint info >}}
 **Note:**
-If you are using Acra 0.85 or earier,
+If you are using Acra 0.85 or earlier,
 please omit the `--keystore` parameter here and onward.
 {{< /hint >}}
 
