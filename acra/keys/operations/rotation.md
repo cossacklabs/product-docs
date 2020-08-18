@@ -34,7 +34,7 @@ it is wise to rotate potentially affected keys immediately
 and be ready to do it again after the breach has been confirmed and contained.
 
 <!--
-Key store version 2 is able to track cryptoperiods of keys.
+Keystore version 2 is able to track cryptoperiods of keys.
 However, it is not possible to view them at the moment.
 This section will be expanded when that's available.
 -->
@@ -71,7 +71,7 @@ Acra keeps [a multitude of keys](../../inventory/) which require different appro
     Depending on your key rotation strategy,
     you might need to re-encrypt data with new data storage key.
 
-  - **Acra master keys** protect other keys in the key store.
+  - **Acra master keys** protect other keys in the keystore.
     Each Acra component has its own set of master keys which can be rotated independently.
     Currently, there's no easy way to rotate Master keys.
 
