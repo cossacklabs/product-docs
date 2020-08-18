@@ -7,10 +7,10 @@ bookCollapseSection: true
 # Migration from key store v1 to v2
 
 In order to migrate from key store version 1 to version 2,
-use `acra-migrate-keys` utility.
+use `acra-keys` utility.
 
 ```shell
-acra-migrate-keys \
+acra-keys migrate \
     --src_keystore=v1 --src_keys_dir ".acrakeys" \
     --dst_keystore=v2 --dst_keys_dir ".acrakeys.v2"
 ```
