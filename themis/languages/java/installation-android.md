@@ -29,6 +29,10 @@ dependencies {
 }
 ```
 
+{{< hint note >}}
+If you experience difficulties with jcenter repository, try using maven instead: `maven { url "https://dl.bintray.com/cossacklabs/maven/" }`
+{{< /hint >}}
+
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
 ## Building latest version from source
