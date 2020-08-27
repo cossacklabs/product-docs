@@ -19,17 +19,19 @@ repositories {
     // Repositories for JavaThemis dependencies:
     google()
     jcenter()
-    // CossackLabs Maven repository:
-    maven { url "https://dl.bintray.com/cossacklabs/maven/" }
 }
 
 dependencies {
     // Add JavaThemis as runtime dependency of your application.
     // Always pin the latest version, you can find it here:
     // https://bintray.com/cossacklabs/maven/themis
-    implementation 'com.cossacklabs.com:themis:0.12.0'
+    implementation 'com.cossacklabs.com:themis:0.13.1'
 }
 ```
+
+{{< hint note >}}
+If you experience difficulties with jcenter repository, try using maven instead: `maven { url "https://dl.bintray.com/cossacklabs/maven/" }`
+{{< /hint >}}
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
