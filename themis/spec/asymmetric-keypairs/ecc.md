@@ -5,13 +5,6 @@ title:  EC keys
 
 # EC keys
 
-{{< hint info >}}
-This part of Themis documentation is currently under development.
-Please come back later.
-
-Meanwhile, you may read our [key management guide](/themis/crypto-theory/key-management/).
-{{< /hint >}}
-
 In *elliptic curve cryptography* (ECC), keys are defined by a number of parameters.
 **Domain parameters** describe a particular curve used for operations.
 It is critical to use a good curve with secure properties,

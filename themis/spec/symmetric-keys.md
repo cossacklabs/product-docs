@@ -5,13 +5,6 @@ title:  Symmetric keys
 
 # Symmetric keys
 
-{{< hint info >}}
-This part of Themis documentation is currently under development.
-Please come back later.
-
-Meanwhile, you may read our [key management guide](/themis/crypto-theory/key-management/).
-{{< /hint >}}
-
 Symmetric keys are used by [**Secure Cell**](../secure-cell/) cryptosystem.
 
 As of Themis 0.13 released in 2020,
