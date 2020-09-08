@@ -162,7 +162,7 @@ func main() {
 
 ## Generating EC keys
 
-The recommended way to generate EC keypairs is to use a cryptography library.
+The recommended way to generate EC keypairs is to use a cryptographic library.
 
 See also our [key management guide](/themis/crypto-theory/key-management/)
 for advice on securing the keys after you have generated them.
@@ -173,8 +173,8 @@ Here is a snippet in Go, illustrating how to generate a good EC keypair:
 package main
 
 import (
-	"crypto/elliptic" // Use a cryptography library.
-	"crypto/rand"     // Use a cryptograpic RNG.
+	"crypto/elliptic" // Use a cryptographic library.
+	"crypto/rand"     // Use a cryptographic RNG.
 	"fmt"
 )
 
