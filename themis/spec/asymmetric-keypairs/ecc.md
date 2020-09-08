@@ -120,7 +120,8 @@ where you can see the data fields:
 | k       | 0x0D   | `D2 80 F9...` (32 bytes) | the **k** value |
 
 You can verify that the keys match each other on the P-256 curve
-and that the **y** coordinate value is indeed odd:
+and that the **y** coordinate value is indeed odd
+using the following snippet in Go:
 
 ```go
 package main
@@ -166,7 +167,7 @@ The recommended way to generate EC keypairs is to use a cryptography library.
 See also our [key management guide](/themis/crypto-theory/key-management/)
 for advice on securing the keys after you have generated them.
 
-Here is a snippet illustrating how to generate a good EC keypair:
+Here is a snippet in Go, illustrating how to generate a good EC keypair:
 
 ```go
 package main

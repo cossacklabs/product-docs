@@ -44,7 +44,7 @@ for advice on securing the key after you have generated it.
 
 ### Example
 
-Here is a snippet illustrating how to generate a good symmetric key:
+Here is a snippet in Go, illustrating how to generate a good symmetric key:
 
 ```go
 package main

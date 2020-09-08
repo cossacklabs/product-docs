@@ -73,7 +73,7 @@ where you can see the data fields:
 | crc     | 0x08   | `6C D5 6E F8` | container checksum |
 | payload | 0x0C   | `03 A4 B1...` | data payload: public key parameters |
 
-Here is a code snippet illustrating computation of Soter container checksum:
+Here is a code snippet in Go, illustrating computation of Soter container checksum:
 
 ```go
 package main

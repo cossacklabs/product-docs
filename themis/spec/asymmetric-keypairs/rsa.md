@@ -221,7 +221,7 @@ where you can see the data fields:
 | n       | 0x38C  | `C6 19 C2...` (256 bytes) | public modulus **n** |
 | e       | 0x48C  | `00 01 00 01` (4 bytes)   | public exponent **e** = 65537 |
 
-You can verify the parameter values with the following snippet:
+You can verify the parameter values with the following snippet in Go:
 
 ```go
 package main
@@ -345,7 +345,7 @@ The recommended way to generate RSA keypairs is to use a cryptography library.
 See also our [key management guide](/themis/crypto-theory/key-management/)
 for advice on securing the keys after you have generated them.
 
-Here is a snippet illustrating how to generate a good RSA keypair:
+Here is a snippet in Go, illustrating how to generate a good RSA keypair:
 
 ```go
 package main
