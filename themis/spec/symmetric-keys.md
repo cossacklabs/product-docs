@@ -72,10 +72,10 @@ func main() {
 ## Passphrases
 
 Alternatively, Secure Cell can work with passphrases.
-From the cryptographic point of view, a passphrase is essentially a weird symmetric key.
+From the cryptographic point of view, a passphrase is essentially a symmetric key with lower entropy per byte.
 Themis encodes textual passphrases in UTF-8 and uses the resulting byte string.
 
-Since passphrases are typically shorter than keys,
+Since passphrases are typically shorter than keys and have less entropy (randomness),
 Secure Cell uses additional KDF rounds to preprocess passphrase data into an encryption key.
 This slightly augments the security of the passphrase, making it harder to crack.
 Currently, the KDF accounts for about 15 bits of additional entropy for passphrases.
