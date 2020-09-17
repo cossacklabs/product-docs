@@ -340,7 +340,7 @@ jvUf8FJz3XSkN9AYyHLbXSDJqKZnLPJdAAEAAQ==`
 
 ## Generating RSA keys
 
-The recommended way to generate RSA keypairs is to use a cryptographic library.
+The recommended way to generate RSA keypairs is to use a cryptography library.
 
 See also our [key management guide](/themis/crypto-theory/key-management/)
 for advice on securing the keys after you have generated them.
@@ -352,7 +352,7 @@ package main
 
 import (
 	"crypto/rand" // Use a cryptographic RNG.
-	"crypto/rsa"  // Use a cryptographic library.
+	"crypto/rsa"  // Use a cryptography library.
 	"encoding/binary"
 	"fmt"
 )
@@ -404,7 +404,7 @@ and what are the common implementation pitfalls that you need to avoid.
 
 In particular, ask them how easy it is to accidentally generate a weak key,
 receive a long list of papers with introductory overview of the subject,
-and consider using a cryptographic library after all.
+and consider using a cryptography library after all.
 {{< /hint >}}
 
 The process of generating an RSA keypair is not so simple:
