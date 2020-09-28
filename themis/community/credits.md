@@ -11,6 +11,7 @@ and Andrey Mnazakanov ([@mnaza](https://www.github.com/mnaza)).
 
 As for 2020, Themis is supported by core crew:
 
+- [@iamnotacake](https://github.com/iamnotacake) as hands-on software engineer.
 - [@ilammy](https://github.com/ilammy) who joined as a Rust contributor,
   but ended up bringing joy and order to the whole repository.
 - [@vixentael](https://github.com/vixentael) who joined as a mobile developer,
@@ -24,6 +25,7 @@ As for 2020, Themis is supported by core crew:
 
 A special thank you goes to the awesome contributors that help us make Themis better:
 
+- [@luismerino](https://github.com/luismerino) for finding memory-related issues, integer overflow issues and dead code pieces ([#712](https://github.com/cossacklabs/themis/pull/712), [#714](https://github.com/cossacklabs/themis/pull/714)).
 - [@ilammy](https://github.com/ilammy) for creating Rust-Themis wrapper,
   improving Themis Core, and all the numerous updates.
 - [@sergeyzenchenko](https://github.com/sergeyzenchenko) for significantly improving
