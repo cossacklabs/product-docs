@@ -39,7 +39,7 @@ and a more complete list is as follows (in alphabetical order):
   with the help of end-to-end encryption.
   Themis is used to encrypt all the data that is shared between the users.
   
-* Media-sharing project – a media sharing project that allows users to earn money by sharing media content. Themis is used as a multi-platform library for iOS, Android, and PHP sides of the project.
+* Media-sharing project that allows users to earn money by sharing media content. Themis is used as a multi-platform library for iOS, Android, and PHP sides of the project.
 
 * Virtual data room app —
   Themis is used for storage encryption of user's PII, credentials, API keys.
