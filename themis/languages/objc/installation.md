@@ -15,13 +15,14 @@ Please [drop us an email](mailto:dev@cossacklabs.com) if you need assistance.
 ## Installing with CocoaPods
 
 {{< hint info >}}
-Xcode 12 has introduced ARM64 macos architecture, which Themis currently doesn't support. Follow the issue [#725](https://github.com/cossacklabs/themis/issues/725) for updates.
+Xcode 12 has introduced Apple Silicon support on macOS. Themis currently doesn't support the new ARM64 architecture on macOS. Follow the issue [#725](https://github.com/cossacklabs/themis/issues/725) for updates.
 
-**iOS:**
-Xcode 12: use `pod themis, "0.13.3"`. It excludes arm64-iphonesimulator architecture slice for now. Resulting app can be submitted to App Store.
-Xcode 11: use `pod themis, "0.13.0"`. It is compatible with Xcode 11, not with Xcode 12.
+**iOS apps:**
 
-See [#715](https://github.com/cossacklabs/themis/issues/715), [#725](https://github.com/cossacklabs/themis/issues/725).
+  - Xcode 12: use `pod themis, "0.13.3"`. It excludes arm64-iphonesimulator architecture slice for now. Resulting app can be submitted to App Store.
+  - Xcode 11: use `pod themis, "0.13.0"` for now. Newer releases are not compatible with older Xcode version. We are working on improved compatbility.
+
+See issues [#715](https://github.com/cossacklabs/themis/issues/715), [#725](https://github.com/cossacklabs/themis/issues/725).
 
 **macOS:**
 If you use macOS, use `0.13.3`, and please exclude mac-arm64 for now (set `Build Active Architecture Only = YES`). This will build correct x86_64 application.
@@ -64,15 +65,15 @@ Please disable bitcode for your application before archiving it to App Store, an
 ## Installing with Carthage
 
 {{< hint info >}}
-Xcode 12 has introduced ARM64 macos architecture, which Themis currently doesn't support. Follow the issue [#725](https://github.com/cossacklabs/themis/issues/725) for updates and exclude ARM64 architecture for now https://github.com/cossacklabs/themis/issues/713.
+Xcode 12 has introduced Apple Silicon support on macOS. Themis currently doesn't support the new ARM64 architecture on macOS. Follow the issue [#725](https://github.com/cossacklabs/themis/issues/725) for updates and exclude ARM64 architecture for now, see issue [#713](https://github.com/cossacklabs/themis/issues/713) for instructions.
 
 **iOS:**
-Exclude arm64-iphonesimulator architecture slice for now (see https://github.com/cossacklabs/themis/issues/713).
+Exclude arm64-iphonesimulator architecture slice for now (see issue [#713](https://github.com/cossacklabs/themis/issues/713)).
 
 **macOS:**
 If you use macOS, use `0.13.3`, and please exclude mac-arm64 for now (set `Build Active Architecture Only = YES`). This will build correct x86_64 application.
 
-See https://github.com/cossacklabs/themis/issues/725, https://github.com/cossacklabs/themis/issues/713.
+See issues [#725](https://github.com/cossacklabs/themis/issues/725), [#713](https://github.com/cossacklabs/themis/issues/713).
 {{< /hint >}}
 
 
