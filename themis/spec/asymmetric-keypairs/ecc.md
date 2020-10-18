@@ -167,7 +167,7 @@ The recommended way to generate EC keypairs is to use a cryptography library.
 See also our [key management guide](/themis/crypto-theory/key-management/)
 for advice on securing the keys after you have generated them.
 
-Here is a snippet in Go, illustrating how to generate a good EC keypair:
+Here is a snippet in Go, illustrating how to generate EC keypair using P256 curve:
 
 ```go
 package main
