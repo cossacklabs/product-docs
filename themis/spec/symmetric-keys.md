@@ -94,6 +94,6 @@ As for definitely **not recommended** approaches, avoid letting users choose the
 Humans are rarely capable of generating cryptographically secure random sentences.
 {{< /hint >}}
 
-There are no strict recommendations for a passphrase length since it mostly depends on human memory capabilities,
-but typically this is about 80 bits for offline passphrases and at least 128 bits for online use.
-Obviously, the longer the better.
+[NIST SP 800-63](https://www.nist.gov/itl/tig/projects/special-publication-800-63)
+suggests using 8 characters as minimum, and up to 64 characters for user-generated passphrases
+(see [NIST SP 800-63b, 5.1.1 Memorized Secrets](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf)).
