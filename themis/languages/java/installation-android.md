@@ -5,7 +5,7 @@ title:  Installation for Android
 
 # Installing JavaThemis for Android development
 
-JavaThemis for Android is [available on JFrog Bintray via **JCenter** and **Maven**](https://bintray.com/cossacklabs/maven/themis).
+JavaThemis for Android is [available on JCenter and Bintray via **Maven**](https://bintray.com/cossacklabs/maven/themis).
 
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
 However, you can also build and install the latest JavaThemis from the source code.
@@ -38,7 +38,7 @@ Once JavaThemis is installed, you can [try out examples on your machine](../exam
 
 ## Configuring ProGuard / R8 rules
 
-Sometimes when working with Android projects in `Release` configuration, you might get runtime error, like:
+Sometimes when working with Android projects in `Release` configuration you might get the following runtime error:
 
 ```
 Java.Lang.IncompatibleClassChangeError: no non-static method "Lcom/cossacklabs/themis/SecureCellSeal;.decrypt([B[B)[B"
@@ -49,18 +49,18 @@ Java.Lang.IncompatibleClassChangeError: no non-static method "Lcom/cossacklabs/t
 [orion.mobile]    --- End of inner exception stack trace --
 ```
 
-It is caused by "over-optimizing" a build by ProGuard / R8, which strips native Java classes from a build. 
+It is caused by ProGuard / R8 "over-optimizing" a build, stripping native Java classes as a result.
 
-An easy solution is to add `proguard.cfg` file to the Android app project with the following lines:
+An easy solution is to add the following lines to the `proguard.cfg` file of your Android app project:
 
 ```
 -keep class com.cossacklabs.themis.**
 -keep class com.cossacklabs.themis.** {*;}
 ```
 
-Make sure that the project has a `ProguardConfiguration` build step.
+This tells ProGuard to keep Themis classes, not strip them from the final app.
 
-Please refer to [the issue #716](https://github.com/cossacklabs/themis/issues/716) for details, and to the [example application made by @dodikk](https://github.com/dodikk/themis-xamarin-prototype/pull/10) who has discovered and troubleshoot the issue.
+Please refer to [the issue #716](https://github.com/cossacklabs/themis/issues/716) for details, and to the [example application made by @dodikk](https://github.com/dodikk/themis-xamarin-prototype/pull/10) who has discovered and troubleshot the issue.
 
 ## Building latest version from source
 
