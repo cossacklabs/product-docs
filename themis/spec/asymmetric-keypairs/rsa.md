@@ -345,7 +345,7 @@ The recommended way to generate RSA keypairs is to use a cryptography library.
 See also our [key management guide](/themis/crypto-theory/key-management/)
 for advice on securing the keys after you have generated them.
 
-Here is a snippet in Go, illustrating how to generate a good RSA keypair:
+Here is a snippet in Go, illustrating how to generate an RSA keypair:
 
 ```go
 package main

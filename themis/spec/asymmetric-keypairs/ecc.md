@@ -7,7 +7,7 @@ title:  EC keys
 
 In *elliptic curve cryptography* (ECC), keys are defined by a number of parameters.
 **Domain parameters** describe a particular curve used for operations.
-It is critical to use a good curve with secure properties,
+It is critical to use a curve with validated security properties,
 therefore usually one of the well-known respectable curves is chosen.
 
 As of Themis 0.13 released in 2020,
