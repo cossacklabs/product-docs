@@ -5,7 +5,7 @@ title:  Installation for Android
 
 # Installing JavaThemis for Android development
 
-JavaThemis for Android is [available on _JFrog Bintray_ via **Maven**](https://bintray.com/cossacklabs/maven/themis).
+JavaThemis for Android is [available on JCenter and Bintray via **Maven**](https://bintray.com/cossacklabs/maven/themis).
 
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
 However, you can also build and install the latest JavaThemis from the source code.
@@ -34,6 +34,33 @@ If you experience difficulties with jcenter repository, try using maven instead:
 {{< /hint >}}
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
+
+
+## Configuring ProGuard / R8 rules
+
+Sometimes when working with Android projects in `Release` configuration you might get the following runtime error:
+
+```
+Java.Lang.IncompatibleClassChangeError: no non-static method "Lcom/cossacklabs/themis/SecureCellSeal;.decrypt([B[B)[B"
+[orion.mobile]   at Java.Interop.JniEnvironment+InstanceMethods.GetMethodID (Java.Interop.JniObjectReference type, System.String name, System.String signature) [0x0005b] in <42d2b7086f0a46efb99253c5db1ecca9>:0 
+[orion.mobile]   at Android.Runtime.JNIEnv.GetMethodID (System.IntPtr kls, System.String name, System.String signature) [0x00007] in <3080427739614e60a939a88bf3f838d5>:0 
+[orion.mobile]   at Com.Cossacklabs.Themis.SecureCell+ISealInvoker.Decrypt (System.Byte[] p0, System.Byte[] p1) [0x00017] in <cd618986d1ce4194b63cdd3366dad291>:0 
+[orion.mobile]   at Themis.Droid.CellSealDroid.UnwrapData (Themis.ISecureCellData cipherTextData, System.Byte[] context) [0x0007e] in <a492e7118e094c3296442a386fe5d80e>:0 
+[orion.mobile]    --- End of inner exception stack trace --
+```
+
+It is caused by ProGuard / R8 "over-optimizing" a build, stripping native Java classes as a result.
+
+An easy solution is to add the following lines to the `proguard.cfg` file of your Android app project:
+
+```
+-keep class com.cossacklabs.themis.**
+-keep class com.cossacklabs.themis.** {*;}
+```
+
+This tells ProGuard to keep Themis classes, not strip them from the final app.
+
+Please refer to [the issue #716](https://github.com/cossacklabs/themis/issues/716) for details, and to the [example application made by @dodikk](https://github.com/dodikk/themis-xamarin-prototype/pull/10) who has discovered and troubleshot the issue.
 
 ## Building latest version from source
 
