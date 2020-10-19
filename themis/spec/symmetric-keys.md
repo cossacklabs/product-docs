@@ -17,7 +17,7 @@ the following symmetric encryption algorithms are supported
 
 Each of the AES flavors has its own specific requirements for the key size.
 
-Secure Cell uses a _key derivation function_ (KDF)
+Secure Cell uses a [_key derivation function_ (KDF)](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions)
 to transform user-provided key material into a symmetric key of suitable size.
 Therefore, keys used with Secure Cell do not have a particular format:
 they are just arbitrary non-empty byte strings.
@@ -76,7 +76,8 @@ From the cryptographic point of view, a passphrase is essentially a symmetric ke
 Themis encodes textual passphrases in UTF-8 and uses the resulting byte string.
 
 Since passphrases are typically shorter than keys and have less entropy (randomness),
-Secure Cell uses additional KDF rounds to preprocess passphrase data into an encryption key.
+Secure Cell uses [additional KDF rounds](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions)
+to preprocess passphrase data into an encryption key.
 This slightly augments the security of the passphrase, making it harder to crack.
 Currently, the KDF accounts for about 15 bits of additional entropy for passphrases.
 This is not something groundbreaking, but at least it makes 4-digit PIN codes
