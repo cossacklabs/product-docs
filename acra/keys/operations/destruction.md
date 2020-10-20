@@ -42,8 +42,8 @@ For example, to remove old storage encryption keys:
 
 {{< hint info >}}
 **Note:**
-The above instructions work only for current key store version 1.
-New key store version 2 does not support key destruction at the moment.
+The above instructions work only for current keystore version 1.
+New keystore version 2 does not support key destruction at the moment.
 {{< /hint >}}
 
 <!--

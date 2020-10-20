@@ -43,7 +43,7 @@ Storage keys can be represented by either:
 
 ## Acra components
 
-Each Acra component needs to have its own key store (located in the `.acrakeys` directory by default)
+Each Acra component needs to have its own keystore (located in the `.acrakeys` directory by default)
 which contains a set of keys necessary for correct operation of the component.
 
 Here is an overview of core Acra keys and their locations:
@@ -64,7 +64,7 @@ Here is an overview of core Acra keys and their locations:
   - Other party transport public key.
 
     You should put the transport public key of AcraServer or AcraTranslator
-    into AcraConnector’s key store, depending on the connection type.
+    into AcraConnector’s keystore, depending on the connection type.
 
 **AcraServer** works with the following keys:
 

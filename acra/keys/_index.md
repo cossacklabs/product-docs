@@ -11,14 +11,14 @@ Acra uses a multitude of keys for different purposes:
   - transport keys for encrypting communications
   - various auxiliary keys used by other features
 
-The keys are securely stored in a [**key store**](versions/)
+The keys are securely stored in a [**keystore**](versions/)
 which is located either on the server's filesystem,
 or in a remote location such as key management service (KMS) or hardware security module (HSM).
 Glance through the [inventory of Acra keys](inventory/) to learn
-what keys there are in the key store, where they are located, and how they are used.
+what keys there are in the keystore, where they are located, and how they are used.
 
 However, just storing the keys securely is not enough.
-It is crucial to manage the keys and operate the key store in a secure way as well.
+It is crucial to manage the keys and operate the keystore in a secure way as well.
 These are typical operations that you will need to perform:
 
   - [Generate keys](operations/generation/) when deploying a new Acra instance.
