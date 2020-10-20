@@ -38,15 +38,17 @@ and a more complete list is as follows (in alphabetical order):
   for secure storage of logins, passwords, dates, and notes
   with the help of end-to-end encryption.
   Themis is used to encrypt all the data that is shared between the users.
+  
+* Media-sharing project that allows users to earn money by sharing media content. Themis is used as a multi-platform library for iOS, Android, and PHP sides of the project.
 
-* Secure documents exchange app —
+* Virtual data room app —
   Themis is used for storage encryption of user's PII, credentials, API keys.
 
 ## Libraries
 
 Themis is used as dependency of other libraries:
 
-* [Android secure storage library](https://github.com/epam/Android-Secure-Storage)  by EPAM
+* [Android secure storage library](https://github.com/epam/Android-Secure-Storage) by EPAM
   is written on Java and allows storing encrypted values in Secure Preferences
   (supports Themis and Cipher encryption providers).
 * [AndroidSecurePreferences](https://github.com/genaku/AndroidSecurePreferences)

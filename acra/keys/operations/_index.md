@@ -1,12 +1,12 @@
 ---
 weight: 3
-title: Operating Acra key store
+title: Operating Acra keystore
 bookCollapseSection: true
 ---
 
-# Operating Acra key store
+# Operating Acra keystore
 
-Here are typical operations that you will need to perform when managing a key store:
+Here are typical operations that you will need to perform when managing a keystore:
 
   - [Generate keys](generation/) when deploying a new Acra instance.
   - [Back up keys](backup/) to prevent accidental data loss.

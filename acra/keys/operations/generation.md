@@ -26,13 +26,13 @@ Due to security reasons,
 AcraServer, AcraTranslator, and AcraConnector all need to have *different* master keys.
 {{< /hint >}}
 
-Current key store version 1 uses one master key called `ACRA_MASTER_KEY`.
+Current keystore version 1 uses one master key called `ACRA_MASTER_KEY`.
 It is used only to encrypt the stored private keys.
 
-New key store version 2 uses two distinct master keys:
-`ACRA_MASTER_ENCRYPTION_KEY` and `ACRA_MASTER_SIGNATURE_KEY`.
-One is used to encrypt private key material,
-the other one is used to sign public key store data.
+New keystore version 2 uses two distinct master keys:
+one is used to encrypt private key material,
+the other one is used to sign public keystore data.
+Both of them are still encoded as a single `ACRA_MASTER_KEY` value.
 
 ## 1. Setting up AcraServer
 
@@ -48,20 +48,18 @@ such as hardware security modules (HSM) and key management services (KMS).
 Generate a new key and assign it to the environment variable on the corresponding server:
 
 ```shell
-acra-keymaker --generate_master_key=master.key
+acra-keymaker --keystore=v1 --generate_master_key=master.key
 
 export ACRA_MASTER_KEY=$(cat master.key | base64)
 ```
 
-With key store version 2 you will need to generate two different master keys:
+With keystore version 2 you will need to use `acra-keymaker --keystore=v2`.
 
-```shell
-acra-keymaker --generate_master_key=master_encryption.key
-acra-keymaker --generate_master_key=master_signature.key
-
-export ACRA_MASTER_ENCRYPTION_KEY=$(cat master_encryption.key | base64)
-export ACRA_MASTER_SIGNATURE_KEY=$(cat master_signature.key | base64)
-```
+{{< hint info >}}
+**Note:**
+If you are using Acra 0.85 or earlier,
+please omit the `--keystore` parameter here and onward.
+{{< /hint >}}
 
 ### 1.2. Generating transport and encryption keys
 
@@ -76,11 +74,6 @@ acra-keymaker --keystore=v1 --client_id=Alice --generate_acratranslator_keys
 acra-keymaker --keystore=v1 --client_id=Alice --generate_acrawriter_keys
 acra-keymaker --keystore=v1 --client_id=Alice --generate_acrawebconfig_keys
 ```
-
-{{< hint info >}}
-**Note:**
-If you are using Acra 0.85 or earier, please omit the `--keystore` parameter.
-{{< /hint >}}
 
 Carry out these operations on the machine running AcraServer or AcraTranslator
 to make sure that the private keys for Acra never leak outside from the server.
@@ -110,7 +103,7 @@ Stored keys should not be world-readable.
 AcraServer and AcraTranslator check this and will refuse to launch if access to the keys is not properly restricted.
 {{< /hint >}}
 
-If you are running Acra 0.86+ and wish to try the new [key store version 2](../versions/),
+If you are running Acra 0.86+ and wish to try the new [keystore version 2](../versions/),
 use `--keystore=v2` option when generating the keys:
 
 ```shell
@@ -142,20 +135,18 @@ Generate a second set of master keys for AcraConnector in the same way,
 but on the server that runs AcraConnector:
 
 ```shell
-acra-keymaker --generate_master_key=master.key
+acra-keymaker --keystore=v1 --generate_master_key=master.key
 
 export ACRA_MASTER_KEY=$(cat master.key | base64)
 ```
 
-If you are going to use key store version 2, you will need two master keys:
+(Or with `--keystore=v2` to set up for keystore version 2.)
 
-```shell
-acra-keymaker --generate_master_key=master_encryption.key
-acra-keymaker --generate_master_key=master_signature.key
-
-export ACRA_MASTER_ENCRYPTION_KEY=$(cat master_encryption.key | base64)
-export ACRA_MASTER_SIGNATURE_KEY=$(cat master_signature.key | base64)
-```
+{{< hint info >}}
+**Note:**
+If you are using Acra 0.85 or earlier,
+please omit the `--keystore` parameter here and onward.
+{{< /hint >}}
 
 ### 2.2. Generating transport keys
 
@@ -164,11 +155,6 @@ Similarly, generate transport key for AcraConnector:
 ```shell
 acra-keymaker --keystore=v1 --client_id=Alice --generate_acraconnector_keys
 ```
-
-{{< hint info >}}
-**Note:**
-If you are using Acra 0.85 or earier, please omit the `--keystore` parameter.
-{{< /hint >}}
 
 Carry out this operation on the machine running AcraConnector to make sure that the private key of AcraConnector never leaks outside it.
 
@@ -192,7 +178,7 @@ Stored keys should not be world-readable.
 AcraConnector checks this and will refuse to launch if access to the keys is not properly restricted.
 {{< /hint >}}
 
-If you are running Acra 0.86+ and wish to try the new [key store version 2](../versions/),
+If you are running Acra 0.86+ and wish to try the new [keystore version 2](../versions/),
 use `--keystore=v2` option when generating the keys:
 
 ```shell
@@ -225,17 +211,17 @@ The rules of key exchange are simple:
 ### Exporting and importing keys
 
 <!--
-TODO: How about teaching "acra-keys import" and "acra-keys export" to work with key store v1?
+TODO: How about teaching "acra-keys import" and "acra-keys export" to work with keystore v1?
 That way you will need to explain this only once.
 -->
 
-Key exchange process is a bit different for current key store version 1 and the new version 2.
+Key exchange process is a bit different for current keystore version 1 and the new version 2.
 
-With key store version 1 you simply copy a file with `*.pub` extension from `.acrakeys` directory.
+With keystore version 1 you simply copy a file with `*.pub` extension from `.acrakeys` directory.
 For example, `.acrakeys/Alice_server.pub` is a public key of the client `Alice` on AcraServer,
 this file needs to be copied to corresponding `.acrakeys` directory of AcraConnector.
 
-Key store version 2 makes this process more secure
+Keystore version 2 makes this process more secure
 by ensuring that the key file cannot be tampered while en route between the server.
 First, the public key has to be _exported_ from AcraServer:
 
@@ -246,7 +232,7 @@ acra-keys export --key_bundle_file "encrypted-keys.dat" \
 ```
 
 then `encrypted-keys.dat` and `access-keys.json` files should be transferred by separate channels to AcraConnector
-where they are combined to import the key into the key store:
+where they are combined to import the key into the keystore:
 
 ```shell
 acra-keys import --key_bundle_file "encrypted-keys.dat" \
@@ -255,7 +241,7 @@ acra-keys import --key_bundle_file "encrypted-keys.dat" \
 
 {{< hint warning >}}
 **Note:**
-It is not possible to transfer keys of key store version 2 by simple copying.
+It is not possible to transfer keys of keystore version 2 by simple copying.
 The public key data is signed with a different key and will not be accepted.
 {{< /hint >}}
 
@@ -270,7 +256,7 @@ Place public key of AcraServer on AcraConnector and place public key of AcraConn
 | AcraServer    | transport public key of AcraConnector  | `.acrakeys/Alice.pub` |
 | AcraServer    | transport private key of AcraServer    | `.acrakeys/Alice_server` |
 
-With key store version 2 you need to export the following keys:
+With keystore version 2 you need to export the following keys:
 
 ```shell
 # On AcraServer
@@ -303,7 +289,7 @@ Place public key of AcraTranslator on AcraConnector and public key of AcraConnec
 | AcraTranslator | transport public key of AcraConnector   | `.acrakeys/Alice.pub` |
 | AcraTranslator | transport private key of AcraTranslator | `.acrakeys/Alice_translator` |
 
-With key store version 2 you need to export the following keys:
+With keystore version 2 you need to export the following keys:
 
 ```shell
 # On AcraTranslator
@@ -335,7 +321,7 @@ Place public key of AcraServer or AcraTranslator to AcraWriter.
 | AcraServer     | storage private key | `.acrakeys/Alice_storage` |
 | AcraTranslator | storage private key | `.acrakeys/Alice_storage` |
 
-With key store version 2 you need to export the following keys:
+With keystore version 2 you need to export the following keys:
 
 ```shell
 # On AcraServer or AcraTranslator
@@ -373,7 +359,7 @@ This creates a new zone and you get a JSON object like this:
 AcraWriter will need both the zone ID (returned as is) and the public key (returned in base64)
 to generate AcraStructs for the new zone.
 
-Zone keys are placed into the key store too:
+Zone keys are placed into the keystore too:
 
 | Component | should contain key | named like this |
 | --------- | ------------------ | --------------- |
@@ -381,7 +367,7 @@ Zone keys are placed into the key store too:
 | AcraServer     | zone private key | `.acrakeys/DDDDDDDDQHpbUSOgYTzqCktp_zone` |
 | AcraTranslator | zone private key | `.acrakeys/DDDDDDDDQHpbUSOgYTzqCktp_zone` |
 
-With key store version 2 you can import and export zone keys too:
+With keystore version 2 you can import and export zone keys too:
 
 ```shell
 # On AcraServer or AcraTranslator
