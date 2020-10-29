@@ -38,7 +38,7 @@ Read about [Apple export regulations on cryptography for Themis](/themis/regulat
 ObjCThemis supports all current versions of macOS, iOS:
 
 - macOS 10.12–10.15
-- iOS 9–14
+- iOS 10–14
 
 ## Getting started
 
