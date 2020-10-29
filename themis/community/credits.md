@@ -19,12 +19,14 @@ As for 2020, Themis is supported by core crew:
 - [@lagovas](https://github.com/Lagovas) as a C, Go, Python developer.
 - [@shadinua](https://github.com/shadinua) as an infrastructure engineer.
 - [@gene-eu](https://github.com/gene-eu) as the mastermind.
-- [@mozhmike](https://github.com/mozhmike) as a PHP developer.
 - [@storojs72](https://github.com/storojs72) as a crypto engineer.
-- [@karenswry](https://github.com/karenswry) as a technical writer.
 
 A special thank you goes to the awesome contributors that help us make Themis better:
 
+- [@julepka](https://github.com/julepka) for updating iOS and macOS examples ([#726](https://github.com/cossacklabs/themis/pull/726), [#724](https://github.com/cossacklabs/themis/pull/724), [#723](https://github.com/cossacklabs/themis/pull/723)).
+- [@dodikk](https://github.com/dodikk) for pushing Themis to C# and proving with examples how Android Themis can be used in Xamarin apps ([#716](https://github.com/cossacklabs/themis/issues/716)).
+- [@karenswry](https://github.com/karenswry) for improving documentation and fixing our poor language.
+- [@mozhmike](https://github.com/mozhmike) for improving PHPThemis.
 - [@luismerino](https://github.com/luismerino) for finding memory-related issues, integer overflow issues and dead code pieces ([#712](https://github.com/cossacklabs/themis/pull/712), [#714](https://github.com/cossacklabs/themis/pull/714)).
 - [@ilammy](https://github.com/ilammy) for creating Rust-Themis wrapper,
   improving Themis Core, and all the numerous updates.
