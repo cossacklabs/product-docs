@@ -35,11 +35,10 @@ Read about [Apple export regulations on cryptography for Themis](/themis/regulat
 
 ## Supported platforms
 
-SwiftThemis supports all current versions of macOS, iOS, iPadOS:
+SwiftThemis supports all current versions of macOS, iOS:
 
 - macOS 10.12–10.15
-- iOS 9–13
-- iPadOS 13
+- iOS 10–14
 
 SwiftThemis is tested with Swift 4 and Swift 5.
 
