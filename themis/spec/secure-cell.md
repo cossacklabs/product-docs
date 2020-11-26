@@ -181,7 +181,7 @@ In these modes a completely new, random IV is generated for each encrypted piece
 Thus, user-provided context is optional in Seal and Token Protect modes
 but it can still be provided to enhance security even further.
 
-On the other hand, **Context Imprint** mode does not have any additional storage available.
+On the other hand, **Context Imprint** mode does not use any additional storage.
 It is completely deterministic:
 given the same input, key, and context, the resulting output is always the same.
 In Context Imprint mode the IV is derived from available encryption key and context data,
