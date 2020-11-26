@@ -204,7 +204,7 @@ Secure Cell supports several types of secrets used to secure encrypted data:
 
 Ultimately, AES-256 encryption algorithm works with 256-bit keys.
 Secure Cell uses _key derivation functions_ (KDF) to stretch or shrink user-provided keys to the length required by AES.
-If a passphrase is used, a special _passphrase_ KDF is employed
+If a passphrase is used, a [special _passphrase_ KDF](/themis/crypto-theory/cryptosystems/secure-cell.md#key-derivation-functions) is employed
 to compensate for potentially poorer statistical properties of passphrases.
 See the [Encryption](#encryption) section for the details.
 
