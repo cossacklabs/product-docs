@@ -72,25 +72,21 @@ Now let's talk about some *non-goals* which influence design decisions.
     That is, Secure Cell is not designed for handling data streams of arbitrary length,
     nor does it provide random access into data within an encrypted cell.
 
-Finally, let's consider some popular attacks which Secure Cell should mitigate.
+Finally, let's consider the desired cryptography-theoretical properties of the cryptosystem.
+Secure Cell is required to be at least IND-CPA secure
+and it would be nice to achieve IND-CCA2 whenever possible.
+The choice of AES-GCM and AES-CTR satisfies these requirements.
+Here are some examples of vulnerabilities mitigated by Secure Cell:
 
-  - Ciphertext-only attacks.
+  - Optional context data prevents malicious reuse of ciphertexts in different contexts.
+    Mismatches will be detected and reported.
 
-    Secure Cell should provide some degree of protection against replay attacks and alike.
-    For example, the users should be able to detect when two encrypted fields have been swapped
-    by an insider which has access to the database but not the encryption keys.
+  - Even in case of extremely short inputs, no information about plaintext is disclosed.
+    For example, you can use Secure Cell to secure a boolean field in the database.
 
-  - Known-plaintext attacks.
-
-    Since database fields may sometimes have very limited set of possible values (think, booleans),
-    Secure Cell should avoid disclosing the encrypted value in the ciphertext, even it's a single bit.
-
-  - Chosen plaintext attacks.
-
-    As databases typically have massive amounts of already encrypted data,
-    some cryptanalysis approaches might be possible by cross-referencing all of it.
-    Inserting known entries to be encrypted by otherwise inaccessible system
-    should not compromise existing encrypted data.
+  - It is not possible for the attacker to restore the encryption secret
+    even if they can exploit the system to encrypt arbitrary data
+    or trick it into decrypting some known encrypted data.
 
 ## Operation modes
 
