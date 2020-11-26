@@ -34,7 +34,7 @@ First of all, let's discuss the desired properties of the cryptosystem.
     in addition to preventing inadvertent modifications to it.
 
     Secure Cell uses proven authenticated encryption schemes
-    to provide those guarantees.
+    to provide integrity and confidentiality guarantees.
 
   - Good performance for both encryption and decryption.
 
@@ -54,18 +54,16 @@ Now let's talk about some *non-goals* which influence design decisions.
     Each protected piece of data is independent of any other.
     Secure Cell does not provide nor enforce any ordering between them.
 
-    Consider [Secure Session](../secure-session/) cryptosystem instead,
-    or implement ordering on top of Secure Cell in higher-level protocols.
+    Contrast this with [Secure Session](../secure-session/) cryptosystem
+    which protects ordered streams of packets, similar to TLS.
 
   - Sender and receiver are expected to be the same entity.
 
     Secure Cell does not distinguish between sender and receiver of messages.
     Data is stored protected and restored into its original form using the same secret.
 
-    It might be possible to use Secure Cell for communication between different parties,
-    but for that they must each have a complete shared secret which might not be practical.
-    [Secure Message](../secure-message/) cryptosystem might be a better fit here,
-    providing more asymmetric approach.
+    In contrast, [Secure Message](../secure-message/) cryptosystem is asymmetric,
+    which is more practical for authenticated message exchange.
 
   - Data payload has bounded size.
 
