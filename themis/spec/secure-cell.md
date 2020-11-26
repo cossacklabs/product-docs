@@ -136,14 +136,14 @@ and unauthenticated encryption via the regular AES-CTR mode.
 
 The tradeoff here is that AES-GCM produces an *authentication tag*
 which needs to be stored with encrypted data, increasing its length.
-Sometimes it is acceptable, in other cases you don't have that flexibility.
+Sometimes it is acceptable, in other cases you may not have that flexibility.
 
 Seal and Token Protect are basically the same,
 but Token Protect mode stores the authentication tag and other auxiliary data in a detached buffer.
 This allows to replace the original message with an encrypted one of the same length,
 if you can afford to store the auxiliary data elsewhere.
 
-Context Imprint mode exists for the use cases which do not allow for any additional storage.
+Context Imprint mode exists for use cases which do not allow for any additional storage.
 This constraint somewhat lowers the security of the cryptosystem
 since there is no space for authentication data or – more importantly – random IV.
 To compensate for this, Secure Cell requires *associated data* to be used in Context Imprint mode.
@@ -162,7 +162,7 @@ It also makes it harder to reuse encrypted data verbatim in different contexts (
 
 Some parts of the associated data can be transmitted together with the ciphertext, but some can be omitted.
 This complicates unintended decryption: even if the attacker has obtained the encryption key somehow,
-they still need to get access to the associated data which might be stored elsewhere (like the user's brain).
+they still need to get ahold of the associated data which might be stored elsewhere (like the user's brain).
 
 A related concept is **nonce** – an arbitrary random number which must be used only once in cryptographic communication.
 The AES-GCM and AES-CTR algorithms used by Secure Cell use an *initialisation vector* (IV) as a nonce.
@@ -179,7 +179,7 @@ See the [Encryption](#encryption) section for the details.
 **Seal** and **Token Protect** modes require additional storage.
 In these modes a completely new, random IV is generated for each encrypted piece of data.
 Thus, user-provided context is optional in Seal and Token Protect modes
-but it can still be used to enhance security.
+but it can still be provided to enhance security even further.
 
 On the other hand, **Context Imprint** mode does not have any additional storage available.
 It is completely deterministic:
@@ -205,15 +205,15 @@ Secure Cell supports several types of secrets used to secure encrypted data:
 Ultimately, AES-256 encryption algorithm works with 256-bit keys.
 Secure Cell uses _key derivation functions_ (KDF) to stretch or shrink user-provided keys to the length required by AES.
 If a passphrase is used, a special _passphrase_ KDF is employed
-to compensate for perhaps poorer properties of passphrases.
+to compensate for potentially poorer statistical properties of passphrases.
 See the [Encryption](#encryption) section for the details.
 
-Passphrase KDFs require additional parameters which need to be adjusted with time, as computer performance improves.
-If Secure Cells are to be decryptable in the future, KDF parameters need to be stored with the encrypted data.
+Passphrase KDFs require additional parameters which need to be adjusted with time, as computers get faster.
+KDF parameters need to be stored together with the encrypted data so that it can always be decrypted.
 Therefore, **Context Imprint** mode does not support passphrases as it has no spare space for the parameters.
 Requiring the users to supply KDF parameters goes against Themis design philosophy.
 
-Moreover, passphrase KDFs are designed to be slow.
+Moreover, passphrase KDFs are designed to be exceedingly slow.
 **Token Protect** mode is particularly useful in database contexts to encrypt individual database cells.
 This use case is pretty sensitive to performance so *key wrapping* should be preferred.
 As a result, only **Seal** mode provides passphrase support.
