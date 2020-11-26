@@ -118,7 +118,7 @@ Now let's dissect these variations in more detail.
 
 On one axis, Secure Cell can either provide *authentication* or not:
 
-  - **Authenicated encryption** provides strong integrity guarantees.
+  - **Authenticated encryption** provides strong integrity guarantees.
 
     That is, on decryption you can be sure that the data has not been tampered with.
     Encrypted message is secure from prying eyes and idle hands.
@@ -128,11 +128,11 @@ On one axis, Secure Cell can either provide *authentication* or not:
     That is, while the attacker cannot read the encrypted message (as with any encryption),
     they can still easily corrupt or modify it without you being able to undeniably confirm it.
 
-**Seal** and **Token Protect** mode use authenticated encryption
+**Seal** and **Token Protect** modes use authenticated encryption
 while **Context Imprint** mode is not authenticated.
 
 Secure Cell provides authentication via AES-GCM encryption mode
-and unautheticated encryption via the regular AES-CTR mode.
+and unauthenticated encryption via the regular AES-CTR mode.
 
 The tradeoff here is that AES-GCM produces an *authentication tag*
 which needs to be stored with encrypted data, increasing its length.
@@ -218,7 +218,7 @@ Moreover, passphrase KDFs are designed to be slow.
 This use case is pretty sensitive to performance so *key wrapping* should be preferred.
 As a result, only **Seal** mode provides passphrase support.
 
-Finally, KDF plays another auxiliarly role.
+Finally, KDF plays another auxiliary role.
 AES-GCM algorithm has a limit on how much data can be safely encrypted using the same key,
 before cryptanalysis attacks become practical.
 KDF mixes in user-provided associated data into the derived key,
