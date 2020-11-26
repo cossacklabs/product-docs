@@ -383,3 +383,186 @@ This value is stored as `40 0d 03 00` in little-endian encoding.
 
 The **salt** field is theoretically flexible,
 but with current algorithm choice the salt is always 16 bytes long.
+
+## Example
+
+Now let's look at and dissect sample data protected by Secure Cell.
+You can try it out yourself using [command-line utilities](/themis/debugging/cli-utilities/) if you have Themis installed,
+or with [Themis Server](/themis/debugging/themis-server/) from your web browser.
+
+### Example: symmetric keys
+
+With the following inputs (all encoded in ASCII):
+
+| Input          | Value |
+| -------------- | ----- |
+| encryption key | `au6aimoa8Pee8wahxi4Aique6eaxai2a` |
+| context data   | `additional context` |
+| plaintext      | `encrypted message` |
+
+Secure Cell in Seal mode produces the following output (encoded in base64):
+
+    AAEBQAwAAAAQAAAAEQAAAM5da3KkReYC7++OPbrI13UycoVi3s01Ji64WQ/KIe+3oF8cgLle19WC+tnaCg==
+
+which looks like this in hexadecimal (61 bytes):
+
+```
+00000000  00 01 01 40 0c 00 00 00  10 00 00 00 11 00 00 00  |...@............|
+00000010  ce 5d 6b 72 a4 45 e6 02  ef ef 8e 3d ba c8 d7 75  |.]kr.E.....=...u|
+00000020  32 72 85 62 de cd 35 26  2e b8 59 0f ca 21 ef b7  |2r.b..5&..Y..!..|
+00000030  a0 5f 1c 80 b9 5e d7 d5  82 fa d9 da 0a           |._...^.......|
+```
+
+There you can note the authentication token (44 bytes):
+
+```
+00000000  00 01 01 40 0c 00 00 00  10 00 00 00 11 00 00 00  |...@............|
+00000010  ce 5d 6b 72 a4 45 e6 02  ef ef 8e 3d ba c8 d7 75  |.]kr.E.....=...u|
+00000020  32 72 85 62 de cd 35 26  2e b8 59 0f -- -- -- --  |2r.b..5&..Y.    |
+00000030  -- -- -- -- -- -- -- --  -- -- -- --              |             |
+```
+
+and the actual encrypted data (17 bytes) in the end:
+
+```
+00000000  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000010  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000020  -- -- -- -- -- -- -- --  -- -- -- -- ca 21 ef b7  |            .!..|
+00000030  a0 5f 1c 80 b9 5e d7 d5  82 fa d9 da 0a           |._...^.......|
+```
+
+Since Seal mode has been used, the token and data are concatenated.
+In Token Protect mode they would have been returned as separate buffers.
+Here's how they look encoded in base64:
+
+    AAEBQAwAAAAQAAAAEQAAAM5da3KkReYC7++OPbrI13UycoVi3s01Ji64WQ8=
+
+    yiHvt6BfHIC5XtfVgvrZ2go=
+
+Try decrypting this data in Token Protect mode, it should work!
+
+Let's inspect the authentication token now.
+Match [the reference](#authentication-token--symmetric-keys)
+with the data as follows:
+
+| Field           | Offset | Data          | Meaning |
+| --------------- | ------ | ------------- | ------- |
+| algorithm ID    | 0x00   | `00 01 01 40` | `0x40010100` – AES-GCM-256, Soter KDF, PKCS#7 padding |
+| IV length       | 0x04   | `0c 00 00 00` | IV data is 12 bytes long |
+| auth tag length | 0x08   | `10 00 00 00` | auth tag is 16 bytes long |
+| message length  | 0x0C   | `11 00 00 00` | payload is 17 bytes long |
+| IV data         | 0x10   | `ce . . . 3d` | initialisation vector data |
+| auth tag        | 0x1C   | `ba . . . 0f` | authentication tag data |
+
+All the encoded values match the expectations.
+
+### Example: passphrases
+
+With the following inputs (all encoded in ASCII):
+
+| Input        | Value |
+| ------------ | ----- |
+| passphrase   | `au6aimoa8Pee8wahxi4Aique6eaxai2a` |
+| context data | `additional context` |
+| plaintext    | `encrypted message` |
+
+Secure Cell in Seal mode produces the following output (encoded in base64):
+
+    AAEBQQwAAAAQAAAAEQAAABYAAAALWhQwD5hn1LRK75ueKvVydPXPtIBKujPHEutHQA0DABAAxAsov0/Zr0HIVdLQ0T99Fc9Hj4qCpIBLJ2cWU1dZMhlI
+
+which looks like this in hexadecimal (87 bytes):
+
+```
+00000000  00 01 01 41 0c 00 00 00  10 00 00 00 11 00 00 00  |...A............|
+00000010  16 00 00 00 0b 5a 14 30  0f 98 67 d4 b4 4a ef 9b  |.....Z.0..g..J..|
+00000020  9e 2a f5 72 74 f5 cf b4  80 4a ba 33 c7 12 eb 47  |.*.rt....J.3...G|
+00000030  40 0d 03 00 10 00 c4 0b  28 bf 4f d9 af 41 c8 55  |@.......(.O..A.U|
+00000040  d2 d0 d1 3f 7d 15 cf 47  8f 8a 82 a4 80 4b 27 67  |...?}..G.....K'g|
+00000050  16 53 57 59 32 19 48                              |.SWY2.H|
+```
+
+There you can note the extended authentication token (48 bytes):
+
+```
+00000000  00 01 01 41 0c 00 00 00  10 00 00 00 11 00 00 00  |...A............|
+00000010  16 00 00 00 0b 5a 14 30  0f 98 67 d4 b4 4a ef 9b  |.....Z.0..g..J..|
+00000020  9e 2a f5 72 74 f5 cf b4  80 4a ba 33 c7 12 eb 47  |.*.rt....J.3...G|
+00000030  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000040  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000050  -- -- -- -- -- -- --                              |       |
+```
+
+the passphase key derivation context (22 bytes):
+
+```
+00000000  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000010  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000020  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000030  40 0d 03 00 10 00 c4 0b  28 bf 4f d9 af 41 c8 55  |@.......(.O..A.U|
+00000040  d2 d0 d1 3f 7d 15 -- --  -- -- -- -- -- -- -- --  |...?}.          |
+00000050  -- -- -- -- -- -- --                              |       |
+```
+
+and the actual encrypted data (17 bytes) in the end:
+
+```
+00000000  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000010  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000020  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000030  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
+00000040  -- -- -- -- -- -- cf 47  8f 8a 82 a4 80 4b 27 67  |      .G.....K'g|
+00000050  16 53 57 59 32 19 48                              |.SWY2.H|
+```
+
+Secure Cell supports passphrases only in Seal mode,
+therefore the authentication token cannot be detached from the encrypted data.
+
+Let's inspect the authentication token now.
+Match [the reference](#authentication-token--passphrases)
+with the data as follows:
+
+| Field           | Offset | Data          | Meaning |
+| --------------- | ------ | ------------- | ------- |
+| algorithm ID    | 0x00   | `00 01 01 41` | `0x41010100` – AES-GCM-256, PBKDF2, PKCS#7 padding |
+| IV length       | 0x04   | `0c 00 00 00` | IV data is 12 bytes long |
+| auth tag length | 0x08   | `10 00 00 00` | auth tag is 16 bytes long |
+| message length  | 0x0C   | `11 00 00 00` | payload is 17 bytes long |
+| KDF length      | 0x10   | `16 00 00 00` | KDF context is 22 bytes long |
+| IV data         | 0x14   | `0b . . . 9b` | initialisation vector data |
+| auth tag        | 0x20   | `9e . . . 47` | authentication tag data |
+
+and the PBKDF context data is interpreted like this:
+
+| Field           | Offset | Data          | Meaning |
+| --------------- | ------ | ------------- | ------- |
+| iteration count | 0x30   | `40 0d 03 00` | 200,000 iterations |
+| salt length     | 0x34   | `10 00`       | salt is 16 bytes long |
+| salt            | 0x36   | `c4 . . . 15` | salt data |
+
+All the encoded values match the expectations.
+
+### Example: Context Imprint mode
+
+With the following inputs (all encoded in ASCII):
+
+| Input          | Value |
+| -------------- | ----- |
+| encryption key | `au6aimoa8Pee8wahxi4Aique6eaxai2a` |
+| context data   | `additional context` |
+| plaintext      | `encrypted message` |
+
+Secure Cell in Context Imprint mode produces the following output (encoded in base64):
+
+    egHLD0020cqhs5uB93CqdNA=
+
+which looks like this in hexadecimal (17 bytes):
+
+```
+00000000  7a 01 cb 0f 4d 36 d1 ca  a1 b3 9b 81 f7 70 aa 74  |z...M6.......p.t|
+00000010  d0                                                |.|
+```
+
+Note that the output has exactly the same length as the original plaintext.
+It also never changes on repeated encryption,
+contrary to the behaviour of other modes
+which always produce a slightly different output each time with the same input parameters.
