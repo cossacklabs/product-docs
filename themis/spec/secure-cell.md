@@ -20,7 +20,7 @@ to get a high-level picture of the cryptosystem.
 
 At its core, Secure Cell is based around AES encryption algorithm
 in Galois/Counter Mode (GCM) providing authenticated encryption capabilities.
-It also supports other modes for when a compromise needs to be made.
+It also supports regular Counter Mode (CTR) if ciphertext length needs to be preserved.
 The rest of the cryptosystem ensures that AES is used in a secure way.
 
 ## Desired and designed properties
