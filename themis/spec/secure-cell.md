@@ -172,13 +172,14 @@ If the context data is not provided explicitly, Secure Cell derives some from th
 It is also used in key derivation to minimise the risks of key reuse and XOR attacks as well.
 See the [Encryption](#encryption) section for the details.
 
-**Seal** and **Token Protect** modes require additional storage.
-In these modes a completely new, random IV is generated for each encrypted piece of data.
+**Seal** and **Token Protect** modes require additional storage for authentication data.
+Therefore, Secure Cell can use a bit more of that extra storage
+to choose and keep a completely new, random IV for each encrypted piece of data.
 Thus, user-provided context is optional in Seal and Token Protect modes
 but it can still be provided to enhance security even further.
 
-On the other hand, **Context Imprint** mode does not use any additional storage.
-It is completely deterministic:
+On the other hand, **Context Imprint** mode must preserve the length of the input.
+It does not allow for any unaccounted randomess and thus is completely deterministic:
 given the same input, key, and context, the resulting output is always the same.
 In Context Imprint mode the IV is derived from available encryption key and context data,
 making the encryption susceptible to nonce reuse attacks.
