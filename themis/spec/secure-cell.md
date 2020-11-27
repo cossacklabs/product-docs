@@ -57,13 +57,13 @@ Now let's talk about some *non-goals* which influence design decisions.
     Contrast this with [Secure Session](../secure-session/) cryptosystem
     which protects ordered streams of packets, similar to TLS.
 
-  - Sender and receiver are expected to be the same entity.
+  - Symmetric encryption scheme is used.
 
-    Secure Cell does not distinguish between sender and receiver of messages.
-    Data is stored protected and restored into its original form using the same secret.
+    Secure Cell uses the same shared secret key to both encrypt and decrypt data.
+    This is a symmetric encryption scheme.
 
     In contrast, [Secure Message](../secure-message/) cryptosystem is asymmetric,
-    which is more practical for authenticated message exchange.
+    which is more practical for authenticated message exchange between distinct parties.
 
   - Data payload has bounded size.
 
