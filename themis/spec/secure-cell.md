@@ -392,13 +392,14 @@ or with [Themis Server](/themis/debugging/themis-server/) from your web browser.
 
 ### Example: symmetric keys
 
-With the following inputs (all encoded in ASCII):
+With the following inputs
+for [the `scell_seal_string_echo` utility](/themis/debugging/cli-utilities/):
 
 | Input          | Value |
 | -------------- | ----- |
 | encryption key | `au6aimoa8Pee8wahxi4Aique6eaxai2a` |
-| context data   | `additional context` |
 | plaintext      | `encrypted message` |
+| context data   | `additional context` |
 
 Secure Cell in Seal mode produces the following output (encoded in base64):
 
@@ -458,13 +459,14 @@ All the encoded values match the expectations.
 
 ### Example: passphrases
 
-With the following inputs (all encoded in ASCII):
+With the following inputs
+for [the `scell_seal_string_echo_pw` utility](/themis/debugging/cli-utilities/):
 
 | Input        | Value |
 | ------------ | ----- |
 | passphrase   | `correct horse battery staple` |
-| context data | `additional context` |
 | plaintext    | `encrypted message` |
+| context data | `additional context` |
 
 Secure Cell in Seal mode produces the following output (encoded in base64):
 
@@ -543,13 +545,14 @@ All the encoded values match the expectations.
 
 ### Example: Context Imprint mode
 
-With the following inputs (all encoded in ASCII):
+With the following inputs
+for [the `scell_context_string_echo` utility](/themis/debugging/cli-utilities/):
 
 | Input          | Value |
 | -------------- | ----- |
 | encryption key | `au6aimoa8Pee8wahxi4Aique6eaxai2a` |
-| context data   | `additional context` |
 | plaintext      | `encrypted message` |
+| context data   | `additional context` |
 
 Secure Cell in Context Imprint mode produces the following output (encoded in base64):
 
