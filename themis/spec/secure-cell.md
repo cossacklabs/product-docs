@@ -314,6 +314,8 @@ Refer to the [algorithm descriptor overview](../common/#soter-symmetric-algorith
 The **IV data** and **auth tag** fields are theoretically flexible,
 but with current algorithm choice IV is always 12 bytes long
 and authentication tag takes 16 bytes.
+These values are consistent with recommendations of [NIST SP 800-38D](https://csrc.nist.gov/publications/detail/sp/800-38d/final)
+for use with AES-GCM algorithm.
 
 The **message length** field limits the maximum length of Secure Cell encrypted data to 4 GB.
 (Authentication token length is not counted against this limit.)
@@ -383,6 +385,8 @@ This value is stored as `40 0d 03 00` in little-endian encoding.
 
 The **salt** field is theoretically flexible,
 but with current algorithm choice the salt is always 16 bytes long.
+These values are consistent with recommendations of [NIST SP 800-132](https://csrc.nist.gov/publications/detail/sp/800-132/final)
+for use with PBKDF2 password-based key derivation algorithm.
 
 ## Example
 
