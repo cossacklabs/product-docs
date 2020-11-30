@@ -462,31 +462,31 @@ With the following inputs (all encoded in ASCII):
 
 | Input        | Value |
 | ------------ | ----- |
-| passphrase   | `au6aimoa8Pee8wahxi4Aique6eaxai2a` |
+| passphrase   | `correct horse battery staple` |
 | context data | `additional context` |
 | plaintext    | `encrypted message` |
 
 Secure Cell in Seal mode produces the following output (encoded in base64):
 
-    AAEBQQwAAAAQAAAAEQAAABYAAAALWhQwD5hn1LRK75ueKvVydPXPtIBKujPHEutHQA0DABAAxAsov0/Zr0HIVdLQ0T99Fc9Hj4qCpIBLJ2cWU1dZMhlI
+    AAEBQQwAAAAQAAAAEQAAABYAAACM/x16YGKwIuBTawsFRQGgiBsJjuw8nHwShTmmQA0DABAA1a5WowtWsVhDAh/ZChtv+NKLyNk7N4KUsEd+6wvDl5rO
 
 which looks like this in hexadecimal (87 bytes):
 
 ```
 00000000  00 01 01 41 0c 00 00 00  10 00 00 00 11 00 00 00  |...A............|
-00000010  16 00 00 00 0b 5a 14 30  0f 98 67 d4 b4 4a ef 9b  |.....Z.0..g..J..|
-00000020  9e 2a f5 72 74 f5 cf b4  80 4a ba 33 c7 12 eb 47  |.*.rt....J.3...G|
-00000030  40 0d 03 00 10 00 c4 0b  28 bf 4f d9 af 41 c8 55  |@.......(.O..A.U|
-00000040  d2 d0 d1 3f 7d 15 cf 47  8f 8a 82 a4 80 4b 27 67  |...?}..G.....K'g|
-00000050  16 53 57 59 32 19 48                              |.SWY2.H|
+00000010  16 00 00 00 8c ff 1d 7a  60 62 b0 22 e0 53 6b 0b  |.......z`b.".Sk.|
+00000020  05 45 01 a0 88 1b 09 8e  ec 3c 9c 7c 12 85 39 a6  |.E.......<.|..9.|
+00000030  40 0d 03 00 10 00 d5 ae  56 a3 0b 56 b1 58 43 02  |@.......V..V.XC.|
+00000040  1f d9 0a 1b 6f f8 d2 8b  c8 d9 3b 37 82 94 b0 47  |....o.....;7...G|
+00000050  7e eb 0b c3 97 9a ce                              |~......|
 ```
 
 There you can note the extended authentication token (48 bytes):
 
 ```
 00000000  00 01 01 41 0c 00 00 00  10 00 00 00 11 00 00 00  |...A............|
-00000010  16 00 00 00 0b 5a 14 30  0f 98 67 d4 b4 4a ef 9b  |.....Z.0..g..J..|
-00000020  9e 2a f5 72 74 f5 cf b4  80 4a ba 33 c7 12 eb 47  |.*.rt....J.3...G|
+00000010  16 00 00 00 8c ff 1d 7a  60 62 b0 22 e0 53 6b 0b  |.......z`b.".Sk.|
+00000020  05 45 01 a0 88 1b 09 8e  ec 3c 9c 7c 12 85 39 a6  |.E.......<.|..9.|
 00000030  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
 00000040  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
 00000050  -- -- -- -- -- -- --                              |       |
@@ -498,8 +498,8 @@ the passphase key derivation context (22 bytes):
 00000000  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
 00000010  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
 00000020  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
-00000030  40 0d 03 00 10 00 c4 0b  28 bf 4f d9 af 41 c8 55  |@.......(.O..A.U|
-00000040  d2 d0 d1 3f 7d 15 -- --  -- -- -- -- -- -- -- --  |...?}.          |
+00000030  40 0d 03 00 10 00 d5 ae  56 a3 0b 56 b1 58 43 02  |@.......V..V.XC.|
+00000040  1f d9 0a 1b 6f f8 -- --  -- -- -- -- -- -- -- --  |....o.          |
 00000050  -- -- -- -- -- -- --                              |       |
 ```
 
@@ -510,8 +510,8 @@ and the actual encrypted data (17 bytes) in the end:
 00000010  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
 00000020  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
 00000030  -- -- -- -- -- -- -- --  -- -- -- -- -- -- -- --  |                |
-00000040  -- -- -- -- -- -- cf 47  8f 8a 82 a4 80 4b 27 67  |      .G.....K'g|
-00000050  16 53 57 59 32 19 48                              |.SWY2.H|
+00000040  -- -- -- -- -- -- d2 8b  c8 d9 3b 37 82 94 b0 47  |      ....;7...G|
+00000050  7e eb 0b c3 97 9a ce                              |~......|
 ```
 
 Secure Cell supports passphrases only in Seal mode,
@@ -528,8 +528,8 @@ with the data as follows:
 | auth tag length | 0x08   | `10 00 00 00` | auth tag is 16 bytes long |
 | message length  | 0x0C   | `11 00 00 00` | payload is 17 bytes long |
 | KDF length      | 0x10   | `16 00 00 00` | KDF context is 22 bytes long |
-| IV data         | 0x14   | `0b . . . 9b` | initialisation vector data |
-| auth tag        | 0x20   | `9e . . . 47` | authentication tag data |
+| IV data         | 0x14   | `8c . . . 0b` | initialisation vector data |
+| auth tag        | 0x20   | `05 . . . a6` | authentication tag data |
 
 and the PBKDF context data is interpreted like this:
 
@@ -537,7 +537,7 @@ and the PBKDF context data is interpreted like this:
 | --------------- | ------ | ------------- | ------- |
 | iteration count | 0x30   | `40 0d 03 00` | 200,000 iterations |
 | salt length     | 0x34   | `10 00`       | salt is 16 bytes long |
-| salt            | 0x36   | `c4 . . . 15` | salt data |
+| salt            | 0x36   | `d5 . . . f8` | salt data |
 
 All the encoded values match the expectations.
 
