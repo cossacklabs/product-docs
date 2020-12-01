@@ -306,7 +306,7 @@ This results in the following descriptors currently being in use for symmetric k
 | Encryption algorithm       | Algorithm ID |
 | -------------------------- | ------------ |
 | AES-256-GCM **(default)**  | `0x40010100` |
-| AES-196-GCM                | `0x400100C0` |
+| AES-192-GCM                | `0x400100C0` |
 | AES-128-GCM (_deprecated_) | `0x40010080` |
 
 Refer to the [algorithm descriptor overview](../common/#soter-symmetric-algorithm-descriptor) for details.
@@ -359,7 +359,7 @@ This results in the following **algorithm ID** values currently being in use for
 | Encryption algorithm       | Algorithm ID |
 | -------------------------- | ------------ |
 | AES-256-GCM **(default)**  | `0x41010100` |
-| AES-196-GCM                | `0x410100C0` |
+| AES-192-GCM                | `0x410100C0` |
 | AES-128-GCM (_deprecated_) | `0x41010080` |
 
 Refer to the [algorithm descriptor overview](../common/#soter-symmetric-algorithm-descriptor) for details.
