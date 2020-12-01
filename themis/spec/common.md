@@ -154,7 +154,7 @@ Supported **padding** options are:
 Available **key lengths** are:
 
   - `0x080` — 128 bits
-  - `0x0C0` — 196 bits
+  - `0x0C0` — 192 bits
   - `0x100` — 256 bits
 
 ### Example
