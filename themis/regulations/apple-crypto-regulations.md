@@ -1,9 +1,9 @@
 ---
 weight: 1
-title:  App Store requirements
+title: App Store requirements
 ---
 
-# Apple encryption export regulations for Themis
+# US crypto export regulations for Themis when submitting to App Store
 
 If your application uses Themis and you want to submit it to the Apple App Store,
 you are required to do the following:
@@ -28,7 +28,18 @@ Read more in the official [Apple export compliance overview](https://help.apple.
 and [BIS guidelines](https://bis.doc.gov/index.php/policy-guidance/encryption/1-encryption-items-not-subject-to-the-ear)
 (you might need to use a VPN to access it).
 
-#### Submitting an annual self-classification report to Apple
+
+# US crypto export regulations for Themis when submitting to Google Play
+
+If your application uses Themis and you want to submit it to the Google Play,
+you are required to do the following:
+
+1. Send an annual (year-end) self-classification report to the US government
+    to comply with the [encryption export regulations](https://developer.apple.com/documentation/security/complying_with_encryption_export_regulations).
+
+Read more in the [Google Play guidelines](https://support.google.com/googleplay/android-developer/answer/113770?hl=en).
+
+## Submitting an annual self-classification report to BIS
 
 The procedure is as follows.
 
@@ -54,7 +65,7 @@ Please see
 [How to file an Annual Self Classification Report](https://www.bis.doc.gov/index.php/policy-guidance/encryption/4-reports-and-reviews/a-annual-self-classification)
 by the Bureau of Industry and Security for more details.
 
-#### Additional resources
+## Additional resources
 
 For further guidance, see these resources:
 
