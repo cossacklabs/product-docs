@@ -5,6 +5,20 @@ title: US crypto export regulations
 
 # US crypto export regulations for Themis
 
+When you distribute apps via platforms like App Store or Google Play,
+the binaries are typically hosted on servers located within US, owned by US companies.
+United States laws treat this activity as export, which is heavily regulated for cryptography.
+
+However, typical Themis use cases fall under “open source” exceptions.
+This makes compliance much easier if your app is open source as well.
+
+{{ note warning }}
+**Note:**
+If your app is not open source or is not distributed free of charge,
+we strongly recommend that you seek professional legal advice.
+{{ /note }}
+
+
 ## Submitting apps to App Store
 
 If your application uses Themis and you want to submit it to the Apple App Store,
