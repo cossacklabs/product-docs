@@ -30,7 +30,7 @@ Themis can also be used with [Swift](../swift/).
 If your application uses Themis and you want to submit it to the Apple App Store,
 there are certain requirements towards declaring use of any cryptography.
 
-Read about [Apple export regulations on cryptography for Themis](/themis/regulations/apple-crypto-regulations/) to find out what to do.
+Read about [US export regulations on cryptography for Themis](/themis/regulations/us-crypto-regulations/) to find out what to do.
 {{< /hint >}}
 
 ## Supported platforms
