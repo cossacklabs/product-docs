@@ -10,6 +10,15 @@ JavaThemis for Android is [available on JCenter and Bintray via **Maven**](https
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
 However, you can also build and install the latest JavaThemis from the source code.
 
+
+{{< hint warning >}}
+**Important:**
+If your application uses Themis and you want to submit it to the Google Play,
+there are certain requirements towards declaring use of any cryptography.
+
+Read about [US export regulations on cryptography for Themis](/themis/regulations/us-crypto-regulations/) to find out what to do.
+{{< /hint >}}
+
 ## Installing stable version with Gradle
 
 Just add the following lines to your `build.gradle` file:
