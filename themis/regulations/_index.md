@@ -45,10 +45,10 @@ under the License Exception ENC Technology Software Unrestricted (TSU) exception
 (see the BIS Export Administration Regulations, Section 740.13)
 for both object code and source code.
 
-## Submissions to the App Store
+## Submissions to the App Store or Google Play
 
-If you’re using Themis as your means of encryption within your iOS/macOS app
-and intend to submit it to the Apple App Store,
+If you’re using Themis as your means of encryption within your iOS/macOS/Android app
+and intend to submit it to the Apple App Store or Google Play,
 your encryption falls under the “open source” exception.
 
 {{< hint warning >}}
@@ -59,4 +59,4 @@ we strongly recommend that you seek professional legal advice.
 
 Generally, you should indicate that you’re using encryption
 and submit annual self-classification reports.
-Read more about [submitting applications using Themis to the App Store](/themis/regulations/apple-crypto-regulations/).
+Read more about [submitting applications using Themis](/themis/regulations/apple-crypto-regulations/).
