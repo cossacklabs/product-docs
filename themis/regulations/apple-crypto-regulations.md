@@ -12,11 +12,11 @@ United States laws treat this activity as export, which is heavily regulated for
 However, typical Themis use cases fall under “open source” exceptions.
 This makes compliance much easier if your app is open source as well.
 
-{{ note warning }}
+{{< hint warning >}}
 **Note:**
 If your app is not open source or is not distributed free of charge,
 we strongly recommend that you seek professional legal advice.
-{{ /note }}
+{{< /hint >}}
 
 
 ## Submitting apps to App Store
