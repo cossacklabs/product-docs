@@ -71,40 +71,35 @@ where you can see the data fields:
 | crc     | 0x08   | `6C D5 6E F8` | container checksum |
 | payload | 0x0C   | `03 A4 B1...` | data payload: public key parameters |
 
-Here is a code snippet in Go, illustrating computation of Soter container checksum:
+## Reference implementation
+
+[On GitHub](https://github.com/cossacklabs/product-docs/blob/master/themis/spec/common/soter-container.go)
+you can find a reference implementation of Soter container in Go.
+
+For example, here is how it works with the example data from above:
 
 ```go
 package main
 
 import (
-	"bytes"
 	"encoding/base64"
+	"encoding/hex"
 	"fmt"
-	"hash/crc32"
+
+	"github.com/cossacklabs/product-docs/themis/spec/common"
 )
 
 func main() {
 	containerB64 := "VUVDMgAAAC1s1W74A6Sx9yhDygNh4YEb0LShLZrEgTosYF2yRVG4pHGoaa6N"
-	container, _ := base64.StdEncoding.DecodeString(containerB64)
+	containerBytes, _ := base64.StdEncoding.DecodeString(containerB64)
 
-	crc := crc32.New(crc32.MakeTable(crc32.Castagnoli))
+	fmt.Printf("Soter container:\n")
+	fmt.Printf("%s\n", hex.Dump(containerBytes))
 
-	// First write then "tag" and "size" fields, then a zero placeholder
-	// for the "crc" field, and finally the payload.
-	crc.Write(container[0:8])
-	crc.Write(make([]byte, 4))
-	crc.Write(container[12:])
+	container, _ := common.ParseSoterContainer(containerBytes)
 
-	checksum := crc.Sum(nil)
-
-	// Soter uses *reflected* Castagnoli CRC.
-	checksum[0], checksum[3] = checksum[3], checksum[0]
-	checksum[1], checksum[2] = checksum[2], checksum[1]
-
-	if bytes.Equal(checksum, container[8:12]) {
-		fmt.Println("✅ container checksum")
-	} else {
-		fmt.Println("❌ container checksum")
-	}
+	fmt.Printf("container tag:  %s\n", container.Tag())
+	fmt.Printf("CRC checksum:   %x\n", container.Checksum())
+	fmt.Printf("payload length: %d\n", len(container.Payload))
 }
 ```
