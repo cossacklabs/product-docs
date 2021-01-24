@@ -59,3 +59,44 @@ an _implicit key_ **KI\*** is derived in the following manner:
 The implicit key is 32 bytes long.
 If the **Label** or any of the **Contexts** is longer, they are truncated to 32 bytes,
 and if they are shorter, they are padded with zeros before being added up with XOR (⊕).
+
+## Reference implementation
+
+[On GitHub](https://github.com/cossacklabs/product-docs/blob/master/themis/spec/common/soter-kdf.go)
+you can find a reference implementation of Soter KDF in Go.
+
+## Example
+
+Here is a code snippet in Go using the reference implementation to produce test vectors:
+
+```go
+package main
+
+import (
+	"encoding/hex"
+	"fmt"
+
+	"github.com/cossacklabs/product-docs/themis/spec/common"
+)
+
+func main() {
+	inputKey, _ := hex.DecodeString(
+		"4e6f68365577616568696564316b696a6f74686168326f506f68306565517565",
+	)
+	label := "Example key derivation"
+	context := [][]byte{[]byte("2020-12-20"), []byte("11:18:24")}
+
+	var outputKey []byte
+
+	fmt.Println("With explicit input key:")
+	// d5f5be45fd6eab6dcbf93c21c3d2d1e3e888fa20ef38f2f4a121c196382342dd
+	outputKey = common.SoterKDF(inputKey, label, 32, context...)
+	fmt.Println(hex.EncodeToString(outputKey))
+	fmt.Println()
+
+	fmt.Println("With implicit input key:")
+	// cf9846b8026c5b76a0641aa85f4152ff02c15ad45b726c6e578be52afdfd6930
+	outputKey = common.SoterKDF(nil, label, 32, context...)
+	fmt.Println(hex.EncodeToString(outputKey))
+}
+```
