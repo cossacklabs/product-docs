@@ -26,7 +26,7 @@ Migration to more recent recommendations of the CNSA Suite is pending.
 
 ## Layout
 
-RSA keys are stored in [Soter containers](../../common/#soter-container).
+RSA keys are stored in [Soter containers](../../common/soter-container/).
 The tags for the supported key sizes are as follows:
 
 | Key size  | Public key tag | Private key tag |
