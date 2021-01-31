@@ -6,6 +6,12 @@ import (
 )
 
 func TestExampleContainer(t *testing.T) {
+	// This is an EC public key for Themis, the one dissected in the specification.
+	// You can use Themis command-line tools to generate a new keypair:
+	//
+	//     go run docs/examples/go/secure_keygen.go | tail -n +2
+	//
+	// See https://docs.cossacklabs.com/themis/debugging/cli-utilities/
 	containerB64 := "VUVDMgAAAC1s1W74A6Sx9yhDygNh4YEb0LShLZrEgTosYF2yRVG4pHGoaa6N"
 	containerBytes, _ := base64.StdEncoding.DecodeString(containerB64)
 
