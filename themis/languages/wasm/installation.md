@@ -78,31 +78,32 @@ WasmThemis uses [BoringSSL](https://boringssl.googlesource.com/boringssl/) as it
 BoringSSL is included as a submodule in the Themis repository,
 but you will need to install its build dependencies as well.
 
- 1. Install Emscripten toolchain
+ 1. Checkout Themis repository.
+
+    ```bash
+    git clone https://github.com/cossacklabs/themis.git
+    ```
+
+ 2. Install Emscripten toolchain
     [as described in the documentation here](https://emscripten.org/docs/getting_started/downloads.html).
 
     If you haven’t used Emscripten before,
     [take a look at this tutorial](https://emscripten.org/docs/getting_started/Tutorial.html)
     before proceeding.
 
- 2. Activate a suitable toolchain version.
+ 3. Activate a suitable toolchain version.
 
-    {{< hint warning >}}
-Currently WasmThemis supports only the **“fastcomp”** flavor of the toolchain.
-The “upstream” (LLVM) flavor has known issues and is not recommended at the moment.
-    {{< /hint >}}
-
-    Emscripten installs the “upstream” flavor by default
+    Emscripten installs the latest “upstream” flavor by default
     so you need to explicitly install and activate a suitable version
     (run this from Emscripten SDK directory):
 
     ```bash
-    ./emsdk install  1.39.16-fastcomp
-    ./emsdk activate 1.39.16-fastcomp
+    ./emsdk install  2.0.13
+    ./emsdk activate 2.0.13
     source ./emsdk_env.sh
     ```
 
-    The `1.39.16-fastcomp` is the latest “fastcomp” toolchain version
+    The `2.0.13` is the latest toolchain version
     which is known to work for WasmThemis.
 
     {{< hint info >}}
@@ -110,17 +111,17 @@ Read the [Emscripten documentation](https://emscripten.org/docs/tools_reference/
 to learn more about managing toolchain versions.
     {{< /hint >}}
 
- 3. Make sure that BoringSSL submodule is checked out:
+ 4. Make sure that BoringSSL submodule is checked out:
 
     ```bash
     git submodule update --init
     ```
 
- 4. Make sure that BoringSSL [build dependencies](https://boringssl.googlesource.com/boringssl/+/HEAD/BUILDING.md) are installed.
+ 5. Make sure that BoringSSL [build dependencies](https://boringssl.googlesource.com/boringssl/+/HEAD/BUILDING.md) are installed.
 
     You will typically need to install Go, CMake, GNU Make.
 
- 5. Build and package WasmThemis:
+ 6. Build and package WasmThemis by running the following in the root of Themis repository:
 
     ```bash
     emmake make wasmthemis

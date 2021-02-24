@@ -10,7 +10,7 @@ and [**Secure Session**](../secure-session/) cryptosystems.
 
 Asymmetric cryptography imposes certain mathematical requirements on the structure of the keys.
 To preserve the format and content of the keys intact,
-all asymmetric keys are stored in [Soter containers](../common/#soter-container)
+all asymmetric keys are stored in [Soter containers](../common/soter-container/)
 which provide key type identification and prevent accidental corruption.
 
 ## Asymmetric key kinds
