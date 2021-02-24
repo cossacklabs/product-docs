@@ -292,7 +292,7 @@ Secure Cell uses little-endian due to historical reasons.
 {{< /hint >}}
 
 The **algorithm ID** field is actually a bitmask with
-[Soter symmetric algorithm descriptor](../common/#soter-symmetric-algorithm-descriptor):
+[Soter symmetric algorithm descriptor](../common/soter-alg/):
 
           28      24      20      16      12       8       4       0
     +-------+-------+-------+-------+-------+-------+-------+-------+
@@ -309,7 +309,7 @@ This results in the following descriptors currently being in use for symmetric k
 | AES-192-GCM                | `0x400100C0` |
 | AES-128-GCM (_deprecated_) | `0x40010080` |
 
-Refer to the [algorithm descriptor overview](../common/#soter-symmetric-algorithm-descriptor) for details.
+Refer to the [algorithm descriptor overview](../common/soter-alg/) for details.
 
 The **IV data** and **auth tag** fields are theoretically flexible,
 but with current algorithm choice IV is always 12 bytes long
@@ -362,7 +362,7 @@ This results in the following **algorithm ID** values currently being in use for
 | AES-192-GCM                | `0x410100C0` |
 | AES-128-GCM (_deprecated_) | `0x41010080` |
 
-Refer to the [algorithm descriptor overview](../common/#soter-symmetric-algorithm-descriptor) for details.
+Refer to the [algorithm descriptor overview](../common/soter-alg/) for details.
 
 The PBKDF2 passphrase key derivation uses the following KDF context format:
 

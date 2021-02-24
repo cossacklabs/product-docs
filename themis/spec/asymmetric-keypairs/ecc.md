@@ -29,7 +29,7 @@ A point on the curve **P**, obtained by multiplying the base point of the curve 
 
 ## Layout
 
-EC keys are stored in [Soter containers](../../common/#soter-container).
+EC keys are stored in [Soter containers](../../common/soter-container/).
 The tags for the supported curves are as follows:
 
 | Curve | Public key tag | Private key tag |
