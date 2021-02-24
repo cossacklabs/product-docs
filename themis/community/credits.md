@@ -23,6 +23,7 @@ As for 2020, Themis is supported by core crew:
 
 A special thank you goes to the awesome contributors that help us make Themis better:
 
+- [@maxammann](https://github.com/maxammann) for improvements in WasmThemis code, documentation, and triggering discussions ([#779](https://github.com/cossacklabs/themis/issues/779), [#781](https://github.com/cossacklabs/themis/pull/781), [#783](https://github.com/cossacklabs/themis/pull/783)).
 - [@julepka](https://github.com/julepka) for updating iOS and macOS examples ([#726](https://github.com/cossacklabs/themis/pull/726), [#724](https://github.com/cossacklabs/themis/pull/724), [#723](https://github.com/cossacklabs/themis/pull/723)).
 - [@dodikk](https://github.com/dodikk) for pushing Themis to C# and proving with examples how Android Themis can be used in Xamarin apps ([#716](https://github.com/cossacklabs/themis/issues/716)).
 - [@karenswry](https://github.com/karenswry) for improving documentation and fixing our poor language.
