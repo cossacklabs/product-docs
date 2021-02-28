@@ -26,6 +26,7 @@ Just add the following lines to your `build.gradle` file:
 ```groovy
 repositories {
     google()
+    jcenter()
     mavenCentral()
 }
 
@@ -36,6 +37,14 @@ dependencies {
     implementation 'com.cossacklabs.com:themis:0.13.1'
 }
 ```
+
+<!--
+JCenter is still required in the repository list because Android Studio
+has not completed its migration yet. Track the updates on this page:
+https://developer.android.com/studio/build/jcenter-migration
+Once Google says it's safe to remove JCenter from the repo list, we can remove
+jcenter() from the repo list in our guide here (and code examples elsewhere).
+-->
 
 {{< hint note >}}
 If you experience difficulties with the Maven Central repository,
