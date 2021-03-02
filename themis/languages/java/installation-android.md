@@ -5,7 +5,7 @@ title:  Installation for Android
 
 # Installing JavaThemis for Android development
 
-JavaThemis for Android is [available on JCenter and Bintray via **Maven**](https://bintray.com/cossacklabs/maven/themis).
+JavaThemis for Android is [available in the **Maven Central** repository](https://search.maven.org/artifact/com.cossacklabs.com/themis).
 
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
 However, you can also build and install the latest JavaThemis from the source code.
@@ -25,21 +25,37 @@ Just add the following lines to your `build.gradle` file:
 
 ```groovy
 repositories {
-    // Repositories for JavaThemis dependencies:
     google()
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
     // Add JavaThemis as runtime dependency of your application.
     // Always pin the latest version, you can find it here:
-    // https://bintray.com/cossacklabs/maven/themis
+    // https://search.maven.org/artifact/com.cossacklabs.com/themis
     implementation 'com.cossacklabs.com:themis:0.13.1'
 }
 ```
 
+<!--
+JCenter is still required in the repository list because Android Studio
+has not completed its migration yet. Track the updates on this page:
+https://developer.android.com/studio/build/jcenter-migration
+Once Google says it's safe to remove JCenter from the repo list, we can remove
+jcenter() from the repo list in our guide here (and code examples elsewhere).
+-->
+
 {{< hint note >}}
-If you experience difficulties with jcenter repository, try using maven instead: `maven { url "https://dl.bintray.com/cossacklabs/maven/" }`
+If you experience difficulties with the Maven Central repository,
+try using the Sonatype mirror instead:
+```groovy
+repositories {
+    maven {
+        url "https://oss.sonatype.org/content/repositories/releases/"
+    }
+}
+```
 {{< /hint >}}
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
