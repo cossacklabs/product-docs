@@ -51,7 +51,7 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
  2. Install Themis JNI package:
 
     ```bash
-    brew install libthemis --with-jni
+    brew install libthemis --with-java
     ```
 
  3. Make sure Java can locate the JNI library.
