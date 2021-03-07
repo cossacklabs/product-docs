@@ -33,7 +33,23 @@ Currently we build packages for a multitude of Linux distributions.
     sudo yum install libthemis-jni
     ```
 
- 3. [Build JavaThemis JAR](#build-jar-with-java-code) and add it to your project.
+ 3. Configure Gradle to use JavaThemis:
+
+    ```groovy
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // Add JavaThemis as runtime dependency of your application.
+        // Always pin the latest version, you can find it here:
+        // https://search.maven.org/artifact/com.cossacklabs.com/java-themis
+        implementation 'com.cossacklabs.com:java-themis:0.13.1'
+    }
+    ```
+
+    If you use other build tools (e.g., Ant, Maven, SBT, etc.),
+    see [Maven Central](https://search.maven.org/artifact/com.cossacklabs.com/java-themis) for configuration snippets.
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
@@ -73,7 +89,23 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
         on application startup, or to move libthemis_jni.dylib manually
         to one of these locations so that Java could find it.
 
- 4. [Build JavaThemis JAR](#build-jar-with-java-code) and add it to your project.
+ 4. Configure Gradle to use JavaThemis:
+
+    ```groovy
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // Add JavaThemis as runtime dependency of your application.
+        // Always pin the latest version, you can find it here:
+        // https://search.maven.org/artifact/com.cossacklabs.com/java-themis
+        implementation 'com.cossacklabs.com:java-themis:0.13.1'
+    }
+    ```
+
+    If you use other build tools (e.g., Ant, Maven, SBT, etc.),
+    see [Maven Central](https://search.maven.org/artifact/com.cossacklabs.com/java-themis) for configuration snippets.
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
