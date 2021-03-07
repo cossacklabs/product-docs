@@ -5,9 +5,8 @@ title:  Installation for desktop
 
 # Installing JavaThemis for desktop development
 
-JavaThemis package for desktop and server systems is currently in development.
-For now you will have to build it partially from source code.
-JavaThemis also requires JNI library to be installed on your system.
+JavaThemis is [available in the **Maven Central** repository](https://search.maven.org/artifact/com.cossacklabs.com/java-themis).
+Additionally, Themis JNI library has to be installed in your system as well.
 
 Themis JNI library is available as a system package for Linux and macOS.
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
