@@ -114,10 +114,6 @@ Once JavaThemis is installed, you can [try out examples on your machine](../exam
 If the stable package version does not suit your needs,
 you can manually build and install the latest version of Themis from source code.
 
-For now, you have to build the JAR part from source code
-even when the JNI library is installed by the package manager.
-Please use the stable version if you do not have a reason to use the latest, unstable code.
-
 The build system requires Java 8 or later.
 You need to have JDK 8 (or later) installed and selected as your default JDK.
 You can learn more about how to get and install JDK
