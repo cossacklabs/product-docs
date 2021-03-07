@@ -17,19 +17,20 @@ However, you can also build and install the latest version of JNI library from t
 The easiest way to install JavaThemis on Linux is to use package repositories for your system.
 Currently we build packages for a multitude of Linux distributions.
 
- 1. [Add Cossack Labs package repositories](/themis/installation/installation-from-packages/) to your system.
+ 1. [Add Cossack Labs package repositories](/themis/installation/installation-from-packages/)
+    to your system.
 
  2. Install Themis JNI package.
 
     For Debian, Ubuntu:
 
-    ```
+    ```bash
     sudo apt install libthemis-jni
     ```
 
     For CentOS, RHEL:
 
-    ```
+    ```bash
     sudo yum install libthemis-jni
     ```
 
