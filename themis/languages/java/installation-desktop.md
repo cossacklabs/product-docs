@@ -176,3 +176,6 @@ so you do not have to install Gradle manually.
 
 The resulting JAR file `java-themis-X.Y.Z.jar` will be placed into `src/wrappers/themis/java/build/libs`.
 You then need to add it to your project.
+
+See [JavaThemis examples](https://github.com/cossacklabs/themis-java-examples)
+for illustration of how to integrate JavaThemis into your project.
