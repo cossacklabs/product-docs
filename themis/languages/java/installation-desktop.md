@@ -5,9 +5,8 @@ title:  Installation for desktop
 
 # Installing JavaThemis for desktop development
 
-JavaThemis package for desktop and server systems is currently in development.
-For now you will have to build it partially from source code.
-JavaThemis also requires JNI library to be installed on your system.
+JavaThemis is [available in the **Maven Central** repository](https://search.maven.org/artifact/com.cossacklabs.com/java-themis).
+Additionally, Themis JNI library has to be installed in your system as well.
 
 Themis JNI library is available as a system package for Linux and macOS.
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
@@ -18,23 +17,40 @@ However, you can also build and install the latest version of JNI library from t
 The easiest way to install JavaThemis on Linux is to use package repositories for your system.
 Currently we build packages for a multitude of Linux distributions.
 
- 1. [Add Cossack Labs package repositories](/themis/installation/installation-from-packages/) to your system.
+ 1. [Add Cossack Labs package repositories](/themis/installation/installation-from-packages/)
+    to your system.
 
  2. Install Themis JNI package.
 
     For Debian, Ubuntu:
 
-    ```
+    ```bash
     sudo apt install libthemis-jni
     ```
 
     For CentOS, RHEL:
 
-    ```
+    ```bash
     sudo yum install libthemis-jni
     ```
 
- 3. [Build JavaThemis JAR](#build-jar-with-java-code) and add it to your project.
+ 3. Configure Gradle to use JavaThemis:
+
+    ```groovy
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // Add JavaThemis as runtime dependency of your application.
+        // Always pin the latest version, you can find it here:
+        // https://search.maven.org/artifact/com.cossacklabs.com/java-themis
+        implementation 'com.cossacklabs.com:java-themis:0.13.1'
+    }
+    ```
+
+    If you use other build tools (e.g., Ant, Maven, SBT, etc.),
+    see [Maven Central](https://search.maven.org/artifact/com.cossacklabs.com/java-themis) for configuration snippets.
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
@@ -51,7 +67,7 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
  2. Install Themis JNI package:
 
     ```bash
-    brew install libthemis --with-jni
+    brew install libthemis --with-java
     ```
 
  3. Make sure Java can locate the JNI library.
@@ -74,7 +90,23 @@ The easiest way to install ThemisPP on macOS is to use Homebrew.
         on application startup, or to move libthemis_jni.dylib manually
         to one of these locations so that Java could find it.
 
- 4. [Build JavaThemis JAR](#build-jar-with-java-code) and add it to your project.
+ 4. Configure Gradle to use JavaThemis:
+
+    ```groovy
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        // Add JavaThemis as runtime dependency of your application.
+        // Always pin the latest version, you can find it here:
+        // https://search.maven.org/artifact/com.cossacklabs.com/java-themis
+        implementation 'com.cossacklabs.com:java-themis:0.13.1'
+    }
+    ```
+
+    If you use other build tools (e.g., Ant, Maven, SBT, etc.),
+    see [Maven Central](https://search.maven.org/artifact/com.cossacklabs.com/java-themis) for configuration snippets.
 
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
@@ -82,10 +114,6 @@ Once JavaThemis is installed, you can [try out examples on your machine](../exam
 
 If the stable package version does not suit your needs,
 you can manually build and install the latest version of Themis from source code.
-
-For now, you have to build the JAR part from source code
-even when the JNI library is installed by the package manager.
-Please use the stable version if you do not have a reason to use the latest, unstable code.
 
 The build system requires Java 8 or later.
 You need to have JDK 8 (or later) installed and selected as your default JDK.
@@ -148,10 +176,6 @@ so you do not have to install Gradle manually.
 
 The resulting JAR file `java-themis-X.Y.Z.jar` will be placed into `src/wrappers/themis/java/build/libs`.
 You then need to add it to your project.
-
-To build older versions of Themis
-you need to copy the entire [`com.cossacklabs.themis` package](https://github.com/cossacklabs/themis/tree/master/src/wrappers/themis/java)
-and configure your build system to build it as a part of the application.
 
 See [JavaThemis examples](https://github.com/cossacklabs/themis-java-examples)
 for illustration of how to integrate JavaThemis into your project.
