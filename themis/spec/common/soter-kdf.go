@@ -18,9 +18,11 @@ func SoterKDF(input []byte, label string, outputBytes int, context ...[]byte) []
 	// The key is a truncated XOR-sum of the label and all the context values.
 	if len(input) == 0 {
 		input = make([]byte, 32)
-		input = xor(input, []byte(label))
+		copy(input, label)
 		for _, context := range context {
-			input = xor(input, context)
+			for i := 0; i < min(len(input), len(context)); i++ {
+				input[i] ^= context[i]
+			}
 		}
 	}
 	// Derive output key with HMAC keyed by the input key, computing hash sum
@@ -37,13 +39,9 @@ func SoterKDF(input []byte, label string, outputBytes int, context ...[]byte) []
 	return result[:outputBytes]
 }
 
-func xor(out, in []byte) []byte {
-	L := len(out)
-	if len(in) < L {
-		L = len(in)
+func min(a, b int) int {
+	if a < b {
+		return a
 	}
-	for i := 0; i < L; i++ {
-		out[i] = out[i] ^ in[i]
-	}
-	return out
+	return b
 }
