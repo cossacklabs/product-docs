@@ -19,7 +19,6 @@ The easiest way to install Themis on Linux is to use package repositories for yo
 We build packages for a multitude of Linux distributions.
 
  1. [Add Cossack Labs package repositories](/themis/installation/installation-from-packages/)
-
     to your system.
 
  2. Install Themis Core _development_ package.
