@@ -25,13 +25,13 @@ To generate AcraBlocks Acra-Server uses symmetric keys generated for every Clien
 
 ## Generating
 
-To generate AcraBlock in transparent mode Acra-Server does next steps:
+To generate AcraBlock in transparent mode Acra-Server does the next steps:
 * Generates new random DEK for default data encryption backend. DEK length is 32 bytes.
 * Encrypts plaintext by DEK and Context of specified ClientID/ZoneID using default backend for data encryption.
 * Securely cleans up memory of plaintext data (erases/fills with zeros).
 * Encrypts DEK by KEK from KeyStore for specified ClientID/ZoneID and use it as Context.
 * Securely cleans up memory of DEK (erases/fills with zeros).
-* Forms a container: packs Begin_Tag, length of all other parts, DEK encryption backend identifier, KEK identifier, DEK encryption backend identifier, encrypted DEK and ciphertext.
+* Forms a container: packs together Begin_Tag, length of all other parts, DEK encryption backend identifier, KEK identifier, DEK encryption backend identifier, encrypted DEK and ciphertext.
 
 ## Decrypting
 
