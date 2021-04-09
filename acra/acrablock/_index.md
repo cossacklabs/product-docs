@@ -7,7 +7,11 @@ bookCollapseSection: true
 
 ## Container structure
 
-AcraBlock is a container format. To generate AcraBlocks Acra-Server uses symmetric keys generated for every ClientID/ZoneID.
+AcraBlock is a container format. Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). AcraBlock uses AES-GCM for both encryption procedures.
+
+AcraBlock supports key rotation: it's possible to rotate only key encryption key without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
+
+To generate AcraBlocks Acra-Server uses symmetric keys generated for every ClientID/ZoneID.
 
 `AcraBlock = Begin_Tag + Rest_AcraBlock_Length + Key_Encryption_Backend_Identifier + Key_Encryption_Key_ID + Data_Encryption_Backend_Identifier + Data_Encryption_Key_Length + Encrypted_Data_Encryption_Key + Encrypted_Data`
 * `Begin_Tag[4]` - 4 bytes, header tag. Contains 4 bytes with byte value = 34: [34, 34, 34, 34]
@@ -21,13 +25,13 @@ AcraBlock is a container format. To generate AcraBlocks Acra-Server uses symmetr
 
 ## Generating
 
-To generate AcraBlock in transparent mode Acra-Server do next steps:
-* Generates new random DEK for default data encryption backend. New it is 32 bytes.
-* Encrypts plaintext by this key and Context of specified ClientID/ZoneID using default backend for data encryption.
-* Erases/fills with zeros memory area with the plaintext
+To generate AcraBlock in transparent mode Acra-Server does next steps:
+* Generates new random DEK for default data encryption backend. DEK length is 32 bytes.
+* Encrypts plaintext by DEK and Context of specified ClientID/ZoneID using default backend for data encryption.
+* Securely cleans up memory of plaintext data (erases/fills with zeros).
 * Encrypts DEK by KEK from KeyStore for specified ClientID/ZoneID and use it as Context
-* Erases/fills with zeros memory area with the DEK
-* Pack together Begin_Tag, length of all other parts, DEK encryption backend identifier, KEK identifier, DEK encryption backend identifier, encrypted DEK and ciphertext
+* Securely cleans up memory of DEK (erases/fills with zeros).
+* Forms a container: packs Begin_Tag, length of all other parts, DEK encryption backend identifier, KEK identifier, DEK encryption backend identifier, encrypted DEK and ciphertext
 
 ## Decrypting
 
