@@ -2,7 +2,8 @@
 weight: 2
 title: "Acra"
 bookFlatSection: true
-bookHidden: true
+productMenuTitle: "acra"
+Menu: "main"
 ---
 
 # Acra
