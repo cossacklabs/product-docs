@@ -37,7 +37,7 @@ Read about [US export regulations on cryptography for Themis](/themis/regulation
 
 SwiftThemis supports all current versions of macOS, iOS:
 
-- macOS 10.12–10.15
+- macOS 10.12–10.15, 11
 - iOS 10–14
 
 SwiftThemis is tested with Swift 4 and Swift 5.

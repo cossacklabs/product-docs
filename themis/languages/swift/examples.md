@@ -16,7 +16,7 @@ on GitHub:
   - data encryption using Secure Cell
   - message encryption using Secure Message
   - password authentication using Secure Comparator
-  - integration with CocoaPods and Carthage for macOS and iOS
+  - integration with SPM, CocoaPods and Carthage for macOS and iOS
 
 You can also take a look at unit tests
 in [SwiftThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/objcthemis).
