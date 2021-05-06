@@ -5,12 +5,24 @@ title:  Installation
 
 # Installing Themis for iOS and macOS
 
-Themis can be installed with **CocoaPods** and **Carthage**.
+Themis can be installed with **SPM**, **CocoaPods** and **Carthage**.
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
 
 It is also possible to build the latest version of Themis from source,
 but it is highly non-trivial.
 Please [drop us an email](mailto:dev@cossacklabs.com) if you need assistance.
+
+## Installing with SPM
+
+Themis is available via SPM (Swift Package Manager).
+
+Use the repository link:
+
+```
+https://github.com/cossacklabs/themis
+```
+
+[Here are examples](../examples/) of SPM projects with Themis in Swift and Objective-C.
 
 ## Installing with CocoaPods
 
