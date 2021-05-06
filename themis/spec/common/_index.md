@@ -9,3 +9,4 @@ Here you can find descriptions of common data structures and cryptographic algor
 
   - [Soter containers](soter-container/)
   - [Soter symmetric algorithm descriptors](soter-alg/)
+  - [Soter KDF](soter-kdf/)
