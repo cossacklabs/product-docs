@@ -5,21 +5,14 @@ title:  Examples
 
 # Example projects with JavaThemis
 
-Once you have installed JavaThemis
-(for [Android](../installation-android/) or [desktop](../installation-desktop/) development),
+Once you have [installed JavaThemis](../installation-android/) for Android
 it’s time to give it some action!
-
-{{< hint info >}}
-JavaThemis is implemented in Java and provides Kotlin API via JVM interop.
-Kotlin support is currently in development
-so some examples may be available only in Java.
-{{< /hint >}}
 
 ## Code samples
 
-[Themis Java examples](https://github.com/cossacklabs/themis-java-examples)
-illustrate how to integrate JavaThemis into Android and desktop Java projects
-and how JavaThemis API can be used:
+See the [`docs/examples/android`](https://github.com/cossacklabs/themis/tree/master/docs/examples/android)
+directory on GitHub for an sample project with JavaThemis for Android.
+There you can find examples of JavaThemis API:
 
   - data encryption using Secure Cell
   - exchange messages using Secure Message

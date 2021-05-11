@@ -5,15 +5,14 @@ title:  Examples
 
 # Example projects with JavaThemis
 
-Once you have installed JavaThemis
-(for [Android](../installation-android/) or [desktop](../installation-desktop/) development),
+Once you have [installed JavaThemis](../installation-desktop/) for desktop systems
 it’s time to give it some action!
 
 ## Code samples
 
-[Themis Java examples](https://github.com/cossacklabs/themis-java-examples)
-illustrate how to integrate JavaThemis into Android and desktop Java projects
-and how JavaThemis API can be used:
+See the [`docs/examples/java`](https://github.com/cossacklabs/themis/tree/master/docs/examples/java)
+directory on GitHub for an sample project with JavaThemis for desktop systems.
+There you can find examples of JavaThemis API:
 
   - data encryption using Secure Cell
   - exchange messages using Secure Message
@@ -21,11 +20,6 @@ and how JavaThemis API can be used:
 
 You can also take a look at unit tests
 in [JavaThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/themis/wrappers/android/com/cossacklabs/themis/test).
-
-## Blog posts
-
-You can read our blog post on [building encrypted chat service](https://www.cossacklabs.com/building-secure-chat),
-which includes Android client using Secure Session and Secure Cell.
 
 ## Debugging aids
 
