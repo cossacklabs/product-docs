@@ -549,9 +549,9 @@ the only difference between the two is in who starts the communication.
 After the session is established, either party can send messages to their peer whenever it wishes to.
 
 {{< hint info >}}
-Take a look at code samples in the [Java Examples](https://github.com/cossacklabs/themis-java-examples)
+Take a look at [example projects in Kotlin](../examples/)
 and [Secure Mobile WebSocket](https://github.com/cossacklabs/mobile-websocket-example)
-repositories on GitHub.
+repository on GitHub.
 There you can find examples of Secure Session setup and usage in all modes.
 {{< /hint >}}
 
