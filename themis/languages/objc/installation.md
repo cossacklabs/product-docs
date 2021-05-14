@@ -78,7 +78,7 @@ Please disable bitcode for your application before archiving it to App Store, an
 ## Installing with Carthage
 
 {{< hint info >}}
-Xcode 12 has introduced Apple Silicon support on macOS. Since [0.13.9](https://github.com/cossacklabs/themis/releases/tag/0.13.9) Themis uses XCFrameworks to support ARM64 architecture on macOS and ARM64-iphonesimulator architecture slice for iOS.
+Xcode 12 has introduced Apple Silicon support on macOS. Since [0.13.9](https://github.com/cossacklabs/themis/releases/tag/0.13.9) Themis uses XCFrameworks to support ARM64 architecture on macOS and ARM64-iphonesimulator architecture slice for iOS. First support of Apple Silicon was introduced in [0.13.4](https://github.com/cossacklabs/themis/releases/tag/0.13.4), but excluded ARM64-iphonesimulator architecture slice for iOS.
 
 The required Carthage version to build Themis XCFramework is 0.38.0. You can continue using previous Carthage version with older Themis version where ARM64-iphonesimulator architecture slice should be excluded.
 {{< /hint >}}
