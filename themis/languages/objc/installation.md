@@ -98,7 +98,7 @@ Themis is also available via [**Carthage**](https://github.com/Carthage/Carthage
     carthage update --use-xcframeworks
     ```
 
- 3. Integrate **themis.framework** into your project
+ 3. Integrate **themis.xcframework** into your project
     according to [Carthage instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
     {{< hint warning >}}
