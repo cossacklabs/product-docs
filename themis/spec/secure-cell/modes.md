@@ -86,6 +86,7 @@ which is used to derive associated data for encryption.
 If the context data is not provided explicitly, Secure Cell derives some from the message length.
 It is also used in key derivation to minimise the risks of key reuse and XOR attacks as well.
 See the [Encryption](#encryption) section for the details.
+<!-- TODO: this section does not exist yet -->
 
 **Seal** and **Token Protect** modes require additional storage for authentication data.
 Therefore, Secure Cell can use a bit more of that extra storage
@@ -119,6 +120,7 @@ Secure Cell uses _key derivation functions_ (KDF) to stretch or shrink user-prov
 If a passphrase is used, a [special _passphrase_ KDF](/themis/crypto-theory/cryptosystems/secure-cell.md#key-derivation-functions) is employed
 to compensate for potentially poorer statistical properties of passphrases.
 See the [Encryption](#encryption) section for the details.
+<!-- TODO: this section does not exist yet -->
 
 Passphrase KDFs require additional parameters which need to be adjusted with time, as computers get faster.
 KDF parameters need to be stored together with the encrypted data so that it can always be decrypted.
