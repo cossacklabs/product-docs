@@ -7,9 +7,7 @@ title:  Secure Cell
 
 {{< hint info >}}
 This part of Themis documentation is currently under development.
-Please come back later.
-
-Meanwhile, you can [read an overview of the Secure Cell cryptosystem](/themis/crypto-theory/cryptosystems/secure-cell/).
+It might be incomplet and incorekt.
 {{< /hint >}}
 
 **Secure Сell** is a high-level cryptographic container
