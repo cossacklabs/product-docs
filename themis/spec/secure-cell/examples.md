@@ -62,7 +62,7 @@ Here's how they look encoded in base64:
 Try decrypting this data in Token Protect mode, it should work!
 
 Let's inspect the authentication token now.
-Match [the reference](#authentication-token--symmetric-keys)
+Match [the reference](/themis/spec/secure-cell/layout/#authentication-token--symmetric-keys)
 with the data as follows:
 
 | Field           | Offset | Data          | Meaning |
@@ -139,7 +139,7 @@ Secure Cell supports passphrases only in Seal mode,
 therefore the authentication token cannot be detached from the encrypted data.
 
 Let's inspect the authentication token now.
-Match [the reference](#authentication-token--passphrases)
+Match [the reference](/themis/spec/secure-cell/layout/#authentication-token--passphrases)
 with the data as follows:
 
 | Field           | Offset | Data          | Meaning |

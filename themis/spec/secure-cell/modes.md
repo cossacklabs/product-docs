@@ -105,11 +105,11 @@ and encouraged to use unique context data for each encryption to maintain securi
 
 Secure Cell supports several types of secrets used to secure encrypted data:
 
-  - [Symmetric keys](../symmetric-keys/) for machines to remember.
+  - [Symmetric keys](/themis/spec/symmetric-keys/) for machines to remember.
 
     Keys should be as random as possible and can be as long as necessary.
 
-  - [Passphrases](../symmetric-keys/#passphrases) for humans to remember.
+  - [Passphrases](/themis/spec/symmetric-keys/#passphrases) for humans to remember.
 
     Since human memory is usually not good at remembering strings of random numbers,
     passphrases are typically shorter and have fewer randomness per character.

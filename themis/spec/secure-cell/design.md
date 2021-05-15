@@ -34,7 +34,7 @@ Now let's talk about some *non-goals* which influence design decisions.
     Each protected piece of data is independent of any other.
     Secure Cell does not provide nor enforce any ordering between them.
 
-    Contrast this with [Secure Session](../secure-session/) cryptosystem
+    Contrast this with [Secure Session](/themis/spec/secure-session/) cryptosystem
     which protects ordered streams of packets, similar to TLS.
 
   - Symmetric encryption scheme is used.
@@ -42,7 +42,7 @@ Now let's talk about some *non-goals* which influence design decisions.
     Secure Cell uses the same shared secret key to both encrypt and decrypt data.
     This is a symmetric encryption scheme.
 
-    In contrast, [Secure Message](../secure-message/) cryptosystem is asymmetric,
+    In contrast, [Secure Message](/themis/spec/secure-message/) cryptosystem is asymmetric,
     which is more practical for authenticated message exchange between distinct parties.
 
   - Data payload has bounded size.
