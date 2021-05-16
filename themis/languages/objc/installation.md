@@ -78,13 +78,9 @@ Please disable bitcode for your application before archiving it to App Store, an
 ## Installing with Carthage
 
 {{< hint info >}}
-Xcode 12 has introduced Apple Silicon support on macOS. Since [0.13.4](https://github.com/cossacklabs/themis/releases/tag/0.13.4) Themis supports ARM64 architecture on macOS, but excludes ARM64-iphonesimulator architecture slice for iOS. Follow the issue [#725](https://github.com/cossacklabs/themis/issues/725) for details.
+Xcode 12 has introduced Apple Silicon support on macOS. Since [0.13.9](https://github.com/cossacklabs/themis/releases/tag/0.13.9) Themis uses XCFrameworks to support ARM64 architecture on macOS and ARM64-iphonesimulator architecture slice for iOS. First support of Apple Silicon was introduced in [0.13.4](https://github.com/cossacklabs/themis/releases/tag/0.13.4), but excluded ARM64-iphonesimulator architecture slice for iOS.
 
-**iOS:**
-Exclude arm64-iphonesimulator architecture slice for now (see issue [#713](https://github.com/cossacklabs/themis/issues/713)).
-
-**macOS:**
-If you're supporting `x86_64` and `arm64`, use Themis `0.13.4` and later. Previous versions don't contain `arm64` slice. See issues [#725](https://github.com/cossacklabs/themis/issues/725), [#713](https://github.com/cossacklabs/themis/issues/713).
+The required Carthage version to build Themis XCFramework is 0.38.0. You can continue using previous Carthage version with older Themis version where ARM64-iphonesimulator architecture slice is excluded.
 {{< /hint >}}
 
 
@@ -99,14 +95,14 @@ Themis is also available via [**Carthage**](https://github.com/Carthage/Carthage
  2. Download and build Themis:
 
     ```bash
-    carthage update
+    carthage update --use-xcframeworks
     ```
 
- 3. Integrate **themis.framework** into your project
+ 3. Integrate **themis.xcframework** into your project
     according to [Carthage instructions](https://github.com/Carthage/Carthage#adding-frameworks-to-an-application).
 
     {{< hint warning >}}
-You should drag&drop only **themis.framework** into your applications from `Cartage/Build/iOS/themis.framework`. Do not add **openssl.framework** manually from `Cartage/Build/iOS/themis.framework`, as it is statically linked with Themis (Carthage handles linking.). 
+You should drag&drop only **themis.xcframework** into your applications from `Cartage/Build/themis.xcframework`. Do not add **openssl.xcframework** manually from `Cartage/Build/themis.xcframework`, as it is statically linked with Themis (Carthage handles linking.). 
     {{< /hint >}}
 
 [Here are examples](../examples/) of Carthage projects with Themis in Swift and Objective-C. These example projects are updated for Xcode 12.
