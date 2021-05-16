@@ -22,9 +22,9 @@ in contexts where encryption keys need to be derived from passphrases.
 Soter KDF is similar in construction to ZRTP KDF
 defined by [RFC 6189](https://tools.ietf.org/html/rfc6189#section-4.5.1), section 4.5.1.
 
-> _KDF_(**KI**, **Label**, **Context**..., **L**) = _truncate_(KDF*, **L**)
+> _KDF_(**KI**, **Label**, **Context**..., **L**) = _truncate_(KDF\*, **L**)
 >
-> KDF* = _HMAC-SHA-256_(**KI**, 0x00000001 || **Label** || 0x00 || **Context**...)
+> KDF\* = _HMAC-SHA-256_(**KI**, 0x00000001 || **Label** || 0x00 || **Context**...)
 
 where the inputs are
 
