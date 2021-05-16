@@ -1,6 +1,7 @@
 ---
 weight: 10
 title:  Secure Cell
+bookCollapseSection: true
 ---
 
 # Secure Cell
