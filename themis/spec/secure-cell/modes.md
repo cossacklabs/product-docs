@@ -61,7 +61,7 @@ To compensate for this, Secure Cell requires *associated data* to be used in Con
 
 ## Associated data and nonces
 
-Another axis of Secure Cell is how much *associated data* the user provides for encryption.
+Another axis of Secure Cell is how much *associated data* (aka *context*) the user provides for encryption.
 
 **Associated data** is used in encryption algorithm, influencing its output,
 but it is not a part of the plaintext, the ciphertext, or the encryption key.

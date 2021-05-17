@@ -76,7 +76,7 @@ with the data as follows:
 
 All the encoded values match the expectations.
 
-## Pssphrase encryption
+## Passphrase encryption
 
 With the following inputs
 for [the `scell_seal_string_echo_pw` utility](/themis/debugging/cli-utilities/):
