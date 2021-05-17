@@ -9,7 +9,7 @@ Significant contributions to Themis encryption library have been made
 by Ignat Korchagin ([@ignatk](https://github.com/ignatk))
 and Andrey Mnazakanov ([@mnaza](https://www.github.com/mnaza)).
 
-As for 2020, Themis is supported by core crew:
+As for 2021, Themis is supported by core crew:
 
 - [@iamnotacake](https://github.com/iamnotacake) as hands-on software engineer.
 - [@ilammy](https://github.com/ilammy) who joined as a Rust contributor,
@@ -20,11 +20,13 @@ As for 2020, Themis is supported by core crew:
 - [@shadinua](https://github.com/shadinua) as an infrastructure engineer.
 - [@gene-eu](https://github.com/gene-eu) as the mastermind.
 - [@storojs72](https://github.com/storojs72) as a crypto engineer.
+- [@julepka](https://github.com/julepka) as a tamer of Apple ecosystem.
 
 A special thank you goes to the awesome contributors that help us make Themis better:
 
+- [@G1gg1L3s](https://github.com/G1gg1L3s) for adding new Themis benchmarks so we know how fast (or slow) Themis is ([#821](https://github.com/cossacklabs/themis/pull/821).
 - [@maxammann](https://github.com/maxammann) for improvements in WasmThemis code, documentation, and triggering discussions ([#779](https://github.com/cossacklabs/themis/issues/779), [#781](https://github.com/cossacklabs/themis/pull/781), [#783](https://github.com/cossacklabs/themis/pull/783)).
-- [@julepka](https://github.com/julepka) for updating iOS and macOS examples ([#726](https://github.com/cossacklabs/themis/pull/726), [#724](https://github.com/cossacklabs/themis/pull/724), [#723](https://github.com/cossacklabs/themis/pull/723)).
+- [@julepka](https://github.com/julepka) for updating iOS and macOS examples, and bringing Themis SPM to real life ([#823](https://github.com/cossacklabs/themis/pull/823), [#817](https://github.com/cossacklabs/themis/pull/817), [#806](https://github.com/cossacklabs/themis/pull/806), [#726](https://github.com/cossacklabs/themis/pull/726), [#724](https://github.com/cossacklabs/themis/pull/724), [#723](https://github.com/cossacklabs/themis/pull/723)).
 - [@dodikk](https://github.com/dodikk) for pushing Themis to C# and proving with examples how Android Themis can be used in Xamarin apps ([#716](https://github.com/cossacklabs/themis/issues/716)).
 - [@karenswry](https://github.com/karenswry) for improving documentation and fixing our poor language.
 - [@mozhmike](https://github.com/mozhmike) for improving PHPThemis.
