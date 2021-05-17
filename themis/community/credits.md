@@ -24,7 +24,7 @@ As for 2021, Themis is supported by core crew:
 
 A special thank you goes to the awesome contributors that help us make Themis better:
 
-- [@G1gg1L3s](https://github.com/G1gg1L3s) for adding new Themis benchmarks so we know how fast (or slow) Themis is ([#821](https://github.com/cossacklabs/themis/pull/821).
+- [@G1gg1L3s](https://github.com/G1gg1L3s) for adding new Themis benchmarks so we know how fast (or slow) Themis is ([#821](https://github.com/cossacklabs/themis/pull/821)).
 - [@maxammann](https://github.com/maxammann) for improvements in WasmThemis code, documentation, and triggering discussions ([#779](https://github.com/cossacklabs/themis/issues/779), [#781](https://github.com/cossacklabs/themis/pull/781), [#783](https://github.com/cossacklabs/themis/pull/783)).
 - [@julepka](https://github.com/julepka) for updating iOS and macOS examples, and bringing Themis SPM to real life ([#823](https://github.com/cossacklabs/themis/pull/823), [#817](https://github.com/cossacklabs/themis/pull/817), [#806](https://github.com/cossacklabs/themis/pull/806), [#726](https://github.com/cossacklabs/themis/pull/726), [#724](https://github.com/cossacklabs/themis/pull/724), [#723](https://github.com/cossacklabs/themis/pull/723)).
 - [@dodikk](https://github.com/dodikk) for pushing Themis to C# and proving with examples how Android Themis can be used in Xamarin apps ([#716](https://github.com/cossacklabs/themis/issues/716)).
