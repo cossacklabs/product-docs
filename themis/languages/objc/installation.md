@@ -27,7 +27,7 @@ https://github.com/cossacklabs/themis
 ## Installing with CocoaPods
 
 {{< hint info >}}
-Use Themis version 0.13.10 or newer for full Apple Silicon support.
+Use Themis version `0.13.10` or newer for full Apple Silicon support.
 {{< /hint >}}
 
 Themis is [available via **CocoaPods**](https://cocoapods.org/pods/themis).
