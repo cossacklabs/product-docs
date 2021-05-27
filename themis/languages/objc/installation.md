@@ -49,7 +49,7 @@ Themis is [available via **CocoaPods**](https://cocoapods.org/pods/themis).
 #### Using BoringSSL
 
 {{< hint warning >}}
-`themis-boringssl` subspec is deprecated and will be removed in Themis 0.14. Please switch to the default subspec by using pod 'themis' in your Podfile.
+`themis-boringssl` subspec is deprecated and will be removed in Themis 0.14. Please switch to the default subspec by using `pod 'themis'` in your Podfile.
 {{< /hint >}}
 
 By default, Themis uses OpenSSL as its crypto-engine.
@@ -71,7 +71,7 @@ Please disable bitcode for your application before archiving it to App Store, an
 #### Using OpenSSL Alternative
 
 {{< hint warning >}}
-`themis-openssl` subspec based on GRKOpenSSLFramework is deprecated and will be removed in Themis version 0.14. Please switch to the default subspec.
+`themis-openssl` subspec based on GRKOpenSSLFramework is deprecated and will be removed in Themis version 0.14. Please switch to the default subspec by using `pod 'themis'` in your Podfile.
 {{< /hint >}}
 
 ## Installing with Carthage
