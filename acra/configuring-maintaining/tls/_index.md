@@ -11,7 +11,7 @@ bookCollapseSection: true
 
 * `--tls_auth=<mode>`
 
-  Set authentication mode that will be used in TLS connection with AcraConnector and database.
+  Set authentication mode that will be used for TLS connection.
 
   * `0` — do not request client certificate, ignore it if received
   * `1` — request client certificate, but don't require it
@@ -23,19 +23,24 @@ bookCollapseSection: true
 
 * `--tls_key=<filename>`
 
-  Path to private key that will be used in AcraServer's TLS handshake
-  with AcraConnector as server's key and database as client's key.
+  Path to private key that will be used for TLS handshake.
+  Should correspond to the certificate configured with `--tls_cert`.
   Empty by default.
 
 * `--tls_cert=<filename>`
 
-  Path to TLS certificate, will be sent to other peer during handshake.
+  Path to TLS certificate that will be sent to other peers during handshake.
   Empty by default.
+
+  In case of AcraServer, it will be sent to clients (AcraConnector, AcraTranslator) and to server (database).
 
 * `--tls_ca=<filename>`
 
   Path to additional CA certificate for AcraConnector and database certificate validation.
   Empty by default.
+
+  In case of AcraServer, it will be used to validate both client (AcraConnector, AcraTranslator) certificates
+  and server (database) ones.
 
 ## AcraConnector specific flags
 
@@ -53,7 +58,7 @@ bookCollapseSection: true
 
 * `--tls_client_auth=<mode>`
 
-  Set authentication mode that will be used in TLS connection with AcraConnector.
+  Set authentication mode that will be used for TLS connection with AcraConnector.
   Possible values are the same as for `--tls_auth`.
   Default is `-1` which means "take value of `--tls_auth`".
 
@@ -84,14 +89,15 @@ bookCollapseSection: true
 
 * `--tls_database_auth=<mode>`
 
-  Set authentication mode that will be used in TLS connection with database.
+  Set authentication mode that will be used for TLS connection with database.
   Possible values are the same as for `--tls_auth`.
   Overrides the `--tls_auth` setting.
   Default is `-1` which means "take value of `--tls_auth`".
 
 * `--tls_database_key=<filename>`
 
-  Path to private key of the TLS certificate used to connect to database (see `--tls_database_cert`).
+  Path to private key that will be used for TLS handshake with database.
+  Should correspond to the certificate configured with `--tls_database_cert`.
   Empty by default.
 
 * `--tls_database_cert=<filename>`
@@ -144,4 +150,4 @@ And if certificate does not contain OCSP URLs, it won't be validated using OCSP 
 
 ## PKI
 
-We have a dedicated page about public key infrastructure, located [here](/acra-in-depth/security-design/pki).
+We have a dedicated page about public key infrastructure, located [here](/acra-in-depth/security-design/pki-INVALID).

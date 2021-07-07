@@ -64,12 +64,33 @@ commonName              = supplied
 emailAddress            = optional
 ```
 
-## Create self-signed CA certificate
+## Generate RSA private key
 
 ```
+openssl genrsa -out private_rsa.key.pem 4096
+```
+Here `4096` is the key size in bits, other popular choices are `2048` and `3072`.
+It is not recommended to use less that 2048 bits due to low security margin of such keys.
+
+## Generate EC private key
+
+```
+openssl ecparam -name prime256v1 -genkey -noout -out private_ec.key.pem
+```
+<!-- # Convert the key to PKCS8 format, not required when using with certificates -->
+<!-- openssl pkcs8 -topk8 -nocrypt -in private_ec.key.pem -out private_ec_pkcs8.key.pem -->
+Here `prime256v1` is the name of ECC curve to use.
+Its name also tells about key size in bits (256 here).
+Run `openssl ecparam -list_curves` if you need list of all supported curves.
+
+## Create self-signed CA certificate
+
+Here you can use either RSA or EC key for `-key` flag.
+EC key is recommended since RSA is kinda outdated nowadays, it has bigger keys while also works slower.
+```
 openssl req \
-    -x509 -sha256 -nodes -days 365 -newkey rsa:4096 \
-    -keyout ca.key.pem \
+    -x509 -sha256 -nodes -days 365 \
+    -key private_X.key.pem \
     -out ca.crt.pem \
     -subj '/C=GB/ST=London/L=London/O=Global Security/OU=IT/CN=Test CA'
 
@@ -100,7 +121,7 @@ Certificate:
                 RSA Public-Key: (4096 bit)
                 Modulus:
                     00:98:86:b9:17:5e:d2:80:64:68:83:4a:51:fd:c1:
-                    ### some lines skipped ###
+                    ### many lines skipped ###
                     38:73:71:ad:64:5f:76:74:17:41:0d:5e:bf:e3:5a:
                     a6:64:b1
                 Exponent: 65537 (0x10001)
@@ -114,20 +135,39 @@ Certificate:
                 CA:TRUE
     Signature Algorithm: sha256WithRSAEncryption
          8e:77:bf:da:4b:74:8c:c8:23:a2:a8:5b:9c:88:1b:58:90:96:
-         ### some lines skipped ###
+         ### many lines skipped ###
          f4:71:d2:7d:2c:6e:ae:01:5b:8c:2f:f8:70:a5:c5:b6:55:2e:
          e9:00:62:5f:89:c3:0d:00
 ```
-
-## Generate RSA key for a certificate
-
+while using EC key would produce key description like this:
 ```
-openssl genrsa -out cert1.key.pem 2048
+        Signature Algorithm: ecdsa-with-SHA256
+
+        Subject Public Key Info:
+            Public Key Algorithm: id-ecPublicKey
+                Public-Key: (256 bit)
+                pub:
+                    04:78:8d:0a:6a:b3:24:8e:fc:ca:5c:3b:b3:00:d6:
+                    11:7c:51:d8:21:e4:83:29:5c:a9:75:71:96:a2:c9:
+                    00:ac:7d:31:d6:41:67:26:1c:1a:54:af:43:a3:39:
+                    0c:e4:a2:6a:bd:53:a3:6b:ae:60:8b:0e:6f:6b:7e:
+                    93:09:1a:8d:8e
+                ASN1 OID: prime256v1
+                NIST CURVE: P-256
+
+    Signature Algorithm: ecdsa-with-SHA256
+         30:46:02:21:00:bc:a7:36:3a:cb:86:aa:cf:bd:92:5d:e5:9c:
+         0b:98:5b:b1:53:d5:37:42:0f:e9:7f:32:2b:f7:c7:87:18:bf:
+         fc:02:21:00:b4:b3:44:52:32:25:4d:cf:52:c7:e2:f5:cc:6b:
+         75:49:6a:16:6b:90:82:a3:e1:13:88:05:a9:0c:d9:9f:59:8d
 ```
 
 ## Create Certificate Signing Request
 
 ```
+# First, you need a private key called cert1.key.pem,
+# use one of command above to generate it
+
 openssl req -new \
     -key cert1.key.pem \
     -out cert1.csr.pem \
@@ -161,3 +201,10 @@ What now?
 * `ca.crt.pem` is a CA certificate, can be used for options like `-tls_ca`
 * `cert1.crt.pem` is a leaf certificate signed by CA itself, can be used for `-tls_cert`
 * `cert1.key.pem` is a key corresponsing to `cert1.crt.pem`, can be used for `-tls_key`
+
+## Other useful tools
+
+If you think using `openssl` may be complex, you're not wrong.
+There is a couple of tools that make life easier when it comes to certificate generation and all this PKI related work.
+
+Two of them are [easy-rsa](https://github.com/OpenVPN/easy-rsa) and [certstrap](https://github.com/square/certstrap).

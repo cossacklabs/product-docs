@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 # TLS certificate validation using OCSP
 
-OCSP-related flags and their description. Work in `acra-connector`, `acra-server` and `acra-translator`.
+OCSP-related flags and their description. Works for `acra-connector`, `acra-server` and `acra-translator`.
 
 * `--tls_ocsp_url=<url>`
 
@@ -64,6 +64,10 @@ OCSP-related flags and their description. Work in `acra-connector`, `acra-server
 
   * `true` — validate only leaf certificate
   * `false` — (default) validate leaf certificate and all intermediate certificates
+
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there's no OCSP URL configured and no OCSP URL in intermediate CA certificates,
+  these intermediate CAs won't be validated since we don't know whom to ask about them.
 
 ## Make `openssl` include OCSP service URL when signing CSR
 

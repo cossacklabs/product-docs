@@ -11,7 +11,7 @@ This means Acra will be able to download CRL, verify it, and search for a certif
 But more advanced features like [CRL extensions](https://datatracker.ietf.org/doc/html/rfc5280#section-5.2)
 (including [delta CRLs](https://datatracker.ietf.org/doc/html/rfc5280#section-5.2.4)) are not handled yet.
 
-CRL-related flags and their description. Work in `acra-connector`, `acra-server` and `acra-translator`.
+CRL-related flags and their description. Works for `acra-connector`, `acra-server` and `acra-translator`.
 
 * `--tls_crl_url=<url>`
 
@@ -61,6 +61,10 @@ CRL-related flags and their description. Work in `acra-connector`, `acra-server`
 
   * `true` — validate only leaf certificate
   * `false` — (default) validate leaf certificate and all intermediate certificates
+
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there's no CRL URL configured and no CRL URL in intermediate CA certificates,
+  these intermediate CAs won't be validated since we don't know which CRLs could used for validation.
 
 * `--tls_crl_cache_size=<count>`
 
