@@ -13,12 +13,14 @@ Acra logs are compatible with various external log analysing tools (like [ELK st
 
 Logging mode and verbosity level can be configured for AcraServer, AcraTranslator and AcraWebConfig in the corresponding `yaml` files or passed as CLI parameter.
 
-Possible meanings for `logging_format` (case independent): 
-- plaintext
-- cef
-- json
+Possible values for `logging_format` (case independent): 
+- [plaintext](output/#plaintext)
+- [cef](output/#cef)
+- [json](output/#json)
 
-Verbosity level is enabled by changing `v` to `true`
+Feel free to suggest any [logging improvements](improvements/).
+
+Verbose logging can be enabled with -v option on the command line.
 
 To see an example of logging, check out the default configuration of AcraServer in [`acra-server.yaml`](https://github.com/cossacklabs/acra-Q12021/blob/master/configs/acra-server.yaml#L99).
 
