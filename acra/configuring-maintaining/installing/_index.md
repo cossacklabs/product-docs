@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 Installing Acra is fairly simple:
 
-- For trying Acra really quickly, for hassle-free testing purposes, you can [try Acra with Docker]({{< ref "acra/guides/trying-acra-with-docker" >}}).
+- For trying Acra really quickly, for hassle-free testing purposes, you can [try Acra with Docker]({{< ref "acra/guides/trying-acra-with-docker/" >}}).
 - For another quick start with Acra, you can get a minimalistic version of Acra Community Edition as a 1-Click App running in a [Droplet on DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/acra). If you're new to DigitalOcean, you can use [Cossack Labs referral code](https://marketplace.digitalocean.com/apps/acra?refcode=3477f5f54884) to register and get $100 for 60 days for free. [More details]({{< ref "acra/guides/advanced-integrations/digital-ocean-marketplace.md" >}}).
 - For a real-world hands-on experience, [install Acra from the official Cossack Labs repository]({{< ref "acra/configuring-maintaining/installing#installing-acra-from-the-cossack-labs-repository" >}}) or
 - Download and [build Acra from the GitHub repository]({{< ref "acra/configuring-maintaining/installing#installing-from-github" >}}).
