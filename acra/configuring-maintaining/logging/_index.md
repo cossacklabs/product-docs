@@ -9,11 +9,11 @@ bookCollapseSection: true
 
 Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats](formats/):
 
-- plaintext
-- cef
-- json
+- PlainText
+- CEF
+- JSON
 
-Acra logs are compatible with various external log analysing tools (like [ELK stack](https://www.elastic.co/elk-stack)) and SIEM systems.
+Acra logs are compatible with various external log analysis tools (like [ELK stack](https://www.elastic.co/elk-stack)) and SIEM systems.
 
 {{< hint info >}}
 **Note:**
