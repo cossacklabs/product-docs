@@ -30,10 +30,6 @@ weight: 2
 
   Path to YAML configuration file.
 
-* `-d`
-
-  Log everything to stderr.
-
 * `--dump_config`
 
   Dump configuration to `configs/acra-translator.yaml`.
@@ -64,26 +60,6 @@ weight: 2
   URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
   Default is empty.
 
-* `--jaeger_agent_endpoint=<addr>`
-
-  Jaeger agent endpoint that will be used to export trace data.
-  Example: `localhost:6831`.
-  Default is empty.
-
-* `--jaeger_basic_auth_password=<password>`
-
-  Password used for basic auth (optional) to jaeger.
-
-* `--jaeger_basic_auth_username=<username>`
-
-  Username used for basic auth (optional) to jaeger.
-
-* `--jaeger_collector_endpoint=<url>`
-
-  Jaeger endpoint that will be used to export trace data.
-  Example: `http://localhost:14268/api/traces`.
-  Default is empty.
-
 * `--keys_dir=<path>`
 
   Folder from which keys will be loaded.
@@ -94,29 +70,6 @@ weight: 2
   Count of keys that will be stored in in-memory LRU cache in encrypted form.
   Use `0` to set unlimited size, `-1` to disable caching.
   Default is `0`.
-
-* `--log_to_console={true|false}`
-
-  Log to stderr.
-  Default is `true`.
-
-* `--log_to_file=<filename>`
-
-  Log to file if non-empty value was passed.
-  Default is empty.
-
-* `--logging_format={plaintext|json|CEF}`
-
-  Logging format.
-
-  * `plaintext` — (default) pretty human readable key/value format  
-    `time="2021-07-12T14:02:12+03:00" level=info msg="Starting service acra-translator [pid=475995]" version=0.85.0`
-
-  * `json` — one JSON object per line, easy to parse by most log collectors  
-    `{"level":"info","msg":"Starting service acra-translator [pid=476077]","product":"acra-translator","timestamp":"2021-07-12T14:02:50+03:00","unixTime":"1626087770.004","version":"0.85.0"}`
-
-  * `CEF` — Common Event Format  
-    `CEF:0|cossacklabs|acra-translator|0.85.0|100|Starting service acra-translator [pid\=476133]|1|unixTime=1626087782.510`
 
 * `--poison_detect_enable={true|false}`
 
@@ -161,10 +114,57 @@ weight: 2
   ID that will be sent in secure session handshake.
   Default is `acra_translator`.
 
+### Jaeger
+
+* `--jaeger_agent_endpoint=<addr>`
+
+  Jaeger agent endpoint that will be used to export trace data.
+  Example: `localhost:6831`.
+  Default is empty.
+
+* `--jaeger_basic_auth_password=<password>`
+
+  Password used for basic auth (optional) to jaeger.
+
+* `--jaeger_basic_auth_username=<username>`
+
+  Username used for basic auth (optional) to jaeger.
+
+* `--jaeger_collector_endpoint=<url>`
+
+  Jaeger endpoint that will be used to export trace data.
+  Example: `http://localhost:14268/api/traces`.
+  Default is empty.
+
 * `--tracing_jaeger_enable={true|false}`
 
   Export trace data to jaeger.
   Default is `false`.
+
+### Logging
+
+* `--log_to_console={true|false}`
+
+  Log to stderr.
+  Default is `true`.
+
+* `--log_to_file=<filename>`
+
+  Log to file if non-empty value was passed.
+  Default is empty.
+
+* `--logging_format={plaintext|json|CEF}`
+
+  Logging format.
+
+  * `plaintext` — (default) pretty human readable key/value format  
+    `time="2021-07-12T14:02:12+03:00" level=info msg="Starting service acra-translator [pid=475995]" version=0.85.0`
+
+  * `json` — one JSON object per line, easy to parse by most log collectors  
+    `{"level":"info","msg":"Starting service acra-translator [pid=476077]","product":"acra-translator","timestamp":"2021-07-12T14:02:50+03:00","unixTime":"1626087770.004","version":"0.85.0"}`
+
+  * `CEF` — Common Event Format  
+    `CEF:0|cossacklabs|acra-translator|0.85.0|100|Starting service acra-translator [pid\=476133]|1|unixTime=1626087782.510`
 
 * `--tracing_log_enable={true|false}`
 
@@ -174,6 +174,12 @@ weight: 2
 * `-v`
 
   Log to stderr all `INFO`, `WARNING` and `ERROR` logs.
+
+* `-d`
+
+  Log everything to stderr.
+
+### Vault
 
 * `--vault_connection_api_string=<url>`
 
