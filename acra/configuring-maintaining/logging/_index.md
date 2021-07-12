@@ -9,7 +9,7 @@ bookCollapseSection: true
 
 Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats](formats/):
 
-- PlainText
+- plaintext
 - CEF
 - JSON
 

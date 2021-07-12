@@ -4,12 +4,12 @@ title: Logging output
 bookCollapseSection: true
 ---
 
-# Logging output
+# Logging formats
 
 Acra services write logs to `stderr`.
 If you need to redirect logs to a file or a log collector service, please redirect `stderr`.
 
-## Plaintext:
+## Plaintext
 
 Nothing fancy – the most human-readable format.
 If you are running Acra in a terminal, log lines will be colored for extra readability.
@@ -26,7 +26,7 @@ time="2021-07-01T19:34:14+03:00" level=info msg="Keystore init OK"
 time="2021-07-01T19:34:14+03:00" level=info msg="Configuring transport..."
 ```
 
-## JSON:
+## JSON
 
 JSON logs are more structured and easy to parse with automated log analysis tools.
 
@@ -50,7 +50,7 @@ Common fields used by Acra:
 {"code":563,"error":"fail to parse specified query","level":"warning","msg":"Failed to parse input query","product":"acra-server","timestamp":"2021-07-01T19:47:06+03:00","unixTime":"1625158026.944","version":"0.85.0"}
 ```
 
-## CEF:
+## CEF
 
 Acra logs are compliant with the [CEF protocol](https://kc.mcafee.com/resources/sites/MCAFEE/content/live/CORP_KNOWLEDGEBASE/78000/KB78712/en_US/CEF_White_Paper_20100722.pdf) revision 16 from July 22, 2010, except that Acra is using custom Dictionary Extension fields (like `unixTime`)
 as we found them to be very useful for log analysis.
