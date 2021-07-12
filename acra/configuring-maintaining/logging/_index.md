@@ -7,7 +7,7 @@ bookCollapseSection: true
 
 # Logging in Acra
 
-Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats](formats/):
+Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats]({{< ref "acra/configuring-maintaining/logging/formats" >}})
 
 - plaintext
 - CEF
@@ -33,7 +33,7 @@ Set the logging format to use.
 - `json`
 
   The values are case-insensitive.
-  [Learn more about supported formats.](formats/)
+  [Learn more about supported formats.]({{< ref "acra/configuring-maintaining/logging/formats" >}})
 
 * `-v`
 
