@@ -1,6 +1,6 @@
 ---
 weight: 1
-title: Logging output
+title: Logging formats
 bookCollapseSection: true
 ---
 
