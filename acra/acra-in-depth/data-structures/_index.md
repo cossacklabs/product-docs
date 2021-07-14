@@ -9,48 +9,48 @@ bookCollapseSection: true
 
 AcraBlock is a container format. Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). AcraBlock uses AES-GCM for both encryption procedures.
 
-AcraBlock supports key rotation: it's possible to rotate only key encryption key without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
+AcraBlock supports key rotation: it's possible to rotate only KEK without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
 
 To generate AcraBlocks Acra-Server uses symmetric keys generated for every ClientID/ZoneID.
 
 `AcraBlock = Begin_Tag + Rest_AcraBlock_Length + Key_Encryption_Backend_Identifier + Key_Encryption_Key_ID + Data_Encryption_Backend_Identifier + Data_Encryption_Key_Length + Encrypted_Data_Encryption_Key + Encrypted_Data`
 * `Begin_Tag[4]` - 4 bytes, header tag. Contains 4 bytes with byte value = 34: [34, 34, 34, 34].
 * `Rest_AcraBlock_Length[8]` - 8 bytes in Little-Endian byte order that store length of whole AcraBlock excluding length of Begin_Tag.
-* `Key_Encryption_Backend_Identifier[1]` - identifier of encryption backend that used to encrypt DEK that is random symmetric key. For now AcraBlock supports only one backend that uses Themis Secure Cell with Seal mode with identifier `0` and may be changed.
-* `Key_Encryption_Key_ID[2]` - this field store KEK's identifier. Main goal of this ID is to simplify search of KEK in a keychain related to specific ClientID/ZoneID. Now Acra-Server generates ID by hashing with `SHA256(KEK || ClientID/ZoneID)` and uses first 2 bytes as ID.
-* `Data_Encryption_Backend_Identifier[1]` - identifier of encryption backend that used to encrypt plaintext. For now AcraBlock supports only one backend that uses Themis Secure Cell with Seal mode with identifier `0`. Same as for DEK encryption and may be changed too.
+* `Key_Encryption_Backend_Identifier[1]` - identifier of encryption backend used to encrypt DEK which is random symmetric key. For now AcraBlock supports only one backend that uses Themis Secure Cell in Seal mode with identifier `0` and may be changed.
+* `Key_Encryption_Key_ID[2]` - this field stores KEK's identifier. Main goal of this ID is to simplify search of KEK in a keychain related to specific ClientID/ZoneID. Now Acra-Server generates ID by hashing with `SHA256(KEK || ClientID/ZoneID)` and uses first 2 bytes as ID.
+* `Data_Encryption_Backend_Identifier[1]` -  identifier of encryption backend used to encrypt plaintext. For now AcraBlock supports only one backend that uses Themis Secure Cell in Seal mode with identifier `0`. Same as for DEK encryption and may be changed too.
 * `Data_Encryption_Key_Length[2]` - 2 bytes of DEK's length in Little-Endian byte order. Key size should be synchronized with data encryption backend.
 * `Encrypted_Data_Encryption_Key[*]` - encrypted DEK of size `Data_Encryption_Key_Length`, used to encrypt data and data encryption backend. For each new AcraBlock Acra-Server generates new random DEK and encrypts with DEK encryption backend and Context (ClientID/ZoneID).
 * `Encrypted_Data[*]` encrypted data with data encryption backend and random DEK.
 
 ### Generating
 
-To generate AcraBlock in transparent mode Acra-Server does the next steps:
+To generate AcraBlock in transparent mode Acra-Server performs following steps:
 * Generates new random DEK for default data encryption backend. DEK length is 32 bytes.
-* Encrypts plaintext by DEK and Context of specified ClientID/ZoneID using default backend for data encryption.
+* Encrypts plaintext with DEK and Context of specified ClientID/ZoneID using default backend for data encryption.
 * Securely cleans up memory of plaintext data (erases/fills with zeros).
-* Encrypts DEK by KEK from KeyStore for specified ClientID/ZoneID and use it as Context.
+* Encrypts DEK with KEK from KeyStore for specified ClientID/ZoneID and use it as Context.
 * Securely cleans up memory of DEK (erases/fills with zeros).
-* Forms a container: packs together Begin_Tag, length of all other parts, DEK encryption backend identifier, KEK identifier, DEK encryption backend identifier, encrypted DEK and ciphertext.
+* Forms a container: packs together Begin_Tag, length of all other parts, KEK encryption backend identifier, KEK identifier, data encryption backend identifier, encrypted DEK and ciphertext.
 
 ### Decrypting
 
 * Validate Begin_Tag.
 * Validate length of rest of AcraBlock.
-* Extract KEK backend identifier and validate, check that this identifier registered in Acra-Server.
-* Extract data encryption backend identifier and validate, check that this identifier registered in Acra-Server.
+* Extract KEK backend identifier and validate, check that this identifier is registered in Acra-Server.
+* Extract data encryption backend identifier and validate, check that this identifier is registered in Acra-Server.
 * Extract length of DEK.
 * Extract DEK.
-* Iterate over KEKs for decryption passed from KeyStore and search correct for DEK decryption.
+* Iterate over KEKs (passed from KeyStore) for decryption and search correct for DEK decryption.
 * Decrypt DEK with correct KEK.
-* Erase/fill with zeros memory area with the KEK.
+* Erase/fill with zeros memory area of the KEK.
 * Decrypt data with decrypted DEK.
-* Erase/fill with zeros memory area with the DEK.
+* Erase/fill with zeros memory area of the DEK.
 
 ## AcraStruct
 ### Understanding AcraStruct
 
-AcraStruct is a container format. Before generating each AcraStruct, AcraWriter generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over.
+AcraStruct is a cryptographic container with specific format. Before generating each AcraStruct, AcraWriter generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over.
 
 ```AcraStruct = Begin_Tag + Throwaway_Public_Key + Encrypted_Random_Key + Data_Length + Encrypted_Data```
 
@@ -71,10 +71,10 @@ AcraWriter is used to generate AcraStruct, but the generation process is quite s
   `Encrypted_Random_Key = SMessage(RK, Throwaway_Private_Key, Acra_Public_Key)`.
 - Encrypts the payload with [Secure Cell](/pages/secure-cell-cryptosystem/) in Seal mode:<br/>
   `Encrypted_Data = SCell(RK, payload)`.
-- Erases/fills with zeros memory area with the `RK`.
+- Erases/fills with zeros memory area of the `RK`.
 - Calculates the encrypted payload length and transforms it into little endian 8 bytes long (`Data_Length`).
 - Connects attributes together as described in the original formula.
-- Erases/fills the memory area containing the `Throwaway_Keypair` and original payload with zeros.
+- Erases/fills with zeros the memory area containing the `Throwaway_Keypair` and original payload.
 
 We recommend you to check out AcraStruct [examples](https://github.com/cossacklabs/acra/tree/master/examples) and try the [⚙️Acra Engineering Demo⚙️](https://github.com/cossacklabs/acra-engineering-demo/#what-is-this).
 
@@ -96,7 +96,7 @@ Although not directly related to AcraStructs, Zone Ids are used for matching Zon
 
 ## Storage Models
 
-The storage model modes used in Acra are WholeCell and InjectedCell.
+There are two storage model modes used in Acra: WholeCell and InjectedCell.
 
 In WholeCell mode, [AcraStruct](/pages/documentation-acra/#acrastruct) represents a complete piece of data (i.e. database cell, a file, or some data transmitted into [AcraTranslator](/pages/acratranslator/)). In this mode it is expected that the encrypted data will look something like:
 
@@ -106,11 +106,11 @@ In WholeCell mode, [AcraStruct](/pages/documentation-acra/#acrastruct) represent
 
 In InjectedCell mode, AcraStruct is stored inside some piece of data, i.e. inside some file or in a database cell with a file inside, with AcraStruct as a piece of that file, not the whole file. In this mode, the encrypted data will look something like this:
 
-1. `<Some AcraStruct data, some other AcraStruc data>`,
+1. `<Some AcraStruct data, some other AcraStruct data>`,
 2. `<AcraSctruct>`,
 3. `<File containing AcraStruct alongside other data>`.
 
-The main difference between these modes lies in performance. In the WholeCell mode, AcraStructs are simply decrypted. In InjectedCell mode, [AcraServer](/pages/documentation-acra/#server-side-acraserver) needs to find AcraStructs inside some other data element first and then decrypt them, which will obviously take longer. The process of searching for the necessary piece of data takes place as the data is going through Acra. Acra will look for AcraStructs in every piece of data in InjectedCell mode.
+The main difference between these modes is performance. In the WholeCell mode, AcraStructs are simply decrypted. In InjectedCell mode, [AcraServer](/pages/documentation-acra/#server-side-acraserver) needs to find AcraStructs inside some other data element first and then decrypt them, which takes obviously take longer. The process of searching for the necessary piece of data takes place as the data is going through Acra. Acra will look for AcraStructs in every piece of data in InjectedCell mode.
 
 Which mode should you choose?
 
@@ -145,7 +145,7 @@ To decrypt AcraStructs generated by AcraWriter in your application, you can also
 
 To use Acrastruct validator, you need to register (or login if you have already registered) using your email address (don't worry, no spam from us):
 
-**1.** Click "Register" in the top right corner of Documentation Server (and skip over to Step 3 if you've already registered).
+**1.** Click "Register" in the top right corner of Documentation Server (or skip over to Step 3 if you've already registered).
 
 ![](https://docs.cossacklabs.com/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Login.png)
 

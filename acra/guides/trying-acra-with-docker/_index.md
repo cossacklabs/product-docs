@@ -11,7 +11,7 @@ This is why this document is called "Trying Acra with Docker", not "Using Acra w
 
 ### Precautions
 
-Storing keys safely when using Docker is problematic. Docker is immutable and [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management#zones-INVALID" >}})/[keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management#-INVALID" >}}) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers. There are multiple ways to solve this problem and it will be addressed in a convenient and secure fashion in the future releases of Acra.
+Storing keys safely when using Docker is problematic. Docker is immutable while [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management#zones-INVALID" >}})/[keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management#-INVALID" >}}) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers. There are multiple ways to solve this problem and it will be addressed in a convenient and secure fashion in the future releases of Acra.
 
 ## Using Acra in Docker
 
@@ -37,7 +37,7 @@ All that you need for your first try of Acra is to launch the selected scheme fr
 docker-compose -f docker/<compose_file_name>.yml up
 ```    
 
-This will create `docker/.acrakeys` directory structure, generate all the key pairs, put them into appropriate directories, create DB, add DB user, grant them appropriate privileges and launch all the components.
+This will create `docker/.acrakeys` directory structure, generate all the key pairs, put them into appropriate directories, create DB, add DB user, grant appropriate privileges and launch all the components.
 
 Now you can connect to (you can see the default DB name and credentials inside the Docker Compose file):
 
@@ -101,9 +101,9 @@ The examples contain references to `acra-keymaker` and `acra-authmanager` contai
 
 Check out the [docker/README](https://github.com/cossacklabs/acra/blob/master/docker/README.md) for examples and descriptions of compose files.
 
-You're most likely to want to set some variables before launch.
+Most likely you would like to set some variables before launch.
 
-Please write `ACRA_MASTER_KEY` to environmental variable, or check [KeyManagement]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) page for more details:
+Please set `ACRA_MASTER_KEY` environmental variable, or check [KeyManagement]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) page for more details:
 ```bash
 
 export ACRA_SERVER_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
@@ -148,7 +148,7 @@ export MYSQL_USER="<user_name>"
 export MYSQL_PASSWORD="<user_password>"
 ```
 
-For access to AcraWebConfig HTTP interface, you can define:
+In order to access AcraWebConfig HTTP interface, you can define:
 ```bash
 export ACRA_HTTPAUTH_USER=<http_auth_user>
 export ACRA_HTTPAUTH_PASSWORD=<http_auth_password>
@@ -163,7 +163,7 @@ And connect to ports described above.
 
 ## Example application
 
-In the following examples, we will assume that the schemes are running and all the environment variables are set as described in the code block below. For your convenience, we recommend that you perform the following actions in two different shell windows:  run the Docker in one and the examples in another.
+In the following examples, we assume that the schemes are running and all the environment variables are set as described in the code block below. For your convenience, we recommend that you perform the following actions in two different shell windows:  run the Docker in one and the examples in another.
 
 Please define the same set of environment variables in **both** shell windows before proceeding to the next steps:
 ```bash
@@ -201,7 +201,7 @@ docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector.ym
 **Print data in the database**
 (shell window #2)
 
-Depending on your system configurations, you may be required to change the owner of the `docker/.acrakeys` structure, which is created by Docker daemon, to have access to it. In this case, use:
+Depending on your system configurations, you may be required to change the owner of the `docker/.acrakeys` directory, which is created by Docker daemon, to have access to it. In this case, use:
 ```bash
 sudo chown $(whoami) -R docker/.acrakeys
 ```
@@ -292,7 +292,7 @@ docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector_zo
 
 **Print data in database**:
 (shell window #2)
-Depending on your system configurations, you may be required to change the owner of the `docker/.acrakeys` structure, which is created by the Docker daemon, to have access to it. In this case, use:
+Depending on your system configurations, you may be required to change the owner of the `docker/.acrakeys` directory, which is created by the Docker daemon, to have access to it. In this case, use:
 ```bash
 sudo chown $(whoami) -R docker/.acrakeys
 ```    
