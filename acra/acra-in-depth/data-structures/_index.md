@@ -23,6 +23,30 @@ To generate AcraBlocks Acra-Server uses symmetric keys generated for every Clien
 * `Encrypted_Data_Encryption_Key[*]` - encrypted DEK of size `Data_Encryption_Key_Length`, used to encrypt data and data encryption backend. For each new AcraBlock Acra-Server generates new random DEK and encrypts with DEK encryption backend and Context (ClientID/ZoneID).
 * `Encrypted_Data[*]` encrypted data with data encryption backend and random DEK.
 
+Now exists only one key and data decryption backends that use Secure Cell in Seal Mode.
+
+Available **key** encryption backends and their identifiers:
+* `Secure Cell in Seal Mode` - `0`
+
+Available **data** encryption backends and their identifiers:
+* `Secure Cell in Seal Mode` - `0`
+
+
+AcraBlock example for plaintext: `example`:
+
+`[34 34 34 34 141 0 0 0 0 0 0 0 0 119 199 0 76 0 0 1 1 64 12 0 0 0 16 0 0 0 32 0 0 0 74 57 33 205 212 208 201 173 5 49 141 175 138 74 129 21 72 124 140 56 23 187 147 90 79 15 192 32 164 252 144 234 120 9 212 13 105 61 48 221 98 14 188 170 171 97 212 137 231 11 99 218 252 110 120 212 32 72 195 54 0 1 1 64 12 0 0 0 16 0 0 0 7 0 0 0 72 81 94 231 179 35 95 35 89 97 196 52 15 142 126 144 136 26 86 192 3 92 233 23 106 136 192 110 24 237 45 62 109 105 70]`
+
+* Begin_Tag[4] - `[34 34 34 34]`
+* Rest_AcraBlock_Length[8] - `[141 0 0 0 0 0 0 0]`
+* Key_Encryption_Backend_Identifier[1] - `[0]`
+* Key_Encryption_Key_ID[2] - `[119 199]`
+* Data_Encryption_Backend_Identifier[1] - `[0]`
+* Data_Encryption_Key_Length[2] - `[76 0]`
+* Encrypted_Data_Encryption_Key[*] - `[0 1 1 64 12 0 0 0 16 0 0 0 32 0 0 0 74 57 33 205 212 208 201 173 5 49 141 175 138 74 129 21]`
+* Encrypted_Data[*] - `[72 124 140 56 23 187 147 90 79 15 192 32 164 252 144 234 120 9 212 13 105 61 48 221 98 14 188 170 171 97 212 137 231 11 99 218 252 110 120 212 32 72 195 54 0 1 1 64 12 0 0 0 16 0 0 0 7 0 0 0 72 81 94 231 179 35 95 35 89 97 196 52 15 142 126 144 136 26 86 192 3 92 233 23 106 136 192 110 24 237 45 62 109 105 70]`
+
+
+
 ### Generation
 
 To generate AcraBlock in transparent mode Acra-Server performs following steps:
@@ -59,6 +83,16 @@ AcraStruct is a cryptographic container with specific format. Before generating 
 - `Encrypted_Random_Key[84]` — encrypted Random Key by using SMessage (see next);
 - `Data_Length[8]` — length of the Encrypted data (see next);
 - `Encrypted_Data[Data_Length]` — payload encrypted with Random Key.
+
+AcraStruct example for plaintext: `example`:
+
+`[34, 34, 34, 34, 34, 34, 34, 34, 85, 69, 67, 50, 0, 0, 0, 45, 17, 107, 171, 101, 3, 5, 207, 103, 32, 150, 35, 237, 58, 19, 79, 215, 123, 254, 205, 12, 154, 149, 16, 116, 80, 130, 110, 20, 249, 80, 253, 209, 219, 167, 55, 50, 135, 32, 39, 4, 38, 84, 0, 0, 0, 0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 32, 0, 0, 0, 63, 95, 208, 109, 191, 139, 244, 155, 230, 168, 180, 64, 234, 84, 240, 17, 116, 147, 64, 73, 253, 86, 60, 226, 127, 240, 170, 251, 229, 234, 145, 85, 88, 142, 29, 221, 12, 230, 72, 4, 254, 95, 243, 71, 174, 9, 126, 41, 221, 0, 127, 202, 160, 42, 53, 72, 218, 86, 141, 248, 51, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 7, 0, 0, 0, 34, 115, 175, 148, 77, 152, 188, 222, 105, 123, 145, 77, 152, 254, 160, 19, 183, 122, 53, 138, 147, 149, 157, 223, 238, 71, 133, 139, 117, 210, 232, 110, 181, 241, 3]`
+
+* Begin_Tag[8] - `[34, 34, 34, 34, 34, 34, 34, 34]`
+* Throwaway_Public_Key[45] - `[85, 69, 67, 50, 0, 0, 0, 45, 17, 107, 171, 101, 3, 5, 207, 103, 32, 150, 35, 237, 58, 19, 79, 215, 123, 254, 205, 12, 154, 149, 16, 116, 80, 130, 110, 20, 249, 80, 253, 209, 219, 167, 55, 50, 135]`
+* Encrypted_Random_Key[84] - `[32, 39, 4, 38, 84, 0, 0, 0, 0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 32, 0, 0, 0, 63, 95, 208, 109, 191, 139, 244, 155, 230, 168, 180, 64, 234, 84, 240, 17, 116, 147, 64, 73, 253, 86, 60, 226, 127, 240, 170, 251, 229, 234, 145, 85, 88, 142, 29, 221, 12, 230, 72, 4, 254, 95, 243, 71, 174, 9, 126, 41, 221, 0, 127, 202, 160, 42, 53, 72, 218, 86, 141, 248]`
+* Data_Length[8] - `[51, 0, 0, 0, 0, 0, 0, 0]`
+* Encrypted_Data[51] - `[0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 7, 0, 0, 0, 34, 115, 175, 148, 77, 152, 188, 222, 105, 123, 145, 77, 152, 254, 160, 19, 183, 122, 53, 138, 147, 149, 157, 223, 238, 71, 133, 139, 117, 210, 232, 110, 181, 241, 33]`
 
 ### Generation
 
