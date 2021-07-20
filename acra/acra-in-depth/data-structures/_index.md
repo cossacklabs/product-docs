@@ -23,7 +23,7 @@ To generate AcraBlocks Acra-Server uses symmetric keys generated for every Clien
 * `Encrypted_Data_Encryption_Key[*]` - encrypted DEK of size `Data_Encryption_Key_Length`, used to encrypt data and data encryption backend. For each new AcraBlock Acra-Server generates new random DEK and encrypts with DEK encryption backend and Context (ClientID/ZoneID).
 * `Encrypted_Data[*]` encrypted data with data encryption backend and random DEK.
 
-### Generating
+### Generation
 
 To generate AcraBlock in transparent mode Acra-Server performs following steps:
 * Generates new random DEK for default data encryption backend. DEK length is 32 bytes.
@@ -33,22 +33,22 @@ To generate AcraBlock in transparent mode Acra-Server performs following steps:
 * Securely cleans up memory of DEK (erases/fills with zeros).
 * Forms a container: packs together Begin_Tag, length of all other parts, KEK encryption backend identifier, KEK identifier, data encryption backend identifier, encrypted DEK and ciphertext.
 
-### Decrypting
+### Decryption
 
-* Validate Begin_Tag.
-* Validate length of rest of AcraBlock.
-* Extract KEK backend identifier and validate, check that this identifier is registered in Acra-Server.
-* Extract data encryption backend identifier and validate, check that this identifier is registered in Acra-Server.
-* Extract length of DEK.
-* Extract DEK.
-* Iterate over KEKs (passed from KeyStore) for decryption and search correct for DEK decryption.
-* Decrypt DEK with correct KEK.
-* Erase/fill with zeros memory area of the KEK.
-* Decrypt data with decrypted DEK.
-* Erase/fill with zeros memory area of the DEK.
+* Validates Begin_Tag.
+* Validates length of rest of AcraBlock.
+* Extracts KEK backend identifier and validates, checks that this identifier is registered in Acra-Server.
+* Extracts data encryption backend identifier and validates, checks that this identifier is registered in Acra-Server.
+* Extracts length of DEK.
+* Extracts DEK.
+* Iterates over KEKs (passed from KeyStore) for decryption and search correct for DEK decryption.
+* Decrypts DEK with correct KEK.
+* Erases/fills with zeros memory area of the KEK.
+* Decrypts data with decrypted DEK.
+* Erases/fills with zeros memory area of the DEK.
 
 ## AcraStruct
-### Understanding AcraStruct
+### Container structure
 
 AcraStruct is a cryptographic container with specific format. Before generating each AcraStruct, AcraWriter generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over.
 
@@ -60,16 +60,16 @@ AcraStruct is a cryptographic container with specific format. Before generating 
 - `Data_Length[8]` — length of the Encrypted data (see next);
 - `Encrypted_Data[Data_Length]` — payload encrypted with Random Key.
 
-### Generating AcraStruct
+### Generation
 
 AcraWriter is used to generate AcraStruct, but the generation process is quite simple and can be implemented in any custom writer:
 
 - AcraWriter generates a keypair of throwaway keys using Themis EC key generator:<br/>
   `Throwaway_Keypair = (Throwaway_Public_Key, Throwaway_Private_Key)`.
 - Generates Random Symmetric Key (`RK`), 32 bytes long.
-- Encrypts `RK` using [Secure Message](/pages/secure-message-cryptosystem/) with `Throwaway_Private_Key` and `Acra_Public_Key`(or Zone key – see [Zones](/pages/documentation-acra/#zones)):<br/>
+- Encrypts `RK` using [Secure Message]({{< ref "themis/crypto-theory/cryptosystems/secure-message.md" >}}) with `Throwaway_Private_Key` and `Acra_Public_Key`(or Zone key – see [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#zones-INVALID" >}})):<br/>
   `Encrypted_Random_Key = SMessage(RK, Throwaway_Private_Key, Acra_Public_Key)`.
-- Encrypts the payload with [Secure Cell](/pages/secure-cell-cryptosystem/) in Seal mode:<br/>
+- Encrypts the payload with [Secure Cell]({{< ref "themis/crypto-theory/cryptosystems/secure-cell.md" >}}) in Seal mode:<br/>
   `Encrypted_Data = SCell(RK, payload)`.
 - Erases/fills with zeros memory area of the `RK`.
 - Calculates the encrypted payload length and transforms it into little endian 8 bytes long (`Data_Length`).
@@ -78,72 +78,25 @@ AcraWriter is used to generate AcraStruct, but the generation process is quite s
 
 We recommend you to check out AcraStruct [examples](https://github.com/cossacklabs/acra/tree/master/examples) and try the [⚙️Acra Engineering Demo⚙️](https://github.com/cossacklabs/acra-engineering-demo/#what-is-this).
 
-### Decrypting AcraStruct
+### Decryption
 
 AcraServer, upon receiving and detecting valid AcraStruct, is able to:
 
-- Extract Throwaway Public Key (`TPK`).
-- Decrypt asymmetric envelope with `TPK` and Acra's Private Key (or [Zone key](/pages/documentation-acra/#client-side-with-zones)).
-- Extract Random Key (`RK`) for Secure Cell container out of a decrypted envelope;
-- Decrypt Secure Cell, extract payload;
-- Reconstruct database answer in such a way that AcraStruct is replaced by decrypted data.
+- Extracts Throwaway Public Key (`TPK`).
+- Decrypts asymmetric envelope with `TPK` and Acra's Private Key (or [Zone key]({{< ref "acra/guides/integrating-acra-server-into-infrastructure#with-zones-INVALID">}})).
+- Extracts Random Key (`RK`) for Secure Cell container out of a decrypted envelope;
+- Decrypts Secure Cell, extracts payload;
+- Reconstructs database answer in such a way that AcraStruct is replaced by decrypted data.
 
 Check implementation in [decryptor/base/utils.go](https://github.com/cossacklabs/acra/blob/master/decryptor/base/utils.go#L29).
 
-### Zone Ids
+## AcraStruct validator
 
-Although not directly related to AcraStructs, Zone Ids are used for matching Zones to keys. The current format is 8 bytes "begin tag" + 16 symbols a-zA-Z.
+To decrypt AcraStructs generated by AcraWriter in your application, you can also use our [AcraStruct validator](/simulator/acra/). It works as AcraServer / AcraTranslator and uses private decryption keys.
 
-## Storage Models
+### Getting started with AcraStruct validator
 
-There are two storage model modes used in Acra: WholeCell and InjectedCell.
-
-In WholeCell mode, [AcraStruct](/pages/documentation-acra/#acrastruct) represents a complete piece of data (i.e. database cell, a file, or some data transmitted into [AcraTranslator](/pages/acratranslator/)). In this mode it is expected that the encrypted data will look something like:
-
-1. `<AcraStruct>`,
-2. `<AcraStruct>`,
-3. `<AcraStruct>`.
-
-In InjectedCell mode, AcraStruct is stored inside some piece of data, i.e. inside some file or in a database cell with a file inside, with AcraStruct as a piece of that file, not the whole file. In this mode, the encrypted data will look something like this:
-
-1. `<Some AcraStruct data, some other AcraStruct data>`,
-2. `<AcraSctruct>`,
-3. `<File containing AcraStruct alongside other data>`.
-
-The main difference between these modes is performance. In the WholeCell mode, AcraStructs are simply decrypted. In InjectedCell mode, [AcraServer](/pages/documentation-acra/#server-side-acraserver) needs to find AcraStructs inside some other data element first and then decrypt them, which takes obviously take longer. The process of searching for the necessary piece of data takes place as the data is going through Acra. Acra will look for AcraStructs in every piece of data in InjectedCell mode.
-
-Which mode should you choose?
-
-Let’s consider an example where we’re storing an email in a database and we’d like to encrypt it, “wrapping” it into an AcraStruct. We’d get a table:
-
-| Email        | Column 2     | Column 3     |
-|--------------|--------------|--------------|
-| <AcraStruct> | Column2Value | Column3Value |
-| <AcraStruct> | Column2Value | Column3Value |
-
-In this case, an AcraStruct takes up a whole cell and we are trying to decrypt it as is, without searching for anything.
-But things can be different. In InjectedCell mode a binary [MsgPack](https://msgpack.org/index.html) or [protobuf](https://developers.google.com/protocol-buffers/) could be stored in a table, and it is possible that in those data entities only one field is encrypted.
-
-Such data entity wouldn’t be a single AcraStruct - it would be a data entity that contains an AcraStruct or several AcraStructs. This means that in the InjectedCell mode we stop assuming that the database cells can only contain complete AcraStructs. AcraStructs can be inside some other pieces of data and that’s where we’re starting to look for them. This consequently slows down the processing speed. However, not every task needs the InjectedCell mode, which is why one can switch between modes, depending on what you’re encrypting and how you’re storing it.
-
-By default, the WholeCell mode is active (`--acrastruct_wholecell_enable`). You can switch between the modes using startup parameters:
-
-```
---acrastruct_injectedcell_enable
-    Acrastruct may be injected into any place of data cell
---acrastruct_wholecell_enable
-    Acrastruct will stored in whole data cell (default true)
-```
-
-Also see the [CLI reference](/pages/documentation-acra/#acraserver-cli-reference).
-
-## Acrastruct validator
-
-To decrypt AcraStructs generated by AcraWriter in your application, you can also use our [Acrastruct validator](/simulator/acra/). It works as AcraServer / AcraTranslator and uses private decryption keys.
-
-### Getting started with Acrastruct validator
-
-To use Acrastruct validator, you need to register (or login if you have already registered) using your email address (don't worry, no spam from us):
+To use AcraStruct validator, you need to register (or login if you have already registered) using your email address (don't worry, no spam from us):
 
 **1.** Click "Register" in the top right corner of Documentation Server (or skip over to Step 3 if you've already registered).
 
@@ -157,15 +110,15 @@ To use Acrastruct validator, you need to register (or login if you have already 
 
 ![](https://docs.cossacklabs.com/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Login-Screen.png)
 
-**4.** Go to the [Acrustruct validator tab in the Documentation server header](/simulator/acra/):
+**4.** Go to the [AcruStruct validator page](/simulator/acra/):
 
 ![](https://docs.cossacklabs.com/files/wiki/AcrastructValidator-link.png)
 
-**5.** Use Acrastruct validator. This is what Acrastruct validator looks like:
+**5.** Use AcraStruct validator. This is what AcraStruct validator looks like:
 
 ![](https://docs.cossacklabs.com/files/wiki/AcrastructValidator-main-screen.png)
 
-### Using Acrastruct validaor
+### Using AcraStruct validator
 
 If you don't have access to your AcraServer and private keys, use our keys:
 
@@ -177,10 +130,63 @@ If you have access to private keys, use your own keys. To enter the mode of usin
 
 ![](https://docs.cossacklabs.com/files/wiki/Acrastruct-validator-own-keys.png)
 
-**1.** Make sure you have correct keys (public and private storage keypair for encrypting and decrypting data). If you don't have a keypair, use [AcraKeymaker](/pages/documentation-acra/#key-names-and-locations) to generate it.
+**1.** Make sure you have correct keys (public and private storage keypair for encrypting and decrypting data). If you don't have a keypair, use [AcraKeymaker]({{< ref "acra/acra-in-depth/cryptography-and-key-management#key-names-and-locations-INVALID" >}}) to generate it.
 
 **2.** Use your public data encryption key in AcraWriter to generate AcraStruct. Convert AcraStruct to base64 and paste into the appropriate form.
 
 > Note that AcraKeymaker encrypts private data decryption key. Paste ACRA_MASTER_KEY (usually placed in AcraServer/AcraTranslator) and private data decryption key (base64).
 
-**3.** If you are using Zone, paste ZoneID as well. Do not forget to use Zone keys instead of data encryption and decryption keys. 
+**3.** If you are using Zone, paste ZoneID as well. Do not forget to use Zone keys instead of data encryption and decryption keys.
+
+## Storage Models
+
+There are two storage model modes used in Acra: WholeCell and InjectedCell.
+
+In WholeCell mode, CryptoEnvelope ([AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#acrastruct" >}}) or [AcraBlock]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}})) represents a complete piece of data (i.e. database cell, a file, or some data transmitted into [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md#-INVALID" >}})). In this mode it is expected that the encrypted data will look something like:
+
+1. `<CryptoEnvelope>`,
+2. `<CryptoEnvelope>`,
+3. `<CryptoEnvelope>`.
+
+In InjectedCell mode, CryptoEnvelope is stored inside some piece of data, i.e. inside some file or in a database cell with a file inside, with CryptoEnvelope as a piece of that file, not the whole file. In this mode, the encrypted data will look something like this:
+
+1. `<Some CryptoEnvelope data, some other CryptoEnvelope data>`,
+2. `<CryptoEnvelope>`,
+3. `<File containing CryptoEnvelope alongside other data>`.
+
+The main difference between these modes is performance. In the WholeCell mode, CryptoEnvelope are simply decrypted. In InjectedCell mode, [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID">}}) needs to find CryptoEnvelopes inside some other data element first and then decrypt them, which takes obviously take longer. The process of searching for the necessary piece of data takes place as the data is going through Acra. Acra will look for CryptoEnvelopes in every piece of data in InjectedCell mode.
+
+Which mode should you choose?
+
+Let’s consider an example where we’re storing an email in a database and we’d like to encrypt it, “wrapping” it into an CryptoEnvelope. We’d get a table:
+
+| Email        | Column 2     | Column 3     |
+|--------------|--------------|--------------|
+| <CryptoEnvelope> | Column2Value | Column3Value |
+| <CryptoEnvelope> | Column2Value | Column3Value |
+
+In this case, an CryptoEnvelope takes up a whole cell and we are trying to decrypt it as is, without searching for anything.
+But things can be different. In InjectedCell mode a binary [MsgPack](https://msgpack.org/index.html) or [protobuf](https://developers.google.com/protocol-buffers/) could be stored in a table, and it is possible that in those data entities only one field is encrypted.
+
+Such data entity wouldn’t be a single CryptoEnvelope - it would be a data entity that contains an CryptoEnvelope or several CryptoEnvelopes. This means that in the InjectedCell mode we stop assuming that the database cells can only contain complete CryptoEnvelopes. CryptoEnvelopes can be inside some other pieces of data and that’s where we’re starting to look for them. This consequently slows down the processing speed. However, not every task needs the InjectedCell mode, which is why one can switch between modes, depending on what you’re encrypting and how you’re storing it.
+
+By default, the WholeCell mode is active (`--acrastruct_wholecell_enable`). You can switch between the modes using startup parameters:
+
+```
+--acrastruct_injectedcell_enable
+    AcraStruct may be injected into any place of data cell
+--acrastruct_wholecell_enable
+    AcraStruct will stored in whole data cell (default true)
+```
+
+Both these flags switch mode for AcraBlocks too.
+
+Also see the [CLI reference]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#acraserver-cli-reference-INVALID" >}}).
+
+## Zone Ids
+
+Zone Ids are identifiers of EC keys used for matching Zones to keys. The current format is 8 bytes "begin tag" + 16 symbols a-zA-Z. For example: `DDDDDDDDzxzXVyBBaNclkgPS` where `DDDDDDDD` is "begin tag" and `zxzXVyBBaNclkgPS` is unique key identifier. 
+
+## When use AcraBlocks and when AcraStructs
+
+If you need end-to-end encryption then you should choose AcraStructs and encrypt data on client side using public key. In all other cases you should prefer AcraBlocks that have less output size, fewer keys size and are more performant because use only symmetric key encryption. When AcraStructs rely on asymmetric plus symmetric encryption algorithms and are slower. AcraServer supports transparent AcraBlock/AcraStruct encryption and decryption with equal functionality.
