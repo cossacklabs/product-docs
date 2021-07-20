@@ -24,7 +24,12 @@ This key should then be base64-encoded and passed to Acra services in `ACRA_MAST
 
 Like this: `ACRA_MASTER_KEY="$(cat /tmp/master_key | base64)" acra-server ...`
 
-There are other kinds of keys, for example ones specific for AcraTranslator.
+{{< hint warning >}}
+Make sure the master key is stored in a safe place.
+It's more important than any other key.
+{{< /hint >}}
+
+There are other kinds of keys, for example [ones specific for AcraTranslator](../acra_translator/#keys).
 You will find more about these keys on their page.
 
 ## Ports

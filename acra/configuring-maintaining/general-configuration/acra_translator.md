@@ -8,8 +8,6 @@ weight: 2
 
 ## Command line flags
 
-(excluding TLS-related flags that are listed [here](/acra/configuring-maintaining/tls))
-
 * `--acraconnector_transport_encryption_disable={true|false}`
 
   Use raw transport (tcp/unix socket) between AcraTranslator and client app.
@@ -25,20 +23,6 @@ weight: 2
 
   Enable audit log functionality.
   Default is `false`.
-
-* `--config_file=<filename>`
-
-  Path to YAML configuration file.
-
-* `--dump_config`
-
-  Dump configuration to `configs/acra-translator.yaml`.
-
-* `--generate_markdown_args_table`
-
-  Generate markdown file with text description of all flags.
-  Output file is `configs/markdown_acra-translator.md`.
-  Works in pair with `--dump_config`.
 
 * `--incoming_connection_close_timeout=<seconds>`
 
@@ -113,6 +97,64 @@ weight: 2
 
   ID that will be sent in secure session handshake.
   Default is `acra_translator`.
+
+### Configuration files
+
+* `--config_file=<filename>`
+
+  Path to YAML configuration file.
+
+* `--dump_config`
+
+  Dump configuration to `configs/acra-translator.yaml`.
+
+* `--generate_markdown_args_table`
+
+  Generate markdown file with text description of all flags.
+  Output file is `configs/markdown_acra-translator.md`.
+  Works in pair with `--dump_config`.
+
+### TLS
+
+* `--tls_auth=<mode>`
+
+  Set authentication mode that will be used for TLS connection.
+
+  * `0` — do not request client certificate, ignore it if received
+  * `1` — request client certificate, but don't require it
+  * `2` — expect to receive at least one certificate to continue the handshake
+  * `3` — don't require client certificate, but validate it if client actually sent it
+  * `4` — (default) request and validate client certificate
+
+  These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
+
+* `--tls_key=<filename>`
+
+  Path to private key that will be used for TLS handshake.
+  Should correspond to the certificate configured with `--tls_cert`.
+  Empty by default.
+
+* `--tls_cert=<filename>`
+
+  Path to TLS certificate that will be sent to other peers during handshake.
+  Empty by default.
+
+  In case of AcraServer, it will be sent to clients (AcraConnector, AcraTranslator) and to server (database).
+
+* `--tls_ca=<filename>`
+
+  Path to additional CA certificate for AcraConnector and database certificate validation.
+  Empty by default.
+
+  In case of AcraServer, it will be used to validate both client (AcraConnector, AcraTranslator) certificates
+  and server (database) ones.
+
+* `--tls_identifier_extractor_type=<type>`
+
+  Decide which field of TLS certificate to use as ClientID.
+
+  * `distinguished_name` — (default) certificate Distinguished Name (DN)
+  * `serial_number` — certificate serial number
 
 ### Jaeger
 
