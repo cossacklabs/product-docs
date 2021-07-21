@@ -74,3 +74,93 @@ By differentiating the sensitive data via [Zones]({{< ref "acra/acra-in-depth/cr
 - Zone IDs are used as context when encrypting Secure Cell, providing additional protection.
 
 Zone data is supplied to an app via JSON (i.e. `{"id": "...", "public_key": "..."}`) from [HTTP api]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#http-api-INVALID">}}) or [console utility]({{< ref "acra/security-controls/transport-security/acra-connector.md#acraconnector-and-acrawriter-INVALID" >}}).
+
+
+## Security model for Acra
+
+### Possible threats
+
+> Note: We recommend taking a look at the [architectural scheme of Acra]({{< ref "acra/acra-in-depth/data-flow/#-INVALID" >}}) before continuing to read.
+
+Acra at its core is a set of tools that allow safeguarding the security of a database (running PostgreSQL or MySQL) against the known widespread threats.
+
+The most dangerous current known security threats are:
+- Threats related to excess / abuse of access privileges.
+- Data leaks caused by mistakes in deploy, configuration settings, backup thefts, etc.
+- SQL injections.
+- Denial of service.
+- Vulnerabilities in the database protocol.
+- Weak audit or an absence thereof.
+- Operational system vulnerabilities.
+- Unsafe handling of cryptographic keys.
+
+### Conditions of secure work
+Acra can perform its protective functions properly and protect from the security threats 1, 2, 3 if the following security assumptions are met:
+- The PKI infrastructure is trusted;
+- AcraServer is trusted;
+- The client is less trusted than the server.
+
+### Possible consequences of compromisation
+Let’s consider all the possible consequences of any of separate component being broken (broken as in “fully compromised” when the adversary fully overtakes the work of the component and gains full access to its memory).
+
+When a *Database* is broken into, the worst-case scenario is DoS or COA. Thus, the stability of the system, in this case, is reduced to the stability of the symmetric encryption algorithm (AES-GCM-256).
+When the *Client* gets broken, the worst-case scenario is that the adversary can get the data belonging to this client, which is stored in the database.
+And finally, if AcraServer gets broken, the adversary can fully compromise the system.
+
+It is worth mentioning that in absence of PKI, the communication channel between the Client and AcraServer is also vulnerable. In this case, the resistance ability of the system comes down to the secureness of the SSL/TLS or Themis’ Secure Session protocols. In all the other communication channels the data is encrypted so, in the worst case (when SSL/TLS is not used) the secureness of the system comes down to the secureness of the symmetric encryption algorithm (AES-GCM-256).
+
+### Additional reading
+
+We recommend that you also check out the following articles to gain a better understanding of the security notions in this article: <br>
+https://www.zdnet.com/article/the-top-ten-most-common-database-security-vulnerabilities/ <br>   
+https://en.wikipedia.org/wiki/Vulnerability_database <br>           
+https://www.bcs.org/content/ConWebDoc/8852. <br>
+
+
+## PKI overview for Acra
+
+We strongly recommend following the best security practices and using the public key infrastructure (PKI) to provide authentication between the components of Acra. This document contains some useful information about the PKI and links to related resources.
+
+### The Public Key Infrastructure
+
+The central component of any PKI is the Certificate Authority (CA). The CA acts as an arbitrator or a third party, whilst the trust relations are established between the two other sides. A very simplified scheme of one-side authentication of `User` by a `Relying Party` is described below.
+
+
+
+![](/files/wiki/pki-overview-for-acra.png)
+
+(_Image source: [LdapWiki](http://ldapwiki.com/wiki/Public%20Key%20Infrastructure)._)
+
+Each entity of the PKI possesses their own pair of cryptographic keys:
+- Private key that is always stored secretly, while
+- Public key, along with the corresponding digital certificate, is available for other entities.
+
+The digital certificate is signed by the CA and contains the information about an entity (organisation, department, alias/name, email, etc.) and the value of its public key. The digital certificate also indicates that the entity possesses a corresponding private key.
+
+> Note: The CA issues certificate for its own public key, which is why it is considered to be the main point of trust: both the User and the Relying Party trust the CA, while the User and the Relying Party do not trust each other.
+
+The main point that should be kept in mind is that if you use a free-for-all communication infrastructure (i.e. the Internet), some primary security layer (PSL) that involves a PKI (i.e. Virtual Private Network) has to be deployed (i.e. Virtual Private Network (VPN)). This PSL will provide a strong authentication between components (i.e. the database, [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) in Acra’s context) inside the organisational infrastructure.
+
+The next step after deploying the PSL is the deployment of Acra. Note that even if there is an existing PSL present, a secure deployment of Acra requires the delivery of secret keys to the target components (in [Docker containers]({{< ref "acra/guides/trying-acra-with-docker/" >}})). The best practices for solving this task are provided below:
+
+- **Environment variables** — classic and reasonably secure way that is simple, flexible, and can be implemented with system tools. The main known risks of this method are: the possibility to bleed into logs if the deployment was untidy and the possible granting of access to the non-target apps in case of insufficiently fine-tunes access rights differentiation.
+
+- **Files** — many technologies of secrets’ deployment  use the transfer of secrets in the file format to the app - both for infrastructure management systems and container orchestration systems. This method is usually implemented through a regular creation of files containing secrets (at the moment deployment or by daemons of the key distribution systems), or through mounting from the host system inside a container or virtual file system mounting (Swarm, Kubernetes). The pros and cons and the same as in the variant with the environment variables, with some specifics depending on the exact implementation.
+
+- **URI / REST API** — another rather common way based on cloud services like AWS, Azure, DO, etc. The main disadvantage of this approach is its price.
+
+- **Libs** — usually implemented using the supplied libraries. They are offered by AWS, Azure, etc., to enable the work with their KMS clouds. The standard de-facto approach here is Vault integrated with numerous applications.
+
+Acra currently supports secret delivery of keys via environment variables since this is the simplest and the most reliable way.
+
+### Additional recommended reading
+
+We recommend checking out the following pages and resources to find out more about the PKIs.
+
+1) https://pki-tutorial.readthedocs.io/en/latest/
+2) https://openvpn.net/
+3) https://www.ejbca.org/
+4) https://sourceforge.net/projects/xca/
+5) https://github.com/OpenVPN/easy-rsa
+6) https://en.wikipedia.org/wiki/Public_key_infrastructure
+7) https://en.wikipedia.org/wiki/Virtual_private_network.
