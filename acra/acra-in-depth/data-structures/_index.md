@@ -134,23 +134,24 @@ To use AcraStruct validator, you need to register (or login if you have already 
 
 **1.** Click "Register" in the top right corner of Documentation Server (or skip over to Step 3 if you've already registered).
 
-![](https://docs.cossacklabs.com/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Login.png)
+![](/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Login.png)
+
 
 **2.** Register using your email address and create a password (we're feeling awkward reminding you about it, but you should use a unique strong password, always).
 
-![](https://docs.cossacklabs.com/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Register.png)
+![](/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Register.png)
 
 **3.** Login using your password and email address.
 
-![](https://docs.cossacklabs.com/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Login-Screen.png)
+![](/files/wiki/Cossack-Labs-Themis-Interactive-Simulator-Login-Screen.png)
 
 **4.** Go to the [AcruStruct validator page](/simulator/acra/):
 
-![](https://docs.cossacklabs.com/files/wiki/AcrastructValidator-link.png)
+![](/files/wiki/acrastruct-validation-page.png)
 
 **5.** Use AcraStruct validator. This is what AcraStruct validator looks like:
 
-![](https://docs.cossacklabs.com/files/wiki/AcrastructValidator-main-screen.png)
+![](/files/wiki/acrastruct-validation-form.png)
 
 ### Using AcraStruct validator
 
@@ -158,11 +159,11 @@ If you don't have access to your AcraServer and private keys, use our keys:
 
 **1.** Copy our AcraServer public key, paste in your AcraWriter, generate AcraStruct. Convert AcraStruct to base64 and paste in the form.
 **2.** If you are using Zone, paste ZoneID as well.  
-![](https://docs.cossacklabs.com/files/wiki/Acrastruct-validator-our-keys.png)
+![](/files/wiki/acrastruct-validation-form-with-zone.png)
 
 If you have access to private keys, use your own keys. To enter the mode of using your own keys, click the blue selector switch and make sure it has turned from blue to green:
 
-![](https://docs.cossacklabs.com/files/wiki/Acrastruct-validator-own-keys.png)
+![](/files/wiki/acrastruct-validation-form-own-keys.png)
 
 **1.** Make sure you have correct keys (public and private storage keypair for encrypting and decrypting data). If you don't have a keypair, use [AcraKeymaker]({{< ref "acra/acra-in-depth/cryptography-and-key-management#key-names-and-locations-INVALID" >}}) to generate it.
 
