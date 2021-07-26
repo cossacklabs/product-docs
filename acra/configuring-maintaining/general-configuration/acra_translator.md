@@ -108,48 +108,6 @@ weight: 2
   Output file is `configs/markdown_acra-translator.md`.
   Works in pair with `--dump_config`.
 
-### TLS
-
-* `--tls_auth=<mode>`
-
-  Set authentication mode that will be used for TLS connection.
-
-  * `0` — do not request client certificate, ignore it if received
-  * `1` — request client certificate, but don't require it
-  * `2` — expect to receive at least one certificate to continue the handshake
-  * `3` — don't require client certificate, but validate it if client actually sent it
-  * `4` — (default) request and validate client certificate
-
-  These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
-
-* `--tls_key=<filename>`
-
-  Path to private key that will be used for TLS handshake.
-  Should correspond to the certificate configured with `--tls_cert`.
-  Empty by default.
-
-* `--tls_cert=<filename>`
-
-  Path to TLS certificate that will be sent to other peers during handshake.
-  Empty by default.
-
-  In case of AcraServer, it will be sent to clients (AcraConnector, AcraTranslator) and to server (database).
-
-* `--tls_ca=<filename>`
-
-  Path to additional CA certificate for AcraConnector and database certificate validation.
-  Empty by default.
-
-  In case of AcraServer, it will be used to validate both client (AcraConnector, AcraTranslator) certificates
-  and server (database) ones.
-
-* `--tls_identifier_extractor_type=<type>`
-
-  Decide which field of TLS certificate to use as ClientID.
-
-  * `distinguished_name` — (default) certificate Distinguished Name (DN)
-  * `serial_number` — certificate serial number
-
 ### Jaeger
 
 * `--jaeger_agent_endpoint=<addr>`
@@ -176,6 +134,14 @@ weight: 2
 
   Export trace data to jaeger.
   Default is `false`.
+
+### Keystore
+
+* `--keystore_cache_size=<count>`
+
+  Count of keys that will be stored in in-memory LRU cache in encrypted form.
+  Use `0` to set unlimited size, `-1` to disable caching.
+  Default is `0`.
 
 ### Logging
 
@@ -221,6 +187,48 @@ weight: 2
   Export trace data to log.
   Default is `false`.
 
+### TLS
+
+* `--tls_auth=<mode>`
+
+  Set authentication mode that will be used for TLS connection.
+
+  * `0` — do not request client certificate, ignore it if received
+  * `1` — request client certificate, but don't require it
+  * `2` — expect to receive at least one certificate to continue the handshake
+  * `3` — don't require client certificate, but validate it if client actually sent it
+  * `4` — (default) request and validate client certificate
+
+  These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
+
+* `--tls_key=<filename>`
+
+  Path to private key that will be used for TLS handshake.
+  Should correspond to the certificate configured with `--tls_cert`.
+  Empty by default.
+
+* `--tls_cert=<filename>`
+
+  Path to TLS certificate that will be sent to other peers during handshake.
+  Empty by default.
+
+  In case of AcraServer, it will be sent to clients (AcraConnector, AcraTranslator) and to server (database).
+
+* `--tls_ca=<filename>`
+
+  Path to additional CA certificate for AcraConnector and database certificate validation.
+  Empty by default.
+
+  In case of AcraServer, it will be used to validate both client (AcraConnector, AcraTranslator) certificates
+  and server (database) ones.
+
+* `--tls_identifier_extractor_type=<type>`
+
+  Decide which field of TLS certificate to use as ClientID.
+
+  * `distinguished_name` — (default) certificate Distinguished Name (DN)
+  * `serial_number` — certificate serial number
+
 ### Vault
 
 * `--vault_connection_api_string=<url>`
@@ -252,14 +260,6 @@ weight: 2
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
-
-### Keystore
-
-* `--keystore_cache_size=<count>`
-
-  Count of keys that will be stored in in-memory LRU cache in encrypted form.
-  Use `0` to set unlimited size, `-1` to disable caching.
-  Default is `0`.
 
 ## Keys
 

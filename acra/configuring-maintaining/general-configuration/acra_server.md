@@ -42,19 +42,6 @@ weight: 3
 
   Use provided client ID for transparent encryption as if it was passed from AcraConnector.
 
-* `--mysql_enable={true|false}`
-
-  Handle MySQL connections.
-  Default is `false`.
-
-* `--pgsql_escape_bytea={true|false}`
-
-  Escape format for Postgresql bytea data (**deprecated**, ignored).
-
-* `--pgsql_hex_bytea={true|false}`
-
-  Hex format for Postgresql bytea data (**deprecated**, ignored).
-
 * `--poison_detect_enable={true|false}`
 
   Turn on poison record detection, if server shutdown is disabled, AcraServer logs the poison record detection and returns error.
@@ -68,11 +55,6 @@ weight: 3
 * `--poison_shutdown_enable={true|false}`
 
   On detecting poison record: log about poison record detection, stop and shutdown.
-  Default is `false`.
-
-* `--postgresql_enable={true|false}`
-
-  Handle Postgresql connections.
   Default is `false`.
 
 * `--redis_db_keys=`
@@ -137,6 +119,175 @@ weight: 3
 
   Path to Encryptor configuration file.
   Default is empty.
+
+### Jaeger
+
+* `--jaeger_agent_endpoint=<addr>`
+
+  Jaeger agent endpoint that will be used to export trace data.
+  Example: `localhost:6831`.
+  Default is empty.
+
+* `--jaeger_basic_auth_password=<password>`
+
+  Password used for basic auth (optional) to jaeger.
+
+* `--jaeger_basic_auth_username=<username>`
+
+  Username used for basic auth (optional) to jaeger.
+
+* `--jaeger_collector_endpoint=<url>`
+
+  Jaeger endpoint that will be used to export trace data.
+  Example: `http://localhost:14268/api/traces`.
+  Default is empty.
+
+* `--tracing_jaeger_enable={true|false}`
+
+  Export trace data to jaeger.
+  Default is `false`.
+
+### Keystore
+
+* `--auth_keys=<filename>`
+
+  Path to basic auth credentials.
+  To add user, use: `./acra-authmanager --set --user <user> --pwd <pwd>`.
+  Default is `configs/auth.keys`.
+
+* `--keys_dir=<path>`
+
+  Folder from which keys will be loaded.
+  Default is `.acrakeys`.
+
+* `--keystore_cache_size=<count>`
+
+  Count of keys that will be stored in in-memory LRU cache in encrypted form.
+  Use `0` to set unlimited size, `-1` to disable caching.
+  Default is `0`.
+
+### Logging
+
+* `-d`
+
+  Log everything to stderr.
+
+* `-v`
+
+  Log to stderr all `INFO`, `WARNING` and `ERROR` logs.
+
+* `--log_to_console={true|false}`
+
+  Log to stderr.
+  Default is `true`.
+
+* `--log_to_file=<filename>`
+
+  Log to file if non-empty value was passed.
+  Default is empty.
+
+* `--logging_format={plaintext|json|CEF}`
+
+  Logging format.
+
+  * `plaintext` — (default) pretty human readable key/value format<br>
+    ```
+    time="2021-07-12T14:02:12+03:00" level=info msg="Starting service acra-translator [pid=475995]" version=0.85.0
+    ```
+
+  * `json` — one JSON object per line, easy to parse by most log collectors<br>
+    ```
+    {"level":"info","msg":"Starting service acra-translator [pid=476077]","product":"acra-translator","timestamp":"2021-07-12T14:02:50+03:00","unixTime":"1626087770.004","version":"0.85.0"}
+    ```
+
+  * `CEF` — Common Event Format<br>
+    ```
+    CEF:0|cossacklabs|acra-translator|0.85.0|100|Starting service acra-translator [pid\=476133]|1|unixTime=1626087782.510
+    ```
+
+* `--tracing_log_enable={true|false}`
+
+  Export trace data to log.
+  Default is `false`.
+
+### MySQL
+
+* `--mysql_enable={true|false}`
+
+  Handle MySQL connections.
+  Default is `false`.
+
+### Network
+
+* `--db_host=<host>`
+
+  Database host for AcraServer -> database connections.
+  Must be set.
+  Default is empty.
+
+* `--db_port=<port>`
+
+  Database port for AcraServer -> database connections.
+  Default is `5432`.
+
+* `-ds`
+
+  Turn on HTTP debug server.
+  The server will be listening at `127.0.0.1:6060`.
+
+* `--http_api_enable={true|false}`
+
+  Enable HTTP API.
+
+* `--incoming_connection_api_port=<port>`
+
+  Port for AcraServer for HTTP API.
+  Default is `9090`.
+
+* `--incoming_connection_api_string=<url>`
+
+  Connection string for API like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
+  Default is `tcp://0.0.0.0:9090/`.
+
+* `--incoming_connection_close_timeout=<seconds>`
+
+  Time that AcraServer will wait (in seconds) on restart before closing all connections.
+  Default is `10`.
+
+* `--incoming_connection_host=<host>`
+
+  Host for AcraServer to listen on.
+  Default is `0.0.0.0`.
+
+* `--incoming_connection_port=<port>`
+
+  Port for AcraServer to listen on.
+  Default is `9393`.
+
+* `--incoming_connection_prometheus_metrics_string=<url>`
+
+  URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
+  Default is empty.
+
+* `--incoming_connection_string=<url>`
+
+  Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
+  Default is `tcp://0.0.0.0:9393/` (built from default host and port).
+
+### PostgreSQL
+
+* `--pgsql_escape_bytea={true|false}`
+
+  Escape format for Postgresql bytea data (**deprecated**, ignored).
+
+* `--pgsql_hex_bytea={true|false}`
+
+  Hex format for Postgresql bytea data (**deprecated**, ignored).
+
+* `--postgresql_enable={true|false}`
+
+  Handle Postgresql connections.
+  Default is `false`.
 
 ### TLS
 
@@ -249,77 +400,6 @@ weight: 3
   * `distinguished_name` — (default) certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
 
-### Jaeger
-
-* `--jaeger_agent_endpoint=<addr>`
-
-  Jaeger agent endpoint that will be used to export trace data.
-  Example: `localhost:6831`.
-  Default is empty.
-
-* `--jaeger_basic_auth_password=<password>`
-
-  Password used for basic auth (optional) to jaeger.
-
-* `--jaeger_basic_auth_username=<username>`
-
-  Username used for basic auth (optional) to jaeger.
-
-* `--jaeger_collector_endpoint=<url>`
-
-  Jaeger endpoint that will be used to export trace data.
-  Example: `http://localhost:14268/api/traces`.
-  Default is empty.
-
-* `--tracing_jaeger_enable={true|false}`
-
-  Export trace data to jaeger.
-  Default is `false`.
-
-### Logging
-
-* `-d`
-
-  Log everything to stderr.
-
-* `-v`
-
-  Log to stderr all `INFO`, `WARNING` and `ERROR` logs.
-
-* `--log_to_console={true|false}`
-
-  Log to stderr.
-  Default is `true`.
-
-* `--log_to_file=<filename>`
-
-  Log to file if non-empty value was passed.
-  Default is empty.
-
-* `--logging_format={plaintext|json|CEF}`
-
-  Logging format.
-
-  * `plaintext` — (default) pretty human readable key/value format<br>
-    ```
-    time="2021-07-12T14:02:12+03:00" level=info msg="Starting service acra-translator [pid=475995]" version=0.85.0
-    ```
-
-  * `json` — one JSON object per line, easy to parse by most log collectors<br>
-    ```
-    {"level":"info","msg":"Starting service acra-translator [pid=476077]","product":"acra-translator","timestamp":"2021-07-12T14:02:50+03:00","unixTime":"1626087770.004","version":"0.85.0"}
-    ```
-
-  * `CEF` — Common Event Format<br>
-    ```
-    CEF:0|cossacklabs|acra-translator|0.85.0|100|Starting service acra-translator [pid\=476133]|1|unixTime=1626087782.510
-    ```
-
-* `--tracing_log_enable={true|false}`
-
-  Export trace data to log.
-  Default is `false`.
-
 ### Vault
 
 * `--vault_connection_api_string=<url>`
@@ -351,79 +431,3 @@ weight: 3
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
-
-### Keystore
-
-* `--auth_keys=<filename>`
-
-  Path to basic auth credentials.
-  To add user, use: `./acra-authmanager --set --user <user> --pwd <pwd>`.
-  Default is `configs/auth.keys`.
-
-* `--keys_dir=<path>`
-
-  Folder from which keys will be loaded.
-  Default is `.acrakeys`.
-
-* `--keystore_cache_size=<count>`
-
-  Count of keys that will be stored in in-memory LRU cache in encrypted form.
-  Use `0` to set unlimited size, `-1` to disable caching.
-  Default is `0`.
-
-### Network
-
-* `--db_host=<host>`
-
-  Database host for AcraServer -> database connections.
-  Must be set.
-  Default is empty.
-
-* `--db_port=<port>`
-
-  Database port for AcraServer -> database connections.
-  Default is `5432`.
-
-* `-ds`
-
-  Turn on HTTP debug server.
-  The server will be listening at `127.0.0.1:6060`.
-
-* `--http_api_enable={true|false}`
-
-  Enable HTTP API.
-
-* `--incoming_connection_api_port=<port>`
-
-  Port for AcraServer for HTTP API.
-  Default is `9090`.
-
-* `--incoming_connection_api_string=<url>`
-
-  Connection string for API like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
-  Default is `tcp://0.0.0.0:9090/`.
-
-* `--incoming_connection_close_timeout=<seconds>`
-
-  Time that AcraServer will wait (in seconds) on restart before closing all connections.
-  Default is `10`.
-
-* `--incoming_connection_host=<host>`
-
-  Host for AcraServer to listen on.
-  Default is `0.0.0.0`.
-
-* `--incoming_connection_port=<port>`
-
-  Port for AcraServer to listen on.
-  Default is `9393`.
-
-* `--incoming_connection_prometheus_metrics_string=<url>`
-
-  URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
-  Default is empty.
-
-* `--incoming_connection_string=<url>`
-
-  Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
-  Default is `tcp://0.0.0.0:9393/` (built from default host and port).
