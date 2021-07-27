@@ -99,7 +99,7 @@ We wanted you to be able to easily try the most useful schemes that we prepared 
 
 The examples contain references to `acra-keymaker` and `acra-authmanager` containers inside. They are used for creation and distribution of the necessary keys. They were included for simplification of the test launch and should not be used in production schemes (where the keys should be generated manually and deployed to an appropriate host according to the security rules of your infrastructure).
 
-Check out the [docker/README](https://github.com/cossacklabs/acra/blob/master/docker/README.md) for examples and descriptions of compose files.
+Check out the [docker folder](https://github.com/cossacklabs/acra/blob/master/docker) for examples of compose files.
 
 Most likely you would like to set some variables before launch.
 
