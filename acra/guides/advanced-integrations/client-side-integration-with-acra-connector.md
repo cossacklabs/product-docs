@@ -5,7 +5,7 @@ bookCollapseSection: true
 
 ## Client side: AcraConnector and AcraWriter
 
-### AcraConnector and AcraWriter
+### AcraConnector
 
 AcraConnector is a (separate) service running alongside your application — it pretends to be a database listener, relays all the requests to AcraServer, receives the responses, and returns them to the app, just like a normal database listener would do.
 
@@ -30,7 +30,7 @@ This enforces maximum secrecy, employing authentication that is easy to manage (
 > Note: Using Docker is recommended for testing purposes only. Please don't rely on Docker in real-life production settings.    
 > Note: The following examples focus on using AcraConnector and AcraWriter with PostgreSQL, but Acra also supports MySQL.
 
-Clone the Acra repository, build images, and start Docker compose with PostgreSQL, AcraServer, AcraConnector, and Secure Session between them:
+Clone the Acra repository, build images, and start provided Docker Compose file with PostgreSQL, AcraServer, AcraConnector, and Secure Session between them:
 
 ```
 git clone https://github.com/cossacklabs/acra.git
@@ -72,16 +72,18 @@ go get github.com/cossacklabs/acra/cmd/acra-keymaker
 
 - Use `acra-keymaker` to generate master key into `master.key` file and assign it into the environment variable like this:
 ```
-$GOPATH/bin/acra-keymaker --generate_master_key=master.key
+$GOBIN/acra-keymaker --generate_master_key=master.key
 export ACRA_MASTER_KEY=`cat master.key | base64`
 ``` 
+
+> Note: if you didn't set `GOBIN` variable then you may find installed executables in `$GOPATH/bin` or `$HOME/go/bin` folders according to [Golang documentation](https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies)   
 
 Read more about the different types of keys used in Acra in the [Key Management]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) section of the documentation.
 
 - Generate the "client" proxy keypair:
 
 ```
-$GOPATH/bin/acra-keymaker --client_id=client_name --generate_acraconnector_keys
+$GOBIN/acra-keymaker --client_id=client_name --generate_acraconnector_keys
 ```
 
 The name of the key should be longer than 5 characters. It is also used as an identifier for the [Secure Session]({{<ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) connection between AcraConnector and AcraServer.
@@ -102,13 +104,13 @@ Now, proceed to [launching AcraConnector]({{< ref "acra/configuring-maintaining/
 By default, AcraConnector is ready to talk to AcraServer. You need to use a one-line command:
 
 ```
-$GOPATH/bin/acra-connector --client_id=client_name --acraserver_connection_host=acra.server.host
+$GOBIN/acra-connector --client_id=client_name --acraserver_connection_host=acra.server.host
 ```
 
 To point AcraConnector to AcraTranslator, configure an appropriate connection host/port/string and mode:
 
 ```
-$GOPATH/bin/acra-connector --client_id=client_name --acratranslator_connection_host=acra.translator.host --mode=acratranslator
+$GOBIN/acra-connector --client_id=client_name --acratranslator_connection_host=acra.translator.host --mode=acratranslator
 ```
 
 For security reasons, consider configuring your firewall to allow the connections only from legit AcraConnector IPs. If an attacker compromises your client application and AcraConnector, filtering IP addresses might prevent DoS.
@@ -120,9 +122,7 @@ You can get more details about AcraConnector configuration [here]({{< ref "acra/
 
 After you have configured AcraConnector, your application can keep using your database handling code as before — all the extra work will now be taken care of by Acra's components.
 
-AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records.
-
-Under the hood, it is basically the [Themis]({{< ref "themis/" >}}) library generating AcraStructs with the keys you've provided to AcraWriter.
+AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records on application side. But get decrypted data you can only with [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra_server.md" >}})/[AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra_translator.md" >}}).
 
 To start protecting your data, pick a place in your code where and integrate AcraWriter library (we support 8 languages, see the [Building AcraWriter for your language]({{< ref "acra/configuring-maintaining/installing/building-acrawriter.md" >}}) section). Don't see your language? Write your own [AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) encrypter, it's easy!
 
@@ -181,7 +181,7 @@ To write AcraStruct with Zone keys, you need to:
 
 There are two ways you can generate the keys:
 
-- First, make sure that you already generated ACRA_MASTER_KEY and out it into an environmental variable, or generate it like this:
+- First, make sure that you already generated master key and exported it as ACRA_MASTER_KEY environmental variable, or generate it like this:
 ```
 export ACRA_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
 ```

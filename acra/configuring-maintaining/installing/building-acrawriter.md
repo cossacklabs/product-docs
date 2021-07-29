@@ -5,7 +5,7 @@ bookCollapseSection: true
 
 ## Building AcraWriter for your language
 
-Acra uses [Themis]({{< ref "themis/" >}}) for performing cryptographic computations. AcraWriter is basically Themis + high level code that generates [AcraStructs]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) from input data and public key.
+Acra uses [Themis]({{< ref "themis/" >}}) for performing cryptographic operations. AcraWriter is essentially a high-level wrapper of Themis (some of its low-level cryptosystems) that generates [AcraStructs]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) from input data and public key.
 
 There are many languages / architectures supported by Themis, and eventually, most of them will support Acra, too.
 
@@ -22,7 +22,7 @@ sudo apt install git make build-essential
 
 **3. Get Acra sources**
 
-For some languages/platforms you can use language specific package manager (Python, Ruby, iOS, Java/Android), but some support installing only from sources (NodeJS, Golang, C++, PHP). For second languages you need to get Acra sources.
+For some languages/platforms you can use language specific package manager (Python, Ruby, iOS<!--, Java/Android-->), but some support installing only from sources (NodeJS, Golang, C++, PHP). For second languages you need to get Acra sources.
 
 ```bash
 git clone https://github.com/cossacklabs/acra.git
@@ -57,7 +57,7 @@ Output
 #### Examples
 [With Zones](https://github.com/cossacklabs/acra/blob/master/examples/python/example_with_zone.py) and [without Zones](https://github.com/cossacklabs/acra/blob/master/examples/python/example_without_zone.py).
 
-A real-world example project that protects Django web application and a set of small Python command-line applications is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#protecting-data-on-django-based-web-site).
+A real-world example project that protects Django web application and a set of small Python command-line applications is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site).
 
 ### Building AcraWriter for Ruby
 
@@ -90,7 +90,7 @@ gem 'activerecord_acrawriter'
 #### Examples
 [With Zones](https://github.com/cossacklabs/acra/blob/master/examples/ruby/example_with_zone.rb) and [without Zones](https://github.com/cossacklabs/acra/blob/master/examples/ruby/example.rb).
 
-A real-world example project that protects Ruby on Rail application is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#protecting-data-in-a-rails-application).
+A real-world example project that protects Ruby on Rails application is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#example-4-protecting-data-in-a-rails-application).
 
 ### Building AcraWriter for Nodejs
 
@@ -176,7 +176,7 @@ ok  	github.com/cossacklabs/acra/acra-writer	0.112s
 
 #### Dependencies
 
-Additionally, install [ThemisPP (Themis C++ wrapper) as system library](https://github.com/cossacklabs/themis/wiki/CPP-Howto) from Themis source folder:
+Additionally, install [ThemisPP (Themis C++ wrapper) as system library](https://docs.cossacklabs.com/themis/languages/cpp/installation/) from Themis source folder:
 
 ```bash
 cd themis
@@ -231,7 +231,7 @@ AcraWriter for iOS supports bitcode and has Themis (and OpenSSL) as dependencies
 Check out the iOS project example using Objective-C in [examples/objc](https://github.com/cossacklabs/acra/tree/master/examples/objc) for generation of an AcraStruct with and without Zones and decrypting them using AcraTranslator via HTTP API.
 
 Check out another iOS project example using Swift in [examples/swift](https://github.com/cossacklabs/acra/tree/master/examples/swift) for generation of an AcraStruct with and without Zones.
-
+<!---
 ### Building AcraWriter for Android
 
 #### Installation
@@ -259,3 +259,4 @@ dependencies {
 #### Android examples and tests
 
 See Android project example in [examples/android_java](https://github.com/cossacklabs/acra/tree/master/examples/android_java) for generating AcraStruct with and without Zones, and decrypting them using AcraTranslator via HTTP API.
+-->
