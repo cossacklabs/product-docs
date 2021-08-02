@@ -38,12 +38,12 @@ Remember to generate `ACRA_MASTER_KEY` and assign it to the environmental variab
 
 #### Set up the environment for AcraServer
 
-On a separate machine, create a user for AcraServer:
+On a separate machine, create a user for AcraServer and make sure your GOBIN is in PATH:
 ```
 sudo useradd -m acra-server
 sudo su acra-server
 cd ~/
-export GOPATH=`pwd`
+export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
 ```
 
 #### Build AcraServer
@@ -60,7 +60,7 @@ Now you can finally launch the AcraServer.
 Running AcraServer is easy, just point it to the database:
 
 ```
-$GOPATH/bin/acra-server --db_host=127.0.0.1
+acra-server --db_host=127.0.0.1
 ```
 
 If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
@@ -77,7 +77,7 @@ Create a user for AcraConnector:
 sudo useradd -m acra-connector
 sudo su acra-connector
 cd ~/
-export GOPATH=`pwd`
+export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
 ```
 
 #### Build AcraConnector
@@ -90,7 +90,7 @@ Put `someid` and `someid_server.pub` keys into .acrakeys directory for AcraConne
 #### Run AcraConnector
 
 ```
-$GOPATH/bin/acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
+acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
 ```
 
 If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
