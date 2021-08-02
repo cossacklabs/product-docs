@@ -73,7 +73,7 @@ where you can see the data fields:
 
 ## Reference implementation
 
-[On GitHub](https://github.com/cossacklabs/product-docs/blob/master/themis/spec/common/soter-container.go)
+[On GitHub](https://github.com/cossacklabs/themis/blob/master/docs/reference-implementation/soter/soter-container.go)
 you can find a reference implementation of Soter container in Go.
 
 For example, here is how it works with the example data from above:
@@ -86,7 +86,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/cossacklabs/product-docs/themis/spec/common"
+	"github.com/cossacklabs/themis/docs/reference-implementation/soter"
 )
 
 func main() {
@@ -96,7 +96,7 @@ func main() {
 	fmt.Printf("Soter container:\n")
 	fmt.Printf("%s\n", hex.Dump(containerBytes))
 
-	container, _ := common.ParseSoterContainer(containerBytes)
+	container, _ := soter.ParseSoterContainer(containerBytes)
 
 	fmt.Printf("container tag:  %s\n", container.Tag())
 	fmt.Printf("CRC checksum:   %x\n", container.Checksum())
