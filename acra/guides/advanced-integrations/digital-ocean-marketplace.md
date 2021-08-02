@@ -15,7 +15,7 @@ Acra 1-Click App contains AcraServer, which can work in different modes, dependi
 
 You can configure AcraServer yourself or try it with pre-configured settings. Acra 1-Click App has an interactive configuration script that prepares AcraServer for work as a Transparent encryption proxy with a PostgreSQL database.
 
-With DigitalOcean Acra 1-Click App, you get Acra Community Edition which is totally free. Acra is [also available as paid Acra Pro and Acra Enterprise versions](https://www.cossacklabs.com/acra/#pricing) with additional features and extended support.
+With DigitalOcean Acra 1-Click App, you get Acra Community Edition which is totally free. Acra is [also available as paid Acra Enterprise versions](https://www.cossacklabs.com/acra/#pricing) with additional features and extended support.
 
 To use Acra 1-Click App in a production setting, you need to configure it for your exact situation and needs (generate your own keys, connect to your own database, use strong TLS, configure the SQL firewall, preferably use client-side encryption).
 

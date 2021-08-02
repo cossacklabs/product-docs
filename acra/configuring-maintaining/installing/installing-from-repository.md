@@ -35,12 +35,18 @@ deb https://pkgs.cossacklabs.com/stable/$OS $RELEASE main
 
 We currently build packages for the following OSs and RELEASE combinations:
 
-- *CentOS 7*,
+- *Debian "Wheezy" (Debian 7)*,
 - *Debian "Jessie" (Debian 8)*,
 - *Debian "Stretch" (Debian 9)*,
+- *Debian "Buster" (Debian 10)*,
+- *Trusty Precise Pangolin (Ubuntu 12.04)*.
+- *Trusty Trusty Tahr (Ubuntu 14.04)*.
 - *Ubuntu Xenial Xerus (Ubuntu 16.04)*,
+- *Ubuntu Yakkety Yak (Ubuntu 16.10)*.
+- *Ubuntu Zesty Zapus (Ubuntu 17.04)*.
 - *Ubuntu Artful Aardvark (Ubuntu 17.10)*,
 - *Ubuntu Bionic Beaver (Ubuntu 18.04)*.
+- *Ubuntu Focal Fossa (Ubuntu 20.04)*.
 
 For example, if you are running *Debian 9 "Stretch"*, run:
 
@@ -86,3 +92,5 @@ sudo yum install acra
 ```
 
 That's it! You've successfully installed Acra from the Cossack Labs repository.
+    
+Now try accessing your database via AcraConnector/AcraServer to make sure that everything actually works after installation.

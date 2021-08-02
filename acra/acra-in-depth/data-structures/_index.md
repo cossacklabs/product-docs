@@ -5,22 +5,22 @@ bookCollapseSection: true
 
 ## AcraBlock
 
-### Container structure
-
-AcraBlock is a container format. Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). AcraBlock uses AES-GCM for both encryption procedures.
+AcraBlock is a cryptographic container which is more compact than AcraStruct. Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). AcraBlock uses AES-GCM for both encryption procedures.
 
 AcraBlock supports key rotation: it's possible to rotate only KEK without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
 
-To generate AcraBlocks Acra-Server uses symmetric keys generated for every ClientID/ZoneID.
+### Container structure
+
+To generate AcraBlocks AcraServer uses symmetric keys generated for every ClientID/ZoneID.
 
 `AcraBlock = Begin_Tag + Rest_AcraBlock_Length + Key_Encryption_Backend_Identifier + Key_Encryption_Key_ID + Data_Encryption_Backend_Identifier + Data_Encryption_Key_Length + Encrypted_Data_Encryption_Key + Encrypted_Data`
 * `Begin_Tag[4]` - 4 bytes, header tag. Contains 4 bytes with byte value = 34: [34, 34, 34, 34].
 * `Rest_AcraBlock_Length[8]` - 8 bytes in Little-Endian byte order that store length of whole AcraBlock excluding length of Begin_Tag.
 * `Key_Encryption_Backend_Identifier[1]` - identifier of encryption backend used to encrypt DEK which is random symmetric key. For now AcraBlock supports only one backend that uses Themis Secure Cell in Seal mode with identifier `0` and may be changed.
-* `Key_Encryption_Key_ID[2]` - this field stores KEK's identifier. Main goal of this ID is to simplify search of KEK in a keychain related to specific ClientID/ZoneID. Now Acra-Server generates ID by hashing with `SHA256(KEK || ClientID/ZoneID)` and uses first 2 bytes as ID.
+* `Key_Encryption_Key_ID[2]` - this field stores KEK's identifier. Main goal of this ID is to simplify search of KEK in a keychain related to specific ClientID/ZoneID. Now AcraServer generates ID by hashing with `SHA256(KEK || ClientID/ZoneID)` and uses first 2 bytes as ID.
 * `Data_Encryption_Backend_Identifier[1]` -  identifier of encryption backend used to encrypt plaintext. For now AcraBlock supports only one backend that uses Themis Secure Cell in Seal mode with identifier `0`. Same as for DEK encryption and may be changed too.
 * `Data_Encryption_Key_Length[2]` - 2 bytes of DEK's length in Little-Endian byte order. Key size should be synchronized with data encryption backend.
-* `Encrypted_Data_Encryption_Key[*]` - encrypted DEK of size `Data_Encryption_Key_Length`, used to encrypt data and data encryption backend. For each new AcraBlock Acra-Server generates new random DEK and encrypts with DEK encryption backend and Context (ClientID/ZoneID).
+* `Encrypted_Data_Encryption_Key[*]` - encrypted DEK of size `Data_Encryption_Key_Length`, used to encrypt data and data encryption backend. For each new AcraBlock AcraServer generates new random DEK and encrypts with DEK encryption backend and Context (ClientID/ZoneID).
 * `Encrypted_Data[*]` encrypted data with data encryption backend and random DEK.
 
 Now exists only one key and data decryption backends that use Secure Cell in Seal Mode.
@@ -31,6 +31,8 @@ Available **key** encryption backends and their identifiers:
 Available **data** encryption backends and their identifiers:
 * `Secure Cell in Seal Mode` - `0`
 
+
+### Example
 
 AcraBlock example for plaintext: `example`:
 
@@ -49,7 +51,7 @@ AcraBlock example for plaintext: `example`:
 
 ### Generation
 
-To generate AcraBlock in transparent mode Acra-Server performs following steps:
+To generate AcraBlock in transparent mode AcraServer performs following steps:
 1. Generates new random DEK for default data encryption backend. DEK length is 32 bytes.
 2. Encrypts plaintext with DEK and Context of specified ClientID/ZoneID using default backend for data encryption.
 3. Securely cleans up memory of plaintext data (erases/fills with zeros).
@@ -61,8 +63,8 @@ To generate AcraBlock in transparent mode Acra-Server performs following steps:
 
 1. Validates Begin_Tag.
 2. Validates length of rest of AcraBlock.
-3. Extracts KEK backend identifier and validates, checks that this identifier is registered in Acra-Server.
-4. Extracts data encryption backend identifier and validates, checks that this identifier is registered in Acra-Server.
+3. Extracts KEK backend identifier and validates, checks that this identifier is registered in AcraServer.
+4. Extracts data encryption backend identifier and validates, checks that this identifier is registered in AcraServer.
 5. Extracts length of DEK.
 6. Extracts DEK.
 7. Iterates over KEKs (passed from KeyStore) for decryption and search correct for DEK decryption.
@@ -83,6 +85,8 @@ AcraStruct is a cryptographic container with specific format. Before generating 
 - `Encrypted_Random_Key[84]` — encrypted Random Key by using SMessage (see next);
 - `Data_Length[8]` — length of the Encrypted data (see next);
 - `Encrypted_Data[Data_Length]` — payload encrypted with Random Key.
+
+### Example
 
 AcraStruct example for plaintext: `example`:
 
@@ -110,7 +114,7 @@ AcraWriter is used to generate AcraStruct, but the generation process is quite s
 - Connects attributes together as described in the original formula.
 - Erases/fills with zeros the memory area containing the `Throwaway_Keypair` and original payload.
 
-We recommend you to check out AcraStruct [examples](https://github.com/cossacklabs/acra/tree/master/examples) and try the [⚙️Acra Engineering Demo⚙️](https://github.com/cossacklabs/acra-engineering-demo/#what-is-this).
+We recommend you to check out the process of creating the AcraStruct in [examples](https://github.com/cossacklabs/acra/tree/master/examples) and try the [⚙️Acra Engineering Demo⚙️](https://github.com/cossacklabs/acra-engineering-demo/#what-is-this).
 
 You can check your own AcraWriter implementation with our online [AcraStruct validator]({{< ref "acra/acra-in-depth/data-structures/acrastruct-validator.md" >}}) and try to decrypt generated AcraStructs.
 

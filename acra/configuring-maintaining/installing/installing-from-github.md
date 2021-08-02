@@ -32,7 +32,7 @@ sudo make install
 go get github.com/cossacklabs/acra/cmd/acra-keymaker
 ```
 
-Then generate the [keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}) and distribute them across the infrastructure.
+Then [generate the keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}) and distribute them across the infrastructure.
 
 Remember to generate `ACRA_MASTER_KEY` and assign it to the environmental variable!
 
@@ -63,7 +63,7 @@ Running AcraServer is easy, just point it to the database:
 $GOPATH/bin/acra-server --db_host=127.0.0.1
 ```
 
-If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step]({{< ref "acra/configuring-maintaining/installing/installing-from-github.md" >}}).
+If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
 
 > You can complement the command above with `--db_port=5432 -v` to adjust the listener port and add logs to get going quickly. For all the available CLI parameters, refer to the corresponding section in [How AcraServer works]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#acraserver-cli-reference-INVALID" >}}).
 
@@ -93,6 +93,6 @@ Put `someid` and `someid_server.pub` keys into .acrakeys directory for AcraConne
 $GOPATH/bin/acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
 ```
 
-If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step]({{< ref "acra/configuring-maintaining/installing/#build-the-key-generator-and-generate-the-keys" >}}).
+If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
 
-AcraConnector is now listening on the localhost port **9494**.
+AcraConnector is now listening on the localhost port **9494**. Now try accessing your database via AcraConnector to make sure that everything actually works after installation.

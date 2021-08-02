@@ -40,7 +40,7 @@ If you don't have access to your AcraServer and private keys, use our keys:
 **2.** If you are using Zone, paste ZoneID as well.  
 ![](/files/acrastruct/validation-form-with-zone.png)
 
-If you have access to private keys, use your own keys. To enter the mode of using your own keys, click the blue selector switch and make sure it has turned from blue to green:
+If you wish to use your own private keys, click the blue selector switch and make sure it has turned from blue to green:
 
 ![](/files/acrastruct/validation-form-own-keys.png)
 

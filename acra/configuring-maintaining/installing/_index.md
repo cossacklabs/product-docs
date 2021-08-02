@@ -13,10 +13,10 @@ Installing Acra is fairly simple:
 
 ### Requirements
 
-- Your application written in Ruby, Python, Go, C++, Node.js, PHP, Objective-C/Swift (iOS), or Java (Android).
-- Your application talking to PostgreSQL or MySQL database via your preferred ORM. During the setup of Acra, you will redirect your application to talk to Acra instead.
+- Your application is written in Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (Android).
+- Your application talks to PostgreSQL or MySQL database via your preferred ORM. During the setup of Acra, you will redirect your application to talk to Acra instead.
 - Use of TLS to access Acra and the database (our strong recommendation). You might need to configure a TLS certificate for Acra. Otherwise, you'll set up an encrypted transport layer using AcraConnector and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}).
-- [AcraWriter]({{< ref "acra/acra-in-depth/security-design/#acrawriter-INVALID" >}}) library installed for your application that will encrypt the data inside your app ("client side encryption"). AcraWriter uses [Themis]({{< ref "themis" >}}) and OpenSSL/BoringSSL as dependencies. If you prefer "transparent encryption proxy" mode, no additional libraries will be necessary for your app.
+- [AcraWriter]({{< ref "acra/acra-in-depth/security-design/#acrawriter-INVALID" >}}) library is installed for your application that will encrypt the data inside your app ("client side encryption"). AcraWriter uses [Themis]({{< ref "themis/installation/" >}}) and OpenSSL/BoringSSL as dependencies. If you prefer "transparent encryption proxy" mode, no additional libraries will be necessary for your app.
 - If you're installing Acra on your server manually from the [GitHub repository](https://github.com/cossacklabs/acra), you need to have Themis' dependencies and `libssl-dev` package installed. Also, make sure that `libcrypto.so` is available in `$PATH`.
 
 > Note: Read the documentation before starting out with Acra! There are some fundamental concepts that we highly advise you to understand before you proceed. Pay special attention to the [Architecture]({{< ref "acra/acra-in-depth/data-flow/#-INVALID" >}}).
