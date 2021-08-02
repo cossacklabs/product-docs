@@ -36,7 +36,7 @@ So store the private keys safely as well!
 We recommend storing private keys and the master key in a reliable place (e.g., KMS, HSM).
 [Acra Enterprise Edition](https://www.cossacklabs.com/acra/#pricing) supports many popular KMS solutions.
 
-Acra Pro and Acra EE users have a chance to retrieve their public keys
+Acra EE users have a chance to retrieve their public keys
 if you still have your private keys and master keys.
 If you’ve encountered such a problem, please [contact us](mailto:dev@cossacklabs.com).
 
