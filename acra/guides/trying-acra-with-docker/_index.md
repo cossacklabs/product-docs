@@ -9,7 +9,7 @@ You can use containers with Acra. Acra works well with [Docker](https://www.dock
 
 This is why this document is called "Trying Acra with Docker", not "Using Acra with Docker in a Production Setting".
 
-### Precautions
+## Precautions
 
 Storing keys safely when using Docker is problematic. Docker is immutable while [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management#zones-INVALID" >}})/[keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management#-INVALID" >}}) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers. There are multiple ways to solve this problem and it will be addressed in a convenient and secure fashion in the future releases of Acra.
 
@@ -19,7 +19,7 @@ The following example relies on pre-made config files and pre-made examples. The
 
 Our Docker Compose files were created using v3 compose file format. Please check your docker engine and Docker Compose versions in the [docker official compatibility table](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix).
 
-### Download Acra
+## Download Acra
 
 ```bash
 git clone https://github.com/cossacklabs/acra
@@ -27,7 +27,7 @@ cd acra
 ```
 
 
-### Quick launch!
+## Quick launch!
 
 > WARNING! Do not use these configurations to store sensitive data! It is dangerous! They are meant for test-driving purposes only!
 
@@ -51,9 +51,9 @@ Now you can connect to (you can see the default DB name and credentials inside t
 | 3306/tcp | MySQL                        | MySQL                                   |
 
 
-### Normal launch
+## Normal launch
 
-#### Description of components
+### Description of components
 
 There are several different dockerfiles in `docker` subdirectory:
 
@@ -93,7 +93,7 @@ All docker images have tags. When we build them, we set appropriate tags for eac
 
 An image usually has two (commit, version) or four (+ branch, latest/current) tags.
 
-#### Compose files
+### Compose files
 
 We want you to be able to easily try the most useful schemes that we prepared as Docker Compose files in the `docker` subdirectory. The name of each Docker Compose file describes its components and their interconnections in a simple form. For example: `docker-compose.pgsql-nossl-server-ssession-proxy.yml` is a scheme with Postgresql DB, AcraServer, and AcraConnector, connected to AcraServer through the Secure Session link.
 
