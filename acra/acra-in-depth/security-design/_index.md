@@ -96,20 +96,20 @@ The most dangerous current known security threats are:
 - Operational system vulnerabilities.
 - Unsafe handling of cryptographic keys.
 
-### Conditions of secure work
+### Security assumptions
 Acra can perform its protective functions properly and protect from the security threats 1, 2, 3 if the following security assumptions are met:
 - The PKI infrastructure is trusted;
 - AcraServer is trusted;
 - The client is less trusted than the server.
 
-### Possible consequences of compromisation
-Let’s consider all the possible consequences of any of separate component being broken (broken as in “fully compromised” when the adversary fully overtakes the work of the component and gains full access to its memory).
+### Possible consequences of security incident
+Let’s consider possible consequences of any of separate component being broken (broken as in “fully compromised” when the adversary fully overtakes the work of the component and gains full access to its memory).
 
 When a *Database* is broken into, the worst-case scenario is DoS or COA (ciphertext-only attack). Thus, the stability of the system, in this case, is reduced to the stability of the symmetric encryption algorithm (AES-GCM-256).
 When the *Client* gets broken, the worst-case scenario is that the adversary can get the data belonging to this client, which is stored in the database.
 And finally, if AcraServer gets broken, the adversary can fully compromise the system.
 
-It is worth mentioning that in absence of PKI, the communication channel between the Client and AcraServer is also vulnerable. In this case, the resistance ability of the system comes down to the security of the SSL/TLS or Themis’ Secure Session protocols. In all the other communication channels the data is encrypted so, in the worst case (when SSL/TLS is not used) the security of the system comes down to the security of the symmetric encryption algorithm (AES-GCM-256).
+It is worth mentioning that in absence of PKI, the communication channel between the Client and AcraServer is also vulnerable. In this case, the resistance ability of the system comes down to the security of the TLS or Themis’ Secure Session protocols. In all the other communication channels the data is encrypted so, in the worst case (when TLS is not used) the security of the system comes down to the security of the symmetric encryption algorithm (AES-GCM-256).
 
 ### Additional reading
 
@@ -144,7 +144,7 @@ The digital certificate is signed by the CA and contains the information about a
 Note: The CA issues certificate for its own public key, which is why it is considered to be the main point of trust: both the User and the Relying Party trust the CA, while the User and the Relying Party do not trust each other.
 {{< /hint >}}
 
-The main point that should be kept in mind is that if you use a free-for-all communication infrastructure (e.g. the Internet), some primary security layer (PSL) that involves a PKI (e.g. Virtual Private Network (VPN)) has to be deployed (e.g. VPN). This PSL will provide a strong authentication between components (e.g. the database, [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) in Acra’s context) inside the organisational infrastructure.
+The main point that should be kept in mind is that if you use a free-for-all communication infrastructure (e.g. the Internet), some primary security layer (PSL) that involves a PKI has to be deployed (e.g. VPN). This PSL will provide a strong authentication between components (e.g. the database, [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) in Acra’s context) inside the organisational infrastructure.
 
 The next step after deploying the PSL is the deployment of Acra. Note that even if there is an existing PSL present, a secure deployment of Acra requires the delivery of secret keys to the target components (in [Docker containers]({{< ref "acra/guides/trying-acra-with-docker/" >}})). The best practices for solving this task are provided below:
 
@@ -152,11 +152,11 @@ The next step after deploying the PSL is the deployment of Acra. Note that even 
 
 - **Files** — many technologies of secrets’ deployment  use the transfer of secrets in the file format to the app - both for infrastructure management systems and container orchestration systems. This method is usually implemented through a regular creation of files containing secrets (at the moment deployment or by daemons of the key distribution systems), or through mounting from the host system inside a container or virtual file system mounting (Swarm, Kubernetes). The pros and cons and the same as in the variant with the environment variables, with some specifics depending on the exact implementation.
 
-- **URI / REST API** — another rather common way based on cloud services like AWS, Azure, DO, etc. The main disadvantage of this approach is its price.
+- **URI / REST API** — another rather common way based on cloud services like AWS, Azure, DO, etc. The main disadvantage of this approach is its price. Cloud KMS also often use REST API to delivery secrets.
 
-- **Libs** — usually implemented using the supplied libraries. They are offered by AWS, Azure, etc., to enable the work with their KMS clouds. The standard de-facto approach here is Vault integrated with numerous applications.
+- **KMS** — usually implemented using the supplied libraries of KMS providers. They are offered by AWS, Azure, etc., to enable the work with their KMS clouds. The standard de-facto approach here is HashiCorp Vault integrated with numerous applications.
 
-Acra currently supports secret delivery of keys via environment variables since this is the simplest and the most reliable way.
+Acra supports several ways of delivering keys – direct connection to HashiCorp Vault; delivery via environment variables.
 
 ### Additional recommended reading
 
