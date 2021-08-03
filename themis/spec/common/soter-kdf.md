@@ -62,7 +62,7 @@ and if they are shorter, they are padded with zeros before being added up with X
 
 ## Reference implementation
 
-[On GitHub](https://github.com/cossacklabs/product-docs/blob/master/themis/spec/common/soter-kdf.go)
+[On GitHub](https://github.com/cossacklabs/themis/blob/master/docs/reference-implementation/soter/soter-kdf.go)
 you can find a reference implementation of Soter KDF in Go.
 
 ## Example
@@ -76,7 +76,7 @@ import (
 	"encoding/hex"
 	"fmt"
 
-	"github.com/cossacklabs/product-docs/themis/spec/common"
+	"github.com/cossacklabs/themis/docs/reference-implementation/soter"
 )
 
 func main() {
@@ -90,13 +90,13 @@ func main() {
 
 	fmt.Println("With explicit input key:")
 	// d5f5be45fd6eab6dcbf93c21c3d2d1e3e888fa20ef38f2f4a121c196382342dd
-	outputKey = common.SoterKDF(inputKey, label, 32, context...)
+	outputKey = soter.SoterKDF(inputKey, label, 32, context...)
 	fmt.Println(hex.EncodeToString(outputKey))
 	fmt.Println()
 
 	fmt.Println("With implicit input key:")
 	// cf9846b8026c5b76a0641aa85f4152ff02c15ad45b726c6e578be52afdfd6930
-	outputKey = common.SoterKDF(nil, label, 32, context...)
+	outputKey = soter.SoterKDF(nil, label, 32, context...)
 	fmt.Println(hex.EncodeToString(outputKey))
 }
 ```

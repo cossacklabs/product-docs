@@ -9,7 +9,7 @@ You can use containers with Acra. Acra works well with [Docker](https://www.dock
 
 This is why this document is called "Trying Acra with Docker", not "Using Acra with Docker in a Production Setting".
 
-### Precautions
+## Precautions
 
 Storing keys safely when using Docker is problematic. Docker is immutable while [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management#zones-INVALID" >}})/[keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management#-INVALID" >}}) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers. There are multiple ways to solve this problem and it will be addressed in a convenient and secure fashion in the future releases of Acra.
 
@@ -19,7 +19,7 @@ The following example relies on pre-made config files and pre-made examples. The
 
 Our Docker Compose files were created using v3 compose file format. Please check your docker engine and Docker Compose versions in the [docker official compatibility table](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix).
 
-### Download Acra
+## Download Acra
 
 ```bash
 git clone https://github.com/cossacklabs/acra
@@ -27,14 +27,14 @@ cd acra
 ```
 
 
-### Quick launch!
+## Quick launch!
 
 > WARNING! Do not use these configurations to store sensitive data! It is dangerous! They are meant for test-driving purposes only!
 
 All that you need for your first try of Acra is to launch the selected scheme from the `docker` subdirectory:
 
 ```bash
-docker-compose -f docker/<compose_file_name>.yml up
+docker-compose -f docker/docker-compose.pgsql-ssl-server-ssl-connector.yml up
 ```    
 
 This will create `docker/.acrakeys` directory structure, generate all the key pairs, put them into appropriate directories, create DB, add DB user, grant appropriate privileges and launch all the components.
@@ -51,17 +51,17 @@ Now you can connect to (you can see the default DB name and credentials inside t
 | 3306/tcp | MySQL                        | MySQL                                   |
 
 
-### Normal launch
+## Normal launch
 
-#### Description of components
+### Description of components
 
 There are several different dockerfiles in `docker` subdirectory:
 
-* `acra-authmanager.dockerfile` – resulting image with AcraAuthmanager tool
-* `acra-connector.dockerfile` – resulting image with AcraConnector
-* `acra-server.dockerfile` – resulting image with AcraServer
-* `acra-keymaker.dockerfile` – resulting image with AcraKeymaker tool
-* `acra-webconfig.dockerfile` – resulting image with AcraWebconfig component
+* `acra-authmanager.dockerfile` – with AcraAuthmanager tool
+* `acra-connector.dockerfile` – with AcraConnector
+* `acra-server.dockerfile` – with AcraServer
+* `acra-keymaker.dockerfile` – with AcraKeymaker tool
+* `acra-webconfig.dockerfile` – with AcraWebconfig component
 * `acra-build.dockerfile` – intermediate image for compiling all the Acra components
 * `mysql-nossl.dockerfile` – MySQL server container with disabled SSL
 * `mysql-ssl.dockerfile` – MySQL server container with example SSL certificates (located at ssl/mysql directory)
@@ -83,7 +83,7 @@ After that step, you'll get the described above pre-built images (intermediate `
 
 All docker images have tags. When we build them, we set appropriate tags for each image:
 
-* sliding tags:
+* rolling tags:
     - `stable` and `latest` - stable branch, recommended, default;
     - `master` and `current` - master branch of GitHub repository.
 
@@ -93,19 +93,18 @@ All docker images have tags. When we build them, we set appropriate tags for eac
 
 An image usually has two (commit, version) or four (+ branch, latest/current) tags.
 
-#### Compose files
+### Compose files
 
-We wanted you to be able to easily try the most useful schemes that we prepared as Docker Compose files in the `docker` subdirectory. The name of each Docker Compose file describes its components and their interconnections in a simple form. For example: `docker-compose.pgsql-nossl-server-ssession-proxy.yml` is a scheme with Postgresql DB, AcraServer, and AcraConnector, connected to AcraServer through the Secure Session link.
+We want you to be able to easily try the most useful schemes that we prepared as Docker Compose files in the `docker` subdirectory. The name of each Docker Compose file describes its components and their interconnections in a simple form. For example: `docker-compose.pgsql-nossl-server-ssession-proxy.yml` is a scheme with Postgresql DB, AcraServer, and AcraConnector, connected to AcraServer through the Secure Session link.
 
 The examples contain references to `acra-keymaker` and `acra-authmanager` containers inside. They are used for creation and distribution of the necessary keys. They were included for simplification of the test launch and should not be used in production schemes (where the keys should be generated manually and deployed to an appropriate host according to the security rules of your infrastructure).
 
-Check out the [docker/README](https://github.com/cossacklabs/acra/blob/master/docker/README.md) for examples and descriptions of compose files.
+Check out the [docker folder](https://github.com/cossacklabs/acra/blob/master/docker) for examples of compose files.
 
 Most likely you would like to set some variables before launch.
 
 Please set `ACRA_MASTER_KEY` environmental variable, or check [KeyManagement]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) page for more details:
 ```bash
-
 export ACRA_SERVER_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
 export ACRA_CONNECTOR_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
 ```
@@ -159,7 +158,7 @@ Now you can run `docker-compose`:
     docker-compose -f docker/<compose_file_name> up
 ```
 
-And connect to ports described above.
+And connect to ports [described above](#quick-launch).
 
 ## Example application
 
@@ -208,7 +207,7 @@ sudo chown $(whoami) -R docker/.acrakeys
 
 ```bash
 python examples/python/example_without_zone.py \
---public_key=docker/.acrakeys/acra-writer/${ACRA_CLIENT_ID}_storage.pub \
+    --public_key=docker/.acrakeys/acra-writer/${ACRA_CLIENT_ID}_storage.pub \
     --db_user=${POSTGRES_USER} \
     --db_password=${POSTGRES_PASSWORD} \
     --host=127.0.0.1 \
