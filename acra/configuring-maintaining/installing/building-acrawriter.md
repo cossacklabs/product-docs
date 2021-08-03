@@ -3,11 +3,33 @@ title: Building and installing AcraWriter
 bookCollapseSection: true
 ---
 
-## Building AcraWriter for your language
+# AcraWriter
+
+AcraWriter wraps plaintext data into encrypted [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) – cryptographic containers used by Acra.
+You pass your input data and AcraServer's public key to AcraWriter and it returns you encrypted AcraStruct that will be stored in the database.
+Once you encrypt data with AcraWriter, only the AcraServer will be able to decrypt it.
+
+AcraWriter (and Acra) use [Themis]({{< ref "/themis/" >}}) cryptographic library.
+Essentially, AcraWriter is a high-level wrapper around Themis, using its cryptosystems to generate AcraStructs.
+
+Themis is highly portable and supports many platforms and languages.
+At the moment, AcraWriter supports only some of these platforms:
+
+- Android apps written in Kotlin, Java
+- iOS apps written in Swift, Objective-C
+- desktop apps in a variety of languages:
+    - C++
+    - Node.js
+    - PHP
+    - Python
+    - Ruby
+    
+
+## Installing AcraWriter for your language
 
 Acra uses [Themis]({{< ref "themis/" >}}) for performing cryptographic operations. AcraWriter is essentially a high-level wrapper of Themis (some of its low-level cryptosystems) that generates [AcraStructs]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) from input data and public key.
 
-There are many languages / architectures supported by Themis, and eventually, most of them will support Acra, too.
+There are many languages / architectures supported by Themis, and eventually, most of them will support AcraWriter, too.
 
 ### Common steps for all languages
 
@@ -22,14 +44,14 @@ sudo apt install git make build-essential
 
 **3. Get Acra sources**
 
-For some languages/platforms you can use language specific package manager (Python, Ruby, iOS<!--, Java/Android-->), but some support installing only from sources (NodeJS, Golang, C++, PHP). For second languages you need to get Acra sources.
+For some languages/platforms you can use language specific package manager (Python, Ruby, iOS<!--, Java/Android-->), but some support installing only from sources (Node.js, Golang, C++, PHP). For second languages you need to get Acra sources.
 
 ```bash
 git clone https://github.com/cossacklabs/acra.git
 cd acra
 ```
 
-### Building AcraWriter for Python
+### Installing AcraWriter for Python
 
 > Before building AcraWriter for Python, make sure you've installed [Themis as system library]({{< ref "themis/installation/" >}})!
 
@@ -59,7 +81,7 @@ Output
 
 A real-world example project that protects Django web application and a set of small Python command-line applications is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site).
 
-### Building AcraWriter for Ruby
+### Installing AcraWriter for Ruby
 
 > Before building AcraWriter for Ruby, make sure you've installed [Themis as system library]({{< ref "themis/installation/" >}})!
 
@@ -81,7 +103,7 @@ Finished in 0.003829s, 261.1501 runs/s, 0.0000 assertions/s.
 1 runs, 0 assertions, 0 failures, 0 errors, 0 skips
 ```    
 
-#### AcraWriter supports ActiveDirectory
+#### AcraWriter supports ActiveRecord
 
 ```
 gem 'activerecord_acrawriter'
@@ -92,21 +114,17 @@ gem 'activerecord_acrawriter'
 
 A real-world example project that protects Ruby on Rails application is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#example-4-protecting-data-in-a-rails-application).
 
-### Building AcraWriter for Nodejs
+### Installing AcraWriter for Node.js
 
-> Before building AcraWriter for NodeJS, make sure you've installed [Themis as system library]({{< ref "themis/installation/" >}})!
+> Before building AcraWriter for Node.js, make sure you've installed [Themis as system library]({{< ref "themis/installation/" >}})!
 
 #### Installation
 ```bash
-sudo apt install node npm
-sudo apt install nodejs-legacy
-sudo npm install -g npm
-cd wrappers/nodejs
-npm install nan
-npm install
+npm install acrawriter
 ```
 #### Testing
 ```
+cd node_modules/acrawriter/
 node test.js
 ```
 Output
@@ -122,16 +140,13 @@ work
 
 #### Installation
 
-```bash
-sudo apt install php5 php5-dev
-cd themis
-sudo make phpthemis_install
-# extension=phpthemis.so
-sudo nano /etc/php5/cli/php.ini
-# check that extension is available
-php --ri phpthemis
-cd -
-```
+Install [phpthemis extension]({{< ref "/themis/languages/php/installation.md#building-latest-version-from-source" >}})
+
+{{< hint info >}}
+AcraWriter for PHP is currently not packaged because requires a binary extension. It is available only in source form and supports only PHP 5 & 7 versions
+{{< /hint >}}
+
+
 #### Testing
 ```bash
 php acra/wrappers/php/test.php
@@ -140,23 +155,19 @@ Output
 ```
 work
 ```
-Now use `acra/wrappers/php/acrawriter.php` in your project. In future
-`acrawriter` will contain composer.json and will be added to packagist.
+Now use `acra/wrappers/php/acrawriter.php` in your project. 
 
 #### Examples
 [With Zones](https://github.com/cossacklabs/acra/blob/master/examples/php/example_with_zone.php) and [without Zones](https://github.com/cossacklabs/acra/blob/master/examples/php/example.php)
 
-### Building AcraWriter for Go
+### Installing AcraWriter for Go
 
 > Before building AcraWriter for Go, make sure you've installed [Themis as system library]({{< ref "themis/installation/" >}})!
 
 #### Installation
-```bash
-sudo apt install golang
-# leave your GOPATH or set some
-export GOPATH=$HOME/work
-go get github.com/cossacklabs/acra/acra-writer
-```   
+
+* Install [GoThemis]({{< ref "/themis/languages/go/installation.md" >}})
+* Run `go get github.com/cossacklabs/acra/acra-writer`
 
 #### Testing
 ```
@@ -176,13 +187,7 @@ ok  	github.com/cossacklabs/acra/acra-writer	0.112s
 
 #### Dependencies
 
-Additionally, install [ThemisPP (Themis C++ wrapper) as system library](https://docs.cossacklabs.com/themis/languages/cpp/installation/) from Themis source folder:
-
-```bash
-cd themis
-make themispp_install
-cd -
-```
+Install [ThemisPP (Themis C++ wrapper) as system library](https://docs.cossacklabs.com/themis/languages/cpp/installation/)
 
 #### Installation
 
@@ -214,7 +219,7 @@ target_link_libraries(my_project themis crypto)
 See CLion project example in [examples/cpp](https://github.com/cossacklabs/acra/tree/master/examples/cpp) for generating AcraStruct with and without Zones, and tests.
 
 
-### Building AcraWriter for iOS
+### Installing AcraWriter for iOS
 
 #### Installation via CocoaPods
 
@@ -230,7 +235,7 @@ AcraWriter for iOS supports bitcode and has Themis (and OpenSSL) as dependencies
 
 Check out the iOS project example using Objective-C in [examples/objc](https://github.com/cossacklabs/acra/tree/master/examples/objc) for generation of an AcraStruct with and without Zones and decrypting them using AcraTranslator via HTTP API.
 
-Check out another iOS project example using Swift in [examples/swift](https://github.com/cossacklabs/acra/tree/master/examples/swift) for generation of an AcraStruct with and without Zones.
+Check out another iOS project example using Swift in [examples/swift](https://github.com/cossacklabs/acra/tree/master/examples/swift) for generation of an AcraStruct with and without Zones. For decryption please use [Objective-C](https://github.com/cossacklabs/acra/tree/master/examples/objc) example.
 <!---
 ### Building AcraWriter for Android
 

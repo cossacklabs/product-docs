@@ -26,64 +26,44 @@ This enforces maximum secrecy, employing authentication that is easy to manage (
 
 ### Getting started with AcraConnector
 
-#### Method 1A. Launch AcraConnector using Docker (the fastest way to try AcraConnector)
-> Note: Using Docker is recommended for testing purposes only. Please don't rely on Docker in real-life production settings.    
-> Note: The following examples focus on using AcraConnector and AcraWriter with PostgreSQL, but Acra also supports MySQL.
+{{< hint info >}}
+Note: The following examples focus on using AcraConnector and AcraWriter with PostgreSQL, but Acra also supports MySQL.
+{{< /hint >}}
 
-Clone the Acra repository, build images, and start provided Docker Compose file with PostgreSQL, AcraServer, AcraConnector, and Secure Session between them:
+#### Method 1A. Launch AcraConnector using Docker (the fastest way to try AcraConnector)
+{{< hint warning >}}
+Note: These Docker Compose files are recommended for testing purposes only. Please don't rely on them in real-life production settings.
+{{< /hint >}}
+
+Start provided Docker Compose file with PostgreSQL, AcraServer, AcraConnector, and Secure Session between them:
 
 ```
 git clone https://github.com/cossacklabs/acra.git
-make docker
-docker-compose -f docker-compose.pgsql-nossl-server-ssession-connector.yml up
+docker-compose -f acra/docker/docker-compose.pgsql-nossl-server-ssession-connector.yml up
 ```
 
 After running this command, the basic infrastructure is all set up, all components are connected, and the keys are distributed into the appropriate folder.
-
-Now, proceed to step [launching AcraConnector]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector.md#launching-acraconnector-INVALID" >}}).
-Or install AcraConnector manually.
+Now, proceed to the [Launching AcraConnector](#launching-acraconnector) section.
 
 #### Method 1B. Manual launch
 
 > Note: Skip this if you've used the Docker method described above.
 
-- Install dependencies: [Themis]({{< ref "/themis/installation/" >}}) cryptographic library:
-
-```
-git clone https://github.com/cossacklabs/themis.git
-cd themis
-make
-sudo make install
-```
-
-- Install AcraConnector:
-
-```
-go get github.com/cossacklabs/acra/cmd/acra-connector
-```
-
-> Note: Hereinafter all the commands starting with 'go' are meant to be executed from the 'acra' folder (the folder with the repository code).
-
-- Install key generation utility:
-
-```
-go get github.com/cossacklabs/acra/cmd/acra-keymaker
-```
+- Install dependencies: [Themis]({{< ref "/themis/installation/" >}}) cryptographic library
+- Install [Acra package]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) that includes AcraConnector and key generation tools
 
 - Use `acra-keymaker` to generate master key into `master.key` file and assign it into the environment variable like this:
 ```
-$GOBIN/acra-keymaker --generate_master_key=master.key
+acra-keymaker --generate_master_key=master.key
 export ACRA_MASTER_KEY=`cat master.key | base64`
 ``` 
-
-> Note: if you didn't set `GOBIN` variable then you may find installed executables in `$GOPATH/bin` or `$HOME/go/bin` folders according to [Golang documentation](https://pkg.go.dev/cmd/go#hdr-Compile_and_install_packages_and_dependencies)   
 
 Read more about the different types of keys used in Acra in the [Key Management]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) section of the documentation.
 
 - Generate the "client" proxy keypair:
 
 ```
-$GOBIN/acra-keymaker --client_id=client_name --generate_acraconnector_keys
+acra-keymaker --client_id=client_name --generate_acraconnector_keys
 ```
 
 The name of the key should be longer than 5 characters. It is also used as an identifier for the [Secure Session]({{<ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) connection between AcraConnector and AcraServer.
@@ -95,8 +75,6 @@ The generated keypair `client_name` and `client_name.pub` will appear in .acrake
     - You should put public key `client_name.pub` into the corresponding folder (.acrakeys) on AcraServer.
     - You should put AcraServer's public key (called `client_name_server.pub`) to AcraConnector's key folder (`.acrakeys` or anything you chose in `--keys_output_dir`).
 
-Now, proceed to [launching AcraConnector]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector.md#launching-acraconnector-INVALID" >}}).
-
 ⚙️**Not sure how to configure AcraConnector? Check out the [engineering examples](https://github.com/cossacklabs/acra-engineering-demo/)!** ⚙️
 
 ### Launching AcraConnector
@@ -104,18 +82,18 @@ Now, proceed to [launching AcraConnector]({{< ref "acra/configuring-maintaining/
 By default, AcraConnector is ready to talk to AcraServer. You need to use a one-line command:
 
 ```
-$GOBIN/acra-connector --client_id=client_name --acraserver_connection_host=acra.server.host
+acra-connector --client_id=client_name --acraserver_connection_host=acra.server.host
 ```
 
 To point AcraConnector to AcraTranslator, configure an appropriate connection host/port/string and mode:
 
 ```
-$GOBIN/acra-connector --client_id=client_name --acratranslator_connection_host=acra.translator.host --mode=acratranslator
+acra-connector --client_id=client_name --acratranslator_connection_host=acra.translator.host --mode=acratranslator
 ```
 
 For security reasons, consider configuring your firewall to allow the connections only from legit AcraConnector IPs. If an attacker compromises your client application and AcraConnector, filtering IP addresses might prevent DoS.
 
-You can get more details about AcraConnector configuration [here]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector.md" >}}).
+You can get more details about AcraConnector configuration [here]({{< ref "acra/configuring-maintaining/general-configuration/acra_connector.md" >}}).
 
 
 ### AcraWriter
