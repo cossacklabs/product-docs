@@ -8,13 +8,13 @@ bookCollapseSection: true
 Acra is built to provide selective encryption only to the records that require such protection.
 AcraWriter provides the app developer with the means to encrypt these records via wrapping anything in a function that outputs [AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}), a crypto container decryptable by AcraServer, which is then stored in a database.
 
-Any secret contained within an app (i.e. passwords in config files) can be leaked. There are many reasons why a developer might not want to use the user password as a secret - not all systems have to be end-to-end encrypted, even though we'd like it to be that way. An example of a good trust model is to use asymmetric cryptography to "send" this data (for the encryption of which we only have a public key) to some remote party. A leakage of this public key will still be insufficient for decrypting anything from the database.
+Any secret contained within an app (e.g. passwords in config files) can be leaked. There are many reasons why a developer might not want to use the user password as a secret - not all systems have to be end-to-end encrypted, even though we'd like it to be that way. An example of a good trust model is to use asymmetric cryptography to "send" this data (for the encryption of which we only have a public key) to some remote party. A leakage of this public key will still be insufficient for decrypting anything from the database.
 
 ### Threat model
 
 We expect that anything, apart from AcraServer (which must remain uncompromised), can be compromised and that any piece of data can leak outside the system.
 
-Our goal is to provide the two following guarantees:
+Our goal is to provide the three following guarantees:
 
 **Guarantee 1**: If the attacker compromises the system through collecting all the data from any (or all) components other than AcraServer, and AcraServer remains uncompromised, this data will not be sufficient to decrypt protected entries.
 
@@ -73,14 +73,16 @@ By differentiating the sensitive data via [Zones]({{< ref "acra/acra-in-depth/cr
 - Zone keys are used for encrypting the AcraStruct's RK section. In this case, AcraServer will only be able to pick the right key and decrypt the data by knowing the correct zone. This limits the leak scope for every private key, even if AcraServer is partially compromised.
 - Zone IDs are used as context when encrypting Secure Cell, providing additional protection.
 
-Zone data is supplied to an app via JSON (i.e. `{"id": "...", "public_key": "..."}`) from [HTTP api]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#http-api-INVALID">}}) or [console utility]({{< ref "acra/security-controls/transport-security/acra-connector.md#acraconnector-and-acrawriter-INVALID" >}}).
+Zone data is supplied to an app via JSON (e.g. `{"id": "...", "public_key": "..."}`) from [HTTP api]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#http-api-INVALID">}}) or [console utility]({{< ref "acra/security-controls/transport-security/acra-connector.md#acraconnector-and-acrawriter-INVALID" >}}).
 
 
 ## Security model for Acra
 
 ### Possible threats
 
-> Note: We recommend taking a look at the [architectural scheme of Acra]({{< ref "acra/acra-in-depth/data-flow/#-INVALID" >}}) before continuing to read.
+{{< hint info >}}
+Note: We recommend taking a look at the [architectural scheme of Acra]({{< ref "acra/acra-in-depth/data-flow/#-INVALID" >}}) before continuing to read.
+{{< /hint >}}
 
 Acra at its core is a set of tools that allow safeguarding the security of a database (running PostgreSQL or MySQL) against the known widespread threats.
 
@@ -103,18 +105,19 @@ Acra can perform its protective functions properly and protect from the security
 ### Possible consequences of compromisation
 Let’s consider all the possible consequences of any of separate component being broken (broken as in “fully compromised” when the adversary fully overtakes the work of the component and gains full access to its memory).
 
-When a *Database* is broken into, the worst-case scenario is DoS or COA. Thus, the stability of the system, in this case, is reduced to the stability of the symmetric encryption algorithm (AES-GCM-256).
+When a *Database* is broken into, the worst-case scenario is DoS or COA (ciphertext-only attack). Thus, the stability of the system, in this case, is reduced to the stability of the symmetric encryption algorithm (AES-GCM-256).
 When the *Client* gets broken, the worst-case scenario is that the adversary can get the data belonging to this client, which is stored in the database.
 And finally, if AcraServer gets broken, the adversary can fully compromise the system.
 
-It is worth mentioning that in absence of PKI, the communication channel between the Client and AcraServer is also vulnerable. In this case, the resistance ability of the system comes down to the secureness of the SSL/TLS or Themis’ Secure Session protocols. In all the other communication channels the data is encrypted so, in the worst case (when SSL/TLS is not used) the secureness of the system comes down to the secureness of the symmetric encryption algorithm (AES-GCM-256).
+It is worth mentioning that in absence of PKI, the communication channel between the Client and AcraServer is also vulnerable. In this case, the resistance ability of the system comes down to the security of the SSL/TLS or Themis’ Secure Session protocols. In all the other communication channels the data is encrypted so, in the worst case (when SSL/TLS is not used) the security of the system comes down to the security of the symmetric encryption algorithm (AES-GCM-256).
 
 ### Additional reading
 
-We recommend that you also check out the following articles to gain a better understanding of the security notions in this article: <br>
-https://www.zdnet.com/article/the-top-ten-most-common-database-security-vulnerabilities/ <br>   
-https://en.wikipedia.org/wiki/Vulnerability_database <br>           
-https://www.bcs.org/content/ConWebDoc/8852. <br>
+We recommend that you also check out the following articles to gain a better understanding of the security notions in this article:
+
+* https://www.zdnet.com/article/the-top-ten-most-common-database-security-vulnerabilities/   
+* https://en.wikipedia.org/wiki/Vulnerability_database
+* https://www.bcs.org/content/ConWebDoc/8852 .
 
 
 ## PKI overview for Acra
@@ -137,9 +140,11 @@ Each entity of the PKI possesses their own pair of cryptographic keys:
 
 The digital certificate is signed by the CA and contains the information about an entity (organisation, department, alias/name, email, etc.) and the value of its public key. The digital certificate also indicates that the entity possesses a corresponding private key.
 
-> Note: The CA issues certificate for its own public key, which is why it is considered to be the main point of trust: both the User and the Relying Party trust the CA, while the User and the Relying Party do not trust each other.
+{{< hint info >}}
+Note: The CA issues certificate for its own public key, which is why it is considered to be the main point of trust: both the User and the Relying Party trust the CA, while the User and the Relying Party do not trust each other.
+{{< /hint >}}
 
-The main point that should be kept in mind is that if you use a free-for-all communication infrastructure (i.e. the Internet), some primary security layer (PSL) that involves a PKI (i.e. Virtual Private Network) has to be deployed (i.e. Virtual Private Network (VPN)). This PSL will provide a strong authentication between components (i.e. the database, [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) in Acra’s context) inside the organisational infrastructure.
+The main point that should be kept in mind is that if you use a free-for-all communication infrastructure (e.g. the Internet), some primary security layer (PSL) that involves a PKI (e.g. Virtual Private Network (VPN)) has to be deployed (e.g. VPN). This PSL will provide a strong authentication between components (e.g. the database, [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) in Acra’s context) inside the organisational infrastructure.
 
 The next step after deploying the PSL is the deployment of Acra. Note that even if there is an existing PSL present, a secure deployment of Acra requires the delivery of secret keys to the target components (in [Docker containers]({{< ref "acra/guides/trying-acra-with-docker/" >}})). The best practices for solving this task are provided below:
 
@@ -157,10 +162,10 @@ Acra currently supports secret delivery of keys via environment variables since 
 
 We recommend checking out the following pages and resources to find out more about the PKIs.
 
-1) https://pki-tutorial.readthedocs.io/en/latest/
-2) https://openvpn.net/
-3) https://www.ejbca.org/
-4) https://sourceforge.net/projects/xca/
-5) https://github.com/OpenVPN/easy-rsa
-6) https://en.wikipedia.org/wiki/Public_key_infrastructure
-7) https://en.wikipedia.org/wiki/Virtual_private_network.
+* https://pki-tutorial.readthedocs.io/en/latest/
+* https://openvpn.net/
+* https://www.ejbca.org/
+* https://sourceforge.net/projects/xca/
+* https://github.com/OpenVPN/easy-rsa
+* https://en.wikipedia.org/wiki/Public_key_infrastructure
+* https://en.wikipedia.org/wiki/Virtual_private_network .
