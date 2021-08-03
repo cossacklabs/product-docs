@@ -17,16 +17,29 @@ weight: 4
 
   Provided Client ID identifies Secure Session transport keys for handshake with AcraServer/AcraTranslator and will be sent to AcraServer/AcraTranslator as identifier of encryption keys
 
-* `--mode`
-
-  Expected mode of connection. 
-  * `AcraServer` - (default) mode switch AcraConnector to work with `AcraServer`. Only in this mode works next flags: `incoming_connection_port`/`incoming_connection_api_port`/`acraserver_connection_host`/`acraserver_connection_string`/`http_api_enable`/`acraserver_api_connection_string`/`acraserver_api_connection_port`/`acraserver_securesession_id`
-  * `AcraTranslator` - mode switch AcraConnector to work with `AcraTranslator`. Only in this mode works next flags: `acratranslator_connection_host`/`acratranslator_connection_string`/`acratranslator_connection_port`/`acratranslator_securesession_id`
-
 * `--user_check_disable`
 
   Disable checking that connections from app running from another user
 
+* `--mode`
+
+  Expected mode of connection.
+  * `AcraServer` - (default) mode switch AcraConnector to work with `AcraServer`. 
+  * `AcraTranslator` - mode switch AcraConnector to work with `AcraTranslator`. 
+
+Following table describes flags that work only in appropriate mode:
+
+| AcraServer | AcraTranslator |
+| --- | --- |
+| `acraserver_connection_host` | `acratranslator_connection_host` |
+| `acraserver_connection_string` | `acratranslator_connection_string` |
+| `acraserver_connection_port` | `acratranslator_connection_port` |
+| `acraserver_securesession_id` | `acratranslator_securesession_id` |
+| `incoming_connection_port` | |
+| `incoming_connection_api_port` | |
+| `acraserver_api_connection_string` | |
+| `acraserver_api_connection_port` | |
+| `http_api_enable` | |
 
 ### Network
 
@@ -227,7 +240,9 @@ weight: 4
 
 ### TLS
 
-> Note: TLS related flags works only together with `AcraServer` mode. `AcraTranslator` mode supports only `SecureSession` transport encryption or direct TLS connections from application 
+{{< hint info >}}
+Note: TLS related flags work only together with `AcraServer` mode. `AcraTranslator` mode supports only `SecureSession` transport encryption or direct TLS connections from application
+{{< /hint >}}
 
 * `--tls_auth=<mode>`
 
