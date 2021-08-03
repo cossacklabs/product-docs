@@ -2,4 +2,5 @@
 title: Acra in-depth
 bookCollapseSection: true
 ---
-TODO
+
+* [Security design]({{< ref "acra/acra-in-depth/security-design/" >}})
