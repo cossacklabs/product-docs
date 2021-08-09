@@ -47,7 +47,7 @@ Storage keys can be represented by either:
 
 ## Key names and locations
 
-> Note: Read more about handling key names in [Losing your keys]({{< ref "/acra/acra-in-depth/cryptography-and-key-management/key_management.md#losing-your-keys" >}}) and [Renaming your keys]({{< ref "/acra/acra-in-depth/cryptography-and-key-management/key_management.md#renaming-your-keys" >}}).
+> Note: Read more about handling key names in [Losing your keys]({{< ref "/acra/keys/troubleshooting.md#losing-the-keys" >}}) and [Renaming your keys]({{< ref "/acra/keys/troubleshooting.md#renaming-key-files" >}}).
 
 Each Acra component has to have its own key storage (by default it is key folder `.acrakeys`) that contains a set of keys necessary for the correct functioning of the components:
 
