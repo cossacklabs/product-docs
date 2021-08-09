@@ -140,11 +140,13 @@ work
 
 #### Installation
 
-Install [phpthemis extension]({{< ref "/themis/languages/php/installation.md#building-latest-version-from-source" >}})
-
 {{< hint info >}}
-AcraWriter for PHP is currently not packaged because requires a binary extension. It is available only in source form and supports only PHP 5 & 7 versions
+AcraWriter is currently not packaged for PHP.
+It is available in source form and requires PHPThemis extension to be installed.
+PHP versions 5.6, 7.0–7.2 are supported.
 {{< /hint >}}
+
+Please follow [PHPThemis installation instructions]({{< ref "/themis/languages/php/installation.md" }}).
 
 
 #### Testing
