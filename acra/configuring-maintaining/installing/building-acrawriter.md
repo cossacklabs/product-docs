@@ -189,7 +189,7 @@ ok  	github.com/cossacklabs/acra/acra-writer	0.112s
 
 #### Dependencies
 
-Install [ThemisPP (Themis C++ wrapper) as system library](https://docs.cossacklabs.com/themis/languages/cpp/installation/)
+Install [ThemisPP (Themis C++ wrapper) as system library]({{< ref "/themis/languages/cpp/installation.md" >}})
 
 #### Installation
 
