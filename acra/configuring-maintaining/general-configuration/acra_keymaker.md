@@ -11,11 +11,11 @@ bookCollapseSection: true
 
 * `--client_id=<id>`
   
-  Use provided client ID as identifier to generate keys or keypairs.
+  Use provided ClientID as identifier to generate keys or keypairs.
 
 * `--tls_cert=<path>`
   
-  Path to TLS certificate to use as client_id identifier. Works only when passed empty ClientID: `--client_id=""`.
+  Path to TLS certificate to use as ClientID identifier. Works only when passed empty ClientID: `--client_id=""`.
 
 * `--tls_identifier_extractor_type={distinguished_name|serial_number}`
   
@@ -24,7 +24,7 @@ bookCollapseSection: true
   * `distinguished_name` — certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
   
-By default certificate Distinguished Name is used as client ID.
+By default certificate Distinguished Name is used as ClientID.
 
 * `--keystore=<v1|v2>`
   
