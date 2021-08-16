@@ -63,7 +63,7 @@ Each Acra component has to have its own key storage (by default it is key folder
 
 - **AcraTranslator** needs to have same keys as AcraServer except authentication storage key.
 
-- **AcraWriter** should have the storage public key(s). They are necessary for encrypting data into AcraStructs in such a way that would only be readable for AcraServer/AcraTranslator.
+- **AcraWriter** should have the storage public keys. They are necessary for encrypting data into AcraStructs in such a way that would only be readable for AcraServer/AcraTranslator.
 
 - If you're using **AcraWebConfig** HTTP server to configure AcraServer remotely, the users' credentials are stored encrypted with authentication storage key and are decrypted on AcraServer upon users' login. AcraServer needs to have an authentication storage key.
 
