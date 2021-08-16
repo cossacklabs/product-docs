@@ -21,8 +21,10 @@ bookCollapseSection: true
   
   Decide which field of TLS certificate to use as ClientID.
 
-  * `distinguished_name` — (default) certificate Distinguished Name (DN).
-  * `serial_number` — certificate serial number.
+  * `distinguished_name` — certificate Distinguished Name (DN)
+  * `serial_number` — certificate serial number
+  
+By default certificate Distinguished Name is used as client ID.
 
 * `--keystore=<v1|v2>`
   
@@ -36,14 +38,17 @@ bookCollapseSection: true
 
 #### Filesystem
 
-* `--keys_output_dir=<folder>`
-  
-  Folder where will be saved keys (you can change destination for asymmetric public keys with keystore V1 (V2 store at same destination)  with parameter `--keys_public_output_dir`).  
+* `--keys_output_dir=<path>`
+
+  Path to keystore directory.
+
   Default is `.acrakeys`.
 
 * `--keys_public_output_dir=<folder>`
-  
-  Folder where will be saved public asymmetric keys. Works only for `--keystore=v1` and do nothing with `--keystore=v2`.
+
+  Path to public key directory for `--keystore=v1` format.
+  (Ignored for `--keystore=v2`.)
+
   Default is `.acrakeys`.
   
 #### Redis
