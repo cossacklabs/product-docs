@@ -16,8 +16,12 @@ This `HMAC(value)` is the hash of value that is used during search of encrypted 
 For this to be efficient, there should be a special index in database that indexes only **first 32 bytes** of encrypted-searchable column.
 `32` because of the hash being used (SHA256).
 
-In SQL the index would look something like
+In PostgreSQL the index would look something like
 ```sql
-CREATE INDEX searchable_email ON users (SUBSTR(email, 0, 32))
+CREATE INDEX searchable_email ON users (SUBSTR(email, 1, 33))
 ```
 where `users` is a table containing column `email` that is being used for searchable encryption.
+
+Also, please note that creating indexes for non-searchable encrypted columns won't give any benefit.
+For database they are just arrays of pseudo-random bytes, with no relation to a value being searched.
+It will even slow down database a bit as it will have to update index on insert/update.

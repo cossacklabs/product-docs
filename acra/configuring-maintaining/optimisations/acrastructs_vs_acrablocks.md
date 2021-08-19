@@ -22,6 +22,10 @@ Key rotation (when you need re-encrypt data with a new key)
 * With `AcraBlock`, only DEK should be re-encrypted, leaving the encrypted value the same.
   And this may have a big impact on performance when rotating keys for a large amount of encrypted data.
 
-Storage overhead
-* `AcraStruct` uses a bit less extra bytes compared to `AcraBlock`.
-  <!-- How much? -->
+Storage overhead (not counting encrypted data length)
+* `AcraStruct` takes about `189` additional bytes
+* `AcraBlock` takes about `138` additional bytes
+
+You can read more about them on their pages:
+[AcraStruct]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrastruct" >}}) and
+[AcraBlock]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrablock" >}}) respectively.

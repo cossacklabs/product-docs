@@ -11,4 +11,5 @@ It is recommended to **reuse** such object as much as possible.
 
 Reusing connections will result in lower latencies (no need to wait for connection before every SQL request).
 
-It will also reduce the load on AcraServer and the database behind since they won't have to handle new connections so frequently.
+Both Acra and the database reserve some amount of memory for every new connection.
+Reusing connection will make memory pressure lower since they won't have to handle new connections so frequently.

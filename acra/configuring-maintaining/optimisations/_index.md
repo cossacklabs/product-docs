@@ -3,4 +3,29 @@ title: Optimisations
 bookCollapseSection: true
 ---
 
-TODO
+[Vertical scaling]({{< ref "acra/configuring-maintaining/optimisations/vertical_scaling.md" >}})
+describes how performance will grow with more CPU cores / memory added
+
+[Horizontal scaling]({{< ref "acra/configuring-maintaining/optimisations/horizontal_scaling.md" >}})
+describes how performance will grow with instances being added
+
+[AcraStructs vs AcraBlocks]({{< ref "acra/configuring-maintaining/optimisations/acrastructs_vs_acrablocks.md" >}})
+describes difference between AcraStructs and AcraBlocks (two possible "containers" for encrypted database columns)
+
+[DB indexes]({{< ref "acra/configuring-maintaining/optimisations/db_indexes.md" >}})
+contains few important notes regarding proper indexing while having some encrypted columns
+
+[TLS configuration]({{< ref "acra/configuring-maintaining/optimisations/tls_configuration.md" >}})
+contains few hints regarding TLS configuration effect on network performance
+
+[Connection reuse]({{< ref "acra/configuring-maintaining/optimisations/connection_reuse.md" >}})
+reminds that it is a good practice to reuse opened connections to database as much as possible
+
+[Disable debug logs]({{< ref "acra/configuring-maintaining/optimisations/disable_debug_logs.md" >}})
+contains few flags that can be used for debugging purposes, but better to be disabled in production
+
+[LRU cache]({{< ref "acra/configuring-maintaining/optimisations/lru_cache.md" >}})
+describes which things could be cached in memory by Acra and how to enable this caching to improve performance
+
+[Obtaining metrics]({{< ref "acra/configuring-maintaining/optimisations/obtaining_metrics.md" >}})
+is about metrics you can export to Jaeger
