@@ -146,7 +146,7 @@ It is available in source form and requires PHPThemis extension to be installed.
 PHP versions 5.6, 7.0–7.2 are supported.
 {{< /hint >}}
 
-Please follow [PHPThemis installation instructions]({{< ref "/themis/languages/php/installation.md" }}).
+Please follow [PHPThemis installation instructions]({{< ref "/themis/languages/php/installation.md" >}}).
 
 
 #### Testing
