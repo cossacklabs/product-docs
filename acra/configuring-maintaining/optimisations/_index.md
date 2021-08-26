@@ -10,7 +10,7 @@ describes how performance will grow with more CPU cores / memory added
 describes how performance will grow with instances being added
 
 [AcraStructs vs AcraBlocks]({{< ref "acra/configuring-maintaining/optimisations/acrastructs_vs_acrablocks.md" >}})
-describes difference between AcraStructs and AcraBlocks (two possible "containers" for encrypted database columns)
+describes difference between AcraStructs and AcraBlocks (two possible "containers" for encrypted data)
 
 [DB indexes]({{< ref "acra/configuring-maintaining/optimisations/db_indexes.md" >}})
 contains few important notes regarding proper indexing while having some encrypted columns
@@ -28,4 +28,4 @@ contains few flags that can be used for debugging purposes, but better to be dis
 describes which things could be cached in memory by Acra and how to enable this caching to improve performance
 
 [Obtaining metrics]({{< ref "acra/configuring-maintaining/optimisations/obtaining_metrics.md" >}})
-is about metrics you can export to Jaeger
+is about metrics you can enable and collect (Prometheus)
