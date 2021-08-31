@@ -6,8 +6,13 @@ bookCollapseSection: true
 # Masking
 
 Partial column encryption.
-Hides encrypted part from those who don't have right decryption keys.
+Hides encrypted part from clients/AcraServers who don't have right decryption keys.
 In case of decryption failure, encrypted data will be replaced with a placeholder.
+
+Use cases may include:
+* Credit card numbers (reveal only last N digits)
+* Mobile phone (again, reveal only last N digits, i.e. for recovery purposes)
+* First/last name (mask everything except 1-3 first characters)
 
 ## AcraServer configuration
 
@@ -16,42 +21,103 @@ masking for any field of any table, if that field can be encrypted.
 These options are accepted:
 
 <!-- Config struct lives in encryptor/config/encryptionSettings.go -->
-* `masking` — text string that will be shown in unsuccessful decryption responses instead of encrypted data
-* `plaintext_length` — how many bytes should be left unencrypted
-* `plaintext_side` — which side of column should contain unencrypted part of value
-  * `left`
-  * `right`
-* `crypto_envelope` — which crypto container to use
-  * [`acrastruct`]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrastruct" >}}) (default)
-  * [`acrablock`]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrablock" >}})
-* `reencrypting_to_acrablocks` — whether to automatically re-encrypt values stored
-  in [AcraStructs]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrastruct" >}})
-  to [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrablock" >}})
-<!-- TODO add link to page where colemn encryption settings are described in general, with client_id, zone_id etc -->
-
 <!-- Config validation func lives in masking/common/patterns.go -->
-In order to enable masking you will need:
-* non-empty value for `masking`
-* `plaintext_length` ⩾ 0
-* valid value for `plaintext_side` (`left` or `right`)
+```yaml
+{
+    # (required, must be non-empty)
+    # Replacement string to use for masking out encrypted data.
+    # If decryption fails, this string will be show instead of the masked
+    # portion of the data.
+    masking: "XXXXXXXXXXXX",
+
+    # (required, must be non-negative)
+    # How many bytes of plaintext to leave unencrypted.
+    plaintext_length: 4,
+
+    # (required, allowed values: "left", "right")
+    # Which side of the plaintext to leave unencrypted.
+    # "plaintext_length" bytes will be retained from left or right side of
+    # the data cell.
+    plaintext_side: "right",
+
+    # (optional, default: "acrastruct", allowed values: "acrastruct", "acrablock")
+    # Which cryptographic container to use for data encryption.
+    crypto_envelope: "acrastruct",
+
+    # (optional, default: false)
+    # If true, data stored in AcraStructs will be transparently reencrypted
+    # into AcraBlocks.
+    reencrypting_to_acrablocks: false,
+}
+```
+<!-- TODO add link to page where colemn encryption settings are described in general, with client_id, zone_id etc -->
 
 ## Examples
 
-Here are few examples of configuration and results it would give
+Here are few examples of configuration and results it would give.
+The actual encrypted part of data will look differently in database, and will take more bytes.
+Examples below only ilustrate which part of plaintext would be encrypted.
 
-`{ masking: "*", plaintext_length: 5, plaintext_side: "left" }`
-* data, successful decryption: `Alan Turing`
-* encrypted: `Alan <encrypted>`
-* unsuccessful decryption: `Alan *`
+### Retain first five characters
 
-`{ masking: "XXXX", plaintext_length: 4, plaintext_side: "right" }`
-* data, successful decryption: `Blaise Pascal`
-* encrypted: `<encrypted>scal`
-* unsuccessful decryption: `XXXXscal`
+```yaml
+{
+  masking: "*",
+  plaintext_length: 5,
+  plaintext_side: "left"
+}
+```
 
-`{ masking: "???", plaintext_length: 0, plaintext_side: "left" }`
-* data, successful decryption: `Nikola Tesla`
-* encrypted: `<encrypted>`
-* unsuccessful decryption: `???`
+| Viewpoint                  | Visible data            |
+| -------------------------- | :---------------------- |
+| database, encrypted        | `Alan PGVuY3J5cHRlZD4=` |
+| authorized user, decrypted | `Alan Turing`           |
+| unauthorized used, masked  | `Alan *`                |
+
+### Retain last four characters
+
+```yaml
+{
+  masking: "XXXX",
+  plaintext_length: 4,
+  plaintext_side: "right"
+}
+```
+
+| Viewpoint                  | Visible data            |
+| -------------------------- | :---------------------- |
+| database, encrypted        | `PGVuY3J5cHRlZD4=scal`  |
+| authorized user, decrypted | `Blaise Pascal`         |
+| unauthorized used, masked  | `XXXXscal`              |
+
+```yaml
+{
+  masking: "XXXX XXXX XXXX ",
+  plaintext_length: 4,
+  plaintext_side: "right"
+}
+```
+
+| Viewpoint                  | Visible data            |
+| -------------------------- | :---------------------- |
+| database, encrypted        | `PGVuY3J5cHRlZD4=3456`  |
+| authorized user, decrypted | `1234 5678 9012 3456`   |
+| unauthorized used, masked  | `XXXX XXXX XXXX 3456`   |
+
+### Completely hide content
+
+```yaml
+{
+  masking: "???",
+  plaintext_length: 0,
+  plaintext_side: "left"
+}
+```
+
+| Viewpoint                  | Visible data       |
+| -------------------------- | :----------------- |
+| database, encrypted        | `PGVuY3J5cHRlZD4=` |
+| authorized user, decrypted | `Nikola Tesla`     |
+| unauthorized used, masked  | `???`              |
 
 <!-- More examples of configuration can be found among test configs, <acra>/tests/*masking*.yml -->
