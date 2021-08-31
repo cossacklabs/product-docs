@@ -5,46 +5,69 @@ bookCollapseSection: true
 
 # Zones
 
-Zones are the way to cryptographically compartmentalise access to data. By default, used default zones called `ClientID` that divide access by transport authentication. 
-Applications connected to AcraServer or AcraTranslator through SecureSession or TLS as transport encryption will get access only to data encrypted with appropriate ClientID. 
-It works in zoneless mode. In zone mode applications can specify ZoneID in their SQL queries (through AcraServer) or requests (to AcraTranslator)  to get decrypted data related to this zone.
-So application have access to decrypted data only if knows correct ZoneID and data records that encrypted with keys linked with this ZoneID.
+Zones are a way to cryptographically compartmentalise access to data.
+
+By default, access to encrypted data is compartmentalized by transport authentication.
+Applications connected to AcraServer or AcraTranslator through SecureSession or TLS will get access only to the data associated with the ClientID of their transport keys.
+This mode is called *zoneless*.
+You can think of it as all data implicitly belonging to a single ClientID zone.
+
+In *zone mode* applications can explicitly specify a different ZoneID in their SQL queries (through AcraServer) or requests (to AcraTranslator) to access encrypted data related to this zone.
+Application will need to know the correct ZoneID as well as which data records are encrypted with keys associated with this ZoneID.
 
 ## What are the Zone and ZoneID
 
-**ZoneID** is a random identifier for keys. It represented by 24 length string where first 8 symbols is ZoneID header `DDDDDDDD` and next 16 characters are random ASCII letters. For example `DDDDDDDDjKjECtcRBDkmHVBh`.
-**Zone** is a pair of ZoneID and related symmetric (for AcraBlocks) and asymmetric keys (AcraStructs).
+**Zone** is a pair of ZoneID and related symmetric (for AcraBlocks) and asymmetric keys (AcraStructs) used to encrypt data.
+
+**ZoneID** is a random identifier for the keys. It is constructed of a ZoneID header `DDDDDDDD` and 16 random ASCII letters, for example `DDDDDDDDjKjECtcRBDkmHVBh`.
 
 ## How to encrypt data using zones
 
-There are two ways to encrypt data with zones: static and dynamic. Static method works only with AcraServer. 
-In both methods Zones should be created before encryption with [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra_addzone.md" >}}) tool or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
-After generating new Zone you don't need to restart AcraServer or AcraTranslator. On generation, it saved in KeyStore specified for `acra-addzone` or AcraServer (if generated via HTTP API). 
-So, AcraServer with AcraTranslator will get new keys for encryption from KeyStore on new encryption requests at run-time. 
+There are two ways to encrypt data with zones: using static or dynamic ZoneID.
 
-### Static
+In any case, a zone must be created first with [`acra-addzone` tool]({{< ref "/acra/configuring-maintaining/general-configuration/acra_addzone.md" >}}) or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
+Newly generated keys will be placed into AcraServer or AcraTranslator keystore so that they are able to decrypt the encrypted data.
+You will also get the ZoneID and the public key you will need to encryption.
 
-Static method works with AcraServer in [Transparent encryption mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#transparent-encryption-mode-INVALID" >}}) 
-that allows to configure database encryption per table column and specify Zone that should be used. Application doesn't need to encrypt data and store Zone public key, AcraServer will do it transparently.
-Every change of encryptor's config require AcraServer restart to apply new settings.
+### Static ZoneID
 
-### Dynamic
+AcraServer in [Transparent encryption mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#transparent-encryption-mode-INVALID" >}})
+can be configured to use a static ZoneID for encryption.
 
-Works with AcraServer and AcraTranslator. After generating new Zone with [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra_addzone.md" >}}) tool or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}})
-it is available to encrypt data. Your application should know new ZoneID to specify it in requests to AcraTranslator and should have access to generated public key to encrypt data with AcraWriter and Zone.
+You can specify which table columns should be encrypted and what Zone that should be used.
+Application doesn't need to encrypt the data, know the appropriate ZoneID, or store the zone public key.
+AcraServer will transparently encrypt and decrypt data according to its configuration.
+
+{{< hint info >}}
+**Note:**
+If you need to change the configuration, AcraServer must be restarted to apply the new settings.
+{{< /hint >}}
+
+### Dynamic ZoneID
+
+AcraServer and AcraTranslator support dynamic ZoneID specified on per-request basis.
+
+With AcraServer, you must supply your application with ZoneID and generated public key. AcraWriter is used to encrypt data in zone mode which is then stored as usual in the database. Only AcraServer will be able to decrypt the data back.
+
+With AcraTranslator, zone keys are stored on AcraTranslator and you supply your application with ZoneID. Requests to AcraTranslator to encrypt must include the appropriate ZoneID for it to locate the associated keys.
 
 ## How to decrypt data using zones
 
 ### Decrypt with AcraTranslator
 
-To decrypt data encrypted with Zone you need just send correct pair of encrypted data and appropriate ZoneID in requests to AcraTranslator via HTTP or gRPC API. 
-AcraTranslator will load decryption keys by ZoneID identifier and try to decrypt data. Successful decryption represents authorized data access. Otherwise, it means trying to get data that not authorized for acquirer.
+AcraTranslator supports decryption of zoned data via HTTP or gRPC API. 
+Just send it the encrypted data along with the associated ZoneID in request and you get decrypted data in response.
+
+The application has to know only the correct ZoneID.
+Decryption keys are stored on the AcraTranslator which looks them up by the provided ZoneID.
 
 ### Decrypt with AcraServer
 
-To decrypt data AcraServer should know which ZoneID should use to decrypt data. It processes result rows from database and before any decryption tries to match ZoneID.
-Only after successful match ZoneID AcraServer starts matching AcraStruct/AcraBlock signatures in result data. 
-So, every ZoneID should be placed before appropriate piece of encrypted data in result rows.
+AcraServer supports decryption of zoned data in SQL query responses.
+You need to send appropriate ZoneID along with the query, encrypted data stored in the database will be decrypted and forwarded to the application in response.
+
+The application has to know only the correct ZoneID.
+Decryption keys are stored on the AcraServer which looks them up by the provided ZoneID.
 
 Because SQL is the only way how application communicates with database and AcraServer, there is only one way where AcraServer can get and match ZoneID in pair with encrypted data: database result rows.
 There are several methods how to achieve it:
@@ -52,10 +75,13 @@ There are several methods how to achieve it:
 * ZoneID specified explicitly in SQL query as literal (according to database binary literals) in `SELECT` statement before encrypted column
 * ZoneID specified explicitly in SQL query as literal (according to database binary literals) in `SELECT` statement before explicitly specified encrypted data as SQL literal
 
-#### Method 1
+#### Method 1 – ZoneID stored in the database
 
-Let's look how it works on first method on simple example when application stores ZoneID and encrypted data in database table. 
-For PostgreSQL will look like:
+One option is to store the ZoneID along with encrypted data directly in the database,
+then you query both of them for decryption.
+This way it's easy to ensure that correct ZoneID is associated with the data but the association itself is naturally disclosed in the database.
+
+Here's an example of database schema for PostgreSQL:
 ```
 CREATE TABLE application_data (
  id SERIAL PRIMARY KEY,
@@ -64,7 +90,7 @@ CREATE TABLE application_data (
 );
 INSERT INTO application_data (zone_id, data) VALUES ('DDDDDDDDjKjECtcRBDkmHVBh'::BYTEA, '\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA);
 ```
-For MySQL will look like:
+If you use MySQL, data schema might look like this:
 ```
 CREATE TABLE application_data (
  id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -89,7 +115,7 @@ AcraServer will process row by row, column by column. At first, it will try to m
 2. Try match `DDDDDDDDjKjECtcRBDkmHVBh` and if finds keys related with this ZoneID then it will remember until finish process row data. After that starts to match AcraStruct or AcraBlock signatures.
 3. Try match `\x222222222222222255454332....` and recognize AcraStruct signature. After that loads Zone's private key and tries to decrypt AcraStructs. On success AcraServer will replace AcraStruct with decrypted data.
 
-#### Method 2
+#### Method 2 – ZoneID provided as a literal
 
 At this case application will not store ZoneID in database and store it locally or get it from user's input. Our table in database will be changed.
 For PostgreSQL:
@@ -100,8 +126,7 @@ CREATE TABLE application_data (
 );
 INSERT INTO application_data (data) VALUES ('\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA);
 ```
-
-For MySQL:
+Or if you use MySQL:
 ```
 CREATE TABLE application_data (
  id INTEGER PRIMARY KEY AUTO_INCREMENT,
@@ -142,5 +167,5 @@ When analysing the database output stream, AcraServer searches for certain strin
 
 ### More information about Zones
 
-* [Tuning Acra]({{< ref "/acra/configuring-maintaining/optimisations/#zones-INVALID" >}}): How Zones affect certain tuning strategies for increased performance / security.
-* [Using Zones on client]({{< ref "/acra/guides/advanced-integrations/client-side-integration-with-acra-connector.md#client-side-with-zones" >}}): A practical How-To use AcraWriter with Zones on application side.
+* [Tuning Acra]({{< ref "/acra/configuring-maintaining/optimisations/#zones-INVALID" >}}): How Zones affect certain tuning strategies for increased performance and security.
+* [Using Zones on client]({{< ref "/acra/guides/advanced-integrations/client-side-integration-with-acra-connector.md#client-side-with-zones" >}}): A practical How-To on using AcraWriter with Zones on application side.
