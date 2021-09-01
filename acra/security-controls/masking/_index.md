@@ -23,32 +23,36 @@ These options are accepted:
 <!-- Config struct lives in encryptor/config/encryptionSettings.go -->
 <!-- Config validation func lives in masking/common/patterns.go -->
 ```yaml
-{
-    # (required, must be non-empty)
-    # Replacement string to use for masking out encrypted data.
-    # If decryption fails, this string will be show instead of the masked
-    # portion of the data.
-    masking: "XXXXXXXXXXXX",
+schemas:
+  - table: table_name
+    encrypted:
+      - column: masked_column_name
 
-    # (required, must be non-negative)
-    # How many bytes of plaintext to leave unencrypted.
-    plaintext_length: 4,
+        # (required, must be non-empty)
+        # Replacement string to use for masking out encrypted data.
+        # If decryption fails, this string will be show instead of the masked
+        # portion of the data.
+        masking: "XXXXXXXXXXXX"
 
-    # (required, allowed values: "left", "right")
-    # Which side of the plaintext to leave unencrypted.
-    # "plaintext_length" bytes will be retained from left or right side of
-    # the data cell.
-    plaintext_side: "right",
+        # (required, must be non-negative)
+        # How many bytes of plaintext to leave unencrypted.
+        plaintext_length: 4
 
-    # (optional, default: "acrastruct", allowed values: "acrastruct", "acrablock")
-    # Which cryptographic container to use for data encryption.
-    crypto_envelope: "acrastruct",
+        # (required, allowed values: "left", "right")
+        # Which side of the plaintext to leave unencrypted.
+        # "plaintext_length" bytes will be retained from left or right side of
+        # the data cell.
+        plaintext_side: "right"
 
-    # (optional, default: false)
-    # If true, data stored in AcraStructs will be transparently reencrypted
-    # into AcraBlocks.
-    reencrypting_to_acrablocks: false,
-}
+        # (optional, default: "acrastruct",
+        # allowed values: "acrastruct", "acrablock")
+        # Which cryptographic container to use for data encryption.
+        crypto_envelope: "acrastruct"
+
+        # (optional, default: false)
+        # If true, data stored in AcraStructs will be transparently reencrypted
+        # into AcraBlocks.
+        reencrypting_to_acrablocks: false
 ```
 <!-- TODO add link to page where colemn encryption settings are described in general, with client_id, zone_id etc -->
 
@@ -56,16 +60,14 @@ These options are accepted:
 
 Here are few examples of configuration and results it would give.
 The actual encrypted part of data will look differently in database, and will take more bytes.
-Examples below only ilustrate which part of plaintext would be encrypted.
+Examples below only illustrate which part of plaintext would be encrypted.
 
 ### Retain first five characters
 
 ```yaml
-{
   masking: "*",
   plaintext_length: 5,
   plaintext_side: "left"
-}
 ```
 
 | Viewpoint                  | Visible data            |
@@ -77,25 +79,9 @@ Examples below only ilustrate which part of plaintext would be encrypted.
 ### Retain last four characters
 
 ```yaml
-{
-  masking: "XXXX",
-  plaintext_length: 4,
-  plaintext_side: "right"
-}
-```
-
-| Viewpoint                  | Visible data            |
-| -------------------------- | :---------------------- |
-| database, encrypted        | `PGVuY3J5cHRlZD4=scal`  |
-| authorized user, decrypted | `Blaise Pascal`         |
-| unauthorized used, masked  | `XXXXscal`              |
-
-```yaml
-{
   masking: "XXXX XXXX XXXX ",
   plaintext_length: 4,
   plaintext_side: "right"
-}
 ```
 
 | Viewpoint                  | Visible data            |
@@ -107,11 +93,9 @@ Examples below only ilustrate which part of plaintext would be encrypted.
 ### Completely hide content
 
 ```yaml
-{
   masking: "???",
   plaintext_length: 0,
   plaintext_side: "left"
-}
 ```
 
 | Viewpoint                  | Visible data       |
