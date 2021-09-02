@@ -124,15 +124,23 @@ for MySQL:
 1 0x44444444444444446A4B6A454374635242446B6D48564268 
 0x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
 ```
-AcraServer will process row by row, column by column. At first, it will try to match ZoneID until success.
-1. Try match `1`. It will fail because of invalid ZoneID begin tag `DDDDDDDD`.
-2. Try match `DDDDDDDDjKjECtcRBDkmHVBh` and if finds keys related with this ZoneID then it will remember until finish process row data. After that starts to match AcraStruct or AcraBlock signatures.
-3. Try match `\x222222222222222255454332....` and recognize AcraStruct signature. After that loads Zone's private key and tries to decrypt AcraStructs. On success AcraServer will replace AcraStruct with decrypted data.
+
+AcraServer processes database response row by row, column by column, matching them for ZoneIDs and AcraStruct or AcraBlock signatures.
+
+1. Try matching `1`. This does not look like anything so AcraServer skips to the next column.
+
+2. Try matching `\x44444444444444446a4b6a45...`. This is a correct ZoneID header so AcraServer looks for associated keys. If zone keys are available, AcraServer will use them for processing the following columns of the same row.
+
+3. Try matching `\x222222222222222255454332...`. This is a correct AcraStruct header so AcraServer will load the zone's private key and try to decrypt the AcraStruct. If successful, AcraServer will replace the AcraStruct in response with decrypted data.
+
+This is why the ZoneID column must precede the encrypted data column in SQL queries.
 
 #### Method 2 – ZoneID provided as a literal
 
-At this case application will not store ZoneID in database and store it locally or get it from user's input. Our table in database will be changed.
-For PostgreSQL:
+It is also possible to not store ZoneID in the database, but instead provide it from other source.
+Application may store ZoneID locally or derive it from user's input.
+In any case, the ZoneID is not stored in the database, only the encrypted data.
+The database schema may look like this for PostgreSQL:
 ```sql
 CREATE TABLE application_data (
  id SERIAL PRIMARY KEY,
@@ -162,29 +170,8 @@ Here we placed ZoneID as string literal before encrypted column `data` and ZoneI
 \x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
 ```
 
-#### Method 3
+Just like with the previous method, AcraServer will match the ZoneID in response and use it to decrypt AcraStruct data that follows in the next column.
 
-We can use SQL as API to communicate with AcraServer to decrypt data similar to AcraTranslator and construct custom result rows.  
-Query for PostgreSQL: 
-```sql
-SELECT 1, 
-       'DDDDDDDDjKjECtcRBDkmHVBh', 
-       '\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA;
-```
-
-Query for MySQL: 
-```sql
-SELECT 1, 
-       'DDDDDDDDjKjECtcRBDkmHVBh', 
-       X'2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103';
-```
-Here we explicitly specify ZoneID as `DDDDDDDDjKjECtcRBDkmHVBh` and explicitly specify AcraStruct value as HEX literal. 
-So, database will return data as is and result rows will look similar to previous examples:
-
-
-## How Zones work
-
-When analysing the database output stream, AcraServer searches for certain strings called Zone Ids (also ZoneId and zoneid/zone_id in code). They let Acra know that within this record a private key corresponding to the Zone Id should be used for the actual decryption of AcraStructs. It will only work if the user explicitly formats the output for Zone Id to precede the AcraStruct.
 
 ### More information about Zones
 
