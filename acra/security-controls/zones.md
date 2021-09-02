@@ -18,7 +18,7 @@ So application have access to decrypted data only if knows correct ZoneID and da
 ## How to encrypt data using zones
 
 There are two ways to encrypt data with zones: static and dynamic. Static method works only with AcraServer. 
-In both methods Zones should be created before encryption with [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra_addzone.md" >}}) tool or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
+In both methods Zones should be created before encryption with [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) tool or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
 After generating new Zone you don't need to restart AcraServer or AcraTranslator. On generation, it saved in KeyStore specified for `acra-addzone` or AcraServer (if generated via HTTP API). 
 So, AcraServer with AcraTranslator will get new keys for encryption from KeyStore on new encryption requests at run-time. 
 
@@ -30,7 +30,7 @@ Every change of encryptor's config require AcraServer restart to apply new setti
 
 ### Dynamic
 
-Works with AcraServer and AcraTranslator. After generating new Zone with [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra_addzone.md" >}}) tool or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}})
+Works with AcraServer and AcraTranslator. After generating new Zone with [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) tool or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}})
 it is available to encrypt data. Your application should know new ZoneID to specify it in requests to AcraTranslator and should have access to generated public key to encrypt data with AcraWriter and Zone.
 
 ## How to decrypt data using zones
@@ -56,33 +56,48 @@ There are several methods how to achieve it:
 
 Let's look how it works on first method on simple example when application stores ZoneID and encrypted data in database table. 
 For PostgreSQL will look like:
-```
+```sql
 CREATE TABLE application_data (
  id SERIAL PRIMARY KEY,
  zone_id BYTEA,
  data BYTEA
 );
-INSERT INTO application_data (zone_id, data) VALUES ('DDDDDDDDjKjECtcRBDkmHVBh'::BYTEA, '\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA);
+INSERT INTO application_data (zone_id, data) 
+VALUES (
+        'DDDDDDDDjKjECtcRBDkmHVBh'::BYTEA, 
+        '\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA
+        );
 ```
 For MySQL will look like:
-```
+```sql
 CREATE TABLE application_data (
  id INTEGER PRIMARY KEY AUTO_INCREMENT,
  zone_id BLOB,
  data BLOB
 );
-INSERT INTO application_data (zone_id, data) VALUES ('DDDDDDDDjKjECtcRBDkmHVBh', X'2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103');
+INSERT INTO application_data (zone_id, data) 
+VALUES (
+        'DDDDDDDDjKjECtcRBDkmHVBh', 
+        X'2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'
+        );
 ```
-Here we created table where ZoneID will be stored in `zone_id` and this column precedes the `data` column where stored encrypted data. So if we query `SELECT * FROM application_data` 
-it will be expanded by database to `SELECT "application_data"."id", "application_data"."zone_id", "application_data"."data"` and result rows will contain ZoneID before encrypted data.
-In our example result from PostgreSQL will be:
-```
-1 \x44444444444444446a4b6a454374635242446b6d48564268 \x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
+Here we create a table where ZoneID is stored in `zone_id` column preceding the `data` column with encrypted data.
+The columns in the database may have a different order, but `SELECT` queries must have ZoneID column before the encrypted data.
+For example, if you make the following query:
+```sql
+SELECT id, zone_id, data FROM application_data
 ```
 
-From MySQL:
+the response for Postgresql will be like this:
 ```
-1 0x44444444444444446A4B6A454374635242446B6D48564268 0x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
+1 \x44444444444444446a4b6a454374635242446b6d48564268 
+\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
+```
+
+for MySQL:
+```
+1 0x44444444444444446A4B6A454374635242446B6D48564268 
+0x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
 ```
 AcraServer will process row by row, column by column. At first, it will try to match ZoneID until success.
 1. Try match `1`. It will fail because of invalid ZoneID begin tag `DDDDDDDD`.
@@ -93,41 +108,48 @@ AcraServer will process row by row, column by column. At first, it will try to m
 
 At this case application will not store ZoneID in database and store it locally or get it from user's input. Our table in database will be changed.
 For PostgreSQL:
-```
+```sql
 CREATE TABLE application_data (
  id SERIAL PRIMARY KEY,
  data BYTEA
 );
-INSERT INTO application_data (data) VALUES ('\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA);
+INSERT INTO application_data (data) 
+VALUES (
+        '\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA
+        );
 ```
 
 For MySQL:
-```
+```sql
 CREATE TABLE application_data (
  id INTEGER PRIMARY KEY AUTO_INCREMENT,
  data BLOB
 );
-INSERT INTO application_data (data) VALUES (X'2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103');
+INSERT INTO application_data (data) 
+VALUES (
+        X'2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'
+        );
 ```
 
 Now application should explicitly specify ZoneID in SQl query (works for MySQL and PostgreSQL): `SELECT "application_data"."id", 'DDDDDDDDjKjECtcRBDkmHVBh', "application_data"."data" FROM "application_data";`
 Here we placed ZoneID as string literal before encrypted column `data` and ZoneID value will be returned by database before encrypted data. So result rows will look similar as in example of [method 1](#method-1):
 ```
-1 DDDDDDDDjKjECtcRBDkmHVBh \x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
+1 DDDDDDDDjKjECtcRBDkmHVBh 
+\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
 ```
 
 #### Method 3
 
 We can use SQL as API to communicate with AcraServer to decrypt data similar to AcraTranslator and construct custom result rows.  
 Query for PostgreSQL: 
-```
+```sql
 SELECT 1, 
        'DDDDDDDDjKjECtcRBDkmHVBh', 
        '\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103'::BYTEA;
 ```
 
 Query for MySQL: 
-```
+```sql
 SELECT 1, 
        'DDDDDDDDjKjECtcRBDkmHVBh', 
        X'2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103';

@@ -1,10 +1,10 @@
 ---
-title: AcraAddZone
+title: acra-addzone
 bookCollapseSection: true
 weight: 10
 ---
 
-# AcraAddZone
+# acra-addzone
 
 `acra-addzone` is command-line utility that generates new Zone keys for AcraBlocks/AcraStructs and logs to `stdout` JSON object with new generated ZoneID and public key.
 
@@ -100,7 +100,7 @@ weight: 10
 ## Output
 
 ```
-$> acra-addzone
+$ acra-addzone
 INFO[0000] Disabling future logs... Set -v to see logs  
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
@@ -110,6 +110,6 @@ INFO[0000] Initialized default env ACRA_MASTER_KEY loader
 Logs have written to `stderr` and `JSON` output with Zone data have written to `stdout`. To get only JSON output you can redirect `stderr` to `/dev/null`:
 
 ```
-$> acra-addzone 2>/dev/null
+$ acra-addzone 2>/dev/null
 {"id":"DDDDDDDDitpDYzEmbXWbBZzG","public_key":"VUVDMgAAAC1PF4yhAtF0ygbsRlEBMjY0E+9Pp694hauHyQfjC8gVAuOQJ0CX"}
 ```
