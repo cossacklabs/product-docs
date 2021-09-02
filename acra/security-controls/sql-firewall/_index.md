@@ -32,6 +32,9 @@ Refer to the [AcraServer]({{< ref "/acra/configuring-maintaining/general-configu
 The configuration file describes how AcraCensor should process the incoming SQL queries – log, pass, block, ignore. Each action is described by the corresponding handler. Their position in the file represents their priority of processing.
 
 We suggest the following structure of handlers for better security: put `query_capture` first to log every query into the `censor.log`, then put `query_ignore` to ignore some database-specific control queries that occur when the database is starting and when the database drives check the connections, then put the `deny` handler to block all the unwanted queries, then put the `allow` handler to allow some specific "normal" queries.
+{{< hint info >}}
+Note: any change in the AcraCensor configuration file require AcraServer restart to apply changes.
+{{< /hint >}}
 
 The new configuration file format allows configuring the `allow` and `deny` handlers separately or simultaneously.
 
