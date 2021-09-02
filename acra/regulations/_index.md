@@ -12,7 +12,7 @@ Acra is an encryption tool that allows processing sensitive data with great care
 ## Security of processing
 [Article 32 of GDPR](https://gdpr-info.eu/art-32-gdpr/)
 
-Acra provides  &quot;state of the art&quot; &quot;security of processing&quot; required in article 32 of GDPR through providing data encryption and integrity check of the encrypted data.
+Acra provides &quot;state of the art security of processing&quot; required in article 32 of GDPR through providing data encryption and integrity check of the encrypted data.
 
 _&gt; &quot;Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk,...&quot;_
 
