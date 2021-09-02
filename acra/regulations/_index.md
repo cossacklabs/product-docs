@@ -48,4 +48,4 @@ Similarly to how Acra helps reach better compliance with GDPR, Acra can also hel
 * [DPA (Data Protection Act)](https://www.legislation.gov.uk/ukpga/2018/12/contents/enacted)
 * [CCPA (California Consumer Privacy Act)](https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act)
 
-Check out the data encryption cheatsheet that covers several current data privacy regulations in [Cossak Labs blog](https://www.cossacklabs.com/blog/what-we-need-to-encrypt-cheatsheet.html).
+Check out the data encryption cheatsheet that covers several current data privacy regulations in [Cossack Labs blog](https://www.cossacklabs.com/blog/what-we-need-to-encrypt-cheatsheet.html).
