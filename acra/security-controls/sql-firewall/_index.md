@@ -93,9 +93,9 @@ These are all required steps to make your previous configuration file compatible
 
 There are several handler types for AcraCensor:
 
-- The `allow` handler, which allows specific queries or queries that match specific patterns and access to specific tables and blocks everything else. If the `allowall` handler is a final statement of a configuration file, it means that all the queries that were not processed by previous handlers are allowed.
+The `allow` handler - blocks everything, but allows specific queries or queries that match specific patterns and access to specific tables. If the `allowall` handler is a final statement of a configuration file, it means that all the queries that were not processed by previous handlers are allowed.
 
-- The `deny` handler, which blocks specific queries or queries that match specific patterns and access to the specific tables and allows everything else. If the `denyall` handler is a final statement of a configuration file, it means that all the queries that were not processed by previous handlers are allowed.
+The `deny` handler - allows everything, but blocks specific queries or queries that match specific patterns and access to the specific tables.
 
 
 For each handler, there are settings that regulate:
@@ -111,14 +111,14 @@ You can configure the allowlist and the denylist separately or simultaneously. T
 
 ### Prepared statements
 
-The root of the SQL injection problem is that code and data get mixed up and can be mistaken for each other. SQL prepared statements help to separate code execution from the data itself.
+The root of the SQL injection problem is that the code and the data (withing SQL query) can get mixed up and be mistaken for each other. SQL prepared statements help to separate code execution from the data itself.
 
 AcraCensor has limited support of filtering prepared statements. AcraCensor doesn't apply allow/deny rules for SQL requests with prepared statements. However, it's possible to use query_capture/query_ignore to filter the whole statement when necessary (through comparing the incoming SQL char-by-char with the SQL from the config file).
 
 
 ### Ignoring specific queries
 
-It might be useful not to apply allowlist/denylist rules to some exact queries, for example, the SQL queries on starting up the database. If the query is ignored, AcraCensor won't apply any rules to it (so basically AcraCensor will pass this query to the database).
+It might be useful to skip appliance of allowlist/denylist rules to particular queries, for example, the SQL queries on starting up the database. If the query is ignored, AcraCensor won't apply any rules to it (so basically AcraCensor will pass this query to the database).
 
 ```
 - handler: query_ignore
@@ -130,7 +130,7 @@ It might be useful not to apply allowlist/denylist rules to some exact queries, 
     - show collation where `Charset` = 'utf8' and `Collation` = 'utf8_bin'
 ```
 
-To ignore some queries, place them to the `query_ignore` handler. AcraCensor compares each input query with queries from the `query_ignore` list. If there is a match, the query is allowed through and no allow/deny handlers are applied.
+To ignore some queries, put them to the `query_ignore` handler. AcraCensor compares each input query with queries from the `query_ignore` list. If there is a match, the query is allowed through and no allow/deny handlers are applied.
 
 We suggest looking into [tests/acra-censor_configs](https://github.com/cossacklabs/acra/tree/master/tests/acra-censor_configs) to see which PostgreSQL and MySQL queries we've added to the ignore list for running integration tests.
 
