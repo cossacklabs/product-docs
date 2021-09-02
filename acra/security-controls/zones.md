@@ -69,11 +69,10 @@ You need to send appropriate ZoneID along with the query, encrypted data stored 
 The application has to know only the correct ZoneID.
 Decryption keys are stored on the AcraServer which looks them up by the provided ZoneID.
 
-Because SQL is the only way how application communicates with database and AcraServer, there is only one way where AcraServer can get and match ZoneID in pair with encrypted data: database result rows.
-There are several methods how to achieve it:
-* ZoneID should be stored in database and precedes encrypted data in result rows
-* ZoneID specified explicitly in SQL query as literal (according to database binary literals) in `SELECT` statement before encrypted column
-* ZoneID specified explicitly in SQL query as literal (according to database binary literals) in `SELECT` statement before explicitly specified encrypted data as SQL literal
+Since the application does not communicate with the AcraServer directly, the SQL query must specify the ZoneID to use in some way, either in the query itself on in the resulting response.
+Several options are supported:
+* ZoneID can be stored in the database and queried together with encrypted data.
+* ZoneID can be specified explicitly in SQL queries as a binary literal.
 
 #### Method 1 – ZoneID stored in the database
 

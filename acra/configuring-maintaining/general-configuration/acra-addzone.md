@@ -6,7 +6,7 @@ weight: 10
 
 # acra-addzone
 
-`acra-addzone` is command-line utility that generates new Zone keys for AcraBlocks/AcraStructs and logs to `stdout` JSON object with new generated ZoneID and public key.
+`acra-addzone` is a command-line utility that generates new [Zone keys]({{< ref "/acra/security-controls/zones.md" >}}) for AcraBlocks/AcraStructs.
 
 ## Command line flags
 
