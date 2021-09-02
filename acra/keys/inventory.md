@@ -18,7 +18,7 @@ There are several types of keys used in Acra:
     AcraServer in Transparent proxy mode and AcraTranslator use symmetric keys to encrypt/decrypt data with [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}})
 
   - **Blind index keys.**
-    AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for hash calculations to implement searchable encryption. More you can read in our [scientific paper](https://eprint.iacr.org/2019/806.pdf).
+AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for hash calculations to implement searchable encryption. You can find more details in our [scientific paper](https://eprint.iacr.org/2019/806.pdf).
 
   - **Secure logging keys.**
     AcraServer, AcraConnector and AcraTranslator use symmetric keys for [audit log]({{< ref "/acra/security-controls/security-logging-and-events/#-INVALID" >}}) and HMAC calculations to sign all output logs
@@ -49,7 +49,7 @@ Storage keys can be represented by either:
 
 > Note: Read more about handling key names in [Losing your keys]({{< ref "/acra/keys/troubleshooting.md#losing-the-keys" >}}) and [Renaming your keys]({{< ref "/acra/keys/troubleshooting.md#renaming-key-files" >}}).
 
-Each Acra component has to have its own key storage (by default it is key folder `.acrakeys`) that contains a set of keys necessary for the correct functioning of the components:
+Correct operation of each Acra's component requires set of cryptographic keys (default keystore is `.acrakeys` filesystem directory)
 
 - **AcraConnector** needs to have its own transport private key and other party transport public key to establish a [Secure Session connection]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}). You should put transport public key of AcraServer or AcraTranslator into AcraConnector's key storage, depending on the connection type.
 
@@ -80,7 +80,7 @@ Each Acra component has to have its own key storage (by default it is key folder
 | AcraStruct decryption | `${ClientID}_storage` | AcraServer<br/>AcraTranslator |  |  |
 | AcraStruct encryption with Zones |  |  | `${ZoneID}_zone.pub` | AcraWriter<br/>AcraTranslator<br/>AcraServer (Transparent proxy mode)
 | AcraStruct decryption with Zones | `${ZoneID}_zone` | AcraServer<br/>AcraTranslator | |
-| Poison record with AcraStruct | `poison_key` | AcraServer<br/>AcrTranslator | `poison_key.pub` | AcraServer<br/>AcrTranslator
+| Poison record with AcraStruct | `poison_key` | AcraServer<br/>AcraTranslator | `poison_key.pub` | AcraServer<br/>AcraTranslator
 
 ##### Symmetric keys
 | Purpose  | Symmetric key  | Stays on
