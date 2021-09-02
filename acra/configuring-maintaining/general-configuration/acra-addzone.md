@@ -18,12 +18,12 @@ weight: 10
 
 * `--dump_config`
 
-  Dump configuration to `configs/acra-server.yaml`.
+  Dump configuration to `configs/acra-addzone.yaml`.
 
 * `--generate_markdown_args_table`
 
   Generate markdown file with text description of all flags.
-  Output file is `configs/markdown_acra-server.md`.
+  Output file is `configs/markdown_acra-addzone.md`.
   Works in pair with `--dump_config`.
   
 ### Logging
@@ -37,14 +37,11 @@ weight: 10
 
 #### Filesystem
 
-* `--keys_output_dir=<folder>`
+* `--keys_output_dir=<path>`
 
-  Folder where will be saved keys.  
+  Path to keystore directory.
+
   Default is `.acrakeys`.
-  
-* `--fs_keystore_enable`
-  Use filesystem keystore (deprecated, ignored)
-  Default is `true`.
 
 #### Redis
 
@@ -65,32 +62,37 @@ weight: 10
   Password to Redis database.
 
 
-### Vault
+### HashiCorp Vault
+
+`acra-addzone` can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.
 
 * `--vault_connection_api_string=<url>`
 
-  Connection string (like `http://x.x.x.x:yyyy`) for loading `ACRA_MASTER_KEY` from HashiCorp Vault.
-  Default is empty (`ACRA_MASTER_KEY` environment variable is expected).
+  Connection string (like `https://example.com:8200`) for connecting to HashiCorp Vault.
+  If not specified, `ACRA_MASTER_KEY` environment variable will be used.
 
-* `--vault_secrets_path=<path>`
+* `--vault_secrets_path=<kv-path>`
 
-  KV Secret Path for reading `ACRA_MASTER_KEY` from HashiCorp Vault.
+  Path to KV Secrets directory in Vault used to store `ACRA_MASTER_KEY`.
   Default is `secret/`.
 
-* `--vault_tls_ca_path=<filename>`
+* `--vault_tls_ca_path=<path>`
 
-  Path to CA certificate for HashiCorp Vault certificate validation.
-  Default is empty (use root certificates configured in system).
+  Path to CA certificate bundle to use for HashiCorp Vault certificate validation.
 
-* `--vault_tls_client_cert=<filename>`
+  If not specified, use root certificates configured in system.
 
-  Path to client TLS certificate for reading `ACRA_MASTER_KEY` from HashiCorp Vault.
-  Default is empty (don't send client certificate).
+* `--vault_tls_client_cert=<path>`
 
-* `--vault_tls_client_key=<filename>`
+  Path to client TLS certificate used to connect to HashiCorp Vault.
 
-  Path to private key of the client TLS certificate for reading `ACRA_MASTER_KEY` from HashiCorp Vault.
-  Default is empty (don't send client certificate).
+  If not specified, don't send client certificate.
+
+* `--vault_tls_client_key=<path>`
+
+  Path to the private key of the client TLS certificate used to connect to HashiCorp Vault.
+
+  If not specified, don't send client certificate.
 
 * `--vault_tls_transport_enable={true|false}`
 
