@@ -5,16 +5,16 @@ weight: 4
 
 # DB indexes
 
-Indexing right columns is very important for good database performance.
+Indexing the right columns is very important for good database performance.
 Apart from the fact that you should index columns (or their combinations) that are frequently used in query filters,
 there are few things specific for Acra.
 
 ## Searchable encryption
 
-When some column is configured to be "encrypted and searchable", AcraServer will store its value as `HMAC(value) + encrypt(value)`.
-This `HMAC(value)` is the hash of value that is used during search of encrypted value (knowing the `value` exactly).
-For this to be efficient, there should be a special index in database that indexes only **first 32 bytes** of encrypted-searchable column.
-`32` because of the hash being used (SHA256).
+When a column is configured to be "encrypted and searchable", AcraServer will store its value as `HMAC(data) + encrypt(data)`.
+This `HMAC(data)` is a hash that actually gets searched for by the database, instead of the encrypted data which can only be decrypted by AcraServer.
+For this search to be efficient, there should be a special index in the database that indexes only **the first 32 bytes** of encrypted-searchable column.
+`32` is the output length of the hash function used by Acra (HMAC-SHA-256).
 
 In PostgreSQL the index would look something like
 ```sql
