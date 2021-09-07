@@ -7,37 +7,59 @@ bookCollapseSection: true
 
 ## How Acra can help you comply with GDPR
 
-Acra is an encryption tool that allows processing sensitive data with great care and secureness — namely, encrypting the data in a certain way. Acra performs encryption through [Themis]({{< ref "/themis/" >}}) in [Secure Cell]({{< ref "themis/crypto-theory/cryptosystems/secure-cell.md" >}})/Seal mode (AES256 + GCM). This corresponds to the &quot;state of the art&quot; (as mentioned in the [full text of the GDPR](https://gdpr-info.eu/) regulation) algorithms of symmetric encryption. Also, Acra is securely pre-configured by default and carries out extensive logging of all its actions &quot;out of the box&quot;. Using Acra helps reaching compliance with some of the demands of the articles 32 ([Security of processing](https://gdpr-info.eu/art-32-gdpr/)) and 25 ([Data protection by design and by default](https://gdpr-info.eu/art-25-gdpr/)) of GDPR, as well as helps comply with the articles 33 and 34  ([Notification of a personal data breach to the supervisory authority](http://gdpr-info.eu/art-33-gdpr/) and [Communication of a personal data breach to the data subject](http://gdpr-info.eu/art-34-gdpr/)) of GDPR.
+Acra is a database security suite that enables processing sensitive data with great care and security — namely, encrypting the data in a certain way.
+Acra performs encryption through [Themis]({{< ref "/themis/" >}})
+with [Secure Cell]({{< ref "themis/crypto-theory/cryptosystems/secure-cell.md" >}})
+in Seal mode using AES-256-GCM,
+a “state of the art” algorithm of symmetric data encryption as understood by [GDPR](https://gdpr-info.eu/).
+Also, Acra follows “secure by default” configuration philosophy and carries out extensive logging of all its actions “out of the box”.
+Using Acra fulfills some of the demands of the articles 25 and 32 of GDPR
+([Data protection by design and by default](https://gdpr-info.eu/art-25-gdpr/) and [Security of processing](https://gdpr-info.eu/art-32-gdpr/))
+as well as assists with compliance with articles 33 and 34
+([Notification of a personal data breach to the supervisory authority](http://gdpr-info.eu/art-33-gdpr/) and [Communication of a personal data breach to the data subject](http://gdpr-info.eu/art-34-gdpr/)).
 
 ## Security of processing
 [Article 32 of GDPR](https://gdpr-info.eu/art-32-gdpr/)
 
-Acra provides &quot;state of the art security of processing&quot; required in article 32 of GDPR through providing data encryption and integrity check of the encrypted data.
+Acra provides “state of the art security of processing” required by the article 32 of GDPR through providing data encryption and integrity checking of the encrypted data.
 
-_&gt; &quot;Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk,...&quot;_
+> Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk [...]
 
-Also, the components of Acra allow encrypting data on the client&#39;s side, which enables secure transfer of the data in encrypted form through an untrusted channel.
+Also, the components of Acra allow encrypting data on the client side which enables secure transfer of the data in encrypted form through an untrusted channel.
 
 ## Data protection by design and by default
 
 [Article 25 of GDPR](https://gdpr-info.eu/art-25-gdpr/)
 
-The default settings of Acra are pre-configured in the most secure way to provide that exact &quot;secure by default&quot; state of the system. This is enabled through the default encryption settings for the data transfer between the Acra&#39;s components and the database ( [SSL](http://info.ssl.com/article.aspx?id=10241) and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) are used).
+Default configuration of Acra uses the most secure settings to provide “secure by default” state of the system.
+This is enabled through the encrypted data transfer between the application, components of Acra, and the database
+([TLS/SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) are supported).
 
-_&gt;&quot;In particular, such measures shall ensure that by default personal data are not made accessible without the individual&#39;s intervention to an indefinite number of natural persons.&quot;_
+> The controller shall implement appropriate technical and organisational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed [...] In particular, such measures shall ensure that by default personal data are not made accessible without the individual’s intervention to an indefinite number of natural persons.
 
 ## Logging, Intrusion Detection, and Notification
 
 [Articles 33](https://gdpr-info.eu/art-33-gdpr/) [and 34 of GDPR](https://gdpr-info.eu/art-34-gdpr/)
 
-Acra makes the communication with the users in case of a data breach easier because the data is encrypted (see Art 34 of GDPR):
+Acra encrypts sensitive data, making it easier to communicate with the users in case of a data breach:
 
-_&gt; &quot;The communication to the data subject referred to in paragraph 1 shall not be required if any of the following conditions are met:
-the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular, those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption.&quot;_
+> The communication to the data subject referred to in paragraph 1 shall not be required if any of the following conditions are met:
+>
+> * the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular, those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption;
 
-All the components of Acra are logging the requests/queries/events that take place within Acra plus supports [secure logging]({{< ref "/acra/security-controls/security-logging-and-events/" >}}) that prevents tampering messages, removing, adding or changing the order of log entries. This provides the logs of everything that was happening in Acra in case of a security incident. Using the logs makes it easier to notify the supervisory authority and users about the exact details of a data breach (which complies with the articles [33](http://gdpr-info.eu/art-33-gdpr/) and [34](http://gdpr-info.eu/art-34-gdpr/) of GDPR). All the SQL queries to the database are logged in Acra by [AcraCensor]({{< ref "/acra/security-controls/sql-firewall/" >}}) (Acra&#39;s firewall) with configurable verbosity.
+All components of Acra continuously log requests, queries, and events that take place.
+Acra also supports [secure logging]({{< ref "/acra/security-controls/security-logging-and-events/" >}})
+which prevents tampering with, removing, adding, or changing the order of log entries.
+This provides audit record of everything that happens in Acra, which comes particularly useful in case of a security incident.
+Having a tamper-proof complete audit log makes it easier to notify the supervisory authority and users about the exact details of a data breach
+(pursuant to [articles 33](http://gdpr-info.eu/art-33-gdpr/) [and 34](http://gdpr-info.eu/art-34-gdpr/) of GDPR).
+All SQL queries to the database are logged by [AcraCensor]({{< ref "/acra/security-controls/sql-firewall/" >}}) (Acra’s firewall) with configurable verbosity.
 
-Also, there is a special intrusion detection feature in Acra called &quot; [poison records]({{< ref "/acra/security-controls/intrusion-detection/#poison-records-INVALID" >}})&quot;. The poison records help to detect a massive data leak and perform a shutdown (or any other action specified by the administrator) of Acra&#39;s work (data encryption/decryption) if a poison record is detected in a query (which means there was a successful attempt at an unauthorized data access).
+Additionally, Acra has a special intrusion detection feature called [poison records]({{< ref "/acra/security-controls/intrusion-detection/#poison-records-INVALID" >}})
+which can help detecting a massive data leak and prevent further data disclosure.
+Poison records never shows up in legitimate queries.
+If a poison record is detected in a query then it's likely a result of an unauthorized data access.
+In this case, Acra can be configured to shutdown completely, disable data encryption and decryption, or perform any other action specified by the administrator.
 
 ## Acra and other data privacy regulations
 
