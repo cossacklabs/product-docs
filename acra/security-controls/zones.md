@@ -25,7 +25,7 @@ Application will need to know the correct ZoneID as well as which data records a
 
 There are two ways to encrypt data with zones: using static or dynamic ZoneID.
 
-In any case, a zone must be created first with [`acra-addzone` tool]({{< ref "/acra/configuring-maintaining/general-configuration/acra_addzone.md" >}}) or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
+In any case, a zone must be created first with [`acra-addzone` tool]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
 Newly generated keys will be placed into AcraServer or AcraTranslator keystore so that they are able to decrypt the encrypted data.
 You will also get the ZoneID and the public key you will need to encryption.
 
@@ -163,12 +163,15 @@ VALUES (
         );
 ```
 
-Now application should explicitly specify ZoneID in SQl query (works for MySQL and PostgreSQL): `SELECT "application_data"."id", 'DDDDDDDDjKjECtcRBDkmHVBh', "application_data"."data" FROM "application_data";`
-Here we placed ZoneID as string literal before encrypted column `data` and ZoneID value will be returned by database before encrypted data. So result rows will look similar as in example of [method 1](#method-1):
+However, AcraServer still needs to know the ZoneID to decrypt the data.
+
+Instead of querying it from the database, the application specifies ZoneID directly in the query as a literal:
+
+```sql
+SELECT id, 'DDDDDDDDjKjECtcRBDkmHVBh', data FROM application_data
 ```
-1 DDDDDDDDjKjECtcRBDkmHVBh 
-\x2222222222222222554543320000002d116bab650305cf67209623ed3a134fd77bfecd0c9a95107450826e14f950fdd1dba73732872027042654000000000101400c00000010000000200000003f5fd06dbf8bf49be6a8b440ea54f01174934049fd563ce27ff0aafbe5ea9155588e1ddd0ce64804fe5ff347ae097e29dd007fcaa02a3548da568df83300000000000000000101400c00000010000000070000002273af944d98bcde697b914d98fea013b77a358a93959ddfee47858b75d2e86eb5f103 
-```
+
+Here we placed ZoneID as a string literal before the encrypted column `data`. ZoneID value will be returned by the database before encrypted data in the result rows:
 
 Just like with the previous method, AcraServer will match the ZoneID in response and use it to decrypt AcraStruct data that follows in the next column.
 
