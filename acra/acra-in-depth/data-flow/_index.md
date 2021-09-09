@@ -109,5 +109,5 @@ With SecureSession and AcraConnector for secure transport:
 ### Data flow with Zones
 
 Data flow with zones are similar for schemas described above except several additional steps at the beginning:
-* Zone generation via [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) CLI command or AcraServer's HTTP API
+* Zone generation via [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) CLI command or [AcraServer's HTTP API]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#http-api-INVALID">}}).
 * [Specifying Zone ID]({{< ref "/acra/security-controls/zones.md" >}}) in requests to AcraTranslator or inside DB query to database through AcraServer. 
