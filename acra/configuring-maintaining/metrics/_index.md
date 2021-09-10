@@ -22,22 +22,90 @@ Starting with version [`0.83.0`](https://github.com/cossacklabs/acra/releases/ta
 ### Exposed metrics
 
 Acra can expose standard set of metric [`types`](https://prometheus.io/docs/concepts/metric_types/) for AcraServer, AcraConnector, and AcraTranslator. 
-Additional metrics registration info could be found in [`prometheus.go`](https://github.com/cossacklabs/acra-Q12021/blob/master/cmd/acra-server/common/prometheus.go) files located in `cmd` folder for each corresponded Acra component.
+Additional metrics registration info could be found in [`prometheus.go`](https://github.com/cossacklabs/acra/blob/master/cmd/acra-server/common/prometheus.go) files located in `cmd` folder for each corresponded Acra component.
 
 
+1. **Metric**: *acra{server|translator|connector}_connections_total*
 
-|                            Metric                                   |              Description                   |                                     Type                                   | 
-| ------------------------------------------------------------------- | ------------------------------------------ | -------------------------------------------------------------------------- | 
-|  `acra{server|translator|connector}_connections_total`              | Number of connections to database          | [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)     | 
-|  `acra{server|translator|connector}_connections_processing_seconds` | Time of connection processing              | [`Histogram`](https://prometheus.io/docs/concepts/metric_types/#histogram) |
-|  `acra{server|translator}_request_processing_seconds`               | Time of request processing                 | [`Histogram`](https://prometheus.io/docs/concepts/metric_types/#histogram) |
-|  `acraserver_response_processing_seconds`                           | Time of response processing                | [`Histogram`](https://prometheus.io/docs/concepts/metric_types/#histogram) |
-|  `acra_api_encryptions_total`                                       | Number of encryptions data to AcraStruct   | [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)     |
-|  `acra{server|translator|connector}_version_major`                  | Major number of version                    | [`Gauge`](https://prometheus.io/docs/concepts/metric_types/#gauge)         |
-|  `acra{server|translator|connector}_version_minor`                  | Minor number of version                    | [`Gauge`](https://prometheus.io/docs/concepts/metric_types/#gauge)         |
-|  `acra{server|translator|connector}_version_patch`                  | Patch number of version                    | [`Gauge`](https://prometheus.io/docs/concepts/metric_types/#gauge)         |
-|  `acra{server|translator|connector}_build_info`                     | Build number                               | [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)     |
+   **Description**: Number of connections to database
 
+   **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+   **Labels**: `connection_type`
+
+2. **Metric**: *acra{server|translator|connector}_connections_processing_seconds*
+
+   **Description**: Time of connection processing
+
+   **Type**: [`Histogram`](https://prometheus.io/docs/concepts/metric_types/#histogram)
+
+   **Labels**: `connection_type`
+
+   **Buckets**: 0.1, 0.2, 0.5, 1, 10, 60, 3600, 86400
+
+3. **Metric**: *acra{server|translator}_request_processing_seconds*
+
+   **Description**: Time of request processing
+
+   **Type**: [`Histogram`](https://prometheus.io/docs/concepts/metric_types/#histogram)
+
+   **Labels**:
+   - acraserver: `db`
+   - acratranslator: `request_type`, `operation`
+
+   **Buckets**: 0.000001, 0.00001, 0.00002, 0.00003, 0.00004, 0.00005, 0.00006, 0.00007, 0.00008, 0.00009, 0.0001, 0.0005, 0.001, 0.005, 0.01, 1, 3, 5, 10
+
+4. **Metric**: *acraserver_response_processing_seconds*
+
+   **Description**: Time of response processing
+
+   **Type**: [`Histogram`](https://prometheus.io/docs/concepts/metric_types/#histogram)
+
+   **Labels**: `db`, `mode`
+
+   **Buckets**: 0.000001, 0.00001, 0.00002, 0.00003, 0.00004, 0.00005, 0.00006, 0.00007, 0.00008, 0.00009, 0.0001, 0.0005, 0.001, 0.005, 0.01, 1, 3, 5, 10
+
+5. **Metric**: *acra_api_encryptions_total*
+
+   **Description**: Number of encryptions data to AcraStruct
+
+   **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+   **Labels**: `status`
+
+6. **Metric**: *acra_acrastruct_decryptions_total*
+
+    **Description**: Number of AcraStruct decryptions
+
+    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+    **Labels**: `status`
+
+7. **Metric**: *acra{server|translator|connector}_version_major*
+
+   **Description**: Major number of version
+
+   **Type**: [`Gauge`](https://prometheus.io/docs/concepts/metric_types/#gauge)
+
+8. **Metric**: *acra{server|translator|connector}_version_minor*
+
+   **Description**: Minor number of version
+
+   **Type**: [`Gauge`](https://prometheus.io/docs/concepts/metric_types/#gauge)
+
+9. **Metric**: *acra{server|translator|connector}_version_patch*
+
+   **Description**: Patch number of version
+
+   **Type**: [`Gauge`](https://prometheus.io/docs/concepts/metric_types/#gauge)
+
+10. **Metric**: *acra{server|translator|connector}_build_info*
+
+    **Description**: Build number
+
+    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+    **Labels**: `edition`, `version`
 
 
 ### Metrics example
