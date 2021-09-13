@@ -318,7 +318,7 @@ Note: TLS related flags work only together with `AcraServer` mode. `AcraTranslat
   
   OCSP service URL
 
-### Vault
+### HashiCorp Vault
 
 * `--vault_connection_api_string=<url>`
 
