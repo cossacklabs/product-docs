@@ -110,7 +110,15 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 
 ### Metrics example
 
+
+#### AcraServer
+
 ```
+ HELP acra_acrastruct_decryptions_total number of AcraStruct decryptions
+# TYPE acra_acrastruct_decryptions_total counter
+acra_acrastruct_decryptions_total{status="success"} 40
+# HELP acraserver_build_info 
+# TYPE acraserver_build_info counter
 acraserver_build_info{edition="ee",version="0.85.0"} 1
 # HELP acraserver_connections_processing_seconds Time of connection processing
 # TYPE acraserver_connections_processing_seconds histogram
@@ -120,22 +128,105 @@ acraserver_connections_processing_seconds_bucket{connection_type="db",le="0.5"} 
 acraserver_connections_processing_seconds_bucket{connection_type="db",le="1"} 0
 acraserver_connections_processing_seconds_bucket{connection_type="db",le="10"} 0
 acraserver_connections_processing_seconds_bucket{connection_type="db",le="60"} 0
-acraserver_connections_processing_seconds_bucket{connection_type="db",le="3600"} 1881
-acraserver_connections_processing_seconds_bucket{connection_type="db",le="86400"} 1881
-acraserver_connections_processing_seconds_bucket{connection_type="db",le="+Inf"} 1881
-acraserver_connections_processing_seconds_sum{connection_type="db"} 3.3436777324352157e+06
-acraserver_connections_processing_seconds_count{connection_type="db"} 1881
+acraserver_connections_processing_seconds_bucket{connection_type="db",le="3600"} 2
+acraserver_connections_processing_seconds_bucket{connection_type="db",le="86400"} 2
+acraserver_connections_processing_seconds_bucket{connection_type="db",le="+Inf"} 2
+acraserver_connections_processing_seconds_sum{connection_type="db"} 647.696587508
+acraserver_connections_processing_seconds_count{connection_type="db"} 2
 # HELP acraserver_connections_total number of connections to database
 # TYPE acraserver_connections_total counter
-acraserver_connections_total{connection_type="db"} 1901
+acraserver_connections_total{connection_type="db"} 2
 # HELP acraserver_request_processing_seconds Time of response processing
 # TYPE acraserver_request_processing_seconds histogram
-acraserver_request_processing_seconds_bucket{db="mysql",le="1e-06"} 0
-acraserver_request_processing_seconds_bucket{db="mysql",le="1e-05"} 0
-acraserver_request_processing_seconds_bucket{db="mysql",le="2e-05"} 0
+acraserver_request_processing_seconds_bucket{db="mysql",le="0.0001"} 6
+acraserver_request_processing_seconds_bucket{db="mysql",le="0.0005"} 35
+acraserver_request_processing_seconds_bucket{db="mysql",le="0.001"} 39
+acraserver_request_processing_seconds_bucket{db="mysql",le="0.005"} 39
+acraserver_request_processing_seconds_bucket{db="mysql",le="0.01"} 39
+acraserver_request_processing_seconds_bucket{db="mysql",le="1"} 40
+acraserver_request_processing_seconds_bucket{db="mysql",le="3"} 40
+acraserver_request_processing_seconds_bucket{db="mysql",le="5"} 40
+acraserver_request_processing_seconds_bucket{db="mysql",le="10"} 40
+acraserver_request_processing_seconds_bucket{db="mysql",le="+Inf"} 40
+acraserver_request_processing_seconds_sum{db="mysql"} 0.054349582
+acraserver_request_processing_seconds_count{db="mysql"} 40
 ```
 
+#### AcraConnector
 
+```
+# HELP acraconnector_build_info 
+# TYPE acraconnector_build_info counter
+acraconnector_build_info{edition="ce",version="0.85.0"} 1
+# HELP acraconnector_connections_processing_seconds Time of connection processing
+# TYPE acraconnector_connections_processing_seconds histogram
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="0.1"} 0
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="0.2"} 0
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="0.5"} 0
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="1"} 0
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="10"} 0
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="60"} 0
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="3600"} 2
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="86400"} 2
+acraconnector_connections_processing_seconds_bucket{connection_type="db",le="+Inf"} 2
+acraconnector_connections_processing_seconds_sum{connection_type="db"} 647.694854604
+acraconnector_connections_processing_seconds_count{connection_type="db"} 2
+# HELP acraconnector_connections_total number of connections to database
+# TYPE acraconnector_connections_total counter
+acraconnector_connections_total{connection_type="db"} 2
+# HELP acraconnector_version_major Major number of version
+# TYPE acraconnector_version_major gauge
+acraconnector_version_major 0
+# HELP acraconnector_version_minor Minor number of version
+# TYPE acraconnector_version_minor gauge
+acraconnector_version_minor 85
+```
+
+#### AcraTranslator
+
+```
+# HELP acratranslator_build_info 
+# TYPE acratranslator_build_info counter
+acratranslator_build_info{edition="ce",version="0.85.0"} 1
+# HELP acratranslator_version_major Major number of version
+# TYPE acratranslator_version_major gauge
+acratranslator_version_major 0
+# HELP acratranslator_version_minor Minor number of version
+# TYPE acratranslator_version_minor gauge
+acratranslator_version_minor 85
+# HELP acratranslator_version_patch Patch number of version
+# TYPE acratranslator_version_patch gauge
+acratranslator_version_patch 0
+# HELP go_gc_duration_seconds A summary of the pause duration of garbage collection cycles.
+# TYPE go_gc_duration_seconds summary
+go_gc_duration_seconds{quantile="0"} 0.00020384
+go_gc_duration_seconds{quantile="0.25"} 0.000208173
+go_gc_duration_seconds{quantile="0.5"} 0.000216844
+go_gc_duration_seconds{quantile="0.75"} 0.000687777
+go_gc_duration_seconds{quantile="1"} 0.000687777
+go_gc_duration_seconds_sum 0.001316634
+go_gc_duration_seconds_count 4
+# HELP go_goroutines Number of goroutines that currently exist.
+# TYPE go_goroutines gauge
+go_goroutines 13
+# HELP go_info Information about the Go environment.
+# TYPE go_info gauge
+go_info{version="go1.15.6"} 1
+# HELP go_memstats_alloc_bytes Number of bytes allocated and still in use.
+# TYPE go_memstats_alloc_bytes gauge
+go_memstats_alloc_bytes 1.223896e+07
+# HELP go_memstats_alloc_bytes_total Total number of bytes allocated, even if freed.
+# TYPE go_memstats_alloc_bytes_total counter
+go_memstats_alloc_bytes_total 1.8350904e+07
+# HELP go_memstats_buck_hash_sys_bytes Number of bytes used by the profiling bucket hash table.
+# TYPE go_memstats_buck_hash_sys_bytes gauge
+go_memstats_buck_hash_sys_bytes 1.451433e+06
+# HELP go_memstats_frees_total Total number of frees.
+# TYPE go_memstats_frees_total counter
+go_memstats_frees_total 55487
+# HELP go_memstats_gc_cpu_fraction The fraction of this program's available CPU time used by the GC since the program started.
+# TYPE go_memstats_gc_cpu_fraction gauge
+```
 
 {{< hint info >}}
 **Note:**
