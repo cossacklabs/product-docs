@@ -91,7 +91,10 @@ The migration procedure consists of the following steps:
 
 - rename `blacklist` handler to `deny` handler
 - rename `whitelist` handler to `allow` handler
-- add version line on the top of the file "version: 0.85.0"
+- add version line on the top of the file: 
+  ```yaml
+  "version: 0.85.0"
+  ```
 
 These are all required steps to make your previous configuration file compatible with new AcraServer/AcraCensor versions.
 

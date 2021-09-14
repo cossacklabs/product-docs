@@ -16,7 +16,7 @@ Please see examples below.
 
 ### `allow` handler
 
-Allow handler denies any query if it does not contain the whole set of tables specified in configuration file for this handler. Query is allowed if number of tables in configuration file equals to number of tables in the query. E.g. all tables from configuration file should be presented in a set of tables of the query.
+`allow` handler denies any query if they do not contain the whole set of tables specified in configuration file for this handler. Query is allowed if number of tables in configuration file equals to number of tables in the query. E.g. all tables from configuration file should be presented in a set of tables of the query.
 
 | list of tables | allowed queries | denied queries |
 | ------- | ------- | ------- |

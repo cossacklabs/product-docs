@@ -1,9 +1,9 @@
 ---
-title: "Patterns filters"
+title: '"patterns" filters'
 bookCollapseSection: true
 ---
 
-## Patterns
+## `patterns` filters
 
 `patterns` filters match the queries by a template consisting of literal query text with variable parts represented as *patterns*.
 
@@ -104,7 +104,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%SELECT%%` | `SELECT users, cats `<br/>`FROM company`<br/><br/>`SELECT dogs, chameleons `<br/>`FROM company`<br/><br/>`SELECT SUM(Salary) `<br/>`FROM Employee `<br/>`WHERE Emp_Age < 30` | any non-SELECT query
+| `%%SELECT%%` | `SELECT users, cats `<br/>`FROM company`<br/><br/>`SELECT dogs, chameleons `<br/>`FROM company`<br/><br/>`SELECT SUM(Salary) `<br/>`FROM Employee `<br/>`WHERE Emp_Age < 30` | any non-SELECT query: `UPDATE users SET name='new_name'`
 
 #### `INSERT` pattern
 
@@ -112,7 +112,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%INSERT%%` | `INSERT INTO Customers (CustomerName, ContactName) `<br/>`VALUES ('Cardinal', 'Tom B. Erichsen')`<br/><br/>`INSERT INTO dbo.Points (PointValue) `<br/>`VALUES ('1,99');` | any non-INSERT query
+| `%%INSERT%%` | `INSERT INTO Customers (CustomerName, ContactName) `<br/>`VALUES ('Cardinal', 'Tom B. Erichsen')`<br/><br/>`INSERT INTO dbo.Points (PointValue) `<br/>`VALUES ('1,99');` | any non-INSERT query: `SELECT email FROM users;`
 
 
 #### `UPDATE` pattern
@@ -121,7 +121,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%UPDATE%%` | `UPDATE t SET a=1 `<br/>`WHERE ID = 1`<br/><br/>`UPDATE Customers `<br/>`SET ContactName = 'Alfred Schmidt', City = 'Frankfurt' `<br/>`WHERE CustomerID = 1` | any non-UPDATE query
+| `%%UPDATE%%` | `UPDATE t SET a=1 `<br/>`WHERE ID = 1`<br/><br/>`UPDATE Customers `<br/>`SET ContactName = 'Alfred Schmidt', City = 'Frankfurt' `<br/>`WHERE CustomerID = 1` | any non-UPDATE query: `SELECT email FROM users;`
 
 
 #### `DELETE` pattern
@@ -130,7 +130,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%DELETE%%` | `DELETE FROM t `<br/>`WHERE removed = TRUE`<br/><br/>`DELETE FROM Customers `<br/>`WHERE CustomerName = 'Alfreds Futterkiste'` | any non-DELETE query
+| `%%DELETE%%` | `DELETE FROM t `<br/>`WHERE removed = TRUE`<br/><br/>`DELETE FROM Customers `<br/>`WHERE CustomerName = 'Alfreds Futterkiste'` | any non-DELETE query: `SELECT email FROM users;`
 
 #### `BEGIN` pattern
 
@@ -138,7 +138,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%BEGIN%%` | `BEGIN` | any non-BEGIN query
+| `%%BEGIN%%` | `BEGIN` | any non-BEGIN query: `SELECT email FROM users;`
 
 
 #### `COMMIT` pattern
@@ -147,7 +147,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%COMMIT%%` | `COMMIT` | any non-COMMIT query
+| `%%COMMIT%%` | `COMMIT` | any non-COMMIT query: `SELECT email FROM users;`
 
 
 #### `ROLLBACK` pattern
@@ -156,7 +156,7 @@ such as in `SELECT` and `ORDER BY` clauses.
 
 | pattern | matching queries | non-matching queries |
 | ------- | ------- | ------- |
-| `%%ROLLBACK%%` | `ROLLBACK` | any non-ROLLBACK query
+| `%%ROLLBACK%%` | `ROLLBACK` | any non-ROLLBACK query: `SELECT email FROM users;`
 
 
 This is a constantly updating list of useful configuration examples. See the examples we are using for integration testing in [tests/acra-censor_configs](https://github.com/cossacklabs/acra/tree/master/tests/acra-censor_configs) and AcraCensor's [unit tests](https://github.com/cossacklabs/acra/blob/master/acra-censor/acra-censor_test.go). We will also appreciate your questions and [Pull Requests](https://github.com/cossacklabs/acra/pulls).
