@@ -178,8 +178,6 @@ We will look into it and try to help.
 
 ### Logging and masking queries
 
-#### Continuous logging into syslog
-
 It’s very important that AcraCensor doesn’t log sensitive data. That’s why the first thing AcraCensor does is masking the values in SQL queries’ logs. All values from SQL queries are edited and masked to `replaced` keyword.
 
 This is what the logs from AcraCensor look like:
