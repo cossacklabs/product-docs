@@ -57,7 +57,7 @@ All SQL queries to the database are logged by [AcraCensor]({{< ref "/acra/securi
 
 Additionally, Acra has a special intrusion detection feature called [poison records]({{< ref "/acra/security-controls/intrusion-detection/#poison-records-INVALID" >}})
 which can help detecting a massive data leak and prevent further data disclosure.
-Poison records never shows up in legitimate queries.
+Poison records never show up in legitimate queries.
 If a poison record is detected in a query then it's likely a result of an unauthorized data access.
 In this case, Acra can be configured to shutdown completely, disable data encryption and decryption, or perform any other action specified by the administrator.
 

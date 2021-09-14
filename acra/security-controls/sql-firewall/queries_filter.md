@@ -1,13 +1,21 @@
 ---
-title: "Queries filters"
+title: "“queries” filters"
 bookCollapseSection: true
 ---
 
-## Queries
+## `queries` filters
 
-Queries work in the following manner: the queries addressed to the database are alternately checked (lines are compared) for the queries matching the ones that the firewall needs to block/allow. If there is a match, the query addressing the database is blocked and a corresponding error is returned (if it's AcraCensor's deny handler at work) or the query is allowed through (if it matches a record in the allow handler of AcraCensor).
-AcraCensor compares queries after normalization, that strips `;` at the end, convert all reserved SQL keywords to same case, removing extra spaces between tokens.
-There are no restrictions for the query types (`SELECT`, `INSERT`, `UNION`, etc.).
+`queries` filters match the queries literally, by comparing them to provided list of allowed or denied queries.
+
+AcraCensor normalizes the query text before comparison:
+
+  - `;` at the end does not matter
+  - SQL keywords are case-insensitive
+  - whitespace and line breaks between tokens are not significant
+
+There are no restrictions on query types: you can match `SELECT`, `INSERT`, `UNION`, `SET`, etc.
+`queries` filters support any query type, in contrast to [`patterns` filters]({{ ref "acra/security-controls/sql-firewall/pattern_filter.md" }}),
+but you must enumerate complete queries with all parameters specified.
 
 | query | matching queries | non-matching queries |
 | ------- | ------- | ------- |
