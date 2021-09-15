@@ -1,10 +1,10 @@
 ---
-title: AcraConnector
+title: acra-connector
 bookCollapseSection: true
 weight: 4
 ---
 
-# AcraConnector
+# acra-connector
 
 ## Command line flags
 

@@ -13,7 +13,7 @@ For intrusion detection, Acra uses poison records, also known as honey tokens.
 
 ## Poison records
 
-Poison records are records specifically designed to sit quietly in the database and not be queried by legitimate users under normal circumstances. They look like any other encrypted records, and it's impossible to distinguish them from `normal data`. Technically speaking, poison records are data (**binary**, **strings**, **int** or whatever suits your database design), placed in particular tables/columns/cells.
+Poison records are specifically designed to sit quietly in the database and not be queried by legitimate users under normal circumstances. They look like any other encrypted records, and it's impossible to distinguish them from `normal data`. Technically speaking, poison records are data (**binary**, **strings**, **int** or whatever suits your database design), placed in particular tables/columns/cells.
 
 However, poison records will only be included in the outputs of requests from malicious applications that read more data than they should, i.e. using `SELECT *` requests. The goal of using poison records is simple — to detect adversaries trying to download full tables/database from the application server or trying to run full scans in their injected queries. AcraServer will inform user (system administrator) of untypical behaviour and can block suspicious requests.
 
@@ -47,15 +47,9 @@ AcraServer has a set of flags for more precise work configuration with Poison re
 ## Usage example
 
 
-AcraServer's key storage contains a special key, which is used for recognition of poison records. This key is generated either after a query passes through AcraServer, or upon running poison record generation utility [`AcraPoisonRecordMaker`]({{< ref "acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker" >}}) (but you will have to move the keys into AcraServer's key directory manually).
+AcraServer's key storage contains a special key, which is used for recognition of poison records. This key is generated either after a query passes through AcraServer, or upon running poison record generation utility [`acra-pisonrecordmaker`]({{< ref "acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker" >}}) (but you will have to move the keys into AcraServer's key directory manually).
 
-To install [`AcraPoisonRecordMaker`]({{< ref "acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker" >}}), run:
-
-```
-go get github.com/cossacklabs/acra/cmd/acra-poisonrecordmaker
-```
-
-Before running any commands using `acra-poisonrecordmaker` binary, make sure you have **`ACRA_MASTER_KEY`** stored as an environmental variable.
+Before running any commands, make sure you have [installed]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) `acra-poisonrecordmaker` utility and **`ACRA_MASTER_KEY`** stored as an environmental variable.
 
 If you haven't generated keys before, checkout out [key generation]({{< ref "acra/keys/operations/generation" >}}) instructions. After generating **`ACRA_MASTER_KEY`**, assign it to a variable like this:
 
@@ -66,7 +60,7 @@ export ACRA_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
 Running simple `acra-poisonrecordmaker` binary command: 
 
 ```
-$GOPATH/bin/acra-poisonrecordmaker
+acra-poisonrecordmaker
 ```
 
 Your output will be a base64-encoded poison record that you should decode and insert into your database as binary data. It will look something like this:
@@ -76,7 +70,7 @@ IiIiIiIiIiJVRUMyAAAALQ82fbECADRBA5i8JVvnrhnoazCXTtw2pce45Yo5su+HNDEOD5EgJwQmVAAA
 ```
 
 {{< hint warning >}}
-**NOTE**: The `AcraPoisonRecordMaker` key folder must have proper permissions (as set originally by [acra-keymaker]({{< ref "acra/configuring-maintaining/general-configuration/acra_keymaker" >}})):
+**NOTE**: The `acra-poisonrecordmaker` key folder must have proper permissions (as set originally by [acra-keymaker]({{< ref "acra/configuring-maintaining/general-configuration/acra-keymaker" >}})):
 
 - folder 700
 - private keys 600

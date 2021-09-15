@@ -1,11 +1,10 @@
 ---
-title: AcraPoisonRecordMaker
+title: acra-poisonrecordmaker
 bookCollapseSection: true
 weight: 10
 ---
 
-# AcraPoisonRecordMaker
-
+# acra-poisonrecordmaker
 
 `acra-poisonrecordmaker` is a command-line utility that generates new [poison records]({{< ref "/acra/security-controls/intrusion-detection" >}}) for intrusion detection.
 

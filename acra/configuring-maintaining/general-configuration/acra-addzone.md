@@ -1,10 +1,10 @@
 ---
-title: AcraAddzone
+title: acra-addzone
 bookCollapseSection: true
 weight: 10
 ---
 
-# AcraAddzone
+# acra-addzone
 
 `acra-addzone` is a command-line utility that generates new [Zone keys]({{< ref "/acra/security-controls/zones.md" >}}) for AcraBlocks/AcraStructs.
 
