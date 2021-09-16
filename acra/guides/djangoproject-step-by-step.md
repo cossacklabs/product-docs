@@ -10,6 +10,7 @@ There is also a [much shorter version]({{< ref "/acra/guides/djangoproject-short
 If it’s your very first encounter with Acra, keep reading.
 {{< /hint >}}
 
+
 ### Intro
 
 Acra is a database security suite, which protects you against data leaks and many typical application threats through 
@@ -42,6 +43,10 @@ This tutorial guides you through a typical process of integrating Acra into a Py
 into an app running on Django framework using a popular example many Django users start their development journey 
 with - [djangoproject.com](https://github.com/django/djangoproject.com) repository. We’ll integrate Acra into Django 
 Project to provide cryptographic protection of blog posts.
+
+Additionally, you can look on our [engineering demo](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site) where we show how to run our example with docker-compose with all
+infrastructure supported by Acra: AcraConnector, AcraWebConfig, AcraAuthManager, Prometheus, Jaeger.
+
 
 ### Security model
 
