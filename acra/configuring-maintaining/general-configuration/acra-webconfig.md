@@ -93,8 +93,15 @@ Parameter's description you can find on AcraServer's [command line flags]({{< re
 
 ## Web interface
 
+### AcraServer settings
 
 ![](/files/acra-webconfig/acra-webconfig-ui.png)
+
+{{< hint info >}}
+After pressing `Save` button AcraServer dumps configuration to the configuration file and gracefully restarts applying all changes.
+{{< /hint >}}
+
+### AcraCensor & Zone settings
 
 Now `acra-webconfig` doesn't support changing AcraCensor's and Zone related parameters.
 
