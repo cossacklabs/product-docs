@@ -36,5 +36,4 @@ This feature works with both crypto containers (`acrastruct` and `acrablock`).
 ## Database configuration
 
 There are also some considerations to take into account when configuring database column to be be both searchable and encrypted.
-<!-- TODO uncomment line below after optimizations PR merge -->
-<!-- See [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes.md) page for more in that. -->
+See [DB indexes]({{< ref "/acra/configuring-maintaining/optimizations/db_indexes.md#searchable-encryption" >}}) page for more in that.
