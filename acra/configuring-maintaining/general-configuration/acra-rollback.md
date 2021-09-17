@@ -6,18 +6,18 @@ weight: 10
 
 # acra-rollback
 
-`acra-rollback` is a command-line utility that help you generate a clean SQL dump from an existing protected one. 
-Rollback utility especially applicable in case of any DB rollback - keys re-generating, go from a Zoneless mode to using Zones or vice-versa etc. 
+`acra-rollback` is a command-line utility that help you to generate a clean SQL dump from an existing protected one. 
+Rollback utility especially applicable in case of any DB rollback - keys re-generating, going from a Zoneless mode to Zones or vice-versa etc. 
 
 ## Command line flags
 
 ### General flags
 
-* `--mysql_enable={true|false}` ❗
+* `--mysql_enable={true|false}`
 
   Handle MySQL connections. Default is `false`.
 
-* `--postgresql_enable={true|false}` ❗
+* `--postgresql_enable={true|false}`
 
   Handle PostgreSQL connections. Default is `false`.
 
@@ -25,9 +25,9 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 
   Client ID should be name of file with private key.
 
-* `--connection_string=<host:port>`
+* `--connection_string=<connection_string>`
 
-  Connection string for db.
+  Connection string for DB in format `dbname=<DBNAME> host=<HOST> port=<PORT> user=<USER> password=<PASSWORD>`.
 
 * `--select=<select_query>`
 
@@ -118,21 +118,50 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
-❗ - flags required to be specified.
-  
-## Output
+## Usage example
+
+{{< hint warning >}}
+**Note:**
+Starting with Acra [`v.0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), `acra-rollback` requires Go version >= 1.8.
+{{< /hint >}}
+
+
+Single-quote syntax with $ escaping:
 
 ```
-$ acra-addzone
-INFO[0000] Disabling future logs... Set -v to see logs  
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-{"id":"DDDDDDDDlMeojXNMDnMhrFNN","public_key":"VUVDMgAAAC1IbMPQAknSveiUj4xWzi7ZX50uzT+4/cbT7Tz5wZBbyDGAa3u8"}
+acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=out.txt --select="select data from test_example_without_zone;" --insert="insert into test_example_without_zone values(\$1);"
 ```
 
-Logs have written to `stderr` and `JSON` output with Zone data have written to `stdout`. To get only JSON output you can redirect `stderr` to `/dev/null`:
+
+Double-quote syntax::
 
 ```
-$ acra-addzone 2>/dev/null
-{"id":"DDDDDDDDitpDYzEmbXWbBZzG","public_key":"VUVDMgAAAC1PF4yhAtF0ygbsRlEBMjY0E+9Pp694hauHyQfjC8gVAuOQJ0CX"}
+acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=out.txt --select="select data from test_example_without_zone;" --insert='insert into test_example_without_zone values($1);'
 ```
+
+### ZoneMode
+
+`acra-rollback` support work with [zones]({{< ref "/acra/security-controls/zones.md" >}}), you can configure it via `zonemode_enable` flag.
+If zonemode is enabled, make sure you have Zone in your SELECT query:
+
+```
+select zone_id, encrypted_data from some_table;
+```
+
+
+
+### Saving decrypted data to file
+
+Instead of inserting data back into the database, you can print it to the output file, to handle it later. To do it, change the insert query to a simple `$1;`, like this:
+
+```
+acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=data.txt --select="select data from test_example_without_zone;" --insert='$1;'
+```
+
+
+{{< hint info >}}
+**Note:**
+Currently `acra-rollback` ignores [poison records]({{< ref "/acra/security-controls/intrusion-detection" >}}). 
+Security-wise, the consideration is that if you can run CLI commands on the server that holds all the private keys, you can compromise the system anyway.
+{{< /hint >}}
+
