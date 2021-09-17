@@ -9,7 +9,7 @@ Acra services provide Prometheus metrics when configured to do so with `--incomi
 
 This includes
 [AcraConnector]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector/_index.md#network" >}}),
-[AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra_server/_index.md#network" >}}),
+[AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/_index.md#network" >}}),
 [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator/_index.md" >}}).
 
 More info about this on [metrics page](({{< ref "acra/configuring-maintaining/metrics/_index.md" >}})).
