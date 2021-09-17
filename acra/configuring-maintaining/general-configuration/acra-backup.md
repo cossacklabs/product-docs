@@ -112,8 +112,12 @@ weight: 10
 
 
 ❗ - flags required to be specified.
-  
-## Output
+
+
+## Usage example
+
+Using `acra-backup` you can easily migrate keys from different storages. Consider an example of migrating keys from filesystem to Redis-based keystore.
+First, we need to export keys to file using `export` action:
 
 ```
 $ acra-backup --action=export --file=./acrakeys.backup
@@ -130,3 +134,33 @@ You need to have `ACRA_MASTER_KEY` environment variable set up for any operation
 
 Before running `import` operation, make sure you also specified `BACKUP_MASTER_KEY` environment variable with the value displayed in `export` operation output.
 {{< /hint>}}
+
+Then, we need to import keys using `import` action provided along with redis configuration flags:
+
+```
+$ export BACKUP_MASTER_KEY='1FEbOQ1k2jzn2LsF5xHy7jQmT93Yv1odqqgg1epwUcQ=' && acra-backup --action=import --file=.acrakeys.backup --redis_host_port=localhost:6379 --redis_db_keys=0
+INFO[2021-09-17T09:34:04+03:00] Starting service acra-backup [pid=488411]     version=0.85.0
+INFO[2021-09-17T09:34:04+03:00] Initializing ACRA_MASTER_KEY loader...       
+INFO[2021-09-17T09:34:04+03:00] Initialized default env ACRA_MASTER_KEY loader
+```
+
+To make sure that all keys were successfully migrated to redis you can run:
+
+```
+$ redis-cli --scan --pattern '*'
+".acrakeys/user0_storage.pub"
+".acrakeys/user0_storage"
+".acrakeys/secure_log_key"
+".acrakeys/DDDDDDDDYXtLNuuzjCXVeODJ_zone"
+".acrakeys/user0.pub"
+".acrakeys/user0_server.pub"
+".acrakeys/DDDDDDDDYXtLNuuzjCXVeODJ_zone_sym"
+".acrakeys/user0_hmac"
+".acrakeys/user0_translator"
+".acrakeys/user0"
+".acrakeys/user0_translator.pub"
+".acrakeys/DDDDDDDDYXtLNuuzjCXVeODJ_zone.pub"
+".acrakeys/user0_storage_sym"
+".acrakeys/auth_key"
+".acrakeys/user0_server"
+```
