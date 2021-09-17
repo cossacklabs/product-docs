@@ -12,7 +12,7 @@ Acra uses a multitude of keys for different purposes:
   - blind index keys for searchable encryption
   - keys for [secure logging]({{< ref "/acra/security-controls/security-logging-and-events/#-INVALID" >}})
   - poison record keys for [intrusion detection]({{< ref "/acra/security-controls/intrusion-detection/#poison-records-INVALID" >}})
-  - authentication storage key for encryption/decryption credentials of [AcraWebConfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra_webconfig.md#-INVALID" >}}) users
+  - authentication storage key for encryption/decryption credentials of [AcraWebConfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md#-INVALID" >}}) users
 
 The keys are securely stored in a [**keystore**](versions/)
 which is located either on the server's filesystem,
