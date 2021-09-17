@@ -93,14 +93,14 @@ acra-connector --client_id=client_name --acratranslator_connection_host=acra.tra
 
 For security reasons, consider configuring your firewall to allow the connections only from legit AcraConnector IPs. If an attacker compromises your client application and AcraConnector, filtering IP addresses might prevent DoS.
 
-You can get more details about [AcraConnector configuration]({{< ref "acra/configuring-maintaining/general-configuration/acra_connector.md" >}}).
+You can get more details about [AcraConnector configuration]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector.md" >}}).
 
 
 ### AcraWriter
 
 After you have configured AcraConnector, your application can keep using your database handling code as before.
 
-AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records on application side. Only [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra_server.md" >}}) or [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra_translator.md" >}}) will be able to decrypt this data later.
+AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records on application side. Only [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md" >}}) or [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) will be able to decrypt this data later.
 
 To start protecting your data, pick a place in your code where and integrate AcraWriter library (we support 8 languages, see the [Building and installing AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter.md" >}}) page). Don't see your language? Write your own [AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) encrypter, it's easy!
 
