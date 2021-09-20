@@ -5,8 +5,8 @@ bookCollapseSection: true
 
 # acra-webconfig
 
-`acra-webconfig` is simple web application that provide web UI for AcraServer's runtime configuration. Currently, it is
-under development and for now allows configuring 9 parameters of AcraServer:
+`acra-webconfig` is a simple web application providing web UI for AcraServer's runtime configuration.
+You can adjust the following parameters of AcraServer via `acra-webconfig`:
 * `db_host`
 * `db_port`
 * `incoming_connection_api_port`
@@ -16,40 +16,45 @@ under development and for now allows configuring 9 parameters of AcraServer:
 * `zonemode_enable`
 
 {{< hint info >}}
-Parameter's description you can find on AcraServer's [command line flags]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#command-line-flags" >}}) page.
+See [AcraServer's command line flag documentation]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#command-line-flags" >}}).
 {{< /hint >}}
 
 ## Command line flags
 
-* `--destination_host`
-  IP or domain to AcraServer/AcraConnector daemon
-  Default is `localhost`
+* `--destination_host=<hostname>`
 
-* `--destination_port`
-  Port of AcraServer's HTTP API port or AcraConnector port that proxy API requests to AcraServer
-  Default is `9191`
+  Hostname of AcraServer to configure or AcraConnector that will proxy configuration requests to AcraServer.
+  IP addresses are also supported.
+  Default is `localhost`.
 
-* `--incoming_connection_host`
+* `--destination_port=<port>`
 
-  Host for AcraWebconfig HTTP endpoint
-  Default is `127.0.0.1`
+  HTTP API port of AcraServer or AcraConnector API proxy.
+  Default is `9191`.
 
-* `--incoming_connection_port`
+* `--incoming_connection_host=<address>`
 
-  Port for AcraWebconfig HTTP endpoint
-  Default is `8000`
+  Address of the network interface for `acra-webconfig` to listen for HTTP connections on.
+  Default is `127.0.0.1`.
+  Set to empty string, `0.0.0.0`, or `[::]` to listen on all interfaces.
 
-* `--http_auth_mode`
+* `--incoming_connection_port=<port>`
 
-  Mode for basic auth. Possible values:
-    * `auth_on` (default): turn on basic auth
-    * `auth_off_local`: turn off basic auth if AcraServer/AcraConnector running on same host and accessible via `localhost` or `127.0.0.1`
-    * `auth_off`: turn off basic auth
+  Port for `acra-webconfig` to listen for HTTP connections on.
+  Default is `8000`.
 
-* `--static_path`
+* `--http_auth_mode={auth_on|auth_off_local|auth_off}`
 
-  Path to static content
-  Default is `cmd/acra-webconfig/static`
+  HTTP basic authentication mode.
+
+    * `auth_on` — (default) basic authentication is always required
+    * `auth_off_local` — turn off basic authentication if `acra-webconfig` accepts connections only from `localhost`
+    * `auth_off` — basic authentication is not performed
+
+* `--static_path=<path>`
+
+  Path to static content.
+  Default is `cmd/acra-webconfig/static`.
 
 ### Configuration files
 
@@ -59,12 +64,12 @@ Parameter's description you can find on AcraServer's [command line flags]({{< re
 
 * `--dump_config`
 
-  Dump configuration to `configs/acra-server.yaml`.
+  Dump configuration to `configs/acra-webconfig.yaml`.
 
 * `--generate_markdown_args_table`
 
   Generate markdown file with text description of all flags.
-  Output file is `configs/markdown_acra-server.md`.
+  Output file is `configs/markdown_acra-webconfig.md`.
   Works in pair with `--dump_config`.
 
 ### Logging
@@ -98,11 +103,11 @@ Parameter's description you can find on AcraServer's [command line flags]({{< re
 ![](/files/acra-webconfig/acra-webconfig-ui.png)
 
 {{< hint info >}}
-After pressing `Save` button AcraServer dumps configuration to the configuration file and gracefully restarts applying all changes.
+After pressing `Save` button AcraServer dumps configuration to the configuration file and gracefully restarts to apply all changes.
 {{< /hint >}}
 
 ### AcraCensor & Zone settings
 
-Now `acra-webconfig` doesn't support changing AcraCensor's and Zone related parameters.
+Currently `acra-webconfig` does not support changing AcraCensor and Zone-related parameters.
 
 ![](/files/acra-webconfig/acra-webconfig-acracensor.png)
