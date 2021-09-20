@@ -431,3 +431,84 @@ weight: 3
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
+
+
+## HTTP API
+
+AcraServer handles HTTP requests that may change internal state of running AcraServer, generate new Zone or fetch data
+related with authentication AcraWebConfig users.
+
+{{< hint warning >}}
+AcraServer supports only HTTP/1.1 requests without keep-alive.
+{{< /hint >}}
+
+- Endpoint: `/getNewZone`.
+  Description: generates new Zone and return ZoneID with zone public key as the response.
+  Response type: JSON object.
+  Response example:
+  ```json
+  {"id":"DDDDDDDDnAdXLIcBPDlQPYpl","public_key":"VUVDMgAAAC2BgJJUA//O+rVRGTSC7xAyFa1qIL8eANBtnvgQnMZyHOXHfgCE"}
+  ```
+  Error response:
+  ```
+  HTTP/1.1 404 Not Found
+
+  incorrect request
+  ```
+
+- Endpoint: `/resetKeyStorage`.
+  Description: reset AcraServer's cache of encrypted keys from KeyStore configured with `--keystore_cache_size` CLI flag.
+  Response type: empty.
+  Error response:
+  ```
+  HTTP/1.1 404 Not Found
+
+  incorrect request
+  ```
+
+- Endpoint: `/loadAuthData`.
+  Description: return decrypted authentication data as pairs `<username>:<hash>` for AcraWebConfig. By default, encrypted
+  data stored in `configs/auth.keys` file in `htpasswd` format where each row is entry related to separate user.
+  Response type: text.
+  Response example:
+  ```
+  test:teVSBZPexDCrhQyf:3,8192,2,32:s+5DGNl06ClB7tDoVyJbj3hnfPmEZzaL5SxcxV9dTDA=
+  user2:pozbKtOLYWrHFQIG:3,8192,2,32:DubAhRrPEKbE1wCV2/yFt9mWL+W95JfCJAScoyZCMuI=
+  ```
+  Error response:
+  ```
+  HTTP/1.1 404 Not Found
+
+  incorrect request
+  ```
+
+- Endpoint: `/getConfig`.
+  Description: return current AcraServer's configuration that used on startup and may be changed via AcraWebConfig.
+  Response type: JSON object.
+  Response example:
+  ```json
+  {
+    "db_host": "localhost",
+    "db_port": 5432,
+    "incoming_connection_api_port": 8181,
+    "debug": true,
+    "poison_run_script_file": "",
+    "poison_shutdown_enable": false,
+    "zonemode_enable":false
+  }
+  ```
+  Error response:
+  ```
+  HTTP/1.1 404 Not Found
+
+  incorrect request
+  ```
+
+- Endpoint: `/setConfig`.
+  Description: set new configuration for AcraServer, dump new configuration to config file that specified from CLI flags.
+  or specified in config file in default file path and gracefully restart AcraServer instance.
+  Response type: empty.
+  Error response:
+  ```
+  HTTP/1.1 500 Server error
+  ```

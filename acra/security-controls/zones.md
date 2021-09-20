@@ -178,5 +178,5 @@ Just like with the previous method, AcraServer will match the ZoneID in response
 
 ### More information about Zones
 
-* : How Zones affect certain tuning strategies for increased performance and security.
+* [Tuning Acra]({{< ref "/acra/configuring-maintaining/optimizations/#zones-INVALID" >}}): How Zones affect certain tuning strategies for increased performance and security.
 * [Using Zones on client]({{< ref "/acra/guides/advanced-integrations/client-side-integration-with-acra-connector.md#client-side-with-zones" >}}): A practical How-To on using AcraWriter with Zones on application side.
