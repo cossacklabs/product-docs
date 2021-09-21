@@ -29,11 +29,11 @@ For example, you may consider keeping a printed paper copy in a physical safe se
 
 {{< hint info >}}
 **Note:**
-The `acra-backup` utility is available only in [Acra Enterprise Edition](https://www.cossacklabs.com/acra/#pricing).
+The [`acra-backup`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-backup" >}}) utility is available only in [Acra Enterprise Edition](https://www.cossacklabs.com/acra/#pricing).
 {{< /hint >}}
 
 To make a backup copy of a keystore version 1,
-use `acra-backup` command for `export`:
+use [`acra-backup`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-backup" >}}) command for `export`:
 
 ```shell
 acra-backup --action=export --file "encrypted-keys.dat"
@@ -41,7 +41,7 @@ acra-backup --action=export --file "encrypted-keys.dat"
 
 {{< hint info >}}
 **Note:**
-You need to have `ACRA_MASTER_KEY` environment varible set up
+You need to have `ACRA_MASTER_KEY` environment variable set up
 to access the source keystore for export.
 {{< /hint >}}
 
