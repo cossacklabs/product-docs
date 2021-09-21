@@ -193,7 +193,7 @@ acra-server --db_host=127.0.0.1
 
 The command above can be complemented with `--db_port=5432 -v` to adjust the listener port and to add logs quickly. 
 There are more parameters available, and you can find them in the 
-[documentation page for Acra]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md" >}}), but for the present goal - namely, 
+[documentation page for Acra]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}), but for the present goal - namely, 
 for an easy integration of Acra into a Django app, the default parameters will do.
 
 You can also run with the options from config. Copy the example config:
