@@ -15,15 +15,18 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 
 * `--mysql_enable={true|false}`
 
-  Handle MySQL connections. Default is `false`.
+  Handle MySQL connections. 
+  Default is `false`.
 
 * `--postgresql_enable={true|false}`
 
-  Handle PostgreSQL connections. Default is `false`.
+  Handle PostgreSQL connections. 
+  Default is `false`.
 
 * `--client_id=<id>`
 
-  Client ID should be name of file with private key.
+  ClientID that will be used for all encrypted data. 
+  All data returned by query specified in `--select=<select_query>` parameter should be encrypted only with this ClientID.
 
 * `--connection_string=<connection_string>`
 
@@ -39,15 +42,22 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 
 * `--zonemode_enable={true|false}`
 
-  Turn on zone mode. Default is `false`.
+  Turn on zone mode.
+  Default is `false`.
 
 * `--execute={true|false}`
 
-  Execute inserts. Default is `false`.
+  Execute inserts. 
+  Default is `false`.
 
 * `--escape={true|false}`
 
-  Escape bytea format. Default is `false`.
+  Encode binary data with `bytea` type into the [escape format](https://www.postgresql.org/docs/current/datatype-binary.html#id-1.5.7.12.10) if `true`. 
+  Otherwise, into the [hex format](https://www.postgresql.org/docs/current/datatype-binary.html#id-1.5.7.12.9). 
+  Applicable only with `--postgresql_enable` flag.
+
+  MySQL [hexadecimal literals](https://dev.mysql.com/doc/refman/5.7/en/hexadecimal-literals.html) will be used only in case of `--mysql_enable`.
+  Default is `false`.
 
 
 ### Storage destination
@@ -56,11 +66,13 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 
 * `--keys_dir=<path>`
 
-  Path to keystore directory. Default is `.acrakeys`.
+  Path to keystore folder. 
+  Default is `.acrakeys`.
 
 * `--output_file=<path>`
 
-  File for store inserts queries. Default is `decrypted.sql`.
+  File for store inserts queries. 
+  Default is `decrypted.sql`.
 
 #### Redis
 
@@ -141,8 +153,8 @@ acra-rollback --client_id=client --postgresql_enable --connection_string="dbname
 
 ### ZoneMode
 
-`acra-rollback` support work with [zones]({{< ref "/acra/security-controls/zones.md" >}}), you can configure it via `zonemode_enable` flag.
-If zonemode is enabled, make sure you have Zone in your SELECT query:
+`acra-rollback` supports work with [zones]({{< ref "/acra/security-controls/zones.md" >}}), you can configure it via `zonemode_enable` flag.
+If zonemode is enabled, make sure you have Zone ID in your `SELECT` query:
 
 ```
 select zone_id, encrypted_data from some_table;
@@ -152,7 +164,7 @@ select zone_id, encrypted_data from some_table;
 
 ### Saving decrypted data to file
 
-Instead of inserting data back into the database, you can print it to the output file, to handle it later. To do it, change the insert query to a simple `$1;`, like this:
+Instead of inserting data back into the database, you can write it to the output file, to handle it later. To do it, change the `INSERT` query to a simple `$1;`, like this:
 
 ```
 acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=data.txt --select="select data from test_example_without_zone;" --insert='$1;'
