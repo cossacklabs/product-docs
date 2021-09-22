@@ -84,8 +84,8 @@ With SecureSession and AcraConnector for secure transport:
 
    **Reading**: Database --> AcraServer --> AcraConnector --> Application.
 
-   **Description**: application request data from database through AcraServer that decrypts it transparently. 
-   AcraConnector with Secure Session protect raw data decrypted from AcraServer sent to application.
+   **Description**: application requests data from database through AcraServer that decrypts it transparently. 
+   AcraConnector uses Secure Session to protect raw data decrypted by AcraServer before sending it to application.
 
 3. **Writing**: Application --> AcraConnector --> AcraServer --> Database.
 
