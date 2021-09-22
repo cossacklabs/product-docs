@@ -29,7 +29,7 @@ acra-server \
     --db_host=postgresql.db.host 
 ```
 
-Refer to the [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md" >}}) documentation for details on configuration parameters.
+Refer to the [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}) documentation for details on configuration parameters.
 
 ### Configuring AcraCensor rules
 

@@ -13,7 +13,7 @@ Acra tools provide caching for few things that would otherwise be requested ever
   In order to encrypt/decrypt data, AcraServer needs keys.
   With configured Redis database that stores the keys, we can make AcraServer cache them in memory
   with `--keystore_cache_size` flag and get better encryption/detection performance.
-  For more info see [AcraServer keystore flags]({{< ref "acra/configuring-maintaining/general-configuration/acra_server/_index.md#keystore" >}}).
+  For more info see [AcraServer keystore flags]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/_index.md#keystore" >}}).
 
 * CRL caching
 

@@ -7,7 +7,7 @@ bookCollapseSection: true
 
 Acra services provide some traces for Jaeger when configured to do so. This includes
 [AcraConnector]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector/_index.md#jaeger" >}}),
-[AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra_server/_index.md#jaeger" >}}),
+[AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/_index.md#jaeger" >}}),
 [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator/_index.md#jaeger" >}}).
 
 ## Traces
