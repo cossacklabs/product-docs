@@ -121,6 +121,7 @@ This might seem daunting, but in reality, Acra is easy to install. Let’s go!
 [Installation guide]({{< ref "/acra/configuring-maintaining/installing/" >}}) - here you can find out how to install Acra
 from package repository or sources.
 
+
 ### Step 2. Generate the transport, storage keys, and master key
 
 Generate master key for AcraServer:

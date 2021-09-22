@@ -29,7 +29,7 @@ Make sure the master key is stored in a safe place.
 It's more important than any other key.
 {{< /hint >}}
 
-There are other kinds of keys, for example [ones specific for AcraTranslator](/acra/configuring-maintaining/general-configuration/acra_translator/#keys).
+There are other kinds of keys, for example [ones specific for AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#keys).
 You will find more about these keys on their page.
 
 ## Ports
