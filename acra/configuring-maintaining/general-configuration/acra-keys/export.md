@@ -30,11 +30,12 @@ weight: 10
 
 * `--keys_dir=<path>`
 
-  Path to keystore directory. Default is `.acrakeys`.
+  Path to keystore folder. 
+  Default is `.acrakeys`.
 
 * `--keys_dir_public=<path>`
 
-  Path to key directory for public keys.
+  Path to key folder for public keys.
 
 
 #### Redis
@@ -58,7 +59,7 @@ weight: 10
 
 #### HashiCorp Vault
 
-`acra-addzone` can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.
+`acra-keys` can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.
 
 * `--vault_connection_api_string=<url>`
 
