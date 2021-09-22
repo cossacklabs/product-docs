@@ -7,7 +7,7 @@ bookCollapseSection: true
 
 ### Acra components
 
-- [_AcraWriter_](/pages/documentation-acra/#acraconnector-and-acrawriter) — a client-side library that integrates into the app's workflow either through ORM or directly and provides the means for encryption of the sensitive data by generating AcraStructs.
+- [_AcraWriter_]({{< ref "/acra/configuring-maintaining/installing/building-acrawriter.md" >}}) — a client-side library that integrates into the app's workflow either through ORM or directly and provides the means for encryption of the sensitive data by generating AcraStructs.
 
 - [_AcraServer_]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md" >}}) — a separate daemon that runs in an isolated environment (separate virtual machine or physical server). AcraServer is responsible for holding all the secrets required to decrypt the data and for actually decrypting this data.
 
@@ -30,11 +30,11 @@ Second way to protect raw data between application and AcraServer/AcraTranslator
 With TLS as secure transport between application and AcraServer/AcraTranslator:
 1. **Writing**: Application --> AcraTranslator --> Application --> Storage.
 
-   **Description**: application uses AcraTranslator to encrypt/decrypt data and save it in a storage. 
+   **Description**: application uses AcraTranslator to encrypt data and save it in a storage. 
   
    **Reading**: Application --> Storage --> Application --> AcraTranslator --> Application.
 
-   **Description**: application uses AcraTranslator to encrypt/decrypt data and save it in a storage.
+   **Description**: application uses AcraTranslator to decrypt data after reading from storage.
 
 2. **Writing**: Application --> AcraWriter --> Database.
 
@@ -54,7 +54,7 @@ With TLS as secure transport between application and AcraServer/AcraTranslator:
    **Reading**: Database --> AcraServer --> Application.
 
    **Description**: application request data from database through AcraServer. AcraServer transparently
-   decrypts/detokinze/unmask data and pass it to application.
+   decrypts/detokenizes/unmasks data and passes it to application.
    
    {{< hint info >}}
    Raw data transfers using TLS with mutual authentication setup between application and AcraTranslator. Read more about
@@ -70,12 +70,12 @@ With SecureSession and AcraConnector for secure transport:
 
 1. **Writing**: Application --> AcraConnector --> AcraTranslator --> AcraConnector --> Application --> Storage.
 
-   **Description**: application uses AcraTranslator to encrypt/decrypt data and save it in a storage. All data sent through
-   AcraConnector deployed close to application to protect decrypted data sent from AcraTranslator via SecureSession.
+   **Description**: application uses AcraTranslator to encrypt data and save it in a storage. All data sent through
+   AcraConnector to protect plaintext data from application to AcraTranslator via SecureSession.
 
    **Reading**: Application --> Storage --> Application --> AcraConnector --> AcraTranslator --> AcraConnector --> Application.
 
-   **Description**: pplication gets data from storage and decrypts it using AcraTranslator. All data sent through
+   **Description**: application gets data from storage and decrypts it using AcraTranslator. All data sent through
    AcraConnector deployed close to application to protect decrypted data sent from AcraTranslator via SecureSession.
 
 2. **Writing**: Application --> AcraWriter --> Database.
@@ -98,7 +98,7 @@ With SecureSession and AcraConnector for secure transport:
    **Reading**: Database --> AcraServer --> AcraConnector --> Application.
 
    **Description**: application request data from database through AcraServer and AcraConnector. AcraServer transparently
-   decrypts/detokinze/unmask data and sends it in safe through AcraConnector with SecureSession to application.
+   decrypts/detokenizes/unmasks data and sends it in safe through AcraConnector with SecureSession to application.
 
 <figure>
   <img src="/files/data-flow/acra-entities-with-extra-writer.png">
