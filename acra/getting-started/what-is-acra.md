@@ -5,11 +5,11 @@ bookCollapseSection: true
 ---
 
 
-# What is Acra?
+# What is Acra? An overview.
 
-Acra is a data security toolkit for modern distributed applications. It is written in Go, aimed for modern cloud applications that store sensitive data in PostgreSQL/mySQL-compatible SQL databases, and any other datastores. 
+Acra is a data security toolkit for modern distributed applications. It is written in Go, aimed for modern cloud applications that store sensitive data in PostgreSQL/mySQL-compatible SQL databases, and any other datastores. It enables application-level/field-level encryption of data in your application and a number of additional data security techniques to protect sensitive data in modern applications in a convenient way. 
 
-It enables application-level/field-level encryption of data in your application and a number of additional data security techniques to protect sensitive data in modern applications in a convenient way. 
+Acra consists of a number of engines (SQL Proxy, API service/proxy, in-app SDK) that enable applying security controls to the data exactly where the data flows, with shared crypto key storage and unified configuration language. 
 
 With Acra you can: 
 
@@ -40,10 +40,10 @@ If done right, application-level encryption protects your sensitive data from mo
 
 Application-level encryption brings plenty of application-specific benefits: 
 
-* Acra enables mapping of keys to users/entities/tenants, BYOK, more advanced key layouts, etc. 
-* Acra enables of 
+* ALE enables mapping of keys to users/entities/tenants, BYOK, more advanced key layouts, etc. 
+* ALE enables application developers and architects to distribute additional computing load and bottlenecks as they wish, thus making security less of a performance challenge, if it ever was. 
 
-#### Risk implications 
+### Risk implications 
 
 **TODO**: Our risk table 
 
@@ -61,14 +61,11 @@ Some relevant links:
 
 * Security boundary is closer to data - so insiders, privileged attackers, DBAs, infrastructure administrators have less opportunity for unauthorized access and there are no implicit "trusted paths" to access the data without authorization/authentication/security contorl application.
 
-
 ### Choke point security
 
 Since Acra sits on choke point to data access, it can enforce additional security restrictions on the data if you need it, and you can be sure that whoever wants to access plaintext will need to go through all these controls. 
 
-
 ## Acra's typical use cases
-
 
 **TODO: FINISH**
 
@@ -86,8 +83,8 @@ Since Acra sits on choke point to data access, it can enforce additional securit
 
 **TODO: extend** 
 
-* Cryptographic security: during storage and transmission. 
-* Searchable encryption: address encrypted records without unnecessarily revealing them
+* Cryptographic security: data is encrypted during storage and transmission via application-level and transport-level encryption with strong mutual authentication. 
+* Searchable encryption: address encrypted records (use them in WHERE queries) without unnecessarily revealing them to the database.
 * Selective encryption: you pick what, where and how gets encrypted.
 * Key lifecycle tooling: flexible management of rolling/rotation/revocation to suit your load needs and data architecture. 
 * SQL query firewall: prevent SQL injections, unauthorized queries, parse and log SQL queries
@@ -122,8 +119,7 @@ Major security design principles that you can achieve while using Acra:
 
 ## Architecture 
 
-
-**TODO: Review & expand**
+**TODO: Review & expand, align terminology**
 
 Acra allows you to keep various components of security system outside of main application architecture, securely keeping apart components that should not leak / become compromised together: 
 
@@ -133,23 +129,46 @@ Acra allows you to keep various components of security system outside of main ap
 * Configuration is managed separately, delivered to each Acra component separately. 
 * Audit trail is exportable to independent audit log storage in real-time. 
 
+Acra CE consists of: 
+* Security enforcement component (SQL proxy, API service/proxy, SDK)
+* Key storage (Redis, table in your database, any KV store)
+* Master key storage driver (plug into KMS / Vault)
+... and a number of supporting utilities.
+
 There are 3 basic form-factors of security enforcement components Acra provides: 
 
 * SQL Proxy
-* API Proxy (with direct API and application SDKs to talk to that API)
+* API service (with direct API and application SDKs to talk to that API)
 * Privileged SDKs (enabling some operations to happen within application context)
 
-... which allow you to construct infinitely sophisticated data flows with Acra. 
+... which allow you to construct infinitely sophisticated data flows with Acra: 
 
-**TODO**: Architecture pictures: 
+### Typical deployment architectures
 
-1. Proxy (SQL & API)
+1. Proxy (SQL)
+
+Classic scenario: Acra sits between your application (or database-facing microservice) and the actual database, encrypting and decrypting data, using different means to 
+
+**TODO: Picture** 
+
+**TODO: Explainer**
+
+
 2. DAO + API
+
+**TODO: Picture** 
+
+**TODO: Explainer**
+
 3. Complex - DAO API SDK Proxy complex
 
+Acra was built to accompany sensitive data lifecycle in large, microservice-driven applications. So you can use APIs inside applications and proxies between some services and databases to build pretty sophisticated lifecycle: 
 
-**TODO:** Lead-in to Acra in-depth
+**TODO: Picture** 
 
+**TODO: Explainer**
+
+Keen to learn more about Acra internals and what enables this level of data flow magic? Head to (LINK to Acra in-depth)
 
 ### All components of typical Acra deployment
 
@@ -169,4 +188,4 @@ Acra EE (Enterprise Edition) is licensed with proprietary licenses. It contains 
 
 ### Custom solutions, managed solutions, services
 
-Ana will write something here, I bet. 
+TODO: @vixentael will write something here, I bet. 
