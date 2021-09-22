@@ -1,9 +1,9 @@
 ---
-title: AcraKeymaker
+title: acra-keymaker
 bookCollapseSection: true
 ---
 
-# AcraKeymaker
+# acra-keymaker
 
 ## Command line flags
 
@@ -143,7 +143,7 @@ while some keys will be overwritten.
 {{< hint info >}}
 **Note:**
 When you generate a new key (or keypair), the existing key is rotated.
-That is, the new key becomes the default for encryption in [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#transparent-proxy-mode-INVALID" >}})
+That is, the new key becomes the default for encryption in [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-proxy-mode-INVALID" >}})
 while the previous key is archived and used only for decryption.
 {{< /hint >}}
   

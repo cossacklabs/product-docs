@@ -25,13 +25,13 @@ Application will need to know the correct ZoneID as well as which data records a
 
 There are two ways to encrypt data with zones: using static or dynamic ZoneID.
 
-In any case, a zone must be created first with [`acra-addzone` tool]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#http-api" >}}).
+In any case, a zone must be created first with [`acra-addzone` tool]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md" >}}) or [AcraServer's HTTP API]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#http-api" >}}).
 Newly generated keys will be placed into AcraServer or AcraTranslator keystore so that they are able to decrypt the encrypted data.
 You will also get the ZoneID and the public key you will need to encryption.
 
 ### Static ZoneID
 
-AcraServer in [Transparent encryption mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#transparent-encryption-mode-INVALID" >}})
+AcraServer in [Transparent encryption mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-encryption-mode-INVALID" >}})
 can be configured to use a static ZoneID for encryption.
 
 You can specify which table columns should be encrypted and what Zone that should be used.
@@ -178,5 +178,5 @@ Just like with the previous method, AcraServer will match the ZoneID in response
 
 ### More information about Zones
 
-* [Tuning Acra]({{< ref "/acra/configuring-maintaining/optimisations/#zones-INVALID" >}}): How Zones affect certain tuning strategies for increased performance and security.
+* [Tuning Acra]({{< ref "/acra/configuring-maintaining/optimizations/#zones-INVALID" >}}): How Zones affect certain tuning strategies for increased performance and security.
 * [Using Zones on client]({{< ref "/acra/guides/advanced-integrations/client-side-integration-with-acra-connector.md#client-side-with-zones" >}}): A practical How-To on using AcraWriter with Zones on application side.

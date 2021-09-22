@@ -1,10 +1,10 @@
 ---
-title: AcraTranslator
+title: acra-translator
 bookCollapseSection: true
 weight: 2
 ---
 
-# AcraTranslator
+# acra-translator
 
 ## Command line flags
 
@@ -229,7 +229,7 @@ weight: 2
   * `distinguished_name` — (default) certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
 
-### Vault
+### HashiCorp Vault
 
 * `--vault_connection_api_string=<url>`
 

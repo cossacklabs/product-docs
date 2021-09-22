@@ -16,6 +16,7 @@ Supported systems:
 
   - Debian 9 “Stretch”
   - Debian 10 “Buster”
+  - Debian 11 “Bullseye”
   - Ubuntu 16.04 LTS “Xenial Xerus”
   - Ubuntu 18.04 LTS “Bionic Beaver”
   - Ubuntu 20.04 LTS “Focal Focca”
@@ -69,14 +70,15 @@ We currently build packages for the following OS_NAME and RELEASE combinations:
 
   - `debian stretch` — Debian 9 “Stretch”
   - `debian buster` — Debian 10 “Buster”
+  - `debian bullseye` — Debian 11 “Bullseye”
   - `ubuntu xenial` — Ubuntu 16.04 LTS “Xenial Xerus”
   - `ubuntu bionic` — Ubuntu 18.04 LTS “Bionic Beaver”
   - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Focca”
 
-For example, if you are running _Debian 10 “Buster”_, run:
+For example, if you are running _Debian 11 “Bullseye”_, run:
 
 ```bash
-echo "deb https://pkgs-ce.cossacklabs.com/stable/debian buster main" | \
+echo "deb https://pkgs-ce.cossacklabs.com/stable/debian bullseye main" | \
   sudo tee /etc/apt/sources.list.d/cossacklabs.list
 ```
 
