@@ -5,7 +5,7 @@ bookCollapseSection: true
 
 # acra-authmanager
 
-`acra-authmanager` is CLI utility for [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig.md) user management.
+`acra-authmanager` is CLI utility for [acra-webconfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md" >}}) user management.
 Using this utility you can add/update/remove users that should have access to web UI of `acra-webconfig`. It changes 
 encrypted auth file that stores all users and hashed passwords for basic authentication.
 
@@ -119,7 +119,7 @@ read encrypted file with authentication data.
 Each row is separate entry related to distinct user. 
 
 Every password hashed using [Argon2 hash function](https://en.wikipedia.org/wiki/Argon2). You can find current parameter
-values used for hash function in [Acra source code](https://github.com/cossacklabs/acra/blob/master/cmd/constants.go#L34).
+values used for hash function in [Acra source code](https://github.com/cossacklabs/acra/blob/release/0.85.0/cmd/constants.go#L34).
 
 Example of decrypted auth file:
 ```
