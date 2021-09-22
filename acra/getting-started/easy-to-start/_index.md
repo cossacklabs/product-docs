@@ -9,13 +9,18 @@ We've made sure that this documentation service covers maximum of Acra's capabil
 
 ## Guides and howtos
 
-TODO: actually do
+**TODO: finish **
 
-To be fully fair and honest, I don't remember what we wanted to have in this section, so I'll leave it as a placeholder until we finish everything and see what kind of guides we can do here. 
+We have a growing list of guides in the (LINK) guides section: 
 
-* Link 
-* Link 
-* Link 
+* Trying Acra with Docker
+* Acra with Django project (LINK short, step-by-step)
+* Acra with Ruby on Rails (LINK short, step-by-step)
+* Acra server-based workflow
+* Acra translator-based workflow
+* Advanced integrations: 
+  * Running Acra via DO marketplace
+  * Client-side integration with Acra connector
 
 ## Acra engineering demos
 
