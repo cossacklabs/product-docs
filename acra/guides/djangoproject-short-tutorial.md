@@ -5,6 +5,7 @@ bookCollapseSection: true
 
 # Integrating Acra with DjangoProject
 
+
 This tutorial shows a typical process of integrating Acra into a Python web app. More specifically - an app running on 
 Django framework. It is based on the popular example many Django users start their development journey with - 
 [djangoproject.com repository](https://github.com/django/djangoproject.com).

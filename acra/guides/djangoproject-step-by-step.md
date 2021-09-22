@@ -116,7 +116,11 @@ It’s also crucial that you have libssl-dev installed with libcrypto.so in `$PA
 
 This might seem daunting, but in reality, Acra is easy to install. Let’s go!
 
-### Step 1. [Install Acra]({{< ref "/acra/configuring-maintaining/installing/" >}})
+### Step 1. Install Acra
+
+[Installation guide]({{< ref "/acra/configuring-maintaining/installing/" >}}) - here you can find out how to install Acra
+from package repository or sources.
+
 
 ### Step 2. Generate the transport, storage keys, and master key
 
