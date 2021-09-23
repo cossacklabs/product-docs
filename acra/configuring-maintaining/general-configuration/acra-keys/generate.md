@@ -181,11 +181,11 @@ while the previous key is archived and used only for decryption.
 
 * `--zone`
 
-  Generate new Acra storage zone.
+  Generates new Zone keypair (without symmetric key).
 
 * `--zone_storage_key`
 
-  Generate existing Acra zone storage keypair.
+  Rotates existing Acra Zone by generating new storage keypair and changing current to read-only state, for decryption purposes only.
 
   Should be provided with `--zone_id` flag.
 

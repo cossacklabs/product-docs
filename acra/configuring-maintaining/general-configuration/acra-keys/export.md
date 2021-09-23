@@ -14,7 +14,7 @@ weight: 10
 
 * `--key_bundle_file=<path>` ❗
 
-  Path to input file for exported key bundle.
+  Path to output file for exported key bundle.
 
 * `--key_bundle_secret=<path>` ❗
 
