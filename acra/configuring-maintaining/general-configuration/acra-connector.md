@@ -1,10 +1,10 @@
 ---
-title: AcraConnector
+title: acra-connector
 bookCollapseSection: true
 weight: 4
 ---
 
-# AcraConnector
+# acra-connector
 
 ## Command line flags
 
@@ -318,7 +318,7 @@ Note: TLS related flags work only together with `AcraServer` mode. `AcraTranslat
   
   OCSP service URL
 
-### Vault
+### HashiCorp Vault
 
 * `--vault_connection_api_string=<url>`
 
