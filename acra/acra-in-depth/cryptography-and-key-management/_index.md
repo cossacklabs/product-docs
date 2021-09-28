@@ -53,7 +53,7 @@ of your choice (i.e. FIPS, GOST), [drop us an email](mailto:sales@cossacklabs.co
 ### TLS
 
 Acra handles TLS connections between: 
-* Application and [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}). Used to protect plaintext from application to AcraServer in [Transparent encryption mode](/acra/configuring-maintaining/general-configuration/acra_server.md#transparent-encryption-mode-INVALID), and to 
+* Application and [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}). Used to protect plaintext from application to AcraServer in [Transparent encryption mode](/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-encryption-mode-INVALID), and to 
   protect decrypted plaintext by AcraServer before sending to application
   App <-> AcraServer.
 * AcraServer and database. Used to protect other data transmitted through AcraServer to database and to be transparent for 
