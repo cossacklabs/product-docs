@@ -5,13 +5,13 @@ bookCollapseSection: true
 
 ## Secure logging
 
-Acra supports secure and verifiable logging for [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md" >}}), [AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra_translator.md" >}}) and [AcraConnector](({{< ref "/acra/configuring-maintaining/general-configuration/acra_connector.md" >}})).
+Acra supports secure and verifiable logging for [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}), [AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) and [AcraConnector](({{< ref "/acra/configuring-maintaining/general-configuration/acra-connector.md" >}})).
 
 It is designed to prevent (mitigate) the possibility of making any adversarial changes in logs of mentioned services. Our design is based on state-of-the-art [scientific work](https://eprint.iacr.org/2008/185.pdf), where the two cryptographic schemes (based on symmetric / asymmetric keys) of secure logging functionality are described. 
 
 We have chosen a scheme that is based on symmetric keys according to the following reasons: 1) high performance; 2) simple and boring cryptographic design.
 
-Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator and AcraConnector) and **verifier** ([acra-log-verifier]({{< ref "/acra/configuring-maintaining/general-configuration/acra_log_verifier.md" >}})) that checks and validates dump of logs.
+Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator and AcraConnector) and **verifier** ([acra-log-verifier]({{< ref "/acra/configuring-maintaining/general-configuration/acra-log-verifier.md" >}})) that checks and validates dump of logs.
 
 ### What you will get with secure logging
 
@@ -59,10 +59,10 @@ The value of **IC[n]** depends on **LE[n]** and internal state, that is not pres
 
 ### How setup secure logging
 
-1. Generate symmetric key for **services** and `acra-log-verifier` by [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra_keymaker.md" >}}) using flag `--generate_log_key`.
+1. Generate symmetric key for **services** and `acra-log-verifier` by [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}) using flag `--generate_log_key`.
 2. Run AcraServer/AcraTranslator/AcraConnector with the flag `--audit_log_enable=true` to turn on secure
    logging and save all output into some storage that may be dumped into file or just specify path to file with flag `--log_to_file=<path>` where services will save logs.
-3. Configure your environment to verify logs via [acra-log-verifier]({{< ref "/acra/configuring-maintaining/general-configuration/acra_log_verifier.md" >}}) before copying/archiving/backup to be sure that secure log is valid and finalized. 
+3. Configure your environment to verify logs via [acra-log-verifier]({{< ref "/acra/configuring-maintaining/general-configuration/acra-log-verifier.md" >}}) before copying/archiving/backup to be sure that secure log is valid and finalized. 
 4. Configure your alerting on any errors from `acra-log-verifier`. Verifier will finish with **non-zero** exit status on any validation errors.
 
 Common pattern in collecting logs is their rotation related with their size, row counts, time of life, etc. 

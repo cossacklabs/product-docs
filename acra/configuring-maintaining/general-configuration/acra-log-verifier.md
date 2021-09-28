@@ -1,12 +1,12 @@
 ---
-title: AcraLogVerifier
+title: acra-log-verifier
 bookCollapseSection: true
 weight: 3
 ---
 
-# AcraLogVerifier
+# acra-log-verifier
 
-AcraLogVerifier is command-line utility that verifies secure logs dumped from AcraServer/AcraTranslator/AcraConnector started with `--audit_log_enable=true` flag.
+`acra-log-verifier` is command-line utility that verifies secure logs dumped from AcraServer/AcraTranslator/AcraConnector started with `--audit_log_enable=true` flag.
 
 It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` environment variable in pair `--keys_dir` flag or from HashiCorp Vault together with `--vault_*` flags. 
 
@@ -264,7 +264,7 @@ ERRO[2021-09-02T01:03:31+03:00] Logs verification error                       er
 ```
 
 Verifier will exit with status 1.
-AcraLogVerifier allows run verification with `--audit_log_missing_ok` that will ignore such errors. It is useful in some 
+`acra-log-verifier` allows run verification with `--audit_log_missing_ok` that will ignore such errors. It is useful in some 
 cases of automation when file with list may be generated before finishing log collection of last service startup. And avoid
 legal verification failures of not finished last file.
 
@@ -272,7 +272,7 @@ legal verification failures of not finished last file.
 acra-log-verifier --audit_log_file_list=log_file_list.txt --audit_log_missing_ok
 ```
 
-AcraLogVerifier will just warn about missing file but finish with 0 status:
+`acra-log-verifier` will just warn about missing file but finish with 0 status:
 ```
 INFO[2021-09-02T01:13:23+03:00] Initializing ACRA_MASTER_KEY loader...       
 INFO[2021-09-02T01:13:23+03:00] Initialized default env ACRA_MASTER_KEY loader 
