@@ -9,7 +9,7 @@ bookCollapseSection: true
 
 - [_AcraWriter_]({{< ref "/acra/configuring-maintaining/installing/building-acrawriter.md" >}}) — a client-side library that integrates into the app's workflow either through ORM or directly and provides the means for encryption of the sensitive data by generating AcraStructs.
 
-- [_AcraServer_]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md" >}}) — a separate daemon that runs in an isolated environment (separate virtual machine or physical server). AcraServer is responsible for holding all the secrets required to decrypt the data and for actually decrypting this data.
+- [_AcraServer_]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}) — a separate daemon that runs in an isolated environment (separate virtual machine or physical server). AcraServer is responsible for holding all the secrets required to decrypt the data and for actually decrypting this data.
 
 - [_AcraCensor_]({{< ref "/acra/security-controls/sql-firewall/" >}}) – is a firewall-like component that sits inside AcraServer, and checks every SQL query to the database.
 
@@ -19,7 +19,7 @@ bookCollapseSection: true
   
 Second way to protect raw data between application and AcraServer/AcraTranslator is to use AcraConnector:
 
-- [_AcraConnector_]({{< ref "/acra/configuring-maintaining/general-configuration/acra_connector.md" >}}) — a client-side daemon that runs under a separate user / in a separate container, and which acts as a database listener that redirects all the queries to AcraServer and, upon receiving the results, feeds it back into the app. AcraConnector is an optional component, required in systems that are using extra transport encryption layer via Themis SecureSession.
+- [_AcraConnector_]({{< ref "/acra/configuring-maintaining/general-configuration/acra-connector.md" >}}) — a client-side daemon that runs under a separate user / in a separate container, and which acts as a database listener that redirects all the queries to AcraServer and, upon receiving the results, feeds it back into the app. AcraConnector is an optional component, required in systems that are using extra transport encryption layer via Themis SecureSession.
 
   ![](/files/data-flow/acra-entities.png)    
   
@@ -48,7 +48,7 @@ With TLS as secure transport between application and AcraServer/AcraTranslator:
 
    **Description**: application sends data to database through AcraServer in [Transparent encryption mode](/acra/configuring-maintaining/general-configuration/acra-server/#transparent-proxy-mode-INVALID).
    All data manipulations like [encryption]({{< ref "/acra/security-controls/encryption/" >}})/
-   [tokenization]({{< ref "/acra/security-controls/tokenisation/" >}})/[masking]({{< ref "/acra/security-controls/masking/" >}})
+   [tokenization]({{< ref "/acra/security-controls/tokenization/" >}})/[masking]({{< ref "/acra/security-controls/masking/" >}})
    applied on AcraServer side before sending to database. 
 
    **Reading**: Database --> AcraServer --> Application.
@@ -91,7 +91,7 @@ With SecureSession and AcraConnector for secure transport:
 
    **Description**: application sends data to database through AcraServer in transparent encryption mode and AcraConnector.
    All data manipulations like [encryption]({{< ref "/acra/security-controls/encryption/" >}})/
-   [tokenization]({{< ref "/acra/security-controls/tokenisation/" >}})/[masking]({{< ref "/acra/security-controls/masking/" >}}) 
+   [tokenization]({{< ref "/acra/security-controls/tokenization/" >}})/[masking]({{< ref "/acra/security-controls/masking/" >}}) 
    applied on AcraServer side before sending to database. Raw data sent to AcraServer through AcraConnector that protect
    it using SecureSession.
 
