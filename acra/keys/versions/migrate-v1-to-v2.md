@@ -7,7 +7,7 @@ bookCollapseSection: true
 # Migration from keystore v1 to v2
 
 In order to migrate from keystore version 1 to version 2,
-use `acra-keys` utility.
+use [`acra-keys`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys" >}}) utility.
 
 ```shell
 acra-keys migrate \
