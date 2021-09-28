@@ -1,10 +1,10 @@
 ---
-title: Separate encryption [ENTERPRISE]
+title: Separate encryption
 bookCollapseSection: true
 weight: 3
 ---
 
-# Separate encryption [ENTERPRISE]
+# Separate encryption
 
 When you want to encrypt data right in the application before sending it anywhere, even though you got TLS for secure transmission.
 

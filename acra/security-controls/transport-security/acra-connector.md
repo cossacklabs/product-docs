@@ -13,7 +13,7 @@ The secure connection can be either Themis Secure Session (default) or TLS, depe
 Also, compared to TLS, the client identifier
 (text string that uniquely identifies client and affects which encryption keys will be used when processing this client requests)
 will be set by AcraConnector, not taken from client TLS certificate.
-Configuration flag for this behaveior is `--client_id`.
+Configuration flag for this behavior is `--client_id`.
 
 [Here]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector.md" >}})
 you can read more about AcraConnector configuration.
