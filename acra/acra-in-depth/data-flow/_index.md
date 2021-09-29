@@ -55,6 +55,29 @@ With TLS as secure transport between application and AcraServer/AcraTranslator:
 
    **Description**: application request data from database through AcraServer. AcraServer transparently
    decrypts/detokenizes/unmasks data and passes it to application.
+
+
+   **TODO**: I'd love to see this section updated, here are suggested cases to outline
+
+### Simplest version with SQL proxy
+
+App <> AcraServer <> DB
+
+### Simplest version with API 
+
+App <> AcraTranslator, App <> DB
+
+### API proxy 
+
+App <> DAO (<>AT) <> other API
+
+### Encryption-as-a-service
+
+App <> AT
+
+### Long data lifecycle
+
+Many parts use AT / AS to protect data across lifecycle
    
    {{< hint info >}}
    Raw data transfers using TLS with mutual authentication setup between application and AcraTranslator. Read more about
