@@ -22,10 +22,10 @@ Here are some recommendations to take into account when measuring performance wi
   otherwise the application will spend a lot of time just waiting for the connection to be created
   (this also creates additional load on both AcraServer and the database,
   so frequent new connections will cause less requests processed per second)
-* If database load is 100%, then you are actually benchmarking the database, and not the AcraServer,
-  make sure the database machine has enough resources
+* If load of any other component (database, application, etc.) is near 100%,
+  then you are actually benchmarking somethings else, and not the AcraServer,
+  make sure other components have enough resources
 * If network channel between application and AcraServer or AcraServer and database is fully loaded,
   you are benchmarking the network, consider upgrading the infrastructure
-* Distance between application/AcraServer/database is also important,
-  it is expected to see bigger latencies (longer to send request and get response)
-  if they are located far from each other (and connection reusage becomes even more important in such cases)
+* Be sure you do not have any problems with your network stack:
+  drops, significant latencies and/or jitter, cache overflow, MTU or fragmentation issues

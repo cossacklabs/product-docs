@@ -9,34 +9,24 @@ weight: 1
 
 When switching from one CPU core to two on AcraServer machine, the performance is roughly doubled.
 So it is recommended to give AcraServer machine at least two of them.
-However, every additional core will give less performance boost than the previous one.
-For example, 4 cores will handle 3 times more write requests compared to single core machine.
-And 8 cores will handle only 4 times more requests.
+
+Acra supports parallelism well, therefore, to maintain a high level of performance,
+it is recommended to increase the number of cores in accordance with the increase in
+the number of parallel client connections and the overall load.
+Specific values should be selected empirically by monitoring the saturation level of the system.
+
+Dedicating CPU cores to Acra helps to reduce jitter and increase overall responsiveness, which also leads to performance gains that are noticeable under significant load.
 
 ## Memory
 
-Here are some rough estimations of memory usage based on our tests:
+Here are some rough recommendations for minimum memory amount based on our tests:
 
-| vCPUs | threads* | memory |
-|-------|----------|--------|
-| 1     | 1        | 314M   |
-| 1     | 8        | 362M   |
-| 1     | 20       | 441M   |
-|       |          |        |
-| 2     | 1        | 223M   |
-| 2     | 8        | 513M   |
-| 2     | 20       | 604M   |
-|       |          |        |
-| 4     | 1        | 225M   |
-| 4     | 8        | 563M   |
-| 4     | 20       | 725M   |
-|       |          |        |
-| 8     | 1        | 238M   |
-| 8     | 8        | 567M   |
-| 8     | 20       | 746M   |
+![](/files/infrastructure/Recommended_minimum_RAM_for_AcraServer.png)
 
-\* — number of connections handled by AcraServer in parallel,
-each producing hundreds or thousands of request one after another
+where:
+* "connections" — number of connections handled by AcraServer in parallel
+* "cores" — number of CPU cores available to AcraServer
 
-It is recommended to give the machine at least twice the amount you see in the table,
-900M for single core machine, 1200M for dual core one and so on.
+This recommendations might be used only for an approximate calculation.
+The actual use of RAM can vary depending on many factors, for example,
+the nature of the load, the number and type of client keys, the type of database, etc.
