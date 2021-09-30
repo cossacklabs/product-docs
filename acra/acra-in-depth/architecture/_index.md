@@ -3,7 +3,7 @@ title: Architecture
 bookCollapseSection: true
 weight: 1
 ---
-
+**TODO: Expand**
 # Architecture
 
 ## Key components
