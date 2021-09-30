@@ -16,3 +16,4 @@ There are few ways to get encrypted channel between application and database:
   where the app is responsible for encryption of data before it is sent to AcraServer.
   As a result it would be impossible to decrypt the data even if
   attacker can "remove" encryption layers like TLS and inspect transmitted data.
+
