@@ -30,12 +30,14 @@ weight: 10
 
 * `--sql_select=<query>`
 
-  Select query with `?` as placeholders where last columns in result must be ClientId/ZoneId and AcraStruct. 
-  Other columns will be passed into insert/update query into placeholders.
+  Select query with placeholders where last columns in result must be ClientId/ZoneId and AcraStruct. 
+  Other columns will be passed into Insert/Update query into placeholders.
+  PostgreSQL placeholder is `$1` and MySQL is `?`.
 
 * `--sql_update=<query>`
 
-  Insert/Update query with `?` as placeholder where into first will be placed rotated AcraStruct.
+  Insert/Update query with placeholders where rotated AcraStruct will be placed into the first.
+  PostgreSQL placeholder is `$1` and MySQL is `?`.
 
 * `--dry-run`
 
@@ -49,19 +51,21 @@ weight: 10
 
 * `--dump_config`
 
-  Dump configuration to `configs/acra-addzone.yaml`.
+  Dump configuration to `configs/acra-rotate.yaml`.
 
 * `--generate_markdown_args_table`
 
   Generate markdown file with text description of all flags.
-  Output file is `configs/markdown_acra-addzone.md`.
+  Output file is `configs/markdown_acra-rotate.md`.
   Works in pair with `--dump_config`.
 
 ### Network
 
 * `--db_connection_string=<db_connection_url>`
 
-  Connection string to DB.
+  Connection string to DB.\
+  PostgreSQL - `postgresql://{db_user}:{user_pass}@{db_host}/{db}`. \
+  MySQL - `{db_user}:{user_pass}@tcp({db_host})/{db}`.
 
 ### Storage destination
 
@@ -74,7 +78,7 @@ weight: 10
 
 * `--file_map_config=<path>`
 
-  Path to file with map of <ZoneId>: <FilePaths> in json format {"zone_id1": ["filepath1", "filepath2"], "zone_id2": ["filepath1", "filepath2"]}.
+  Path to file with map of **ZoneId**: **FilePaths** in json format `{"zone_id1": ["filepath1", "filepath2"], "zone_id2": ["filepath1", "filepath2"]}`.
 
 #### Redis
 
@@ -138,7 +142,7 @@ weight: 10
 Acra encrypts data using storage encryption keys and these keys support rotation process, which can be done in response to a potential leak or compromise.
 
 `acra-rotate` generates new storage keypair, reads data from database via AcraServer, decrypts it and re-encrypts with new keys. In this example, new keys overwrite previous ones, so it's important to rotate all data at the same time.
-
+However, it is worth mentioning that previously used keys will be placed to archive folder with `.old` extension and could be used only for decryption.
 
 {{< hint warning >}}
 **Note:**
