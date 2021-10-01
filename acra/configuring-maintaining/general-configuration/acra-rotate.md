@@ -37,7 +37,7 @@ weight: 10
 * `--sql_update=<query>`
 
   Insert/Update query with placeholders where rotated AcraStruct will be placed into the first.
-  PostgreSQL placeholder is `$1` and MySQL is `?`.
+  PostgreSQL placeholder is `$n` and MySQL is `?`. Additional information could be found on the pages of the respective DB drivers: [PostgreSQL](https://github.com/lib/pq), [MySQL](https://github.com/go-sql-driver/mysql).
 
 * `--dry-run`
 
