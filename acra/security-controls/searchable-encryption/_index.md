@@ -29,16 +29,22 @@ Such functions are very sensitive to the input and will return completely differ
 with the smallest change of input data (column value in our case).
 {{< /hint >}}
 
+One more thing to take into account is that you can send AcraStructs instead of plaintext
+in `SELECT` queries as well, AcraServer will decrypt them and search for decrypted value.
+
 ## AcraServer configuration
 
-In configuration file, passed by `--encryptor_config_file` flag, you can individually configure
-searchable encryption for columns that are configured to be encrypted.
-These options are accepted:
+Searchable encryption can be configured for individual columns in `--encryptor_config_file`.
+For example:
 
 <!-- Config struct lives in encryptor/config/encryptionSettings.go -->
 ```yaml
 schemas:
   - table: table_name
+    columns:
+      # ...
+      - searchable_encrypted_column_name
+
     encrypted:
       - column: searchable_encrypted_column_name
 
