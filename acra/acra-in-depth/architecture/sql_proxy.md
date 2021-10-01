@@ -1,5 +1,5 @@
 ---
-title: AcraServer: SQL proxy
+title: 'AcraServer: SQL proxy'
 bookCollapseSection: true
 weight: 2
 ---

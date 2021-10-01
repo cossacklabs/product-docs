@@ -4,7 +4,7 @@ bookCollapseSection: true
 weight: 1
 ---
 
-# Key management and key storage in general 
+# Key management and key storage
 
 Key management with key storage is core component of Acra responsible for security guarantees. The whole cryptography 
 used in Acra depends on key storage. Without great key management, even strong and correctly used cryptography can't 

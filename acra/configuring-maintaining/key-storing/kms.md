@@ -16,7 +16,15 @@ guarantees.
 
 [Hashicorp Vault](https://www.vaultproject.io/) is popular, widely used service for secure storing sensitive data, 
 especially secrets. Acra uses Hashicorp Vault as storage for master key used to encrypt/decrypt all private keys.
-Every Acra service that operates with key storage (`acra-server`, `acra-translator`, `acra-keymaker`, `acra-rotate`, etc)
+Every Acra service that operates with key storage (
+[acra-server]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#hashicorp-vault" >}}), 
+[acra-translator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md#hashicorp-vault" >}}), 
+[acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md#hashicorp-vault" >}}), 
+[acra-rotate]({{< ref "/acra/configuring-maintaining/general-configuration/acra-rotate.md#hashicorp-vault" >}}), [acra-addzone]({{< ref "/acra/configuring-maintaining/general-configuration/acra-addzone.md#hashicorp-vault" >}}),
+[acra-backup]({{< ref "/acra/configuring-maintaining/general-configuration/acra-backup.md#hashicorp-vault" >}}),
+[acra-log-verifier]({{< ref "/acra/configuring-maintaining/general-configuration/acra-log-verifier.md#hashicorp-vault" >}}),
+[acra-poisonrecordmaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker.md#hashicorp-vault" >}}),
+[acra-rollback]({{< ref "/acra/configuring-maintaining/general-configuration/acra-rollback.md#hashicorp-vault" >}}))
 can load master key from this KMS. You can find out how to configure access to KMS on `HashiCorp Vault` section on the 
 distinct documentation page of these services.
 

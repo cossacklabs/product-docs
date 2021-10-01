@@ -1,5 +1,5 @@
 ---
-title: AcraTranslator: API service
+title: 'AcraTranslator: API service'
 bookCollapseSection: true
 weight: 3
 ---
