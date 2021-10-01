@@ -65,6 +65,11 @@ message EncryptSymResponse {
 }
 ```
 
+{{< hint info >}}
+**Note:**
+You can find complete content of [api.proto](https://github.com/cossacklabs/acra-Q12021/blob/master/cmd/acra-translator/grpc_api/api.proto) file in the AcraTranslator source code.
+{{< /hint >}}
+
 
 ## Setup AcraConnector and AcraTranslator manually
 
@@ -92,5 +97,4 @@ acra-translator --securesession_id:acra_translator \
 --incoming_connection_grpc_string=tcp://127.0.0.1:9595
 ```
 
-5. For your convenience, you can generate the client code from the service description from the source code [api.proto](https://github.com/cossacklabs/acra-Q12021/blob/master/cmd/acra-translator/grpc_api/api.proto). 
-   Additional, you can find a bunch of examples of using gRPC client in the [security-controls]({{< ref "/acra/security-controls/tokenization/_index.md#grpc" >}}) section
+Additionally, you can find a bunch of examples of using gRPC client in the [security-controls]({{< ref "/acra/security-controls/tokenization/_index.md#grpc" >}}) section

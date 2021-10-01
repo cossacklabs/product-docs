@@ -39,7 +39,7 @@ When using AcraTranslator service, make sure you understand error codes and take
 ### Setup AcraConnector and AcraTranslator manually
 
 1. Generate the [Master Key]({{< ref "/acra/keys/operations/generation#master-keys" >}})
-2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStruct]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}})/[AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}).
+2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStruct]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}})/[AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}})).
 
 ```bash
 acra-keymaker --client_id=client --generate_acratranslator_keys \
