@@ -8,7 +8,7 @@ bookCollapseSection: true
 ## CLI flags
 
 Flags related to TLS configuration can be found on page listing all flags of a binary:
-* [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector-INVALID/#tls)
+* [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/#tls)
 * [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/#tls)
 * [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#tls)
 

@@ -35,6 +35,3 @@ Even though CRLs can be cached, at the time when cached item expired, it will be
 If OCSP/CRL validations are a bottleneck in performance, you can try to make them faster by:
 - providing OCSP/CRL servers in different locations close to clients;
 - making sure they are powerful enough to process big amount of requests
-
-But you can make them faster: provide OCSP/CRL servers in different locations close to clients,
-make sure they are powerful enough to process big amount of requests.
