@@ -12,7 +12,12 @@ This page describes how to configure it and what you will get as a result.
 ## Behavior
 
 AcraServer works as a proxy between database client and the database itself.
-When a column is configured to be encrypted, AcraServer will transparently encrypt/decrypt its value.
+When a column is configured to be encrypted, AcraServer will transparently encrypt its value.
+You can also encrypt the data manually on the client side using
+[AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter/_index.md" >}}).
+Decryption on the other hand is done automagically: Acra will detect encrypted data and will attempt
+to decrypt it with all known keys.
+
 However, there are some caveats:
 * In simplest scenario, AcraServer clients won't see any difference: they `INSERT` plaintext,
   they get plaintext in `SELECT` queries, just like with direct connection to database.
@@ -20,7 +25,7 @@ However, there are some caveats:
   And if the attacker has full access to the database (but not to the AcraServer),
   he won't be able to magically bypass the encryption, no keys means no data.
 * Every AcraServer client has own unique identifier (usually derived during TLS or Secure Session handshake),
-  and a keystore associated with that identifier.
+  and keys associated with that identifier.
   If the keystore does not contain keys that were used to encrypt requested data,
   the data will be returned "as is", just like it is stored in database in encrypted form.
 * Apart from client IDs, encryption keys can be bound to [zones]({{< ref "/acra/security-controls/zones/_index.md" >}}),
@@ -47,11 +52,13 @@ where each component can only access data it was created to work with.
 And when combined with other features like
 [SQL firewall]({{< ref "/acra/security-controls/sql-firewall/_index.md" >}}) and/or
 [audit logging](/acra/audit-log-INVALID),
-it will be impossible for somebody to perform malicuous activity without being noticed.
+it will be impossible for somebody to perform malicious activity without being noticed.
 
 ## Configuration
 
-In order to work properly, AcraServer needs to know the schema of the database.
+Although AcraServer can work without knowing database schema,
+if you want to use features like transparent encryption, masking or tokenization,
+you will have to tell AcraServer that schema.
 Which tables exist, which columns (name/type) are in these tables.
 Then, you choose which columns should be encrypted and use different configuration options to tune the behavior.
 A simple example of the configuration file may look like this:
