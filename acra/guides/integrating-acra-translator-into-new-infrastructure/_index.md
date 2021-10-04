@@ -5,7 +5,7 @@ bookCollapseSection: true
 
 ## Usage of AcraTranslator
 
-[AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) is a lightweight server that receives [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) or [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}) and returns the decrypted data. 
+[AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) is a lightweight server used to handle [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) or [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}) in context of tokenization, searchable or simple encryption/decryption via [HTTP]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/http_api" >}}) or [gRPC]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/grpc_api" >}}) api. 
 This element of Acra is necessary in the use-cases when applications store the encrypted data as separate blobs (files that are not in a database - i.e. in the S3 bucket, local file storage, etc.).
 
 By its nature, AcraTranslator is a separate daemon that runs in an isolated environment (separate virtual machine or physical server). AcraTranslator is responsible for holding all the secrets required for data decryption and for actually decrypting the data.
