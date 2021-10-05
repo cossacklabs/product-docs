@@ -16,7 +16,7 @@ You can adjust the following parameters of AcraServer via `acra-webconfig`:
 * `zonemode_enable`
 
 {{< hint info >}}
-See [AcraServer's command line flag documentation]({{< ref "/acra/configuring-maintaining/general-configuration/acra_server.md#command-line-flags" >}}).
+See [AcraServer's command line flag documentation]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags" >}}).
 {{< /hint >}}
 
 ## Command line flags
