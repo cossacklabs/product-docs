@@ -16,13 +16,14 @@ aspects of keys security and help to reach compliance in data security.
 
 ## Keys protection
 
-Every private key that stored and used by Acra encrypted with [Secure Cell]({{< ref "/themis/crypto-theory/cryptosystems/secure-cell.md" >}})
+Every private key that is stored and used by Acra is encrypted with [Secure Cell]({{< ref "/themis/crypto-theory/cryptosystems/secure-cell.md" >}})
 that designed and responsible for secure storage. To encrypt all private keys Acra needs master key for symmetric cryptography
 under the hood of Secure Cell. This master key may be passed to Acra in two ways:
 * environment variable
 * KMS
-  Passing master key via environment variable as simple as possible. You can find example on our page
-  [Necessary preparations]({{< ref "/acra/configuring-maintaining/general-configuration/necessary_prep.md" >}}).
+
+Passing master key via environment variable as simple as possible. You can find example on our page
+[Necessary preparations]({{< ref "/acra/configuring-maintaining/general-configuration/necessary_prep.md" >}}).
 
 KMS has a lot of implementations and providers. You can find which of them Acra supports on our
 [KMS integration]({{< ref "/acra/configuring-maintaining/key-storing/kms.md" >}}) page.
@@ -30,7 +31,7 @@ KMS has a lot of implementations and providers. You can find which of them Acra 
 ## Key storage
 
 Acra relies on a lot of keys that generated per user, per purposes. Also, they may be rotated and at the same time
-may exist several keys for same purpose. This set of keys should be somewhere stored and support distributed access
+may exist several keys for same purpose. This set of keys should be stored somewhere and should support distributed access
 to provide high performance and scalability. Acra supports several storages that may be used for key storage.
 [Read more]({{< ref "/acra/configuring-maintaining/key-storing/kv-stores.md" >}}) about supported key storages.
 
