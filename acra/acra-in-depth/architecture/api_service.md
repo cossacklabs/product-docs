@@ -1,5 +1,5 @@
 ---
-title: 'AcraTranslator: API service'
+title: AcraTranslator - encryption-as-a-service daemon
 bookCollapseSection: true
 weight: 3
 ---
