@@ -1,4 +1,3 @@
-
 title: Scalable KV storages
 bookCollapseSection: true
 weight: 2
