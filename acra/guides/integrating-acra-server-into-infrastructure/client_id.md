@@ -13,6 +13,9 @@ There are two ways of passing client ID from application to AcraServer:
 * using AcraConnector as additional proxy between application and AcraServer
 * making AcraServer derive identifier from client TLS certificate
 
+Also, one can avoid doing it and set static client ID with `--client_id` flag to Acra.
+This way AcraServer will use this ID like it was sent from AcraConnector.
+
 {{< hint info >}}
 For AcraTranslator, however, there is one more method: specifying client ID inside RPC requests.
 This behavior is controlled by 
