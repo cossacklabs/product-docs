@@ -3,29 +3,39 @@ title: Architecture
 bookCollapseSection: true
 weight: 1
 ---
-**TODO: Expand**
+
 # Architecture
+
+Acra is a set of tools designed for data protection, mostly stored in a database.
+Some of them are easy to integrate, while others require writing additional code.
 
 ## Key components
 
-Security control services: Proxy and API 
-Key storage
-Configuration / policy
-KMS
+* [SQL proxy]({{< ref "sql_proxy.md" >}}) —
+  transparent proxy between applications and database
+* [API]({{< ref "api_service.md" >}}) and [API proxy]({{< ref "api_proxy.md" >}}) —
+  RPC service that provides crypto-related operations
+* [Key storage]({{< ref "dbs.md#key-storage ">}}) —
+  storage for encryption keys and tokenization data
+* Configuration and policies —
+  TODO
+* [KMS]({{< ref "dbs.md#kms ">}}) —
+  storage for master key
 
 ## Supporting modules
 
-AcraConnector
-WebConfig
+[AcraConnector]({{< ref "acra/security-controls/transport-security/acra-connector.md" >}}) —
+additional proxy between application and AcraServer
 
+[WebConfig]({{< ref "acra/configuring-maintaining/general-configuration/acra-webconfig.md" >}}) —
+web UI for AcraServer reconfiguration at runtime
 
 # Data flow & component layout
-
 
 Acra requires 3 components to talk together during startup: 
 
 * KMS to fetch keys 
-* Acraserver/AcraTranslator
+* AcraServer/AcraTranslator
 
 Acra requires 3 components to talk together during encryption/decryption: 
 
