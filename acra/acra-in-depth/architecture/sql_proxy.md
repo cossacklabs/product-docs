@@ -8,8 +8,8 @@ weight: 2
 
 AcraServer is a service that acts as proxy between SQL clients and SQL database (MySQL/MariaDB/PostgreSQL).
 It performs different [cryptographic operations]({{< ref "acra/security-controls/_index.md" >}}), such as
-[transparent encryption/decryption]({{< ref "acra/security-controls/encryption/_index.md" >}}), 
-[tokenization]({{< ref "acra/security-controls/tokenization/_index.md" >}}), 
+[transparent encryption/decryption]({{< ref "acra/security-controls/encryption/_index.md" >}}),
+[tokenization]({{< ref "acra/security-controls/tokenization/_index.md" >}}),
 [masking]({{< ref "acra/security-controls/masking/_index.md" >}}).
 AcraServer is the one responsible of transforming random-looking bytes in database into plaintext,
 although AcraTranslator can do it as well (manually read from DB, ask Translator to decrypt).
@@ -29,12 +29,16 @@ Redis — another storage for keys.
 When configured, AcraServer will request keys it cannot find in keystore (directory in filesystem) from Redis.
 It can also use Redis to store data needed for [tokenization feature]({{< ref "acra/security-controls/tokenization/_index.md" >}}) to work.
 
-# What are architectural considerations? 
+# What are architectural considerations?
 
 It is strictly recommended to host AcraServer on a different machine (virtual or physical),
 isolated from both client applications and the database.
 This comes from the fact that Acra works with a sensitive data (such as encryption keys) and isolation
 will decrease risks of other components doing malicious things with it.
+
+When using AcraServer, it is considered that you trust it but do not trust the database.
+Anyway, AcraServer won't be able to decrypt data for which it does not have the encryption keys,
+as well as it won't decrypt data for SQL clients not supposed to access it.
 
 In many cases using SQL proxy would be a desired solution as it is
 [quite easy to integrate into existing infrastructure]({{< ref "acra/guides/integrating-acra-server-into-infrastructure/_index.md" >}})

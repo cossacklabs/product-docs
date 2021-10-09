@@ -8,9 +8,10 @@ weight: 3
 
 AcraTranslator provides an API (either gRPC or HTTP) for applications giving them the ability to:
 * Encrypt/decrypt data
-* Tokenize/detokenize
-* Mask/unmask
+* [Tokenize/detokenize]({{< ref "acra/security-controls/tokenization/_index.md" >}})
+* [Mask/unmask]({{< ref "acra/security-controls/masking/_index.md" >}})
 * Generate HMAC for searchable encryption
+<!-- TODO add links to translator examples, not to more AcraServer-related examples -->
 
 # Which FRs/NFRs does it implement
 
@@ -22,7 +23,7 @@ Redis — another storage for keys.
 When configured, AcraTranslator will request keys it cannot find in keystore (directory in filesystem) from Redis.
 It can also use Redis to store data needed for [tokenization feature]({{< ref "acra/security-controls/tokenization/_index.md" >}}) to work.
 
-# What are architectural considerations? 
+# What are architectural considerations?
 
 Just like with AcraServer, it is recommended to host AcraTranslator on a
 different machine (virtual or physical), isolated from client applications.

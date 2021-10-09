@@ -14,9 +14,9 @@ weight: 5
 
 ## How it connects to other parts
 
-## What are architectural considerations? 
+## What are architectural considerations?
 
-# Full-on in-app SDK 
+# Full-on in-app SDK
 
 ## How it works
 
@@ -24,6 +24,6 @@ weight: 5
 
 ## How it connects to other parts
 
-## What are the security considerations? 
+## What are the security considerations?
 
-## What are architectural considerations? 
+## What are architectural considerations?
