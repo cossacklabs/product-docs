@@ -3,6 +3,12 @@ title: Data structures
 bookCollapseSection: true
 ---
 
+# Data structures Acra operates with
+
+Acra operates with a number of different data structures for storing protected data. Two historial ones are AcraBlock and AcraStruct, outlined below. They have different security implications and performance requirements. Acra supports custom data structures and encryption/decryption handlers for Enterprise Edition use-cases and for extending the compatibility without breaking existing implementations. 
+
+**TODO: Verify against updated versioning**
+
 ## AcraBlock
 
 AcraBlock is a cryptographic container which is more compact than AcraStruct. Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). AcraBlock uses AES-GCM for both encryption procedures.
@@ -10,6 +16,7 @@ AcraBlock is a cryptographic container which is more compact than AcraStruct. Ac
 AcraBlock supports key rotation: it's possible to rotate only KEK without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
 
 ### Container structure
+
 
 To generate AcraBlocks AcraServer uses symmetric keys generated for every ClientID/ZoneID.
 
@@ -74,6 +81,7 @@ To generate AcraBlock in transparent mode AcraServer performs following steps:
 11. Erases/fills with zeros memory area of the DEK.
 
 ## AcraStruct
+
 ### Container structure
 
 AcraStruct is a cryptographic container with specific format. Before generating each AcraStruct, AcraWriter generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over.
@@ -133,7 +141,7 @@ Check implementation in [decryptor/base/utils.go](https://github.com/cossacklabs
 
 ## Storage Models
 
-There are two storage model modes used in Acra: WholeCell and InjectedCell.
+There are two storage model modes used in Acra to store data in database cell: WholeCell and InjectedCell.
 
 In WholeCell mode, CryptoEnvelope ([AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#acrastruct" >}}) or [AcraBlock]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}})) represents a complete piece of data (i.e. database cell, a file, or some data transmitted into [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md#-INVALID" >}})). In this mode it is expected that the encrypted data will look something like:
 
@@ -183,3 +191,18 @@ Zone Ids are identifiers of EC keys used for matching Zones to keys. The current
 ## When use AcraBlocks and when AcraStructs
 
 If you need end-to-end encryption then you should choose AcraStructs and encrypt data on client side using public key. In all other cases you should prefer AcraBlocks that have less output size, fewer keys size and are more performant because use only symmetric key encryption. When AcraStructs rely on asymmetric plus symmetric encryption algorithms and are slower. AcraServer supports transparent AcraBlock/AcraStruct encryption and decryption with equal functionality.
+
+# Additional data structures
+  
+**TODO: Expand**
+  
+Additionally, Acra operates with a number of other data structures that enable different security mechanisms:
+  
+## Acra's token
+
+Describe, link to relevant page
+  
+## Acra's searchable hash
+
+Describe, link to relevant page
+  
