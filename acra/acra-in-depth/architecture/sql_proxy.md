@@ -16,7 +16,17 @@ although AcraTranslator can do it as well (manually read from DB, ask Translator
 
 # Which FRs/NFRs does it implement
 
-_TODO_
+* Transparent data encryption/decryption
+* Transparent tokenization/detokenization (kind of anonymization, [read more]({{< ref "acra/security-controls/tokenization/_index.md" >}}))
+* Transparent encryption/decryption with masking (leaving some part of data unencrypted,
+  [read more]({{< ref "acra/security-controls/tokenization/_index.md" >}}))
+* Encrypted data in the database will remain protected and useless unless AcraServer has access to encryption keys
+
+---
+
+* Easy to integrate into existing infrastructure
+* Available as a package for common server Linux distros, available as docker image
+* AcraWebConfig as a helper tool for runtime reconfiguration
 
 # How it connects to other parts
 

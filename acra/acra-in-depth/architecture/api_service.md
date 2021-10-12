@@ -15,7 +15,18 @@ AcraTranslator provides an API (either gRPC or HTTP) for applications giving the
 
 # Which FRs/NFRs does it implement
 
-_TODO_
+* Secure data encryption
+* Transparent tokenization/detokenization (kind of anonymization, [read more]({{< ref "acra/security-controls/tokenization/_index.md" >}}))
+* Transparent encryption/decryption with masking (leaving some part of data unencrypted,
+  [read more]({{< ref "acra/security-controls/tokenization/_index.md" >}}))
+* Encrypted data in the database will remain protected and useless unless AcraTranslator has access to encryption keys
+* All cryptographic operations are performed on AcraTranslator side,
+  application won't have to deal with the keys at all
+
+---
+
+* Two RPC protocols: gRPC and HTTP
+* Available as a package for common server Linux distros, available as docker image
 
 # How it connects to other parts
 

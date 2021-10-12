@@ -20,7 +20,8 @@ Some of them are easy to integrate, while others require writing additional code
 * [Key storage]({{< ref "dbs.md#key-storage ">}}) —
   storage for encryption keys and tokenization data
 * Configuration and policies —
-  TODO
+  YAML files for services configuration (instead of launching then with lots of arguments),
+  for AcraServer configuration (transparent encryption, masking, tokenization)
 * [KMS]({{< ref "dbs.md#kms ">}}) —
   storage for master key
 
@@ -46,4 +47,4 @@ Acra requires 3 components to talk together during encryption/decryption:
 * Application
 * Database (in AcraServer case)
 
-For examples, please consult (TODO link) appropriate section for data flow examples.
+For examples, please consult [data flow]({{< ref "acra/acra-in-depth/data-flow/_index.md" >}}) section.

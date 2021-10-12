@@ -19,7 +19,12 @@ When tokenization is performed, the key storage will contain data needed for con
 
 ## Which FRs/NFRs does it implement
 
-_TODO_
+* Encryption key storage (more flexible than filesystem key store)
+* Tokenization data storage
+
+---
+
+* Works with a popular in-memory database (Redis)
 
 ## How it connects to other parts
 
@@ -42,7 +47,7 @@ Right now we support HashiCort Vault for this purposes.
 
 ## Which FRs/NFRs does it implement
 
-_TODO_
+* Secure storage of master key
 
 ## How it connects to other parts
 
