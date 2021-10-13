@@ -13,7 +13,7 @@ Each DEK is unique, so leaking one DEK is not a problem. DEK is attached to data
 
 # Acra's key lifecycle
 
-Acra keys, unless in special cases, does not leave Acra-controlled ecosystem, thus making the key lifecycle easier: 
+Acra keys, unless in special cases, do not leave Acra-controlled ecosystem, thus making the key lifecycle easier: 
 
 ## Master Key
 
