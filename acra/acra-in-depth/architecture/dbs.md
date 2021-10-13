@@ -20,7 +20,7 @@ When tokenization is performed, the key storage will contain data needed for con
 ## Which FRs/NFRs does it implement
 
 * Encryption key storage (more flexible than filesystem key store)
-* Tokenization data storage
+* Tokenization data storage (more scalable and stable than an in-memory store)
 
 ---
 
