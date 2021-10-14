@@ -62,3 +62,18 @@ and [AcraBlocks]({{ ref "/acra/acra-in-depth/data-structures/#acra-block" }}).
 
 There are also some considerations to take into account when configuring database column to be be both searchable and encrypted.
 See [DB indexes]({{< ref "/acra/configuring-maintaining/optimizations/db_indexes.md#searchable-encryption" >}}) page for more on that.
+
+## Limitations
+
+Open Source (CE) version does offer core search functionality, which is sufficiently secure for usage in non-security-critical workloads. 
+
+* Rotating searchable encryption keys (not a very big problem unless you use SE really a lot) 
+* Entropy management - CE allows you to generate search indexes as insecure as you want, without warning you. 
+* Ability to store search hashes separate from ciphertext (coming eventually), so search in CE limits you to databases that support functional indexes.
+* Performance optimisations - the way data is fetched, stored and processed is as straightforward as possible, which has certain performance costs. 
+* No data normalization - in open-source version, data normalization duties are laid on database administrator / application developer, thus index efficiency is completely dependent on end-user. 
+
+# Searchable encryption EE
+
+AcraEE features extended tooling to make use of searchable encryption in production environments with heavy security risks. This section will feature description of additional tooling of EE version once updated documentation is finalized. 
+
