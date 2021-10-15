@@ -7,9 +7,9 @@ bookCollapseSection: true
 
 # What is Acra? An overview.
 
-Acra is a data security toolkit for modern distributed applications. It is written in Go, aimed for modern cloud applications that store sensitive data in PostgreSQL/mySQL-compatible SQL databases, and any other datastores. It enables application-level/field-level encryption of data in your application and a number of additional data security techniques to protect sensitive data in modern applications in a convenient way. 
+Acra is a application-level encryption and data security toolkit for modern distributed applications. Acra allows application developers to encrypt sensitive data, manage the keys, apply tokenization, data masking, request filtering, generate audit logs and security events, automate reactions on security boundary - thus providing you with means to protect the data, detect incidents and respond to them. 
 
-Acra consists of a number of engines (SQL Proxy, API service/proxy, in-app SDK) that enable applying security controls to the data exactly where the data flows, with shared crypto key storage and unified configuration language. 
+Acra is written in Go, aimed for modern cloud applications that store sensitive data in PostgreSQL/mySQL-compatible SQL databases, and any other datastores. Acra consists of a number of engines (SQL Proxy, API service/proxy, in-app SDK) that enable applying security controls to the data exactly where the data flows, with  crypto key storage syncronised between all components.
 
 With Acra you can: 
 
@@ -18,7 +18,7 @@ With Acra you can:
 * respond: automate some Acra's reactions to protect sensitive data and/or keys during security incidents. 
 
 Aside from core security controls, Acra features a number of supporting mechanisms to make security implementation stronger and more convenient to use: 
-* proper key management tooling, inlucluding advanced features like gradual key rolling; 
+* key management tooling, inlucluding advanced features like gradual key rolling; 
 * searchable encryption to effiicently access some of the encrypted data
 * [ENTERPRISE ONLY] expressive policy language that allows to configure Acra's behavior in very sophisticated ways
 
@@ -26,9 +26,13 @@ Acra essentially moves security boundary as close to the data itself as possible
 
 ## Why Acra
 
-**TODO**: Continue
+Acra allows you to protect sensitive data inside your infrastructure / product / distributed application efficiently, with a number of modern security contorls. There are many regulatory, business risk and security rigorousness reasons to use Acra, they are typical to usage of any data protection / leakage prevention / encryption software:
 
-Acra allows you to protect sensitive data inside your infrastructure / product / distributed application efficiently, with a number of modern security contorls. There are many regulatory, business risk and security rigorousness reasons to use Acra, they are typical to usage of any data protection / leakage prevention / encryption software. 
+ * protecting sensitive data to prevent unauthorized parties from accessing it (including insiders and advanced persistent adversaries);
+ * encrypting sensitive data due to compliance requirements;
+ * building security boundary around sensitive data to protect and provide visibility into the way it is used; 
+ * reinforcing database security measures with external security controls; 
+ * building separate vaults of sensitive data with enhanced security;
 
 Let's see how Acra is actually different from many products and approaches: 
 
@@ -45,7 +49,7 @@ Application-level encryption brings plenty of application-specific benefits:
 
 ### Risk implications 
 
-**TODO**: Our risk table 
+**TODO**: Insert our risk table 
 
 Some relevant links: 
 * MongoDB ALE
