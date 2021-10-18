@@ -3,22 +3,27 @@ title: Regulations
 bookCollapseSection: true
 ---
 
-# Acra and GDPR compliance
+# Acra and security compliance
 
-## How Acra can help you comply with GDPR
+Acra is a database security suite that has under-the-hood cryptographic and security processes that are mandated by various compliance requirements. 
+Although Acra has not been audited by a 3rd party for compliance to any of these, open-source adopters report using it in regulated environments. 
 
-Acra is a database security suite that enables processing sensitive data with great care and security — namely, encrypting the data in a certain way.
+
+## GDPR
+
 Acra performs encryption through [Themis]({{< ref "/themis/" >}})
 with [Secure Cell]({{< ref "themis/crypto-theory/cryptosystems/secure-cell.md" >}})
 in Seal mode using AES-256-GCM,
 a “state of the art” algorithm of symmetric data encryption as understood by [GDPR](https://gdpr-info.eu/).
+
 Also, Acra follows “secure by default” configuration philosophy and carries out extensive logging of all its actions “out of the box”.
 Using Acra fulfills some of the demands of the articles 25 and 32 of GDPR
 ([Data protection by design and by default](https://gdpr-info.eu/art-25-gdpr/) and [Security of processing](https://gdpr-info.eu/art-32-gdpr/))
 as well as assists with compliance with articles 33 and 34
 ([Notification of a personal data breach to the supervisory authority](http://gdpr-info.eu/art-33-gdpr/) and [Communication of a personal data breach to the data subject](http://gdpr-info.eu/art-34-gdpr/)).
 
-## Security of processing
+### Security of processing
+
 [Article 32 of GDPR](https://gdpr-info.eu/art-32-gdpr/)
 
 Acra provides “state of the art security of processing” required by the article 32 of GDPR through providing data encryption and integrity checking of the encrypted data.
@@ -27,7 +32,7 @@ Acra provides “state of the art security of processing” required by the arti
 
 Also, the components of Acra allow encrypting data on the client side which enables secure transfer of the data in encrypted form through an untrusted channel.
 
-## Data protection by design and by default
+### Data protection by design and by default
 
 [Article 25 of GDPR](https://gdpr-info.eu/art-25-gdpr/)
 
@@ -37,7 +42,7 @@ This is enabled through the encrypted data transfer between the application, com
 
 > The controller shall implement appropriate technical and organisational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed [...] In particular, such measures shall ensure that by default personal data are not made accessible without the individual’s intervention to an indefinite number of natural persons.
 
-## Logging, Intrusion Detection, and Notification
+### Logging, Intrusion Detection, and Notification
 
 [Articles 33](https://gdpr-info.eu/art-33-gdpr/) [and 34 of GDPR](https://gdpr-info.eu/art-34-gdpr/)
 
@@ -61,13 +66,61 @@ Poison records never show up in legitimate queries.
 If a poison record is detected in a query then it's likely a result of an unauthorized data access.
 In this case, Acra can be configured to shutdown completely, disable data encryption and decryption, or perform any other action specified by the administrator.
 
-## Acra and other data privacy regulations
+### Other GDPR-like regulations
 
 Similarly to how Acra helps reach better compliance with GDPR, Acra can also help reach better compliance with other current data privacy regulations, such as
 
-* [General Data Protection Regulation (GDPR)](https://gdpr-info.eu/)
-* [HIPAA (Health Insurance Portability and Accountability Act)](https://en.wikipedia.org/wiki/Health_Insurance_Portability_and_Accountability_Act)
 * [DPA (Data Protection Act)](https://www.legislation.gov.uk/ukpga/2018/12/contents/enacted)
 * [CCPA (California Consumer Privacy Act)](https://en.wikipedia.org/wiki/California_Consumer_Privacy_Act)
+
+
+## FIPS & NIST
+
+**Encryption primitives**: Acra can be built with FIPS 140-2/140-2-compatible encryption module, so that encryption primitives are certified against many US and international regulations. 
+
+**Key management**: Open-source version of Acra can satisfy most of NIST SP 800-57 requirements (in it's own way). Enterprise version of Acra can satisfy most of NIST SP 800-57 requirements quite literally. 
+
+## PCI DSS
+
+Acra can solve some of PCI DSS requirements, and can be creatively used to reinforce others: 
+
+
+**Requirement 1. A firewall configuration must be installed and maintained**
+
+Since access to plaintext is possible only through Acra, Acra can be used as a database firewall:
+* On L3, limiting IP range
+* On L4, limiting by TLS certificate
+* On L7, parsing database queries and only allowing whitelisted ones to come in. 
+
+**Requirement 3. Protect stored cardholder data**
+
+Acra can encrypt the data, mask it during output, tokenize it, etc. 
+
+**Requirement 4: Encrypt transmission of cardholder data across open, public networks**
+
+Acra's records are suitable for transit in public records between applications. 
+
+**Requirement 7: Cardholder data access must be restricted to a business need-to-know basis** 
+
+Acra acts as access control gateway, reinforcing access control on every transaction and allowing to craft sophisticated access policies. 
+
+**Requirement 9: Physical access to cardholder data must be restricted** 
+
+Acra allows you to put cardholder data in encrypted form into even public databases - and no access will help attackers get access to the data, if Acra remains uncompromised. 
+
+**Requirement 10: Track and monitor all access to network resources and cardholder data** 
+
+Logging: Acra can generated detailed audit trail regarding all database queries, make it tamper-proof. 
+Monitoring: being aware of database/datastore query contents, Acra can provide monitoring and security events stream that will allow to granuarly identify suspicious queries and users. 
+
+## HIPAA
+
+**TODO: find formulations, extend**
+
+https://www.hipaajournal.com/hipaa-compliance-checklist/
+
+## European healthcare regulations
+
+**TODO: find formulations, extend**
 
 Check out the data encryption cheatsheet that covers several current data privacy regulations in [Cossack Labs blog](https://www.cossacklabs.com/blog/what-we-need-to-encrypt-cheatsheet.html).
