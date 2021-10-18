@@ -10,10 +10,11 @@ Is used to store encrypted keys and tokens.
 
 ## How it works
 
-A dedicated database (we currently support Redis for this purpose) is brought up.
+A dedicated key/value storage (we currently support Redis for this purpose) is brought up.
 AcraServer and/or AcraTranslator are configured to connect to it and use it for key/token storage.
 
-When AcraServer or AcraTranslator need a key for specific client ID or zone, they ask key storage for it.
+When AcraServer or AcraTranslator need a key, they ask key storage for it.
+Each key has its purpose (transport, encryption, audit log, HMAC) and is bound to a specific client ID or zone.
 When tokenization is performed, the key storage will contain data needed for consistent tokenization
 (return same result for same input next time) and for detokenization (reverse operation).
 
@@ -43,7 +44,7 @@ Is used to store master-password. Can be used to store all the keys, but might b
 
 Most Acra tools (including services like Server or Translator) can read master key from environment var.
 But they can read it from KMS as well.
-Right now we support HashiCort Vault for this purposes.
+Right now we support HashiCorp Vault for this purposes.
 
 ## Which FRs/NFRs does it implement
 

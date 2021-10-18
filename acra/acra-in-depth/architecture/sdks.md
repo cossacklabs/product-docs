@@ -61,6 +61,8 @@ If you encrypt data using a public key known to Acra, and store it database by p
 the later will attempt to decrypt the data and encrypt it with a new key.
 If succeeded, Acra will then be able to transparently decrypt the data.
 
+You can also configure AcraServer to re-encrypt AcraStructs into AcraBlock to increase future decryption performance.
+
 ## Which FRs/NFRs does it implement
 
 * Data encryption/decryption on client (application) side

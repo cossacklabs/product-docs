@@ -36,7 +36,7 @@ Works next to the application, takes responsibility of providing secure connecti
 AcraWebConfig — helper tool that provides web UI through which you can reconfigure some AcraServer options at runtime.
 
 Redis — another storage for keys.
-When configured, AcraServer will request keys it cannot find in keystore (directory in filesystem) from Redis.
+When configured, AcraTranslator will request keys from Redis (in addition to keystore directory in filesystem).
 It can also use Redis to store data needed for [tokenization feature]({{< ref "acra/security-controls/tokenization/_index.md" >}}) to work.
 
 # What are architectural considerations?

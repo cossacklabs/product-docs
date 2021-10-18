@@ -32,7 +32,7 @@ AcraTranslator provides an API (either gRPC or HTTP) for applications giving the
 # How it connects to other parts
 
 Redis — another storage for keys.
-When configured, AcraTranslator will request keys it cannot find in keystore (directory in filesystem) from Redis.
+When configured, AcraTranslator will request keys from Redis (in addition to keystore directory in filesystem).
 It can also use Redis to store data needed for [tokenization feature]({{< ref "acra/security-controls/tokenization/_index.md" >}}) to work.
 
 # What are architectural considerations?
