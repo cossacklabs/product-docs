@@ -17,7 +17,10 @@ _What Acra is and why it's awesome_
 
 Acra is a data security toolbox: a suite of security tools built to protect data across its whole lifecycle in modern distributed applications. Acra provides [application-level encryption](https://www.infoq.com/articles/ale-software-architects/), masking, tokenization, access control, database leakage prevention, and intrusion detection capabilities in a convenient, developer-friendly package. 
 
-**If you're just getting started with Acra, please start with [What is Acra page](/acra/what-is-acra/), and work your way up to [the Getting Started guide](/acra/getting-started/).**
+
+## Getting started
+
+If you're just getting started with Acra, please start with [What is Acra page](/acra/what-is-acra/), and work your way up to [the Getting Started guide](/acra/getting-started/).
 
 
 ## Latest release and revision 

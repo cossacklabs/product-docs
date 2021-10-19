@@ -51,7 +51,7 @@ AcraServer's key storage contains a special key, which is used for recognition o
 
 Before running any commands, make sure you have [installed]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) `acra-poisonrecordmaker` utility and **`ACRA_MASTER_KEY`** stored as an environmental variable.
 
-If you haven't generated keys before, checkout out [key generation]({{< ref "acra/keys/operations/generation" >}}) instructions. After generating **`ACRA_MASTER_KEY`**, assign it to a variable like this:
+If you haven't generated keys before, checkout out [key generation]({{< ref "acra/security-controls/key-management/operations/generation" >}}) instructions. After generating **`ACRA_MASTER_KEY`**, assign it to a variable like this:
 
 ```
 export ACRA_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)

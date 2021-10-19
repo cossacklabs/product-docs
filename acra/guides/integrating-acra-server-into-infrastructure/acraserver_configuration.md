@@ -49,6 +49,6 @@ set up additional root CA if needed, client certificates and so on.
 
 There is no encryption without keys.
 You will need master key and encryption keys for at least one client ID.
-[Here]({{< ref "acra/keys/operations/generation.md#1-setting-up-acraserver" >}})
+[Here]({{< ref "acra/security-controls/key-management/operations/generation.md#1-setting-up-acraserver" >}})
 you can read more about how to generate them.
 Make sure AcraServer knows where they are located (`--keys_dir`).
