@@ -60,6 +60,7 @@ Then you store encrypted data in the database.
 If you encrypt data using a public key known to Acra, and store it database by performing a query through AcraServer,
 the later will attempt to decrypt the data and encrypt it with a new key.
 If succeeded, Acra will then be able to transparently decrypt the data.
+[Read more about crypto containers]({{< ref "acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks.md" >}}).
 
 You can also configure AcraServer to re-encrypt AcraStructs into AcraBlock to increase future decryption performance.
 
