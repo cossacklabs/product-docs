@@ -67,6 +67,7 @@ See [DB indexes]({{< ref "/acra/configuring-maintaining/optimizations/db_indexes
 
 Open Source (CE) version does offer core search functionality, which is sufficiently secure for usage in non-security-critical workloads. 
 
+* Bloom filters - current open source version does not contain bloom-filter based improvements for both security and performance.
 * Rotating searchable encryption keys (not a very big problem unless you use SE really a lot) 
 * Entropy management - CE allows you to generate search indexes as insecure as you want, without warning you. 
 * Ability to store search hashes separate from ciphertext (coming eventually), so search in CE limits you to databases that support functional indexes.
