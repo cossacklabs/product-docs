@@ -6,7 +6,7 @@ weight: 5
 
 **TODO: Extend**
 
-# Security controls 
+## Security controls 
 
 Proactive: 
 Reactive: 
@@ -15,11 +15,11 @@ Detective:
 Links
 
 
-# Acra's own internal security 
+## Acra's own internal security 
 
-How we make sure that Acra is secure
+To learn more how we protect Acra while it protects your system, refer to [On Acra security](/acra/on-acra-security/) section.
 
 
-# More reading
+## More reading
 
 * Acra's Security design
