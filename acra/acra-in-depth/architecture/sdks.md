@@ -4,6 +4,10 @@ bookCollapseSection: true
 weight: 5
 ---
 
+# Acra SDKs in general
+
+Acra provides a number of different SDKs that enable more in-depth usage of Acra's capabilities. By default, all necessary wrapper libraries are available only to commercial customers, but eventually this might change. 
+
 # SDK to AcraTranslator (API client)
 
 AcraTranslator provides gRPC and HTTP API, which you can use in your application.
@@ -45,7 +49,7 @@ If you use AcraConnector, then the application will connect to it instead.
 
 ## What are architectural considerations?
 
-_TODO_
+* Stay tuned for more!
 
 # Full-on in-app SDK
 
