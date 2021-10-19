@@ -1,6 +1,7 @@
 ---
 title: General configuration
 bookCollapseSection: true
+weight: 2
 ---
 
 ### General configuration

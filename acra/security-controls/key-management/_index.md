@@ -1,6 +1,7 @@
 ---
 title: Key management
 bookCollapseSection: true
+weight: 3
 ---
 
 # Key management

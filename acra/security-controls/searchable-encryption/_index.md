@@ -1,6 +1,6 @@
 ---
 title: Searchable encryption
-bookCollapseSection: true
+weight: 2
 ---
 
 # Searchable encryption

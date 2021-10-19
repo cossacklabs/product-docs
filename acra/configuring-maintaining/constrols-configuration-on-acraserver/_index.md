@@ -1,6 +1,7 @@
 ---
 title: Controls configuration on AcraServer
 bookCollapseSection: true
+weight: 3
 ---
 
 # Controls configuration on AcraServer

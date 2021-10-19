@@ -1,6 +1,6 @@
 ---
 title: Programmatic reactions
-bookCollapseSection: true
+weight: 11
 ---
 
 # Security automation via programmatic reactions

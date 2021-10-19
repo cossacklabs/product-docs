@@ -1,6 +1,6 @@
 ---
 title: Intrusion detection
-bookCollapseSection: true
+weight: 8
 ---
 
 # Intrusion Detection

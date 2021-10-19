@@ -1,6 +1,7 @@
 ---
 title: Optimizations
 bookCollapseSection: true
+weight: 13
 ---
 
 [Vertical scaling]({{< ref "acra/configuring-maintaining/optimizations/vertical_scaling.md" >}})

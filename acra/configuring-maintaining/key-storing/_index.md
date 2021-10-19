@@ -1,7 +1,7 @@
 ---
 title: Key storing
 bookCollapseSection: true
-weight: 1
+weight: 6
 ---
 
 # Key management and key storage

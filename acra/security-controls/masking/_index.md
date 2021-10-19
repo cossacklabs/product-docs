@@ -1,6 +1,6 @@
 ---
 title: Masking
-bookCollapseSection: true
+weight: 5
 ---
 
 # Masking

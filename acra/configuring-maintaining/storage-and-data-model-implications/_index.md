@@ -1,6 +1,6 @@
 ---
 title: Storage and data model implications
-bookCollapseSection: true
+weight: 8
 ---
 
 # Data storage

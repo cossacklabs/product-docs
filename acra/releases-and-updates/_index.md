@@ -1,6 +1,5 @@
 ---
 title: Releases & updates
-bookCollapseSection: true
 weight: 9
 ---
 
