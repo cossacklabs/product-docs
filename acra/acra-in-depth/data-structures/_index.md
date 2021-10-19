@@ -1,6 +1,7 @@
 ---
 title: Data structures
 bookCollapseSection: true
+weight: 7
 ---
 
 # Data structures Acra operates with

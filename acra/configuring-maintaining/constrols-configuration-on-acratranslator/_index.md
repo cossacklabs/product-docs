@@ -1,6 +1,7 @@
 ---
 title: Controls configuration on AcraTranslator
 bookCollapseSection: true
+weight: 4
 ---
 
 # Controls configuration on AcraTranslator

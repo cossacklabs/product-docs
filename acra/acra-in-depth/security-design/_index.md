@@ -1,6 +1,7 @@
 ---
 title: Security design
 bookCollapseSection: true
+weight: 1
 ---
 
 ## Security design

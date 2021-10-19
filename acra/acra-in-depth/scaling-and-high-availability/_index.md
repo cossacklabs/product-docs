@@ -1,6 +1,7 @@
 ---
 title: Scaling and high availability
 bookCollapseSection: true
+weight: 9
 ---
 
 # Scaling and high availability

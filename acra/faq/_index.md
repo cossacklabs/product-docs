@@ -1,18 +1,24 @@
 ---
 title: Frequently asked questions
-bookCollapseSection: true
 weight: 11
 ---
 
 There are a number of concerns that do not fit other pages, yet are asked by our adopters and customers. Until they gather their logical representation in the menu, they stay in FAQ.
 
-Q: I need Acra to work with <Datastore X>, <Feature Y>, <Database Z>. What should I do? 
-A: Acra has been designed to be sufficiently extentable. Feel free to contribute your implementation, but consult Contributing (TODO: link) section first. If you are looking for someone to implement it, talk to (TODO: link) our sales team, we're happy to explore different opportunities to make things happen without breaking a budget. 
+### I need Acra to work with `Feature Y` or `Database Z`. What should I do?
 
-Q: Acra does not support highly-complex SQL statement in exotic PostgreSQL fork under rare circumstances, what do I do? 
-A: We're constantly improving Acra's SQL parser, but we are small company with limited resources. Aside from Acra, problems with wire protocol / SQL support could stem from database you're using - 100% protocol compatibility is, indeed, rare. 
+Acra has been designed to be sufficiently extentable. Feel free to contribute your implementation, but consult [Contributing section](/acra/contributing-and-community/) first. If you are looking for someone to implement it, talk to [our sales team](mailto:sales@cossacklabs.com), we're happy to explore different opportunities to make things happen without breaking a budget. 
 
-Q: Does Acra support .pem, .p12, .key, .pkcs12 and other key storage formats? 
-A: No. Acra's keys are tightly bound to data structures it operates and cryptographic protocols that these data structures implement. For performance reasons, Acra's keys are much simpler and straightforward than most widely recognized formats. You can, though, store some of Acra's keys in these formats (TODO: verify and link). 
-  
-  
+
+### Acra does not support highly-complex SQL statement in exotic PostgreSQL fork under rare circumstances, what do I do?
+
+We're constantly improving Acra's SQL parser, but we are small company with limited resources. Aside from Acra, problems with wire protocol / SQL support could stem from database you're using - 100% protocol compatibility is, indeed, rare. 
+
+
+### Does Acra support `.pem`, `.p12`, `.key`, `.pkcs12` and other key storage formats?
+
+No. Acra's keys are tightly bound to data structures it operates and cryptographic protocols that these data structures implement. For performance reasons, Acra's keys are much simpler and straightforward than most widely recognized formats.
+
+### What happens if I lost Acra master key?
+
+Uh-oh, you believe that you've backed up the key and it's stored in KMS. Right? Please refer to [Key management / Troubleshooting guide](/acra/security-controls/key-management/troubleshooting/#losing-the-keys) to learn more.

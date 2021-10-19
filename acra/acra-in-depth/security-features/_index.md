@@ -1,6 +1,7 @@
 ---
 title: Security features
 bookCollapseSection: true
+weight: 5
 ---
 
 **TODO: Extend**

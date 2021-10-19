@@ -1,6 +1,5 @@
 ---
 title: Regulations
-bookCollapseSection: true
 weight: 10
 ---
 

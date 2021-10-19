@@ -1,4 +1,4 @@
 ---
 title: Debugging and troubleshooting
-bookCollapseSection: true
+weight: 12
 ---

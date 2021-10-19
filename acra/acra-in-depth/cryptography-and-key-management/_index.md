@@ -1,6 +1,7 @@
 ---
 title: Cryptography and key management
 bookCollapseSection: true
+weight: 7
 ---
 
 ## Cryptography in Acra

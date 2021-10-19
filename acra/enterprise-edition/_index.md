@@ -1,6 +1,5 @@
 ---
 title: Enterprise edition
-bookCollapseSection: true
 weight: 12
 ---
 

@@ -1,8 +1,7 @@
 ---
-
-weight: 1
 title: Logging
 bookCollapseSection: true
+weight: 9
 ---
 
 # Logging in Acra

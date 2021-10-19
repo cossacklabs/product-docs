@@ -1,6 +1,5 @@
 ---
 title: Contributing and community
-bookCollapseSection: true
 weight: 8
 ---
 
