@@ -6,6 +6,10 @@ bookCollapseSection: true
 
 # Key rotation
 
+{{< hint info >}}
+This feature is available in Acra Enterprise Edition Only.
+{{< /hint>}}
+
 All cryptographic keys should have a definite time span – known as **cryptoperiod** –
 during which the key is authorised for usage.
 After the cryptoperiod expires, key should be replaced with a new one.

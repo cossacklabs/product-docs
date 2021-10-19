@@ -1,6 +1,7 @@
 ---
 title: Controls configuration on AcraServer
 bookCollapseSection: true
+weight: 3
 ---
 
 # Controls configuration on AcraServer
@@ -37,7 +38,7 @@ Features configured with CLI flags.
 
   Telling Acra where the keys are stored so it can perform crypto-related things.
 
-  The main key, ["master key"]({{< ref "acra/keys/operations/generation.md#master-keys" >}})
+  The main key, ["master key"]({{< ref "acra/security-controls/key-management/operations/generation.md#master-keys" >}})
   is read from `ACRA_MASTER_KEY` environment var, but can also be
   [fetched from HashiCorp Vault]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#hashicorp-vault" >}}).
 

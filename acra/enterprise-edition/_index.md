@@ -1,6 +1,6 @@
 ---
 title: Enterprise edition
-bookCollapseSection: true
+weight: 12
 ---
 
 Acra CE has been built to satisfy the needs of security community, startups and technology/security enthusiasts. AcraCE exposes source code of all the security controls and cryptosystems for public review, testing and usage. 

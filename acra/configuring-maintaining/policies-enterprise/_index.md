@@ -1,6 +1,6 @@
 ---
 title: Policies [ENTERPRISE]
-bookCollapseSection: true
+weight: 7
 ---
 
 # Policies and configuration sets

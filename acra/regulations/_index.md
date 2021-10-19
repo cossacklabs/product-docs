@@ -1,6 +1,6 @@
 ---
 title: Regulations
-bookCollapseSection: true
+weight: 10
 ---
 
 # Acra and security compliance

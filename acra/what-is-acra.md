@@ -1,7 +1,6 @@
 ---
-weight: 1
+weight: 2
 title: What is Acra
-bookCollapseSection: true
 ---
 
 
@@ -10,6 +9,35 @@ bookCollapseSection: true
 Acra is a application-level encryption and data security toolkit for modern distributed applications. Acra allows application developers to encrypt sensitive data, manage the keys, apply tokenization, data masking, request filtering, generate audit logs and security events, automate reactions on security boundary - thus providing you with means to protect the data, detect incidents and respond to them. 
 
 Acra is written in Go, aimed for modern cloud applications that store sensitive data in PostgreSQL/mySQL-compatible SQL databases, and any other datastores. Acra consists of a number of engines (SQL Proxy, API service/proxy, in-app SDK) that enable applying security controls to the data exactly where the data flows, with  crypto key storage syncronised between all components.
+
+
+## Use cases that Acra solves:
+
+Unlike many security software tools, Acra uses cryptography as main line of defense. When data is encrypted, it can't be suddenly and unnoticeably decrypted. 
+
+
+* **Selective encryption & search:** encrypt anywhere, keep the data encrypted through its lifecycle, decrypt when needed, search encrypted data without decrypting it.
+
+* **Access control & protection:** restrict SQL queries, detect and prevent data leaks, produce tamper-proof audit log.
+
+* **Data masking & tokenization:** anonymize, mask or tokenize sensitive data. Preserve database's column format while adding encryption and tokenization. 
+
+* **Add encryption transparently:** deploy Acra Server between your application and databases, teach Acra Server which fields to encrypt, and direct your application to talk to Acra instead of the database. Acra will encrypt/decrypt data fields "on the fly", while your application and database don't know that the data is encrypted.
+
+* **Use encryption-as-API:** encrypt/decrypt/mask/tokenize data on demand: deploy Acra Translator, talk with Acra from your application using gRPC or HTTP API to protect data fields. Your application doesn't need to incorporate cryptographic code to encrypt data, it just calls Acra and receives what it needs.
+
+* **Prevent plaintext data leakage:** data is encrypted before it reaches the databases, neither the database or your application don't have encryption keys. Even in case of the incident, the encrypted data is leaked.
+
+* **Create partially or fully encrypted dataflows:** deploy Acra in your infrastructure, encrypt sensitive/risky data fields, and operate on them while they are encrypted.
+
+* **Demonstrate transparency:** with tamper-proof audit logging in Acra you have proofs of who/when/how has accessed the data or tried to change the logs.
+
+* **React on suspicious queiries:** configure Acra's SQL firewall to block unusual queries and raise alarm for your Ops team.
+
+* **Protect data** in large-scale distributed data processing systems and pipelines.
+
+* **Achieve complaince** in data security and privacy while actually increasing practical security posture. (Best of two words: compliance and actual pragmatic security.)
+
 
 With Acra you can: 
 

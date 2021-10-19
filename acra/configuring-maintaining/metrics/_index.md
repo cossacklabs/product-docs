@@ -1,8 +1,6 @@
 ---
-
-weight: 1
+weight: 10
 title: Metrics
-bookCollapseSection: true
 ---
 
 # Metrics in Acra

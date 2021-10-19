@@ -1,6 +1,7 @@
 ---
 title: SQL firewall
 bookCollapseSection: true
+weight: 6
 ---
 
 ## AcraCensor — Acra’s firewall

@@ -1,6 +1,6 @@
 ---
 title: Tracing
-bookCollapseSection: true
+weight: 11
 ---
 
 # Enabling tracing

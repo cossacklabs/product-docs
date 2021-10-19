@@ -1,6 +1,6 @@
 ---
 title: Availability on platforms/languages
-bookCollapseSection: true
+weight: 2
 ---
 
 # Availability on platforms/languages
