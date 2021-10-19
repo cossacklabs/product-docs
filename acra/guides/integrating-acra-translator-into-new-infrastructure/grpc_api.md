@@ -73,7 +73,7 @@ You can find complete content of [api.proto](https://github.com/cossacklabs/acra
 
 ## Setup AcraConnector and AcraTranslator manually
 
-1. Generate the [Master Key]({{< ref "/acra/keys/operations/generation#master-keys" >}})
+1. Generate the [Master Key]({{< ref "/acra/security-controls/key-management/operations/generation#master-keys" >}})
 2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStruct]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}})/[AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}).
 
 ```bash

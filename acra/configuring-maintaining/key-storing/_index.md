@@ -39,9 +39,9 @@ to provide high performance and scalability. Acra supports several storages that
 ## Key management
 
 About tools related to key generation, rotation, backup you can read on our page about 
-[key management]({{< ref "acra/keys/_index.md" >}}) with describing related tools.
+[key management]({{< ref "acra/security-controls/key-management/_index.md" >}}) with describing related tools.
 
 ## Compartmentalization
 
 Acra uses distinct keys for each purpose and in such way provide compartmentalization of keys duty. 
-More about it you can find on our [Inventory of Acra keys]({{< ref "/acra/keys/inventory.md" >}}) page.
+More about it you can find on our [Inventory of Acra keys]({{< ref "/acra/security-controls/key-management/inventory.md" >}}) page.

@@ -15,7 +15,7 @@ Cryptography widely used in all Acra services for:
   authenticated symmetric encryption used to protect user's data via [Secure Cell](({{< ref "/themis/crypto-theory/cryptosystems/secure-cell.md" >}}))
 * [secure logging]({{< ref "acra/security-controls/security-logging-and-events/secure_logging.md" >}})
 * [password hashing]({{< ref "/acra/configuring-maintaining/general-configuration/acra-authmanager.md#auth-file" >}})
-* private keys protection and [key management]({{< ref "/acra/keys/" >}})
+* private keys protection and [key management]({{< ref "/acra/security-controls/key-management/" >}})
 
 Acra does not contain any self-made cryptographic primitives or obscure ciphers and relies on:
 * [Themis cryptographic library](https://www.cossacklabs.com/themis/)

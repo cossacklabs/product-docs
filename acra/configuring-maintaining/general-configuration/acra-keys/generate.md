@@ -32,7 +32,7 @@ weight: 10
 * `--keystore=<v1|v2>`
 
   Set keystore format.
-  Read more about [keystore versions]({{< ref "/acra/keys/versions/" >}}).
+  Read more about [keystore versions]({{< ref "/acra/security-controls/key-management/versions/" >}}).
 
   This option is required for newly created keystores.
 

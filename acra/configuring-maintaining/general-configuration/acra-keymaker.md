@@ -29,7 +29,7 @@ By default certificate Distinguished Name is used as ClientID.
 * `--keystore=<v1|v2>`
   
   Set keystore format.
-  Read more about [keystore versions]({{< ref "/acra/keys/versions/" >}}).
+  Read more about [keystore versions]({{< ref "/acra/security-controls/key-management/versions/" >}}).
   
   This option is required for newly created keystores.
   If `--keys_output_dir` points to existing keystore then `acra-keymaker` automatically detects the version of the keystore.

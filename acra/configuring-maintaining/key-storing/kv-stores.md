@@ -1,6 +1,7 @@
+---
 title: Scalable KV storages
 bookCollapseSection: true
-weight: 2
+weight: 3
 ---
 
 **TODO: Expand**

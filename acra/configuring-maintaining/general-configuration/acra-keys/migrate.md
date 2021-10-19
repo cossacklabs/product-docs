@@ -18,7 +18,7 @@ weight: 10
 * `--{src|dst}_keystore=<v1|v2>` ❗
 
   Set keystore format.
-  Read more about [keystore versions]({{< ref "/acra/keys/versions/" >}}).
+  Read more about [keystore versions]({{< ref "/acra/security-controls/key-management/versions/" >}}).
 
 * `--dry_run`
 
@@ -102,5 +102,5 @@ weight: 10
 
 {{< hint info >}}
 **Note:**
-You can find out an example how to use `acra-keys` **`migrate`** in [keystore versions]({{< ref "/acra/keys/versions/migrate-v1-to-v2" >}}) section.
+You can find out an example how to use `acra-keys` **`migrate`** in [keystore versions]({{< ref "/acra/security-controls/key-management/versions/migrate-v1-to-v2" >}}) section.
 {{< /hint >}}
