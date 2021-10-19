@@ -400,7 +400,7 @@ weight: 3
   * `distinguished_name` — (default) certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
 
-### Vault
+### Hashicorp Vault
 
 * `--vault_connection_api_string=<url>`
 

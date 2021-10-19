@@ -15,7 +15,7 @@ However, for an enterprise environment there are various security and operationa
 
 * Policy / configuration management: 
   * Every Acra configuration, in essence, is a security policy that combines a number of powerful Acra's controls on one enforcement point (like AcraServer or AcraTranslator)
-  * AcraEE features advanced configuraiton engine that allows you to create more expressive security policies, apply better-differentiated configurations to different connections / users on the same Acra node. 
+  * AcraEE features advanced configuration engine that allows you to create more expressive security policies, apply better-differentiated configurations to different connections / users on the same Acra node. 
 
 * Security automation 
   * AcraCE out of the box allows you to automate security reactions, use security events to trigger certain behaviours inside Acra or outside. 
@@ -25,3 +25,6 @@ However, for an enterprise environment there are various security and operationa
   * AcraEE separates control plane (configuration management) from data plane (point of enforcing security policy)
   * Spawn Enforcement nodes (SQL Proxies and APIs) easily, manage load.
   * AcraEE allows to more flexibly distribute key storage / management components
+
+
+**TODO: Link items here to appropriate sections in the docs**
