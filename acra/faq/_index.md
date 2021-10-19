@@ -1,6 +1,7 @@
 ---
 title: Frequently asked questions
 bookCollapseSection: true
+weight: 11
 ---
 
 There are a number of concerns that do not fit other pages, yet are asked by our adopters and customers. Until they gather their logical representation in the menu, they stay in FAQ.

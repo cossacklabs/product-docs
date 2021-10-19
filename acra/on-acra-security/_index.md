@@ -1,6 +1,7 @@
 ---
 title: On Acra security
 bookCollapseSection: true
+weight: 11
 ---
 
 **TODO: expand**
