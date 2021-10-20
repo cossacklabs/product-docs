@@ -23,7 +23,7 @@ Proactive controls prevent risks from happening. The main goals of these Acra fe
   encrypt data in a way that it's searchable without decryption. Acra encrypts data securely and builds a special hash ("blind index") for search.
   
 * [Masking](/acra/security-controls/masking/) —
-  similar to encryption but leaves a part of plaintext unencrypted. The database stores masked data (`annXXXXX@gmail.com`), your application controls how to show data – in plaintext for trusted connections, as a mask for untrusted ones.
+  similar to encryption but leaves a part of plaintext unencrypted. The database stores masked data (`annXXXXX@acme.com`), your application controls how to show data – in plaintext for trusted connections, as a mask for untrusted ones.
 
 * [Tokenization](/acra/security-controls/tokenization/) —
   substitute sensitive data with a token and match it to the original only when needed. To provide additional security, encrypt sensitive data when stored and decrypt only when a token is requested. 
@@ -50,7 +50,7 @@ Reactive controls detect suspicious behaviour and prevent incidents from happeni
 
 Detective controls help restore the history of events and detect if the system's behaviour has tampered with. The main goals of these Acra features are to provide enough proof for auditors, regulators, or the IR team. We recommend performing ongoing monitoring, verification, and alerting for risky environments, not just using these controls after incidents.
 
-* [SQL query logging](/acra/security-controls/sql-firewall/_index.md#logging-and-masking-queries/) —
+* [SQL query logging](/acra/security-controls/sql-firewall#logging-and-masking-queries/) —
   Acra's Request Firewall allows logging all incoming SQL queries from clients in AcraServer to validate them later. It's often combined with "deny" rules (when suspicious queries are blocked) and programmatic events (when specific queries trigger alerts).
 
 * [Security logging](/acra/security-controls/security-logging-and-events/) —

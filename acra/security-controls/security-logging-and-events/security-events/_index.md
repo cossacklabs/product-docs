@@ -1,7 +1,7 @@
 ---
 title: Security events
 bookCollapseSection: true
-weight: 2
+weight: 1
 ---
 
 # Security events
