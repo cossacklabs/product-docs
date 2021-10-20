@@ -13,11 +13,11 @@ Depending on which security control we are talking about, the exact way of enabl
 Features configured in file passed in `--encryptor_config_file` CLI option.
 If you need any of these, the encryptor config is a must have.
 
-* [Transparent encryption]({{<ref "acra/security-controls/encryption/_index.md" >}})
-* [Searchable encryption]({{<ref "acra/security-controls/searchable-encryption/_index.md" >}})
-* [Masking]({{<ref "acra/security-controls/masking/_index.md" >}})
-* [Tokenization]({{<ref "acra/security-controls/tokenization/_index.md" >}})
-* [Zones]({{<ref "acra/security-controls/zones.md" >}})
+* [Transparent encryption](/acra/security-controls/encryption/)
+* [Searchable encryption](/acra/security-controls/searchable-encryption/)
+* [Masking](/acra/security-controls/masking/)
+* [Tokenization](/acra/security-controls/tokenization/)
+* [Zones](/acra/security-controls/zones)
   (configured in encryptor config, but enabled with `--zonemode_enable`)
 
 ## CLI flags
@@ -25,14 +25,14 @@ If you need any of these, the encryptor config is a must have.
 Features configured with CLI flags.
 `--config_file <options.yml>` may be used instead, AcraServer will read options from a file.
 
-* [Intrusion detection]({{<ref "acra/security-controls/intrusion-detection/_index.md" >}})
+* [Intrusion detection](/acra/security-controls/intrusion-detection/)
 
   Detecting abnormal activity of clients trying to access data they were no supposed to access.
 
   Enabled with `--poison_detect_enable`.
   Configured with [`--poison_*` flags]({{<ref "acra/security-controls/intrusion-detection/_index.md#command-line-flags" >}}).
   Requires special "poison records" inserted in the database in order to have effect
-  ([example]({{< ref "acra/security-controls/intrusion-detection/_index.md#usage-example" >}})).
+  ([example](/acra/security-controls/intrusion-detection#usage-example").
 
 * [Key management]({{<ref "acra/security-controls/key-management/_index.md" >}})
 
@@ -46,14 +46,14 @@ Features configured with CLI flags.
   [from filesystem (`--keys_dir`)]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#keystore" >}}) or
   [from Redis (`--redis_*` flags)]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags" >}}).
 
-* [Programmatic reactions]({{<ref "acra/security-controls/programmatic-reactions/_index.md" >}})
+* [Programmatic reactions](/acra/security-controls/security-logging-and-events/security-events/programmatic-reactions/)
 
   Performing configured activity (i.e. running a script/binary)
   on some events (i.e. client attempted to read a poison record).
 
   Actual configuration depends on the feature you deal with.
 
-* [Security logging]({{<ref "acra/security-controls/security-logging-and-events/_index.md" >}})
+* [Security logging](/acra/security-controls/security-logging-and-events/)
 
   Ensuring that log produced by AcraServer itself is not altered/corrupted/truncated in any way.
 
@@ -62,7 +62,7 @@ Features configured with CLI flags.
   Produced logs should be checked with
   [acra-log-verifier]({{< ref "acra/configuring-maintaining/general-configuration/acra-log-verifier.md" >}}).
 
-* [SIEM/SOC integration]({{<ref "acra/security-controls/siem-soc-integration/_index.md" >}})
+* [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/security-events/siem-soc-integration/)
 
   _TODO_
 
