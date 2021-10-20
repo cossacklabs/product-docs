@@ -35,7 +35,7 @@ Note: The following examples focus on using AcraConnector and AcraWriter with Po
 Note: These Docker Compose files are recommended for testing purposes only. Please don't rely on them in real-life production settings.
 {{< /hint >}}
 
-Start provided Docker Compose file with PostgreSQL, AcraServer, AcraConnector, and Secure Session between them:
+Start provided Docker Compose file with PostgreSQL, AcraServer, AcraConnector, and Themis Secure Session between them:
 
 ```
 git clone https://github.com/cossacklabs/acra.git
@@ -66,7 +66,7 @@ Read more about the different types of keys used in Acra in the [Key Management]
 acra-keymaker --client_id=client_name --generate_acraconnector_keys
 ```
 
-The name of the key should be longer than 5 characters. It is also used as an identifier for the [Secure Session]({{<ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) connection between AcraConnector and AcraServer.
+The name of the key should be longer than 5 characters. It is also used as an identifier for the [Themis Secure Session]({{<ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) connection between AcraConnector and AcraServer.
 
 The generated keypair `client_name` and `client_name.pub` will appear in .acrakeys (or anywhere you ask with `--keys_output_dir=/path/to/dir` argument).
 
