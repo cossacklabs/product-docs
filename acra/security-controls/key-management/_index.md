@@ -1,6 +1,7 @@
 ---
 title: Key management
 bookCollapseSection: true
+weight: 3
 ---
 
 # Acra key model 

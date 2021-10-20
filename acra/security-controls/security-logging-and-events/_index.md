@@ -1,6 +1,7 @@
 ---
 title: Security logging & events
 bookCollapseSection: true
+weight: 9
 ---
 
 # Security logging and events

@@ -1,6 +1,7 @@
 ---
 title: Encryption
 bookCollapseSection: true
+weight: 1
 ---
 
 # Encryption as a security control
