@@ -14,7 +14,7 @@ AcraTranslator doesn't care about the source of the data, it accepts [AcraStruct
 An application sends [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) or [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}) as binary data and receives plaintext (or decryption error) from AcraTranslator.
 
 However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires the use of [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) encryption channel (which is basically encrypted TCP/UNIX sockets). 
-To establish a Secure Session connection, an application doesn't need to include the crypto-code itself, only to direct the traffic through [AcraConnector]({{< ref "/acra/configuring-maintaining/general-configuration/acra-connector.md" >}}) instead.
+To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to direct the traffic through [AcraConnector]({{< ref "/acra/configuring-maintaining/general-configuration/acra-connector.md" >}}) instead.
 
 
 

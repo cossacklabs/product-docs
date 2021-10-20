@@ -31,7 +31,7 @@ although AcraTranslator can do it as well (manually read from DB, ask Translator
 # How it connects to other parts
 
 AcraConnector — may act as an additional proxy between application (SQL client) and AcraServer.
-Works next to the application, takes responsibility of providing secure connection to AcraServer (TLS or Secure Session).
+Works next to the application, takes responsibility of providing secure connection to AcraServer (TLS or Themis Secure Session).
 
 AcraWebConfig — helper tool that provides web UI through which you can reconfigure some AcraServer options at runtime.
 
