@@ -4,69 +4,36 @@ bookCollapseSection: true
 weight: 9
 ---
 
-# Security logging and events
+## Security logging
 
-## What Acra can log
+Acra’s security log is specifically pre-configured to be helpful to SIEM/SOC operators in building analytics and automation around security events. Acra logs internal and external activity.
 
-<!-- grep 'log\.(Error|Warn|Info|Debug)f?\("' in Acra sources -->
+Refer to [Security logging](/acra/security-controls/security-logging-and-events/security-logging/) page to learn about supported ways, formats and available logs.
 
-Connection-related info:
-* Which hosts:ports Acra service is listening on, which transport encryption is selected
-* New clients connected to Acra
-* Problems with TLS certificates on client/database side
+## Audit logging
 
-Keystore events:
-* Reading master key from environment or KMS (i.e. HashiCorp Vault), possible errors
-* Loading other\* keys from filesystem or key DB (i.e. Redis), possible errors
+To ensure that security log is secure itself, Acra provides cryptographic protection/validation of exported logs to prevent tampering. Acra’s audit log covers access, security events, ties sessions to consumers and extends application-level audit log with strong evidence.
 
-\* — the ones needed for encryption/decryption, HMAC, audit log, basically everythings except the master key
+Refer to [Audit logging](/acra/security-controls/security-logging-and-events/audit-logging/) page to learn how to configure and use cryptographically-protected audit logging.
 
-Each keystore event will also include client ID / zone ID that triggered the request to keystore
-
-Issues with a database schema:
-* Wrong column types
-* Invalid encryptor config (cannot be parsed or does not match with database schema)
-
-Other messages related to the state of running services:
-* Validation of configuration files
-* Handling signals like SIGTERM or SIGINT
-* Shutdown
-* Restart
-
-SQL queries (if AcraCensor was enabled and configured to do so).
-Includes query structure, the actual data can be hidden.
-
-**TODO: ~~Extend with list of events Acra can log/emit, then~~ hand to someone like Eugene to explain security context**
-
-# Typical logging schemes
-
-## Audit trail
-
-* Set up appropriate log coverage configuration. 
-* Write all security events to remote storage.
-* Use tamper-proof protection.
-* ? 
 
 ## Security events
 
-* Poison record access
+Acra produces security events related to its internal and external activities – encryption/decryption errors, database connection errors, unauthorized connections, blocked queiries from Acra's Request Firewall and so on.
 
-  Access to data inside database that was not meant to be accessed at all.
-  These poison records can be inserted to catch situations like malicious SQL client attempting to dump the whole database.
-  AcraTranslator is also able to catch poison record decryption and perform configured action.
-  [Read more about intrusion detection]({{< ref "acra/security-controls/intrusion-detection/_index.md" >}}).
-
-Acra can export security events to your SIEM. Don't hesitate to use it. **TODO: expand**
-
-## Anomaly detection 
-
-You can use certain data streams to detect anomalous security events. To get some ideas where to start: 
-
-* Stream of all SQL queries (value-sanitized or not) could hint you at both insider attacks and SQL injections. 
-* Access events, when correlated with other network and access data, can give you good idea about probing Acra by potential attackers. 
-* TODO: More?
+Refer to [Security events](/acra/security-controls/security-logging-and-events/security-events/) page to see the whole list of security events and their metadata.
 
 
-# Tamper-proofing the logs
+## Integration with SIEM/SOCs
 
-Acra has tooling that enables tamper protection for the logs. It is outlined in [Audit logging](/acra/security-controls/security-logging-and-events/audit-logging) document. **TODO: Maybe we should rename this to "tamper-proof" logging**
+A list of events might be useless if noone analyses it. Fetch Acra's logs and events and direct them into your SIEM/SOC systems. 
+
+Refer to [SIEM/SOC integration page](/acra/security-controls/security-logging-and-events/siem-soc-integration/) to read about SIEM/SOC integration and anomaly detection suggestions.
+
+
+## Programmatic reactions
+
+Configure Acra to fight back by selecting one of pre-defined reactions or your custom one. Send forged data, wake up your Ops team or even shutdown Acra cluster in case of suspicious activity.
+
+Refer to [Programmatic reactions](/acra/security-controls/security-logging-and-events/programmatic-reactions/) page.
+

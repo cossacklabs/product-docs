@@ -7,13 +7,11 @@ weight: 3
 
 Acra’s security log is specifically pre-configured to be helpful to SIEM/SOC operators in building analytics and automation around security events.
 
-## Logs and events that Acra can export
-
-Acra services logs tons of activities – incoming connections, SQL firewall actions, encryption/decryption errors, key accesses and many more. Refer to the [Security controls / Logging and events](/acra/security-controls/security-logging-and-events) to learn the full list. Logs from AcraServer and AcraTranslator follow the same structure and format, but can have slightly different content (for example, AcraTranslator won't have SQL Request Firewall related logs and it doesn't have integrated SQL Request Firewall module.)
-
-Acra services support logging in different formats including CEF, and can log to the file or stream. Refer to the [AcraServer configuration](/acra/configuring-maintaining/general-configuration#logging) to find out how to control Acra's logging.
-
 All security events have a specific event code that indicates the exact type of the event. As example, `EventCodeErrorCantLoadMasterKey = 512` code means that Acra can't load Acra Master Key during initialisation on startup. Refer to the full list of [the event codes](https://github.com/cossacklabs/acra/blob/master/logging/event_codes.go).
+
+Another example `EventCodeErrorDecryptorRecognizedPoisonRecord = 587` event. This event indicates that AcraServer or AcraTranslator has noticed Poison record (honeytoken / honeypot) in the encrypted data during decryption. These poison records can be inserted to catch situations like malicious SQL client attempting to dump the whole database. [Read more about intrusion detection](/acra/security-controls/intrusion-detection/).
+
+Acra can export security events to your SIEM. Don't hesitate to use it. Refer to [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/siem-soc-integration/).
 
 
 ## Metadata 
