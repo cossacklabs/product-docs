@@ -46,25 +46,25 @@ Features configured with CLI flags.
   [from filesystem (`--keys_dir`)]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#keystore" >}}) or
   [from Redis (`--redis_*` flags)]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags" >}}).
 
-* [Programmatic reactions](/acra/security-controls/security-logging-and-events/security-events/programmatic-reactions/)
+* [Programmatic reactions](/acra/security-controls/security-logging-and-events/programmatic-reactions/)
 
   Performing configured activity (i.e. running a script/binary)
   on some events (i.e. client attempted to read a poison record).
 
   Actual configuration depends on the feature you deal with.
 
-* [Security logging](/acra/security-controls/security-logging-and-events/)
+* [Audit logging](/acra/security-controls/security-logging-and-events/audit-logging/)
 
   Ensuring that log produced by AcraServer itself is not altered/corrupted/truncated in any way.
 
   Enabled with `--audit_log_enable`. Requires
-  [additional preparation]({{< ref "acra/security-controls/security-logging-and-events/secure_logging.md#how-setup-secure-logging" >}}).
+  [additional preparation](/acra/security-controls/security-logging-and-events/audit_logging#how-setup-secure-logging).
   Produced logs should be checked with
   [acra-log-verifier]({{< ref "acra/configuring-maintaining/general-configuration/acra-log-verifier.md" >}}).
 
-* [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/security-events/siem-soc-integration/)
+* [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/siem-soc-integration/)
 
-  _TODO_
+  Export logs and security events as file or direct a stream into your SIEM/SOC software.
 
 * [SQL firewall]({{<ref "acra/security-controls/sql-firewall/_index.md" >}}) (aka AcraCensor)
 

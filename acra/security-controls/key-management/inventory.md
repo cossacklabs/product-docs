@@ -43,7 +43,7 @@ There are several types of keys used in Acra:
 AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for hash calculations to implement searchable encryption. You can find more details in our [scientific paper](https://eprint.iacr.org/2019/806.pdf).
 
   - **Secure logging keys.**
-    AcraServer, AcraConnector and AcraTranslator use symmetric keys for [audit log]({{< ref "/acra/security-controls/security-logging-and-events/#-INVALID" >}}) and HMAC calculations to sign all output logs
+    AcraServer, AcraConnector and AcraTranslator use symmetric keys for [audit log](/acra/security-controls/security-logging-and-events/audit-logging) and HMAC calculations to sign all output logs
 
   - **Keys for transport encryption.**
     Acra uses either [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or TLS
