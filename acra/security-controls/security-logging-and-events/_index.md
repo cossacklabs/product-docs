@@ -21,8 +21,11 @@ Keystore events:
 
 \* — the ones needed for encryption/decryption, HMAC, audit log, basically everythings except the master key
 
+Each keystore event will also include client ID / zone ID that triggered the request to keystore
+
 Issues with a database schema:
 * Wrong column types
+* Invalid encryptor config (cannot be parsed or does not match with database schema)
 
 Other messages related to the state of running services:
 * Validation of configuration files
@@ -50,6 +53,7 @@ Includes query structure, the actual data can be hidden.
 
   Access to data inside database that was not meant to be accessed at all.
   These poison records can be inserted to catch situations like malicious SQL client attempting to dump the whole database.
+  AcraTranslator is also able to catch poison record decryption and perform configured action.
   [Read more about intrusion detection]({{< ref "acra/security-controls/intrusion-detection/_index.md" >}}).
 
 Acra can export security events to your SIEM. Don't hesitate to use it. **TODO: expand**

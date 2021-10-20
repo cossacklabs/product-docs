@@ -9,4 +9,4 @@ weight: 11
 Performing certain actions (such as launching scripts) in certain situations.
 
 This currently includes [intrusion detection]({{< ref "acra/security-controls/intrusion-detection/_index.md" >}})
-and allows to stop AcraServer or launch a script upon detecting abnormal activity.
+and allows to stop AcraServer/AcraTranslator or launch a script upon detecting abnormal activity (decryption of poison record).
