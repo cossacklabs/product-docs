@@ -7,6 +7,7 @@ weight: 7
 ## Cryptography in Acra
 
 Cryptography widely used in all Acra services for:
+
 * data protection: via [encryption]({{< ref "/acra/security-controls/encryption/#INVALID" >}}), 
   [searchable encryption]({{< ref "/acra/security-controls/searchable-encryption/#INVALID" >}}), 
   [masking]({{< ref "/acra/security-controls/masking/#INVALID" >}}) or [tokenization]({{< ref "/acra/security-controls/tokenization/#INVALID" >}}) with encryption source data
@@ -14,7 +15,7 @@ Cryptography widely used in all Acra services for:
 * [authentication]({{< ref "/acra/acra-in-depth/authentication/#INVALID" >}}): via mutual authentication used in 
   [Secure Session]({{< ref "/themis/crypto-theory/cryptosystems/secure-session.md" >}}) or [TLS]({{< ref "/acra/configuring-maintaining/tls/" >}}), 
   authenticated symmetric encryption used to protect user's data via [Secure Cell](({{< ref "/themis/crypto-theory/cryptosystems/secure-cell.md" >}}))
-* [secure logging]({{< ref "acra/security-controls/security-logging-and-events/secure_logging.md" >}})
+* [audit logging](/acra/security-controls/security-logging-and-events/audit_logging/)
 * [password hashing]({{< ref "/acra/configuring-maintaining/general-configuration/acra-authmanager.md#auth-file" >}})
 * private keys protection and [key management]({{< ref "/acra/security-controls/key-management/" >}})
 

@@ -53,7 +53,7 @@ Acra encrypts sensitive data, making it easier to communicate with the users in 
 > * the controller has implemented appropriate technical and organisational protection measures, and those measures were applied to the personal data affected by the personal data breach, in particular, those that render the personal data unintelligible to any person who is not authorised to access it, such as encryption;
 
 All components of Acra continuously log requests, queries, and events that take place.
-Acra also supports [secure logging]({{< ref "/acra/security-controls/security-logging-and-events/" >}})
+Acra also supports [audit logging](/acra/security-controls/security-logging-and-events/audit-logging)
 which prevents tampering with, removing, adding, or changing the order of log entries.
 This provides audit record of everything that happens in Acra, which comes particularly useful in case of a security incident.
 Having a tamper-proof complete audit log makes it easier to notify the supervisory authority and users about the exact details of a data breach
