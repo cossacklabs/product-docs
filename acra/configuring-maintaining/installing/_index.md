@@ -3,6 +3,27 @@ title: Installing
 bookCollapseSection: true
 weight: 1
 ---
+
+## Requirements
+
+- Your application is written in Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (Android).
+- Your application talks to PostgreSQL or MySQL database via your preferred ORM. During the setup of Acra, you will redirect your application to talk to Acra instead.
+- Use of TLS to access Acra and the database (our strong recommendation). You might need to configure a TLS certificate for Acra. Otherwise, you'll set up an encrypted transport layer using AcraConnector and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}).
+- [AcraWriter]({{< ref "acra/acra-in-depth/security-design/#acrawriter-INVALID" >}}) library is installed for your application that will encrypt the data inside your app ("client side encryption"). AcraWriter uses [Themis]({{< ref "themis/installation/" >}}) and OpenSSL/BoringSSL as dependencies. If you prefer "transparent encryption proxy" mode, no additional libraries will be necessary for your app.
+- If you're installing Acra on your server manually from the [GitHub repository](https://github.com/cossacklabs/acra), you need to have Themis' dependencies and `libssl-dev` package installed. Also, make sure that `libcrypto.so` is available in `$PATH`.
+
+{{< hint info >}}
+Note: Read the documentation before starting out with Acra!
+There are some fundamental concepts that we highly advise you to understand before you proceed.
+Pay special attention to the [Architecture]({{< ref "acra/acra-in-depth/architecture/_index.md" >}})
+and [Data flow]({{< ref "acra/acra-in-depth/data-flow/_index.md" >}}).
+{{< /hint >}}
+
+Also, remember that:
+
+- AcraServer and Acra's dependencies need to stay on a separate server / virtual machine.
+- AcraConnector can run in a container or under separate user on the same machine as the main application.
+
 ## Installing
 
 Installing Acra is fairly simple:
@@ -12,24 +33,8 @@ Installing Acra is fairly simple:
 - For a real-world hands-on experience, [install Acra from the official Cossack Labs repository]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) or
 - Download and [build Acra from the GitHub repository]({{< ref "acra/configuring-maintaining/installing/installing-from-github.md" >}}).
 
-### Requirements
+## Guides
 
-- Your application is written in Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (Android).
-- Your application talks to PostgreSQL or MySQL database via your preferred ORM. During the setup of Acra, you will redirect your application to talk to Acra instead.
-- Use of TLS to access Acra and the database (our strong recommendation). You might need to configure a TLS certificate for Acra. Otherwise, you'll set up an encrypted transport layer using AcraConnector and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}).
-- [AcraWriter]({{< ref "acra/acra-in-depth/security-design/#acrawriter-INVALID" >}}) library is installed for your application that will encrypt the data inside your app ("client side encryption"). AcraWriter uses [Themis]({{< ref "themis/installation/" >}}) and OpenSSL/BoringSSL as dependencies. If you prefer "transparent encryption proxy" mode, no additional libraries will be necessary for your app.
-- If you're installing Acra on your server manually from the [GitHub repository](https://github.com/cossacklabs/acra), you need to have Themis' dependencies and `libssl-dev` package installed. Also, make sure that `libcrypto.so` is available in `$PATH`.
-
-> Note: Read the documentation before starting out with Acra! There are some fundamental concepts that we highly advise you to understand before you proceed. Pay special attention to the [Architecture]({{< ref "acra/acra-in-depth/data-flow/#-INVALID" >}}).
-
-Also, remember that:
-
-- AcraServer and Acra's dependencies need to stay on a separate server / virtual machine.
-- AcraConnector can run in a container or under separate user on the same machine as the main application.
-
-
-Choose your weapon!;) There are different ways to start out with Acra. You can either:
-
-* [try Acra using Docker]({{< ref "acra/guides/trying-acra-with-docker/" >}});
-* [install it from the official Cossack Labs repository]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}); or
-* [install it from the GitHub repository]({{< ref "acra/configuring-maintaining/installing/installing-from-github.md" >}}) following the instructions below.
+For the further guides on how to integrate Acra, see
+* [Integrating AcraServer into infrastructure]({{< ref "acra/guides/integrating-acra-server-into-infrastructure/" >}})
+* [Integrating AcraTranslator into infrastructure]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/" >}})
