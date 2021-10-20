@@ -32,7 +32,7 @@ Other messages related to the state of running services:
 SQL queries (if AcraCensor was enabled and configured to do so).
 Includes query structure, the actual data can be hidden.
 
-**TODO: Extend with list of events Acra can log/emit, then hand to someone like Eugene to explain security context**
+**TODO: ~~Extend with list of events Acra can log/emit, then~~ hand to someone like Eugene to explain security context**
 
 # Typical logging schemes
 
