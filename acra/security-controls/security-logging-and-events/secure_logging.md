@@ -1,6 +1,7 @@
 ---
 title: Secure logging
 bookCollapseSection: true
+weight: 1
 ---
 
 ## Secure logging
