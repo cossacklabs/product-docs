@@ -1,6 +1,5 @@
 ---
-title: Secure logging
-bookCollapseSection: true
+title: Security logging
 weight: 1
 ---
 

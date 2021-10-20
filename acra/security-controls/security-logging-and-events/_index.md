@@ -1,5 +1,5 @@
 ---
-title: Security logging & events
+title: Logging & events
 bookCollapseSection: true
 weight: 9
 ---
@@ -69,4 +69,4 @@ You can use certain data streams to detect anomalous security events. To get som
 
 # Tamper-proofing the logs
 
-Acra has tooling that enables tamper protection for the logs. It is outlined in [Secure Logging]({{< ref "/acra/security-controls/security-logging-and-events/secure_logging.md" >}}) document. **TODO: Maybe we should rename this to "tamper-proof" logging**
+Acra has tooling that enables tamper protection for the logs. It is outlined in [Audit logging](/acra/security-controls/security-logging-and-events/audit-logging) document. **TODO: Maybe we should rename this to "tamper-proof" logging**

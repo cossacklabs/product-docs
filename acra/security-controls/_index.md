@@ -43,17 +43,18 @@ Connect Acra to your KMS and encrypt data using different key for your different
 
 ## Monitor and detect anomalies
 
-* [Programmatic reactions on security events](/acra/security-controls/security-logging-and-events/security-events/programmatic-reactions/). Configure Acra's behaviour – send alerts to your Ops team, respond with forget data or even shut down Acra.
+* [Programmatic reactions on security events](/acra/security-controls/security-logging-and-events/programmatic-reactions/). Configure Acra's behaviour – send alerts to your Ops team, respond with forget data or even shut down Acra.
 
 * [SQL firewall](/acra/security-controls/sql-firewall). Configure Acra's Request Firewall as conventional DLP for the database, making sure that chosen patterns or data blocks never pass Acra without an alarm.
 
 * [Intrusion detection](/acra/security-controls/intrusion-detection/). Generate and place honeytokens/honeypots inside your database. Acra will trigger security alarm if these records are read.
 
-* [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/security-events/siem-soc-integration/). Connect Acra to your SIEM/SOC and analyse analyse behaviour of your whole system at once.
+* [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/siem-soc-integration/). Connect Acra to your SIEM/SOC and analyse analyse behaviour of your whole system at once.
 
+* [Audit logging](/acra/security-controls/security-logging-and-events/audit-logging). Setup cryptographically-signed logs to detect if someone tried tampering log detals or removing log messages.
 
 ## Export logs
 
 * [SQL query logging](/acra/security-controls/sql-firewall#logging-and-masking-queries/). Configure Acra's Request Firewall to keep a log of all incoming SQL queries for further analysis and validation.
 
-* [Security logging](/acra/security-controls/security-logging-and-events/). Configure technical logs and security events. Setup cryptographically-signed logs to detect if someone tried to tamper logs.
+* [Security logging](/acra/security-controls/security-logging-and-events/). Configure security logs and security events.

@@ -11,7 +11,7 @@ Acra uses a multitude of keys for different purposes:
   - storage/zone keys for encrypting your data at rest
   - transport keys for encrypting communications
   - blind index keys for searchable encryption
-  - keys for [secure logging]({{< ref "/acra/security-controls/security-logging-and-events/#-INVALID" >}})
+  - keys for [audit logging](/acra/security-controls/security-logging-and-events/audit-logging)
   - poison record keys for [intrusion detection]({{< ref "/acra/security-controls/intrusion-detection/#poison-records-INVALID" >}})
   - authentication storage key for encryption/decryption credentials of [AcraWebConfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md#-INVALID" >}}) users
 

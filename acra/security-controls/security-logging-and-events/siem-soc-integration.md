@@ -1,6 +1,6 @@
 ---
 title: SIEM/SOC integration
-weight: 3
+weight: 4
 ---
 
 # Integrating Acra with SIEM systems 
@@ -13,4 +13,4 @@ Acra gives you plenty of in-depth opportunities for logging – you can pull out
 
 Supported SIEMs and log management systems: ELK, Graylog, Datadog, AWS logging – basically, any services that supports JSON or CEF.
 
-Read [Security events](/acra/security-controls/security-logging-and-events/security-events/) page to see what kind of security events Acra produces and [Logging and events](/acra/security-controls/security-logging-and-events/security-events/) to learn more about logging formats.
+Read [Security events](/acra/security-controls/security-logging-and-events/security-events/) page to see what kind of security events Acra produces and [Security logging](/acra/security-controls/security-logging-and-events/security-logging/) to learn more about logging formats.

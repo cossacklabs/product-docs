@@ -21,12 +21,12 @@ Features are configured with CLI flags.
   [from filesystem (`--keys_dir`)]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md#keystore" >}}) or
   [from Redis (`--redis_*` flags)]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md#command-line-flags" >}}).
 
-* [Security logging]({{<ref "acra/security-controls/security-logging-and-events/_index.md" >}})
+* [Audit logging](/acra/security-controls/security-logging-and-events/audit-logging/)
 
   Ensuring that log produced by AcraTranslator itself is not altered/corrupted/truncated in any way.
 
   Enabled with `--audit_log_enable`. Requires
-  [additional preparation]({{< ref "acra/security-controls/security-logging-and-events/secure_logging.md#how-setup-secure-logging" >}}).
+  [additional preparation](/acra/security-controls/security-logging-and-events/audit-logging#how-setup-secure-logging).
   Produced logs should be checked with
   [acra-log-verifier]({{< ref "acra/configuring-maintaining/general-configuration/acra-log-verifier.md" >}}).
 

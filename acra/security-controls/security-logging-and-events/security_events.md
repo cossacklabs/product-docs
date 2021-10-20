@@ -1,7 +1,6 @@
 ---
 title: Security events
-bookCollapseSection: true
-weight: 1
+weight: 3
 ---
 
 # Security events
@@ -10,7 +9,7 @@ Acra’s security log is specifically pre-configured to be helpful to SIEM/SOC o
 
 ## Logs and events that Acra can export
 
-Acra services logs tons of activities – incoming connections, SQL firewall actions, encryption/decryption errors, key accesses and many more. Refer to the [Security controls / Security Logging and events](/acra/security-controls/security-logging-and-events) to learn the full list. Logs from AcraServer and AcraTranslator follow the same structure and format, but can have slightly different content (for example, AcraTranslator won't have SQL Request Firewall related logs and it doesn't have integrated SQL Request Firewall module.)
+Acra services logs tons of activities – incoming connections, SQL firewall actions, encryption/decryption errors, key accesses and many more. Refer to the [Security controls / Logging and events](/acra/security-controls/security-logging-and-events) to learn the full list. Logs from AcraServer and AcraTranslator follow the same structure and format, but can have slightly different content (for example, AcraTranslator won't have SQL Request Firewall related logs and it doesn't have integrated SQL Request Firewall module.)
 
 Acra services support logging in different formats including CEF, and can log to the file or stream. Refer to the [AcraServer configuration](/acra/configuring-maintaining/general-configuration#logging) to find out how to control Acra's logging.
 
