@@ -10,7 +10,7 @@ weight: 10
 
 ## Events we can export
 
-For the list of things Acra can log, see [What Acra can log]({{< ref "../security-logging-and-events/_index.md#what-acra-can-log" >}}).
+For the list of things Acra can log, see [What Acra can log](/acra/security-controls/security-logging-and-events).
 
 Acra services can log events in Common Event Format, see for example
 [AcraServer configuration]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#logging" >}})
