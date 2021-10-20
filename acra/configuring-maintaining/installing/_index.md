@@ -1,6 +1,7 @@
 ---
 title: Installing
 bookCollapseSection: true
+weight: 1
 ---
 ## Installing
 

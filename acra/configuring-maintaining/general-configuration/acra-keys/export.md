@@ -114,7 +114,7 @@ $ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "a
 
 {{< hint info >}}
 **Note:**
-For more detailed information about keys exchanging you can reference [key management]({{< ref "/acra/keys/operations/backup#3-exchanging-public-keys" >}}) section.
+For more detailed information about keys exchanging you can reference [key management]({{< ref "/acra/security-controls/key-management/operations/backup#3-exchanging-public-keys" >}}) section.
 {{< /hint >}}
 
 

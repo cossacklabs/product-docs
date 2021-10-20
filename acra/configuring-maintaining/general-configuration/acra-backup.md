@@ -6,7 +6,7 @@ weight: 10
 
 # acra-backup
 
-`acra-backup` is a command-line utility used for storing and managing the keystore [backups]({{< ref "/acra/keys/operations/backup" >}}).
+`acra-backup` is a command-line utility used for storing and managing the keystore [backups]({{< ref "/acra/security-controls/key-management/operations/backup" >}}).
 
 ## Command line flags
 
