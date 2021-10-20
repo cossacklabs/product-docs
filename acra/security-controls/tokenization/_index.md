@@ -1,6 +1,5 @@
 ---
 title: Tokenisation
-bookCollapseSection: true
 weight: 4
 ---
 

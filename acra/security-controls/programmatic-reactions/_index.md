@@ -1,6 +1,5 @@
 ---
 title: Programmatic reactions
-bookCollapseSection: true
 weight: 11
 ---
 

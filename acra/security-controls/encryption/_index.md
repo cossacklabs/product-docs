@@ -1,6 +1,5 @@
 ---
 title: Encryption
-bookCollapseSection: true
 weight: 1
 ---
 

@@ -1,6 +1,5 @@
 ---
 title: Masking
-bookCollapseSection: true
 weight: 5
 ---
 

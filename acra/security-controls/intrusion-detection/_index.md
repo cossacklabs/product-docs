@@ -1,6 +1,5 @@
 ---
 title: Intrusion detection
-bookCollapseSection: true
 weight: 8
 ---
 

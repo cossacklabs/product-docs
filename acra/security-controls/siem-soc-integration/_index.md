@@ -1,6 +1,5 @@
 ---
 title: SIEM/SOC integration
-bookCollapseSection: true
 weight: 10
 ---
 
