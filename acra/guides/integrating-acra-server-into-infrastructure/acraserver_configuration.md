@@ -31,7 +31,7 @@ As a simple example we can set both host and port like this: `--incoming_connect
 
 It is also important to [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}})
 so the application/clients will have secure connection to AcraServer.
-In some cases, you may want to use AcraConnector + Secure Session instead of TLS.
+In some cases, you may want to use AcraConnector + Themis Secure Session instead of TLS.
 
 ## Database
 

@@ -39,7 +39,7 @@ However, there are some caveats:
   At the same time, the data in the database itself will be stored in encrypted form.
   And if the attacker has full access to the database (but not to the AcraServer),
   he won't be able to magically bypass the encryption, no keys means no data.
-* Every AcraServer client has own unique identifier (usually derived during TLS or Secure Session handshake),
+* Every AcraServer client has own unique identifier (usually derived during TLS or Themis Secure Session handshake),
   and keys associated with that identifier.
   If the keystore does not contain keys that were used to encrypt requested data,
   the data will be returned "as is", just like it is stored in database in encrypted form.
