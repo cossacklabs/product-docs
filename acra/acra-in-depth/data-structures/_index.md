@@ -1,6 +1,5 @@
 ---
 title: Data structures
-bookCollapseSection: true
 weight: 7
 ---
 
@@ -124,8 +123,6 @@ AcraWriter is used to generate AcraStruct, but the generation process is quite s
 - Erases/fills with zeros the memory area containing the `Throwaway_Keypair` and original payload.
 
 We recommend you to check out the process of creating the AcraStruct in [examples](https://github.com/cossacklabs/acra/tree/master/examples) and try the [⚙️Acra Engineering Demo⚙️](https://github.com/cossacklabs/acra-engineering-demo/#what-is-this).
-
-You can check your own AcraWriter implementation with our online [AcraStruct validator]({{< ref "acra/acra-in-depth/data-structures/acrastruct-validator.md" >}}) and try to decrypt generated AcraStructs.
 
 ### Decryption
 

@@ -1,6 +1,5 @@
 ---
 title: Authentication
-bookCollapseSection: true
 weight: 6
 ---
 

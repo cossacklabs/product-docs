@@ -3,6 +3,8 @@ title: Frequently asked questions
 weight: 11
 ---
 
+# Frequently asked questions
+
 There are a number of concerns that do not fit other pages, yet are asked by our adopters and customers. Until they gather their logical representation in the menu, they stay in FAQ.
 
 ### I need Acra to work with `Feature Y` or `Database Z`. What should I do?
