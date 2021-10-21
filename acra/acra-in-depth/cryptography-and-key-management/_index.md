@@ -26,7 +26,7 @@ Acra does not contain any self-made cryptographic primitives or obscure ciphers 
 
 To deliver its unique guarantees, Acra relies on the combination of well-known ciphers and a smart key management scheme.
 
-|||
+|Use case|Crypto source|
 |--|--|
 |Default crypto-primitive source|OpenSSL|
 |Supported crypto-primitive sources |BoringSSL, LibreSSL, FIPS-compliant, GOST-compliant, HSM|
@@ -52,11 +52,11 @@ of your choice (i.e. FIPS, GOST). If you'd like to discuss a custom build [drop 
 
 ### Application level encryption
 
-**[AcraStructs](/acra/acra-in-depth/data-structures/#acrastruct)** are built on asymmetric cryptography, and combine ECDH with AES-256-GCM-PKCS#7. That's [Themis Secure Message](/themis/crypto-theory/cryptosystems/secure-message/) and [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
+**[AcraStructs](/acra/acra-in-depth/data-structures/acrastruct)** are built on asymmetric cryptography, and combine ECDH with AES-256-GCM-PKCS#7. That's [Themis Secure Message](/themis/crypto-theory/cryptosystems/secure-message/) and [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
 
 The data is encrypted using AES-256-GCM-PKCS#7 and random symmetric key, which is then encrypted by shared key derived from Acra's public key and encryptor private key (either Acra or client-side application) using ECDH. This scheme is similar to [the HPKE](https://datatracker.ietf.org/doc/draft-irtf-cfrg-hpke/).
 
-**[AcraBlocks](/acra/acra-in-depth/data-structures/#acrablock)** are built on symmetric cryptograhy, and use AES-256-GCM-PKCS#7 twice. That's [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
+**[AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)** are built on symmetric cryptograhy, and use AES-256-GCM-PKCS#7 twice. That's [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
 
 The data is encrypted using AES-256-GCM-PKCS#7 and random symmetric key, which is then encrypted using AES-256-GCM-PKCS#7 by Acra's secret storage key. This scheme is similar to [the key wrapping](https://en.wikipedia.org/wiki/Key_Wrap).
 
@@ -65,7 +65,7 @@ Acra also uses key derivation and key stretching functions to derive cryptograph
 
 ### Searchable encryption
 
-[Searchable encryption](/acra/security-controls/searchable-encryption/) is based on data encryption and generation of search index. Searchable encryption is supported in both [AcraStructs](/acra/acra-in-depth/data-structures/#acra-struct) and [AcraBlocks](/acra/acra-in-depth/data-structures/#acra-block). Searchable index is generated using HMAC-SHA256.
+[Searchable encryption](/acra/security-controls/searchable-encryption/) is based on data encryption and generation of search index. Searchable encryption is supported in both [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock). Searchable index is generated using HMAC-SHA256.
 
 
 ### Key management
