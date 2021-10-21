@@ -6,7 +6,7 @@ weight: 10
 
 # acra-rotate
 
-`acra-rotate` is a command-line utility that rotates private/[Zone]({{< ref "/acra/security-controls/zones.md" >}}) keys and re-encrypt data stored in database or as files.
+`acra-rotate` is a command-line utility that rotates private/[Zone](/acra/security-controls/zones) keys and re-encrypt data stored in database or as files.
 
 ## Command line flags
 
@@ -152,7 +152,7 @@ Due to it's sensitive nature (`acra-rotate` has access to keys and decrypted dat
 
 Before running `acra-rotate` command, make sure you have successfully encrypted data via AcraServer using storage encryption keys. 
 
-In this example, we are not going to use [Zones]({{< ref "/acra/security-controls/zones.md" >}}) for rotation example. You'll get output with base64 of new public storage key:
+In this example, we are not going to use [Zones](/acra/security-controls/zones) for rotation example. You'll get output with base64 of new public storage key:
 
 ```
 $ acra-rotate 
@@ -182,5 +182,5 @@ Also, `user0` is predefined ClientID. You can also generate ClientID from certif
 
 {{< hint info >}}
 **Note:**
-Currently, `acra-rotate` only supports [AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#acrastruct" >}}) as crypto containers but not [AcraBlock]({{< ref "acra/acra-in-depth/data-structures/_index.md#acrablock" >}}).
+Currently, `acra-rotate` only supports [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct/) as crypto containers but not [AcraBlock](/acra/acra-in-depth/data-structures/acrablock/}).
 {{< /hint >}}

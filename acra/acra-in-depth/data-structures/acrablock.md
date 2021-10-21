@@ -5,7 +5,7 @@ weight: 2
 
 ## AcraBlock
 
-AcraBlock is a symmetric cryptographic container, it is more compact than [AcraStruct](/acra/acra-in-depth/data-structures/acra-struct). Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). 
+AcraBlock is a symmetric cryptographic container, it is more compact than [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct). Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). 
 
 AcraBlock uses AES-256-GCM-PKCS#7 for both encryption procedures. See [Cryptography and key management / Application level encryption](/acra/acra-in-depth/cryptography-and-key-management/#application-level-encryption).
 
@@ -18,6 +18,8 @@ Prefer using AcraBlocks anytime.
 ### Container structure
 
 To generate AcraBlocks, AcraServer/AcraTranslator uses symmetric keys generated for every ClientID/ZoneID.
+
+First, AcraServer/AcraTranslator generates a random symmetric data encryption key (DEK) and encrypts the data with it. Then it uses one more symmetric layer to encrypt the DEK, the same key will be used for both encryption and decryption.
 
 `AcraBlock = Begin_Tag + Rest_AcraBlock_Length + Key_Encryption_Backend_Identifier + Key_Encryption_Key_ID + Data_Encryption_Backend_Identifier + Data_Encryption_Key_Length + Encrypted_Data_Encryption_Key + Encrypted_Data`
 

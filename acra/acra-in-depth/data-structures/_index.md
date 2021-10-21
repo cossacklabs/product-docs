@@ -27,13 +27,11 @@ AcraBlock is a symmetrical cryptographic container. In a nutshell, it uses symme
 
 Only AcraServer and AcraTranslator can encrypt/decrypt AcraBlocks. 
 
-Prefer using AcraBlocks in a more-or-less trusted environment with trusted KMS/keystore, and don't want any cryptographic code on the application side.
-
 AcraBlock supports key rotation: it's possible to rotate only KEK without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
 
 AcraBlock supports searchable encryption.
 
-Refer to [AcraBlock](/acra/acra-in-depth/data-structures/acra-block) page to learn cryptographic details.
+Refer to [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) page to learn cryptographic details.
 
 
 ## AcraStruct
@@ -42,20 +40,24 @@ AcraStruct is an asymmetric cryptographic container. In a nutshell, it encrypts 
 
 AcraServer and AcraTranslator can encrypt/decrypt AcraStructs, but the main gem of AcraStructs is client-side encryption. Due to the asymmetric nature, client application can generate AcraStructs (encrypt data into AcraStructs) without a risk of exposing secret keys, as only Acra's public key is exposed.
 
-Prefer using AcraStructs in a less trusted environment: put data encryption on a client-side for applications that don't have secure channel to AcraServer/AcraTranslator. AcraStructs allow building separate dataflows for writing data (encrypting on client-side and placing to the database) and reading data (decrypting through Acra). However, if you don't want any cryptographic code on the application side, feel free to encrypt/decrypt AcraStructs via AcraServer/AcraTranslator as well.
-
 AcraStruct supports key rotation: it's possible to rotate only KEK without re-encrypting the data (known as "key rotation without data re-encryption"), or re-encrypt data and rotate both keys ("key rotation with data re-encryption").
 
 AcraStruct supports searchable encryption.
 
-Refer to [AcraStruct](/acra/acra-in-depth/data-structures/acra-struct) page to learn cryptographic details.
+Refer to [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) page to learn cryptographic details.
 
 
 ## When use AcraBlocks and when AcraStructs
 
 If you need end-to-end encryption then you should choose AcraStructs and encrypt data on a client side using Acra's public key. In all other cases you should prefer AcraBlocks that have less output size, fewer keys size and are more performant because use only symmetric key encryption. AcraStructs rely on asymmetric plus symmetric encryption algorithms, and are slower. 
 
+Prefer using AcraBlocks in a more-or-less trusted environment with trusted KMS/keystore, and don't want any cryptographic code on the application side.
+
+Prefer using AcraStructs in a less trusted environment: put data encryption on a client-side for applications that don't have secure channel to AcraServer/AcraTranslator. AcraStructs allow building separate dataflows for writing data (encrypting on client-side and placing to the database) and reading data (decrypting through Acra). However, if you don't want any cryptographic code on the application side, feel free to encrypt/decrypt AcraStructs via AcraServer/AcraTranslator as well.
+
 AcraServer and AcraTranslator support transparent AcraBlock/AcraStruct encryption and decryption with equal functionality.
+
+Read nore about [optimizations related to AcraStructs vs AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/).
 
 
 ## Storage Models

@@ -17,7 +17,9 @@ Prefer AcraStruct when using client-side encryption.
 
 ### Container structure
 
-AcraStruct is a cryptographic container with specific format. The data is encrypted using random symmetric encryption key and AES-256-GCM-PKCS#7. Then the encryption key is encrypted using a key derived asymmetrically. For this purposes, encryptor generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over. 
+AcraStruct is a cryptographic container with specific format. The data is encrypted using random symmetric encryption key (DEK) and AES-256-GCM-PKCS#7. Then the encryption key is encrypted using a key derived asymmetrically. For this purposes, encryptor generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over. 
+
+During decryption, AcraServer/AcraTranslator use own private key for decrypting DEK, and then decrypting data using DEK.
 
 ```AcraStruct = Begin_Tag + Throwaway_Public_Key + Encrypted_Random_Key + Data_Length + Encrypted_Data```
 
