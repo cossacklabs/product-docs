@@ -3,12 +3,10 @@ title: PKI overview for Acra
 weight: 3
 ---
 
-## PKI overview for Acra
+# PKI overview for Acra
 
 We strongly recommend following the best security practices and using the public key infrastructure (PKI) to provide authentication between the components of Acra. This document contains some useful information about the PKI and links to related resources.
 
-
-### The public key infrastructure
 
 The central component of any PKI is the Certificate Authority (CA). The CA acts as an arbitrator or a third party, whilst the trust relations are established between the two other sides. A very simplified scheme of one-side authentication of `User` by a `Relying Party` is described below.
 

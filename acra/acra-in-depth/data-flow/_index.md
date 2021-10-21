@@ -3,7 +3,7 @@ title: Data flow
 weight: 4
 ---
 
-## Data flow
+# Data flow
 
 ### Acra components
 

@@ -3,7 +3,7 @@ title: Security features
 weight: 5
 ---
 
-## Security features
+# Security features
 
 Acra delivers different layers of defence for different parts and stages of the data lifecycle. This is what **defence in depth** is – an independent set of security controls aimed at mitigating multiple risks in case an attacker crosses the outer perimeter.
 
@@ -12,7 +12,7 @@ If you look at Acra from a security architecture perspective, it covers data sec
 Acra's security assumptions, threats and security guarantees are described in [Security design](/acra/acra-in-depth/security-design/) section.
 
 
-### Proactive controls
+## Proactive controls
 
 Proactive controls prevent risks from happening. The main goals of these Acra features are to provide protection "by default" no matter what.
 
@@ -32,7 +32,7 @@ Proactive controls prevent risks from happening. The main goals of these Acra fe
   Acra prevents unauthorized connections, uses only the latest transport security protocols, and provides additional modules for infrastructures deployed in hostile environment.
 
 
-### Reactive controls
+## Reactive controls
 
 Reactive controls detect suspicious behaviour and prevent incidents from happening by limiting their damage. The main goals of these Acra features are to react to connections, errors, application behaviour and provide controls to triage and stop it.
 
@@ -46,7 +46,7 @@ Reactive controls detect suspicious behaviour and prevent incidents from happeni
   Acra allows configuring particular behaviour on security events. When triggered, they alert the Ops team and define a wide gamut of reactions - from shutting down or rejecting the request to providing forged data instead of actual database response.
 
 
-### Detective controls
+## Detective controls
 
 Detective controls help restore the history of events and detect if the system's behaviour has tampered with. The main goals of these Acra features are to provide enough proof for auditors, regulators, or the IR team. We recommend performing ongoing monitoring, verification, and alerting for risky environments, not just using these controls after incidents.
 

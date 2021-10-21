@@ -4,7 +4,7 @@ weight: 1
 bookCollapseSection: true
 ---
 
-## Security design
+# Security design
 
 Acra is a database protection suite with special features:
 

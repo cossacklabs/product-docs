@@ -54,9 +54,7 @@ schemas:
         searchable: true
 ```
 
-Searchable encryption supports
-both [AcraStructs]({{ ref "/acra/acra-in-depth/data-structures/#acra-struct" }})
-and [AcraBlocks]({{ ref "/acra/acra-in-depth/data-structures/#acra-block" }}).
+Searchable encryption is supported in both [AcraStructs](/acra/acra-in-depth/data-structures/#acra-struct) and [AcraBlocks](/acra/acra-in-depth/data-structures/#acra-block).
 
 ## Database configuration
 
