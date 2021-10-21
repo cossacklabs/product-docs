@@ -1,6 +1,5 @@
 ---
 title: Security design
-bookCollapseSection: true
 weight: 1
 ---
 
