@@ -3,7 +3,7 @@ title: Threat models and security guarantees
 weight: 2
 ---
 
-## Threat models and security guarantees
+# Threat models and security guarantees
 
 Acra is built to provide selective encryption only to the records that require such protection. Thus, such records are sensitive assets that are subject to certain risks and threats, which Acra helps to mitigate.
 

@@ -4,7 +4,7 @@ weight: 4
 bookCollapseSection: true
 ---
 
-## Acra in depth
+# Acra in depth
 
 Acra has been designed as a construction kit for integrating application-level encryption / field-level encryption into modern cloud apps. 
 
