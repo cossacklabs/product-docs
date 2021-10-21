@@ -13,6 +13,13 @@ Managing keys becomes harder as the number of them increases, that's why you may
 
 ## Where & how
 
+| KV storage | Can store keys | Can store tokens |
+| :--        | :--:           | :--:             |
+| Redis      | ✓              | ✓                |
+| BoltDB     |                | ✓                |
+| Files      | ✓              |                  |
+| In-memory  |                | ✓                |
+
 ### Redis
 
 Enabled with `--redis_*` flags (configure database address, credentials, choose the bucket).
