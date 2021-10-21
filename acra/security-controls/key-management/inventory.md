@@ -58,10 +58,10 @@ AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for 
 
 Storage keys can be represented by either:
 
-  - One keypair for each *Client ID* ([default zone mode](https://docs.cossacklabs.com/pages/documentation-acra/#zones)),
+  - One keypair for each [Client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id/),
     which is used for encryption by AcraWriter and decryption by AcraServer and AcraTranslator.
 
-  - A set of *zone keys* ([multiple zone mode](https://docs.cossacklabs.com/pages/documentation-acra/#zones)).
+  - A set of [Zone keys](/acra/security-controls/zones/).
     Each zone represents a unique user or type of users and has corresponding encryption and decryption keys.
     Using zones complicates unauthorized decryption:
     the attacker not only needs to get the decryption key but to use a correct Zone ID, too.

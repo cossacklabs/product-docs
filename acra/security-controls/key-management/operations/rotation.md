@@ -190,7 +190,7 @@ to learn where the keys are stored and how to exchange them correctly and secure
 
 #### Rotating zone keys
 
-If you are using [zones](https://docs.cossacklabs.com/pages/documentation-acra/#zones),
+If you are using [zones](/acra/security-controls/zones/),
 run `acra-addzone` on AcraServer or AcraTranslator to generate a new zone with a new key:
 
 ```shell
@@ -226,7 +226,7 @@ The easiest way to re-encrypt the data is to query data through Acra and put it 
 
 #### Using client-side encryption
 
-If you using [AcraConnector and AcraWriter](https://docs.cossacklabs.com/pages/documentation-acra/#acraconnector-and-acrawriter):
+If you using [AcraConnector and AcraWriter](/acra/acra-in-depth/architecture/sdks/#full-on-in-app-sdk):
 
 1. Make sure that you have the new public key for AcraWriter.
    This key will be used to encrypt the data.
@@ -277,7 +277,7 @@ If you are using AcraServer in transparent proxy mode:
 This will work for Acra 0.86.0 and newer.
 {{< /hint >}}
 
-If you are using [AcraTranslator](https://docs.cossacklabs.com/pages/acratranslator/),
+If you are using [AcraTranslator](/acra/acra-in-depth/architecture/api_service/),
 the idea is the same:
 
 1. Rotate the storage keys on AcraTranslator. It will keep the old keys.
@@ -286,7 +286,7 @@ the idea is the same:
 
 #### Migrating zoned data
 
-If you are using [zones](https://docs.cossacklabs.com/pages/documentation-acra/#client-side-with-zones),
+If you are using [Zones](/acra/security-controls/zones/),
 the queries will be more complicated to include the zone ID for decryption.
 AcraWriter also needs the new zone ID for encryption.
 For example, if the zone ID is stored in the same table,
@@ -316,7 +316,7 @@ received from `acra-addzone` utility.
 The new zone ID is also written into the database along with updated data.
 
 If you are using zones with AcraTranslator,
-remember to [submit zone ID](https://docs.cossacklabs.com/pages/acratranslator/)
+remember to [submit zone ID](/acra/security-controls/zones/)
 with each request as required by the API you use.
 
 ### Partial re-encryption
