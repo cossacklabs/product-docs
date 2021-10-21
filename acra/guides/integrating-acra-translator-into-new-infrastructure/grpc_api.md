@@ -8,7 +8,7 @@ bookCollapseSection: true
 gRPC API is the recommended way of using AcraTranslator for high-load services. Each gRPC request contains a ClientID, a ZoneID, and a crypto container itself.
 Due to some peculiarities of the gRPC protocol, it's required to send a ClientID in every request, so ClientID is a required parameter.
 
-See a gRPC’s [AcraStruct]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) request and response structure below:
+See a gRPC’s [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) request and response structure below:
 
 ```proto
 message DecryptRequest {
@@ -36,7 +36,7 @@ message EncryptResponse {
 }
 ```
 
-gRPC’s request and response structure for [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}) look similar but have `Sym`(symmetric) suffix additionally:
+gRPC’s request and response structure for [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) look similar but have `Sym`(symmetric) suffix additionally:
 
 ```proto
 message DecryptSymRequest {
@@ -74,7 +74,7 @@ You can find complete content of [api.proto](https://github.com/cossacklabs/acra
 ## Setup AcraConnector and AcraTranslator manually
 
 1. Generate the [Master Key]({{< ref "/acra/security-controls/key-management/operations/generation#master-keys" >}})
-2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStruct]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}})/[AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}}).
+2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
 
 ```bash
 acra-keymaker --client_id=client --generate_acratranslator_keys \

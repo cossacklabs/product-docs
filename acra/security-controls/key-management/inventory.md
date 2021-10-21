@@ -34,10 +34,9 @@ There are several types of keys used in Acra:
     AcraWriter uses the public key to encrypt data to be stored in the database.
     AcraServer and AcraTranslator use corresponding private storage key
     to decrypt data queried from the database. Also AcraServer in 
-    [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-proxy-mode-INVALID" >}}) and 
-    AcraTranslator use public key to encrypt data using AcraWriter.
+    [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-proxy-mode-INVALID" >}}) and AcraTranslator use public key to encrypt data into [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct).
   - **Storage symmetric keys.**
-    AcraServer in Transparent proxy mode and AcraTranslator use symmetric keys to encrypt/decrypt data with [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}})
+    AcraServer in Transparent proxy mode and AcraTranslator use symmetric keys to encrypt/decrypt data into [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock))
 
   - **Blind index keys.**
 AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for hash calculations to implement searchable encryption. You can find more details in our [scientific paper](https://eprint.iacr.org/2019/806.pdf).
