@@ -34,10 +34,9 @@ There are several types of keys used in Acra:
     AcraWriter uses the public key to encrypt data to be stored in the database.
     AcraServer and AcraTranslator use corresponding private storage key
     to decrypt data queried from the database. Also AcraServer in 
-    [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-proxy-mode-INVALID" >}}) and 
-    AcraTranslator use public key to encrypt data using AcraWriter.
+    [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-proxy-mode-INVALID" >}}) and AcraTranslator use public key to encrypt data into [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct).
   - **Storage symmetric keys.**
-    AcraServer in Transparent proxy mode and AcraTranslator use symmetric keys to encrypt/decrypt data with [AcraBlocks]({{< ref "acra/acra-in-depth/data-structures/#acrablock" >}})
+    AcraServer in Transparent proxy mode and AcraTranslator use symmetric keys to encrypt/decrypt data into [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock))
 
   - **Blind index keys.**
 AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for hash calculations to implement searchable encryption. You can find more details in our [scientific paper](https://eprint.iacr.org/2019/806.pdf).
@@ -59,10 +58,10 @@ AcraServer in Transparent proxy mode and AcraTranslator uses symmetric keys for 
 
 Storage keys can be represented by either:
 
-  - One keypair for each *Client ID* ([default zone mode](https://docs.cossacklabs.com/pages/documentation-acra/#zones)),
+  - One keypair for each [Client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id/),
     which is used for encryption by AcraWriter and decryption by AcraServer and AcraTranslator.
 
-  - A set of *zone keys* ([multiple zone mode](https://docs.cossacklabs.com/pages/documentation-acra/#zones)).
+  - A set of [Zone keys](/acra/security-controls/zones/).
     Each zone represents a unique user or type of users and has corresponding encryption and decryption keys.
     Using zones complicates unauthorized decryption:
     the attacker not only needs to get the decryption key but to use a correct Zone ID, too.

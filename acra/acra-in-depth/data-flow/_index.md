@@ -1,10 +1,9 @@
 ---
 title: Data flow
-bookCollapseSection: true
 weight: 4
 ---
 
-## Data flow
+# Data flow
 
 ### Acra components
 

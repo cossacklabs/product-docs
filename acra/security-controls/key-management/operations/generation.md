@@ -399,5 +399,3 @@ acra-keys export --key_bundle_file "encrypted-keys.dat" \
 acra-keys import --key_bundle_file "encrypted-keys.dat" \
                  --key_bundle_secret "access-keys.json"
 ```
-
-Read more about using zones in the [AcraWriter guide](https://docs.cossacklabs.com/pages/documentation-acra/#acraconnector-and-acrawriter#writing).

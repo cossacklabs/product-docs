@@ -62,7 +62,7 @@ Features are configured with CLI flags.
   Ensuring that log produced by AcraServer itself is not altered/corrupted/truncated in any way.
 
   Enabled with `--audit_log_enable`. Requires
-  [additional preparation](/acra/security-controls/security-logging-and-events/audit_logging#how-setup-secure-logging).
+  [additional preparation](/acra/security-controls/security-logging-and-events/audit-logging/#how-setup-secure-logging).
   Produced logs should be checked with
   [acra-log-verifier]({{< ref "acra/configuring-maintaining/general-configuration/acra-log-verifier.md" >}}).
 

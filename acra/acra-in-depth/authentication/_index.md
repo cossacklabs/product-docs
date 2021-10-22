@@ -1,10 +1,9 @@
 ---
 title: Authentication
-bookCollapseSection: true
 weight: 6
 ---
 
-## Authentication
+# Authentication
 
 Acra requires authentication for data access operations, for functions requiring private keys and for privileged 
 operations.
