@@ -12,8 +12,8 @@ This page is generally for Ops team, or anybody else who's job is to make things
   describes requirements and installation process from repos or from sources
 * [General configuration]({{< ref "general-configuration">}})
   contains list of all Acra binaries, their flags/subcommands, additional hints about configuration
-* [Controls configuration on AcraServer]({{< ref "constrols-configuration-on-acraserver">}}) and
-  [Controls configuration on AcraTranslator]({{< ref "constrols-configuration-on-acratranslator">}}) are
+* [Controls configuration on AcraServer]({{< ref "controls-configuration-on-acraserver">}}) and
+  [Controls configuration on AcraTranslator]({{< ref "controls-configuration-on-acratranslator">}}) are
   about security controls provided by AcraServer/AcraTranslator respectively, what are they used for, how to enable/configure
 * [TLS]({{< ref "tls" >}})
   is about TLS-specific things, like how you can generate a certificate, make Acra additionally validate them
