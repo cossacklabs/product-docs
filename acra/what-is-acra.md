@@ -69,7 +69,7 @@ Acra provides security enforcement components in different shapes:
 
 * [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses so your applications stay "thin clients".
 
-* [Client-side SDKs](/acra/acra-in-depth/architecture/sdks/). Acra provides optional SDKs for encrypting data (AcraWriter), for decrypting data (AcraReader), for enabling stronger transport security (AcraConnector), for working with AcraTranslator.
+* [Client-side SDKs](/acra/acra-in-depth/architecture/sdks/). Acra provides optional SDKs for encrypting data (AcraWriter), for decrypting data (AcraReader), or for working with AcraTranslator.
 
 Acra services allow you to construct infinitely sophisticated data flows that are perfectly suited to your exact infrastructure.
 
@@ -82,9 +82,7 @@ So, which Acra services and components you need? Depends on your use case!
 
 1. If you are using SQL database and want to integrate Acra "transparently" for your app – use AcraServer and Key storage. See the [simplest dataflow with AcraServer](/acra/acra-in-depth/data-flow/#simplest-version-with-sql-proxy).
 
-
 2. If you are using NoSQL / KV datastore, and your application speaks to API to encrypt/decrypt data – use AcraTranslator and Key storage. See the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api).
-
 
 3. If you would like a simple "encryption as a service" solution - use AcraTranslator and Key storage. See the [Encryption-as-a-service dataflow](/acra/acra-in-depth/data-flow/#encryption-as-a-service).
 

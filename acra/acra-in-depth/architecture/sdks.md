@@ -85,3 +85,9 @@ will be a responsibility of the application.
 ## What are architectural considerations?
 
 _TODO_
+
+
+AcraWriter — a client-side library that encrypts the data into a special binary format called AcraStruct. AcraWriter is available for Ruby, Python, Go, NodeJS, iOS (Objective-C/Swift), Android Java, and PHP, but you can easily generate AcraStruct containers with Themis for any platform you want.
+
+AcraConnector — a client-side daemon that runs under a separate user / in a separate container, which acts as a database listener that redirects all the queries to AcraServer and, upon receiving the results, feeds it back into the app. AcraConnector is an optional component, required in systems that are using extra transport encryption layer via Themis' Secure Session.
+
