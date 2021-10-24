@@ -8,9 +8,9 @@ title: What is Acra
 
 Acra is a application-level encryption and data security toolkit for modern distributed applications. Acra allows app developers to encrypt sensitive data, manage the keys, apply tokenization, data masking, request filtering, generate audit logs and security events, automate reactions on security boundary. 
 
-In short, providing you with means to protect the data, detect incidents and respond to them. 
+In short, Acra provides you with means to protect the data, detect incidents and respond to them. 
 
-Acra is written in Go, aimed for modern cloud applications that store sensitive data in PostgreSQL/MySQL-compatible SQL databases, and any other datastores. Acra consists of several services (SQL Proxy, API service, API proxy, in-app SDK, key management utils) that apply security controls exactly where the data flows.
+Acra is written in Go, aimed for modern cloud applications that store sensitive data in any databases. Acra consists of [several components](#architecture) that apply security controls exactly where the data flows.
 
 
 ## Acra's typical use cases
@@ -42,8 +42,8 @@ Acra essentially moves security boundary as close to the data itself as possible
 * Cryptographic security: data is encrypted during storage and transmission via application-level and transport-level encryption with strong mutual authentication. 
 * Searchable encryption: address encrypted records (use them in WHERE queries) without revealing them to the database.
 * Selective encryption: you pick what, where and how gets encrypted.
-* Key management tooling: flexible management of rolling/rotation/revocation to suit your load needs and data architecture. 
 * Data masking and tokenization: anonymise or pseudonymise the data preserving its original format. 
+* Key management tooling: flexible management of rolling/rotation/revocation to suit your load needs and data architecture. 
 * SQL request firewall: prevent SQL injections, stop unauthorized and suspicious queries.
 * Intrusion detection system: detect data leakage using poison records and SIEM integration.
 * Logging, monitoring and security events: always have operational and security overview on what's happening with your data.
@@ -52,6 +52,47 @@ Acra essentially moves security boundary as close to the data itself as possible
 
 Refer to [Acra-in-depth / Security features](/acra/acra-in-depth/security-features/) to learn more.
 
+## Architecture 
+
+Acra consists of several services and utilities. Depending on your architecture and use case, you might need to deploy only basic services or all of them.
+
+* **Security enforcement components**: services where "encryption happens". One of them is required.
+* **Key storage:** datastores where Acra keeps encrypted keys: Redis, table in your database, any KV store. One of them is required.
+* **Master key storage:** KMS, Vault. One of them is required.
+* **Additional services and utils:** key mananagement utils, data migration scrips, transport security service, UI configuration service. Any of them are optional. 
+
+Acra provides security enforcement components in different shapes: 
+
+* [AcraServer](/acra/acra-in-depth/architecture/sql_proxy/), also known as SQL Proxy. It's a database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate.
+
+* [AcraTranslator](/acra/acra-in-depth/architecture/api_service/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection.
+
+* [AnyProxy](/acra/acra-in-depth/architecture/api_proxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses so your applications stay "thin clients".
+
+* [Client-side SDKs](/acra/acra-in-depth/architecture/sdks/). Acra provides optional SDKs for encrypting data (AcraWriter), for decrypting data (AcraReader), for enabling stronger transport security (AcraConnector), for working with AcraTranslator.
+
+Acra services allow you to construct infinitely sophisticated data flows that are perfectly suited to your exact infrastructure.
+
+Refer to [Acra-in-depth / Architecture](/acra/acra-in-depth/architecture/) to learn more about Acra services.
+
+
+### Typical deployment architectures
+
+So, which Acra services and components you need? Depends on your use case!
+
+1. If you are using SQL database and want to integrate Acra "transparently" for your app – use AcraServer and Key storage. See the [simplest dataflow with AcraServer](/acra/acra-in-depth/data-flow/#simplest-version-with-sql-proxy).
+
+
+2. If you are using NoSQL / KV datastore, and your application speaks to API to encrypt/decrypt data – use AcraTranslator and Key storage. See the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api).
+
+
+3. If you would like a simple "encryption as a service" solution - use AcraTranslator and Key storage. See the [Encryption-as-a-service dataflow](/acra/acra-in-depth/data-flow/#encryption-as-a-service).
+
+4. If you have many applications and want to encapsulate their communication with sensitive data, try DAO approach (data access object). Use AnyProxy, see [AnyProxy dataflow](/acra/acra-in-depth/data-flow/#api-proxy).
+
+5. If you are building end-to-end encrypted dataflow, use Acra's SDKs: AcraWriter, AcraReader, and combine them with AcraServer / AcraTranslator. See the [End-to-end encrypted dataflow](/acra/acra-in-depth/data-flow/#end-to-end-encrypted-dataflow).
+
+Refer to [Acra-in-depth / Dataflow](/acra/acra-in-depth/data-flow/) to see more examples of Acra-based dataflows.
 
 ## Why Acra
 
@@ -125,63 +166,6 @@ Major security design principles that you can achieve while using Acra:
 * **Full operational control**: Acra provides logs, events, metrics and 360 degree operational and security overview into Acra's inside processes if you ned that. 
 
 Refer to [Acra-in-depth / Security design](/acra/acra-in-depth/security-design/) section to learn more about Acra's security design, principles, trust models and security guarantees.
-
-## Architecture 
-
-**TODO: Review & expand, align terminology**
-
-Acra allows you to keep various components of security system outside of main application architecture, securely keeping apart components that should not leak / become compromised together: 
-
-* Encryption/decryption happens in separate components (proxies and APIs)
-* Keys are stored separately, unpacked / delivered to encryption layer atomically, with key layout minimizing risks of massive leakage. 
-* Privileged key management happens outside of main components. 
-* Configuration is managed separately, delivered to each Acra component separately. 
-* Audit trail is exportable to independent audit log storage in real-time. 
-
-Acra CE consists of: 
-* Security enforcement component (SQL proxy, API service/proxy, SDK)
-* Key storage (Redis, table in your database, any KV store)
-* Master key storage driver (plug into KMS / Vault)
-... and a number of supporting utilities.
-
-There are 3 basic form-factors of security enforcement components Acra provides: 
-
-* SQL Proxy
-* API service (with direct API and application SDKs to talk to that API)
-* Privileged SDKs (enabling some operations to happen within application context)
-
-... which allow you to construct infinitely sophisticated data flows with Acra: 
-
-### Typical deployment architectures
-
-1. Proxy (SQL)
-
-Classic scenario: Acra sits between your application (or database-facing microservice) and the actual database, encrypting and decrypting data, using different means to 
-
-**TODO: Picture** 
-
-**TODO: Explainer**
-
-
-2. DAO + API
-
-**TODO: Picture** 
-
-**TODO: Explainer**
-
-3. Complex - DAO API SDK Proxy complex
-
-Acra was built to accompany sensitive data lifecycle in large, microservice-driven applications. So you can use APIs inside applications and proxies between some services and databases to build pretty sophisticated lifecycle: 
-
-**TODO: Picture** 
-
-**TODO: Explainer**
-
-Keen to learn more about Acra internals and what enables this level of data flow magic? Head to (LINK to Acra in-depth)
-
-### All components of typical Acra deployment
-
-**TODO: Finish** List all components 
 
 
 ## Licensing and form-factors

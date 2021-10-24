@@ -5,6 +5,36 @@ weight: 4
 
 # Data flow
 
+
+1. Proxy (SQL)
+
+Classic scenario: Acra sits between your application (or database-facing microservice) and the actual database, encrypting and decrypting data, using different means to 
+
+**TODO: Picture** 
+
+**TODO: Explainer**
+
+
+2. DAO + API
+
+**TODO: Picture** 
+
+**TODO: Explainer**
+
+3. Complex - DAO API SDK Proxy complex
+
+Acra was built to accompany sensitive data lifecycle in large, microservice-driven applications. So you can use APIs inside applications and proxies between some services and databases to build pretty sophisticated lifecycle: 
+
+**TODO: Picture** 
+
+**TODO: Explainer**
+
+Keen to learn more about Acra internals and what enables this level of data flow magic? Head to (LINK to Acra in-depth)
+
+### All components of typical Acra deployment
+
+**TODO: Finish** List all components 
+
 ### Acra components
 
 - [_AcraWriter_]({{< ref "/acra/configuring-maintaining/installing/building-acrawriter.md" >}}) — a client-side library that integrates into the app's workflow either through ORM or directly and provides the means for encryption of the sensitive data by generating AcraStructs.
