@@ -97,7 +97,7 @@ App <> AcraServer <> DB
 
 App <> AcraTranslator, App <> DB
 
-### API proxy 
+### AnyProxy 
 
 App <> DAO (<>AT) <> other API
 

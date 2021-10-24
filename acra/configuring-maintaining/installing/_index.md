@@ -6,13 +6,13 @@ weight: 1
 
 ## Requirements
 
-In case you want to use [AcraServer, our transparent SQL proxy]({{< ref "acra/acra-in-depth/architecture/sql_proxy.md" >}}):
+In case you want to use [AcraServer, our transparent SQL proxy]({{< ref "acra/acra-in-depth/architecture/acraserver.md" >}}):
 
 - Your application talks to PostgreSQL or MySQL database via your preferred ORM. During the setup of Acra, you will redirect your application to talk to Acra instead.
 - Use of TLS to access Acra and the database (our strong recommendation). You might need to configure a TLS certificate for Acra. Otherwise, you'll set up an encrypted transport layer using AcraConnector and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}).
 - If you're installing Acra on your server manually from the [GitHub repository](https://github.com/cossacklabs/acra), you need to have Themis' dependencies and `libssl-dev` package installed. Also, make sure that `libcrypto.so` is available in `$PATH`.
 
-If you want to use [AcraTranslator, encryption-as-a-service]({{< ref "acra/acra-in-depth/architecture/api_service.md" >}}):
+If you want to use [AcraTranslator, encryption-as-a-service]({{< ref "acra/acra-in-depth/architecture/acratranslator.md" >}}):
 
 - Your application is written in any language that can talk to AcraTranslator via gRPC or HTTP protocol
 - Your application uses AcraConnector to connect to AcraTranslator.

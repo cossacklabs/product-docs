@@ -78,18 +78,18 @@ There are 3 basic form-factors of security enforcement components Acra provides:
 
 ## Key components
 
-* [SQL proxy]({{< ref "sql_proxy.md" >}}) —
+* [SQL proxy]({{< ref "acraserver.md" >}}) —
   transparent proxy between applications and database, can encrypt/decrypt data, log requests,
   protect from SQL injections, provide other useful security-related tools
-* [API]({{< ref "api_service.md" >}}) and [API proxy]({{< ref "api_proxy.md" >}}) —
+* [API]({{< ref "acratranslator.md" >}}) and [AnyProxy]({{< ref "anyproxy.md" >}}) —
   RPC service that provides crypto-related operations similar to those in SQL proxy,
   does not depend on database and makes application the one responsible for data storage
-* [Key storage]({{< ref "dbs.md#key-storage ">}}) —
+* [Key storage]({{< ref "key-storage.md#key-storage ">}}) —
   storage for encryption keys and tokenization data
 * Configuration and policies —
   YAML files for services configuration (instead of launching then with lots of arguments),
   for AcraServer configuration (transparent encryption, masking, tokenization)
-* [KMS]({{< ref "dbs.md#kms ">}}) —
+* [KMS]({{< ref "key-storage.md#kms ">}}) —
   storage for master key
 
 ## Supporting modules

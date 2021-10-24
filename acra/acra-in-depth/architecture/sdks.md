@@ -14,7 +14,7 @@ AcraTranslator provides gRPC and HTTP API, which you can use in your application
 
 You can also contact us to get an SDK that will provide better/deeper integration with your language.
 
-[Read more]({{< ref "api_service.md" >}}) about features it provides.
+[Read more]({{< ref "acratranslator.md" >}}) about features it provides.
 
 ## How it works
 

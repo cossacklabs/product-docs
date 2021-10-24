@@ -63,11 +63,11 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 Acra provides security enforcement components in different shapes: 
 
-* [AcraServer](/acra/acra-in-depth/architecture/sql_proxy/), also known as SQL Proxy. It's a database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate.
+* [AcraServer](/acra/acra-in-depth/architecture/acraserver/), also known as SQL Proxy. It's a database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate.
 
-* [AcraTranslator](/acra/acra-in-depth/architecture/api_service/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection.
+* [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection.
 
-* [AnyProxy](/acra/acra-in-depth/architecture/api_proxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses so your applications stay "thin clients".
+* [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses so your applications stay "thin clients".
 
 * [Client-side SDKs](/acra/acra-in-depth/architecture/sdks/). Acra provides optional SDKs for encrypting data (AcraWriter), for decrypting data (AcraReader), for enabling stronger transport security (AcraConnector), for working with AcraTranslator.
 
