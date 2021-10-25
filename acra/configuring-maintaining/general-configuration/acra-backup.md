@@ -138,7 +138,12 @@ Before running `import` operation, make sure you also specified `BACKUP_MASTER_K
 Then, we need to import keys using `import` action provided along with redis configuration flags:
 
 ```
-$ export BACKUP_MASTER_KEY='1FEbOQ1k2jzn2LsF5xHy7jQmT93Yv1odqqgg1epwUcQ=' && acra-backup --action=import --file=.acrakeys.backup --redis_host_port=localhost:6379 --redis_db_keys=0
+$ export BACKUP_MASTER_KEY='1FEbOQ1k2jzn2LsF5xHy7jQmT93Yv1odqqgg1epwUcQ='
+$ acra-backup \
+    --action=import \
+    --file=.acrakeys.backup \
+    --redis_host_port=localhost:6379 \
+    --redis_db_keys=0
 INFO[2021-09-17T09:34:04+03:00] Starting service acra-backup [pid=488411]     version=0.85.0
 INFO[2021-09-17T09:34:04+03:00] Initializing ACRA_MASTER_KEY loader...       
 INFO[2021-09-17T09:34:04+03:00] Initialized default env ACRA_MASTER_KEY loader

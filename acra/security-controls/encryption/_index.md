@@ -66,7 +66,7 @@ When combined with proper network settings, you can end up with a complex system
 where each component can only access data it was created to work with.
 And when combined with other features like
 [SQL firewall]({{< ref "/acra/security-controls/sql-firewall/_index.md" >}}) and/or
-[audit logging](/acra/audit-log-INVALID),
+[audit logging]({{< ref "/acra/security-controls/security-logging-and-events/security-logging.md" >}}),
 it will be impossible for somebody to perform malicious activity without being noticed.
 
 ## AcraServer configuration
