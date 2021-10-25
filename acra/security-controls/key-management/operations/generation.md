@@ -260,7 +260,7 @@ For example, `.acrakeys/Alice_server.pub` is a public key of the client `Alice` 
 this file needs to be copied to corresponding `.acrakeys` directory of AcraConnector.
 
 Keystore version 2 makes this process more secure
-by ensuring that the key file cannot be tampered while in route between the server.
+by ensuring that the key file cannot be tampered while en route between the server.
 First, the public key has to be _exported_ from AcraServer:
 
 ```shell

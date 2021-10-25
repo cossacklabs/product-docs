@@ -8,7 +8,7 @@ bookCollapseSection: true
 `acra-tokens` is a command-line utility used for different token operations.
 
 Each tokenization process performed by AcraServer or AcraTranslator adds
-one more token/plaintext pair into token storage (BoltDB or Redis).
+one more token/encrypted-data pair into token storage (BoltDB or Redis).
 As a result, the token storage only grows in size.
 The amount of unused, unneeded tokens will grow as well.
 Obviously, this will sooner or later cause performance issues, not talking about wasted resources.
