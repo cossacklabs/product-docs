@@ -8,7 +8,7 @@ weight: 2
 - Generate keypair (see how to do it [here]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}})).
 - Configure secure transport using [AcraConnector]({{< ref "acra/security-controls/transport-security/acra-connector.md#acraconnector-and-acrawriter-INVALID" >}}) or [TLS]({{< ref "acra/configuring-maintaining/tls/" >}}):
 - Deploy [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#getting-started-with-acraserver-INVALID" >}}) to a separate machine:
-- Integrate AcraWriter closely following the [examples](https://github.com/cossacklabs/acra/tree/master/examples) and using either AcraConnector (if available on this machine) or direct TLS database connection.
+- (optional, enterprise only) Integrate AcraWriter closely following the [examples](https://github.com/cossacklabs/acra/tree/master/examples) and using either AcraConnector (if available on this machine) or direct TLS database connection.
 - Test everything:
 
   1. Connect AcraConnector to AcraServer, send a regular request to your database through AcraConnector.<br/>_Result_: If you see the answer, AcraConnector and AcraWriter are able to connect and forward signals back and forth. It means that the network and the keys are fine.

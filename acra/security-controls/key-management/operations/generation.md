@@ -7,12 +7,27 @@ bookCollapseSection: true
 # Key generation
 
 During the inital setup of Acra you will need to generate new keys for all components involved.
-The procedure is performed in several steps:
 
-  1. Generate AcraServer or AcraTranslator keys.
-  2. Generate AcraConnector keys.
-  3. Exchange public keys between components.
-  4. Generate storage encryption keys and place public keys close to app with AcraWriter
+1. Master key(s).
+
+2. Storage/HMAC keys.
+
+   At least for one [client ID]({{< ref "acra/guides/integrating-acra-server-into-infrastructure/client_id" >}}) or [zone ID]({{< ref "acra/security-controls/zones" >}}).
+   Storage keys are the ones responsible for data encryption.
+   There are two kinds of crypto containers and two different kinds of keys for them.
+   HMAC keys are for secure keyed hashing needed for example in searchable encryption feature.
+
+3. Transport keys.
+
+   If you decided to use AcraConnector, you will need Themis Secure Session transport keys
+   for both AcraConnector and AcraServer/AcraTranslator.
+   If TLS is used, then key/certificate generation is outside of this topic,
+   although you can get some hints on [certificate generation page]({{< ref "acra/configuring-maintaining/tls/cert_gen_with_openssl" >}}).
+
+4. Exchange public keys between components.
+
+   * Share transport public keys (or TLS certificates, if they were not signed by root CAs)
+   * Share storage public keys (only if you use [AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter" >}}))
 
 ## Master keys
 
@@ -79,6 +94,9 @@ acra-keymaker --client_id=Alice \
   --generate_hmac_key \
   --generate_log_key
 ```
+
+You can learn more about what each flag means by reading
+[`acra-keymaker` docs]({{< ref "acra/configuring-maintaining/general-configuration/acra-keymaker.md#generating-keys" >}})
 
 Carry out these operations on the machine running AcraServer or AcraTranslator
 to make sure that the private keys for Acra never leak outside from the server.

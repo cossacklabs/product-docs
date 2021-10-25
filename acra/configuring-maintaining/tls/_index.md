@@ -25,9 +25,9 @@ Or disabled completely.
 * [OCSP (Online Certificate Status Protocol)](ocsp)
 * [CRL (Certificate Revocation List)](crl)
 
-By dafault Acra will perform validation only if the certificate itself contains OCSP or CRL metadata.
+By default Acra will perform validation only if the certificate itself contains OCSP or CRL metadata.
 And if certificate does not contain OCSP URLs, it won't be validated using OCSP protocol. Same applies for CRL.
 
 ## PKI
 
-We have a dedicated page about public key infrastructure, located [here](/acra-in-depth/security-design/pki-INVALID).
+We have a dedicated page about public key infrastructure, located [here](/acra/acra-in-depth/security-design/acra-and-pki).

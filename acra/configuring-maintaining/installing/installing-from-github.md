@@ -65,7 +65,7 @@ acra-server --db_host=127.0.0.1
 
 If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
 
-> You can complement the command above with `--db_port=5432 -v` to adjust the listener port and add logs to get going quickly. For all the available CLI parameters, refer to the corresponding section in [How AcraServer works]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#acraserver-cli-reference-INVALID" >}}).
+> You can complement the command above with `--db_port=5432 -v` to adjust the listener port and add logs to get going quickly. For all the available CLI parameters, refer to the corresponding section in [How AcraServer works]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags" >}}).
 
 AcraServer listens to port 9393 by default.
 

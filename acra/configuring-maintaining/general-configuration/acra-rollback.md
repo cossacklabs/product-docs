@@ -141,14 +141,26 @@ Starting with Acra [`v.0.77.0`](https://github.com/cossacklabs/acra/releases/tag
 Single-quote syntax with $ escaping:
 
 ```
-acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=out.txt --select="select data from test_example_without_zone;" --insert="insert into test_example_without_zone values(\$1);"
+acra-rollback \
+    --client_id=client \
+    --postgresql_enable \
+    --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" \
+    --output_file=out.txt \
+    --select="select data from test_example_without_zone;" \
+    --insert="insert into test_example_without_zone values(\$1);"
 ```
 
 
 Double-quote syntax::
 
 ```
-acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=out.txt --select="select data from test_example_without_zone;" --insert='insert into test_example_without_zone values($1);'
+acra-rollback \
+    --client_id=client \
+    --postgresql_enable \
+    --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" \
+    --output_file=out.txt \
+    --select="select data from test_example_without_zone;" \
+    --insert='insert into test_example_without_zone values($1);'
 ```
 
 ### ZoneMode
@@ -167,7 +179,13 @@ select zone_id, encrypted_data from some_table;
 Instead of inserting data back into the database, you can write it to the output file, to handle it later. To do it, change the `INSERT` query to a simple `$1;`, like this:
 
 ```
-acra-rollback --client_id=client --postgresql_enable --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" --output_file=data.txt --select="select data from test_example_without_zone;" --insert='$1;'
+acra-rollback \
+    --client_id=client \
+    --postgresql_enable \
+    --connection_string="dbname=acra user=postgres password=postgres host=127.0.0.1 port=5432" \
+    --output_file=data.txt \
+    --select="select data from test_example_without_zone;" \
+    --insert='$1;'
 ```
 
 

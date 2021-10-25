@@ -156,11 +156,11 @@ In this example, we are not going to use [Zones](/acra/security-controls/zones) 
 
 ```
 $ acra-rotate 
---db_connection_string="postgresql://test:test@acra-client/test" \
---zonemode_enable=false \
---postgresql_enable \
---sql_select="select id, 'user0'::bytea, email from users" \
---sql_update='update users set email=$1 where id=$2' 
+    --db_connection_string="postgresql://test:test@acra-client/test" \
+    --zonemode_enable=false \
+    --postgresql_enable \
+    --sql_select="select id, 'user0'::bytea, email from users" \
+    --sql_update='update users set email=$1 where id=$2' 
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
