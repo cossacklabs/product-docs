@@ -82,13 +82,11 @@ So, which Acra services and components you need? Depends on your use case!
 
 1. If you are using SQL database and want to integrate Acra "transparently" for your app – use AcraServer and Key storage. See the [simplest dataflow with AcraServer](/acra/acra-in-depth/data-flow/#simplest-version-with-sql-proxy).
 
-2. If you are using NoSQL / KV datastore, and your application speaks to API to encrypt/decrypt data – use AcraTranslator and Key storage. See the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api).
+2. If you are using NoSQL / KV datastore, and your application speaks to API to encrypt/decrypt data – use AcraTranslator and Key storage. See the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api-service).
 
-3. If you would like a simple "encryption as a service" solution - use AcraTranslator and Key storage. See the [Encryption-as-a-service dataflow](/acra/acra-in-depth/data-flow/#encryption-as-a-service).
+3. If you have many applications and want to encapsulate their communication with sensitive data, try DAO approach (data access object). Use AnyProxy, see [AnyProxy dataflow](/acra/acra-in-depth/data-flow/#anyproxy).
 
-4. If you have many applications and want to encapsulate their communication with sensitive data, try DAO approach (data access object). Use AnyProxy, see [AnyProxy dataflow](/acra/acra-in-depth/data-flow/#api-proxy).
-
-5. If you are building end-to-end encrypted dataflow, use Acra's SDKs: AcraWriter, AcraReader, and combine them with AcraServer / AcraTranslator. See the [End-to-end encrypted dataflow](/acra/acra-in-depth/data-flow/#end-to-end-encrypted-dataflow).
+4. If you are building end-to-end encrypted dataflow, use Acra's SDKs: AcraWriter, AcraReader, and combine them with AcraServer / AcraTranslator. See the [End-to-end encrypted dataflow](/acra/acra-in-depth/data-flow/#end-to-end-encrypted-dataflow).
 
 Refer to [Acra-in-depth / Dataflow](/acra/acra-in-depth/data-flow/) to see more examples of Acra-based dataflows.
 
