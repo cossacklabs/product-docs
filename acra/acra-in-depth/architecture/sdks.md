@@ -14,7 +14,7 @@ AcraTranslator provides gRPC and HTTP API, which you can use in your application
 
 You can also contact us to get an SDK that will provide better/deeper integration with your language.
 
-[Read more]({{< ref "api_service.md" >}}) about features it provides.
+[Read more]({{< ref "acratranslator.md" >}}) about features it provides.
 
 ## How it works
 
@@ -85,3 +85,9 @@ will be a responsibility of the application.
 ## What are architectural considerations?
 
 _TODO_
+
+
+AcraWriter — a client-side library that encrypts the data into a special binary format called AcraStruct. AcraWriter is available for Ruby, Python, Go, NodeJS, iOS (Objective-C/Swift), Android Java, and PHP, but you can easily generate AcraStruct containers with Themis for any platform you want.
+
+AcraConnector — a client-side daemon that runs under a separate user / in a separate container, which acts as a database listener that redirects all the queries to AcraServer and, upon receiving the results, feeds it back into the app. AcraConnector is an optional component, required in systems that are using extra transport encryption layer via Themis' Secure Session.
+
