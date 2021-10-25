@@ -29,7 +29,7 @@ See [AcraServer's command line flag documentation]({{< ref "/acra/configuring-ma
 
 * `--destination_port=<port>`
 
-  HTTP API port of AcraServer or AcraConnector API proxy.
+  HTTP API port of AcraServer or AcraConnector.
   Default is `9191`.
 
 * `--incoming_connection_host=<address>`

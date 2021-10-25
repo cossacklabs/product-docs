@@ -277,7 +277,7 @@ If you are using AcraServer in transparent proxy mode:
 This will work for Acra 0.86.0 and newer.
 {{< /hint >}}
 
-If you are using [AcraTranslator](/acra/acra-in-depth/architecture/api_service/),
+If you are using [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/),
 the idea is the same:
 
 1. Rotate the storage keys on AcraTranslator. It will keep the old keys.

@@ -8,22 +8,26 @@ weight: 3
 
 Depending on which security control we are talking about, the exact way of enabling/configuring it may differ.
 
-## Encryptor config
-
-Features configured in file passed in `--encryptor_config_file` CLI option.
-If you need any of these, the encryptor config is a must have.
-
-* [Transparent encryption](/acra/security-controls/encryption/)
-* [Searchable encryption](/acra/security-controls/searchable-encryption/)
-* [Masking](/acra/security-controls/masking/)
-* [Tokenization](/acra/security-controls/tokenization/)
-* [Zones](/acra/security-controls/zones)
-  (configured in encryptor config, but enabled with `--zonemode_enable`)
-
-## CLI flags
-
-Features configured with CLI flags.
+Features are configured with CLI flags.
 `--config_file <options.yml>` may be used instead, AcraServer will read options from a file.
+
+* Data protection security controls
+
+  There are a couple features that can only be enabled/configured in file passed in `--encryptor_config_file` CLI option.
+  If you need any of these, the encryptor config is a must have.
+  Each feature is configured per table column (except the last one).
+
+  * [Transparent encryption](/acra/security-controls/encryption/) —
+    AcraServer will silently replace plaintext with its encrypted version before storing data in database
+  * [Searchable encryption](/acra/security-controls/searchable-encryption/) —
+    makes it possible to find row that contains encrypted value you are searching
+  * [Masking](/acra/security-controls/masking/) —
+    similar to encryption, leaves part of plaintext unencrypted
+  * [Tokenization](/acra/security-controls/tokenization/) —
+    stores plain number/text/email in separate storage, while putting random corresponding one in the database
+  * [Zones](/acra/security-controls/zones) —
+    allows using zone-specific keys for cryptographic operations;
+    configured in encryptor config, but enabled with `--zonemode_enable`
 
 * [Intrusion detection](/acra/security-controls/intrusion-detection/)
 

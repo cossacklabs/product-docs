@@ -61,24 +61,10 @@ VALUES (1, "two", "secret three");
 -- `encrypted_string` will again be transparently encrypted
 UPDATE `records` SET `encrypted_string`="something new"
 WHERE `string`="two";
-
--- Select, using exact value of encrypted column
--- (with searchable encryption being enabled for it)
-SELECT `number`, `string` FROM `records`
-WHERE `encrypted_string`="secret three";
-
--- Similar to select, AcraServer will slightly modify the
--- request under the hood to make it work like you've expected
-UPDATE `records` SET `string`="test"
-WHERE `encrypted_string`="secret three";
 ```
 
 While these won't:
 ```sql
--- Select, non-exact value, searchable encryption won't help
-SELECT `number`, `string` FROM `records`
-WHERE `encrypted_string` LIKE "secret %";
-
 -- Use encrypted number in a filter, database still sees this
 -- as a random byte array, not even a number (different types)
 SELECT * FROM `records`
@@ -90,3 +76,39 @@ WHERE `encrypted_number` > 10;
 SELECT * FROM `records`
 WHERE `tokenized_number` > 10;
 ```
+
+## Search
+
+The special case is search of an encrypted value stored in a database.
+You will be able to find the row only if "searchable encryption" was enabled for the column you use
+and you search for the exact same value that was encrypted and stored in searched column.
+
+What will work:
+```sql
+-- Select, using exact value of encrypted column
+-- (with searchable encryption being enabled for it)
+SELECT `number`, `string` FROM `records`
+WHERE `encrypted_string`="secret three";
+
+-- Similar to select, AcraServer will slightly modify the
+-- request under the hood to make it work like you've expected
+UPDATE `records` SET `string`="test"
+WHERE `encrypted_string`="secret three";
+```
+
+And what will not:
+```sql
+-- Select, non-exact value, searchable encryption won't help
+SELECT `number`, `string` FROM `records`
+WHERE `encrypted_string` LIKE "secret %";
+```
+
+# Tokenization
+
+[A feature]({{< ref "acra/security-controls/tokenization/" >}}) that stores random number/text/email in the database,
+while the actual number/text/email that corresponds to random value is stored in a separate place,
+only available for AcraServer and/or AcraTranslator that will perform the conversion.
+
+Not a big problem if you have only one instance of AcraServer or AcraTranslator, but if you have both of them,
+or at least two AcraServers/AcraTranslators, things get more complex and for proper tokenization functionality
+you will need dedicated K/V database (such as Redis) for tokens available for all services that perform tokenization/detokenization.
