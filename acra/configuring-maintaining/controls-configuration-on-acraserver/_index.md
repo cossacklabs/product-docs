@@ -8,7 +8,7 @@ weight: 3
 
 Depending on which security control we are talking about, the exact way of enabling/configuring it may differ.
 
-Features are configured with CLI flags.
+Features are configured with CLI flags ([see whole list]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags">}})).
 `--config_file <options.yml>` may be used instead, AcraServer will read options from a file.
 
 * Data protection security controls

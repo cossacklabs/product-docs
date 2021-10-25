@@ -117,11 +117,6 @@ Following table describes flags that work only in appropriate mode:
   Port to AcraConnector 
   Default is `9494`
 
-* `--incoming_connection_prometheus_metrics_string=<url>`
-
-  URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
-  Default is empty.
-
 * `--incoming_connection_string`
 
   Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket` 
@@ -143,34 +138,9 @@ Following table describes flags that work only in appropriate mode:
   Output file is `configs/markdown_acra-server.md`.
   Works in pair with `--dump_config`.
 
-### Jaeger
+### Monitoring
 
-* `--jaeger_agent_endpoint=<addr>`
-
-  Jaeger agent endpoint that will be used to export trace data.
-  Example: `localhost:6831`.
-  Default is empty.
-
-* `--jaeger_basic_auth_password=<password>`
-
-  Password used for basic auth (optional) to jaeger.
-
-* `--jaeger_basic_auth_username=<username>`
-
-  Username used for basic auth (optional) to jaeger.
-
-* `--jaeger_collector_endpoint=<url>`
-
-  Jaeger endpoint that will be used to export trace data.
-  Example: `http://localhost:14268/api/traces`.
-  Default is empty.
-
-* `--tracing_jaeger_enable={true|false}`
-
-  Export trace data to jaeger.
-  Default is `false`.
-
-### Logging
+#### Logging
 
 * `-d`
 
@@ -214,6 +184,39 @@ Following table describes flags that work only in appropriate mode:
   Export trace data to log.
   Default is `false`.
   
+#### Metrics (Prometheus)
+
+* `--incoming_connection_prometheus_metrics_string=<url>`
+
+  URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
+  Default is empty.
+
+#### Tracing (Jaeger)
+
+* `--jaeger_agent_endpoint=<addr>`
+
+  Jaeger agent endpoint that will be used to export trace data.
+  Example: `localhost:6831`.
+  Default is empty.
+
+* `--jaeger_basic_auth_password=<password>`
+
+  Password used for basic auth (optional) to jaeger.
+
+* `--jaeger_basic_auth_username=<username>`
+
+  Username used for basic auth (optional) to jaeger.
+
+* `--jaeger_collector_endpoint=<url>`
+
+  Jaeger endpoint that will be used to export trace data.
+  Example: `http://localhost:14268/api/traces`.
+  Default is empty.
+
+* `--tracing_jaeger_enable={true|false}`
+
+  Export trace data to jaeger.
+  Default is `false`.
 
 ### Keystore
 
