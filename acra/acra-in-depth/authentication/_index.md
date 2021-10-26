@@ -5,37 +5,70 @@ weight: 6
 
 # Authentication
 
-Acra requires authentication for data access operations, for functions requiring private keys and for privileged 
-operations.
+Acra requires authentication for all incoming connections that process data (encryption/masking/tokenization happening in AcraServer, AcraTranslator or AnyProxy), connections to the database (AcraServer), all KMS-related operations, and privileged operations.
 
-### Data access operations
+## Data processing connections
 
-Such operations occur in database requests by application through AcraServer and API requests for data manipulations via 
-AcraTranslator.
+### Client app <> AcraServer
 
-[AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}) requires mutual authentication 
-via [Secure Session]({{< ref "/themis/crypto-theory/cryptosystems/secure-session.md" >}}) through 
-[AcraConnector]({{< ref "/acra/configuring-maintaining/general-configuration/acra-connector.md" >}}) or 
-[TLS]({{< ref "acra/configuring-maintaining/tls/" >}}) (as direct connections or through AcraConnector) 
-for data protection operations from application. AcraServer doesn't touch authentication process on DB protocol level 
-between application and database. Mutual authentication required for application authorization and identification purposes. 
-Authenticated queries can get access only for own data related to own identifier `ClientID` or for known 
-[ZoneIDs]({{< ref "/acra/security-controls/zones.md" >}}).
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/) authenticates each incoming connection from client application. We strongly advice using mutual authentication every time. Authentication happens via:
 
-[AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) requires authentication
-for all API requests. Mutual authentication may be turned on or off. In first case applications may get access only for own data
-related to ClientID or known ZoneIDs. Without mutual authentication all authenticated applications have access to all
-data if they know related ClientID or ZoneID. AcraTranslator doesn't validate applications identifiers before data manipulations.
+- [TLS](/acra/configuring-maintaining/tls/). `client app <> [TLS] <> AcraServer` 
+
+By default, AcraServer will request and validate client TLS certificate. See [AcraServer's TLS configuration flags](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
+
+- [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector). `client app <> AcraConnector <> [TLS or Themis Secure Session] <> AcraServer`. 
+
+
+AcraServer authenticates connections from AcraConnector. If TLS is used as underlying transport encryption, mutual authentication is desired but optional, if [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session) is used, mutual authentication is enabled by default. See [AcraServer's configuration flags for AcraConnector](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
+
+AcraServer returns error on non-authenticated queries. Authenticated queries can get access only for the data assosiated with client app `ClientID` or for known [ZoneIDs](/acra/security-controls/zones).
+
+
+### AcraServer <> database
+
+<!-- to @lagovas: what this sentense means? -->
+AcraServer doesn't affect authentication process on database protocol level between client application and database. We strongly recommend using TLS when connecting to the databse and providing database TLS certificate in AcraServer configuration.
+
+Refer to [AcraServer TLS configuration params](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
+
+<!-- to @lagovas: please clarify database authentication options between AS and DB -->
+
+
+### Client app <> AcraTranslator
+
+`client app <> [TLS] <> AcraTranslator` 
+
+[AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) requires authentication for all API requests. Mutual authentication may be turned on or off. In first case applications may get access only for own data related to ClientID or known ZoneIDs. Without mutual authentication all authenticated applications have access to all data if they know related ClientID or ZoneID. 
+
+AcraTranslator doesn't validate applications identifiers before data manipulations.
 All ownership mapping is applications' responsibility and may be implemented in different ways according to business requirements.
 
-### Privileged operations
+### Client app <> AnyProxy
 
-AcraServer supports changing configuration in runtime via [AcraWebConfig's]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md" >}}) 
-web UI that required basic authentication. It is privileged operations and only authenticated and authorized users may do it. 
+[AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) authentication works similarly to AcraTranslator's.
 
-AcraWebConfig web service requires basic authentication for all HTTP requests from web UI and only users who were added by 
-[acra-authmanager]({{< ref "/acra/configuring-maintaining/general-configuration/acra-authmanager.md" >}}) CLI tool will be authorized.
 
-Web service communicates with AcraServer through AcraConnector and authenticated by Secure Session
-or TLS. There is no requirement to use mutual authentication. So TLS may be configured without sending client's certificates.
-Secure Session uses mutual authentication by design and cannot be changed.
+## Key management connections
+
+### External key stores
+
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) and [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) require authenticated connections when working with external key stores (Redis, BoltDB).
+
+Read more about configuring [external key stores](/acra/configuring-maintaining/key-storing/kv-stores/).
+
+### KMS
+
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) and [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) require authenticated connections when working with KMS.
+
+
+Read more about connection configuration to [popular KMS](/acra/configuring-maintaining/key-storing/kms/).
+
+
+## Privileged operations
+
+AcraServer supports changing configuration in runtime using [AcraWebConfig's](/acra/configuring-maintaining/general-configuration/acra-webconfig). AcraWebConfig is a simple web UI service that required HTTP basic authentication. 
+
+Privileged operations (changing configuration of AcraServer, restarting it) are available only for authenticated and authorized users. You should add users first using [acra-authmanager](/acra/configuring-maintaining/general-configuration/acra-authmanager) utility, then use these users' credentials to access AcraWebConfig.
+
+AcraWebConfig communicates with AcraServer through AcraConnector and can use Themis Secure Session or TLS as transport encryption. There is no requirement to use mutual authentication. TLS may be configured without sending client's certificates. Themis Secure Session uses mutual authentication by design and cannot be changed.
