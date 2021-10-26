@@ -1,21 +1,22 @@
 ---
 title: AcraConnector
-bookCollapseSection: true
-weight: 1
+weight: 2
 ---
 
 # AcraConnector
 
-AcraConnector is a "proxy" component that can work between application and AcraServer or AcraTranslator.
-It will create a secure connection to AcraServer or AcraTranslator and will listen for connections from the application on the other side.
-The secure connection can be either Themis Secure Session (default) or TLS, depending on configuration.
+AcraConnector is a proxy-daemon component that lives nearby client application (perfectly, on the same server /  VM). AcraConnector is an optional components created purely to improve transport security and authentication between client application and AcraServer/AcraTranslator.
 
-Also, compared to TLS, the client identifier
-(text string that uniquely identifies client and affects which encryption keys will be used when processing this client requests)
-will be set by AcraConnector, not taken from client TLS certificate.
+AcraConnector creates a secure connection to AcraServer/AcraTranslator and listens for connections from the client application on the other side.
+AcraConnector supports two types of transport encryption:
+
+- Themis Secure Session (enabled by default), provides both transport encryption and mutual authentication,
+- TLS (so, a client app connects to AcraConnector that connects to AcraServer/AcraTranslator via TLS).
+
+Also, compared to TLS, the client identifier `ClientID` (text string that uniquely identifies client and affects which encryption keys will be used when processing this client requests) will be set by AcraConnector, not taken from client TLS certificate.
+
 Configuration flag for this behavior is `--client_id`.
 
-[Here]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector.md" >}})
-you can read more about AcraConnector configuration.
-We also got a [guide]({{< ref "acra/guides/advanced-integrations/client-side-integration-with-acra-connector.md" >}})
-describing what it is and how you can use it.
+Refer to the [Configuring and maintaining / General Configuration / AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/) page to learn more about AcraConnector configuration.
+
+Refer to a [client-side integration with AcraConnector guide](/acra/guides/advanced-integrations/client-side-integration-with-acra-connector/) describing what it is and how you can use it.

@@ -36,7 +36,7 @@ Features are configured with CLI flags ([see whole list]({{< ref "acra/configuri
   Enabled with `--poison_detect_enable`.
   Configured with [`--poison_*` flags]({{<ref "acra/security-controls/intrusion-detection/_index.md#command-line-flags" >}}).
   Requires special "poison records" inserted in the database in order to have effect
-  ([example](/acra/security-controls/intrusion-detection#usage-example").
+  ([example](/acra/security-controls/intrusion-detection/#usage-example)).
 
 * [Key management]({{<ref "acra/security-controls/key-management/_index.md" >}})
 
