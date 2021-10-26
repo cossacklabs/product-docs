@@ -41,3 +41,8 @@ that act as clients for Acra services.
 
 Default ports (`9191` and `9494` for AcraConnector, `9090` and `9393` for AcraServer, `9595` and `9696` for AcraTranslator)
 are already exposed in our docker containers.
+
+You can configure listen host/port with `--incoming_connection_*` flags.
+
+And for AcraServer specifically, you tell it to proxy MySQL/MariaDB protocol with `--mysql_enable` or PostgreSQL one with `--postgresql_enable`.
+Address of the actual database behind AcraServer is configured with `--db_host=<host>` and `--db_port=<port>`.

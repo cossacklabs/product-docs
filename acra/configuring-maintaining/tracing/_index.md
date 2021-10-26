@@ -42,12 +42,12 @@ Here are some of the traces and their subtraces collected by Acra services.
 
 <!-- network/proxy.go -->
 * `ProxyWithTracing` (AcraConnector-specific)
-  traces how much time connection was proxified, starting after client-\>AcraConnector SecureSession/TLS
-  handshake was done and AcraConnector-\>AcraServer connection was established
+  traces how much time connection was proxified, starting after client→AcraConnector SecureSession/TLS
+  handshake was done and AcraConnector→AcraServer connection was established
 
 <!-- cmd/acra-connector/acra-connector.go -->
 * `handleConnection` (AcraConnector-specific)
-  similar to `ProxyWithTracing` but starts as soon as TCP socket client-\>AcraConnector was created,
+  similar to `ProxyWithTracing` but starts as soon as TCP socket client→AcraConnector was created,
   so it's roughly the lifetime of TCP stream
 
   * `WrapClient` — only includes SecureSession/TLS handshake time
@@ -62,4 +62,4 @@ Here are some of the traces and their subtraces collected by Acra services.
   tracks time of SecureSession/TLS handshakes for incoming connections
 
   * `<function>`
-    * if `handleCommandsConnection` — TODO
+    * if `handleCommandsConnection` — tracks processing time of command from AcraWebConfig
