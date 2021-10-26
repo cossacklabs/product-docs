@@ -39,11 +39,6 @@ weight: 2
   Connection string for HTTP transport like `http://0.0.0.0:9595`.
   Default is empty.
 
-* `--incoming_connection_prometheus_metrics_string=<url>`
-
-  URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
-  Default is empty.
-
 * `--keys_dir=<path>`
 
   Folder from which keys will be loaded.
@@ -108,42 +103,9 @@ weight: 2
   Output file is `configs/markdown_acra-translator.md`.
   Works in pair with `--dump_config`.
 
-### Jaeger
+### Monitoring
 
-* `--jaeger_agent_endpoint=<addr>`
-
-  Jaeger agent endpoint that will be used to export trace data.
-  Example: `localhost:6831`.
-  Default is empty.
-
-* `--jaeger_basic_auth_password=<password>`
-
-  Password used for basic auth (optional) to jaeger.
-
-* `--jaeger_basic_auth_username=<username>`
-
-  Username used for basic auth (optional) to jaeger.
-
-* `--jaeger_collector_endpoint=<url>`
-
-  Jaeger endpoint that will be used to export trace data.
-  Example: `http://localhost:14268/api/traces`.
-  Default is empty.
-
-* `--tracing_jaeger_enable={true|false}`
-
-  Export trace data to jaeger.
-  Default is `false`.
-
-### Keystore
-
-* `--keystore_cache_size=<count>`
-
-  Count of keys that will be stored in in-memory LRU cache in encrypted form.
-  Use `0` to set unlimited size, `-1` to disable caching.
-  Default is `0`.
-
-### Logging
+#### Logging
 
 * `-d`
 
@@ -186,6 +148,48 @@ weight: 2
 
   Export trace data to log.
   Default is `false`.
+
+#### Metrics (Prometheus)
+
+* `--incoming_connection_prometheus_metrics_string=<url>`
+
+  URL which will be used to expose Prometheus metrics (use `<url>/metrics` address to pull metrics).
+  Default is empty.
+
+#### Tracing (Jaeger)
+
+* `--jaeger_agent_endpoint=<addr>`
+
+  Jaeger agent endpoint that will be used to export trace data.
+  Example: `localhost:6831`.
+  Default is empty.
+
+* `--jaeger_basic_auth_password=<password>`
+
+  Password used for basic auth (optional) to jaeger.
+
+* `--jaeger_basic_auth_username=<username>`
+
+  Username used for basic auth (optional) to jaeger.
+
+* `--jaeger_collector_endpoint=<url>`
+
+  Jaeger endpoint that will be used to export trace data.
+  Example: `http://localhost:14268/api/traces`.
+  Default is empty.
+
+* `--tracing_jaeger_enable={true|false}`
+
+  Export trace data to jaeger.
+  Default is `false`.
+
+### Keystore
+
+* `--keystore_cache_size=<count>`
+
+  Count of keys that will be stored in in-memory LRU cache in encrypted form.
+  Use `0` to set unlimited size, `-1` to disable caching.
+  Default is `0`.
 
 ### TLS
 

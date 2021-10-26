@@ -12,11 +12,11 @@ We've made sure that this documentation service covers maximum of Acra's capabil
 
 **TODO: finish**
 
-We have a growing list of guides in the (LINK) guides section: 
+We have a growing list of guides in the [guides section]({{< ref "acra/guides" >}}): 
 
 * Trying Acra with Docker
-* Acra with Django project (LINK short, step-by-step)
-* Acra with Ruby on Rails (LINK short, step-by-step)
+* [Acra with Django project]({{< ref "acra/guides/djangoproject-short-tutorial.md" >}}) (TODO step-by-step)
+* [Acra with Ruby on Rails]({{< ref "acra/guides/ruby-on-rails-short-tutorial.md" >}}) (TODO step-by-step)
 * Acra server-based workflow
 * Acra translator-based workflow
 * Advanced integrations: 

@@ -11,8 +11,8 @@ Where you can run Acra software that acts like a server (including AcraServer, A
 
 In most cases Linux will be used as a host OS, and we have [packages](https://github.com/cossacklabs/acra/#server-side) available for commonly used distros.
 
-However, of you want to build Acra from sources, the requirements are not so strict:
-1) Golang compiler should be able to build binaries for your OS/CPU
+However, if you want to build Acra from sources, the requirements are not so strict:
+1) Golang compiler should be able to build binaries for your OS/CPU (though Windows is not supported)
 2) [Themis](https://github.com/cossacklabs/themis/#availability)
    crypto libraries should be installed on target system
 
