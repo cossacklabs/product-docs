@@ -32,6 +32,10 @@ AcraServer doesn't affect authentication process on database protocol level betw
 
 Refer to [AcraServer TLS configuration params](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
 
+Also, AcraServer does not intervene in the PostgreSQL authentication, so you can still use login/password for authentication between the app and the database. We actually encourage you to do that and to add one extra layer of protection against attackers that target your PostgreSQL installation.
+
+We've tested all the authentification methods compatible with PostgreSQL (excluding RADIUS authentication), and found out that all of them are working correctly through Acra.
+
 <!-- to @lagovas: please clarify database authentication options between AS and DB -->
 
 
