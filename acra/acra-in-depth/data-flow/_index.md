@@ -127,7 +127,7 @@ Application uses AcraWriter SDK to encrypt data on application side, and then st
 
 #### When to use
 
-When some parts of the dataflow should be end-to-end encrypted. We strongly advise to combine this approach with typical dataflow using AcraServer/AcraTranslator - meaning, that some apps will use Acra server-side as designed, while some apps will process data on client-side only.
+When some parts of the dataflow should be end-to-end encrypted. We strongly advise to combine this approach with typical dataflow using AcraServer/AcraTranslator - meaning, that some apps will use AcraServer/AcraTranslator as designed, while some apps will process data on client-side only.
 
 #### Which components to use
 
