@@ -1,6 +1,6 @@
 ---
 title: Enterprise kickstart
-weight: 10
+weight: 11
 ---
 
 # Enterprise kickstart
