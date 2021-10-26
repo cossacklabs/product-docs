@@ -1,7 +1,7 @@
 ---
 title: SDKs [ENTERPRISE]
 bookCollapseSection: true
-weight: 5
+weight: 4
 ---
 
 # Acra SDKs in general

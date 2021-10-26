@@ -7,7 +7,7 @@ bookCollapseSection: true
 # Key rotation
 
 {{< hint info >}}
-This feature is available in Acra Enterprise Edition Only.
+This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
 {{< /hint>}}
 
 All cryptographic keys should have a definite time span – known as **cryptoperiod** –
