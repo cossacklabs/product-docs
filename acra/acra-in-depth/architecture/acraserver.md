@@ -10,7 +10,7 @@ AcraServer is also known as SQL Proxy. It's SQL database proxy that exposes Acra
 
 AcraServer is your the main choice if you'd like to encrypt data "transparently on-a-fly" between your app and SQL database.
 
-Refer to [Configuring and maintaining](/acra/configuring-maintaining/) to learn how configure AcraServer.
+Refer to [Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/) to learn how configure AcraServer.
 
 
 ## What AcraServer does
@@ -27,6 +27,8 @@ Refer to a [Acra security features](/acra/acra-in-depth/security-features/) to l
 ## Functional requirements
 
 You application sends plaintext data to the database through AcraServer. AcraServer encrypts the data and sends it to the database. The data is stored encrypted in the database until the app reads it through AcraServer.
+
+Your application doesn't need to handle any cryptographic code or have access to any keys.
 
 * Transparent data encryption/decryption.
 * Searchable encryption.
