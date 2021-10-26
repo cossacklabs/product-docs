@@ -1,65 +1,84 @@
 ---
-title: DBs
+title: Key storage
 bookCollapseSection: true
 weight: 4
 ---
 
-# Key storage
+# Key storage and KMS
 
-Is used to store encrypted keys and tokens.
+AcraServer, AcraTranslator and AnyProxy require to access encryption keys. For example, if you place Acra Master key to KMS, AcraServer should know how to connect to the KMS. Or for syncing intermediate keys (useful when you have a cluster of AcraServers/AcraTranslator) Acra can put them into Redis.
 
-## How it works
+Refer to [Configurting and maintaining](/acra/configuring-maintaining/key-storing/) to learn more about supported key stores and KMS.
 
-A dedicated key/value storage (we currently support Redis for this purpose) is brought up.
-AcraServer and/or AcraTranslator are configured to connect to it and use it for key/token storage.
 
-When AcraServer or AcraTranslator need a key, they ask key storage for it.
-Each key has its purpose (transport, encryption, audit log, HMAC) and is bound to a specific client ID or zone.
-When tokenization is performed, the key storage will contain data needed for consistent tokenization
-(return same result for same input next time) and for detokenization (reverse operation).
+## Key storage
 
-## Which FRs/NFRs does it implement
+### How it works
 
-* Encryption key storage (more flexible than filesystem key store)
-* Tokenization data storage (more scalable and stable than an in-memory store)
+Acra needs a place for storing intermediate keys (encrypted private keys used for all the encryption, masking, tokenization, crypto-signed auidt logging and so on). All these keys are encrypted with the master key, so it’s OK to store them in some storage available for many hosts. Managing keys becomes harder as the number of them increases, that’s why you may want to find the best key storage for your purposes.
 
----
+Acra supports several options: FS-storage, in-memory BoltDB or Redis.
 
-* Works with a popular in-memory database (Redis)
+Refer to [Configuring and maintaining](/acra/configuring-maintaining/key-storing/kv-stores/) to learn more about supported key storages and how to enable them.
 
-## How it connects to other parts
+We recommend deploying a dedicated Redis database as key storage and token storage, and configure AcraServer, AcraTranslator, AnyProxy to connect to it and use it.
+
+When AcraServer/AcraTranslator/AnyProxy need a key, they ask key storage for it. Each key has its purpose (transport, encryption, audit log, HMAC) and is bound to a specific client ID or zone. Read more about [key management](/acra/security-controls/key-management/).
+
+AcraServer and AcraTranslator will require key storage for tokenization. When [tokenization](/acra/security-controls/tokenization/) is performed, the key storage will contain data needed for consistent tokenization (return same result for same input next time) and for detokenization (reverse operation).
+
+### Functional requirements
+
+* External encrypted key storage (Redis) is more flexible than filesystem-based key storage
+* External storage (Redis) for tokens is more scalable and stable than an in-memory store
+
+
+### Non-functional requirements
+
+* External key/token storage is easier to use and sync keys across all Acra instances.
+
+### How it connects to other parts
 
 Components like AcraServer and AcraTranslator can connect to key storage database to read keys, read/write tokenization data.
 
-## What are architectural considerations?
+### What are architectural considerations?
 
 If you already use Redis for some purposes, it is not recommended to use it for key storage too.
 Instead, hosting new instance on a separate machine will provide better security guarantees.
 
-# KMS
+---
 
-Is used to store master-password. Can be used to store all the keys, but might be quite expensive and might become performance bottleneck.
+## KMS
 
-## How it works
+Is used to store Acra Master key. While KMS can be used to store all the intermediate keys, we strongly don't recommends it, as it might be quite expensive and might become performance bottleneck.
 
-Most Acra tools (including services like Server or Translator) can read master key from environment var.
-But they can read it from KMS as well.
-Right now we support HashiCorp Vault for this purposes.
+As Acra stores all intermediate keys encrypted, it needs Acra Master Key to decrypt them. 
 
-## Which FRs/NFRs does it implement
+### How it works
 
-* Secure storage of master key
+Most Acra tools, like AcraServer, AcraTranslator and AnyProxy can read Acra Master key from environment variable, but they can read it from KMS as well.
 
-## How it connects to other parts
+Right now we support HashiCorp Vault for this purposes. Other KMS are supported in [Acra Enterprise Edition](/acra/enterprise-edition/).
 
-All Acra binaries that need master key for some purpose, may get it from KMS.
+Refer to [Configuring and maintaining](/acra/configuring-maintaining/key-storing/kms/) to learn more about supported KMS and how to configure connection.
 
-## What are the security considerations?
+
+### Functional requirements
+
+* Secure storage of Acra Master key
+
+
+### How it connects to other parts
+
+AcraServer, AcraTranslator and AnyProxy can read Acra Master key from KMS.
+
+
+### What are the security considerations?
 
 If you want to use KMS for master key storage/distribution, you already know that it is quite important
 to ensure that the KMS is properly configured, well isolated and there are policies that limit what clients can request.
-You can, for example, limit who can read master key to only machines that actually need it.
 
-## What are architectural considerations?
+You can, for example, limit who can read Acra Master key to only machines that actually need it.
 
-_TODO_
+We strongly recommend considering backup of Acra Master key, configuring audit logging on KMS side, and deploying KMS as a cluster (scaling in mind).
+

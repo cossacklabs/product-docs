@@ -33,5 +33,5 @@ The latest [Acra Enteprise Edition](https://www.cossacklabs.com/acra/#pricing) r
 ## Acra Enterprise Edition documentation
 
 {{< hint info >}}
-We are merging Acra Commuity Edition and Acra Enterprise Edition documentation here, so some sections will be marked as "Enterprise Only".
+We are merging Acra Community Edition and Acra Enterprise Edition documentation here, so some sections will be marked as "Enterprise Only".
 {{< /hint>}}

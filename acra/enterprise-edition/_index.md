@@ -6,7 +6,7 @@ weight: 12
 # Acra Enterprise Edition
 
 {{< hint info >}}
-We are merging Acra Commuity Edition and Acra Enterprise Edition documentation here, so some sections are updating in realtime :)
+We are merging Acra Community Edition and Acra Enterprise Edition documentation here, so some sections are updating in realtime :)
 {{< /hint>}}
 
 [Acra Community Edition](https://github.com/cossacklabs/acra) has been built to satisfy the needs of security community, startups and technology/security enthusiasts. Acra Community Edition exposes source code of all the security controls and cryptosystems for public review, testing and usage. 
