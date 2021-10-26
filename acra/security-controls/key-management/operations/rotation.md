@@ -226,7 +226,7 @@ The easiest way to re-encrypt the data is to query data through Acra and put it 
 
 #### Using client-side encryption
 
-If you using [AcraConnector and AcraWriter](/acra/acra-in-depth/architecture/sdks/#full-on-in-app-sdk):
+If you using AcraConnector and [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter):
 
 1. Make sure that you have the new public key for AcraWriter.
    This key will be used to encrypt the data.

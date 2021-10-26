@@ -83,6 +83,6 @@ Anyway, AcraTranslator won't be able to decrypt data for which it does not have 
 as well as it won't decrypt data for application clients not supposed to access it.
 
 However, in cases when you need to make application the only component that interacts with plaintext,
-AcraTranslator won't help you, you will have to use use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/) to encrypt data on application-side before it leaves.
+AcraTranslator won't help you, you will have to use use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
 
 Refer to [Scaling and HA](/acra/acra-in-depth/scaling-and-high-availability/) to learn how to scale and support growing infrastructure when you use AcraTranslator.
