@@ -70,7 +70,7 @@ With Acra we strive to provide 2 main programmatic security guarantees:
   for an event of a hack/breach. In the future, more intrusion detection features besides poison records are planned.
 
 If it is explicitly stated that the output for Zone ID must precede the AcraStruct, Acra Server will search for certain 
-strings called [Zone IDs (“Zones”)]({{< ref "/acra/security-controls/zones.md" >}}) when analysing the database output stream.
+strings called [Zone IDs (“Zones”)](/acra/security-controls/zones/) when analysing the database output stream.
 Zones let Acra know that within this record a private key corresponding to the Zone ID should be used for the actual 
 decryption of AcraStructs.
 
@@ -95,7 +95,7 @@ each other:
 ![](/files/guides/djangoproject-tutorial/acra-entities-current.png)
 
 Put simply, the application talks to AcraConnector. AcraConnector pretends to be a database listener that uses 
-standard PostgreSQL protocol and send the request to AcraServer using [Secure Session]({{< ref "/themis/crypto-theory/cryptosystems/secure-session.md" >}}) 
+standard PostgreSQL protocol and send the request to AcraServer using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session) 
 (socket protection protocol). AcraServer sends a request to the database using the regular PostgreSQL protocol and 
 receives an answer.
 If AcraServer detects the presence of AcraStruct while parsing the answer, it attempts to decrypt it and replace 
@@ -157,8 +157,7 @@ that include Latin symbols, numbers, “-” (minus symbol), “_” (underscore
 The generator will generate and place the keys into the .acrakeys directory (you can change this with `--output` argument).
 
 For a few minutes, let the keys rest where they are - they will be necessary after you have installed AcraServer, 
-AcraConnector, and AcraWriter (please see [Key management]({{< ref "/acra/acra-in-depth/cryptography-and-key-management/#key-management-INVALID" >}}) 
-in the [Themis]({{< ref "/themis/" >}}) documentation).
+AcraConnector, and AcraWriter (please see [Key management](/acra/acra-in-depth/cryptography-and-key-management/) in the [Themis](/themis/) documentation).
 
 ## AcraServer
 
@@ -197,7 +196,7 @@ acra-server --db_host=127.0.0.1
 
 The command above can be complemented with `--db_port=5432 -v` to adjust the listener port and to add logs quickly. 
 There are more parameters available, and you can find them in the 
-[documentation page for Acra]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}), but for the present goal - namely, 
+[documentation page for AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/), but for the present goal - namely, 
 for an easy integration of Acra into a Django app, the default parameters will do.
 
 You can also run with the options from config. Copy the example config:
@@ -264,7 +263,7 @@ listens back and returns the responses to the app.
 
 Put `.acrakeys/yourID` + `.acrakeys/yourID_server.pub` to AcraConnector’s key folder (`.acrakeys` or anything you chose 
 in `--keys_output_dir`). AcraConnector’s own public key should already have been given to AcraServer to establish 
-[Secure Session]({{< ref "/themis/crypto-theory/cryptosystems/secure-session.md" >}}) connection. Pre-shared public keys enforce maximum secrecy and 
+[Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Pre-shared public keys enforce maximum secrecy and 
 easy-to-manage authentication, and - as you can see - require minimal intervention on your side or into your code for 
 successful implementation.
 
