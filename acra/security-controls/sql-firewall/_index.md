@@ -6,19 +6,23 @@ weight: 6
 
 ## AcraCensor — Acra’s firewall
 
-AcraCensor is a separate SQL firewall module for AcraServer that checks every incoming request. AcraCensor logs SQL requests directed to the database, allows and denies those requests according to certain rules (configured as allowlist/denylist), or ignores them and logs an exception (this might be useful if some requests can’t be parsed by AcraCensor). AcraCensor can be configured for your exact use case, allowing to setup an allowlist and a denylist for tables, query patterns, and exact queries. AcraCensor's goal is to protect the database from SQL injections and suspicious SQL queries.
+AcraCensor is a separate SQL firewall module for AcraServer that checks every incoming SQL request. 
+
+AcraCensor logs SQL requests directed to the database, allows and denies those requests according to certain rules (configured as allowlist/denylist), or ignores them and logs an exception (this might be useful if some requests can’t be parsed by AcraCensor). AcraCensor can be configured for your exact use case, allowing to setup an allowlist and a denylist for tables, query patterns, and exact queries. AcraCensor's goal is to protect the database from SQL injections and suspicious SQL queries.
 
 AcraCensor supports SQL database types — MySQL and PostgreSQL (and their flavours i.e. MariaDB). It is built on top of [xwb1989/sqlparser](https://github.com/xwb1989/sqlparser), which we had extended significantly.
 
 AcraCensor is compatible with SIEM systems, with logs that can be used for alerts' configuration and anomaly detection.
 
-We created [a Docker-based demo project](https://github.com/cossacklabs/acra-censor-demo) to demonstrate how to prevent SQL injections with AcraCensor using [OWASP Mutillidae II example app](https://github.com/webpwnized/mutillidae). You can read engineering details about how we built AcraCensor in [our blog](https://www.cossacklabs.com/blog/how-to-build-sql-firewall-acracensor.html).
+We created [an SQL injections prevention with Acra example project](https://github.com/cossacklabs/acra-engineering-demo/#example-6-sql-injections-prevention-with-acra) to demonstrate how to prevent SQL injections with AcraCensor using [OWASP Mutillidae II example app](https://github.com/webpwnized/mutillidae). You can read engineering details about how we built AcraCensor in [our blog](https://www.cossacklabs.com/blog/how-to-build-sql-firewall-acracensor.html).
 
 ### Launching AcraCensor
 
-AcraCensor is a built-in component of AcraServer, so it starts running when AcraServer does if the path to its configuration file is provided. You can provide a path for AcraCensor's configuration file using `--acracensor_config_file` parameter on the command line or in [`acra-server.yaml`](https://github.com/cossacklabs/acra/blob/master/configs/acra-server.yaml) configuration file.
+AcraCensor is a built-in component of AcraServer, so it starts running when AcraServer starts if the path to its configuration file is provided. 
 
-You can find a basic example configuration file [`configs/acra-censor.example.yaml`](https://github.com/cossacklabs/acra/blob/master/configs/acra-censor.example.yaml) in our GitHub repository. More real-world examples are available in the [AcraCensor demo project](https://github.com/cossacklabs/acra-censor-demo). You can use these examples as a template for your own, using the database of your choice.
+You can provide a path for AcraCensor's configuration file using `--acracensor_config_file` parameter of [configuration file](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
+
+You can find a basic example configuration file [`configs/acra-censor.example.yaml`](https://github.com/cossacklabs/acra/blob/master/configs/acra-censor.example.yaml) in our GitHub repository. More real-world examples are available in the [SQL injections prevention with Acra example project](https://github.com/cossacklabs/acra-engineering-demo/#example-6-sql-injections-prevention-with-acra). You can use these examples as a template for your own, using the database of your choice.
 
 Starting AcraCensor using exact configuration file:
 
@@ -30,15 +34,16 @@ acra-server \
     --db_host=postgresql.db.host 
 ```
 
-Refer to the [AcraServer]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}) documentation for details on configuration parameters.
+Refer to the [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/) documentation for details on configuration parameters.
 
 ### Configuring AcraCensor rules
 
 The configuration file describes how AcraCensor should process the incoming SQL queries – log, pass, block, ignore. Each action is described by the corresponding handler. Handlers are considered in specified order, from top to bottom.
 
 We suggest the following structure of handlers for better security: put `query_capture` first to log every query into the `censor.log`, then put `query_ignore` to ignore some database-specific control queries that occur when the database is starting and when the database drives check the connections, then put the `deny` handler to block all the unwanted queries, then put the `allow` handler to allow some specific "normal" queries.
+
 {{< hint info >}}
-Note: any change in the AcraCensor configuration file require AcraServer restart to apply changes.
+Note: any change in the AcraCensor configuration file require AcraServer's restart to apply changes.
 {{< /hint >}}
 
 The new configuration file format allows configuring the `allow` and `deny` handlers separately or simultaneously.
@@ -78,7 +83,7 @@ handlers:
 
 Next, see the explanation for each handler below, in order of importance.
 
-⚙️**Need help with configuring AcraCensor? Check out the [engineering examples](https://github.com/cossacklabs/acra-engineering-demo/#example-6-sql-injections-prevention-with-acra)!**⚙️
+Need help with configuring AcraCensor? Check out the [SQL injections prevention with Acra example project](https://github.com/cossacklabs/acra-engineering-demo/#example-6-sql-injections-prevention-with-acra).
 
 
 
@@ -109,16 +114,15 @@ There are several handler types for AcraCensor:
 - The `deny` handler - allows everything by default, but blocks specific queries or queries that match specific patterns and access to the specific tables.
 For each handler you need to specify what queries it applies to:
 
-- [`queries`]({{< ref "/acra/security-controls/sql-firewall/queries_filter.md" >}}) — match the queries literally with the provided list
-- [`tables`]({{< ref "/acra/security-controls/sql-firewall/table_filter.md" >}}) — match the queries affecting the specified tables
-- [`patterns`]({{< ref "/acra/security-controls/sql-firewall/pattern_filter.md" >}}) — match the queries by SQL statement patterns
+- [`queries`](/acra/security-controls/sql-firewall/queries_filter/) — match the queries literally with the provided list,
+- [`tables`](/acra/security-controls/sql-firewall/table_filter/) — match the queries affecting the specified tables,
+- [`patterns`](/acra/security-controls/sql-firewall/pattern_filter/) — match the queries by SQL statement patterns.
 
 You can configure the allowlist and the denylist separately or simultaneously.
 Rules are checked in the order they appear in the configuration until one of them matches,
 which decides what to do with the query: either allow or deny it.
+
 Within each rule, `queries` are matched first,  followed by `tables`, and then `patterns`.
-
-
 
 
 ### Prepared statements
@@ -200,7 +204,6 @@ parse_errors_log: unparsed_queries.log
 ```
 
 {{< hint warning >}}
-**Warning:**
 Be careful, parse error log contains verbatim queries, without any masking.
 Make sure to avoid exposing sensitive information from this log.
 {{< /hint >}}
