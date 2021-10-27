@@ -77,8 +77,89 @@ See [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes#searchab
 
 ## AcraTranslator API
 
-**TODO: put example of AcraTranslator requests to encrypt data searchably and to generate search hash.**
+### HTTP API
 
+{{< hint info >}}
+Searchable encryption/decryption is essentially the same as usual encryption/decryption, but uses methods with slightly different names.
+And because of this difference you should not mix them, `encrypt`+`decryptSearchable` for example will not work as you'd expect.
+{{< /hint >}}
+
+#### Encryption/decryption request
+
+Method: `GET`
+
+Mime-Type: `application/json`
+
+Body: `{"data":"dGVzdCBkYXRh","zone_id":"DDDDDDDDQHpbUSOgYTzqCktp"}`
+
+> `data` is base64 encoded data you want to encrypt or decrypt,
+and `zone_id` is _optional_ field specifying the zone ID you want to associate with this request
+(otherwise, AcraTranslator will use the key associated with client ID of the application performing the request).
+
+| Path                       | Crypto envelope |
+| ----                       | :--:            |
+| `/v2/encryptSearchable`    | AcraStruct      |
+| `/v2/decryptSearchable`    | AcraStruct      |
+| `/v2/encryptSymSearchable` | AcraBlock       |
+| `/v2/decryptSymSearchable` | AcraBlock       |
+
+{{< hint info >}}
+Do not attempt to mix operations with two different crypto envelopes.
+It won't work and you will get decryption errors.
+
+And remember that these AcraStruct/AcraBlock are the same ones AcraServer can use.
+You can, for example, encrypt something into AcraStruct with AcraTranslator, store it in database,
+and then AcraServer will be able to transparently decrypt it.
+Or use transparent encryption via AcraServer, then read it manually directly from database,
+and ask AcraTranslator to decrypt it.
+{{< /hint >}}
+
+#### Encryption/decryption response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body: `{"data":"6xgRpbJLsojSwHgmBHA="}`
+
+> Response data will be base64 encoded as well, even if it contains text string as a result of decryption.
+
+In case of error:
+* Status code: `4XX`
+* Body: `{"code":400,"message":"invalid request body"}`
+  
+  `code` will contain error code, and `message` will contain short description of error
+
+#### Hash generation request
+
+Method: `GET`
+
+Path: `generateQueryHash`
+
+Mime-Type: `application/json`
+
+Body: `{"data":"dGVzdCBkYXRh","zone_id":"DDDDDDDDQHpbUSOgYTzqCktp"}`
+
+> `data` is base64 encoded data you want hash,
+and `zone_id` is _optional_ field specifying the zone ID you want to associate with this request
+(otherwise, AcraTranslator will use the key associated with client ID of the application performing the request).
+
+#### Hash generation response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body: `{"data":"6xgRpbJLsojSwHgmBHA="}`
+
+> `data` in this case will contain cryptographic hash of the data passed in the request.
+
+You can later use this hash:
+* For every "searchably encrypted" value, take first N bytes (N = length of hash)
+* Compare that prefix with the hash
+* If they match, the encrypted data was exactly the same as you've just hashed
+
+Of course, mismatch in client ID or zone ID or the hashed/encrypted data will result in different hashes, and thus non working search.
 
 ## Limitations
 

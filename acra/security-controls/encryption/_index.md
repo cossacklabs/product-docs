@@ -172,5 +172,56 @@ rather than encryption configuration, you can read more about them on their page
 
 ## AcraTranslator API
 
-**TODO: put example of AcraTranslator requests to encrypt data and decrypt data.**
+Compared to AcraServer, AcraTranslator explicitly handles each encryption/decryption request instead of doing it silently in transparent mode.
 
+This section describes how to perform encryption/decryption using the Translator API.
+
+### HTTP API
+
+#### Request
+
+Method: `GET`
+
+Mime-Type: `application/json`
+
+Body: `{"data":"dGVzdCBkYXRh","zone_id":"DDDDDDDDQHpbUSOgYTzqCktp"}`
+
+> `data` is base64 encoded data you want to encrypt or decrypt,
+and `zone_id` is _optional_ field specifying the zone ID you want to associate with this request
+(otherwise, AcraTranslator will use the key associated with client ID of the application performing the request).
+
+| Path             | Crypto envelope |
+| ----             | :--:            |
+| `/v2/encrypt`    | AcraStruct      |
+| `/v2/decrypt`    | AcraStruct      |
+| `/v2/encryptSym` | AcraBlock       |
+| `/v2/decryptSym` | AcraBlock       |
+
+{{< hint info >}}
+Do not attempt to mix operations with two different crypto envelopes.
+It won't work and you will get decryption errors.
+
+And remember that these AcraStruct/AcraBlock are the same ones AcraServer can use.
+You can, for example, encrypt something into AcraStruct with AcraTranslator, store it in database,
+and then AcraServer will be able to transparently decrypt it.
+Or use transparent encryption via AcraServer, then read it manually directly from database,
+and ask AcraTranslator to decrypt it.
+{{< /hint >}}
+
+#### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body: `{"data":"6xgRpbJLsojSwHgmBHA="}`
+
+> Response data will be base64 encoded as well, even if it contains text string as a result of decryption.
+
+In case of error:
+* Status code: `4XX`
+* Body: `{"code":400,"message":"invalid request body"}`
+  
+  `code` will contain error code, and `message` will contain short description of error
+
+**TODO** should gRPC be here as well?
