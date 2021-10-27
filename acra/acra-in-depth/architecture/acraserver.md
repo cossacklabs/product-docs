@@ -8,7 +8,7 @@ weight: 2
 
 AcraServer is also known as SQL Proxy. It's SQL database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate. 
 
-AcraServer is your the main choice if you'd like to encrypt data "transparently on-a-fly" between your app and SQL database.
+If you'd like to encrypt the data between your app and SQL database "transparently on-a-fly" then AcraServer should be your main choice.
 
 Refer to [Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/) to learn how configure AcraServer.
 
@@ -26,7 +26,7 @@ Refer to a [Acra security features](/acra/acra-in-depth/security-features/) to l
 
 ## Functional requirements
 
-You application sends plaintext data to the database through AcraServer. AcraServer encrypts the data and sends it to the database. The data is stored encrypted in the database until the app reads it through AcraServer.
+Your application sends plaintext data to the database through AcraServer. AcraServer encrypts the data and sends it to the database. The data is stored encrypted in the database until the app reads it through AcraServer.
 
 Your application doesn't need to handle any cryptographic code or have access to any keys.
 
@@ -40,7 +40,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 ## Non-functional requirements
 
-* Easy to integrate into existing infrastructure – supports SQL databases, [support SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
+* Easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
 * Available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
 * [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) as a helper tool for runtime reconfiguration.
 * Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [SQL firewall](/acra/security-controls/sql-firewall), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) for client-side encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
@@ -67,7 +67,7 @@ Other connections are optional – for example, you can use Redis as external ke
 ![](/files/acra/as-and-all-their-friends.png)
 
 
-* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that don't support TLS 1.2+.
+* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
 
 * [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) — a lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
 
@@ -93,6 +93,6 @@ In many cases using SQL proxy would be a desired solution as it is
 and provides a whole complex of data protection stuff.
 
 However, in cases when you need to make application the only component that interacts with plaintext,
-AcraServer won't help you, you will have to use use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
+AcraServer won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
 
 Refer to [Scaling and HA](/acra/acra-in-depth/scaling-and-high-availability/) to learn how to scale and support growing infrastructure when you use AcraServer.

@@ -7,7 +7,7 @@ weight: 2
 
 ## Server side
 
-Where you can run Acra software that acts like a server (including AcraServer, AcraConnector, AcraTranslator).
+It is where you can run Acra software that acts like a server (including AcraServer, AcraConnector, AcraTranslator).
 
 In most cases Linux will be used as a host OS, and we have [packages](https://github.com/cossacklabs/acra/#server-side) available for commonly used distros.
 

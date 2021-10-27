@@ -17,7 +17,7 @@ And this is where `acra-tokens` utility can help.
 Since Acra tracks token access time, you can, for example,
 use `acra-tokens` to remove tokens that were accessed more than N days ago.
 In some cases, "accessed long time ago" does not mean it is useless now, you can first `disable` old tokens
-and then run some tests of you application to ensure it works properly.
+and then run some tests of your application to ensure it works properly.
 If turns out some disabled token is actually needed, you can `enable` it back.
 And then, if everything is OK, `remove` remaining disabled tokens.
 

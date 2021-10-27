@@ -30,7 +30,7 @@ Major security design principles that you can achieve while using Acra:
 
 One of **the key design goals** for Acra was to ensure that engineering behind the security guarantees is compatible with modern software development and reliability engineering practices. 
 
-**Security design goals** are rather simple (the guarantees are further explained and explored in [Threat modelling and security guarantees](/acra/acra-in-depth/security-design/threat-models-and-guarantees/):
+**Security design goals** are rather simple (the guarantees are further explained and explored in [Threat modelling and security guarantees](/acra/acra-in-depth/security-design/threat-models-and-guarantees/)):
 
 * No amount of data and/or secrets leaked from the database could be sufficient for decryption of the data stolen from the database. This is achieved through cryptography rather than through general system design.
 
@@ -59,7 +59,7 @@ The main Acra's security control is [application-level encryption](https://www.i
 Acra is not the only tool that provide ALE. [MongoDB client-side encryption](https://docs.mongodb.com/manual/core/security-client-side-encryption/) is another great example of encrypting data before storing in the database. Acra allows applying ALE in the different parts of your system – on the client-side or on the Acra side.
 
 
-Acra'a application-level encryption is more than data at rest encryption and TLS combined.
+Acra's application-level encryption is more than data at rest encryption and TLS combined.
 
 ![](/files/acra/acra-ale-protections.png)
 
