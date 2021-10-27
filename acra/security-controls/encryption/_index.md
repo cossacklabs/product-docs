@@ -3,54 +3,68 @@ title: Encryption
 weight: 1
 ---
 
-# Encryption as a security control
+# Application-level encryption
 
 Acra prevents adversaries with access to database from seeing sensitive plaintexts, if it has been configured so.
-Acra does that by encrypting the sensitive data selectively and keeping the keys to itself. In this, Acra acts as security boundary in front of sensitive data.
+Acra does that by encrypting the sensitive data selectively and keeping the keys to itself. In this, Acra acts as security boundary in front of sensitive data. 
+
+What Acra does can be described as [application-level encryption](https://www.infoq.com/articles/ale-software-architects/).
 
 ## Encryption
 
-* AcraServer transparent: If AcraServer has been set up in transparent mode, encryption happens on AcraServer during insert/update queries.
-* AcraTranslator: Encryption happens via request to AcraTranslator API.
-* SDK (AcraWriter): It is possible to generate AcraStructs using AcraWriter library with appropriate public keys.
+Acra encrypts data into special cryptographic containers: AcraStructrs and AcraBlocks.
+Refer to [Acra in depth / Data structures](/acra/acra-in-depth/data-structures/) to learn the different and to select suitable for you (use AcraBlock by default).
 
-This page also describes how to configure it in AcraServer and what you will get as a result.
+There are three ways to encrypt data:
+
+* AcraServer transparent encryption: if AcraServer has been set up in transparent mode, encryption happens on AcraServer during INSERT/UPDATE queries. You configure which fields should be encrypted in `encryptor_config`.
+* AcraTranslator: encryption happens as result of gRPC or HTTP API call from client application.
+* [Client-side encryption using AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/#acrawriter): it is possible to generate AcraStructs/AcraBlocks using AcraWriter library inside your application using appropriate keys.
 
 ## Decryption
 
-Decryption always happens on AcraServer / AcraTranslator, as it is the only entity to hold the keys and metadata.
+There are three ways to encrypt data from AcraStructs/AcraBlocks back in plaintext:
+
+* AcraServer transparent decryption: if AcraServer has been set up in transparent mode, decryption happens on AcraServer during SELECT queries. Same fields as configured as encrypted will be decrypted.
+* AcraTranslator: decryption happens as result of gRPC or HTTP API call from client application.
+* [Client-side decryption using AcraReader SDK](/acra/acra-in-depth/architecture/sdks/#acrareader): it is possible to decrypt data using AcraReader library inside your application using appropriate keys.
+
+Decryption is a risky operation, because decryption entity should have access to the keys (and should protect them).
+
 
 ## Interoperability 
 
-Records encrypted by AcraTranslator can be decrypted by AcraServer and vice versa. Records encrypted by AcraWriter can by decrypted by both as well. 
+All Acra services use the same cryptographic envelopes: AcraStructs and AcraBlocks. They can be encrypted and decrypted in the same fashion across Acra services mentioned above.
 
 ## AcraServer behavior
 
 AcraServer works as a proxy between database client and the database itself.
 When a column is configured to be encrypted, AcraServer will transparently encrypt its value.
 You can also encrypt the data manually on the client side using
-[AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter/_index.md" >}}).
-Decryption on the other hand is done automagically: Acra will detect encrypted data and will attempt
+[AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/#acrawriter).
+
+Decryption on the other hand is done automagically: AcraServer will detect encrypted data and will attempt
 to decrypt it with all known keys.
 
 However, there are some caveats:
+
 * In simplest scenario, AcraServer clients won't see any difference: they `INSERT` plaintext,
   they get plaintext in `SELECT` queries, just like with direct connection to database.
   At the same time, the data in the database itself will be stored in encrypted form.
   And if the attacker has full access to the database (but not to the AcraServer),
   he won't be able to magically bypass the encryption, no keys means no data.
-* Every AcraServer client has own unique identifier (usually derived during TLS or Themis Secure Session handshake),
+* Every client application has own unique identifier (usually derived during TLS or Themis Secure Session handshake),
   and keys associated with that identifier.
   If the keystore does not contain keys that were used to encrypt requested data,
   the data will be returned "as is", just like it is stored in database in encrypted form.
-* Apart from client IDs, encryption keys can be bound to [zones]({{< ref "/acra/security-controls/zones/_index.md" >}}),
+* Apart from client IDs, encryption keys can be bound to [zones](/acra/security-controls/zones/),
   in this case clients should set proper zone ID in requests or AcraServer will be unable
   to decrypt data because of the same reason as with client ID, no proper keys.
   Alternatively, zone ID can be stored in database as a separate column.
-* When [masking]({{< ref "/acra/security-controls/masking/_index.md" >}}) is enabled,
+* When [masking](/acra/security-controls/masking/) is enabled,
   part of data won't be encrypted (depending on configuration) and
   the response will be different depending on whether the client has proper keys as well.
-* When [tokenization]({{< ref "/acra/security-controls/tokenization/_index.md" >}}) is enabled,
+* When [tokenization](/acra/security-controls/tokenization/) is enabled,
   returned values will be anonymized, they will be different from the actual plaintext.
 
 You don't have to run a single AcraServer instance and give it all the keys.
@@ -58,15 +72,17 @@ Many instances can be launched, each responsible for different tables and/or cli
 
 For example, you can have few clusters, each responsible for
 protection of different data based on its confidentiality level:
-* Few Acra servers that process common requests like "find user by email" or "get his/her name"
-* Dedicated Acra servers for specific geographic regions, with different keys used to
-  encrypt user activity based on his/her location at that monent
+
+* Several AcraServers that process common requests like "find user by email" or "get user name".
+* Dedicated AcraServers for specific geographic regions, with different keys used to
+  encrypt user activity based on their location at that moment.
 
 When combined with proper network settings, you can end up with a complex system
 where each component can only access data it was created to work with.
+
 And when combined with other features like
-[SQL firewall]({{< ref "/acra/security-controls/sql-firewall/_index.md" >}}) and/or
-[audit logging]({{< ref "/acra/security-controls/security-logging-and-events/audit-logging.md" >}}),
+[SQL firewall](/acra/security-controls/sql-firewall/) and
+[audit logging](/acra/security-controls/security-logging-and-events/audit-logging/),
 it will be impossible for somebody to perform malicious activity without being noticed.
 
 ## AcraServer configuration
@@ -74,7 +90,8 @@ it will be impossible for somebody to perform malicious activity without being n
 Although AcraServer can work without knowing database schema,
 if you want to use features like transparent encryption, masking or tokenization,
 you will have to tell AcraServer that schema.
-Which tables exist, which columns (name/type) are in these tables.
+
+AcraServer needs to know which tables exist, which columns (name/type) are in these tables.
 Then, you choose which columns should be encrypted and use different configuration options to tune the behavior.
 A simple example of the configuration file may look like this:
 
@@ -141,12 +158,19 @@ schemas:
 
 Some of the flags in the second example are part of a speific feature
 rather than encryption configuration, you can read more about them on their pages:
-* [Masking]({{< ref "/acra/security-controls/masking/_index.md" >}}) —
-  partial column encryption, with configurable placeholder for unauthenticated reads
-* [Searchable encryption]({{< ref "/acra/security-controls/searchable-encryption/_index.md" >}}) —
+
+* [Masking](/acra/security-controls/masking/) —
+  partial column encryption, with configurable placeholder for unauthenticated reads.
+* [Searchable encryption](/acra/security-controls/searchable-encryption/) —
   allows efficient search when you know exact value (plaintext) inside encrypted column
-* [Tokenization]({{< ref "/acra/security-controls/tokenization/_index.md" >}}) —
+* [Tokenization](/acra/security-controls/tokenization/) —
   when you want to anonymize data returned to clients
-* [Zones]({{< ref "/acra/security-controls/zones/_index.md" >}}) —
+* [Zones](/acra/security-controls/zones/) —
   one of the approaches to make Acra use different encryption keys for different data,
   depending on zone ID specified in the request or stored in column
+
+
+## AcraTranslator API
+
+**TODO: put example of AcraTranslator requests to encrypt data and decrypt data.**
+
