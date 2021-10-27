@@ -9,7 +9,7 @@ weight: 5
 Acra uses a multitude of keys for different purposes:
 
   - storage/zone keys for encrypting your data at rest
-  - transport keys for encrypting communications (if Themis Secure Session is used)
+  - transport keys for encrypting communications (if [AcraConnector is used with Themis Secure Session as transport encryption](/acra/security-controls/transport-security/acra-connector/))
   - blind index keys for searchable encryption
   - keys for [audit logging](/acra/security-controls/security-logging-and-events/audit-logging)
   - poison record keys for [intrusion detection]({{< ref "/acra/security-controls/intrusion-detection/#poison-records" >}})
