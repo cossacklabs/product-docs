@@ -40,14 +40,14 @@ Acra essentially moves security boundary as close to the data itself as possible
 ## Major security features
 
 * Cryptographic security: data is encrypted during storage and transmission via application-level and transport-level encryption with strong mutual authentication. 
-* Searchable encryption: address encrypted records (use them in WHERE queries) without revealing them to the database.
+* Searchable encryption: address encrypted records (use them in SELECT queries with WHERE clause) without revealing them to the database.
 * Selective encryption: you pick what, where and how gets encrypted.
 * Data masking and tokenization: anonymise or pseudonymise the data preserving its original format. 
 * Key management tooling: flexible management of rolling/rotation/revocation to suit your load needs and data architecture. 
 * SQL request firewall: prevent SQL injections, stop unauthorized and suspicious queries.
 * Intrusion detection system: detect data leakage using poison records and SIEM integration.
 * Logging, monitoring and security events: always have operational and security overview on what's happening with your data.
-* Tamper-proof audit logging: Acra produces audit log that prevents unnoticable changes.
+* Tamper-proof audit logging: Acra produces audit log that prevents unnoticeable changes.
 * Policies: expressive policy language that allows to configure Acra's behavior in large infrastructures.
 
 Refer to [Acra-in-depth / Security features](/acra/acra-in-depth/security-features/) to learn more.
