@@ -1,18 +1,28 @@
 ---
 title: Masking
-weight: 5
+weight: 3
 ---
 
 # Masking
 
-Partial column encryption.
-Hides encrypted part from clients/AcraServers who don't have right decryption keys.
+Masking is partial column encryption. Masking hides encrypted part from client apps who don't have right decryption keys.
 In case of decryption failure, encrypted data will be replaced with a placeholder.
 
 Use cases may include:
+
 * Credit card numbers (reveal only last N digits)
 * Mobile phone (again, reveal only last N digits, i.e. for recovery purposes)
 * First/last name (mask everything except 1-3 first characters)
+
+Masking is "kinda anonymisation". It's helpful when the dataset should be shared with untrusted third parties.
+
+Under the hood, AcraServer/AcraTranslator encrypt the data fully, and concatenate a piece of plaintext (defined by `plaintext_length` variable, see below). So the data itself is stored encrypted into AcraStruct/AcraBlock with a tiny chunk of plaintext data.
+
+One components can provide masking functionality:
+
+* AcraServer — transparent masking for `INSERT` and `UPDATE` queries,
+  transparent demasking for `SELECT` queries, with per column configuration.
+
 
 ## AcraServer configuration
 

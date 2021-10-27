@@ -5,13 +5,12 @@ weight: 4
 
 # Tokenization
 
-## Description
+Tokenization is a way to transform some sensitive data into pseudo-random representation of same data type. 
 
-Tokenization is a way to transform some sensitive data into pseudo-random representation of same data type.
 A number (32 or 64 bit signed integer) will remain a number.
 String will be string.
-There is also special variant for string that contains email, it will be transformed to another email as well.
-The tokenized version will look like a random value.
+There is also special variant for string that contains email, it will be transformed to email-looking string as well.
+
 It is better to see than to read:
 
 * `789` -> `156749362`
@@ -20,21 +19,28 @@ It is better to see than to read:
 
 The tokenization process has few interesting properties:
 
-* Tokenized value is simply random, it is neither encrypted nor hashed version of the input
+* Tokenized value is simply random, it is neither encrypted nor hashed version of the input;
 * Tokenization supports two modes:
-  * Consistent tokenization — result will remain the same for the same input
-  * Inconsistent tokenization — result will be different every time, even for the same input
-* Tokenization can be reversed, but only for valid (previously returned) values
+  * Consistent tokenization — result will remain always the same for the same input (`hello` might be tokenized into `wshfwSjdsn`),
+  * Inconsistent tokenization — result will be different every time, even for the same input (`hello` might be tokenized into `KishJs` or `KdCbshQoP` or `KeitAyheof`),
+* Tokenization can be reversed, but only for valid (previously returned) values.
 
 Two components can provide tokenization functionality:
+
 * AcraServer — transparent tokenization for `INSERT` and `UPDATE` queries,
-  transparent detokenization for `SELECT` queries, with per column configuration
-* AcraTranslator — provides gRPC and HTTP API
+  transparent detokenization for `SELECT` queries, with per column configuration.
+* AcraTranslator — provides gRPC and HTTP API.
+
+Both of the require deploying an additional database, Redis by default, to store token<>encrypted data pairs.
+
+Refer to [Acra in depth / Architecture](/acra/acra-in-depth/architecture/key-storage/) and [Configuring and maintaining / Key storing](/acra/configuring-maintaining/key-storing/kv-stores/) to learn more about Redis token storage.
+
 
 ## AcraServer configuration
 
 In configuration file, passed by `--encryptor_config_file` flag, you can individually configure
 tokenization for any field of any table, if that field has tokenizable type.
+
 These options are accepted:
 
 * `tokenized` — boolean, use `true` to enable tokenization
@@ -57,7 +63,7 @@ You decide which one fits best for your application.
 
 ### gRPC
 
-You can use [this docker-compose file](https://github.com/cossacklabs/acra-Q12021/blob/master/docker/docker-compose.translator-ssession-connector-grpc.yml)
+You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-grpc.yml)
 as a playgroung, it will bring up AcraTranslator and expose its gRPC server at `127.0.0.1:9494`.
 
 In order to use the translator gRPC API you have to take
@@ -343,7 +349,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
 ### HTTP
 
-You can use [this docker-compose file](https://github.com/cossacklabs/acra-Q12021/blob/master/docker/docker-compose.translator-ssession-connector-http.yml)
+You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-http.yml)
 as a playgroung, it will bring up AcraTranslator and expose its HTTP server at `127.0.0.1:9494`.
 
 Here you can see few examples using `curl`.

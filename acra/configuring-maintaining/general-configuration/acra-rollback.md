@@ -165,7 +165,7 @@ acra-rollback \
 
 ### ZoneMode
 
-`acra-rollback` supports work with [zones]({{< ref "/acra/security-controls/zones.md" >}}), you can configure it via `zonemode_enable` flag.
+`acra-rollback` supports work with [zones](/acra/security-controls/zones/), you can configure it via `zonemode_enable` flag.
 If zonemode is enabled, make sure you have Zone ID in your `SELECT` query:
 
 ```
@@ -191,7 +191,7 @@ acra-rollback \
 
 {{< hint info >}}
 **Note:**
-Currently `acra-rollback` ignores [poison records]({{< ref "/acra/security-controls/intrusion-detection" >}}). 
+Currently `acra-rollback` ignores [poison records](/acra/security-controls/intrusion-detection). 
 Security-wise, the consideration is that if you can run CLI commands on the server that holds all the private keys, you can compromise the system anyway.
 {{< /hint >}}
 

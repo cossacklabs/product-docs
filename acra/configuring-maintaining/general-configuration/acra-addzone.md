@@ -6,7 +6,7 @@ weight: 10
 
 # acra-addzone
 
-`acra-addzone` is a command-line utility that generates new [Zone keys]({{< ref "/acra/security-controls/zones.md" >}}) for AcraBlocks/AcraStructs.
+`acra-addzone` is a command-line utility that generates new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs.
 
 ## Command line flags
 
