@@ -59,7 +59,7 @@ Acra consists of several services and utilities. Depending on your architecture 
 * **Security enforcement components**: services where "encryption happens". One of them is required.
 * **Key storage:** datastores where Acra keeps encrypted keys: Redis, table in your database, any KV store. One of them is required.
 * **Master key storage:** KMS, Vault. One of them is required.
-* **Additional services and utils:** key mananagement utils, data migration scrips, transport security service, UI configuration service. Any of them are optional. 
+* **Additional services and utils:** key management utils, data migration scripts, transport security service, UI configuration service. Any of them are optional.
 
 Acra provides security enforcement components in different shapes: 
 
@@ -92,7 +92,7 @@ Refer to [Acra-in-depth / Dataflow](/acra/acra-in-depth/data-flow/) to see more 
 
 ## Why Acra
 
-Acra allows you to protect sensitive data inside your infrastructure / product efficiently, with a number of modern security contorls. 
+Acra allows you to protect sensitive data inside your infrastructure / product efficiently, with a number of modern security controls.
 
 There are many regulatory, business risk and security rigorousness reasons to use Acra, they are typical to usage of any data protection / leakage prevention / encryption software:
 
@@ -102,12 +102,12 @@ There are many regulatory, business risk and security rigorousness reasons to us
  * reinforcing database security measures with external security controls; 
  * building separate vaults of sensitive data with enhanced security.
 
-Refer to [Regulations](/acra/regulations/) section to learn which requirements of which regulations Acra helps you to satisfy.
+Refer to [Regulations](/acra/regulations/) section to learn how Acra can help you to satisfy particular requirements of various regulations.
 
 Let's see how Acra is actually different from many products and approaches. 
 
 
-### Application level encryption, field level encryption
+### Application-level encryption, field-level encryption
 
 Acra allows you to efficiently pick fields of your data model and encrypt them. When done right, [application-level encryption](https://www.infoq.com/articles/ale-software-architects/) protects your sensitive data from more sensitive risks than other encryption modes.
 
@@ -137,7 +137,7 @@ Since Acra sits on choke point to data access, it can enforce additional securit
 
 ### Security
 
-Major security design principles that you can achieve while using Acra: 
+There are following security design principles that you can achieve by using Acra:
 
 * **Defense in depth:** Acra delivers different layers of protection for different parts and stages of the data lifecycle. Acra provides an independent set of security controls aimed at mitigating multiple risks in case of an attacker crossing the outer perimeter.
 * **Trust compartmentalisation** and strong isolation: each data record is encrypted by unique data encryption key, each data encryption key is encrypted by customer/application key. 
@@ -151,7 +151,7 @@ Refer to [Acra-in-depth / Security design](/acra/acra-in-depth/security-design/)
 
 ### User experience
 
-* **Quick and straightforward integration of security instrumentation**: there are many behavioural and organisational challenges which prevent security work from happening. To enable better security, security instrumentation should be as developer/operations friendly as possible. 
+* **Quick and straightforward integration of security instrumentation**: there are many behavioral and organisational challenges which prevent security work from happening. To enable better security, security instrumentation should be as developer/operations friendly as possible.
 * **Hard to misuse**: world has a multitude of amazing security technologies. Unfortunately, if these technologies can be misused in a way that will lead to lowering of their security impact (with a false sense of security attached), they will be. Acra actively resists misuse that has security impact, where possible.
 * **Crypto under the hood**: you don't have to become cryptography expert to use Acra, nor you can. Crypto details are abstracted away. 
 * **Transparent and code-less integration**: in some of Acra's scenarios, it is possible to avoid changing your application code completely. 

@@ -17,7 +17,7 @@ Acra's security assumptions, threats and security guarantees are described in [S
 Proactive controls prevent risks from happening. The main goals of these Acra features are to provide protection "by default" no matter what.
 
 * [Encryption](/acra/security-controls/encryption/) —
-  application-level encryption done by either Acra Server (transparent encryption on a proxy) or Acra Translation (encryption-as-a-service). Acra allows you to encrypt only chosen subset of your data to attain optimal performance/security guarantees. Acra encrypts data into cryptographic containers to ensure it can only be decrypted with a proper key stored in a secure place.
+  application-level encryption is performed by either AcraServer (transparent encryption on a proxy) or AcraTranslator (encryption-as-a-service). Acra allows you to encrypt only chosen subset of your data to attain optimal performance/security guarantees. Acra encrypts data into cryptographic containers to ensure it can only be decrypted with a proper key stored in a secure place.
 
 * [Searchable encryption](/acra/security-controls/searchable-encryption/) —
   encrypt data in a way that it's searchable without decryption. Acra encrypts data securely and builds a special hash ("blind index") for search.

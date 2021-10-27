@@ -28,7 +28,7 @@ AcraServer returns error on non-authenticated queries. Authenticated queries can
 ### AcraServer <> database
 
 <!-- to @lagovas: what this sentense means? -->
-AcraServer doesn't affect authentication process on database protocol level between client application and database. We strongly recommend using TLS when connecting to the databse and providing database TLS certificate in AcraServer configuration.
+AcraServer doesn't affect authentication process on database protocol level between client application and database. We strongly recommend using TLS when connecting to the database and providing database TLS certificate in AcraServer configuration.
 
 Refer to [AcraServer TLS configuration params](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
 
@@ -71,7 +71,7 @@ Read more about connection configuration to [popular KMS](/acra/configuring-main
 
 ## Privileged operations
 
-AcraServer supports changing configuration in runtime using [AcraWebConfig's](/acra/configuring-maintaining/general-configuration/acra-webconfig). AcraWebConfig is a simple web UI service that required HTTP basic authentication. 
+AcraServer supports changing configuration in runtime using [AcraWebConfig's](/acra/configuring-maintaining/general-configuration/acra-webconfig). AcraWebConfig is a simple web UI service that requires HTTP basic authentication.
 
 Privileged operations (changing configuration of AcraServer, restarting it) are available only for authenticated and authorized users. You should add users first using [acra-authmanager](/acra/configuring-maintaining/general-configuration/acra-authmanager) utility, then use these users' credentials to access AcraWebConfig.
 
