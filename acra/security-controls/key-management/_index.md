@@ -9,11 +9,11 @@ weight: 5
 Acra uses a multitude of keys for different purposes:
 
   - storage/zone keys for encrypting your data at rest
-  - transport keys for encrypting communications
+  - transport keys for encrypting communications (if [AcraConnector is used with Themis Secure Session as transport encryption](/acra/security-controls/transport-security/acra-connector/))
   - blind index keys for searchable encryption
   - keys for [audit logging](/acra/security-controls/security-logging-and-events/audit-logging)
   - poison record keys for [intrusion detection]({{< ref "/acra/security-controls/intrusion-detection/#poison-records" >}})
-  - authentication storage key for encryption/decryption credentials of [AcraWebConfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md#-INVALID" >}}) users
+  - authentication storage key for encryption/decryption credentials of [AcraWebConfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md" >}}) users
 
 The keys are securely stored in a [**keystore**](versions) which is located either on the server's filesystem, or in a remote location such as key management service (KMS) or hardware security module (HSM).
 
