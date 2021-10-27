@@ -176,6 +176,85 @@ Compared to AcraServer, AcraTranslator explicitly handles each encryption/decryp
 
 This section describes how to perform encryption/decryption using the Translator API.
 
+### gRPC API
+
+Encrypt data with `service Writer` or `service WriterSym`:
+```protobuf
+message EncryptRequest {
+    // (optional) use encryption key of this client ID
+    // instead of the one derived from the connection
+    bytes client_id = 1;
+    // (optional) use encryption key of this zone ID
+    bytes zone_id = 2;
+    // data to encrypt
+    bytes data = 3;
+}
+
+message EncryptResponse {
+    // encrypted data, in AcraStruct crypto envelope
+    bytes acrastruct = 1;
+}
+
+service Writer {
+    rpc Encrypt(EncryptRequest) returns (EncryptResponse) {}
+}
+
+
+// alternative to EncryptRequest, will generate AcraBlock instead
+message EncryptSymRequest {
+    bytes client_id = 1;
+    bytes zone_id = 2;
+    bytes data = 3;
+}
+
+// like EncryptResponse, but contains AcraBlock
+message EncryptSymResponse {
+    bytes acrablock = 1;
+}
+
+service WriterSym {
+    rpc EncryptSym (EncryptSymRequest) returns (EncryptSymResponse) {}
+}
+```
+
+Decrypt data with `service Reader` or `service ReaderSym`:
+```protobuf
+message DecryptRequest {
+    // (optional) use decryption key of this client ID
+    // instead of the one derived from the connection
+    bytes client_id = 1;
+    // (optional) use decryption key of this zone ID
+    bytes zone_id = 2;
+    // AcraStruct to decrypt
+    bytes acrastruct = 3;
+}
+
+message DecryptResponse {
+    // plaintext, result of decryption
+    bytes data = 1;
+}
+
+service Reader {
+    rpc Decrypt(DecryptRequest) returns (DecryptResponse) {}
+}
+
+
+// like DecryptRequest, but expects AcraBlock
+message DecryptSymRequest {
+    bytes client_id = 1;
+    bytes zone_id = 2;
+    bytes acrablock = 3;
+}
+
+message DecryptSymResponse {
+    bytes data = 1;
+}
+
+service ReaderSym {
+    rpc DecryptSym (DecryptSymRequest) returns (DecryptSymResponse) {}
+}
+```
+
 ### HTTP API
 
 #### Request
