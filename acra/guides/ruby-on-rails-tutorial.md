@@ -16,7 +16,7 @@ Acra is a database security suite, which protects you against data leaks and man
 strong selective encryption and intrusion detection capabilities.
 
 It is based on our [Themis](https://www.cossacklabs.com/themis/) cryptographic library with extreme security and usability 
-for developers in mind (you can read more about Themis' cryptography in Acra [here]({{< ref "/acra/acra-in-depth/cryptography-and-key-management/" >}})).
+for developers in mind (you can read more about Themis' cryptography in Acra [here](/acra/acra-in-depth/cryptography-and-key-management/)).
 
 Acra is most useful for:
 
@@ -68,7 +68,7 @@ With Acra we strive to provide 2 main programmatic security guarantees:
   for an event of a hack/breach. In the future, more intrusion detection features besides poison records are planned.
 
 If it is explicitly stated that the output for Zone ID must precede the AcraStruct, Acra Server will search for certain 
-strings called [Zone IDs (“Zones”)]({{< ref "acra/security-controls/zones.md" >}}}) when analysing the database output stream.
+strings called [Zone IDs (“Zones”)](/acra/security-controls/zones/) when analysing the database output stream.
 Zones let Acra know that within this record a private key corresponding to the Zone ID should be used for the actual 
 decryption of AcraStructs.
 
@@ -94,7 +94,7 @@ each other:
 ![](/files/guides/djangoproject-tutorial/acra-entities-current.png)
 
 Put simply, the application talks to AcraConnector. AcraConnector pretends to be a database listener that uses standard
-PostgreSQL protocol and send the request to AcraServer using [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}) 
+PostgreSQL protocol and send the request to AcraServer using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) 
 (socket protection protocol). AcraServer sends a request to the database using the regular PostgreSQL protocol and 
 receives an answer.
 If AcraServer detects the presence of AcraStruct while parsing the answer, it attempts to decrypt it and replace 
@@ -156,7 +156,7 @@ The generator will generate and place the keys into the `.acrakeys` directory (y
 
 For a few minutes, let the keys rest where they are - they will be necessary after you have installed AcraServer, 
 AcraProxy, and AcraWriter (if you’d like to read more about the keys, please see 
-[Key Management]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}})).
+[Key Management](/acra/acra-in-depth/cryptography-and-key-management/).
 
 ### Step 3. Launch AcraServer
 

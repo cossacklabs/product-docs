@@ -18,7 +18,7 @@ If you want to use [AcraTranslator, encryption-as-a-service]({{< ref "acra/acra-
 - Your application uses AcraConnector to connect to AcraTranslator.
   Or it connects directly, TLS is mandatory in this case.
 
-If you need [AcraWriter/AcraReader, in-app SDK for encryption/decryption]({{< ref "acra/acra-in-depth/architecture/sdks.md#full-on-in-app-sdk" >}}) (usually used in combination with AcraServer or AcraTranslator):
+If you need [AcraWriter/AcraReader, in-app SDK for encryption/decryption](/acra/acra-in-depth/architecture/sdks/) (usually used in combination with AcraServer or AcraTranslator):
 
 - Your application is written in any language supported by the SDK.
   This currently includes: Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (Android).

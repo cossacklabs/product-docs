@@ -23,4 +23,4 @@ No. Acra's keys are tightly bound to data structures it operates and cryptograph
 
 ### What happens if I lost Acra master key?
 
-Uh-oh, you believe that you've backed up the key and it's stored in KMS. Right? Please refer to [Key management / Troubleshooting guide](/acra/security-controls/key-management/troubleshooting/#losing-the-keys) to learn more.
+Uh-oh, we believe that you've backed up the key and it's stored in KMS. Right? Please refer to [Key management / Troubleshooting guide](/acra/security-controls/key-management/troubleshooting/#losing-the-keys) to learn more.

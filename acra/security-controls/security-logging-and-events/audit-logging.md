@@ -11,7 +11,10 @@ Acra supports secure and verifiable logging for [AcraServer](/acra/configuring-m
 
 It is designed to prevent unnoticable tampering of log messages and log files of the mentioned services. Cryptographic design is based on state-of-the-art [scientific work](https://eprint.iacr.org/2008/185.pdf), where the two cryptographic schemes (based on symmetric / asymmetric keys) of secure logging functionality are described. 
 
-We have chosen a scheme that is based on symmetric keys according to the following reasons: 1) high performance; 2) simple and boring cryptographic design. Acra uses HMAC-SHA256 to calculate log signatures.
+We have chosen a scheme that is based on symmetric keys according to the following reasons: 
+
+1) high performance; 
+2) simple and boring cryptographic design. Acra uses HMAC-SHA256 to calculate log signatures.
 
 Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator and AcraConnector) and **verifier** ([acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier) that checks and validates dump of logs.
 
@@ -58,7 +61,7 @@ We propose a following practical measures that can significanly improve the secu
 * Perform periodical key rotation of HMAC cryptographic key;
 
   {{< hint warning >}}
-  Note: that audit logs created on old key can't be verified with a new key
+  Note: that audit logs created with old key can't be verified with a new key
   {{< /hint >}}
 
 * Setup intrusion detection system on audit log collector machine, that will check that new audit log have been successfully 
