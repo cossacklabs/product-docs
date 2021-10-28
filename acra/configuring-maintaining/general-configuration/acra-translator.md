@@ -216,15 +216,10 @@ weight: 2
   Path to TLS certificate that will be sent to other peers during handshake.
   Empty by default.
 
-  In case of AcraServer, it will be sent to clients (AcraConnector, AcraTranslator) and to server (database).
-
 * `--tls_ca=<filename>`
 
-  Path to additional CA certificate for AcraConnector and database certificate validation.
+  Path to additional CA certificate for application/AcraConnector certificates validation.
   Empty by default.
-
-  In case of AcraServer, it will be used to validate both client (AcraConnector, AcraTranslator) certificates
-  and server (database) ones.
 
 * `--tls_identifier_extractor_type=<type>`
 
@@ -232,6 +227,10 @@ weight: 2
 
   * `distinguished_name` — (default) certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
+
+For additional certificate validation flags, see corresponding pages:
+[OCSP]({{< ref "acra/configuring-maintaining/tls/ocsp.md" >}}) and
+[CRL]({{< ref "acra/configuring-maintaining/tls/crl.md" >}}).
 
 ### HashiCorp Vault
 
