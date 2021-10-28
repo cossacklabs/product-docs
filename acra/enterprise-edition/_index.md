@@ -21,6 +21,8 @@ Acra Enterprise Edition ia tailored for enterprise businesses with multiple apps
 
 Acra Enteprise Edition is compatible with Acra Community Edition (you can start with Acra Community Edition and migrate to Acra Enteprise Edition later).
 
+Review comparison of Acra Community Edition and Acra Enterprise Edition features on [Cossack Labs site](https://www.cossacklabs.com/acra).
+
 ### Key management
 
   * Additional key management options - different ways to trigger key rotation / revocation / generation that are more characteristic of large-scale commercial use-cases. 

@@ -26,7 +26,8 @@ Major security design principles that you can achieve while using Acra:
 * **Secure by default:** Acra's default configurations are `more security, less trust`. 
 * **Security controls:** layered blend of protective, detective and responsive controls. 
 
-## Security design goals
+
+## Acra's security design goals
 
 One of **the key design goals** for Acra was to ensure that engineering behind the security guarantees is compatible with modern software development and reliability engineering practices. 
 
@@ -58,9 +59,6 @@ The main Acra's security control is [application-level encryption](https://www.i
 
 Acra is not the only tool that provide ALE. [MongoDB client-side encryption](https://docs.mongodb.com/manual/core/security-client-side-encryption/) is another great example of encrypting data before storing in the database. Acra allows applying ALE in the different parts of your system – on the client-side or on the Acra side.
 
-
 Acra's application-level encryption is more than data at rest encryption and TLS combined.
 
 ![](/files/acra/acra-ale-protections.png)
-
-Learn more about [Acra's features on Cossack Labs site](https://www.cossacklabs.com/acra).
