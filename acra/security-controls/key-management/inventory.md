@@ -79,6 +79,16 @@ Storage keys can be represented by either:
     Using zones complicates unauthorized decryption:
     the attacker not only needs to get the decryption key but to use a correct Zone ID, too.
 
+
+The key hierarchy can be displayed as:
+
+| key | where stored | when required | used for | how many |
+|--|--|--|--|--|
+| Acra master key| in KMS | during each launch of AcraServer, AcraConnector, AcraTranslator | used to encrypt intermediate keys| 1 per service |
+| key encrypion keys (KEKs) | keystorage (FS, Redis) | during particular operation (encryption, masking, search) | used to encrypt DEK | 1 per `ClientID` (app, customer) | 
+| data encryption key | | | |
+
+
 ## Key names and locations
 
 > Note: Read more about handling key names in [Losing your keys]({{< ref "/acra/security-controls/key-management/troubleshooting.md#losing-the-keys" >}}) and [Renaming your keys]({{< ref "/acra/security-controls/key-management/troubleshooting.md#renaming-key-files" >}}).
@@ -104,6 +114,22 @@ Correct operation of each Acra's component requires set of cryptographic keys (d
 
 #### Keys table
 
+{{< hint warning >}}
+[Do not rename the keys](/acra/security-controls/key-management/troubleshooting/#renaming-key-files), or you won't be able to decrypt the data associated with these keys.
+{{< /hint>}}
+
+
+##### Symmetric keys
+| Purpose  | Symmetric key  | Stays on
+| --- | --- | --- 
+| AcraBlock encryption + decryption | `${ClientID}_storage_sym` | AcraServer<br/>AcraTranslator
+| AcraBlock encryption + decryption with Zones | `${ZoneID}_zone_sym` | AcraServer<br/>AcraTranslator
+| Poison record with AcraBlock |  `${ZoneID}_zone_sym`| AcraServer<br/>AcraTranslator
+| Searchable encryption + decryption |  `${ClientID}_hmac` | AcraServer<br/>AcraTranslator
+| Secure logging |  `secure_log_key` | AcraServer<br/>AcraTranslator<br/>AcraConnector
+| Authentication storage key for AcraWebConfig's users | `auth_key`| AcraServer
+
+
 ##### Asymmetric keys
 | Purpose  | Private key  | Stays on  | Public key | Put to
 | --- | --- | --- | --- | ---
@@ -116,15 +142,6 @@ Correct operation of each Acra's component requires set of cryptographic keys (d
 | AcraStruct decryption with Zones | `${ZoneID}_zone` | AcraServer<br/>AcraTranslator | |
 | Poison record with AcraStruct | `poison_key` | AcraServer<br/>AcraTranslator | `poison_key.pub` | AcraServer<br/>AcraTranslator
 
-##### Symmetric keys
-| Purpose  | Symmetric key  | Stays on
-| --- | --- | --- 
-| AcraBlock encryption + decryption | `${ClientID}_storage_sym` | AcraServer<br/>AcraTranslator
-| AcraBlock encryption + decryption with Zones | `${ZoneID}_zone_sym` | AcraServer<br/>AcraTranslator
-| Poison record with AcraBlock |  `${ZoneID}_zone_sym`| AcraServer<br/>AcraTranslator
-| Searchable encryption + decryption |  `${ClientID}_hmac` | AcraServer<br/>AcraTranslator
-| Secure logging |  `secure_log_key` | AcraServer<br/>AcraTranslator<br/>AcraConnector
-| Authentication storage key for AcraWebConfig's users | `auth_key`| AcraServer
 
 <!-- TODO: describe Acra EE keys? -->
 

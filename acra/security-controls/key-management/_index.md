@@ -6,23 +6,26 @@ weight: 5
 
 # Key management
 
-Acra uses a multitude of keys for different purposes:
+Acra uses a multitude of encryption keys for different purposes:
 
-  - storage/zone keys for encrypting your data at rest
-  - transport keys for encrypting communications (if [AcraConnector is used with Themis Secure Session as transport encryption](/acra/security-controls/transport-security/acra-connector/))
-  - blind index keys for searchable encryption
-  - keys for [audit logging](/acra/security-controls/security-logging-and-events/audit-logging)
-  - poison record keys for [intrusion detection]({{< ref "/acra/security-controls/intrusion-detection/#poison-records" >}})
-  - authentication storage key for encryption/decryption credentials of [AcraWebConfig]({{< ref "/acra/configuring-maintaining/general-configuration/acra-webconfig.md" >}}) users
+  - Acra Master Key – the main key, typically stored in KMS / secure storage, and used to encrypt other keys;
+  - storage/zone keys for encrypting/masking/tokenizing the data. Each data field is encrypted by data encryption key (DEK) which is encrypted by `ClientID`-related storage/zone key (key encryption key, KEK);
+  - keys for transport encryption: either TLS certicates or special transport encryption keys if [AcraConnector is used with Themis Secure Session](/acra/security-controls/transport-security/acra-connector/);
+  - keys for generating blind index during searchable encryption (if used);
+  - keys for [audit logging](/acra/security-controls/security-logging-and-events/audit-logging) (if used);
+  - poison record keys for [intrusion detection](/acra/security-controls/intrusion-detection/#poison-records) (if used);
+  - authentication storage key for encryption/decryption credentials of [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig) users (if used).
 
-The keys are securely stored in a [**keystore**](versions) which is located either on the server's filesystem, or in a remote location such as key management service (KMS) or hardware security module (HSM).
+Acra Master Key is securely stored in [key management service (KMS)](/acra/acra-in-depth/architecture/key-storage/#kms) or hardware security module (HSM). Other keys are encrypted and securely stored in a [**keystore**](versions) which is located either on the server's filesystem, or in [a remote key storage database](/acra/acra-in-depth/architecture/key-storage/#key-storage).
+
+## Inventory of keys
 
 Glance through the [inventory of Acra keys](inventory) to learn what keys there are in the keystore, where they are located, and how they are used.
 
 
 ## Operations
 
-However, just storing the keys securely is not enough. It is crucial to manage the keys and operate the keystore in a secure way as well. Acra performs most key management operations.
+However, just storing the keys securely is not enough. It is crucial to manage the keys and operate the keystore in a secure way as well. Acra provides tools to many key management operations.
 
 These are typical operations that you will need to perform:
 

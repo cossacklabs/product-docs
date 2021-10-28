@@ -14,7 +14,7 @@ Cryptography is widely used across all Acra services for:
   [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) and [TLS](/acra/configuring-maintaining/tls/);
 * [audit logging](/acra/security-controls/security-logging-and-events/audit-logging/): when calculating integrity checks of log messages and log chains;
 * [password hashing](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file) of registered users of Acra Web Configuration UI;
-* [key management](/acra/security-controls/key-management/): all private keys are encrypted by key encryption keys and Acra Master Key.
+* [key management](/acra/security-controls/key-management/): all intermediate keys are encrypted by key encryption keys and Acra Master Key.
 
 
 Acra does not contain any self-made cryptographic primitives or obscure ciphers and relies on:
@@ -72,7 +72,7 @@ Acra also uses key derivation and key stretching functions to derive cryptograph
 
 Acra uses a lot of encryption keys (symmetric and asymmetric). Refer to [Key management section](/acra/security-controls/key-management/) to learn more about keys and their lifecycle.
 
-Private and secret keys (KEKs) are stored encrypted by Acra Master Key using AES-256-GCM-PKCS#7.
+Intermediate and secret keys (KEKs) are stored encrypted by Acra Master Key using AES-256-GCM-PKCS#7.
 
 
 ### TLS

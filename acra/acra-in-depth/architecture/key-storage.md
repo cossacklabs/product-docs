@@ -15,7 +15,7 @@ Refer to [Configurting and maintaining](/acra/configuring-maintaining/key-storin
 
 ### How it works
 
-Acra needs a place for storing intermediate keys (encrypted private keys used for all the encryption, masking, tokenization, crypto-signed auidt logging and so on). All these keys are encrypted with the master key, so it’s OK to store them in some storage available for many hosts. Managing keys becomes harder as the number of them increases, that’s why you may want to find the best key storage for your purposes.
+Acra needs a place for storing intermediate keys (intermediate keys used for all the encryption, masking, tokenization, crypto-signed audit logging and so on). All these keys are encrypted with the Acra Master Key, so it’s OK to store them in some storage available for many hosts. Managing keys becomes harder as the number of them increases, that’s why you may want to find the best key storage for your purposes.
 
 Acra supports several options: FS-storage, in-memory BoltDB or Redis.
 
