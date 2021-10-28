@@ -121,7 +121,7 @@ Application-level encryption brings plenty of security benefits:
 
 Acra guarantees that no amount of data and/or secrets leaked from the database could be sufficient for decryption of the data stolen from the database. This is achieved through cryptography rather than through general system design.
 
-Acra your risk model drastically - you can now deal with more sec risks with less security controls, and you need to monitor a smaller attack surface.
+Acra changes your risk model drastically - you can now deal with more security risks with less security controls, and you need to monitor a smaller attack surface.
 
 Acra moves the security boundary closer to the data. Insiders, privileged attackers, DBAs, infrastructure administrators have less opportunity for unauthorized access and there are no implicit "trusted paths" to access the data without authorization/authentication/security control application.
 
@@ -152,7 +152,7 @@ Refer to [Acra-in-depth / Security design](/acra/acra-in-depth/security-design/)
 ### User experience
 
 * **Quick and straightforward integration of security instrumentation**: there are many behavioral and organisational challenges which prevent security work from happening. To enable better security, security instrumentation should be as developer/operations friendly as possible.
-* **Hard to misuse**: world has a multitude of amazing security technologies. Unfortunately, if these technologies can be misused in a way that will lead to lowering of their security impact (with a false sense of security attached), they will be. Acra actively resists misuse that has security impact, where possible.
+* **Hard to misuse**: world has a multitude of amazing security technologies. Unfortunately, if these technologies can be misused in a way that will lead to lowering of their security impact (with a false sense of security attached), they will be. Acra actively resists misuse that has security impact, where possible – provides secure-by-default options, validates configuration files, notifies on suspicious activity, etc.
 * **Crypto under the hood**: you don't have to become cryptography expert to use Acra, nor you can. Crypto details are abstracted away. 
 * **Transparent and code-less integration**: in some of Acra's scenarios, it is possible to avoid changing your application code completely. 
 * **Full operational control**: Acra provides logs, events, metrics and 360 degree operational and security overview into Acra's inside processes if you ned that. 

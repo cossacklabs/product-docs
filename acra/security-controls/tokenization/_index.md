@@ -1,11 +1,11 @@
 ---
-title: Tokenisation
+title: Tokenization
 weight: 4
 ---
 
 # Tokenization
 
-Tokenization is a way to transform some sensitive data into pseudo-random representation of same data type. 
+Tokenization (also known as tokenisation) is a way to transform some sensitive data into pseudo-random representation of same data type. 
 
 A number (32 or 64 bit signed integer) will remain a number.
 String will be string.
