@@ -302,5 +302,3 @@ In case of error:
 * Body: `{"code":400,"message":"invalid request body"}`
   
   `code` will contain error code, and `message` will contain short description of error
-
-**TODO** should gRPC be here as well?
