@@ -77,10 +77,97 @@ See [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes#searchab
 
 ## AcraTranslator API
 
+### gRPC API
+
+Encrypt and decrypt data with `service SearchableEncryption`:
+```protobuf
+message SearchableEncryptionRequest {
+    // (optional) use encryption key of this client ID
+    // instead of the one derived from the connection
+    bytes client_id = 1;
+    // (optional) use encryption key of this zone ID
+    bytes zone_id = 2;
+    // data to encrypt
+    bytes data = 3;
+}
+
+message SearchableEncryptionResponse {
+    // hash of the encrypted value, could be used in search
+    bytes hash = 1;
+    // encrypted data, in AcraStruct crypto envelope
+    bytes acrastruct = 2;
+}
+
+message SearchableDecryptionRequest {
+    // (optional) use decryption key of this client ID
+    // instead of the one derived from the connection
+    bytes client_id = 1;
+    // (optional) use decryption key of this zone ID
+    bytes zone_id = 2;
+    // AcraStruct to decrypt
+    bytes data = 3;
+    // hash of the plaintext, to check decrypted data integrity
+    bytes hash = 4;
+}
+
+message SearchableDecryptionResponse {
+    // plaintext, result of decryption
+    bytes data = 1;
+}
+
+// alternative to SearchableEncryptionRequest,
+// produces AcraBlocks
+message SearchableSymEncryptionRequest {
+    bytes client_id = 1;
+    bytes zone_id = 2;
+    bytes data = 3;
+}
+
+message SearchableSymEncryptionResponse {
+    bytes hash = 1;
+    bytes acrablock = 2;
+}
+
+message SearchableSymDecryptionRequest {
+    bytes client_id = 1;
+    bytes zone_id = 2;
+    bytes data = 3;
+    bytes hash = 4;
+}
+
+message SearchableSymDecryptionResponse {
+    bytes data = 1;
+}
+
+message QueryHashRequest {
+    bytes client_id = 1;
+    bytes zone_id = 2;
+    // (unencrypted) data to hash
+    bytes data = 3;
+}
+
+message QueryHashResponse {
+    // cryptographic hash of input data, will remain the same
+    // if all the inputs (including client ID and zone ID) are the same;
+    // EncryptSearchable and EncryptSymSearchable will also return
+    // the same hash for same inputs, thus you can use hashing to find
+    // out whether some encrypted data was the same as the hashed one
+    bytes hash = 1;
+}
+
+service SearchableEncryption {
+    rpc EncryptSearchable (SearchableEncryptionRequest) returns (SearchableEncryptionResponse) {}
+    rpc DecryptSearchable (SearchableDecryptionRequest) returns (SearchableDecryptionResponse) {}
+    rpc EncryptSymSearchable (SearchableSymEncryptionRequest) returns (SearchableSymEncryptionResponse) {}
+    rpc DecryptSymSearchable (SearchableSymDecryptionRequest) returns (SearchableSymDecryptionResponse) {}
+    rpc GenerateQueryHash (QueryHashRequest) returns (QueryHashResponse) {}
+}
+```
+
 ### HTTP API
 
 {{< hint info >}}
-Searchable encryption/decryption is essentially the same as usual encryption/decryption, but uses methods with slightly different names.
+Searchable encryption/decryption is essentially the same as usual encryption/decryption, but uses methods with slightly different names that do slightly different things.
 And because of this difference you should not mix them, `encrypt`+`decryptSearchable` for example will not work as you'd expect.
 {{< /hint >}}
 
