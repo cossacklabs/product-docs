@@ -5,7 +5,7 @@ weight: 7
 
 # Cryptography in Acra
 
-Cryptography widely used across all Acra services for:
+Cryptography is widely used across all Acra services for:
 
 * data protection: during [encryption](/acra/security-controls/encryption/), 
   [searchable encryption](/acra/security-controls/searchable-encryption/), 
@@ -70,7 +70,7 @@ Acra also uses key derivation and key stretching functions to derive cryptograph
 
 ### Key management
 
-Acra uses a lot of encryption key (symmetric and asymmetric). Refer to [Key management section](/acra/security-controls/key-management/) to learn more about key and their lifecycle.
+Acra uses a lot of encryption keys (symmetric and asymmetric). Refer to [Key management section](/acra/security-controls/key-management/) to learn more about keys and their lifecycle.
 
 Private and secret keys (KEKs) are stored encrypted by Acra Master Key using AES-256-GCM-PKCS#7.
 

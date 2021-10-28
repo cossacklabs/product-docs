@@ -26,8 +26,7 @@ Acra consists of several services and utilities. Depending on your architecture 
 * **Security enforcement components**: services where "encryption happens". One of them is required.
 * **Key storage:** datastores where Acra keeps encrypted keys: Redis, table in your database, any KV store. One of them is required.
 * **Master key storage:** KMS, Vault. One of them is required.
-* **Additional services and utils:** key mananagement utils, data migration scrips, transport security service, UI configuration service. Any of them are optional. 
-
+* **Additional services and utils:** key management utils, data migration scrips, transport security service, UI configuration service. Any of them are optional.
 
 ### Security enforcement components
 
@@ -54,7 +53,7 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) — a lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
 
-* [AcraConnector](/acra/security-controls/transport-security/acra-connector) — additional client-side service/daemon that implements transport security and authentication for client application that don't support TLS 1.2+. Connects client app with AcraServer/AcraTranslator.
+* [AcraConnector](/acra/security-controls/transport-security/acra-connector) — additional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+. Connects client app with AcraServer/AcraTranslator.
 
 * [Configuration files](/acra/configuring-maintaining/general-configuration/) – AcraServer and AcraTranslator use configuration files to setup connections to the app and database, keys, TLS options, even encryption options.
 

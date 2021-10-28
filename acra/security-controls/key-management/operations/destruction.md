@@ -40,6 +40,11 @@ For example, to remove old storage encryption keys:
 ...
 ```
 
+<!--
+Maybe it is worth mentioning that removing old keystore v1 key files
+is not quite reliable with `rm`, and better to use `shred` utility instead?
+-->
+
 {{< hint info >}}
 **Note:**
 The above instructions work only for current keystore version 1.

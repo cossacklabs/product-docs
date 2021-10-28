@@ -216,9 +216,9 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 `App [AcraWriter] <> AcraConnector <> AcraServer <> SQL database`
 
-A combination of methods above. Application uses AcraWriter SDK to encrypt data on application side. App uses strong transport encryption proivded by AcraConnector to connect to AcraServer to send encrypted data. Then AcraServer sends data to the database.
+A combination of methods above. Application uses AcraWriter SDK to encrypt data on application side. App uses strong transport encryption provided by AcraConnector to connect to AcraServer to send encrypted data. Then AcraServer sends data to the database.
 
-When data is required in plaintext, AcraServer decrypts it and sends protected via AcraConnector back to the app.
+When data is required in plaintext, AcraServer decrypts it and sends (protected) via AcraConnector back to the app.
 
 ![](/files/acra/aw-app-ac-as-db.png)
 

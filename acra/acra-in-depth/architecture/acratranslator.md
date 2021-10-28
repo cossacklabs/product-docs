@@ -62,7 +62,7 @@ Other connections are optional – for example, you can use Redis as external ke
 ![](/files/acra/at-and-all-their-friends.png)
 
 
-* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that don't support TLS 1.2+.
+* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
 
 * [Redis](/acra/acra-in-depth/architecture/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraServer performs [tokenization](/acra/security-controls/tokenization/).
 
@@ -83,6 +83,6 @@ Anyway, AcraTranslator won't be able to decrypt data for which it does not have 
 as well as it won't decrypt data for application clients not supposed to access it.
 
 However, in cases when you need to make application the only component that interacts with plaintext,
-AcraTranslator won't help you, you will have to use use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
+AcraTranslator won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
 
 Refer to [Scaling and HA](/acra/acra-in-depth/scaling-and-high-availability/) to learn how to scale and support growing infrastructure when you use AcraTranslator.
