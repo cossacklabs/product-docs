@@ -90,7 +90,7 @@ Acra handles TLS connections between:
   be extended with TLS protection.
 * [Hashicorp Vault](https://www.vaultproject.io/) and AcraServer/AcraTranslator/AcraConnector. All Acra's services use encrypted private keys encrypted with symmetric key `ACRA_MASTER_KEY` that may be safely loaded from Hashicorp Vault.
 
-To increase security, we extended [TLS processing](/acra/configuring-maintaining/tls/) with additional [OCSP](/acra/configuring-maintaining/tls/ocsp) and [CRL](/acra/configuring-maintaining/tls/crl) validation that not implemented in standard library. 
+To increase security, we extended [TLS processing](/acra/configuring-maintaining/tls/) with additional [OCSP](/acra/configuring-maintaining/tls/ocsp) and [CRL](/acra/configuring-maintaining/tls/crl) validation. It is possible to configure validator to check either OCSP server specified while Acra startup or specified in TLS certificate. A couple of additional settings are presented that allow ignoring or enforcing of particular validations.
 
 Additionally, Acra's services accept only TLS 1.2+ connections and cipher suites with [perfect forward secrecy](https://en.wikipedia.org/wiki/Forward_secrecy).
 
