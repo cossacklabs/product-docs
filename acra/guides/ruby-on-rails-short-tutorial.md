@@ -9,7 +9,7 @@ This tutorial outlines a typical process of integrating Acra into a Ruby web app
 app running on Ruby on Rails framework). It is based on the popular example many Ruby users start their 
 development learning with - [rubygems.org repository](https://github.com/rubygems/rubygems.org).
 
-Here we will integrate [AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter.md" >}}) to protect the 
+Here we will integrate [AcraWriter](/acra/getting-started/installing/building-acrawriter/) to protect the
 gem descriptions.
 
 This tutorial assumes that you have both AcraServer and PostgreSQL up and running.

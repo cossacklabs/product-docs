@@ -15,7 +15,7 @@ During the inital setup of Acra you will need to generate new keys for all compo
    At least for one [client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id) or [zone ID](/acra/security-controls/zones).
    Storage keys are the ones responsible for data encryption.
    There are two kinds of crypto containers (AcraStructs and AcraBlocks) and two different kinds of keys for them ([storage symmetric keys](/acra/security-controls/key-management/inventory/#storage-symmetric-keys) and [storage asymmetric keys](/acra/security-controls/key-management/inventory/#storage-asymmetric-keypairs)).
-   
+
    [Searchable encryption keys](/acra/security-controls/key-management/inventory/#searchable-encryption-keys) are used for encrypting data for search.
 
 3. Transport keys.
@@ -29,7 +29,6 @@ During the inital setup of Acra you will need to generate new keys for all compo
 
    * Share TLS certificates (if they were not signed by root CAs), or transport public keys (if using [AcraConnector in Themis Secure Session mode](/acra/security-controls/transport-security/acra-connector/).
    * Share storage public keys (only if using AcraStructs and [client-side encryption with AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter).
-
 
 ## Acra Master Keys
 

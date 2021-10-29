@@ -1,9 +1,10 @@
 ---
 title: Building and installing AcraWriter
 bookCollapseSection: true
+weight: 5
 ---
 
-# AcraWriter
+# Building and installing AcraWriter
 
 AcraWriter wraps plaintext data into encrypted [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) – cryptographic containers used by Acra.
 You pass your input data and AcraServer's public key to AcraWriter and it returns you encrypted AcraStruct that will be stored in the database.
@@ -123,7 +124,7 @@ A real-world example project that protects Ruby on Rails application is availabl
 npm install acrawriter
 ```
 #### Testing
-```
+```bash
 cd node_modules/acrawriter/
 node test.js
 ```
@@ -172,7 +173,7 @@ Now use `acra/wrappers/php/acrawriter.php` in your project.
 * Run `go get github.com/cossacklabs/acra/acra-writer`
 
 #### Testing
-```
+```bash
 go test github.com/cossacklabs/acra/acra-writer
 ```
 Output

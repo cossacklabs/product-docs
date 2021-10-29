@@ -13,7 +13,7 @@ weight: 2
 
   - Don't forget to [enable TLS]({{< ref "acra/configuring-maintaining/tls/" >}})
 
-- [Deploy AcraServer]({{< ref "acra/configuring-maintaining/installing/#installing" >}}) to a separate machine
+- [Deploy AcraServer](/acra/getting-started/installing/) to a separate machine
 
 - (optional, enterprise only) Integrate AcraWriter closely following the [examples](https://github.com/cossacklabs/acra/tree/master/examples),
   try generating AcraStruct with it

@@ -50,7 +50,7 @@ Now, proceed to the [Launching AcraConnector](#launching-acraconnector) section.
 > Note: Skip this if you've used the Docker method described above.
 
 - Install dependencies: [Themis]({{< ref "/themis/installation/" >}}) cryptographic library
-- Install [Acra package]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) that includes AcraConnector and key generation tools
+- Install [Acra package](/acra/getting-started/installing/installing-acra-from-repository/) that includes AcraConnector and key generation tools
 
 - Use `acra-keymaker` to generate master key into `master.key` file and assign it into the environment variable like this:
 ```
@@ -102,7 +102,7 @@ After you have configured AcraConnector, your application can keep using your da
 
 AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records on application side. Only [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md" >}}) or [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) will be able to decrypt this data later.
 
-To start protecting your data, pick a place in your code where and integrate AcraWriter library (we support 8 languages, see the [Building and installing AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter.md" >}}) page). Don't see your language? Write your own [AcraStruct]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) encrypter, it's easy!
+To start protecting your data, pick a place in your code where and integrate AcraWriter library (we support 8 languages, see the [Building and installing AcraWriter](/acra/getting-started/installing/building-acrawriter/) page). Don't see your language? Write your own [AcraStruct](/acra/acra-in-depth/data-structures/#understanding-acrastruct/) encrypter, it's easy!
 
 
 Acra's encryption/decryption operations support only binary data. If you plan to use Acra with:
@@ -171,7 +171,7 @@ To write AcraStruct with Zone keys, you need to:
 
 There are two ways you can generate the keys:
 
-- Using [installed]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) `acra-addzone` utility from Acra repository.
+- Using [installed](/acra/getting-started/installing/installing-acra-from-repository/) `acra-addzone` utility from Acra repository.
   
   First, make sure that you already generated master key and exported it as `ACRA_MASTER_KEY` environmental variable, or generate it like this:
   ```

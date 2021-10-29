@@ -1,49 +1,32 @@
 ---
-title: Trying Acra with Docker
+title: Trying
 bookCollapseSection: true
+weight: 3
 ---
 
-TODO: 
-* Update pre-cautions
-* Does this guide even work? 
-* Rewrite to TLS by default?
-END TODO
+# Trying Acra
 
-# Acra + Docker
-
-You can use containers with Acra. Acra works well with [Docker](https://www.docker.com/what-docker). 
-
-This is why this document is called "Trying Acra with Docker", not "Using Acra with Docker in a Production Setting".
-
-## Precautions
-
-Storing keys safely when using Docker is problematic. Docker is immutable while [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management#zones-INVALID" >}})/[keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management#-INVALID" >}}) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers. 
-
-There are multiple ways to solve this problem and it will be addressed in a convenient and secure fashion in the future releases of Acra.
-
-## Using Acra in Docker
-
-The following example relies on pre-made config files and pre-made examples. They were prepared for a quick try-out and for product architecture learning purposes. The idea was to show the interactions between Acra components in detail and to simplify the process of first acquaintance with the product. We recommend that you create your own configurations for the production environment, the one strictly dependent on your infrastructure requirements.
-
-Our Docker Compose files were created using v3 compose file format. Please check your docker engine and Docker Compose versions in the [docker official compatibility table](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix).
-
-## Download Acra
-
-```bash
-git clone https://github.com/cossacklabs/acra
-cd acra
-```
-
-
-## Quick launch!
+There are many ways to quickly get working Acra installations which allow you to test the features Acra provides and integration approaches with your applications.
 
 > WARNING! Do not use these configurations to store sensitive data! It is dangerous! They are meant for test-driving purposes only!
 
-All that you need for your first try of Acra is to launch the selected scheme from the `docker` subdirectory:
+## Docker + Docker Compose
+
+The following example relies on pre-made config files and pre-made examples which are the part of the [Acra repository](https://github.com/cossacklabs/acra). They were prepared for a quick try-out and for product architecture learning purposes. The idea was to show the interactions between Acra components in detail and to simplify the process of first acquaintance with the product. We recommend that you create your own configurations for the production environment, the one strictly dependent on your infrastructure requirements.
+
+Our Docker Compose files were created using v3 compose file format. Please check your Docker engine and Docker Compose versions in the [docker official compatibility table](https://docs.docker.com/compose/compose-file/compose-versioning/#compatibility-matrix).
+
+### Quick launch!
 
 ```bash
-docker-compose -f docker/docker-compose.pgsql-ssl-server-ssl-connector.yml up
-```    
+# get Acra repository
+git clone https://github.com/cossacklabs/acra.git
+cd acra
+# list available Docker Compose demos
+ls docker/docker-compose.*
+# choose one of them and launch in the common way
+docker-compose -f docker/docker-compose.pgsql-ssl-server-ssl.yml up
+```
 
 This will create `docker/.acrakeys` directory structure, generate all the key pairs, put them into appropriate directories, create DB, add DB user, grant appropriate privileges and launch all the components.
 
@@ -58,48 +41,7 @@ Now you can connect to (you can see the default DB name and credentials inside t
 | 5432/tcp | PostgreSQL                   | PostgreSQL                              |
 | 3306/tcp | MySQL                        | MySQL                                   |
 
-
-## Normal launch
-
-### Description of components
-
-There are several different dockerfiles in `docker` subdirectory:
-
-* `acra-authmanager.dockerfile` – with AcraAuthmanager tool
-* `acra-connector.dockerfile` – with AcraConnector
-* `acra-server.dockerfile` – with AcraServer
-* `acra-keymaker.dockerfile` – with AcraKeymaker tool
-* `acra-webconfig.dockerfile` – with AcraWebconfig component
-* `acra-build.dockerfile` – intermediate image for compiling all the Acra components
-* `mysql-nossl.dockerfile` – MySQL server container with disabled SSL
-* `mysql-ssl.dockerfile` – MySQL server container with example SSL certificates (located at ssl/mysql directory)
-* `postgresql-ssl.dockerfile` – Postgresql server container with example SSL certificates (located at ssl/postgresql directory)
-
-All the images are already built and uploaded to the [Docker Hub Cossack Labs repository](https://hub.docker.com/u/cossacklabs/), so you can use them in a traditional manner:
-
-```bash
-docker run <options> cossacklabs/<component> <arguments>
-```    
-
-You do not need to do it, but you may want to build all the images from current sources manually. To do that, type:
-
-```bash
-make docker
-```    
-
-After that step, you'll get the described above pre-built images (intermediate `acra-build` image will be wiped out after the build is complete).
-
-All docker images have tags. When we build them, we set appropriate tags for each image:
-
-* rolling tags:
-    - `stable` and `latest` - stable branch, recommended, default;
-    - `master` and `current` - master branch of GitHub repository.
-
-* fixed tags:
-    - `<full_commit_tag>` - specify the exact commit in the repository;
-    - `<version>` - choose version tag.
-
-An image usually has two (commit, version) or four (+ branch, latest/current) tags.
+Please refer to the [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/) ff you need more information about Docker images.
 
 ### Compose files
 
@@ -168,6 +110,26 @@ Now you can run `docker-compose`:
 
 And connect to ports [described above](#quick-launch).
 
+## Engineering Demos
+
+For a more detailed study of the Acra's capabilities, we prepared [a couple of complete engineering demo repositories](https://github.com/cossacklabs/acra-engineering-demo#what-is-this). These demos include:
+* Integration examples for languages and frameworks: Python, Django, Rails
+* Integration examples for DBs: PostgreSQL and TimescaleDB
+* Launching Acra in different behaviors:
+  - Asymmetric encryption mode
+  - Transparent encryption mode
+* SQL injection prevention
+* Monitoring: metrics and tracing
+* HA / Balancing
+
+and many more.
+
+## Digital Ocean 1-Click Droplet
+
+For another quick start with Acra, you can get a [minimalistic version of Acra Community Edition as a 1-Click App](/acra/guides/advanced-integrations/digital-ocean-marketplace/) running in a [Droplet on DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/acra). If you're new to DigitalOcean, you can use [Cossack Labs referral code](https://marketplace.digitalocean.com/apps/acra?refcode=3477f5f54884) to register and get $100 for 60 days for free. [More details]({{< ref "acra/guides/advanced-integrations/digital-ocean-marketplace.md" >}}).
+
+See a detailed tutorial on getting and installing Acra 1-Click App through DigitalOcean Marketplace is in Cossack Labs blog - [“Install Acra 1-Click App through DigitalOcean Marketplace”](https://www.cossacklabs.com/blog/install-acra-digitalocean-marketplace-tutorial.html).
+
 ## Example application
 
 In the following examples, we assume that the schemes are running and all the environment variables are set as described in the code block below. For your convenience, we recommend that you perform the following actions in two different shell windows:  run the Docker in one and the examples in another.
@@ -181,7 +143,7 @@ export POSTGRES_DB="acra"
 export POSTGRES_USER="dbuser"
 export POSTGRES_PASSWORD="dbpassword"
 export ACRA_CLIENT_ID="acraclient"
-```    
+```
 
 ### Install the dependencies for the example application
 (shell window #2)
@@ -193,9 +155,9 @@ Before running `examples/python/*.py`, please perform these initial steps:
 python3 -m venv acra_env
 source acra_env/bin/activate
 pip install -U pip
-pip install -r examples/python/requirements.txt    
-apt install libpq-dev    
-```    
+pip install -r examples/python/requirements.txt
+apt install libpq-dev
+```
 
 ### To Use Acra without Zones:
 
@@ -243,7 +205,7 @@ python examples/python/example_without_zone.py \
     --host=127.0.0.1 \
     --port=5432 \
     --data="data2"
-```     
+```
 
 We've added data, let's print it:
 
@@ -276,7 +238,7 @@ python examples/python/example_without_zone.py \
     --host=127.0.0.1 \
     --port=9494 \
     --print
-```    
+```
 
 Now you will see the decrypted data via Acra in the `data` column, i.e. `b'data1'`.
 
@@ -284,7 +246,7 @@ Now you will see the decrypted data via Acra in the `data` column, i.e. `b'data1
 
 > WARNING: Shutdown the previous containers and delete `docker/.acrakeys` first!
 
-Use:         
+Use:
 (shell window #1)
 ```bash
 docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector.yml down
@@ -302,7 +264,7 @@ docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector_zo
 Depending on your system configurations, you may be required to change the owner of the `docker/.acrakeys` directory, which is created by the Docker daemon, to have access to it. In this case, use:
 ```bash
 sudo chown $(whoami) -R docker/.acrakeys
-```    
+```
 
 ```bash
 python examples/python/example_with_zone.py \
@@ -311,7 +273,7 @@ python examples/python/example_with_zone.py \
     --host=127.0.0.1 \
     --port=5432 \
     --print
-```    
+```
 
 Nothing should be printed. But let's add some data using a Python script `example_with_zone.py`:
 
@@ -343,7 +305,7 @@ python examples/python/example_with_zone.py \
     --host=127.0.0.1 \
     --port=5432 \
     --print
-```     
+```
 
 We should see something like:
 ```
@@ -361,7 +323,7 @@ python examples/python/example_with_zone.py \
     --host=127.0.0.1 \
     --port=9494 \
     --print
-```    
+```
 
 We will see that nothing happened because AcraServer now fails to match Zone ID and so it doesn't decrypt the data. The only logging that happens now happens on AcraServer. This needs to be done to make sure that the attackers are not able to figure out what exactly is wrong with their attempts to perform decryption.
 
@@ -376,7 +338,7 @@ python examples/python/example_with_zone.py \
     --port=9494 \
     --print \
     --zone_id=DDDDDDDDmufclpqHJfnTDJZW
-```    
+```
 
 > Note: Use your own generated Zone ID here, it should be different from the one in the example
 
@@ -405,6 +367,15 @@ python examples/python/example_with_zone.py \
     --port=9494 \
     --print \
     --zone_id=DDDDDDDDINCORRECTZONEIDW
-```    
+```
 
 You will see that AcraServer couldn't decrypt and passed the data as is.
+
+---
+
+## Guides
+
+For the further guides on how to integrate Acra, see
+* [Installing](/acra/getting-started/installing/)
+* [Integrating AcraServer into infrastructure]({{< ref "acra/guides/integrating-acra-server-into-infrastructure/" >}})
+* [Integrating AcraTranslator into infrastructure]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/" >}})

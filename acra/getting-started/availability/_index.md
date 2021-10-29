@@ -1,6 +1,6 @@
 ---
 title: Availability on platforms/languages
-weight: 2
+weight: 1
 ---
 
 # Availability on platforms/languages
@@ -9,39 +9,31 @@ weight: 2
 
 It is where you can run Acra software that acts like a server (including AcraServer, AcraConnector, AcraTranslator).
 
-In most cases Linux will be used as a host OS, and we have [packages](https://github.com/cossacklabs/acra/#server-side) available for commonly used distros.
+In most cases Linux will be used as a host OS, and we have:
+* [packages](TODO_SHAD) available for commonly used distros
+* [pre-built images](TODO_SHAD) compatible with Docker and most cloud Kubernetes providers like GCP/GKE and AWS/EKS
 
-However, if you want to build Acra from sources, the requirements are not so strict:
-1) Golang compiler should be able to build binaries for your OS/CPU (though Windows is not supported)
-2) [Themis](https://github.com/cossacklabs/themis/#availability)
-   crypto libraries should be installed on target system
+Alternatively, you can manually [build Acra from sources](TODO_SHAD) under desired platform (though Windows is not supported).
 
 ## Client side
 
-Requirements for applications wishing to interact with database through Acra.
+Depending on the planned mode of use, there are two main approaches to connecting your application via Acra:
+* directly to Acra as a regular SQL client
+* integrating [SDK](/acra/acra-in-depth/architecture/sdks/) into your application
+
+Each option has its own advantages, they are discussed in detail in the [Architecture](/acra/acra-in-depth/architecture/) and [Data flow](/acra/acra-in-depth/data-flow/) sections.
 
 ### SQL client
 
-Since AcraServer acts as a proxy between client applications (such as backend of website) and the database,
-you will have to connect to AcraConnector/AcraServer after you have integrated Acra into your infrastructure
-instead of direct connections to the database like before.
-Otherwise, you may end up in a situation when some data you expect to be transparently encrypted is stored in database as plaintext.
-Adding Acra between app and DB does not require you to use any kind of special SQL connector, just use what you were using before.
+In this mode Acra looks transparent to your application in most cases. The only components are needed to operate in this mode are server items described above.
 
-In cases when the application does not interact with tables that contain encrypted data,
-you can avoid AcraServer and connect directly to the database as before.
-But even if AcraServer does not perform any kind of encryption on proxied data,
-you will still be able to benefit from features like SQL firewall.
-
-### AcraWriter
+### SDK / AcraWriter
 
 Another way of encrypting data before storing it in database is encrypting it in the application itself
 and then putting encrypted variant in SQL query before executing it.
 In this case you don't rely on transparent encryption by AcraServer and you can store such encrypted data directly in the database.
 
-This is what AcraWriter does.
-You can [read more](https://github.com/cossacklabs/acra/#client-side) about its availability for different languages.
-Right now the following languages are supported:
+This is what [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) does. Right now the following languages are supported:
 * [Golang](https://github.com/cossacklabs/acra/tree/master/examples/golang)
 * [Python](https://github.com/cossacklabs/acra/tree/master/examples/python)
 * [Ruby](https://github.com/cossacklabs/acra/tree/master/examples/ruby)
