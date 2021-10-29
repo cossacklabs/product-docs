@@ -8,38 +8,42 @@ bookCollapseSection: true
 
 During the inital setup of Acra you will need to generate new keys for all components involved.
 
-1. Master key(s).
+1. Acra Master Key(s).
 
-2. Storage/HMAC keys.
+2. Storage keys and searchable encryption keys.
 
-   At least for one [client ID]({{< ref "acra/guides/integrating-acra-server-into-infrastructure/client_id" >}}) or [zone ID]({{< ref "acra/security-controls/zones" >}}).
+   At least for one [client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id) or [zone ID](/acra/security-controls/zones).
    Storage keys are the ones responsible for data encryption.
-   There are two kinds of crypto containers and two different kinds of keys for them.
-   HMAC keys are for secure keyed hashing needed for example in searchable encryption feature.
+   There are two kinds of crypto containers (AcraStructs and AcraBlocks) and two different kinds of keys for them ([storage symmetric keys](/acra/security-controls/key-management/inventory/#storage-symmetric-keys) and [storage asymmetric keys](/acra/security-controls/key-management/inventory/#storage-asymmetric-keypairs)).
+   
+   [Searchable encryption keys](/acra/security-controls/key-management/inventory/#searchable-encryption-keys) are used for encrypting data for search.
 
 3. Transport keys.
 
-   If you decided to use AcraConnector, you will need Themis Secure Session transport keys
-   for both AcraConnector and AcraServer/AcraTranslator.
    If TLS is used, then key/certificate generation is outside of this topic,
-   although you can get some hints on [certificate generation page]({{< ref "acra/configuring-maintaining/tls/cert_gen_with_openssl" >}}).
+   although you can get some hints on [certificate generation page](/acra/configuring-maintaining/tls/cert_gen_with_openssl/).
+
+   If you decided to use [AcraConnector with Themis Secure Session](/acra/security-controls/transport-security/acra-connector/), you will need Themis Secure Session transport keys for both AcraConnector and AcraServer/AcraTranslator.
 
 4. Exchange public keys between components.
 
-   * Share transport public keys (or TLS certificates, if they were not signed by root CAs)
-   * Share storage public keys (only if you use [AcraWriter]({{< ref "acra/configuring-maintaining/installing/building-acrawriter" >}}))
+   * Share TLS certificates (if they were not signed by root CAs), or transport public keys (if using [AcraConnector in Themis Secure Session mode](/acra/security-controls/transport-security/acra-connector/).
+   * Share storage public keys (only if using AcraStructs and [client-side encryption with AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter).
 
-## Master keys
+
+## Acra Master Keys
 
 Acra uses many keys and most of them are private and thus stored in encrypted form.
-There are very special **master keys** that are used by each Acra component to decrypt private keys as necessary.
+There are very special **Acra Master Keys** that are used by each Acra component to decrypt private keys as necessary.
 Look after the master keys very carefully!
+
 If you lose them, all your data is gone.
 
 {{< hint info >}}
 **Note:**
-Due to security reasons,
-AcraServer, AcraTranslator, and AcraConnector all need to have *different* master keys.
+Due to security reasons, AcraConnectors always need to have *different* Acra Master Keys.
+
+AcraServer and AcraTranslator need to have *different* Acra Master Keys when they are working with independent databases / sets of data.
 {{< /hint >}}
 
 Current keystore version 1 uses one master key called `ACRA_MASTER_KEY`.
@@ -50,15 +54,16 @@ one is used to encrypt private key material,
 the other one is used to sign public keystore data.
 Both of them are still encoded as a single `ACRA_MASTER_KEY` value.
 
-## 1. Setting up AcraServer
 
-Keys for AcraTranslator are generated in the same fashion as for AcraServer.
+## 1. Setting up AcraServer or AcraTranslator
 
-### 1.1. Generating master keys
+Keys for AcraServer and AcraTranslator are generated in the same fashion.
+
+### 1.1. Generating Acra Master Key
 
 Use `acra-keymaker` utility to generate a new master key and save it into a file.
 By default, Acra components retrieve master keys from environment variables as base64-encoded strings.
-[Acra Enterprise Edition](https://www.cossacklabs.com/acra/#pricing) supports more options,
+[Acra Enterprise Edition](/acra/enterprise-edition/) supports more options,
 such as hardware security modules (HSM) and key management services (KMS).
 
 Generate a new key and assign it to the environment variable on the corresponding server:
@@ -96,7 +101,7 @@ acra-keymaker --client_id=Alice \
 ```
 
 You can learn more about what each flag means by reading
-[`acra-keymaker` docs]({{< ref "acra/configuring-maintaining/general-configuration/acra-keymaker.md#generating-keys" >}})
+[`acra-keymaker` docs](/acra/configuring-maintaining/general-configuration/acra-keymaker/#generating-keys)
 
 Carry out these operations on the machine running AcraServer or AcraTranslator
 to make sure that the private keys for Acra never leak outside from the server.
@@ -165,7 +170,10 @@ In this case the directory layout will be a bit different:
 └── version
 ```
 
-## 2. Setting up AcraConnector
+## 2. Setting up AcraConnector (optional)
+
+This step is required only if you are using AcraConnector in Themis Secure Session mode to provide reliable transport encryption between client app and AcraServer/AcraTranslator.
+
 
 ### 2.1. Generating master keys
 
@@ -234,12 +242,15 @@ In this case the resulting directory layout will be a bit different:
 └── version
 ```
 
-## 3. Exchanging public keys
+## 3. Exchanging public keys (optional)
 
 Components that need to communicate should have each other's public key.
 This allows the components to authenticate each other when establishing a Themis Secure Session.
 AcraWriter also needs the public storage key generated by AcraServer or AcraTranslator
 to encrypt the user data for storage.
+
+These steps are required only if you are using [client-side encryption with AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter), or [AcraConnector](/acra/security-controls/transport-security/acra-connector/) to securely connect client application with AcraServer/AcraTranslator, and it uses Themis Secure Session as the transport encryption protocol.
+
 
 The rules of key exchange are simple:
 
@@ -379,7 +390,7 @@ use `acra-keys read`:
 acra-keys read --client_id=Alice storage-public > public-key.dat
 ```
 
-### Exchanging zone keys
+## Generating and exchanging zone keys
 
 Generating zone keys is different from generating usual AcraStruct encryption keys.
 You should run `acra-addzone` on AcraServer or AcraTranslator to generate a zone:

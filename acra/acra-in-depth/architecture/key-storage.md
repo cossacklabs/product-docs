@@ -6,7 +6,7 @@ weight: 4
 
 # Key storage and KMS
 
-AcraServer, AcraTranslator and AnyProxy require to access encryption keys. For example, if you place Acra Master key to KMS, AcraServer should know how to connect to the KMS. Or for syncing intermediate keys (useful when you have a cluster of AcraServers/AcraTranslator) Acra can put them into Redis.
+AcraServer, AcraTranslator and AnyProxy require to access encryption keys. For example, if you place Acra Master Key to KMS, AcraServer should know how to connect to the KMS. Or for syncing intermediate keys (useful when you have a cluster of AcraServers/AcraTranslator) Acra can put them into Redis.
 
 Refer to [Configurting and maintaining](/acra/configuring-maintaining/key-storing/) to learn more about supported key stores and KMS.
 
@@ -15,7 +15,7 @@ Refer to [Configurting and maintaining](/acra/configuring-maintaining/key-storin
 
 ### How it works
 
-Acra needs a place for storing intermediate keys (encrypted private keys used for all the encryption, masking, tokenization, crypto-signed auidt logging and so on). All these keys are encrypted with the master key, so it’s OK to store them in some storage available for many hosts. Managing keys becomes harder as the number of them increases, that’s why you may want to find the best key storage for your purposes.
+Acra needs a place for storing intermediate keys (intermediate keys used for all the encryption, masking, tokenization, crypto-signed audit logging and so on). All these keys are encrypted with the Acra Master Key, so it’s OK to store them in some storage available for many hosts. Managing keys becomes harder as the number of them increases, that’s why you may want to find the best key storage for your purposes.
 
 Acra supports several options: FS-storage, in-memory BoltDB or Redis.
 
@@ -50,13 +50,13 @@ Instead, hosting new instance on a separate machine will provide better security
 
 ## KMS
 
-Is used to store Acra Master key. While KMS can be used to store all the intermediate keys, we strongly don't recommends it, as it might be quite expensive and might become performance bottleneck.
+Is used to store Acra Master Key. While KMS can be used to store all the intermediate keys, we strongly don't recommends it, as it might be quite expensive and might become performance bottleneck.
 
 As Acra stores all intermediate keys encrypted, it needs Acra Master Key to decrypt them. 
 
 ### How it works
 
-Most Acra tools, like AcraServer, AcraTranslator and AnyProxy can read Acra Master key from environment variable, but they can read it from KMS as well.
+Most Acra tools, like AcraServer, AcraTranslator and AnyProxy can read Acra Master Key from environment variable, but they can read it from KMS as well.
 
 Right now we support HashiCorp Vault for this purposes. Other KMS are supported in [Acra Enterprise Edition](/acra/enterprise-edition/).
 
@@ -65,12 +65,12 @@ Refer to [Configuring and maintaining](/acra/configuring-maintaining/key-storing
 
 ### Functional requirements
 
-* Secure storage of Acra Master key
+* Secure storage of Acra Master Key
 
 
 ### How it connects to other parts
 
-AcraServer, AcraTranslator and AnyProxy can read Acra Master key from KMS.
+AcraServer, AcraTranslator and AnyProxy can read Acra Master Key from KMS.
 
 
 ### What are the security considerations?
@@ -78,7 +78,7 @@ AcraServer, AcraTranslator and AnyProxy can read Acra Master key from KMS.
 If you want to use KMS for master key storage/distribution, you already know that it is quite important
 to ensure that the KMS is properly configured, well isolated and there are policies that limit what clients can request.
 
-You can, for example, limit who can read Acra Master key to only machines that actually need it.
+You can, for example, limit who can read Acra Master Key to only machines that actually need it.
 
-We strongly recommend considering backup of Acra Master key, configuring audit logging on KMS side, and deploying KMS as a cluster (scaling in mind).
+We strongly recommend considering backup of Acra Master Key, configuring audit logging on KMS side, and deploying KMS as a cluster (scaling in mind).
 
