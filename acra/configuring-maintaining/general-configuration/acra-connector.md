@@ -279,47 +279,9 @@ Note: TLS related flags work only together with `AcraServer` mode. `AcraTranslat
   
   Expected Server Name (SNI) from AcraServer
    
-   
-* `--tls_crl_cache_size`
-  
-  How many CRLs to cache in memory (use 0 to disable caching) 
-  Default is `16`
-  
-* `--tls_crl_cache_time`
-  
-  How long to keep CRLs cached, in seconds (use 0 to disable caching, maximum: 300 s)
-  Default is `0`
-  
-* `--tls_crl_check_only_leaf_certificate`
-  
-  Put `'true'` to check only final/last certificate, or `'false'` to check the whole certificate chain using CRL
-  
-* `--tls_crl_from_cert`
-  
-  How to treat CRL URL described in certificate itself: <use|trust|prefer|ignore> 
-  Default is `"prefer"`
-  
-* `--tls_crl_url`
-  
-  URL of the Certificate Revocation List (CRL) to use
-
-* `--tls_ocsp_check_only_leaf_certificate`
-  
-  Put `'true'` to check only final/last certificate, or `'false'` to check the whole certificate chain using OCSP
-  
-* `--tls_ocsp_from_cert`
-  
-  How to treat OCSP server described in certificate itself: `<use|trust|prefer|ignore>` 
-  Default is `"prefer"`
-  
-* `--tls_ocsp_required`
-  
-  How to treat certificates unknown to OCSP: `<denyUnknown|allowUnknown|requireGood>` 
-  Default is `"denyUnknown"`
-  
-* `--tls_ocsp_url`
-  
-  OCSP service URL
+For additional certificate validation flags, see corresponding pages:
+[OCSP]({{< ref "acra/configuring-maintaining/tls/ocsp.md" >}}) and
+[CRL]({{< ref "acra/configuring-maintaining/tls/crl.md" >}}).
 
 ### HashiCorp Vault
 
