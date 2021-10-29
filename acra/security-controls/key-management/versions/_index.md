@@ -21,7 +21,7 @@ New features include:
   - Compliance with best practices and recommendations,
     such as [NIST SP 800-57](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r4.pdf).
   - Support for more external KMS types
-    (only in [Acra Enterprise Edition](https://www.cossacklabs.com/acra/#pricing)).
+    (only in [Acra Enterprise Edition](/acra/enterprise-edition/)).
 
 Keystore version 1 is the current version, used by new Acra instances by default.
 

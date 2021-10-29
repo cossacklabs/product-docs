@@ -37,7 +37,7 @@ So store the intermediate keys safely as well!
 
 We recommend storing intermediate keys in secure storage with enabled backups and Acra Master Key in a KMS.
 
-[Acra Enterprise Edition](https://www.cossacklabs.com/acra/#pricing) supports many popular KMS solutions.
+[Acra Enterprise Edition](/acra/enterprise-edition/) supports many popular KMS solutions.
 
 Users of [Acra Enterprise Edition](/acra/enterprise-edition/) have a chance to retrieve their public keys
 if they still have private keys and Acra Master Keys. If you’ve encountered such a problem, please [contact your sales representative](mailto:sales@cossacklabs.com).
