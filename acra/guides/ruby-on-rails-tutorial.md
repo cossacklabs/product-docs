@@ -117,7 +117,7 @@ This might appear complicated, but in reality, Acra is easy to install. Let’s 
 
 ### Step 1. Install Acra
 
-[Installation guide]({{< ref "/acra/configuring-maintaining/installing/" >}}) - here you can find out how to install Acra
+[Installation guide](/acra/getting-started/installing/) - here you can find out how to install Acra
 from package repository or sources.
 
 ### Step 2. Generate the transport, storage keys, and master key
@@ -296,7 +296,7 @@ acra-connector --config_file=acra-connector.yaml
 
 These instructions should be enough to get you up and running with AcraConnector, and you can proceed to the actual 
 integration of Acra into a Rails app. For more advanced ways of setting up and launching AcraConnector, please see the 
-corresponding fragment of [Acra documentation]({{< ref "/acra/configuring-maintaining/installing/building-acrawriter.md" >}}).
+corresponding fragment of [Acra documentation](/acra/getting-started/installing/building-acrawriter/).
 
 ## Integration
 

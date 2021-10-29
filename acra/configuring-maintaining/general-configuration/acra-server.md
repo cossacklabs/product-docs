@@ -316,17 +316,14 @@ weight: 3
 * `--tls_cert=<filename>`
 
   Path to TLS certificate that will be sent to other peers during handshake.
+  It will be sent to the client application (or AcraConnector if it's used between client app and AcraServer) and to the database server.
   Empty by default.
-
-  In case of AcraServer, it will be sent to clients (AcraConnector, AcraTranslator) and to server (database).
 
 * `--tls_ca=<filename>`
 
-  Path to additional CA certificate for AcraConnector and database certificate validation.
+  Path to additional CA certificate for application/AcraConnector and database certificates validation.
+  It will be used to validate the client application's certificate (or AcraConnector's if it's used between client app and AcraServer) and the database server ones.
   Empty by default.
-
-  In case of AcraServer, it will be used to validate both client (AcraConnector, AcraTranslator) certificates
-  and server (database) ones.
 
 * `--acraconnector_tls_transport_enable={true|false}`
 
@@ -335,7 +332,7 @@ weight: 3
 
 * `--tls_client_auth=<mode>`
 
-  Set authentication mode that will be used for TLS connection with AcraConnector.
+  Set authentication mode that will be used for TLS connection with applications/AcraConnectors.
   Possible values are the same as for `--tls_auth`.
   Default is `-1` which means "take value of `--tls_auth`".
 
@@ -343,17 +340,18 @@ weight: 3
 
 * `--tls_client_key=<filename>`
 
-  Path to private key of the TLS certificate presented to AcraConnectors (see `--tls_client_cert`).
+  Path to private key of the TLS certificate presented to applications/AcraConnectors (see `--tls_client_cert`).
   Empty by default.
 
 * `--tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to AcraConnectors (overrides `--tls_cert`).
+  Path to server TLS certificate presented to applications/AcraConnectors (overrides `--tls_cert`).
   Empty by default.
 
 * `--tls_client_ca=<filename>`
 
-  Path to additional CA certificate for AcraConnector certificate validation (setup if AcraConnector certificate CA is different from database certificate CA).
+  Path to additional CA certificate for application/AcraConnector certificate validation
+  (setup if application/AcraConnector certificate CA is different from database certificate CA).
   Empty by default.
 
 * `--tls_client_id_from_cert={true|false}`
@@ -385,7 +383,7 @@ weight: 3
 * `--tls_database_ca=<filename>`
 
   Path to additional CA certificate for database certificate validation
-  (setup if database certificate CA is different from AcraConnector certificate CA).
+  (setup if database certificate CA is different from application/AcraConnector certificate CA).
   Empty by default.
 
 * `--tls_database_sni=<SNI>`
@@ -395,7 +393,8 @@ weight: 3
 
 * `--tls_db_sni=<SNI>`
 
-  Expected Server Name (SNI) from database (deprecated, use `--tls_database_sni` instead).
+  Expected Server Name (SNI) from database.
+  Deprecated, use `--tls_database_sni` instead.
 
 * `--tls_identifier_extractor_type=<type>`
 
@@ -403,6 +402,10 @@ weight: 3
 
   * `distinguished_name` — (default) certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
+
+For additional certificate validation flags, see corresponding pages:
+[OCSP]({{< ref "acra/configuring-maintaining/tls/ocsp.md" >}}) and
+[CRL]({{< ref "acra/configuring-maintaining/tls/crl.md" >}}).
 
 ### Hashicorp Vault
 

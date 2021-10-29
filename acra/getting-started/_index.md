@@ -4,42 +4,28 @@ weight: 3
 bookCollapseSection: true
 ---
 
-# Get started, easily
+# Getting started
 
-We've made sure that this documentation service covers maximum of Acra's capabilities and configuration nuances. However, it is a considerable effort to do thorough study, so there are a few shortcuts for those willing to get their hands dirty faster: 
+## Get started, easily
 
-## Guides and howtos
+We've made sure that this documentation service covers maximum of Acra's capabilities and configuration nuances. However, it is a considerable effort to do thorough study, so there are a few shortcuts for those willing to get their hands dirty faster:
 
-**TODO: finish**
-
-We have a growing list of guides in the [guides section]({{< ref "acra/guides" >}}): 
-
-* Trying Acra with Docker
+* [Trying Acra](/acra/getting-started/trying/) (many ways to get a fully working Acra from scratch)
+* [Acra Engineering Demo](https://github.com/cossacklabs/acra-engineering-demo#what-is-this) (illustrates different facets of using Acra, from infrastructure integration to certain narrow product security problems)
+* [Installing](/acra/getting-started/installing/) (how to install Acra for normal use)
 * [Acra with Django project]({{< ref "acra/guides/djangoproject-short-tutorial.md" >}}) (TODO step-by-step)
 * [Acra with Ruby on Rails]({{< ref "acra/guides/ruby-on-rails-short-tutorial.md" >}}) (TODO step-by-step)
-* Acra server-based workflow
-* Acra translator-based workflow
+* [Acra server-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/)
+* [Acra translator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator)
 * Advanced integrations: 
-  * Running Acra via DO marketplace
-  * Client-side integration with Acra connector
+  * [Running Acra via DO marketplace](/acra/guides/advanced-integrations/digital-ocean-marketplace/)
+  * [Client-side integration with Acra connector](http://127.0.0.1:8088/acra/guides/advanced-integrations/client-side-integration-with-acra-connector/#client-side-acraconnector-and-acrawriter)
 
-## Acra engineering demos
+## Enterprise
 
-TODO: Finish
+To get to learn more about enterprise version, please refer to the ["Acra Enterprise Edition"](/acra/enterprise-edition/) page.
 
-We devised a number of ``docker-compose``-based examples to get you going with Acra: 
-
-* Link 
-* Link 
-* Link
-
-They illustrate different facets of using Acra, from infrastructure integration to certain narrow product security problems. 
-
-# Enterprise
-
-To get to learn more about enterprise version, there are a few ways: 
-
-## Evaluation playgrounds and pilots
+### Evaluation playgrounds and pilots
 
 For qualified potential customers interested in commercial version, we offer free playgrounds built around Acra EE and a number of demo applications - deployed in cloud of your choice, all set up for evaluation. Get your hands dirty without getting your hands dirty first! 
 

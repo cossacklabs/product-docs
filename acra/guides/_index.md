@@ -33,10 +33,9 @@ This section contains a couple of guides you might find useful.
   * [short tutorial]({{< ref "ruby-on-rails-short-tutorial.md" >}}) with most important things only
   * full [step-by-step tutorial]({{< ref "ruby-on-rails-tutorial.md" >}})
 
-* [Trying Acra with Docker]({{< ref "trying-acra-with-docker.md" >}})
+* [Trying Acra](/acra/getting-started/trying/)
 
-  Describes Acra conponents that are available as Docker images.
-  How to launch them properly, how to run examples that communicate with these services.
+  Many different ways to get completely working Acra environment from scratch.
 
 There is also [advanced integrations]({{< ref "advanced-integrations" >}}) page
 about more complex integration that involves cloud technologies and/or more components.
