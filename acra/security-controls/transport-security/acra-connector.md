@@ -10,7 +10,7 @@ AcraConnector is a proxy-daemon component that lives nearby client application (
 AcraConnector creates a secure connection to AcraServer/AcraTranslator and listens for connections from the client application on the other side.
 AcraConnector supports two types of transport encryption:
 
-- Themis Secure Session (enabled by default), provides both transport encryption and mutual authentication,
+- [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) (enabled by default), provides both transport encryption and mutual authentication,
 - TLS (so, a client app connects to AcraConnector that connects to AcraServer/AcraTranslator via TLS).
 
 Also, compared to TLS, the client identifier `ClientID` (text string that uniquely identifies client and affects which encryption keys will be used when processing this client requests) will be set by AcraConnector, not taken from client TLS certificate.
