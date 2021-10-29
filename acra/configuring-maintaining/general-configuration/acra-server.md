@@ -316,13 +316,13 @@ weight: 3
 * `--tls_cert=<filename>`
 
   Path to TLS certificate that will be sent to other peers during handshake.
-  It will be sent to clients (application/AcraConnector) and to server (database).
+  It will be sent to the client application (or AcraConnector if it's used between client app and AcraServer) and to the database server.
   Empty by default.
 
 * `--tls_ca=<filename>`
 
   Path to additional CA certificate for application/AcraConnector and database certificates validation.
-  It will be used to validate both client (application/AcraConnector) certificates and server (database) ones.
+  It will be used to validate the client application's certificate (or AcraConnector's if it's used between client app and AcraServer) and the database server ones.
   Empty by default.
 
 * `--acraconnector_tls_transport_enable={true|false}`
