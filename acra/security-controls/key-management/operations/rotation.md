@@ -49,7 +49,26 @@ Check [NIST SP 800-57 recommendations](https://csrc.nist.gov/publications/detail
 
 Acra keeps [a multitude of keys](../../inventory/) which require different approaches.
 
-  - **Transport keys** authenticate component identities and provides transport encryption
+  - **Acra Master Keys** protect other keys in the keystore.
+    Each Acra component has its own set of master keys which can be rotated independently.
+    Currently, there's no easy way to rotate Master keys.
+
+  - **Data storage keys** protect the data stored in a datastore.
+    They are rotated by generating a new storage keypair and distributing the public key.
+
+    - If you're using client-side encryption (data is encrypted on application side using AcraWriter),
+      distribute public key to all your applications that encrypt data.
+
+    - If you're using only AcraServer or AcraTranslator,
+      distribute public key to all instances of AcraServer or AcraTranslator
+      or put them into shared keystorage.
+
+    The new key will apply to newly stored data,
+    but the old data was encrypted with the previous key and is still unchanged.
+    Depending on your key rotation strategy,
+    you might need to re-encrypt data with new data storage key.
+
+- **Transport keys** authenticate component identities and provides transport encryption
     (TLS or Themis Secure Session).
     These keys are easily rotated.
 
@@ -60,24 +79,6 @@ Acra keeps [a multitude of keys](../../inventory/) which require different appro
       generate a new key pair and distribute the public key to appropriate peers.
       The new key will apply on the next connection.
 
-  - **Data storage keys** protect the data stored in a datastore.
-    They are rotated by generating a new storage keypair and distributing the public key.
-
-    - If you're using client-side encryption (data is encrypted on application side using AcraWriter),
-      distribute public key to all your applications that encrypt data.
-
-    - If you're using transparent proxy mode (data is encrypted on AcraServer or AcraTranslator),
-      distribute public key to all instances of AcraServer or AcraTranslator
-      or put them into shared keystorage.
-
-    The new key will apply to newly stored data,
-    but the old data was encrypted with the previous key and is still unchanged.
-    Depending on your key rotation strategy,
-    you might need to re-encrypt data with new data storage key.
-
-  - **Acra master keys** protect other keys in the keystore.
-    Each Acra component has its own set of master keys which can be rotated independently.
-    Currently, there's no easy way to rotate Master keys.
 
 <!--
   - AcraBlocks use several keys embedded into them, each can be rotated individually.
@@ -119,7 +120,64 @@ Make sure you have set up the correct master key before using `acra-keymaker`.
 Please refer to the [key generation instructions](../generation/#master-keys)
 to learn about master keys.
 
+### Rotating data storage keys
+
+<!--
+There is an `acra-rotate` utility but it is experimental and not ready for production usage.
+Data migration is probably too tricky for a general tool that to work for everybody.
+However, if would be truly nice if we offered a single command
+that needs to be told about the data schema and then takes care of everything by itself,
+instead of dumping all this prose that still requires additional work.
+-->
+
+Run `acra-keymaker` to rotate the key for a specific client:
+
+```shell
+acra-keymaker --client_id=Alice --generate_acrawriter_keys
+```
+
+{{< hint info >}}
+**Note:**
+`acra-keymaker` must be used on the machine that runs AcraServer or AcraTranslator.
+This ensures that the new private key never leaves the machine that will use it.
+If you're using shared key storage,
+provide corresponded parameters to `acra-keymaker` to place the keys into shared storage.
+{{< /hint >}}
+
+  - If you're using client-side encryption,
+    remember to share newly generated public key with AcraWriters that need it.
+
+  - If you're using AcraServer in transparent proxy encryption mode or using AcraTranslator,
+    starting from Acra 0.90.0, Acra uses _"rotation without re-encryption"_ strategy by default.
+    If you expect other data re-encryption strategy or you're using older version of Acra,
+    you need to [re-encrypt your data](#re-encrypting-encrypted-data).
+
+Please refer to the [key exchange guide](../generation/#3-exchanging-public-keys)
+to learn where the keys are stored and how to exchange them correctly and securely.
+<!-- But in fact I think it should be described right here. This is a how-to after all. -->
+
+#### Rotating zone keys
+
+If you are using [zones](/acra/security-controls/zones/),
+run `acra-addzone` on AcraServer or AcraTranslator to generate a new zone with a new key:
+
+```shell
+acra-addzone
+```
+
+It will output the new zone ID and the corresponding public key:
+
+```
+{"id":"DDDDDDDDQHpbUSOgYTzqCktp","public_key":"VUVDMgAAAC3yMBGsAmK/wBXZkL8iBv/C+7hqoQtSZpYoi4fZYMafkJbWe2dL"}
+```
+
+Remember to share newly generated public key and zone ID with AcraWriters that need them.
+
+<!-- There is currently no way to rotate a key for a specific existing zone. -->
+
 ### Rotating transport keys
+
+This is useful only if you are using [AcraConnector](/acra/security-controls/transport-security/acra-connector/) as transport encryption daemon to securely connect client application with AcraServer/AcraTranslator, and it uses [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) as the transport encryption protocol.
 
 Run `acra-keymaker` to rotate a specific transport key for a client:
 
@@ -152,61 +210,6 @@ Please refer to the [key exchange guide](../generation/#3-exchanging-public-keys
 to learn where the keys are stored and how to exchange them correctly and securely.
 <!-- But in fact I think it should be described right here. This is a how-to after all. -->
 
-### Rotating data storage keys
-
-<!--
-There is an `acra-rotate` utility but it is experimental and not ready for production usage.
-Data migration is probably too tricky for a general tool that to work for everybody.
-However, if would be truly nice if we offered a single command
-that needs to be told about the data schema and then takes care of everything by itself,
-instead of dumping all this prose that still requires additional work.
--->
-
-Run `acra-keymaker` to rotate the key for a specific client:
-
-```shell
-acra-keymaker --client_id=Alice --generate_acrawriter_keys
-```
-
-{{< hint info >}}
-**Note:**
-`acra-keymaker` must be used on the machine that runs AcraServer or AcraTranslator.
-This ensures that the new private key never leaves the machine that will use it.
-If you're using shared key storage,
-provide corresponded parameters to `acra-keymaker` to place the keys into shared storage.
-{{< /hint >}}
-
-  - If you're using client-side encryption,
-    remember to share newly generated public key with AcraWriters that need it.
-
-  - If you're using AcraServer in transparent proxy encryption mode or using AcraTranslator,
-    starting from Acra 0.86.0, Acra uses _"rotation without re-encryption"_ strategy by default.
-    If you expect other data re-encryption strategy or you're using older version of Acra,
-    you need to [re-encrypt your data](#re-encrypting-encrypted-data).
-
-Please refer to the [key exchange guide](../generation/#3-exchanging-public-keys)
-to learn where the keys are stored and how to exchange them correctly and securely.
-<!-- But in fact I think it should be described right here. This is a how-to after all. -->
-
-#### Rotating zone keys
-
-If you are using [zones](/acra/security-controls/zones/),
-run `acra-addzone` on AcraServer or AcraTranslator to generate a new zone with a new key:
-
-```shell
-acra-addzone
-```
-
-It will output the new zone ID and the corresponding public key:
-
-```
-{"id":"DDDDDDDDQHpbUSOgYTzqCktp","public_key":"VUVDMgAAAC3yMBGsAmK/wBXZkL8iBv/C+7hqoQtSZpYoi4fZYMafkJbWe2dL"}
-```
-
-Remember to share newly generated public key and zone ID with AcraWriters that need them.
-
-<!-- There is currently no way to rotate a key for a specific existing zone. -->
-
 ## Re-encrypting encrypted data
 
 After you have rotated storage keys,
@@ -221,8 +224,35 @@ it is a good idea to make and check a fresh backup immediately before doing anyt
 
 In order to migrate the data you need to decrypt it with the old key and encrypt it back with the new one.
 Acra components will always use the new, current key when encrypting data.
-On decryption requests, the old key will be used if necessary to access the data (for Acra 0.86.0 and newer).
+On decryption requests, the old key will be used if necessary to access the data (for Acra 0.90.0 and newer).
 The easiest way to re-encrypt the data is to query data through Acra and put it back right away.
+
+#### Using AcraServer in transparent proxy encryption mode
+
+{{< hint info >}}
+**Note:**
+This will work for Acra 0.90.0 and newer.
+{{< /hint >}}
+
+If you are using AcraServer in transparent proxy mode:
+
+1. Rotate the storage keys on AcraServer. It will keep the old keys.
+2. Query data from the storage through AcraServer for decryption. It will use old key to decrypt data.
+3. Push data back to the database through AcraServer. It will use new key to encrypt data.
+
+#### Using AcraTranslator
+
+{{< hint info >}}
+**Note:**
+This will work for Acra 0.90.0 and newer.
+{{< /hint >}}
+
+If you are using [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/),
+the idea is the same:
+
+1. Rotate the storage keys on AcraTranslator. It will keep the old keys.
+2. Query data from the storage, submit it to AcraTranslator for decryption.
+3. Encrypt the data with AcraTranslator again and put it back into the storage.
 
 #### Using client-side encryption
 
@@ -256,33 +286,6 @@ for row in rows:
 Remember that Acra does not encrypt all columns in the database.
 Only binary blobs can be encrypted (`bytea` type)
 so you need to select and update only the encrypted columns.
-
-#### Using AcraServer in transparent proxy encryption mode
-
-{{< hint info >}}
-**Note:**
-This will work for Acra 0.86.0 and newer.
-{{< /hint >}}
-
-If you are using AcraServer in transparent proxy mode:
-
-1. Rotate the storage keys on AcraServer. It will keep the old keys.
-2. Query data from the storage through AcraServer for decryption. It will use old key to decrypt data.
-3. Push data back to the database through AcraServer. It will use new key to encrypt data.
-
-#### Using AcraTranslator
-
-{{< hint info >}}
-**Note:**
-This will work for Acra 0.86.0 and newer.
-{{< /hint >}}
-
-If you are using [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/),
-the idea is the same:
-
-1. Rotate the storage keys on AcraTranslator. It will keep the old keys.
-2. Query data from the storage, submit it to AcraTranslator for decryption.
-3. Encrypt the data with AcraTranslator again and put it back into the storage.
 
 #### Migrating zoned data
 

@@ -7,7 +7,7 @@ bookCollapseSection: true
 # Migration from keystore v1 to v2
 
 In order to migrate from keystore version 1 to version 2,
-use [`acra-keys`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys" >}}) utility.
+use [`acra-keys`](/acra/configuring-maintaining/general-configuration/acra-keys) utility.
 
 ```shell
 acra-keys migrate \
@@ -15,8 +15,8 @@ acra-keys migrate \
     --dst_keystore=v2 --dst_keys_dir ".acrakeys.v2"
 ```
 
-You need to put the master key to the source keystore into `SRC_ACRA_MASTER_KEY`
-and the destination master key into `DST_ACRA_MASTER_KEY`.
+You need to put the Acra Master Key to the source keystore into `SRC_ACRA_MASTER_KEY`
+and the destination Acra Master Key into `DST_ACRA_MASTER_KEY`.
 New keystore will be created at `.acrakeys.v2`.
 
 {{< hint info >}}

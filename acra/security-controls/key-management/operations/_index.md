@@ -8,7 +8,7 @@ bookCollapseSection: true
 
 Here are typical operations that you will need to perform when managing a keystore:
 
-  - [Generate keys](generation/) when deploying a new Acra instance.
+  - [Generate keys](generation/) when deploying a new Acra services.
   - [Back up keys](backup/) to prevent accidental data loss.
   - [Rotate keys](rotation/) to mitigate leaks and ensure continuous security.
   - [Destroy keys](destruction/) when they are no longer used.
