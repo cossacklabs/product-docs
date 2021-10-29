@@ -118,7 +118,7 @@ This might seem daunting, but in reality, Acra is easy to install. Let’s go!
 
 ### Step 1. Install Acra
 
-[Installation guide]({{< ref "/acra/configuring-maintaining/installing/" >}}) - here you can find out how to install Acra
+[Installation guide](/acra/getting-started/installing/) - here you can find out how to install Acra
 from package repository or sources.
 
 

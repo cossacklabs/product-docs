@@ -1,10 +1,29 @@
 ---
-title: Installing
-bookCollapseSection: true
-weight: 1
+title: Requirements
+weight: 2
 ---
 
-## Requirements
+# Requirements
+
+## Server side
+
+### Packages
+
+We provide [packages of Acra components via our repository](https://pkgs.cossacklabs.com/stable/) for commonly used Linux distros. Check the complete list of supported platforms on the [package installing page](/acra/getting-started/installing/installing-acra-from-repository/).
+
+### Docker
+
+Currently, all [the images we provide](TODO_SHAD) are built to run on a Linux-based machines. Of course, there are ways to run them under intermediate Linux virtual machines over macOS or Windows, but we strongly discourage this approach in production.
+
+### Build from sources
+
+The requirements are not so strict:
+* Golang compiler (we support the latest 3 minor versions) should be able to build binaries for your OS/CPU (though Windows is not supported)
+* [Themis](https://github.com/cossacklabs/themis/#availability) crypto libraries should be installed on target system
+
+## Client side
+
+### Architecture
 
 In case you want to use [AcraServer, our transparent SQL proxy]({{< ref "acra/acra-in-depth/architecture/acraserver.md" >}}):
 
@@ -39,20 +58,6 @@ Also, remember that:
 - AcraServer and Acra's dependencies need to stay on a separate server / virtual machine.
 - AcraConnector can run in a container or under separate user on the same machine as the main application.
 
-## Installing
+### Languages
 
-Installing Acra is fairly simple:
-
-- For trying Acra really quickly, for hassle-free testing purposes,
-  you can [try Acra with Docker]({{< ref "acra/guides/trying-acra-with-docker/" >}}).
-  You can also visit [engineering demos](https://github.com/cossacklabs/acra-engineering-demo#readme)
-  repo with scripts for automated deployment of example projects.
-- For another quick start with Acra, you can get a minimalistic version of Acra Community Edition as a 1-Click App running in a [Droplet on DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/acra). If you're new to DigitalOcean, you can use [Cossack Labs referral code](https://marketplace.digitalocean.com/apps/acra?refcode=3477f5f54884) to register and get $100 for 60 days for free. [More details]({{< ref "acra/guides/advanced-integrations/digital-ocean-marketplace.md" >}}).
-- For a real-world hands-on experience, [install Acra from the official Cossack Labs repository]({{< ref "acra/configuring-maintaining/installing/installing-from-repository.md" >}}) or
-- Download and [build Acra from the GitHub repository]({{< ref "acra/configuring-maintaining/installing/installing-from-github.md" >}}).
-
-## Guides
-
-For the further guides on how to integrate Acra, see
-* [Integrating AcraServer into infrastructure]({{< ref "acra/guides/integrating-acra-server-into-infrastructure/" >}})
-* [Integrating AcraTranslator into infrastructure]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/" >}})
+Check [the list of languages for which SDK are available](/acra/getting-started/availability/#sdk--acrawriter).

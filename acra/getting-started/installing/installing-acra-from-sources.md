@@ -1,34 +1,48 @@
 ---
-title: Installing from GitHub
+title: Acra from sources
 bookCollapseSection: true
+weight: 3
 ---
 
-### Installing from GitHub
+# Installing Acra from sources
 
 These are the instruction for installation of [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) from the [Cossack Labs' GitHub repository for Acra](https://github.com/cossacklabs/acra/). You will need the same set of dependencies for each component.
 
-#### Installing the dependencies
+## Installing the dependencies
 
 Install the dependencies for Acra:
 
-```
-sudo apt-get install git golang libssl-dev make build-essential
+**Debian / Ubuntu**
+
+```bash
+sudo apt-get install git libssl-dev make build-essential
 ```
 
-Set up your `$GOPATH` to some place where you will store the code.
+**RHEL / CentOS / OEL**
 
-#### Install [Themis](https://www.github.com/cossacklabs/themis)
-
+```bash
+sudo yum groupinstall 'Development Tools'
+sudo yum install openssl-devel
 ```
+
+## Install golang
+
+[Install and configure the latest stable version of golang](https://golang.org/doc/install).
+
+## Install Themis
+
+Install [Themis](https://www.github.com/cossacklabs/themis) library:
+
+```bash
 git clone https://github.com/cossacklabs/themis.git
 cd themis
 make
 sudo make install
 ```
 
-#### Build the key generator and generate the keys
+## Build the key generator and generate the keys
 
-```
+```bash
 go get github.com/cossacklabs/acra/cmd/acra-keymaker
 ```
 
@@ -36,30 +50,30 @@ Then [generate the keys]({{< ref "acra/acra-in-depth/cryptography-and-key-manage
 
 Remember to generate `ACRA_MASTER_KEY` and assign it to the environmental variable!
 
-#### Set up the environment for AcraServer
+## Set up the environment for AcraServer
 
 On a separate machine, create a user for AcraServer and make sure your GOBIN is in PATH:
-```
+```bash
 sudo useradd -m acra-server
 sudo su acra-server
 cd ~/
 export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
 ```
 
-#### Build AcraServer
+## Build AcraServer
 
-```
+```bash
 go get github.com/cossacklabs/acra/cmd/acra-server
 ```    
 
 Place `someid.pub`, `someid_storage` and `someid_server` keys to .acrakeys directory for AcraServer.
 Now you can finally launch the AcraServer.
 
-#### Launching AcraServer
+## Run AcraServer
 
 Running AcraServer is easy, just point it to the database:
 
-```
+```bash
 acra-server --db_host=127.0.0.1
 ```
 
@@ -67,32 +81,40 @@ If you see an error message `"master key is empty"`, it means that you haven't g
 
 > You can complement the command above with `--db_port=5432 -v` to adjust the listener port and add logs to get going quickly. For all the available CLI parameters, refer to the corresponding section in [How AcraServer works]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags" >}}).
 
-AcraServer listens to port 9393 by default.
+AcraServer listens to port **9393** by default.
 
-#### AcraConnector
+## Set up the environment for AcraConnector
 
 Create a user for AcraConnector:
 
-```
+```bash
 sudo useradd -m acra-connector
 sudo su acra-connector
 cd ~/
 export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
 ```
 
-#### Build AcraConnector
+## Build AcraConnector
 
-```
+```bash
 go get github.com/cossacklabs/acra/cmd/acra-connector
 ```
 Put `someid` and `someid_server.pub` keys into .acrakeys directory for AcraConnector.
 
-#### Run AcraConnector
+## Run AcraConnector
 
-```
+```bash
 acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
 ```
 
 If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
 
 AcraConnector is now listening on the localhost port **9494**. Now try accessing your database via AcraConnector to make sure that everything actually works after installation.
+
+---
+
+## Guides
+
+As further steps, we recommend reading the following sections:
+* [Acra in depth](/acra/acra-in-depth/)
+* [Configuring & maintaining](/acra/configuring-maintaining/)

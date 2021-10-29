@@ -10,7 +10,7 @@ This tutorial shows a typical process of integrating Acra into a Python web app.
 Django framework. It is based on the popular example many Django users start their development journey with - 
 [djangoproject.com repository](https://github.com/django/djangoproject.com).
 
-We will be integrating [AcraWriter]({{< ref "/acra/configuring-maintaining/installing/building-acrawriter.md" >}}) 
+We will be integrating [AcraWriter](/acra/getting-started/installing/building-acrawriter/)
 to protect blog posts.
 
 This tutorial assumes that you have both AcraServer and PostgreSQL up and running.
