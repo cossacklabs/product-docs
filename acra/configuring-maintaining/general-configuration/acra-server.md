@@ -230,13 +230,13 @@ weight: 3
 
 * `--db_host=<host>`
 
-  Database host for AcraServer -> database connections.
+  Database host for AcraServer → database connections.
   Must be set.
   Default is empty.
 
 * `--db_port=<port>`
 
-  Database port for AcraServer -> database connections.
+  Database port for AcraServer → database connections.
   Default is `5432`.
 
 * `-ds`
