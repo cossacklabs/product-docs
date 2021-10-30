@@ -312,7 +312,7 @@ acra-keymaker \
 
 ### Transport keys
 
-Used in `AcraConnector <-> AcraTranslator` connection with `SecureSession` as transport encryption.
+Used in `AcraConnector ↔︎ AcraTranslator` connection with `SecureSession` as transport encryption.
 
 ```
 acra-keymaker \

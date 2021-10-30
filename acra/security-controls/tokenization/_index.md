@@ -13,9 +13,9 @@ There is also special variant for string that contains email, it will be transfo
 
 It is better to see than to read:
 
-* `789` -> `156749362`
-* `testing testing` -> `lwcIvM3zaJN9cbN`
-* `kate@example.com` -> `sVAOfOwF@mSuGPog.et`
+* `789` → `156749362`
+* `testing testing` → `lwcIvM3zaJN9cbN`
+* `kate@example.com` → `sVAOfOwF@mSuGPog.et`
 
 The tokenization process has few interesting properties:
 

@@ -13,7 +13,7 @@ Not sure what is AcraServer or AcraTranslator? Get back to [Acra-in-depth / Arch
 
 ### Simplest version with SQL proxy
 
-`App <> AcraServer <> SQL database`
+`App ↔︎ AcraServer ↔︎ SQL database`
 
 It's a classic scenario: AcraServer sits between your application (or database-facing microservice) and the actual SQL database, encrypting and decrypting data, providing masking/tokenization, even filtering SQL requests if you like.
 
@@ -30,7 +30,7 @@ If you are using MySQL/PostgreSQL database and want to integrate Acra "transpare
 
 #### Writing
 
-`Application --> AcraServer --> SQL database`
+`Application → AcraServer → SQL database`
 
 Application sends data to database through AcraServer in [Transparent encryption mode](/acra/configuring-maintaining/controls-configuration-on-acraserver/). You configure AcraServer indicating which fields to encrypt/decrypt/mask/tokenize.
 
@@ -40,7 +40,7 @@ If [SQL firewall is configured](/acra/security-controls/sql-firewall/), AcraServ
 
 #### Reading
 
-`Application --> AcraServer --> SQL database --> AcraServer --> Application`
+`Application → AcraServer → SQL database → AcraServer → Application`
 
 Application requests data from a database through AcraServer. AcraServer transparently decrypts/detokenizes/unmasks data and passes it to the application.
 
@@ -48,7 +48,7 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 ### Simplest version with API service
 
-`App <> AcraTranslator, App <> Datastore`
+`App ↔︎ AcraTranslator, App ↔︎ Datastore`
 
 Another classic scenario: your application speaks to the API service to encrypt/decrypt/mask/unmask/tokenize/detokenize data, and then stores it in the datastore or sends to the otehr application.
 
@@ -67,13 +67,13 @@ If you are using NoSQL / KV datastore and want your application to be responsibl
 
 #### Writing
 
-`Application --> AcraTranslator --> Application --> Datastore`
+`Application → AcraTranslator → Application → Datastore`
 
 Application knows which fields to encrypt/mask/tokenize. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends protected data back to the app. The app is responsible to store the received data.
 
 #### Reading
 
-`Application --> Datastore --> Application --> AcraTranslator --> Application`
+`Application → Datastore → Application → AcraTranslator → Application`
 
 Application reads encrypted data from the storage or the other application and needs to decrypt/demask/detokenize it. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends original data back to the app. The app is responsible to use the data.
 
@@ -81,7 +81,7 @@ Application reads encrypted data from the storage or the other application and n
 
 ### AnyProxy
 
-`App <> DAO (<> AT or AS) <> other API`
+`App ↔︎ DAO (↔︎ AT or AS) ↔︎ other API`
 
 Application needs to access sensitive data, which is stored separately encrypted. Application sends requests to DAO (data access object), that is responsible for reading the encrypted data from the datastore, decrypting it using AcraTranslator and sending it back to the requested application.
 
@@ -99,13 +99,13 @@ Depending on the database that you use, DAO can talk to AcraServer (for SQL data
 
 #### Writing
 
-`Application --> DAO <> [AcraTranslator, AcraServer, Datastore] --> Application`
+`Application → DAO ↔︎ [AcraTranslator, AcraServer, Datastore] → Application`
 
 Application sends sensitive fields to DAO to protect. DAO communicates with AcraServer/AcraTranslator to encrypt/mask/tokenize the fields and stores them in a database/datastore.
 
 #### Reading
 
-`Application --> DAO <> [AcraTranslator, AcraServer, Datastore] --> Application`
+`Application → DAO ↔︎ [AcraTranslator, AcraServer, Datastore] → Application`
 
 Application asks DAO for sensitive fields in plaintext. DAO reads encrypted/masked/tokenized fields from the database/datastore, and communicates with AcraServer/AcraTranslator to decrypt/demask/untokenize the fields. DAO receives plaintext fields and sends them back to the application.
 
@@ -118,7 +118,7 @@ Acra was built to accompany sensitive data lifecycle in large, microservice-driv
 
 ### End-to-end encrypted dataflow
 
-`App [AcraWriter] <> Datastore <> App [AcraReader]`
+`App [AcraWriter] ↔︎ Datastore ↔︎ App [AcraReader]`
 
 Application uses AcraWriter SDK to encrypt data on application side, and then stores data in a database/datastore. Application reads encrypted data and uses AcraRead SDK to decrypt it.
 
@@ -135,13 +135,13 @@ When some parts of the dataflow should be end-to-end encrypted. We strongly advi
 
 #### Writing
 
-`Application [AcraWriter] --> Datastore`
+`Application [AcraWriter] → Datastore`
 
 Application locally encrypts sensitive data using AcraWriter. The app is responsible for accessing Acra's encryption keys. The app is responsible to store protected data.
 
 #### Reading
 
-`Application --> Datastore --> Application [AcraReader]`
+`Application → Datastore → Application [AcraReader]`
 
 Application reads encrypted data from the datastore, locally decrypts it using AcraReader. The app is responsible for accessing Acra's decryption keys.  
 
@@ -149,7 +149,7 @@ Application reads encrypted data from the datastore, locally decrypts it using A
 
 ### Client-side encryption, server-side decryption
 
-`App [AcraWriter] <> AcraServer <> SQL database`
+`App [AcraWriter] ↔︎ AcraServer ↔︎ SQL database`
 
 Application uses AcraWriter SDK to encrypt data on application side, and sends it to the database through AcraServer. Application reads the data through AcraServer that decrypts it. 
 
@@ -167,13 +167,13 @@ When the system will benefit from client-side encryption and security controls p
 
 #### Writing
 
-`Application [AcraWriter] --> AcraServer --> SQL database`
+`Application [AcraWriter] → AcraServer → SQL database`
 
 Application locally encrypts sensitive data using AcraWriter. The app is responsible for accessing Acra's encryption keys. Then the app sends data to the database directly or via AcraServer. AcraServer will detected encrypted data and won't encrypt it twice.
 
 #### Reading
 
-`Application --> AcraServer --> SQL database --> AcraServer --> Application`
+`Application → AcraServer → SQL database → AcraServer → Application`
 
 Application requests data from a database through AcraServer. AcraServer transparently decrypts/detokenizes/unmasks data and passes it to the application.
  
@@ -182,7 +182,7 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 ### Using AcraConnector and AcraServer
 
-`App <> AcraConnector <> AcraServer <> SQL database`
+`App ↔︎ AcraConnector ↔︎ AcraServer ↔︎ SQL database`
 
 Similar to the classic scenario the [simplest dataflow with AcraServer](/acra/acra-in-depth/data-flow/#simplest-version-with-sql-proxy), but the application uses AcraConnector for transport encryption.
 
@@ -200,13 +200,13 @@ When client-side application works in a hostile environment and extra transport 
 
 #### Writing
 
-`Application --> AcraConnector --> AcraServer --> SQL database`
+`Application → AcraConnector → AcraServer → SQL database`
 
 Application sends plaintext data through AcraConnector. AcraConnector uses powerful transport encryption to protect data in plaintext. AcraServer works in [Transparent encryption mode](/acra/configuring-maintaining/controls-configuration-on-acraserver/). AcraServer performs encryption, searchable encryption, masking, tokenization.
 
 #### Reading
 
-`Application --> AcraConnector --> AcraServer --> SQL database --> AcraServer --> AcraConnector --> Application`
+`Application → AcraConnector → AcraServer → SQL database → AcraServer → AcraConnector → Application`
 
 Application requests data from a database through AcraServer. AcraServer transparently decrypts/detokenizes/unmasks data and passes it safely to the application using AcraConnector.
 
@@ -214,7 +214,7 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 ### Using AcraWriter, AcraConnector and AcraServer
 
-`App [AcraWriter] <> AcraConnector <> AcraServer <> SQL database`
+`App [AcraWriter] ↔︎ AcraConnector ↔︎ AcraServer ↔︎ SQL database`
 
 A combination of methods above. Application uses AcraWriter SDK to encrypt data on application side. App uses strong transport encryption provided by AcraConnector to connect to AcraServer to send encrypted data. Then AcraServer sends data to the database.
 
@@ -232,14 +232,14 @@ When client-side application works in a hostile environment. Client-app performs
 
 #### Writing
 
-`Application [AcraWriter] --> AcraConnector --> AcraServer --> SQL database`
+`Application [AcraWriter] → AcraConnector → AcraServer → SQL database`
 
 Application locally encrypts sensitive data using AcraWriter. The app is responsible for accessing Acra's encryption keys. Then the app sends data to the database directly or to the AcraServer. Encrypted data is sent to AcraServer through AcraConnector that protects it using TLS or Themis Secure Session.
 
 
 #### Reading
 
-`Application --> AcraConnector --> AcraServer --> SQL database --> AcraServer --> AcraConnector --> Application`
+`Application → AcraConnector → AcraServer → SQL database → AcraServer → AcraConnector → Application`
 
 Application requests data from a database through AcraServer. AcraServer transparently decrypts/detokenizes/unmasks data and passes it safely to the application using AcraConnector.
 
@@ -249,7 +249,7 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 ### Using AcraConnector and AcraTranslator
 
-`App <> AcraConnector <> AcraTranslator, App <> Datastore`
+`App ↔︎ AcraConnector ↔︎ AcraTranslator, App ↔︎ Datastore`
 
 Similar to the classic scenario the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api-service), but the application uses AcraConnector for transport encryption.
 
@@ -266,13 +266,13 @@ When client-side application works in a hostile environment and extra transport 
 
 #### Writing
 
-`Application --> AcraConnector --> AcraTranslator --> AcraConnector --> Application --> Datastore`
+`Application → AcraConnector → AcraTranslator → AcraConnector → Application → Datastore`
 
 Application knows which fields to encrypt/mask/tokenize. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends protected data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session. 
 
 #### Reading
 
-`Application --> Datastore --> Application --> AcraConnector --> AcraTranslator --> AcraConnector --> Application`
+`Application → Datastore → Application → AcraConnector → AcraTranslator → AcraConnector → Application`
 
 Application reads encrypted data from the storage or the other application and needs to decrypt/demask/detokenize it. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends original data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session. 
 
