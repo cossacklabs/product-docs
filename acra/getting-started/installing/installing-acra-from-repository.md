@@ -31,12 +31,12 @@ deb https://pkgs.cossacklabs.com/stable/$OS $RELEASE main
 
 We currently build packages for the following OSs and RELEASE combinations:
 
-- *Debian 11 "Bullseye" (amd64)*,
-- *Debian 10 "Buster" (amd64)*,
-- *Debian 9 "Stretch" (amd64)*,
-- *Ubuntu 20.04 LTS "Focal Fossa" (amd64)*,
-- *Ubuntu 18.04 LTS "Bionic Beaver" (amd64)*.
-- *Ubuntu 16.04 LTS "Xenial Xerus" (amd64)*,
+- *Debian 11 "Bullseye" (amd64)*
+- *Debian 10 "Buster" (amd64)*
+- *Debian 9 "Stretch" (amd64)*
+- *Ubuntu 20.04 LTS "Focal Fossa" (amd64)*
+- *Ubuntu 18.04 LTS "Bionic Beaver" (amd64)*
+- *Ubuntu 16.04 LTS "Xenial Xerus" (amd64)*
 
 For example, if you are running *Debian 11 "Bullseye"*, run:
 
