@@ -47,7 +47,7 @@ See [Policy management guides](/acra/configuring-maintaining/policies-enterprise
   * Acra Enterprise Edition extends that capability with more signals, more internal reaction types and easier integration with SIEM/SOAR systems. 
 
 
-See [Security automation guides](/acra/security-controls/programmatic-reactions/).
+See [Security automation guides](/acra/security-controls/security-logging-and-events/programmatic-reactions/).
 
 
 ### Even more convenient infrastructure
@@ -74,7 +74,7 @@ We provide a great flexibility around Acra Enterprise Edition. Select what is be
 
 ### 1. Start with Acra Community Edition and examples.
 
-Check [Acra Community Edition](github.com/cossacklabs/acra) on GitHub. Play with [Acra engineering examples](github.com/cossacklabs/acra-engineering-demo) – a collection of ready-to-try projects with Acra, database, web application and monitoring tools. Learn how easy it is to integrate Acra data protection into existing application.
+Check [Acra Community Edition](https://github.com/cossacklabs/acra) on GitHub. Play with [Acra engineering examples](https://github.com/cossacklabs/acra-engineering-demo) – a collection of ready-to-try projects with Acra, database, web application and monitoring tools. Learn how easy it is to integrate Acra data protection into existing application.
 
 ### 2. Free playgrounds tailored for your use case.
 

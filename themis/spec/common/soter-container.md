@@ -50,7 +50,7 @@ CRC is enough to detect random bit flips and accidental data corruption in most 
 but it provides no protection against malicious tampering and no error correction.
 
 Thus, Soter containers are used in Themis for data which does not have other, cryptographic integrity checks embedded into it.
-Most prominently, [asymmetric keys](../asymmetric-keypairs/) are enclosed in Soter containers.
+Most prominently, [asymmetric keys](../../asymmetric-keypairs/) are enclosed in Soter containers.
 
 ## Example
 
