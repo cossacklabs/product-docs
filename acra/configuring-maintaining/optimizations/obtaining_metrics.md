@@ -12,7 +12,7 @@ This includes
 [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/_index.md#network" >}}),
 [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator/_index.md" >}}).
 
-More info about this on [metrics page](({{< ref "acra/configuring-maintaining/metrics/_index.md" >}})).
+More info about this on [metrics page]({{< ref "acra/configuring-maintaining/metrics/_index.md" >}}).
 
 Here is an example of metrics exported:
 ```
