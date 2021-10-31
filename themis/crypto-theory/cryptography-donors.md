@@ -26,7 +26,7 @@ They are composed according to the best modern practices of achieving certain se
 
 ## What should you use
 
-[Soter](/themis/themis-architecture/soter/)
+[Soter](/themis/architecture/soter/)
 uses cryptographic algorithms provided by cryptography donors (or _backends_).
 Currently, all of them come from one family of products based on OpenSSL:
 

@@ -13,7 +13,7 @@ We provide [packages of Acra components via our repository](https://pkgs.cossack
 
 ### Docker
 
-Currently, all [the images we provide](TODO_SHAD) are built to run on a Linux-based machines. Of course, there are ways to run them under intermediate Linux virtual machines over macOS or Windows, but we strongly discourage this approach in production.
+Currently, all [the images we provide](/acra/getting-started/installing/launching-acra-from-docker-images/) are built to run on a Linux-based machines. Of course, there are ways to run them under intermediate Linux virtual machines over macOS or Windows, but we strongly discourage this approach in production.
 
 ### Build from sources
 

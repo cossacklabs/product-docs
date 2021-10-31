@@ -10,10 +10,10 @@ weight: 1
 It is where you can run Acra software that acts like a server (including AcraServer, AcraConnector, AcraTranslator).
 
 In most cases Linux will be used as a host OS, and we have:
-* [packages](TODO_SHAD) available for commonly used distros
-* [pre-built images](TODO_SHAD) compatible with Docker and most cloud Kubernetes providers like GCP/GKE and AWS/EKS
+* [packages](/acra/getting-started/installing/installing-acra-from-repository/) available for commonly used distros
+* [pre-built images](/acra/getting-started/installing/launching-acra-from-docker-images/) compatible with Docker and most cloud Kubernetes providers like GCP/GKE and AWS/EKS
 
-Alternatively, you can manually [build Acra from sources](TODO_SHAD) under desired platform (though Windows is not supported).
+Alternatively, you can manually [build Acra from sources](/acra/getting-started/installing/installing-acra-from-sources/) under desired platform (though Windows is not supported).
 
 ## Client side
 

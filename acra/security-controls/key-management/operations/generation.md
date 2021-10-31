@@ -137,7 +137,7 @@ Stored keys should not be world-readable.
 AcraServer and AcraTranslator check this and will refuse to launch if access to the keys is not properly restricted.
 {{< /hint >}}
 
-If you are running Acra 0.86+ and wish to try the new [keystore version 2](../versions/),
+If you are running Acra 0.86+ and wish to try the new [keystore version 2](../../versions/),
 use `--keystore=v2` option when generating the keys:
 
 ```shell
@@ -223,7 +223,7 @@ Stored keys should not be world-readable.
 AcraConnector checks this and will refuse to launch if access to the keys is not properly restricted.
 {{< /hint >}}
 
-If you are running Acra 0.86+ and wish to try the new [keystore version 2](../versions/),
+If you are running Acra 0.86+ and wish to try the new [keystore version 2](../../versions/),
 use `--keystore=v2` option when generating the keys:
 
 ```shell

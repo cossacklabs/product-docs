@@ -40,7 +40,7 @@ To deliver its unique guarantees, Acra relies on the combination of well-known c
 Themis is a high-level open source cryptographic library that encapsulates multiple ciphers into _cryptosystems_ aimed at exact data protection goals.
 
 Themis uses the best available [open-source implementations](/themis/crypto-theory/cryptography-donors) of the 
-[most reliable ciphers](/themis/architecture/soter.md). Currently, Themis can be built using OpenSSL, LibreSSL, and Google's BoringSSL (a number of experimental build methods for LibSodium, BearSSL, and even CommonCrypto are available, too).
+[most reliable ciphers](/themis/architecture/soter/). Currently, Themis can be built using OpenSSL, LibreSSL, and Google's BoringSSL (a number of experimental build methods for LibSodium, BearSSL, and even CommonCrypto are available, too).
 
 Acra uses [GoThemis](/themis/languages/go/) (Go-language wrapper for Themis) in AcraServer, AcraTranslator and key management utility. AcraWriters per each platform rely on Themis wrappers built for that platform (for example, AcraWriter for iOS uses ObjCThemis for iOS). 
 

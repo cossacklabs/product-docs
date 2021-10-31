@@ -182,5 +182,5 @@ Also, `user0` is predefined ClientID. You can also generate ClientID from certif
 
 {{< hint info >}}
 **Note:**
-Currently, `acra-rotate` only supports [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct/) as crypto containers but not [AcraBlock](/acra/acra-in-depth/data-structures/acrablock/}).
+Currently, `acra-rotate` only supports [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct/) as crypto containers but not [AcraBlock](/acra/acra-in-depth/data-structures/acrablock/).
 {{< /hint >}}
