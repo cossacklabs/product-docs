@@ -31,12 +31,12 @@ deb https://pkgs.cossacklabs.com/stable/$OS $RELEASE main
 
 We currently build packages for the following OSs and RELEASE combinations:
 
-- *Debian "Bullseye" (Debian 11)*,
-- *Debian "Buster" (Debian 10)*,
-- *Debian "Stretch" (Debian 9)*,
-- *Ubuntu Focal Fossa (Ubuntu 20.04 LTS)*,
-- *Ubuntu Bionic Beaver (Ubuntu 18.04 LTS)*.
-- *Ubuntu Xenial Xerus (Ubuntu 16.04 LTS)*,
+- *Debian 11 "Bullseye" (amd64)*,
+- *Debian 10 "Buster" (amd64)*,
+- *Debian 9 "Stretch" (amd64)*,
+- *Ubuntu 20.04 LTS "Focal Fossa" (amd64)*,
+- *Ubuntu 18.04 LTS "Bionic Beaver" (amd64)*.
+- *Ubuntu 16.04 LTS "Xenial Xerus" (amd64)*,
 
 For example, if you are running *Debian 11 "Bullseye"*, run:
 
@@ -61,8 +61,8 @@ sudo apt-get install acra
 
 We currently build packages for the following OSs and RELEASE combinations:
 
-* RHEL / CentOS / OEL 8 x86_64
-* RHEL / CentOS / OEL 7 x86_64
+* *RHEL / CentOS / OEL 8 (x86_64)*
+* *RHEL / CentOS / OEL 7 (x86_64)*
 
 **1. Import the public key used by Cossack Labs to sign packages:**
 
