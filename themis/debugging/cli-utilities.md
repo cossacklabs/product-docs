@@ -9,8 +9,8 @@ Some of the language wrappers for Themis are supplied with console utilities.
 They help to understand the specific mechanics of encryption/decryption processes.
 
 The command-line tools can encrypt and decrypt data through
-[Secure Cell](/themis/using-themis/cryptosystems/secure-cell/)
-or [Secure Message](/themis/using-themis/cryptosystems/secure-message/)
+[Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/)
+or [Secure Message](/themis/crypto-theory/cryptosystems/secure-message/)
 modes on your local machine using the command line.
 
 The tools are located in the
