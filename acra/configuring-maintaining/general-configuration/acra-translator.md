@@ -59,14 +59,14 @@ weight: 2
   On detecting poison record: log about poison record detection, stop and shutdown.
   Default is `false`.
 
-* `--redis_db_keys=`
+* `--redis_db_keys=<id>`
 
   Number of Redis database for keys.
   Default is `0`.
   <!-- `acra-translator -help` says default is `-1` but in `cmd/redis.go` I see `redisDefaultDB = 0` -->
   <!-- this var is also used as default value for the flag, where's the truth? -->
 
-* `--redis_db_tokens=`
+* `--redis_db_tokens=<id>`
 
   Number of Redis database for tokens.
   Default is `0`.
