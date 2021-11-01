@@ -19,9 +19,9 @@ The exact feature set of AnyProxy is defined by you and we shape it for you.
 Refer to [Acra Enterprise Edition](/acra/enterprise-edition/) to learn how it can your data protected, your Ops relaxed, and your life better.
 
 
-## What AnyProxy does
+## AnyProxy's functionality
 
-AnyProxy encapsulates other Acra's services. You want to encrypt data transparently for your app into MongoDB but AcraServer doens't support NoSQL databases? No worries, AnyProxy makes it possible. 
+AnyProxy encapsulates other Acra's services. You want to encrypt data transparently for your app into MongoDB but AcraServer doesn't support NoSQL databases? No worries, AnyProxy makes it possible. 
 
 AnyProxy performs different [data protection operations](/acra/acra-in-depth/security-features/), like [encryption/decryption](/acra/security-controls/encryption), [searchable encryption](/acra/security-controls/searchable-encryption/), [masking/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/). 
 
@@ -37,7 +37,7 @@ We outlined some examples of dataflows for AnyProxy and DAO in [the Dataflow](/a
 For example, once we built AnyProxy for MongoDB: we wrote client-side SDK in JS for client app written on NodeJS. The client app just called AnyProxy SDK with encrypt/decrypt commands. SDK then connected to the AcraTranslator to perform operations, received encrypted data and stored it in the MongoDB.
 
 
-## How it connects to other parts
+## Connection with other parts
 
 AnyProxy connects to the same parts, as [AcraServer](/acra/acra-in-depth/architecture/acraserver/) and [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/).
 

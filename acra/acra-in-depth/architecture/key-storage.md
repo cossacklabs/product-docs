@@ -41,7 +41,7 @@ AcraServer and AcraTranslator will require key storage for tokenization. When [t
 
 Components like AcraServer and AcraTranslator can connect to key storage database to read keys, read/write tokenization data.
 
-### What are architectural considerations?
+### Architectural considerations
 
 If you already use Redis for some purposes, it is not recommended to use it for key storage too.
 Instead, hosting new instance on a separate machine will provide better security guarantees.
@@ -73,7 +73,7 @@ Refer to [Configuring and maintaining](/acra/configuring-maintaining/key-storing
 AcraServer, AcraTranslator and AnyProxy can read Acra Master Key from KMS.
 
 
-### What are the security considerations?
+### Security considerations
 
 If you want to use KMS for master key storage/distribution, you already know that it is quite important
 to ensure that the KMS is properly configured, well isolated and there are policies that limit what clients can request.

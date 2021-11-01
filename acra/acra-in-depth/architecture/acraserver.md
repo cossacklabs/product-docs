@@ -13,7 +13,7 @@ If you'd like to encrypt the data between your app and SQL database "transparent
 Refer to [Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/) to learn how configure AcraServer.
 
 
-## What AcraServer does
+## AcraServer's functionality
 
 It performs different [data protection operations](/acra/acra-in-depth/security-features/), like [encryption/decryption](/acra/security-controls/encryption), [searchable encryption](/acra/security-controls/searchable-encryption/), [masking/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/). 
 
@@ -40,9 +40,9 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 ## Non-functional requirements
 
-* Easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
-* Available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
-* [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) as a helper tool for runtime reconfiguration.
+* Is easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
+* Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
+* Is integrated with [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) - a helper tool for re-configuring at runtime.
 * Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [SQL firewall](/acra/security-controls/sql-firewall), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) for client-side encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
 
 
@@ -58,7 +58,7 @@ Here is the simplest connection:
 Client application connects to the AcraServer, which works as a reverse-proxy for SQL database.
 
 
-## How it connects to other parts
+## Connection with other parts
 
 Except talking with the client app and the database, AcraServer also connects to other parts of your system. Some connections are required – for example, if you place Acra Master key to KMS, AcraServer should know how to connect to the KMS.
 
@@ -76,7 +76,7 @@ Other connections are optional – for example, you can use Redis as external ke
 * [KMS](/acra/configuring-maintaining/key-storing/kms/) – if you put Acra Master key to KMS, like HashiCorp Vault, AcraServer should read this key during startup.
 
 
-## What are architectural considerations?
+## Architectural considerations
 
 It is strictly recommended to host AcraServer on a different machine (virtual or physical),
 isolated from both client applications and the database.

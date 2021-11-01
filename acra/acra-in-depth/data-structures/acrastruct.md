@@ -5,7 +5,7 @@ weight: 3
 
 ## AcraStruct
 
-AcraStruct is an asymmetric cryptographic container. In a nutshell, it encrypt data using symmetric encryption, and then encrypts the key using asymmetric encryption. 
+AcraStruct is an asymmetric cryptographic container. In a nutshell, it encrypts data using symmetric encryption, and then encrypts the key using asymmetric encryption. 
 
 AcraServer and AcraTranslator can encrypt/decrypt AcraStructs, but the main gem of AcraStructs is client-side encryption. Due to the asymmetric nature, client application can generate AcraStructs (encrypt data into AcraStructs) without risks, as only Acra's public key is exposed.
 

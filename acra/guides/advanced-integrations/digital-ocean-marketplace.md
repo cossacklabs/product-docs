@@ -11,7 +11,7 @@ As another step towards our mission, we are proud to announce that [Acra encrypt
 DigitalOcean is known for its caring attitude towards development teams of any size. We share the same values and are delighted that Acra is the first data security tool on DigitalOcean Marketplace.
 
 ## Acra 1-Click App
-Acra 1-Click App contains AcraServer, which can work in different modes, depending on the infrastructure: server-side encryption (Transparent proxy mode, where AcraServer both encrypts and decrypts the data) or client-side encryption (where client application encrypts the data and AcraServer only decrypts it).
+Acra 1-Click App contains [AcraServer](https://doc-staging.dev.cossacklabs.com/acra/acra-in-depth/architecture/acraserver/), which can work in different modes, depending on the infrastructure: server-side encryption (Transparent proxy mode, where AcraServer both encrypts and decrypts the data) or client-side encryption (where client application encrypts the data and AcraServer only decrypts it).
 
 You can configure AcraServer yourself or try it with pre-configured settings. Acra 1-Click App has an interactive configuration script that prepares AcraServer for work as a Transparent encryption proxy with a PostgreSQL database.
 

@@ -225,7 +225,7 @@ Following table describes flags that work only in appropriate mode:
   Folder from which keys will be loaded.
   Default is `.acrakeys`.
   
-* `--redis_db_keys=`
+* `--redis_db_keys=<id>`
 
   Number of Redis database for keys.
   Default is `0`.
