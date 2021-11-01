@@ -17,7 +17,7 @@ weight: 3
   Enable TLS to encrypt transport between AcraConnector and AcraServer.
   Default is `false` which means "use SecureSession instead".
 
-* `--acraconnector_transport_encryption_disable=`
+* `--acraconnector_transport_encryption_disable={true|false}`
 
   Use raw transport (tcp/unix socket) between AcraTranslator and client app.
   It turns off reading trace from client app's side which usually sent by AcraConnector.
@@ -25,13 +25,11 @@ weight: 3
 
 * `--acrastruct_injectedcell_enable={true|false}`
 
-  Acrastruct may be injected into any place of data cell.
-  Default is `false`.
+  AcraStruct may be injected into any place of data cell (**deprecated**, ignored, AcraServer always works in Injected Cell mode).
 
 * `--acrastruct_wholecell_enable={true|false}`
 
-  Acrastruct will stored in whole data cell.
-  Default is `true`.
+  AcraStruct will stored in whole data cell (**deprecated**, ignored).
 
 * `--audit_log_enable={true|false}`
 
@@ -57,14 +55,14 @@ weight: 3
   On detecting poison record: log about poison record detection, stop and shutdown.
   Default is `false`.
 
-* `--redis_db_keys=`
+* `--redis_db_keys=<id>`
 
   Number of Redis database for keys.
   Default is `0`.
   <!-- `acra-server -help` says default is `-1` but in `cmd/redis.go` I see `redisDefaultDB = 0` -->
   <!-- this var is also used as default value for the flag, where's the truth? -->
 
-* `--redis_db_tokens=`
+* `--redis_db_tokens=<id>`
 
   Number of Redis database for tokens.
   Default is `0`.
