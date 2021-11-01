@@ -37,6 +37,15 @@ as it contains the necessary header files.
 
 In either case, we **strongly** recommend that you use the most recent version of these packages.
 
+{{< hint warning >}}
+**Note:**
+At the moment Themis is not fully compatible with OpenSSL 3.0.
+Please use the latest OpenSSL 1.1.1 unless you know what you are doing.
+Rest assured, OpenSSL 1.1.1 is getting security updates at least until September 2023.
+
+Status of Themis migration to OpenSSL 3.0 can be tracked [on GitHub](https://github.com/cossacklabs/themis/issues/873).
+{{< /hint >}}
+
 ### Building with Make
 
 Start with getting the latest Themis source code from GitHub:
