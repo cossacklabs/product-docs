@@ -6,19 +6,17 @@ weight: 3
 
 # Scalable KV storages
 
-## Why
-
-All the keys are encrypted with the master key, so it's OK to store them in some storage available for many hosts.
+All the keys are encrypted with the Acra Master Key, so it's OK to store them in some storage available for many hosts.
 Managing keys becomes harder as the number of them increases, that's why you may want to find the best KV storage for your purposes.
 
-## Where & how
+Acra supports several options: Redis, BoltDB, FS-storage (files), and in-memory storage.
 
-| KV storage | Can store keys | Can store tokens |
-| :--        | :--:           | :--:             |
-| Redis      | ✓              | ✓                |
-| BoltDB     |                | ✓                |
-| Files      | ✓              |                  |
-| In-memory  |                | ✓                |
+We recommend to start with "files" (keys are stored in files) and switch to Redis as soon as possible.
+
+Refer to [Acra in depth / Key storage and KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) to learn more about general key storage requirements.
+
+Refer to [Security controls / Key management](/acra/security-controls/key-management/) to learn how to generate encryption keys.
+
 
 ### Redis
 
@@ -46,7 +44,3 @@ You may want to use filesystem keystore if the amount of keys is small and they 
 Alternative storage for tokenization (cannot be used to store keys).
 Stores all token/plaintext pairs in process memory (and forgets everything after process exit).
 Default storage for tokenization if not configured otherwise.
-
-## How?
-
-_TODO should we add more text here as the description above already hints about how to enable the keystore?_
