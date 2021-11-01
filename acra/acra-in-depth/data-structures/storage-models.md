@@ -43,8 +43,8 @@ Let’s consider an example where we’re storing an email in a database and we�
 | `<CryptoEnvelope>` | Column2Value | Column3Value |
 | `<CryptoEnvelope>` | Column2Value | Column3Value |
 
-In this case, an CryptoEnvelope takes up a whole cell and we are trying to decrypt it as is, without searching for anything.
-But things can be different. In InjectedCell mode a binary [MsgPack](https://msgpack.org/index.html) or [protobuf](https://developers.google.com/protocol-buffers/) could be stored in a table, and it is possible that in those data entities only one field is encrypted.
+In this case, CryptoEnvelope takes up a whole cell, and we are trying to decrypt it as is, without searching for anything.
+However, in InjectedCell mode a binary [MsgPack](https://msgpack.org/index.html) or [protobuf](https://developers.google.com/protocol-buffers/) could be stored in a table, and partial data encryption is possible (for instance, if only one field of protobuf structure is encrypted).
 
 Such data entity wouldn’t be a single CryptoEnvelope - it would be a data entity that contains an CryptoEnvelope or several CryptoEnvelopes.
 This means that in the InjectedCell mode we stop assuming that the database cells can only contain complete CryptoEnvelopes.

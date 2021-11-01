@@ -43,7 +43,7 @@ You can use AcraWriter to bypass AcraServer/AcraTranslator and thus get some lit
 
 We strongly advise to combine encryption by AcraWriter typical dataflow using AcraServer/AcraTranslator - meaning, that some apps will use AcraServer/AcraTranslator as designed, while some apps will process data on client-side only.
 
-### What are the security considerations?
+### Security considerations
 
 If you decide to use AcraWriter, making sure that the keys are properly stored/protected will be a responsibility of the application.
 
@@ -78,7 +78,7 @@ You can use AcraReader to bypass AcraServer/AcraTranslator and thus get some lit
 
 We strongly advise to combine encryption by AcraReader typical dataflow using AcraServer/AcraTranslator - meaning, that some apps will use AcraServer/AcraTranslator as designed, while some apps will process data on client-side only.
 
-### What are the security considerations?
+### Security considerations
 
 If you decide to use AcraReader, making sure that the keys are properly stored/protected will be a responsibility of the application.
 
