@@ -33,7 +33,7 @@ Another way of encrypting data before storing it in database is encrypting it in
 and then putting encrypted variant in SQL query before executing it.
 In this case you don't rely on transparent encryption by AcraServer and you can store such encrypted data directly in the database.
 
-This is what [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) does. Right now the following languages are supported:
+This is what [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) does. Right now the following languages are supported:
 * [Golang](https://github.com/cossacklabs/acra/tree/master/examples/golang)
 * [Python](https://github.com/cossacklabs/acra/tree/master/examples/python)
 * [Ruby](https://github.com/cossacklabs/acra/tree/master/examples/ruby)

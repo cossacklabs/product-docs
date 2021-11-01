@@ -1,6 +1,5 @@
 ---
 title: AcraServer, an SQL proxy
-bookCollapseSection: true
 weight: 2
 ---
 
@@ -43,7 +42,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 * Is easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
 * Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
 * Is integrated with [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) - a helper tool for re-configuring at runtime.
-* Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [SQL firewall](/acra/security-controls/sql-firewall), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) for client-side encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
+* Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [SQL firewall](/acra/security-controls/sql-firewall), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) for client-side encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
 
 
 ## Dataflows
@@ -67,14 +66,15 @@ Other connections are optional – for example, you can use Redis as external ke
 ![](/files/acra/as-and-all-their-friends.png)
 
 
-* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
-
-* [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) — a lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
-
 * [Redis](/acra/acra-in-depth/architecture/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraServer performs [tokenization](/acra/security-controls/tokenization/).
 
-* [KMS](/acra/configuring-maintaining/key-storing/kms/) – if you put Acra Master key to KMS, like HashiCorp Vault, AcraServer should read this key during startup.
+* [KMS](/acra/configuring-maintaining/key-storing/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraServer should read this key during startup.
 
+* [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraReader](/acra/acra-in-depth/architecture/sdks/acrareader/) – optional client-side SDKs to encrypt or decrypt AcraBlocks/AcraStructs without AcraTranslator.
+
+* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
+
+* [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) — optional lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
 
 ## Architectural considerations
 
@@ -93,6 +93,6 @@ In many cases using SQL proxy would be a desired solution as it is
 and provides a whole complex of data protection stuff.
 
 However, in cases when you need to make application the only component that interacts with plaintext,
-AcraServer won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
+AcraServer won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to encrypt data on application-side before it leaves.
 
 Refer to [Scaling and HA](/acra/acra-in-depth/scaling-and-high-availability/) to learn how to scale and support growing infrastructure when you use AcraServer.
