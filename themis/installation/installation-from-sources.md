@@ -163,7 +163,7 @@ make all WITH_ASAN=yes
 
 Currently, Themis supports OpenSSL-like cryptographic engines (libcrypto):
 
-  - [OpenSSL](https://www.openssl.org/)
+  - [OpenSSL](https://www.openssl.org/) (1.1)
   - [LibreSSL](http://www.libressl.org/)
   - [BoringSSL](https://boringssl.googlesource.com/boringssl/)
 
@@ -196,6 +196,12 @@ The package is usually called `libssl-dev` or `openssl-devel`.
 OpenSSL is the default cryptographic engine on most platforms.
 Themis will automatically detect and use OpenSSL installed in your system.
 If you wish to explicitly require OpenSSL, set `ENGINE=openssl` when building Themis.
+
+{{< hint warning >}}
+**Note:**
+At the moment Themis supports only OpenSSL 1.0.2 and 1.1.x branches.
+OpenSSL 3.0 is still not fully supported.
+{{< /hint >}}
 
 #### BoringSSL
 
