@@ -1,7 +1,6 @@
 ---
 title: Key storage
-bookCollapseSection: true
-weight: 4
+weight: 5
 ---
 
 # Key storage and KMS

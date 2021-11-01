@@ -19,7 +19,7 @@ There are three ways to encrypt data:
 
 * AcraServer transparent encryption: if AcraServer has been set up in transparent mode, encryption happens on AcraServer during INSERT/UPDATE queries. You configure which fields should be encrypted in `encryptor_config`.
 * AcraTranslator: encryption happens as result of gRPC or HTTP API call from client application.
-* [Client-side encryption using AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/#acrawriter): it is possible to generate AcraStructs/AcraBlocks using AcraWriter library inside your application using appropriate keys.
+* [Client-side encryption using AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/acrawriter/): it is possible to generate AcraStructs/AcraBlocks using AcraWriter library inside your application using appropriate keys.
 
 ## Decryption
 
@@ -27,7 +27,7 @@ There are three ways to encrypt data from AcraStructs/AcraBlocks back in plainte
 
 * AcraServer transparent decryption: if AcraServer has been set up in transparent mode, decryption happens on AcraServer during SELECT queries. Same fields as configured as encrypted will be decrypted.
 * AcraTranslator: decryption happens as result of gRPC or HTTP API call from client application.
-* [Client-side decryption using AcraReader SDK](/acra/acra-in-depth/architecture/sdks/#acrareader): it is possible to decrypt data using AcraReader library inside your application using appropriate keys.
+* [Client-side decryption using AcraReader SDK](/acra/acra-in-depth/architecture/sdks/acrareader/): it is possible to decrypt data using AcraReader library inside your application using appropriate keys.
 
 Decryption is a risky operation, because decryption entity should have access to the keys (and should protect them).
 
@@ -41,7 +41,7 @@ All Acra services use the same cryptographic envelopes: AcraStructs and AcraBloc
 AcraServer works as a proxy between database client and the database itself.
 When a column is configured to be encrypted, AcraServer will transparently encrypt its value.
 You can also encrypt the data manually on the client side using
-[AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/#acrawriter).
+[AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/acrawriter/).
 
 Decryption on the other hand is done automagically: AcraServer will detect encrypted data and will attempt
 to decrypt it with all known keys.

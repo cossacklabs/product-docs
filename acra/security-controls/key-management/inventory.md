@@ -83,7 +83,7 @@ All intermediate keys are encrypted by Acra Master Key, that's why you should pr
 When read from the store, these keys will be shortly cached in memory to improve performance.
 This behavior is completely adjustable.
 
-Acra's intermediate keys, unless in special cases, do not leave Acra-controlled ecosystem (Acra and KMS) in plaintext, thus making the key lifecycle easier. In 99% cases, only public key of keypair should leave your backend (for example, public key from storage asymmetric keypair could be used for [client-side data encryption using AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter)).
+Acra's intermediate keys, unless in special cases, do not leave Acra-controlled ecosystem (Acra and KMS) in plaintext, thus making the key lifecycle easier. In 99% cases, only public key of keypair should leave your backend (for example, public key from storage asymmetric keypair could be used for [client-side data encryption using AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/)).
 
 There are several types of keys used in Acra.
 
@@ -118,7 +118,7 @@ Used for [encryption/decryption](/acra/security-controls/encryption/), [making/d
 
 AcraServer in Transparent proxy mode and AcraTranslator use storage asymmetric keys to encrypt/decrypt data into [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). 
 
-In cases when client-side encryption is required, public key of keypair could be sent to the application side. Then application uses [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data into AcraStructs locally before sending it to the database.
+In cases when client-side encryption is required, public key of keypair could be sent to the application side. Then application uses [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to encrypt data into AcraStructs locally before sending it to the database.
 
 Under the hood, storage asymmetric keys don't actually encrypt the data fields. Data encryption keys (DEKs) are randomly generated each time and used to encrypt every data field. Public key from storage asymmetric keypair is used to encrypt DEK, during decryption private key from storage asymmetric keypair is used to decrypt DEK. See [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) for the encryption details.
 
