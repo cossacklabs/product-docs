@@ -47,7 +47,7 @@ AcraStruct supports searchable encryption.
 Refer to [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) page to learn cryptographic details.
 
 
-## AcraBlocks / AcraStructs use-cases
+## AcraBlocks / AcraStructs use cases
 
 If you need end-to-end encryption then you should choose AcraStructs and encrypt data on a client side using Acra's public key. In all other cases you should prefer AcraBlocks that have less output size, fewer keys size and are more performant because use only symmetric key encryption. AcraStructs rely on asymmetric plus symmetric encryption algorithms, and are slower. 
 
