@@ -20,14 +20,14 @@ However, the ability to work with pure AcraStruct/AcraBlock also remains the sam
 
 Before create versioning container you should have already generated internal container (AcraStruct/AcraBlock).
 
-During generation of versioning container AcraServer wraps internal container with several field required for detection of general container.
+During generation of versioning container AcraServer wraps internal container with several fields required for detection of general container.
 
 ```Container = Begin_Tag + Data_Length + Envelope_ID + Internal_Container```
 
 - `Begin_Tag[3]` — 3 bytes, header tag (can be changed);
 - `Data_Length[8]` — length of the whole versioning container (in conjunction with internal container length);
 - `Envelope_ID[1]` — 1 byte, unique ID that describes type of internal container (AcraBlock - 240(OXF0)/AcraBlock - 241(OXF1));
-- `Internal_Container` — internal container payload.
+- `Internal_Container[...]` — internal container payload.
 
 
 ### Example
