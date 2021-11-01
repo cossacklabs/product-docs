@@ -22,7 +22,7 @@ Before create versioning container you should have already generated internal co
 
 During generation of versioning container AcraServer wraps internal container with several field required for detection of general container.
 
-```AcraStruct = Begin_Tag + Data_Length + Envelope_ID + Internal_Container```
+```Container = Begin_Tag + Data_Length + Envelope_ID + Internal_Container```
 
 - `Begin_Tag[3]` — 3 bytes, header tag (can be changed);
 - `Data_Length[8]` — length of the whole versioning container (in conjunction with internal container length);
