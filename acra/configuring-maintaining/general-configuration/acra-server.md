@@ -25,11 +25,11 @@ weight: 3
 
 * `--acrastruct_injectedcell_enable={true|false}`
 
-  AcraStruct may be injected into any place of data cell (**deprecated**, ignored, AcraServer always works in Injected Cell mode).
+  AcraStruct may be injected into any place of data cell (**deprecated since 0.90.0**, ignored, AcraServer always works in Injected Cell mode).
 
 * `--acrastruct_wholecell_enable={true|false}`
 
-  AcraStruct will stored in whole data cell (**deprecated**, ignored).
+  AcraStruct will stored in whole data cell (**deprecated since 0.90.0**, ignored, AcraServer always works in Injected Cell mode).
 
 * `--audit_log_enable={true|false}`
 

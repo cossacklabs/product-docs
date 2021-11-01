@@ -32,7 +32,7 @@ Acra will look for CryptoEnvelopes in every piece of data in InjectedCell mode.
 ## Comparison
 
 {{< hint warning >}}
-WholeCell mode is now deprecated and AcraServer is always working in InjectedCell mode.
+Since Acra 0.90.0 release, the WholeCell mode is now deprecated and AcraServer is always working in InjectedCell mode.
 Related configuration flags (`--acrastruct_injectedcell_enable` and `--acrastruct_wholecell_enable`) no longer have effect.
 {{< /hint >}}
 
