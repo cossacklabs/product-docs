@@ -1,4 +1,4 @@
-**---
+---
 title: CryptoEnvelopes Versioning
 weight: 2
 ---
