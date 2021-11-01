@@ -115,7 +115,7 @@ Application-level encryption brings plenty of security benefits:
 
 * ALE enables mapping of keys to users/entities/tenants, BYOK, more advanced key layouts, etc. 
 * ALE enables application developers and architects to distribute additional computing load and bottlenecks as they wish, thus making security less of a performance challenge, if it ever was.
-* ALE means that data stays encrypted until it is explicitly decrypted, which is not the case with TLS and data-at-rest encryption provided by databases by default.
+* ALE means that data remains encrypted until it is explicitly decrypted, which is not the case with TLS and data-at-rest encryption provided by databases by default.
 
 ### Risk implications 
 
@@ -153,7 +153,7 @@ Refer to [Acra-in-depth / Security design](/acra/acra-in-depth/security-design/)
 
 * **Quick and straightforward integration of security instrumentation**: there are many behavioral and organisational challenges which prevent security work from happening. To enable better security, security instrumentation should be as developer/operations friendly as possible.
 * **Hard to misuse**: world has a multitude of amazing security technologies. Unfortunately, if these technologies can be misused in a way that will lead to lowering of their security impact (with a false sense of security attached), they will be. Acra actively resists misuse that has security impact, where possible – provides secure-by-default options, validates configuration files, notifies on suspicious activity, etc.
-* **Crypto under the hood**: you don't have to become cryptography expert to use Acra, nor you can. Crypto details are abstracted away. 
+* **Crypto under the hood**: Acra doesn't require deep cryptographic expertise for proper usage. Cryptographic details are abstracted.
 * **Transparent and code-less integration**: in some of Acra's scenarios, it is possible to avoid changing your application code completely. 
 * **Full operational control**: Acra provides logs, events, metrics and 360 degree operational and security overview into Acra's inside processes if you ned that. 
 

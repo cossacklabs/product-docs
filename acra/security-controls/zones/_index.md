@@ -12,7 +12,7 @@ Client applications connected to AcraServer or AcraTranslator through TLS or Acr
 
 In **zone mode** applications can explicitly specify a different ZoneID in their SQL queries (through AcraServer) or requests (to AcraTranslator) to access encrypted data related to this zone. Application will need to know the correct ZoneID as well as which data records are encrypted with keys associated with this ZoneID.
 
-## What are the Zone and ZoneID
+## Zone and ZoneID explanation
 
 **Zone** is a pair of ZoneID and related symmetric (for AcraBlocks) and asymmetric keys (AcraStructs) used to encrypt data.
 

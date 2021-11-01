@@ -102,7 +102,7 @@ After you have configured AcraConnector, your application can keep using your da
 
 AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records on application side. Only [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md" >}}) or [AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) will be able to decrypt this data later.
 
-To start protecting your data, pick a place in your code where and integrate AcraWriter library (we support 8 languages, see the [Building and installing AcraWriter](/acra/getting-started/installing/building-acrawriter/) page). Don't see your language? Write your own [AcraStruct](/acra/acra-in-depth/data-structures/#understanding-acrastruct/) encrypter, it's easy!
+To start protecting your data, pick a place in your code where encryption should be performed and integrate AcraWriter library there (we support 8 languages, see the [Building and installing AcraWriter](/acra/getting-started/installing/building-acrawriter/) page). Don't see your language? Write your own [AcraStruct](/acra/acra-in-depth/data-structures/#understanding-acrastruct/) encrypter, it's easy!
 
 
 Acra's encryption/decryption operations support only binary data. If you plan to use Acra with:
@@ -114,7 +114,7 @@ Acra's encryption/decryption operations support only binary data. If you plan to
 
 ### Acra example usage scenario
 
-You can encrypt the sensitive data by generating AcraStructs with AcraWriter anywhere across your app. Send INSERTS/UPDATES to the database either through AcraConnector or directly via a separate connection.
+You can encrypt the sensitive data by generating AcraStructs with AcraWriter anywhere across your app. Send INSERT / UPDATE queries to the database either through AcraConnector or directly via a separate connection.
 
 You can decrypt AcraStructs by sending database requests to AcraConnector and receive responses that went through AcraServer.
 
@@ -152,7 +152,7 @@ When you need to retrieve some sensitive data:
 2. `SELECT` you data as you would do normally.
 
    AcraServer decrypts database responses automatically
-   and AcraConnector ensures that decrypted data stays secure until your application receives it.
+   and AcraConnector ensures that decrypted data remains encrypted until your application receives it.
 
 
 > Note for PostgreSQL: In the current layout, you aren't required to use SSL when trying to connect to the database. Transport protection for sensitive (decrypted) data is provided between AcraServer and AcraConnector via [Secure Session]({{<ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}). However, you can setup using SSL connection, too.
@@ -197,7 +197,7 @@ There are two ways you can generate the keys:
 
 #### Reading
 
-Retrieving sensitive data using zones a bit different. To retrieve sensitive data you need to structure your query in such a way that AcraStruct is preceded by the corresponding Zone Id in its answer. For example, you may want to store the Zone Id in the preceding column and execute the query in the following way:
+Retrieving sensitive data using zones is a bit different. To retrieve sensitive data you need to structure your query in such a way that AcraStruct is preceded by the corresponding Zone Id in its answer. For example, you may want to store the Zone Id in the preceding column and execute the query in the following way:
 
 ```
 SELECT id, lastname, zone, data, datetime FROM table;
