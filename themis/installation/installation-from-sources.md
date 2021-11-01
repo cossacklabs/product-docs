@@ -182,6 +182,12 @@ the one that includes both the engine binaries and its header files.
 The package is usually called `libssl-dev` or `openssl-devel`.
 {{< /hint >}}
 
+#### OpenSSL
+
+OpenSSL is the default cryptographic engine on most platforms.
+Themis will automatically detect and use OpenSSL installed in your system.
+If you wish to explicitly require OpenSSL, set `ENGINE=openssl` when building Themis.
+
 #### BoringSSL
 
 You can opt for BoringSSL by setting `ENGINE=boringssl`.
