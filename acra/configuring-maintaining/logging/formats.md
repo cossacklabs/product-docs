@@ -36,7 +36,7 @@ Common fields used by Acra:
 - `timestamp` in RFC 3339 format
 - `unixTime` to be compatible with a variety of log analysis tools
 - `error` message and `code` if Acra encounters an error
-  ([learn more about error codes]({{< ref "acra/configuring-maintaining/logging/error_codes" >}}))
+  ([learn more about error codes](/acra/configuring-maintaining/logging/error-codes))
 
 ```
 {"level":"info","msg":"Starting service acra-server [pid=304386]","product":"acra-server","timestamp":"2021-07-01T19:31:17+03:00","unixTime":"1625157077.908","version":"0.85.0"}

@@ -26,7 +26,7 @@ Only Acra Master Key loaded securely gives Acra access to intermediate keys and 
 
 The load could happen:
 
-* directly via environment variable (refer to [Configuring and maintaining / General configuration / Necessary preparations](/acra/configuring-maintaining/general-configuration/necessary_prep/));
+* directly via environment variable (refer to [Configuring and maintaining / General configuration / Necessary preparations](/acra/configuring-maintaining/general-configuration/necessary-preparations/));
 
 * directly from KMS (AcraServer/AcraTranslator support KMS integration directly to read Acra Master Key, see [below](#supported-kmss));
 

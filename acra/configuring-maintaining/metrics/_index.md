@@ -14,7 +14,7 @@ Starting with version [`0.83.0`](https://github.com/cossacklabs/acra/releases/ta
 
 * `--incoming_connection_prometheus_metrics_string=<url>`
 
-  URL (tcp://host:port) which will be used to expose Prometheus metrics (`<URL>/metrics` address to pull metrics).
+  URL (`tcp://host:port`) which will be used to expose Prometheus metrics (`<URL>/metrics` address to pull metrics).
 
 
 ### Exposed metrics

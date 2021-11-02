@@ -30,4 +30,4 @@ And if certificate does not contain OCSP URLs, it won't be validated using OCSP 
 
 ## PKI
 
-We have a dedicated page about public key infrastructure, located [here](/acra/acra-in-depth/security-design/acra-and-pki).
+We have a dedicated page about public key infrastructure, located in [Acra in depth](/acra/acra-in-depth/security-design/acra-and-pki) section.
