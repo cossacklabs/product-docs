@@ -11,7 +11,7 @@ AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) 
 
 
 This tutorial is an extensive step-by-step guide for those who have never used Themis and Acra before. 
-There is also a [much shorter version](ruby-on-rails-acra-short-tutorial) for the experienced 
+There is also a [much shorter version](/acra/guides/advanced-integrations/ruby-on-rails-acra-tutorials/ruby-on-rails-acra-short-tutorial) for the experienced 
 Acra users. If it’s your very first encounter with Acra, keep reading.
 
 ## Intro
@@ -638,4 +638,4 @@ As you can see, establishing cryptographic protection for the data in your web a
 and simple process. We hope that this tutorial was fun and informative and that you will be using Acra in the future. 
 If you only tried the Docker-based examples, try running Acra in a real world setup - it’s just as convenient.
 
-You can also check out a similar [Acra tutorial for Django app](/acra/guides/advanced-integrations/django-acra-tutorials).
+You can also check out a similar [Acra tutorial for Django app](/acra/guides/advanced-integrations/django-acra-tutorials/).
