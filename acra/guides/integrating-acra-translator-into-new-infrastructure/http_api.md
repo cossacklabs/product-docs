@@ -6,13 +6,13 @@ bookCollapseSection: true
 ## HTTP API
 
 HTTP API is useful for the non-highload services. The server responds with decrypted data or with a decryption error. 
-HTTP API is a recommended way of debugging AcraTranslator's configuration (to do it, you need to check your connection and make sure that keys are placed in the correct folders).
+HTTP API is a recommended way of debugging AcraTranslator's configuration (to do it, you need to check your connection and make sure that keys are located in the correct folders).
 
 {{< hint info >}}
 **Note:**
 Currently, [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/) supports two versions of HTTP API `/v1/*` and `/v2/*`, where `v2` version is more extended and contains additional functionality. 
 
-Importantly, for backward compatibility reasons `/v1/*` only supports working with [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). So, if you want to use HTTP API along with [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock), you should take `v2` version.
+For backward compatibility reasons `/v1/*` only supports working with [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). So, if you want to use HTTP API along with [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock), you should take `v2` version.
 {{< /hint >}}
 
 ### Bulk processing API [ENTERPRISE]
@@ -22,15 +22,15 @@ This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/
 {{< /hint>}}
 
 All the usual API methods allow one exact operation to be performed per call.
-If you need to perform multiple operations in parallel, in single network request, bulk API may be quite useful.
+If you need to perform multiple parallel operations within single network request, bulk API may be quite useful.
 
-1. Create bulk processing request
-2. Put any amount of encryption/decryption/tokenization/detokenization/etc operations inside
-   * Each operation will have own input data, client ID, zone ID, just like in usual requests
-   * In addition to that, each operation will be marked with an identifier, `request_id`, so when the response is processed you will know what is what
-     (reordering is possible due to parallel processing of all requests)
-3. Send the bulk processing request
-4. Receive the response, use `request_id` to identify what is what
+1. Create bulk processing request;
+2. Put any amount of encryption/decryption/tokenization/detokenization/etc operations inside:
+   * Each operation will have own input data, client ID, zone ID, just like in usual requests;
+   * In addition to that, each operation will be marked with an identifier, `request_id`, so when the response is processed you will know what is what;
+     (reordering is possible due to parallel processing of all requests);
+3. Send the bulk processing request;
+4. Receive the response, use `request_id` to identify what is what.
 
 #### Request
 
@@ -82,32 +82,32 @@ Body:
 
 When using AcraTranslator service, make sure you understand error codes and take appropriate actions.
 
-1. **API versioning**. Remember to indicate the correct API version into the request URI. If the request has no version or features an unsupported version number, the server will return HTTP Code `400 BAD REQUEST`, and error string in the body of the message.
-2. **HTTP Code 400 BAD REQUEST** is the result of an invalid (misconfigured) request URL or of a missing body. The possible reasons could be: 
-    - unsupported parameters' name
-    - unsupported endpoint 
-    - empty body 
-    - mismatch of the content's length and the body length
+1. **API versioning**. Remember to include correct version of API into the URI request. If the URI request has no version or version number is not supported, the server will return HTTP Code `400 BAD REQUEST`, and error string in the body of the message.
+2. **HTTP Code 400 BAD REQUEST** is the result of an invalid (misconfigured) request. Possible reasons are following:
+    - unsupported parameters' name;
+    - unsupported endpoint;
+    - empty body;
+    - mismatch of the content's length and the body length.
    
-   To fix the errors of this kind, please make double sure that your application sends correct parameters.
+   To fix mentioned errors, make sure that your application sends correct parameters.
 3. **HTTP Code 422 Unprocessable Entity** is the result of an error during decryption. The possible causes for getting this error could be: 
-    - missing or invalid (wrong) decryption keys 
-    - invalid ([AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock)) structure (if an envelope is corrupt or the binary data doesn't have proper header at all)
-    - detection of a poison record (being addressed)
+    - missing or invalid (wrong) decryption keys;
+    - invalid ([AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock)) structure (if an envelope is corrupted, or the binary data doesn't have proper header at all);
+    - detection of a poison record (being addressed).
     
    For the security reasons, AcraTranslator doesn't return the real cause of the error message, masking it with a generic message "Can't decrypt AcraStruct". The underlying error is being logged to the AcraTranslator console/log file, so the only person who has the access to logs can see the error message.
 
 
 ### Setup AcraTranslator manually
 
-1. Generate the [Master Key](/acra/security-controls/key-management/operations/generation/#acra-master-keys)
-2. Generate the AcraTranslator keys using [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker).
+1. Generate the [Master Key](/acra/security-controls/key-management/operations/generation/#acra-master-keys);
+2. Generate the AcraTranslator keys using [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker):
 
 ```bash
 acra-keymaker --client_id=client --generate_acratranslator_keys 
 ```
 
-3. Start AcraTranslator using HTTP API using TLS:
+3. Start AcraTranslator using HTTP API using TLS
 
 Make sure you have generated all required TLS related files before starting AcraTranslator.
 

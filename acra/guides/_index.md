@@ -31,7 +31,7 @@ This section contains a couple of guides you might find useful.
 
 * [Integrating AcraConnector and AcraWriter for client-side encryption](/acra/guides/advanced-integrations/client-side-integration-with-acra-connector).
 
-  Describes the process of setting up and configuring AcraConnector and AcraWriter to encrypt data on client-side application before sending to the database. This is a general guide, the language and framework of client application don't matter.
+  Describes the process of setting up and configuring AcraConnector and AcraWriter to encrypt data on client-side application before sending to the database. This is a general guide, the language and framework of client application doesn't matter.
 
 
 * [Integrating Acra to protect Django app](/acra/guides/advanced-integrations/django-acra-tutorials/).
