@@ -29,4 +29,4 @@ especially for `v2` keystore. It consists of several subcommands each of which i
   Generate new keys
 
 * [`extract-client-id`](/acra/configuring-maintaining/general-configuration/acra-keys/extract-client-id/)
-  Extract ClientID from TLS certificate+
+  Extract ClientID from TLS certificate
