@@ -1,6 +1,5 @@
 ---
 title: Acra from sources
-bookCollapseSection: true
 weight: 3
 ---
 
