@@ -35,7 +35,7 @@ During generation of wrapped container, AcraServer/AcraTranslator wraps the inte
 
 - `Begin_Tag[3]` — 3 bytes, header tag (can be changed);
 - `Data_Length[8]` — length of the whole versioning container (in conjunction with internal container length);
-- `Envelope_ID[1]` — 1 byte, unique ID that describes type of internal container (AcraBlock - 240(OXF0)/AcraBlock - 241(OXF1));
+- `Envelope_ID[1]` — 1 byte, unique ID that describes type of internal container (AcraBlock - 240(OXF0)/AcraStruct - 241(OXF1));
 - `Internal_Container[...]` — internal container payload (AcraBlock or AcraStruct itself).
 
 
