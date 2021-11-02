@@ -55,7 +55,7 @@ Acra provides selective encryption and only protects the records you want to pro
 With AcraWriter, the records to be encrypted are wrapped in a function that outputs an [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct/) (cryptographic
 container decryptable by AcraServer). AcraStruct is then stored in a database.
 
-In Acra’s [threat model](acra/acra-in-depth/security-design/threat-models-and-guarantees/#threat-models-and-security-guarantees/), we assume that anything but AcraServer can be compromised and that any piece of data can leak outside. For Acra to stay secure, only AcraServer must stay secure. However, if AcraServer is compromised, the whole implementation of Acra will make no sense.
+In Acra’s [threat model](/acra/acra-in-depth/security-design/threat-models-and-guarantees/#threat-models-and-security-guarantees/), we assume that anything but AcraServer can be compromised and that any piece of data can leak outside. For Acra to stay secure, only AcraServer must stay secure. However, if AcraServer is compromised, the whole implementation of Acra will make no sense.
 
 With Acra we strive to provide 2 main programmatic security guarantees:
 
