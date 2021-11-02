@@ -1,5 +1,5 @@
 ---
-title: AcraTranslator SDK [ENTERPRISE]
+title: SDK for AcraTranslator [ENTERPRISE]
 weight: 3
 ---
 
