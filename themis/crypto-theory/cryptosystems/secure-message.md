@@ -86,7 +86,7 @@ For RSA keypairs, the RSA+PSS+PKCS#7 digital signature is used.
 ## Implementation details
 
 Secure Message interface is described in
-[`src/themis/secure_message.h`](https://github.com/cossacklabs/themis/tree/master/include/themis/secure_message.h).
+[`src/themis/secure_message.h`](https://github.com/cossacklabs/themis/blob/master/include/themis/secure_message.h).
 
 #### Generating keypairs
 
@@ -95,7 +95,7 @@ New keypairs can be securely generated with Themis key generation functions.
 Secure Message supports both EC and RSA key pairs.
 
 The API is described in
-[`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/tree/master/include/themis/secure_keygen.h):
+[`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/blob/master/include/themis/secure_keygen.h):
 
 ```c
 themis_status_t themis_gen_ec_key_pair(

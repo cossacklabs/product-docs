@@ -126,7 +126,7 @@ For example, you can:
 ## Implementation details
 
 Secure Session interface is described in
-[`src/themis/secure_session.h`](https://github.com/cossacklabs/themis/tree/master/include/themis/secure_session.h).
+[`src/themis/secure_session.h`](https://github.com/cossacklabs/themis/blob/master/include/themis/secure_session.h).
 
 #### Lifetime management
 
@@ -171,7 +171,7 @@ Secure Session only supports EC keys. RSA support is available per request only.
 Please [contact us](mailto:dev@cossacklabs.com) if you need to use RSA or other key types.
 
 The API is described in
-[`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/tree/master/include/themis/secure_keygen.h):
+[`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/blob/master/include/themis/secure_keygen.h):
 
 ```c
 themis_status_t themis_gen_ec_key_pair(
