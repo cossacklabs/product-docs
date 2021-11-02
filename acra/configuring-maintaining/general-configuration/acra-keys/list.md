@@ -79,7 +79,7 @@ weight: 1
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
-  ❗ - flags required to be specified.
+  🔴 - flags required to be specified.
 
 
 ## Usage example

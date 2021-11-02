@@ -11,7 +11,7 @@ weight: 9
 
 #### General
 
-* `--action={import|export}`❗
+* `--action={import|export}`🔴
 
   Actions to perform.
 
@@ -49,7 +49,7 @@ weight: 9
 
   Folder with public keys. Leave empty if keys stored in same folder as `keys_private_dir`.
 
-* `--file=<path>`❗ 
+* `--file=<path>`🔴 
 
   Path to file which will be used for **`import|export`** actions. Required to specify.
 
@@ -110,7 +110,7 @@ weight: 9
   Default is `false`.
 
 
-❗ - flags required to be specified.
+🔴 - flags required to be specified.
 
 
 ## Usage example

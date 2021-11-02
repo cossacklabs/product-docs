@@ -11,11 +11,11 @@ weight: 4
 
 ### General flags
 
-* `--key_bundle_file=<path>` ❗
+* `--key_bundle_file=<path>` 🔴
 
   Path to output file for exported key bundle.
 
-* `--key_bundle_secret=<path>` ❗
+* `--key_bundle_secret=<path>` 🔴
 
   Path to input file for key encryption keys.
 
@@ -93,7 +93,7 @@ weight: 4
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
-  ❗ - flags required to be specified.
+  🔴 - flags required to be specified.
 
 
 ## Usage example

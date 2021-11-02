@@ -221,7 +221,7 @@ In case of error:
 
 Method: `GET`
 
-Path: `generateQueryHash`
+Path: `/v2/generateQueryHash`
 
 Mime-Type: `application/json`
 
