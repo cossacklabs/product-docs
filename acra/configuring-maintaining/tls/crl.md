@@ -1,5 +1,5 @@
 ---
-weight: 2
+weight: 3
 title: CRL
 bookCollapseSection: true
 ---
@@ -31,18 +31,12 @@ CRL-related flags and their description. Works for `acra-connector`, `acra-serve
 * `--tls_crl_client_url=<url>`
 
   CRL URL for incoming TLS connections to check client certificates.
-  Empty by default.
-  {{< hint warning >}}
-  Only for `acra-server`
-  {{< /hint >}}
+  Empty by default. Supported on AcraServer only.
 
 * `--tls_crl_database_url=<url>`
 
   CRL URL for outcoming TLS connections to check database certificates.
-  Empty by default.
-  {{< hint warning >}}
-  Only for `acra-server`
-  {{< /hint >}}
+  Empty by default. Supported on AcraServer only.
 
 * `--tls_crl_from_cert=<policy>`
 

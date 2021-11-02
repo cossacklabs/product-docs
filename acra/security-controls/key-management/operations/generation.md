@@ -21,7 +21,7 @@ During the inital setup of Acra you will need to generate new keys for all compo
 3. Transport keys.
 
    If TLS is used, then key/certificate generation is outside of this topic,
-   although you can get some hints on [certificate generation page](/acra/configuring-maintaining/tls/cert_gen_with_openssl/).
+   although you can get some hints on [certificate generation page](/acra/configuring-maintaining/tls/generate-certificate-with-openssl/).
 
    If you decided to use [AcraConnector with Themis Secure Session](/acra/security-controls/transport-security/acra-connector/), you will need Themis Secure Session transport keys for both AcraConnector and AcraServer/AcraTranslator.
 

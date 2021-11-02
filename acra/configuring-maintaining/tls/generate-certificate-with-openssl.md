@@ -1,7 +1,6 @@
 ---
-weight: 3
+weight: 1
 title: Certificate generation with OpenSSL
-bookCollapseSection: true
 ---
 
 # Certificate generation with OpenSSL

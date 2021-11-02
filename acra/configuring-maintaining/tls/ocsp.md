@@ -1,5 +1,5 @@
 ---
-weight: 1
+weight: 2
 title: OCSP
 bookCollapseSection: true
 ---
@@ -25,18 +25,12 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
 * `--tls_ocsp_client_url=<url>`
 
   OCSP service URL for incoming TLS connections to check client certificates.
-  Empty by default.
-  {{< hint warning >}}
-  Only for `acra-server`
-  {{< /hint >}}
+  Empty by default. Supported on AcraServer only.
 
 * `--tls_ocsp_database_url=<url>`
 
   OCSP service URL for outcoming TLS connections to check database certificates.
-  Empty by default.
-  {{< hint warning >}}
-  Only for `acra-server`
-  {{< /hint >}}
+  Empty by default. Supported on AcraServer only.
 
 * `--tls_ocsp_required=<policy>`
 
