@@ -30,6 +30,11 @@ deb https://pkgs.cossacklabs.com/stable/$OS $RELEASE main
 
 We currently build packages for the following OSs and RELEASE combinations:
 
+{{< hint info >}}
+We stopped shipping binaries for 32-bit OSs. These binaries are available on demand for [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
+
 - *Debian 11 "Bullseye" (amd64)*
 - *Debian 10 "Buster" (amd64)*
 - *Debian 9 "Stretch" (amd64)*
@@ -59,6 +64,11 @@ sudo apt-get install acra
 ## RHEL / CentOS / OEL
 
 We currently build packages for the following OSs and RELEASE combinations:
+
+{{< hint info >}}
+We stopped shipping binaries for 32-bit OSs. These binaries are available on demand for [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
 
 * *RHEL / CentOS / OEL 8 (x86_64)*
 * *RHEL / CentOS / OEL 7 (x86_64)*

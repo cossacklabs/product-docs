@@ -9,7 +9,7 @@ weight: 5
 AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
 {{< /hint>}}
 
-AcraWriter wraps plaintext data into encrypted [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) – cryptographic containers used by Acra.
+[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) wraps plaintext data into encrypted [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct/) – cryptographic containers used by Acra.
 You pass your input data and AcraServer's public key to AcraWriter and it returns you encrypted AcraStruct that will be stored in the database.
 Once you encrypt data with AcraWriter, only the AcraServer will be able to decrypt it.
 
@@ -31,7 +31,7 @@ At the moment, AcraWriter supports only some of these platforms:
 
 ## Installing AcraWriter for your language
 
-Acra uses [Themis]({{< ref "themis/" >}}) for performing cryptographic operations. AcraWriter is essentially a high-level wrapper of Themis (some of its low-level cryptosystems) that generates [AcraStructs]({{< ref "acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) from input data and public key.
+Acra uses [Themis]({{< ref "themis/" >}}) for performing cryptographic operations. AcraWriter is essentially a high-level wrapper of Themis (some of its low-level cryptosystems) that generates [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct/) from input data and public key.
 
 There are many languages / architectures supported by Themis, and eventually, most of them will support AcraWriter, too.
 
