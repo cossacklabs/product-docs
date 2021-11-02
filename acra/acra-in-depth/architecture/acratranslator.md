@@ -35,7 +35,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 ## Non-functional requirements
 
-* Is easy to use from any application – AcraTranslator supports HTTP and gRPC API, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
+* Is easy to use from any application – AcraTranslator supports HTTP and gRPC API, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 * Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
 * Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
 
@@ -63,9 +63,9 @@ Other connections are optional – for example, you can use Redis as external ke
 ![](/files/acra/at-and-all-their-friends.png)
 
 
-* [Redis](/acra/acra-in-depth/architecture/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraTranslator performs [tokenization](/acra/security-controls/tokenization/).
+* [Redis](/acra/acra-in-depth/architecture/key-storage-and-kms/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraTranslator performs [tokenization](/acra/security-controls/tokenization/).
 
-* [KMS](/acra/configuring-maintaining/key-storing/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraTranslator should read this key during startup.
+* [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraTranslator should read this key during startup.
 
 * [SDK for AcraTranslator](/acra/acra-in-depth/architecture/sdks/acratranslator-sdk/) – optional client-side SDK for easier usage of AcraTranslator's API in the app.
 

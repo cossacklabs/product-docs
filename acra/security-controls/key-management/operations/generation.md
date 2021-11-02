@@ -30,6 +30,7 @@ During the inital setup of Acra you will need to generate new keys for all compo
    * Share TLS certificates (if they were not signed by root CAs), or transport public keys (if using [AcraConnector in Themis Secure Session mode](/acra/security-controls/transport-security/acra-connector/).
    * Share storage public keys (only if using AcraStructs and [client-side encryption with AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/).
 
+
 ## Acra Master Keys
 
 Acra uses many keys and most of them are private and thus stored in encrypted form.
@@ -61,9 +62,8 @@ Keys for AcraServer and AcraTranslator are generated in the same fashion.
 ### 1.1. Generating Acra Master Key
 
 Use `acra-keymaker` utility to generate a new master key and save it into a file.
+
 By default, Acra components retrieve master keys from environment variables as base64-encoded strings.
-[Acra Enterprise Edition](/acra/enterprise-edition/) supports more options,
-such as hardware security modules (HSM) and key management services (KMS).
 
 Generate a new key and assign it to the environment variable on the corresponding server:
 
@@ -80,6 +80,14 @@ With keystore version 2 you will need to use `acra-keymaker --keystore=v2`.
 If you are using Acra 0.85 or earlier,
 please omit the `--keystore` parameter here and onward.
 {{< /hint >}}
+
+
+### Put Acra Master Key to KMS
+
+By default, Acra components retrieve master keys from environment variables as base64-encoded strings.
+
+We recommend generating Acra Master Key and storing it in KMS. Refer to [Configuring and maintaining](/acra/configuring-maintaining/key-storing/kms-integration/) to learn how to integrate KMS.
+
 
 ### 1.2. Generating transport and encryption keys
 

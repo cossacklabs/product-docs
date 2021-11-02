@@ -39,7 +39,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 ## Non-functional requirements
 
-* Is easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
+* Is easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 * Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
 * Is integrated with [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) - a helper tool for re-configuring at runtime.
 * Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [SQL firewall](/acra/security-controls/sql-firewall), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) for client-side encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
@@ -66,9 +66,9 @@ Other connections are optional – for example, you can use Redis as external ke
 ![](/files/acra/as-and-all-their-friends.png)
 
 
-* [Redis](/acra/acra-in-depth/architecture/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraServer performs [tokenization](/acra/security-controls/tokenization/).
+* [Redis](/acra/acra-in-depth/architecture/key-storage-and-kms/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraServer performs [tokenization](/acra/security-controls/tokenization/).
 
-* [KMS](/acra/configuring-maintaining/key-storing/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraServer should read this key during startup.
+* [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraServer should read this key during startup.
 
 * [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraReader](/acra/acra-in-depth/architecture/sdks/acrareader/) – optional client-side SDKs to encrypt or decrypt AcraBlocks/AcraStructs without AcraTranslator.
 
