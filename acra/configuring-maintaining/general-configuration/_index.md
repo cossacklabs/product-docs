@@ -35,7 +35,7 @@ Acra contains a set of special CLI utilities and services for specialized use ca
 * [`acra-addzone`](/acra/configuring-maintaining/general-configuration/acra-addzone/)
   Utility used for generation of new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs
 
-* [`acra-authmanager`](acra/configuring-maintaining/general-configuration/acra-authmanager/)
+* [`acra-authmanager`](/acra/configuring-maintaining/general-configuration/acra-authmanager/)
   Utility used for [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) user management.
 
 * [`acra-backup`](/acra/configuring-maintaining/general-configuration/acra-backup/)

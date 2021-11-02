@@ -1,5 +1,5 @@
 ---
-title: Integrating Acra Translator into new infrastructure
+title: Integrating AcraTranslator into new infrastructure
 bookCollapseSection: true
 weight: 2
 ---

@@ -1,5 +1,5 @@
 ---
-title: Integrating Acra Server into infrastructure
+title: Integrating AcraServer into infrastructure
 bookCollapseSection: true
 weight: 1
 ---

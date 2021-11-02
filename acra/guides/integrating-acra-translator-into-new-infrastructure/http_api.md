@@ -17,6 +17,10 @@ Importantly, for backward compatibility reasons `/v1/*` only supports working wi
 
 ### Bulk processing API [ENTERPRISE]
 
+{{< hint info >}}
+This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
 All the usual API methods allow one exact operation to be performed per call.
 If you need to perform multiple operations in parallel, in single network request, bulk API may be quite useful.
 
