@@ -54,7 +54,7 @@ The following Acra services and tools can load Acra Master Key from this KMS.
 * [acra-backup](/acra/configuring-maintaining/general-configuration/acra-backup/#hashicorp-vault),
 * [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/#hashicorp-vault),
 * [acra-poisonrecordmaker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/#hashicorp-vault),
-* [acra-rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/#hashicorp-vault/).
+* [acra-rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/#hashicorp-vault).
 
 You can find out how to configure access to KMS on `HashiCorp Vault` section on the distinct documentation page of these services.
 
