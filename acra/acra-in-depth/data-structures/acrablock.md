@@ -3,7 +3,7 @@ title: AcraBlock
 weight: 2
 ---
 
-## AcraBlock
+# AcraBlock
 
 AcraBlock is a symmetric cryptographic container, it is more compact than [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct). Acra uses an envelope encryption strategy: plaintext data is encrypted using data encryption key (DEK), and then DEK is encrypted using key encryption key (KEK). 
 
@@ -15,7 +15,7 @@ AcraBlock supports searchable encryption.
 
 Prefer using AcraBlocks anytime.
 
-### Container structure
+## Container structure
 
 To generate AcraBlocks, AcraServer/AcraTranslator uses symmetric keys generated for every ClientID/ZoneID.
 
@@ -41,7 +41,9 @@ Available **data** encryption backends and their identifiers:
 * `Secure Cell in Seal Mode` - `0`
 
 
-### Example
+Starting from Acra 0.90.0, AcraStructs and AcraBlocks [support interoperability](/acra/acra-in-depth/data-structures/interoperability/).
+
+## Example
 
 AcraBlock example for plaintext: `example`:
 
@@ -57,7 +59,7 @@ AcraBlock example for plaintext: `example`:
 * Encrypted_Data[*] - `[72 124 140 56 23 187 147 90 79 15 192 32 164 252 144 234 120 9 212 13 105 61 48 221 98 14 188 170 171 97 212 137 231 11 99 218 252 110 120 212 32 72 195 54 0 1 1 64 12 0 0 0 16 0 0 0 7 0 0 0 72 81 94 231 179 35 95 35 89 97 196 52 15 142 126 144 136 26 86 192 3 92 233 23 106 136 192 110 24 237 45 62 109 105 70]`
 
 
-### Generation (encryption)
+## Generation (encryption)
 
 AcraServer generates AcraBlocks in transparent mode. AcraTranslator – as response to client application's HTTP or gRPC request.
 
@@ -70,7 +72,7 @@ The generation contains the following steps:
 5. Securely cleans up memory of DEK (erases/fills with zeros).
 6. Forms a container: packs together Begin_Tag, length of all other parts, KEK encryption backend identifier, KEK identifier, data encryption backend identifier, encrypted DEK and ciphertext.
 
-### Decryption
+## Decryption
 
 1. Validates Begin_Tag.
 2. Validates length of rest of AcraBlock.

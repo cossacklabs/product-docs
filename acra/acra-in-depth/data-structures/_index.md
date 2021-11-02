@@ -57,6 +57,8 @@ Prefer using AcraStructs in a less trusted environment: put data encryption on a
 
 AcraServer and AcraTranslator support transparent AcraBlock/AcraStruct encryption and decryption with equal functionality.
 
+Starting from Acra 0.90.0, AcraStructs and AcraBlocks [support interoperability](/acra/acra-in-depth/data-structures/interoperability/).
+
 Read more about [optimizations related to AcraStructs vs AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/).
 
 
