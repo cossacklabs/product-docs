@@ -1,15 +1,15 @@
 ---
 title: Necessary preparations
-bookCollapseSection: true
-weight: 1
+weight: 2
 ---
 
 # Necessary preparations (keys, ports, etc.)
 
-## Master key
+## Acra Master Key
 
-Most Acra services require master key in order to work and perform cryptographic operations.
-It is used, for example, to encrypt other keys in their keyrings.
+Most Acra services require Acra Master Key in order to work and perform cryptographic operations.
+It is used, for example, to encrypt Acra's intermediate keys in their keyrings.
+
 These keys are then used in more specific tasks
 (encrypt data in database, hash data for searchable encryption).
 
@@ -34,7 +34,7 @@ You will find more about these keys on their page.
 
 ## Ports
 
-Acra services that run as daemons (such as Connector, Server, Translator) listen for incoming
+Acra services that run as daemons (such as AcraServer, AcraTranslator, AcraConnector) listen for incoming
 connections on configured ports in order to process requests.
 When launching them, these ports should be exposed to other components of your infrastructure
 that act as clients for Acra services.

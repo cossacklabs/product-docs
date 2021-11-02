@@ -7,7 +7,7 @@ weight: 3
 
 Depending on which security control we are talking about, the exact way of enabling/configuring it may differ.
 
-Features are configured with CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags")).
+Features are configured with CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
 
 
 `--config_file <options.yml>` may be used instead, AcraServer will read options from a file.
@@ -48,8 +48,8 @@ Features are configured with CLI flags ([see the whole list](/acra/configuring-m
   [fetched from HashiCorp Vault](/acra/configuring-maintaining/general-configuration/acra-server/#hashicorp-vault) or [other KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 
   Then, there are client- and zone-specific keys, AcraServer can read them
-  [from filesystem (`--keys_dir`)](/acra/configuring-maintaining/general-configuration/acra-server/#keystore" ) or
-  [from Redis (`--redis_*` flags)](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags" ).
+  [from filesystem (`--keys_dir`)](/acra/configuring-maintaining/general-configuration/acra-server/#keystore) or
+  [from Redis (`--redis_*` flags)](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
 
 * [Programmatic reactions](/acra/security-controls/security-logging-and-events/programmatic-reactions/)
 
@@ -65,7 +65,7 @@ Features are configured with CLI flags ([see the whole list](/acra/configuring-m
   Enabled with `--audit_log_enable`. Requires
   [additional preparation](/acra/security-controls/security-logging-and-events/audit-logging/#how-setup-secure-logging).
   Produced logs should be checked with
-  [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/" ).
+  [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/).
 
 * [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/siem-soc-integration/)
 
