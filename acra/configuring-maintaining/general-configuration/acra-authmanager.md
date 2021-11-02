@@ -1,6 +1,6 @@
 ---
 title: acra-authmanager
-bookCollapseSection: true
+weight: 14
 ---
 
 # acra-authmanager

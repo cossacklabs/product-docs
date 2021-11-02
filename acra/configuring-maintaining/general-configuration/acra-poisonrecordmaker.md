@@ -1,7 +1,6 @@
 ---
 title: acra-poisonrecordmaker
-bookCollapseSection: true
-weight: 10
+weight: 11
 ---
 
 # acra-poisonrecordmaker

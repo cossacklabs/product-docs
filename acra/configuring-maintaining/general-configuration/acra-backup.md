@@ -1,7 +1,6 @@
 ---
 title: acra-backup
-bookCollapseSection: true
-weight: 10
+weight: 9
 ---
 
 # acra-backup
