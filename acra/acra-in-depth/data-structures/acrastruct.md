@@ -3,7 +3,7 @@ title: AcraStruct
 weight: 3
 ---
 
-## AcraStruct
+# AcraStruct
 
 AcraStruct is an asymmetric cryptographic container. In a nutshell, it encrypts data using symmetric encryption, and then encrypts the key using asymmetric encryption. 
 
@@ -15,7 +15,7 @@ AcraStruct supports searchable encryption.
 
 Prefer AcraStruct when using client-side encryption.
 
-### Container structure
+## Container structure
 
 AcraStruct is a cryptographic container with specific format. The data is encrypted using random symmetric encryption key (DEK) and AES-256-GCM-PKCS#7. Then the encryption key is encrypted using a key derived asymmetrically. For this purposes, encryptor generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over. 
 
@@ -29,7 +29,10 @@ During decryption, AcraServer/AcraTranslator use own private key for decrypting 
 - `Data_Length[8]` — length of the Encrypted data (see next);
 - `Encrypted_Data[Data_Length]` — payload encrypted with Random Key.
 
-### Example
+Starting from Acra 0.90.0, AcraStructs and AcraBlocks [support interoperability](/acra/acra-in-depth/data-structures/interoperability/).
+
+
+## Example
 
 AcraStruct example for plaintext: `example`:
 
@@ -41,7 +44,7 @@ AcraStruct example for plaintext: `example`:
 * Data_Length[8] - `[51, 0, 0, 0, 0, 0, 0, 0]`
 * Encrypted_Data[51] - `[0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 7, 0, 0, 0, 34, 115, 175, 148, 77, 152, 188, 222, 105, 123, 145, 77, 152, 254, 160, 19, 183, 122, 53, 138, 147, 149, 157, 223, 238, 71, 133, 139, 117, 210, 232, 110, 181, 241, 33]`
 
-### Generation (encryption)
+## Generation (encryption)
 
 To generate AcraStructs, AcraServer/AcraTranslator/AcraWriter uses a public key generated for every ClientID/ZoneID.
 
@@ -60,7 +63,7 @@ The generation contains the following steps:
 - Erases/fills with zeros the memory area containing the `Throwaway_Keypair` and original payload.
 
 
-### Decryption
+## Decryption
 
 AcraServer or AcraTranslator, upon receiving and detecting a valid AcraStruct, is able to:
 

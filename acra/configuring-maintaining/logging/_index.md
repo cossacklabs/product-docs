@@ -6,7 +6,7 @@ weight: 9
 
 # Logging in Acra
 
-Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats]({{< ref "acra/configuring-maintaining/logging/formats" >}})
+Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats](/acra/configuring-maintaining/logging/formats/)
 
 - plaintext
 - CEF
@@ -32,10 +32,10 @@ Set the logging format to use.
 - `json`
 
   The values are case-insensitive.
-  [Learn more about supported formats.]({{< ref "acra/configuring-maintaining/logging/formats" >}})
+  [Learn more about supported formats.](/acra/configuring-maintaining/logging/formats/)
 
 * `-v`
 
   Enable verbose logging, useful for debugging.
 
-To see an example of logging, check out the default configuration of AcraServer in [`acra-server.yaml`](https://github.com/cossacklabs/acra-Q12021/blob/master/configs/acra-server.yaml#L99).
+To see an example of logging, check out the default configuration of AcraServer in [`acra-server.yaml`](https://github.com/cossacklabs/acra/blob/master/configs/acra-server.yaml#L99).

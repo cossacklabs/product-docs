@@ -1,6 +1,5 @@
 ---
 title: acra-addzone
-bookCollapseSection: true
 weight: 10
 ---
 

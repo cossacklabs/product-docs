@@ -25,13 +25,13 @@ The requirements are not so strict:
 
 ### Architecture
 
-In case you want to use [AcraServer, our transparent SQL proxy]({{< ref "acra/acra-in-depth/architecture/acraserver.md" >}}):
+In case you want to use [AcraServer, our transparent SQL proxy](/acra/acra-in-depth/architecture/acraserver/):
 
 - Your application talks to PostgreSQL or MySQL database via your preferred ORM. During the setup of Acra, you will redirect your application to talk to Acra instead.
-- Use of TLS to access Acra and the database (our strong recommendation). You might need to configure a TLS certificate for Acra. Otherwise, you'll set up an encrypted transport layer using AcraConnector and [Secure Session]({{< ref "themis/crypto-theory/cryptosystems/secure-session.md" >}}).
+- Use of TLS to access Acra and the database (our strong recommendation). You might need to configure a TLS certificate for Acra. Otherwise, you'll set up an encrypted transport layer using AcraConnector and [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/).
 - If you're installing Acra on your server manually from the [GitHub repository](https://github.com/cossacklabs/acra), you need to have Themis' dependencies and `libssl-dev` package installed. Also, make sure that `libcrypto.so` is available in `$PATH`.
 
-If you want to use [AcraTranslator, encryption-as-a-service]({{< ref "acra/acra-in-depth/architecture/acratranslator.md" >}}):
+If you want to use [AcraTranslator, encryption-as-a-service](/acra/acra-in-depth/architecture/acratranslator/):
 
 - Your application is written in any language that can talk to AcraTranslator via gRPC or HTTP protocol
 - Your application uses AcraConnector to connect to AcraTranslator.
@@ -41,16 +41,16 @@ If you need [AcraWriter/AcraReader, in-app SDK for encryption/decryption](/acra/
 
 - Your application is written in any language supported by the SDK.
   This currently includes: Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (Android).
-- [AcraWriter]({{< ref "acra/acra-in-depth/security-design/#acrawriter-INVALID" >}}) library is installed for your application
+- [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) library is installed for your application
   that will encrypt the data inside your app ("client side encryption").
-  AcraWriter uses [Themis]({{< ref "themis/installation/" >}}) and OpenSSL/BoringSSL as dependencies.
+  AcraWriter uses [Themis](/themis/installation/) and OpenSSL/BoringSSL as dependencies.
   If you prefer "transparent encryption proxy" mode (AcraServer), no additional libraries will be necessary for your app.
 
 {{< hint info >}}
 Note: Read the documentation before starting out with Acra!
 There are some fundamental concepts that we highly advise you to understand before you proceed.
-Pay special attention to the [Architecture]({{< ref "acra/acra-in-depth/architecture/_index.md" >}})
-and [Data flow]({{< ref "acra/acra-in-depth/data-flow/_index.md" >}}).
+Pay special attention to the [Architecture](/acra/acra-in-depth/architecture/)
+and [Data flow](/acra/acra-in-depth/data-flow/).
 {{< /hint >}}
 
 Also, remember that:

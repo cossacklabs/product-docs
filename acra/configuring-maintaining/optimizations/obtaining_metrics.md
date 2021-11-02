@@ -8,11 +8,11 @@ weight: 9
 Acra services provide Prometheus metrics when configured to do so with `--incoming_connection_prometheus_metrics_string` flag.
 
 This includes
-[AcraConnector]({{< ref "acra/configuring-maintaining/general-configuration/acra-connector/_index.md#network" >}}),
-[AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/_index.md#network" >}}),
-[AcraTranslator]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator/_index.md" >}}).
+[AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/#network),
+[AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/#network),
+[AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/).
 
-More info about this on [metrics page]({{< ref "acra/configuring-maintaining/metrics/_index.md" >}}).
+More info about this on [metrics page](/acra/configuring-maintaining/metrics/).
 
 Here is an example of metrics exported:
 ```

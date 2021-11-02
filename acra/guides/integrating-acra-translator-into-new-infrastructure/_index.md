@@ -5,8 +5,8 @@ bookCollapseSection: true
 
 ## Usage of AcraTranslator
 
-[AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) is a lightweight server used to handle [
-AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) in context of tokenization, searchable or simple encryption/decryption via [HTTP]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/http_api" >}}) or [gRPC]({{< ref "acra/guides/integrating-acra-translator-into-new-infrastructure/grpc_api" >}}) api. 
+[AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/) is a lightweight server used to handle [
+AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) in context of tokenization, searchable or simple encryption/decryption via [HTTP](/acra/guides/integrating-acra-translator-into-new-infrastructure/http_api/) or [gRPC](/acra/guides/integrating-acra-translator-into-new-infrastructure/grpc_api/) api. 
 This element of Acra is necessary in the use-cases when applications store the encrypted data as separate blobs (files that are not in a database - i.e. in the S3 bucket, local file storage, etc.).
 
 By its nature, AcraTranslator is a separate daemon that runs in an isolated environment (separate virtual machine or physical server). AcraTranslator is responsible for holding all the secrets required for data decryption and for actually decrypting the data.
@@ -15,7 +15,7 @@ AcraTranslator doesn't care about the source of the data, it accepts [AcraStruct
 An application sends [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) as binary data and receives plaintext (or decryption error) from AcraTranslator.
 
 However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires the use of [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) encryption channel (which is basically encrypted TCP/UNIX sockets). 
-To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to direct the traffic through [AcraConnector]({{< ref "/acra/configuring-maintaining/general-configuration/acra-connector.md" >}}) instead.
+To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to direct the traffic through [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/) instead.
 
 
 
@@ -44,15 +44,15 @@ Each request to AcraTranslator should contain direct crypto envelop for decrypti
 
 {{< hint info >}}
 **Note:**
-[AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) can work either using HTTP API or gRPC API, but not simultaneously.
+[AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/) can work either using HTTP API or gRPC API, but not simultaneously.
 {{< /hint >}}
 
 
 ## Setup AcraTranslator using Docker
 
-AcraTranslator is available as a Docker image which you can download from the [Cossack Labs official Docker repository](https://github.com/cossacklabs/acra/tree/master/docker) or you can find it in the [Docker folder](https://github.com/cossacklabs/acra-Q12021/tree/master/docker) in the GitHub repository.
+AcraTranslator is available as a Docker image which you can download from the [Cossack Labs official Docker repository](https://github.com/cossacklabs/acra/tree/master/docker) or you can find it in the [Docker folder](https://github.com/cossacklabs/acra/tree/master/docker) in the GitHub repository.
 
-There are a couple of predefined docker-compose files for [HTTP API](https://github.com/cossacklabs/acra-Q12021/blob/master/docker/docker-compose.translator-ssession-connector-http.yml) and [gRPC API](https://github.com/cossacklabs/acra-Q12021/blob/master/docker/docker-compose.translator-ssession-connector-grpc.yml) AcraTranslator infrastructure.
+There are a couple of predefined docker-compose files for [HTTP API](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-http.yml) and [gRPC API](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-grpc.yml) AcraTranslator infrastructure.
 {{< hint info >}}
 
 **Note:**
@@ -63,10 +63,10 @@ Using Docker is recommended for testing purposes only. Please don't rely on Dock
 
 ## Poison records
 
-If the client application is hacked and the attacker is trying to decrypt all the data, you can detect it using [poison records]({{< ref "/acra/security-controls/intrusion-detection" >}}).
+If the client application is hacked and the attacker is trying to decrypt all the data, you can detect it using [poison records](/acra/security-controls/intrusion-detection/).
 
 AcraTranslator also has ability to detect poison records and stop executing the query, preventing the data from leaking to an untrusted destination. 
-To learn more about AcraTranslator cmd configuration you can refer [here]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}).
+To learn more about AcraTranslator cmd configuration you can refer [here](/acra/configuring-maintaining/general-configuration/acra-translator/).
 
 
 

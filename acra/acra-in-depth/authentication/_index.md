@@ -59,14 +59,14 @@ All ownership mapping is applications' responsibility and may be implemented in 
 
 [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) and [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) require authenticated connections when working with external key stores (Redis, BoltDB).
 
-Read more about configuring [external key stores](/acra/configuring-maintaining/key-storing/kv-stores/).
+Read more about configuring [external key stores](/acra/acra-in-depth/architecture/key-storage-and-kms/key-storage/).
 
 ### KMS
 
 [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) and [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) require authenticated connections when working with KMS.
 
 
-Read more about connection configuration to [popular KMS](/acra/configuring-maintaining/key-storing/kms/).
+Read more about connection configuration to [popular KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 
 
 ## Privileged operations

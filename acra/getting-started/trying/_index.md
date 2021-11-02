@@ -53,7 +53,7 @@ Check out the [docker folder](https://github.com/cossacklabs/acra/blob/master/do
 
 Most likely you would like to set some variables before launch.
 
-Please set `ACRA_MASTER_KEY` environmental variable, or check [KeyManagement]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) page for more details:
+Please set `ACRA_MASTER_KEY` environmental variable, or check [Key Management](/acra/security-controls/key-management/operations/generation/#11-generating-acra-master-key) page for more details:
 ```bash
 export ACRA_SERVER_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
 export ACRA_CONNECTOR_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
@@ -294,7 +294,7 @@ zone: DDDDDDDDmufclpqHJfnTDJZW
 saved with zone: DDDDDDDDmufclpqHJfnTDJZW
 ```
 
-This script made a request to HTTP API of AcraServer through AcraConnector to add a new Zone and used the response (Zone ID and Zone public key) for encrypting the data. `zone: DDDDDDDDmufclpqHJfnTDJZW` is the Zone ID that should be used for [fetching the decrypted data]({{< ref "acra/guides/advanced-integrations#client-side-with-zones-INVALID" >}}) via AcraServer.
+This script made a request to HTTP API of AcraServer through AcraConnector to add a new Zone and used the response (Zone ID and Zone public key) for encrypting the data. `zone: DDDDDDDDmufclpqHJfnTDJZW` is the Zone ID that should be used for fetching the decrypted data via AcraServer.
 
 **Let's print the data now:**
 (shell window #2)

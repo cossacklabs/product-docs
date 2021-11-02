@@ -1,6 +1,5 @@
 ---
 title: AnyProxy [ENTERPRISE]
-bookCollapseSection: true
 weight: 4
 ---
 
@@ -33,6 +32,8 @@ Refer to a [Acra security features](/acra/acra-in-depth/security-features/) to l
 ## Dataflows
 
 We outlined some examples of dataflows for AnyProxy and DAO in [the Dataflow](/acra/acra-in-depth/data-flow/#anyproxy) chapter.
+
+![](/files/acra/anyproxy-dao.png)
 
 For example, once we built AnyProxy for MongoDB: we wrote client-side SDK in JS for client app written on NodeJS. The client app just called AnyProxy SDK with encrypt/decrypt commands. SDK then connected to the AcraTranslator to perform operations, received encrypted data and stored it in the MongoDB.
 

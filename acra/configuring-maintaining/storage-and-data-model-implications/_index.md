@@ -18,7 +18,7 @@ any other database (including embedded ones), in any key/value storage and so on
 The main requirement for a storage would be support of binary fields (value as array of bytes, blob, etc).
 But even in this case you can, for example, base64 encode encrypted data and store it as a string.
 
-# Type compatibility
+## Type compatibility
 
 When encrypting, Acra takes a bytestring and returns a bytestring.
 So all the data you wanna protect should be transformed into a bytestring:
@@ -36,7 +36,7 @@ The responsibility of performing these kind of conversions will be on the applic
 ## One way to solve type problem
 
 Instead of encrypting the data you want to protect,
-you can use [tokenization]({{< ref "acra/security-controls/tokenization/_index.md" >}}).
+you can use [tokenization](/acra/security-controls/tokenization/).
 In this case plaintext will be stored in a separate storage while the database will contain random unrelated values.
 The storage is essentially a key/value database where `key` is the random value and `value` is the actual plaintext.
 AcraServer is able to transparently perform the conversion (called tokenization and detokenization respectively).
@@ -45,7 +45,7 @@ AcraTranslator also supports this feature, making tokenization/detokenization pr
 This will help keeping column types as before, but the values won't be stored as plaintext anymore.
 It's different from encryption, but you may find it useful as well.
 
-# SQL relations
+## SQL relations
 
 One of the advantages you get from SQL is the ability to specify many filers inside a query,
 probably correlate one table field with another table's one.
@@ -103,9 +103,9 @@ SELECT `number`, `string` FROM `records`
 WHERE `encrypted_string` LIKE "secret %";
 ```
 
-# Tokenization
+## Tokenization
 
-[A feature]({{< ref "acra/security-controls/tokenization/" >}}) that stores random number/text/email in the database,
+[Tokenization](/acra/security-controls/tokenization/) is a feature that stores random number/text/email in the database,
 while the actual number/text/email that corresponds to random value is stored in a separate place,
 only available for AcraServer and/or AcraTranslator that will perform the conversion.
 

@@ -43,9 +43,9 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * [Key management utilities](/acra/security-controls/key-management/) - utilities for key generation, key rotation, key export, etc. that are required when using Acra.
 
-* [Key storage](/acra/acra-in-depth/architecture/key-storage/) – storage for intermediate encrypted encryption keys and tokens created as result of tokenization.
+* [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/) – storage for intermediate encrypted encryption keys and tokens created as result of tokenization.
 
-* [KMS](/acra/acra-in-depth/architecture/key-storage/) – storage for Acra's Master key, outside components – HashiCorp Vault, AWS KMS, GCP KMS, HSM, etc.
+* [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) – storage for Acra's Master key, outside components – HashiCorp Vault, AWS KMS, GCP KMS, HSM, etc.
 
 
 

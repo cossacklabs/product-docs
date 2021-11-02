@@ -58,7 +58,7 @@ acra-keymaker --generate_master_key=master.key
 export ACRA_MASTER_KEY=`cat master.key | base64`
 ``` 
 
-Read more about the different types of keys used in Acra in the [Key Management]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) section of the documentation.
+Read more about the different types of keys used in Acra in the [Key Management](/acra/security-controls/key-management/operations/generation/#11-generating-acra-master-key) section of the documentation.
 
 - Generate the "client" proxy keypair:
 
@@ -177,7 +177,7 @@ There are two ways you can generate the keys:
   ```
   export ACRA_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
   ```
-  Utility cannot encrypt private keys without master key. Read more about different types of keys used in Acra on [Key Management]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#-INVALID" >}}) page. 
+  Utility cannot encrypt private keys without master key. Read more about different types of keys used in Acra on [Key Management](/acra/security-controls/key-management/operations/generation/#11-generating-acra-master-key) page. 
   
   Then run utility:
   ```

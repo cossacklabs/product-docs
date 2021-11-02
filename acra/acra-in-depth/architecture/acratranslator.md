@@ -1,6 +1,5 @@
 ---
 title: AcraTranslator, an API service
-bookCollapseSection: true
 weight: 3
 ---
 
@@ -36,7 +35,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 ## Non-functional requirements
 
-* Is easy to use from any application – AcraTranslator supports HTTP and gRPC API, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms/).
+* Is easy to use from any application – AcraTranslator supports HTTP and gRPC API, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 * Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
 * Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
 
@@ -52,6 +51,8 @@ Here is the simplest connection:
 
 Client application connects to the AcraTranslator via API, then client app is responsible for storing/using encrypted data. If the client app wants to decrypt data, it reads encrypted data from the storage (or another app), and asks AcraTranslator to decrypt it.
 
+Acra provides [SDK for AcraTranslator](/acra/acra-in-depth/architecture/sdks/acratranslator-sdk/) to improve working with its API and make integration easier.
+
 
 ## Connection with other parts
 
@@ -62,12 +63,15 @@ Other connections are optional – for example, you can use Redis as external ke
 ![](/files/acra/at-and-all-their-friends.png)
 
 
+* [Redis](/acra/acra-in-depth/architecture/key-storage-and-kms/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraTranslator performs [tokenization](/acra/security-controls/tokenization/).
+
+* [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraTranslator should read this key during startup.
+
+* [SDK for AcraTranslator](/acra/acra-in-depth/architecture/sdks/acratranslator-sdk/) – optional client-side SDK for easier usage of AcraTranslator's API in the app.
+
+* [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraReader](/acra/acra-in-depth/architecture/sdks/acrareader/) – optional client-side SDKs to encrypt or decrypt AcraBlocks/AcraStructs without AcraTranslator.
+
 * [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
-
-* [Redis](/acra/acra-in-depth/architecture/key-storage/) – external key storage for intermediate keys (optional), or required storage for tokens if AcraServer performs [tokenization](/acra/security-controls/tokenization/).
-
-* [KMS](/acra/configuring-maintaining/key-storing/kms/) – if you put Acra Master Key to KMS, like HashiCorp Vault, AcraServer should read this key during startup.
-
 
 
 ## Architectural considerations
@@ -83,6 +87,6 @@ Anyway, AcraTranslator won't be able to decrypt data for which it does not have 
 as well as it won't decrypt data for application clients not supposed to access it.
 
 However, in cases when you need to make application the only component that interacts with plaintext,
-AcraTranslator won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/#acrawriter) to encrypt data on application-side before it leaves.
+AcraTranslator won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to encrypt data on application-side before it leaves.
 
 Refer to [Scaling and HA](/acra/acra-in-depth/scaling-and-high-availability/) to learn how to scale and support growing infrastructure when you use AcraTranslator.
