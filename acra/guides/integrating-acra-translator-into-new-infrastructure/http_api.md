@@ -15,6 +15,64 @@ Currently, [AcraTranslator]({{< ref "/acra/configuring-maintaining/general-confi
 Importantly, for backward compatibility reasons `/v1/*` only supports working with [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). So, if you want to use HTTP API along with [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock), you should take `v2` version.
 {{< /hint >}}
 
+### Bulk processing API [ENTERPRISE]
+
+All the usual API methods allow one exact operation to be performed per call.
+If you need to perform multiple operations in parallel, in single network request, bulk API may be quite useful.
+
+1. Create bulk processing request
+2. Put any amount of encryption/decryption/tokenization/detokenization/etc operations inside
+   * Each operation will have own input data, client ID, zone ID, just like in usual requests
+   * In addition to that, each operation will be marked with an identifier, `request_id`, so when the response is processed you will know what is what
+     (reordering is possible due to parallel processing of all requests)
+3. Send the bulk processing request
+4. Receive the response, use `request_id` to identify what is what
+
+#### Request
+
+Method: `GET`
+
+Path: `/v2/bulkProcessing`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{ "requests": [
+    { "request_id": 1,
+      "operation": "encrypt",
+      "request_data": { "data": "dGVzdCBzdHJpbmc=" } },
+    { "request_id": 2,
+      "operation": "tokenize",
+      "request_data": { "data": 2001, "zone_id": "DDDDDDDDjKjECtcRBDkmHVBh" } }
+] }
+```
+
+> `request_id` — that unique identifier you can later use to match responses with requests
+
+> `operation` — string identifying what you want to do;
+for example if the usual way to symmetrically encrypt stuff would be to send request to `/v2/encryptSym`,
+then `encryptSym` is the corresponding operation for bulk processing
+
+> `request_data` — object containing data for this specific request;
+if usual encryption requires you to send `{ "data": "dGVzdCBzdHJpbmc=" }` as request body,
+then in bulk processing this object will be the value for `request_data`
+
+#### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+[
+    { "request_id": 2,
+      "response_data": { "data": 300291 } },
+    { "request_id": 1,
+      "response_data": { "data": "QqO+jei4r2lPGNOpBEARqSoB5oM=" } }
+]
+```
 
 ### Handling errors and troubleshooting
 
