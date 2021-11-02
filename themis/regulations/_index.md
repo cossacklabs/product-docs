@@ -18,12 +18,9 @@ As a cryptographic services library for mobile and server platforms,
 Themis is a ["state of the art"](https://gdpr-info.eu/art-32-gdpr/) encryption tool
 which provides secure data exchange and storage.
 
-To find out about the exact ways Themis can help secure your users' data in your products and infrastructure,
-apply for the [Customer Success Program](https://www.cossacklabs.com/services/customer-success-program/).
-
 You may also want to read about the ways
 our [database encryption system **Acra**](https://www.cossacklabs.com/acra/)
-can help you [meet the demands of several GDPR articles at once](/pages/acra-and-gdpr-compliance/).
+can help you [meet the demands of several GDPR articles at once](/acra/regulations/).
 
 ## Cryptography regulations
 

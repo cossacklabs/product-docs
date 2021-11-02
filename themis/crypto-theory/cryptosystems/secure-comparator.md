@@ -133,7 +133,7 @@ in Python.
 ## Implementation details
 
 Secure Comparator interface is described in
-[`src/themis/secure_comparator.h`](https://github.com/cossacklabs/themis/blob/master/src/themis/secure_comparator.h).
+[`src/themis/secure_comparator.h`](https://github.com/cossacklabs/themis/blob/master/include/themis/secure_comparator.h).
 
 Secure Comparator does not implement the network layer,
 it is your responsibility to send and receive the messages from one side to another.
