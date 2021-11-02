@@ -1,6 +1,5 @@
 ---
 title: Acra from Docker images
-bookCollapseSection: true
 weight: 2
 ---
 

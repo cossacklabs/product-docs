@@ -1,10 +1,13 @@
 ---
 title: Building and installing AcraWriter
-bookCollapseSection: true
 weight: 5
 ---
 
 # Building and installing AcraWriter
+
+{{< hint info >}}
+AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
 
 AcraWriter wraps plaintext data into encrypted [AcraStructs]({{< ref "/acra/acra-in-depth/data-structures/#understanding-acrastruct" >}}) – cryptographic containers used by Acra.
 You pass your input data and AcraServer's public key to AcraWriter and it returns you encrypted AcraStruct that will be stored in the database.

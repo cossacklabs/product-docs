@@ -1,6 +1,5 @@
 ---
 title: Acra from the repository
-bookCollapseSection: true
 weight: 1
 ---
 
