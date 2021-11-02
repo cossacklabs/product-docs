@@ -12,7 +12,7 @@ Acra contains a set of special CLI utilities and services for specialized use ca
 ## Services
 
 * [`acra-connector`](/acra/configuring-maintaining/general-configuration/acra-connector/)
-  Service providing an encrypted and authenticated connection to AcraServer via [Themis](/themis/) with [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell)
+  Service providing an encrypted and authenticated connection to AcraServer/AcraTranslator via [Themis](/themis/) with [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell)
 
 * [`acra-server`](/acra/configuring-maintaining/general-configuration/acra-server/)
   Main component, responsible for holding all the secrets required to actual data processing
