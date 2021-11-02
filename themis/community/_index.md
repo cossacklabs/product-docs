@@ -31,11 +31,12 @@ consider taking a look at our
 
 ## Getting in touch
 
-- Requests/bugfixes/queries should go through [GitHub Issues].
+- Have a question? Not sure if you've caught a bug? Want to discuss something?
+  Start a discussion on [GitHub Discussions](https://github.com/cossacklabs/themis/discussions).
+- If you experience a specific issue or would like to request a specific feature,
+  please file an issue via [GitHub Issues](https://github.com/cossacklabs/themis/issues).
 - To get in touch with the developers,
   use [this email](mailto:dev@cossacklabs.com) at your own discretion :)
-  Make sure you've tried reaching out through [GitHub Issues] first before writing a direct email.
+  Make sure you've tried reaching out through GitHub first before writing a direct email.
 - To talk to the business wing of Cossack Labs Limited,
   drop us an [email](mailto:info@cossacklabs.com).
-
-[GitHub Issues]: https://github.com/cossacklabs/themis/issues

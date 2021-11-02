@@ -51,7 +51,7 @@ Available **key lengths** are:
 
 ## Example
 
-Soter algorithm descriptors are most commonly found in [Secure Cells](../secure-cell/#layout)
+Soter algorithm descriptors are most commonly found in [Secure Cells](../../secure-cell/layout/)
 where the most common options are AES-GCM variants.
 For example: `0x40010100`, where you can see the data fields:
 

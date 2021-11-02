@@ -26,7 +26,7 @@ bookCollapseSection: true
 ## Supported Go versions
 
 GoThemis is tested and supported on the current stable Go versions
-(Go 1.11–1.14).
+(Go 1.11–1.16).
 
 ## Getting started
 
