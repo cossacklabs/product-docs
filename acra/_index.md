@@ -32,6 +32,4 @@ The latest [Acra Enteprise Edition](/acra/enterprise-edition/) release is 0.90.0
 
 ## Acra Enterprise Edition documentation
 
-{{< hint info >}}
-We are merging Acra Community Edition and Acra Enterprise Edition documentation here, so some sections will be marked as "Enterprise Only".
-{{< /hint>}}
+We are merging Acra Community Edition and [Acra Enteprise Edition](/acra/enterprise-edition/) documentation here, so some sections are marked as "Enterprise Only".
