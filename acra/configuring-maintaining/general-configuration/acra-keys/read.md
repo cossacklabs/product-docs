@@ -1,7 +1,6 @@
 ---
 title: read
-bookCollapseSection: true
-weight: 10
+weight: 3
 ---
 # read
 

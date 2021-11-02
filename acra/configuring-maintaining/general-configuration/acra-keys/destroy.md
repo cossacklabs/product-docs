@@ -1,7 +1,6 @@
 ---
 title: destroy
-bookCollapseSection: true
-weight: 10
+weight: 7
 ---
 
 # destroy

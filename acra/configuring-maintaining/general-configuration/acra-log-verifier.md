@@ -1,10 +1,13 @@
 ---
 title: acra-log-verifier
-bookCollapseSection: true
-weight: 3
+weight: 12
 ---
 
 # acra-log-verifier
+
+{{< hint info >}}
+acra-log-verifier is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
 
 `acra-log-verifier` is command-line utility that verifies secure logs dumped from AcraServer/AcraTranslator/AcraConnector started with `--audit_log_enable=true` flag.
 

@@ -1,7 +1,6 @@
 ---
 title: list
-bookCollapseSection: true
-weight: 10
+weight: 1
 ---
 
 # list
