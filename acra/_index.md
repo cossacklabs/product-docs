@@ -2,7 +2,7 @@
 weight: 1
 title: "Acra in a nutshell"
 bookFlatSection: true
-productMenuTitle: "Acra"
+productMenuTitle: "acra"
 Menu: "main"
 ---
 
