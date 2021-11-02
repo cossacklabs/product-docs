@@ -10,7 +10,7 @@ AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) 
 {{< /hint>}}
 
 This tutorial is an extensive step-by-step guide for those who have never used Themis and Acra before. 
-There is also a [much shorter version](/acra/guides/advanced-integrations/django-acra-tutorials/django-acra-short-tutorial) for the experienced 
+There is also a [much shorter version](/acra/guides/advanced-integrations/django-acra-tutorials/django-acra-short-tutorial/) for the experienced 
 Acra users. If it’s your very first encounter with Acra, keep reading.
 
 ## Intro
