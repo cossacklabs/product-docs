@@ -38,7 +38,7 @@ Here are some of the traces and their subtraces collected by Acra services.
   * `ProxyDatabaseConnectionLoop` MySQL-specific alternative to PgDecryptStreamLoop
 
 <!-- network/trace.go -->
-* `HTTPApiConnection` _TODO_
+<!-- * `HTTPApiConnection` _TODO_ -->
 
 <!-- network/proxy.go -->
 * `ProxyWithTracing` (AcraConnector-specific)
