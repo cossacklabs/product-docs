@@ -41,8 +41,7 @@ The main basic components of Acra are:
 ![](/files/guides/djangoproject-tutorial/acra_simple_scheme_new.png)
 
 This tutorial guides you through a typical process of integrating Acra into an app running on Ruby on Rails framework. 
-It is based on the popular example many Ruby users start their development learning with – 
-[rubygems.org repository](https://github.com/rubygems/rubygems.org).
+It is based on the popular example where many Ruby users start their development learning with – [rubygems.org repository](https://github.com/rubygems/rubygems.org).
 [RubyGems](https://rubygems.org/) is a package manager for Ruby that provides a standard format for distributing Ruby
 programs and libraries in a self-contained format called a "gem".
 We’ll integrate Acra into it to provide cryptographic protection of the gem descriptions – i.e. author name, email, app
@@ -55,11 +54,7 @@ Acra provides selective encryption and only protects the records you want to pro
 With AcraWriter, the records to be encrypted are wrapped in a function that outputs an AcraStruct (cryptographic 
 container decryptable by AcraServer). AcraStruct is then stored in a database.
 
-In Acra’s threat model, we assume that anything but AcraServer can be compromised and that any piece of data can leak 
-outside. For Acra to stay secure, only AcraServer must stay secure. However, if AcraServer is compromised, the whole 
-implementation of Acra will make no sense.
-
-With Acra we strive to provide 2 main programmatic security guarantees:
+In Acra’s [threat model](/acra/acra-in-depth/security-design/threat-models-and-guarantees/#threat-models-and-security-guarantees/), we assume that anything but AcraServer can be compromised and that any piece of data can leak outside. For Acra to stay secure, only AcraServer must stay secure. However, if AcraServer is compromised, the whole implementation of Acra will make no sense. With Acra we strive to provide 2 main programmatic security guarantees:
 
 - G1: Even if all the other parts of the system are compromised, as long as AcraServer is secure, the attacker won’t 
   collect enough data for decryption of the protected materials (database entries in our case).
@@ -70,7 +65,7 @@ With Acra we strive to provide 2 main programmatic security guarantees:
   currently carried out with the help of poison records in the database, which would never have been called up - except 
   for an event of a hack/breach. In the future, more intrusion detection features besides poison records are planned.
 
-If it is explicitly stated that the output for Zone ID must precede the AcraStruct, Acra Server will search for certain 
+If it is explicitly stated that the output for Zone ID must precede the AcraStruct, AcraServer will search for certain
 strings called [Zone IDs (“Zones”)](/acra/security-controls/zones/) when analysing the database output stream.
 Zones let Acra know that within this record a private key corresponding to the Zone ID should be used for the actual 
 decryption of AcraStructs.
@@ -97,7 +92,7 @@ each other:
 ![](/files/guides/djangoproject-tutorial/acra-entities-current.png)
 
 Put simply, the application talks to AcraConnector. AcraConnector pretends to be a database listener that uses standard
-PostgreSQL protocol and send the request to AcraServer using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) 
+PostgreSQL protocol and sends the request to AcraServer using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
 (socket protection protocol). AcraServer sends a request to the database using the regular PostgreSQL protocol and 
 receives an answer.
 If AcraServer detects the presence of AcraStruct while parsing the answer, it attempts to decrypt it and replace 
@@ -168,7 +163,7 @@ Yet another reminder that AcraServer needs to be installed on a separate compute
 {{< /hint >}}
 
 AcraServer should have AcraConnector's public transport key,  and  AcraServer's public transport key must be given 
-to AcraConnector.This is necessary for accepting connections via Secure Session from clients.
+to AcraConnector. This is necessary for accepting connections via Secure Session from clients.
 
 Put `.acrakeys/yourID.pub` + `.acrakeys/yourID_server` + `.acrakeys/yourID_storage` into AcraServer’s key folder with
 proper permissions (folder 700, private keys 600 - permissions are assigned during the generation process, and permissions

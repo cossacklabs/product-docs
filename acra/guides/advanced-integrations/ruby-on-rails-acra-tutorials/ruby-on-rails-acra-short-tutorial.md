@@ -11,7 +11,7 @@ AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) 
 
 
 This tutorial outlines a typical process of integrating Acra into a Ruby web app (more specifically, an 
-app running on Ruby on Rails framework). It is based on the popular example many Ruby users start their 
+app running on Ruby on Rails framework). It is based on the popular example where many Ruby users start their
 development learning with – [rubygems.org repository](https://github.com/rubygems/rubygems.org).
 
 Here we will integrate [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to protect the
