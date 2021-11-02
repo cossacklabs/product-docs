@@ -6,25 +6,52 @@ weight: 1
 
 # General configuration
 
-- Generate [Acra Master Key](/acra/security-controls/key-management/operations/generation/#11-generating-master-keys)
-  and [encryption keys](/acra/security-controls/key-management/operations/generation/#12-generating-transport-and-encryption-keys).
+Acra contains a set of special CLI utilities and services for specialized use cases.
 
-- [Configure AcraServer](/acra/guides/integrating-acra-server-into-infrastructure/acraserver_configuration/).
 
-  - Don't forget to [enable TLS](/acra/configuring-maintaining/tls/).
+## Services
 
-- [Deploy AcraServer](/acra/getting-started/installing/) to a separate machine.
+* [`acra-connector`](/acra/configuring-maintaining/general-configuration/acra-connector/)
+  Service providing an encrypted and authenticated connection to AcraServer via [Themis](/themis/) with [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell)
 
-- Test everything:
+* [`acra-server`](/acra/configuring-maintaining/general-configuration/acra-server/)
+  Main component, responsible for holding all the secrets required to actual data processing
 
-  1. Point your client application to a AcraServer instead of the database.
-  2. Send a typical SQL request.
+* [`acra-translator`](/acra/configuring-maintaining/general-configuration/acra-translator/)
+  API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection
 
-  _Result_: If you see the answer, AcraServer was configured properly and is able to process requests.
-  It means that the network and the keys are fine.
+* [`acra-webconfig`](/acra/configuring-maintaining/general-configuration/acra-webconfig/)
+  Simple web application providing web UI for AcraServer's runtime configuration
 
-- Thoroughly read the documentation.
-- Use Acra!
 
-- P.S. Feel free to raise an [Issue](https://github.com/cossacklabs/acra/issues)
-  or contact us at [info@cossacklabs.com](mailto:info@cossacklabs.com).
+## Utilities
+
+* [`acra-keys`](/acra/configuring-maintaining/general-configuration/acra-keys/)
+  Utility used for different keys operations especially for `v2` keystore
+
+* [`acra-tokens`](/acra/configuring-maintaining/general-configuration/acra-tokens/)
+  Utility used for different token operations
+
+* [`acra-addzone`](/acra/configuring-maintaining/general-configuration/acra-addzone/)
+  Utility used for generation of new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs
+
+* [`acra-authmanager`](acra/configuring-maintaining/general-configuration/acra-authmanager/)
+  Utility used for [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) user management.
+
+* [`acra-backup`](/acra/configuring-maintaining/general-configuration/acra-backup/)
+  Utility used for storing and managing the keystore [backups](/acra/security-controls/key-management/operations/backup)
+
+* [`acra-keymaker`](/acra/configuring-maintaining/general-configuration/acra-keymaker/)
+  Utility used for different keys operations
+
+* [`acra-log-verifier`](/acra/configuring-maintaining/general-configuration/acra-log-verifier/)
+  Utility that verifies secure logs dumped from AcraServer/AcraTranslator/AcraConnector
+
+* [`acra-poisonrecordmaker`](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/)
+  Utility that generates new [poison records](/acra/security-controls/intrusion-detection) for intrusion detection
+
+* [`acra-rollback`](/acra/configuring-maintaining/general-configuration/acra-rollback/)
+  Utility that help you to generate a clean SQL dump from an existing protected one
+
+* [`acra-rotate`](/acra/configuring-maintaining/general-configuration/acra-rotate/)
+  Utility that rotates private/[Zone](/acra/security-controls/zones) keys and re-encrypt data stored in database or as files
