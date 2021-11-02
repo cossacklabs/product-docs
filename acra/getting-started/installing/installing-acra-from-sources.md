@@ -83,6 +83,37 @@ If you see an error message `"master key is empty"`, it means that you haven't g
 
 AcraServer listens to port **9393** by default.
 
+
+## Set up the environment for AcraTranslator
+
+On a separate machine, create a user for AcraTranslator and make sure your GOBIN is in PATH:
+```bash
+sudo useradd -m acra-translator
+sudo su acra-translator
+cd ~/
+export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
+```
+
+## Build AcraTranslator
+
+```bash
+go get github.com/cossacklabs/acra/cmd/acra-translator
+```    
+
+Place `someid_translator.pub` and `someid_translator` keys to .acrakeys directory for AcraTranslator.
+Now you can finally launch the AcraTranslator.
+
+## Run AcraTranslator
+
+```bash
+acra-translator
+```
+
+If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step](/acra/security-controls/key-management/operations/generation/).
+
+If no `incoming_connection_{http|grpc}_string` is set, AcraTranslator will serve gRPC connections on port **9696** by default.
+
+
 ## Set up the environment for AcraConnector
 
 Create a user for AcraConnector:

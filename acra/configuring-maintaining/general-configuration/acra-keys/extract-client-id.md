@@ -12,7 +12,7 @@ weight: 10
 
 ### General flags
 
-* `--tls_cert=<path>` ❗
+* `--tls_cert=<path>` 🔴
 
   Path to TLS certificate to use as client_id identifier.
 
@@ -28,7 +28,7 @@ weight: 10
   Use machine-readable JSON output.
 
 
-  ❗ - flags required to be specified.
+  🔴 - flags required to be specified.
 
 
 ## Usage example

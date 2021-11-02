@@ -6,13 +6,13 @@ weight: 10
 
 # acra-backup
 
-`acra-backup` is a command-line utility used for storing and managing the keystore [backups]({{< ref "/acra/security-controls/key-management/operations/backup" >}}).
+`acra-backup` is a command-line utility used for storing and managing the keystore [backups](/acra/security-controls/key-management/operations/backup).
 
 ## Command line flags
 
 #### General
 
-* `--action={import|export}`❗
+* `--action={import|export}`🔴
 
   Actions to perform.
 
@@ -50,7 +50,7 @@ weight: 10
 
   Folder with public keys. Leave empty if keys stored in same folder as `keys_private_dir`.
 
-* `--file=<path>`❗ 
+* `--file=<path>`🔴 
 
   Path to file which will be used for **`import|export`** actions. Required to specify.
 
@@ -111,7 +111,7 @@ weight: 10
   Default is `false`.
 
 
-❗ - flags required to be specified.
+🔴 - flags required to be specified.
 
 
 ## Usage example

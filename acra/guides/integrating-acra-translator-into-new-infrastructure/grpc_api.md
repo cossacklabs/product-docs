@@ -70,97 +70,51 @@ message EncryptSymResponse {
 You can find complete content of [api.proto](https://github.com/cossacklabs/acra/blob/master/cmd/acra-translator/grpc_api/api.proto) file in the AcraTranslator source code.
 {{< /hint >}}
 
-There are dedicated pages about
-[encryption]({{< ref "acra/security-controls/encryption/_index.md#grpc-api" >}}),
-[searchable encryption]({{< ref "acra/security-controls/searchable-encryption/_index.md#grpc-api" >}}) and
-[tokenization]({{< ref "acra/security-controls/tokenization/_index.md#grpc" >}}) in Security controls section.
 
-### Bulk processing API [ENTERPRISE]
+## Setup AcraTranslator manually
 
-All the usual API methods allow one exact operation to be performed per call.
-If you need to perform multiple operations in parallel, in single network request, bulk API may be quite useful.
-
-1. Create bulk processing request
-2. Put any amount of encryption/decryption/tokenization/detokenization/etc operations inside
-   * Each operation will have own input data, client ID, zone ID, just like in usual requests
-   * In addition to that, each operation will be marked with an identifier, `request_id`, so when the response is processed you will know what is what
-     (reordering is possible due to parallel processing of all requests)
-3. Send the bulk processing request
-4. Receive the response, use `request_id` to identify what is what
-
-The related part of `protobuf` file is here:
-```protobuf
-message BulkRequest {
-    bytes request_id = 1;
-    oneof request {
-        TokenizeRequest tokenize = 2;
-        TokenizeRequest detokenize = 8;
-        SearchableEncryptionRequest searchable_encrypt = 3;
-        SearchableDecryptionRequest searchable_decrypt = 4;
-        QueryHashRequest query_hash = 5;
-        EncryptRequest encrypt = 6;
-        DecryptRequest decrypt = 7;
-        SearchableSymEncryptionRequest searchable_encrypt_sym = 9;
-        SearchableSymDecryptionRequest searchable_decrypt_sym = 11;
-        EncryptSymRequest encrypt_sym = 10;
-        DecryptSymRequest decrypt_sym = 12;
-    };
-}
-
-message BulkResponse {
-    bytes request_id = 1;
-    oneof response {
-        TokenizeResponse tokenize = 2;
-        TokenizeResponse detokenize = 8;
-        SearchableEncryptionResponse searchable_encrypt = 3;
-        SearchableDecryptionResponse searchable_decrypt = 4;
-        QueryHashResponse query_hash = 5;
-        EncryptResponse encrypt = 6;
-        DecryptResponse decrypt = 7;
-        SearchableSymEncryptionResponse searchable_encrypt_sym = 9;
-        EncryptSymResponse encrypt_sym = 10;
-        SearchableSymDecryptionResponse searchable_decrypt_sym = 11;
-        DecryptSymResponse decrypt_sym = 12;
-    };
-}
-
-message BulkRequestBatch {
-    repeated BulkRequest requests = 1;
-}
-
-message BulkResponseBatch {
-    repeated BulkResponse responses = 1;
-}
-
-service BulkProcessing {
-    rpc ProcessBulk (BulkRequestBatch) returns (BulkResponseBatch) {}
-}
-```
-
-## Setup AcraConnector and AcraTranslator manually
-
-1. Generate the [Master Key]({{< ref "/acra/security-controls/key-management/operations/generation#master-keys" >}})
-2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
+1. Generate the [Master Key](/acra/security-controls/key-management/operations/generation/#acra-master-keys)
+2. Generate the AcraTranslator keys using [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker).
 
 ```bash
-acra-keymaker --client_id=client --generate_acratranslator_keys \
- --generate_acraconnector_keys
+acra-keymaker --client_id=client --generate_acratranslator_keys 
 ```
 
-Put `_translator.pub` into the AcraConnector keys' folder and also put `.pub` into the AcraTranslator keys' folder.
+3. Start AcraTranslator using gRPC API using TLS:
 
-3. Start AcraConnector:
+ Make sure you have generated all required TLS related files before starting AcraTranslator. 
+
+ There is also additional information about [TLS configuration in AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#tls).
+
+```bash
+acra-translator 
+--incoming_connection_grpc_string=tcp://127.0.0.1:9595 \
+--tls_key=path_to_tls_private_key \
+--tls_cert=path_to_tls_cert \
+--tls_ca=path_to_tls_ca 
+```
+
+{{< hint info >}}
+**Optional:**
+
+If you want to start AcraTranslator using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session), make sure you generated corresponding transport keys.
+AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
+
+To start AcraConnector:
 ```bash
 acra-connector --mode=acratranslator --client_id=client \
  --acratranslator_securesession_id=acra_translator \
  --incoming_connection_string=tcp://127.0.0.1:8000 \
  --acratranslator_connection_string=tcp://127.0.0.1:9595
+ 
 ```
 
-4. Start AcraTranslator using HTTP API:
+Start AcraTranslator using gRPC API using Themis Secure Session:
 ```bash
 acra-translator --securesession_id:acra_translator \
 --incoming_connection_grpc_string=tcp://127.0.0.1:9595
 ```
+{{< /hint >}}
 
-Additionally, you can find a bunch of examples of using gRPC client in the [security-controls]({{< ref "/acra/security-controls/tokenization/_index.md#grpc" >}}) section
+
+Additionally, you can find a bunch of examples of using gRPC client in the [security-controls](/acra/security-controls/tokenization#grpc) section

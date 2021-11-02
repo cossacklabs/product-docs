@@ -10,7 +10,7 @@ HTTP API is a recommended way of debugging AcraTranslator's configuration (to do
 
 {{< hint info >}}
 **Note:**
-Currently, [AcraTranslator]({{< ref "/acra/configuring-maintaining/general-configuration/acra-translator.md" >}}) supports two versions of HTTP API `/v1/*` and `/v2/*`, where `v2` version is more extended and contains additional functionality. 
+Currently, [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/) supports two versions of HTTP API `/v1/*` and `/v2/*`, where `v2` version is more extended and contains additional functionality. 
 
 Importantly, for backward compatibility reasons `/v1/*` only supports working with [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). So, if you want to use HTTP API along with [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock), you should take `v2` version.
 {{< /hint >}}
@@ -94,19 +94,36 @@ When using AcraTranslator service, make sure you understand error codes and take
    For the security reasons, AcraTranslator doesn't return the real cause of the error message, masking it with a generic message "Can't decrypt AcraStruct". The underlying error is being logged to the AcraTranslator console/log file, so the only person who has the access to logs can see the error message.
 
 
-### Setup AcraConnector and AcraTranslator manually
+### Setup AcraTranslator manually
 
-1. Generate the [Master Key]({{< ref "/acra/security-controls/key-management/operations/generation#master-keys" >}})
-2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock)).
+1. Generate the [Master Key](/acra/security-controls/key-management/operations/generation/#acra-master-keys)
+2. Generate the AcraTranslator keys using [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker).
 
 ```bash
-acra-keymaker --client_id=client --generate_acratranslator_keys \
- --generate_acraconnector_keys
+acra-keymaker --client_id=client --generate_acratranslator_keys 
 ```
 
-Put `_translator.pub` into the AcraConnector keys' folder and also put `.pub` into the AcraTranslator keys' folder.
+3. Start AcraTranslator using HTTP API using TLS:
 
-3. Start AcraConnector:
+Make sure you have generated all required TLS related files before starting AcraTranslator.
+
+There is also additional information about [TLS configuration in AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#tls).
+
+```bash
+acra-translator 
+--incoming_connection_http_string=tcp://127.0.0.1:9595 \
+--tls_key=path_to_tls_private_key \
+--tls_cert=path_to_tls_cert \
+--tls_ca=path_to_tls_ca 
+```
+
+{{< hint info >}}
+**Optional:**
+
+If you want to start AcraTranslator using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session), make sure you generated corresponding transport keys.
+AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
+
+To start AcraConnector:
 ```bash
 acra-connector --mode=acratranslator --client_id=client \
  --acratranslator_securesession_id=acra_translator \
@@ -114,13 +131,14 @@ acra-connector --mode=acratranslator --client_id=client \
  --acratranslator_connection_string=tcp://127.0.0.1:9595
 ```
 
-4. Start AcraTranslator using HTTP API:
+Start AcraTranslator using HTTP API using Themis Secure Session:
 ```bash
 acra-translator --securesession_id:acra_translator \
 --incoming_connection_http_string=tcp://127.0.0.1:9595
 ```
+{{< /hint >}}
 
-5. Generate [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) and send HTTP request:
+4. Generate [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) and send HTTP request:
 ```bash
 curl -X POST --data-binary @client.acrastruct \
 --header "Content-Type: application/octet-stream" http://127.0.0.1:8000
