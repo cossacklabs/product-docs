@@ -17,7 +17,7 @@ Acra is a database security suite, which protects you against data leaks and man
 strong selective encryption and intrusion detection capabilities.
 
 It is based on our [Themis](https://www.cossacklabs.com/themis/) cryptographic library with extreme security and 
-usability for developers in mind (you can read more about Themis' cryptography in Acra [here]({{< ref "/acra/acra-in-depth/cryptography-and-key-management/#cryptography-in-acra-INVALID" >}}).
+usability for developers in mind (you can read more about [cryptography in Acra](/acra/acra-in-depth/cryptography-and-key-management/)).
 
 Acra is most useful for:
 
@@ -659,4 +659,4 @@ As you can see, establishing cryptographic protection for the data in your web a
 and simple process. We hope that this tutorial was fun and informative and that you will be using Acra in the future.  
 If you only tried the Docker-based examples, try running Acra in a real world setup - it’s just as convenient.
 
-You can also check out a similar [Acra tutorial for RubyGems]({{< ref "/acra/guides/ruby-on-rails-tutorial.md#-INVALID" >}}).
+You can also check out a similar [Acra tutorial for RubyGems](/acra/guides/ruby-on-rails-short-tutorial/).
