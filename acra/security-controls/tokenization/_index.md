@@ -63,11 +63,13 @@ You decide which one fits best for your application.
 
 ### gRPC
 
+<!-- TODO move code examples to repo; add gRPC & HTTP API here, similar to encryption page -->
+
 You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-grpc.yml)
 as a playgroung, it will bring up AcraTranslator and expose its gRPC server at `127.0.0.1:9494`.
 
 In order to use the translator gRPC API you have to take
-[api.proto](https://github.com/cossacklabs/acra-Q12021/blob/master/cmd/acra-translator/grpc_api/api.proto)
+[api.proto](https://github.com/cossacklabs/acra/blob/master/cmd/acra-translator/grpc_api/api.proto)
 and use either `service Tokenizator` or `service BulkProcessing` (with one or more `TokenizeRequest` inside).
 
 #### Golang example
