@@ -168,7 +168,7 @@ to convert them into the format required by AES.
 ## Implementation details
 
 Secure Cell interface is described in
-[`src/themis/secure_cell.h`](https://github.com/cossacklabs/themis/blob/master/src/themis/secure_cell.h).
+[`src/themis/secure_cell.h`](https://github.com/cossacklabs/themis/tree/master/include/themis/secure_cell.h).
 
 #### Generating keys
 
@@ -176,7 +176,7 @@ A _symmetric key_ is needed to use Secure Cell.
 Strong keys can be securely generated with Themis key generation functions.
 
 The API is described in
-[`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/blob/master/src/themis/secure_keygen.h):
+[`src/themis/secure_keygen.h`](https://github.com/cossacklabs/themis/tree/master/include/themis/secure_keygen.h):
 
 ```c
 themis_status_t themis_gen_sym_key(
