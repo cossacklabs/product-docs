@@ -8,7 +8,7 @@ weight: 6
 
 This page is generally for Ops team, or anybody else who's job is to make things work together.
 
-* [Installation](/acra/configuring-maintaining/installing/)
+* [Installation](/acra/getting-started/installing/)
   describes requirements and installation process from repos or from sources.
 * [General configuration](/acra/configuring-maintaining/general-configuration/)
   contains list of all Acra binaries, their flags/subcommands, additional hints about configuration.
