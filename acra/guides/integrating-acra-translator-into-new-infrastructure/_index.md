@@ -1,6 +1,7 @@
 ---
 title: Integrating Acra Translator into new infrastructure
 bookCollapseSection: true
+weight: 2
 ---
 
 ## Usage of AcraTranslator

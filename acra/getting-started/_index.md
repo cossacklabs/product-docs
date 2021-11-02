@@ -10,18 +10,15 @@ bookCollapseSection: true
 
 We've made sure that this documentation service covers maximum of Acra's capabilities and configuration nuances. However, it is a considerable effort to do thorough study, so there are a few shortcuts for those willing to get their hands dirty faster:
 
-* [Trying Acra](/acra/getting-started/trying/) (many ways to get a fully working Acra from scratch)
-* [Acra Engineering Demo](https://github.com/cossacklabs/acra-engineering-demo#what-is-this) (illustrates different facets of using Acra, from infrastructure integration to certain narrow product security problems)
-* [Installing](/acra/getting-started/installing/) (how to install Acra for normal use)
-* [Acra with Django project](/acra/guides/djangoproject-short-tutorial/)
-* [Acra with Ruby on Rails](/acra/guides/ruby-on-rails-short-tutorial/)
-* [Acra server-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/)
-* [Acra translator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator)
-* Advanced integrations: 
-  * [Running Acra via DO marketplace](/acra/guides/advanced-integrations/digital-ocean-marketplace/)
-  * [Client-side integration with Acra connector](http://127.0.0.1:8088/acra/guides/advanced-integrations/client-side-integration-with-acra-connector/#client-side-acraconnector-and-acrawriter)
+* [Trying Acra](/acra/getting-started/trying/) (many ways to get a fully working Acra from scratch).
+* [Acra Engineering Demo](https://github.com/cossacklabs/acra-engineering-demo#what-is-this) (illustrates different facets of using Acra, from infrastructure integration to certain narrow product security problems).
+* [Installing](/acra/getting-started/installing/) (how to install Acra for normal use).
+* [Acra server-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/).
+* [Acra translator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator).
+* [Running Acra via DO marketplace](/acra/guides/acra-on-digital-ocean).
+* [Advanced integrations with client-side encryption](/acra/guides/advanced-integrations/).
 
-## Enterprise
+## Acra Enterprise Edition
 
 To get to learn more about enterprise version, please refer to the ["Acra Enterprise Edition"](/acra/enterprise-edition/) page.
 
