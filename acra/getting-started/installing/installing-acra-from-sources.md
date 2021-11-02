@@ -105,8 +105,6 @@ Now you can finally launch the AcraTranslator.
 
 ## Run AcraTranslator
 
-Running AcraServer is easy, just point it to the database:
-
 ```bash
 acra-translator
 ```
