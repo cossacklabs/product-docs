@@ -16,7 +16,7 @@ Acra uses a multitude of encryption keys for different purposes:
   - poison record keys for [intrusion detection](/acra/security-controls/intrusion-detection/#poison-records) (if used);
   - authentication storage key for encryption/decryption credentials of [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig) users (if used).
 
-Acra Master Key is securely stored in [key management service (KMS)](/acra/acra-in-depth/architecture/key-storage/#kms) or hardware security module (HSM). Other keys are encrypted and securely stored in a [**keystore**](versions) which is located either on the server's filesystem, or in [a remote key storage database](/acra/acra-in-depth/architecture/key-storage/#key-storage).
+Acra Master Key is securely stored in [key management service (KMS)](/acra/acra-in-depth/architecture/key-storage-and-kms/#kms) or hardware security module (HSM). Other keys are encrypted and securely stored in a [**keystore**](versions) which is located either on the server's filesystem, or in [a remote key storage database](/acra/acra-in-depth/architecture/key-storage-and-kms/#key-storage).
 
 ## Inventory of keys
 
