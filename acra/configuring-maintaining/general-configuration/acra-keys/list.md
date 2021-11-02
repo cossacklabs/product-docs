@@ -1,7 +1,6 @@
 ---
 title: list
-bookCollapseSection: true
-weight: 10
+weight: 1
 ---
 
 # list
@@ -80,7 +79,7 @@ weight: 10
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
-  ❗ - flags required to be specified.
+  🔴 - flags required to be specified.
 
 
 ## Usage example

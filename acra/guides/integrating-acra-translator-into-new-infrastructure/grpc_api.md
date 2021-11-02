@@ -71,30 +71,50 @@ You can find complete content of [api.proto](https://github.com/cossacklabs/acra
 {{< /hint >}}
 
 
-## Setup AcraConnector and AcraTranslator manually
+## Setup AcraTranslator manually
 
-1. Generate the [Master Key]({{< ref "/acra/security-controls/key-management/operations/generation#master-keys" >}})
-2. Generate the transport keys using [acra-keymaker]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keymaker.md" >}}). AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
+1. Generate the [Master Key](/acra/security-controls/key-management/operations/generation/#acra-master-keys)
+2. Generate the AcraTranslator keys using [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker).
 
 ```bash
-acra-keymaker --client_id=client --generate_acratranslator_keys \
- --generate_acraconnector_keys
+acra-keymaker --client_id=client --generate_acratranslator_keys 
 ```
 
-Put `_translator.pub` into the AcraConnector keys' folder and also put `.pub` into the AcraTranslator keys' folder.
+3. Start AcraTranslator using gRPC API using TLS:
 
-3. Start AcraConnector:
+ Make sure you have generated all required TLS related files before starting AcraTranslator. 
+
+ There is also additional information about [TLS configuration in AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#tls).
+
+```bash
+acra-translator 
+--incoming_connection_grpc_string=tcp://127.0.0.1:9595 \
+--tls_key=path_to_tls_private_key \
+--tls_cert=path_to_tls_cert \
+--tls_ca=path_to_tls_ca 
+```
+
+{{< hint info >}}
+**Optional:**
+
+If you want to start AcraTranslator using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session), make sure you generated corresponding transport keys.
+AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
+
+To start AcraConnector:
 ```bash
 acra-connector --mode=acratranslator --client_id=client \
  --acratranslator_securesession_id=acra_translator \
  --incoming_connection_string=tcp://127.0.0.1:8000 \
  --acratranslator_connection_string=tcp://127.0.0.1:9595
+ 
 ```
 
-4. Start AcraTranslator using HTTP API:
+Start AcraTranslator using gRPC API using Themis Secure Session:
 ```bash
 acra-translator --securesession_id:acra_translator \
 --incoming_connection_grpc_string=tcp://127.0.0.1:9595
 ```
+{{< /hint >}}
 
-Additionally, you can find a bunch of examples of using gRPC client in the [security-controls]({{< ref "/acra/security-controls/tokenization/_index.md#grpc" >}}) section
+
+Additionally, you can find a bunch of examples of using gRPC client in the [security-controls](/acra/security-controls/tokenization#grpc) section

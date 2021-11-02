@@ -1,12 +1,11 @@
 ---
 title: acra-rotate
-bookCollapseSection: true
-weight: 10
+weight: 8
 ---
 
 # acra-rotate
 
-`acra-rotate` is a command-line utility that rotates private/[Zone](/acra/security-controls/zones) keys and re-encrypt data stored in database or as files.
+`acra-rotate` is a command-line utility that rotates intermediate keys or [Zone](/acra/security-controls/zones) keys and re-encrypt data stored in database or as files.
 
 ## Command line flags
 
@@ -178,7 +177,7 @@ INFO[0000] Rotate AcraStruct                             KeyID=user0
 
 After rotation AcraServer still will be able to decrypt records, because keys were rotated and Acra uses new keys to decrypt the data.
 
-Also, `user0` is predefined ClientID. You can also generate ClientID from certificates via [`acra-keys extract-client-id`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/extract-client-id.md" >}}) in case of using TLS certificates as ClientID. 
+Also, `user0` is predefined ClientID. You can also generate ClientID from certificates via [`acra-keys extract-client-id`](/acra/configuring-maintaining/general-configuration/acra-keys/extract-client-id/) in case of using TLS certificates as ClientID. 
 
 {{< hint info >}}
 **Note:**

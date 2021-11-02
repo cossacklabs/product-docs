@@ -1,7 +1,6 @@
 ---
 title: acra-rollback
-bookCollapseSection: true
-weight: 10
+weight: 13
 ---
 
 # acra-rollback

@@ -124,11 +124,12 @@ For a more detailed study of the Acra's capabilities, we prepared [a couple of c
 
 and many more.
 
-## Digital Ocean 1-Click Droplet
+## Digital Ocean 1-Click App
 
-For another quick start with Acra, you can get a [minimalistic version of Acra Community Edition as a 1-Click App](/acra/guides/advanced-integrations/digital-ocean-marketplace/) running in a [Droplet on DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/acra). If you're new to DigitalOcean, you can use [Cossack Labs referral code](https://marketplace.digitalocean.com/apps/acra?refcode=3477f5f54884) to register and get $100 for 60 days for free. [More details]({{< ref "acra/guides/advanced-integrations/digital-ocean-marketplace.md" >}}).
+For another quick start with Acra, you can get a [minimalistic version of Acra Community Edition as a 1-Click App](/acra/guides/acra-on-digital-ocean/) running in a [1-Click App on DigitalOcean Marketplace](https://marketplace.digitalocean.com/apps/acra). If you're new to DigitalOcean, you can use [Cossack Labs referral code](https://marketplace.digitalocean.com/apps/acra?refcode=3477f5f54884) to register and get $100 for 60 days for free. 
 
-See a detailed tutorial on getting and installing Acra 1-Click App through DigitalOcean Marketplace is in Cossack Labs blog - [“Install Acra 1-Click App through DigitalOcean Marketplace”](https://www.cossacklabs.com/blog/install-acra-digitalocean-marketplace-tutorial.html).
+[Refer to the guide](/acra/guides/acra-on-digital-ocean/).
+
 
 ## Example application
 

@@ -1,15 +1,20 @@
 ---
-title: 'Integration example: RubyGems - short tutorial'
-bookCollapseSection: true
+title: 'Integrating Acra with RoR app: short tutorial'
+weight: 1
 ---
 
-# Integrating Acra with RubyGems
+# Integrating Acra with Ruby on Rails app: short tutorial
+
+{{< hint info >}}
+AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
 
 This tutorial outlines a typical process of integrating Acra into a Ruby web app (more specifically, an 
 app running on Ruby on Rails framework). It is based on the popular example many Ruby users start their 
-development learning with - [rubygems.org repository](https://github.com/rubygems/rubygems.org).
+development learning with – [rubygems.org repository](https://github.com/rubygems/rubygems.org).
 
-Here we will integrate [AcraWriter](/acra/getting-started/installing/building-acrawriter/) to protect the
+Here we will integrate [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to protect the
 gem descriptions.
 
 This tutorial assumes that you have both AcraServer and PostgreSQL up and running.

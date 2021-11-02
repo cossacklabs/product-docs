@@ -1,7 +1,6 @@
 ---
 title: read
-bookCollapseSection: true
-weight: 10
+weight: 3
 ---
 # read
 
@@ -11,11 +10,11 @@ weight: 10
 
 ### General flags
 
-* `--private` ❗
+* `--private` 🔴
 
   Read private key of the keypair.
 
-* `--public` ❗
+* `--public` 🔴
 
   Read public key of the keypair.
 
@@ -89,7 +88,7 @@ weight: 10
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
-  ❗ - flags required to be specified.
+  🔴 - flags required to be specified.
 
 
 ## Usage example

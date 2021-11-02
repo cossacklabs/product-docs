@@ -1,6 +1,7 @@
 ---
 title: Integrating Acra Translator into new infrastructure
 bookCollapseSection: true
+weight: 2
 ---
 
 ## Usage of AcraTranslator
@@ -39,26 +40,11 @@ AcraTranslator supports ability to use [TLS](/acra/configuring-maintaining/gener
 
 
 ## Configuration
+Before doing any configuration, make sure you have properly [installed AcraTranslator](/acra/getting-started/installing/installing-acra-from-sources/).
 
-Each request to AcraTranslator should contain direct crypto envelop for decryption ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)) and ClientID or ZoneID. Where ClientID determines what client public key was used and ZoneID determines which zone identifier was used for creating the crypto envelope.
+Additionally, you can [Setup AcraTranslator using Docker](/acra/getting-started/installing/launching-acra-from-docker-images/)
 
-{{< hint info >}}
-**Note:**
-[AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/) can work either using HTTP API or gRPC API, but not simultaneously.
-{{< /hint >}}
-
-
-## Setup AcraTranslator using Docker
-
-AcraTranslator is available as a Docker image which you can download from the [Cossack Labs official Docker repository](https://github.com/cossacklabs/acra/tree/master/docker) or you can find it in the [Docker folder](https://github.com/cossacklabs/acra/tree/master/docker) in the GitHub repository.
-
-There are a couple of predefined docker-compose files for [HTTP API](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-http.yml) and [gRPC API](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-grpc.yml) AcraTranslator infrastructure.
-{{< hint info >}}
-
-**Note:**
-Using Docker is recommended for testing purposes only. Please don't rely on Docker in real-life production settings. We provide docker-compose files with pre-generated keys, that are visible for everyone.
-{{< /hint >}}
-
+After AcraTranslator installed you can follow manual configuration steps for [HTTP](/acra/guides/integrating-acra-translator-into-new-infrastructure/http_api/) or [gRPC](/acra/guides/integrating-acra-translator-into-new-infrastructure/grpc_api/) api. 
 
 
 ## Poison records

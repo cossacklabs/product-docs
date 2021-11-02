@@ -1,7 +1,6 @@
 ---
 title: disable
-bookCollapseSection: true
-weight: 10
+weight: 2
 ---
 
 # disable

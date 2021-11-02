@@ -1,7 +1,6 @@
 ---
 title: migrate
-bookCollapseSection: true
-weight: 10
+weight: 6
 ---
 
 # migrate
@@ -15,7 +14,7 @@ weight: 10
 
 ### General flags
 
-* `--{src|dst}_keystore=<v1|v2>` ❗
+* `--{src|dst}_keystore=<v1|v2>` 🔴
 
   Set keystore format.
   Read more about [keystore versions]({{< ref "/acra/security-controls/key-management/versions/" >}}).
@@ -32,7 +31,7 @@ weight: 10
 
 #### Filesystem
 
-* `--{src|dst}_keys_dir=<path>` ❗
+* `--{src|dst}_keys_dir=<path>` 🔴
 
   Path to keystore folder.
 
@@ -97,7 +96,7 @@ weight: 10
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
-  ❗ - flags required to be specified.
+  🔴 - flags required to be specified.
 
 
 {{< hint info >}}

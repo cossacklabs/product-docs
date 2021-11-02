@@ -1,22 +1,23 @@
 ---
-title: 'Integration example: RubyGems - step-by-step tutorial'
-bookCollapseSection: true
+title: 'Integrating Acra with RoR app: step-by-step tutorial'
+weight: 2
 ---
 
-## Using Acra to Protect Your Rails App
-{{< hint info >}}
-Note: This tutorial is an extensive step-by-step guide for those who have never used Themis and Acra before. 
-There is also a [much shorter version]({{< ref "/acra/guides/ruby-on-rails-short-tutorial.md" >}}) for the experienced 
-Acra users. If it’s your very first encounter with Acra, keep reading.
-{{< /hint >}}
+# Integrating Acra with Ruby on Rails app: step-by-step tutorial
 
-### Intro
+{{< hint info >}}
+AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
+
+This tutorial is an extensive step-by-step guide for those who have never used Themis and Acra before. 
+There is also a [much shorter version](/acra/guides/advanced-integrations/ruby-on-rails-acra-tutorials/ruby-on-rails-acra-short-tutorial/) for the experienced 
+Acra users. If it’s your very first encounter with Acra, keep reading.
+
+## Intro
 
 Acra is a database security suite, which protects you against data leaks and many typical application threats through 
 strong selective encryption and intrusion detection capabilities.
-
-It is based on our [Themis](https://www.cossacklabs.com/themis/) cryptographic library with extreme security and usability 
-for developers in mind (you can read more about Themis' cryptography in Acra [here](/acra/acra-in-depth/cryptography-and-key-management/)).
 
 Acra is most useful for:
 
@@ -30,10 +31,12 @@ control over your data.
 
 The main basic components of Acra are:
 
-- AcraServer - a separate daemon that runs in an isolated environment (separate virtual machine or physical server), 
+- [AcraServer](/acra/acra-in-depth/architecture/acraserver/) - a separate service that runs in an isolated environment (separate virtual machine or physical server), 
   which is responsible for holding all the secrets required to decrypt the data and for actually decrypting this data.
-- AcraWriter - a client-side library, which integrates into the app flow either through ORM or directly, and provides 
+- [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) - a client-side library, which integrates into the app flow either through ORM or directly, and provides 
   the means to encrypt the sensitive data via generating AcraStructs.
+- [AcraConnector](/acra/security-controls/transport-security/acra-connector/) - a client-side daemon that runs under a separate user / in a separate container, and which acts as a 
+  database listener that redirects all the queries to AcraServer and feeds the results back to the app.
 
 ![](/files/guides/djangoproject-tutorial/acra_simple_scheme_new.png)
 
@@ -45,7 +48,7 @@ programs and libraries in a self-contained format called a "gem".
 We’ll integrate Acra into it to provide cryptographic protection of the gem descriptions – i.e. author name, email, app
 description, etc.
 
-### Security model
+## Security model
 
 Acra provides selective encryption and only protects the records you want to protect.
 
@@ -150,7 +153,7 @@ Generate keys into ./.acrakeys directory structure:
 ```    
 
 Here `yourID` is a placeholder for the ID name of your choice. You’re allowed to use 5-256 symbols (inclusively) that
-include Latin symbols, numbers, “-” (minus symbol), “_” (underscore), and “ ” (space).
+include Latin symbols, numbers, "-" (minus symbol), "\_" (underscore), and " " (space).
 
 The generator will generate and place the keys into the `.acrakeys` directory (you can change this with `--output` argument).
 
@@ -187,7 +190,7 @@ acra-server --db_host=127.0.0.1
 
 The command above can be complemented with `--db_port=5432 -v` to adjust the listener port and to add logs quickly. 
 There are more parameters available, and you can find them in the 
-[documentation page for Acra]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md" >}}), but for the present goal - namely, 
+[documentation page for AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/), but for the present goal - namely, 
 for an easy integration of Acra into a Ruby app, the default parameters will do.
 
 You can also run with the options from config. Copy the example config:
@@ -250,7 +253,7 @@ listens back and returns the responses to the app.
 
 Put `.acrakeys/yourID` + `.acrakeys/yourID_server.pub` to AcraConnector’s key folder (`.acrakeys` or anything you chose 
 in `--keys_output_dir`). AcraConnector’s own public key should already have been given to AcraServer to establish 
-[Secure Session](https://github.com/cossacklabs/themis/wiki/Secure-Session-cryptosystem) connection. Pre-shared public 
+[Themis Secure Session](https://github.com/cossacklabs/themis/wiki/Secure-Session-cryptosystem) connection. Pre-shared public 
 keys enforce maximum secrecy and easy-to-manage authentication, and - as you can see - require minimal intervention on 
 your side or into your code for successful implementation.
 
@@ -635,4 +638,4 @@ As you can see, establishing cryptographic protection for the data in your web a
 and simple process. We hope that this tutorial was fun and informative and that you will be using Acra in the future. 
 If you only tried the Docker-based examples, try running Acra in a real world setup - it’s just as convenient.
 
-You can also check out a similar [Acra tutorial for Django Project]({{< ref "/acra/guides/djangoproject-step-by-step.md" >}}).
+You can also check out a similar [Acra tutorial for Django app](/acra/guides/advanced-integrations/django-acra-tutorials/).
