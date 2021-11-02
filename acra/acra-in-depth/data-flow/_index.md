@@ -25,7 +25,7 @@ If you are using MySQL/PostgreSQL database and want to integrate Acra "transpare
 
 #### Which components to use
 
-[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
 
 
 #### Writing
@@ -63,7 +63,7 @@ If you are using NoSQL / KV datastore and want your application to be responsibl
 
 #### Which components to use
 
-[AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
+[AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
 
 #### Writing
 
@@ -95,7 +95,7 @@ Depending on the database that you use, DAO can talk to AcraServer (for SQL data
 
 #### Which components to use
 
-[AnyProxy](/acra/acra-in-depth/architecture/anyproxy/), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) or [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
+[AnyProxy](/acra/acra-in-depth/architecture/anyproxy/), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) or [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
 
 #### Writing
 
@@ -131,7 +131,7 @@ When some parts of the dataflow should be end-to-end encrypted. We strongly advi
 
 #### Which components to use
 
-[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraReader](/acra/acra-in-depth/architecture/sdks/acrareader), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
+[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraReader](/acra/acra-in-depth/architecture/sdks/acrareader), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
 
 #### Writing
 
@@ -163,7 +163,7 @@ When the system will benefit from client-side encryption and security controls p
 
 #### Which components to use
 
-[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
+[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [TLS transport encryption](/acra/security-controls/transport-security/tls/).
 
 #### Writing
 
@@ -196,7 +196,7 @@ When client-side application works in a hostile environment and extra transport 
 
 #### Which components to use
 
-[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
 
 #### Writing
 
@@ -228,7 +228,7 @@ When client-side application works in a hostile environment. Client-app performs
 
 #### Which components to use
 
-[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
+[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
 
 #### Writing
 
@@ -262,7 +262,7 @@ When client-side application works in a hostile environment and extra transport 
 
 #### Which components to use
 
-[AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage/), [KMS](/acra/acra-in-depth/architecture/key-storage/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
+[AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
 
 #### Writing
 

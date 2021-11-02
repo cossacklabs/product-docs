@@ -10,7 +10,7 @@ You can use containers with Acra. Acra works well with [Docker](https://www.dock
 
 ## Precautions
 
-Storing keys safely when using Docker is problematic. Docker is immutable while [Zones]({{< ref "acra/acra-in-depth/cryptography-and-key-management#zones-INVALID" >}})/[keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management#-INVALID" >}}) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers.
+Storing keys safely when using Docker is problematic. Docker is immutable while [Zones](/acra/security-controls/zones/)/[keys](/acra/security-controls/key-management/inventory/) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers.
 
 There are multiple ways to solve this problem and it can be addressed in a convenient and secure fashion depending on your specific infrastructure.
 

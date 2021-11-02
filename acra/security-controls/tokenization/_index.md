@@ -33,7 +33,7 @@ Two components can provide tokenization functionality:
 
 Both of the require deploying an additional database, Redis by default, to store token<>encrypted data pairs.
 
-Refer to [Acra in depth / Architecture](/acra/acra-in-depth/architecture/key-storage/) and [Configuring and maintaining / Key storing](/acra/configuring-maintaining/key-storing/kv-stores/) to learn more about Redis token storage.
+Refer to [Acra in depth / Architecture](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [Configuring and maintaining / Key storing](/acra/configuring-maintaining/key-storing/kv-stores/) to learn more about Redis token storage.
 
 
 ## AcraServer configuration
@@ -67,7 +67,7 @@ You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/
 as a playgroung, it will bring up AcraTranslator and expose its gRPC server at `127.0.0.1:9494`.
 
 In order to use the translator gRPC API you have to take
-[api.proto](https://github.com/cossacklabs/acra-Q12021/blob/master/cmd/acra-translator/grpc_api/api.proto)
+[api.proto](https://github.com/cossacklabs/acra/blob/master/cmd/acra-translator/grpc_api/api.proto)
 and use either `service Tokenizator` or `service BulkProcessing` (with one or more `TokenizeRequest` inside).
 
 #### Golang example

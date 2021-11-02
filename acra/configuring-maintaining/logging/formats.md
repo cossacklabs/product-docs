@@ -83,7 +83,7 @@ CEF:0|cossacklabs|acra-server|0.85.0|100|Configuring transport...|1|unixTime=162
 If you believe that Acra is missing some handy logging formats,
 feel free to [open an Issue](https://github.com/cossacklabs/acra/issues) and tell us.
 
-Alternatively, you can add the required log formatter ([`logging` folder](https://github.com/cossacklabs/acra-Q12021/tree/master/logging) is a good place to start)
+Alternatively, you can add the required log formatter ([`logging` folder](https://github.com/cossacklabs/acra/tree/master/logging) is a good place to start)
 and [open a pull request](https://github.com/cossacklabs/acra/pulls).
 
 We will be grateful for contributions ❤️

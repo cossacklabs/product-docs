@@ -138,12 +138,13 @@ while some keys will be overwritten.
 
   Generate a new random master key and write it to the specified file.
 
-  All Acra components will expect this key in `ACRA_MASTER_KEY` environment variable.
+  Acra components might expect this key in `ACRA_MASTER_KEY` [environment variable or read from KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
+  
 
 {{< hint info >}}
 **Note:**
 When you generate a new key (or keypair), the existing key is rotated.
-That is, the new key becomes the default for encryption in [Transparent proxy mode]({{< ref "/acra/configuring-maintaining/general-configuration/acra-server.md#transparent-proxy-mode-INVALID" >}})
+That is, the new key becomes the default for encryption in [AcraServer](/acra/acra-in-depth/architecture/acraserver/)
 while the previous key is archived and used only for decryption.
 {{< /hint >}}
   

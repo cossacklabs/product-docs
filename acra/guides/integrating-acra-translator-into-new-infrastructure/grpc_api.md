@@ -67,7 +67,7 @@ message EncryptSymResponse {
 
 {{< hint info >}}
 **Note:**
-You can find complete content of [api.proto](https://github.com/cossacklabs/acra-Q12021/blob/master/cmd/acra-translator/grpc_api/api.proto) file in the AcraTranslator source code.
+You can find complete content of [api.proto](https://github.com/cossacklabs/acra/blob/master/cmd/acra-translator/grpc_api/api.proto) file in the AcraTranslator source code.
 {{< /hint >}}
 
 

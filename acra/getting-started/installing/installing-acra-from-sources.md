@@ -6,7 +6,7 @@ weight: 3
 
 # Installing Acra from sources
 
-These are the instruction for installation of [AcraServer]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#-INVALID" >}}) from the [Cossack Labs' GitHub repository for Acra](https://github.com/cossacklabs/acra/). You will need the same set of dependencies for each component.
+These are the instruction for installation of [AcraServer](/acra/acra-in-depth/architecture/acraserver/) from the [Cossack Labs' GitHub repository for Acra](https://github.com/cossacklabs/acra/). You will need the same set of dependencies for each component.
 
 ## Installing the dependencies
 
@@ -25,9 +25,9 @@ sudo yum groupinstall 'Development Tools'
 sudo yum install openssl-devel
 ```
 
-## Install golang
+## Install Go
 
-[Install and configure the latest stable version of golang](https://golang.org/doc/install).
+[Install and configure the latest stable version of Golang](https://golang.org/doc/install).
 
 ## Install Themis
 
@@ -46,7 +46,7 @@ sudo make install
 go get github.com/cossacklabs/acra/cmd/acra-keymaker
 ```
 
-Then [generate the keys]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}) and distribute them across the infrastructure.
+Then [generate the keys](/acra/security-controls/key-management/operations/generation/) and distribute them across the infrastructure.
 
 Remember to generate `ACRA_MASTER_KEY` and assign it to the environmental variable!
 
@@ -77,9 +77,9 @@ Running AcraServer is easy, just point it to the database:
 acra-server --db_host=127.0.0.1
 ```
 
-If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
+If you see an error message `"master key is empty"`, it means that you haven't generated `ACRA_MASTER_KEY`, please return to the [Key Generation step](/acra/security-controls/key-management/operations/generation/).
 
-> You can complement the command above with `--db_port=5432 -v` to adjust the listener port and add logs to get going quickly. For all the available CLI parameters, refer to the corresponding section in [How AcraServer works]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#command-line-flags" >}}).
+> You can complement the command above with `--db_port=5432 -v` to adjust the listener port and add logs to get going quickly. For all the available CLI parameters, refer to the corresponding section in [How AcraServer works](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
 
 AcraServer listens to port **9393** by default.
 
@@ -107,7 +107,7 @@ Put `someid` and `someid_server.pub` keys into .acrakeys directory for AcraConne
 acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
 ```
 
-If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step]({{< ref "acra/acra-in-depth/cryptography-and-key-management/#generating-all-the-acra-keys-in-one-go-INVALID" >}}).
+If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step](/acra/security-controls/key-management/operations/generation/).
 
 AcraConnector is now listening on the localhost port **9494**. Now try accessing your database via AcraConnector to make sure that everything actually works after installation.
 

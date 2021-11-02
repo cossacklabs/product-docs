@@ -46,7 +46,7 @@ Versioning example for plaintext: `data`:
 
 The `Envelope_ID` of each container is responsible for a specific handler that is stored in the storage of handlers called `Registry`.
 
-Each handler is described by the [ContainerHandler](https://github.com/cossacklabs/acra-Q12021/blob/master/crypto/registry_handler.go#L46) interface and responsible for any cryptographic operations associated with the respective containers.
+Each handler is described by the [ContainerHandler](https://github.com/cossacklabs/acra/blob/master/crypto/registry_handler.go#L46) interface and responsible for any cryptographic operations associated with the respective containers.
 
 The whole encryption process of versioning container is a simple serialization of the already generated [AcraBlock](/acra/acra-in-depth/data-structures/acrablock/#generation-encryption)/[AcraStruct](/acra/acra-in-depth/data-structures/acrastruct#generation-encryption).
 
