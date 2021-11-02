@@ -9,7 +9,7 @@ weight: 1
 AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
 {{< /hint>}}
 
-This guide describes the process of setting up and configuring [AcraConnector](/acra/security-controls/transport-security/acra-connector/) and [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to encrypt data on client-side application before sending to the database. This is a general guide, the language and framework of client application don't matter.
+This guide describes the process of setting up and configuring [AcraConnector](/acra/security-controls/transport-security/acra-connector/) and [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to encrypt data on client-side application before sending to the database. This is a general guide, the language and framework of client application doesn't matter.
 
 ## AcraConnector
 
@@ -107,6 +107,10 @@ You can get more details about [AcraConnector configuration](/acra/configuring-m
 
 ## AcraWriter
 
+{{< hint info >}}
+AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
 After you have configured AcraConnector, your application can keep using your database handling code as before.
 
 AcraWriter is a library for your code that can be used anywhere within your app whenever you need to encrypt sensitive records on application side. Only [AcraServer](/acra/acra-in-depth/architecture/acraserver/) or [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) will be able to decrypt this data later.
@@ -128,7 +132,7 @@ Acra's encryption/decryption operations support only binary data. If you plan to
 
 You can encrypt the sensitive data by generating AcraStructs with AcraWriter anywhere across your app. Send INSERT / UPDATE queries to the database either through AcraConnector or directly via a separate connection.
 
-You can decrypt AcraStructs by sending database requests to AcraConnector and receive responses that went through AcraServer.
+You can decrypt AcraStructs by sending database requests to AcraConnector and receive responses passed through AcraServer.
 
 Acra does not dictate a way of storing database requests in the database. If your application is a monolith running on one server as one service, it might make sense to point the writes into the same connections as reads, i.e. AcraConnector.
 

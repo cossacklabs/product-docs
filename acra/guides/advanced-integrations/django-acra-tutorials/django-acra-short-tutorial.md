@@ -10,7 +10,7 @@ AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) 
 {{< /hint>}}
 
 This tutorial outlines a typical process of integrating Acra into a Python web app. More specifically – an app running on 
-Django framework. It is based on the popular example many Django users start their development journey with – 
+Django framework. It is based on the popular example where many Django users start their development journey with –
 [djangoproject.com repository](https://github.com/django/djangoproject.com).
 
 We will be integrating [AcraWriter](/acra/getting-started/installing/building-acrawriter/)

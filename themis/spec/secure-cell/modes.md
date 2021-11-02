@@ -56,7 +56,7 @@ if you can afford to store the auxiliary data elsewhere.
 
 Context Imprint mode exists for use cases which do not allow for any additional storage.
 This constraint somewhat lowers the security of the cryptosystem
-since there is no space for authentication data or – more importantly – random IV.
+since there is no space for authentication data or – more important – random IV.
 To compensate for this, Secure Cell requires *associated data* to be used in Context Imprint mode.
 
 ## Associated data and nonces
