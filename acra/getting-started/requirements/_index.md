@@ -21,6 +21,21 @@ The requirements are not so strict:
 * Golang compiler (we support the latest 3 minor versions) should be able to build binaries for your OS/CPU (though Windows is not supported)
 * [Themis](https://github.com/cossacklabs/themis/#availability) crypto libraries should be installed on target system
 
+### TLS
+
+All Acra components require TLS version 1.2+ and deny connections with lower version. Additionally, Acra accepts only 
+cipher suits that uses ECDHE for handshakes and modern strong symmetric key encryption algorithms with authentication, as 
+AES+GCM, ChaCha20+Poly1305. You can find all supported cipher suits [in our code in repository](https://github.com/cossacklabs/acra/blob/release/0.85.0/network/tls_wrapper.go#L33).
+
+### Databases
+
+AcraServer works as proxy for [PostgreSQL wire protocol](https://www.postgresql.org/docs/14/protocol.html) and 
+[MySQL wire protocol](https://dev.mysql.com/doc/internals/en/client-server-protocol.html). We regularly run tests with
+MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github.com/cossacklabs/acra/blob/release/0.85.0/.circleci/config.yml)
+and private CI/CD.
+In theory, Acra supports all databases that works over these wire protocols. Some of them we test for our
+enterprise clients with our [Acra Enterprise Edition](/acra/enterprise-edition/).
+
 ## Client side
 
 ### Architecture
