@@ -50,14 +50,12 @@ As soon as you have running instance of AcraServer, you can try redirecting you 
 * Make sure application will accept TLS certificate configured in AcraServer
 * No need to change database credentials
 
-<!--
 ### AcraWriter integration (optional)
 
 One of the things available in enterprise edition is
 [part of SDK called AcraWriter]({{< ref "acra/acra-in-depth/architecture/sdks/acrawriter.md" >}})
 that allows data encryption right inside the application.
 This feature is not frequently needed, but may help in situations where transport encryption is not enough.
--->
 
 ## Read more
 
@@ -67,3 +65,5 @@ This feature is not frequently needed, but may help in situations where transpor
   describes encryption configuration more precisely, describes how AcraServer encrypts/decrypts data on the fly
 * [docker-compose examples](https://github.com/cossacklabs/acra/tree/master/docker)
   may give you various ideas about AcraServer integration in docker environment
+* [Trying Acra]({{< ref "acra/getting-started/trying/" >}})
+  with a couple of examples on how to launch Acra and run scripts that store/fetch data while also triggering its encryption
