@@ -44,11 +44,3 @@ If you are using PostgreSQL, add `--postgresql_enable=true` flag.
 Then, configure the database address with `--db_host` and `--db_port`.
 Don't forget to also [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}):
 set up additional root CA if needed, client certificates and so on.
-
-## Keys
-
-There is no encryption without keys.
-You will need master key and encryption keys for at least one client ID.
-[Here]({{< ref "acra/security-controls/key-management/operations/generation.md#1-setting-up-acraserver" >}})
-you can read more about how to generate them.
-Make sure AcraServer knows where they are located (`--keys_dir`).
