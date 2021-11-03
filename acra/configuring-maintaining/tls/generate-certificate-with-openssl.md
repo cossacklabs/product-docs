@@ -89,7 +89,7 @@ EC key is recommended since RSA is kinda outdated nowadays, it has bigger keys w
 ```
 openssl req \
     -x509 -sha256 -nodes -days 365 \
-    -key private_X.key.pem \
+    -key ca.key.pem \
     -out ca.crt.pem \
     -subj '/C=GB/ST=London/L=London/O=Global Security/OU=IT/CN=Test CA'
 
@@ -159,6 +159,20 @@ while using EC key would produce key description like this:
          0b:98:5b:b1:53:d5:37:42:0f:e9:7f:32:2b:f7:c7:87:18:bf:
          fc:02:21:00:b4:b3:44:52:32:25:4d:cf:52:c7:e2:f5:cc:6b:
          75:49:6a:16:6b:90:82:a3:e1:13:88:05:a9:0c:d9:9f:59:8d
+```
+
+## Create client's private key
+
+RSA private key:
+
+```
+openssl genrsa -out cert1.key.pem 4096
+```
+
+EC private key:
+
+```
+openssl ecparam -name prime256v1 -genkey -noout -out cert1.key.pem
 ```
 
 ## Create Certificate Signing Request
