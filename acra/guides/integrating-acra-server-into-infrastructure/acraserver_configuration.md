@@ -25,7 +25,7 @@ Different configuration sources can be mixed if that makes sense in your situati
 
 ## Listener
 
-AcraServer will be listening on some default ports if not configured to do otherwise.
+AcraServer will be listening on some default ports (API on `9090`, SQL proxy on `9393`) if not configured to do otherwise.
 Related flags are located [here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#network" >}}).
 As a simple example we can set both host and port like this: `--incoming_connection_string=tcp://127.0.0.1:13306`.
 
