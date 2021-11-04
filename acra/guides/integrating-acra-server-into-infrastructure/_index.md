@@ -38,6 +38,22 @@ AcraServer distinguishes applications by [Cliend ID]({{< ref "client_id.md" >}})
 
 Refer to [AcraServer configuration]({{< ref "acraserver_configuration.md" >}}) page.
 
+## AcraConnector (optional)
+
+AcraConnector is as intermediate proxy between the application and AcraServer.
+Why would you need yet another proxy? Well, there are a couple of reasons:
+
+* Providing secure transport to AcraServer:
+  if application does not support TLS, communicates with AcraServer on remote host, and you want to ensure the communication channel is safe
+* Specifying which Client ID to use:
+  when using TLS, you will have to use client IDs derived from some certificate properties (such as serial number),
+  but with AcraConnector you can use whatever ID you want by simply setting configuration option when launching AcraConnector
+
+AcraConnector usually lives on the same host as the application, but is isolated a bit
+(running as different user, in separate docker container and so on).
+
+Read more in [Client side encryption with AcraConnector and AcraWriter]({{< ref "acra/guides/advanced-integrations/client-side-integration-with-acra-connector.md" >}}).
+
 ## Data migration
 
 There are [few things you need to know]({{< ref "data_migration.md" >}}) before using AcraServer encryption features.

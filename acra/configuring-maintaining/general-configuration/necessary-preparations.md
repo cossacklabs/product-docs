@@ -13,12 +13,8 @@ It is used, for example, to encrypt Acra's intermediate keys in their keyrings.
 These keys are then used in more specific tasks
 (encrypt data in database, hash data for searchable encryption).
 
-The key could be generated with Acra Keymaker:
-```
-$ acra-keys generate --master_key_path /tmp/master_key --keystore=v2
-$ cat /tmp/master_key
-{"encryption":"cgVd5kHock5dy2bBGv6dHmHCgi2Piq3+y43lE7tTgh0=","signature":"fNNgVVBvjaIuL7Ea5lNcs4Ccz8SqLF4bXGhJvLGVL0k="}
-```
+The exact procedure is described in
+[Generating Acra Master Key]({{< ref "acra/security-controls/key-management/operations/generation.md#11-generating-acra-master-key" >}}).
 
 This key should then be base64-encoded and passed to Acra services in `ACRA_MASTER_KEY` environment variable.
 
