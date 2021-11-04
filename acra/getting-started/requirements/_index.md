@@ -35,7 +35,7 @@ MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github
 and private CI/CD.
 In theory, Acra supports all databases that works over these wire protocols. Some of them we test for our
 enterprise clients with our [Acra Enterprise Edition](/acra/enterprise-edition/).
-
+Acra Community Edition doesn't support [Protocol X](https://dev.mysql.com/doc/internals/en/x-protocol.html) of MySQL. If this is something important for you, consider writing us [an email](mailto:sales@cossacklabs.com) and checking out [Acra Enterprise Edition](/acra/enterprise-edition/).
 ## Client side
 
 ### Architecture
