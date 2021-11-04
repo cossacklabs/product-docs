@@ -17,7 +17,9 @@ Alternatively, you can manually [build Acra from sources](/acra/getting-started/
 
 ### Cloud infrastructure
 
-Acra supports [Google Cloud Platform](https://cloud.google.com/) (GCP), [Amazon Web Services](https://aws.amazon.com/) (AWS) and [DigitalOcean](https://www.digitalocean.com/)
+Acra is cloud-agnostic. You can deploy Acra from Docker images to any cloud, or VPS, or physical servers.
+
+Acra is actively tested and supported on [Google Cloud Platform](https://cloud.google.com/) (GCP), [Amazon Web Services](https://aws.amazon.com/) (AWS) and [DigitalOcean](https://www.digitalocean.com/)
 cloud services. You can [write to us](mailto:sales@cossacklabs.com) for consultancy of Acra deployment on cloud infrastructure
 or request [Acra Enterprise Edition](/acra/enterprise-edition/) with demonstration of deployment on any of these services.
 
