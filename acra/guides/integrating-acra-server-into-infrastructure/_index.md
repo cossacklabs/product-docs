@@ -22,7 +22,12 @@ You will need some keys in order to launch AcraServer, so let's do it first.
 1. [Generate a master key]({{< ref "acra/security-controls/key-management/operations/generation.md#11-generating-acra-master-key">}})
 2. [Generate encryption keys]({{< ref "acra/security-controls/key-management/operations/generation.md#12-generating-transport-and-encryption-keys">}})
 
-The first one will be used to protect all the other keys, while the second one... well, it is responsible for data encryption.
+The first one will be used to protect all the other keys,
+it should be base64-encoded and passed to Acra services in `ACRA_MASTER_KEY` environment variable.
+
+Like this: `ACRA_MASTER_KEY="$(cat /tmp/master_key | base64)" acra-server ...`
+
+The second key is responsible for data encryption.
 There are actually more kinds of keys, read more about that on
 [Acra keys inventory]({{< ref "acra/security-controls/key-management/inventory.md" >}}).
 
