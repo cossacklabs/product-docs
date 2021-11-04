@@ -250,11 +250,11 @@ Note: TLS related flags work only together with `AcraServer` mode. `AcraTranslat
 
   Set authentication mode that will be used for TLS connection.
 
-  * `0` — do not request client certificate, ignore it if received
-  * `1` — request client certificate, but don't require it
-  * `2` — expect to receive at least one certificate to continue the handshake
-  * `3` — don't require client certificate, but validate it if client actually sent it
-  * `4` — (default) request and validate client certificate
+  * `0` — do not request client certificate, ignore it if received;
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 

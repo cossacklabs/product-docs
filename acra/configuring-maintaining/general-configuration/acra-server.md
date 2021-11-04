@@ -41,7 +41,7 @@ weight: 3
 
 * `--poison_detect_enable={true|false}`
 
-  Turn on poison record detection, if server shutdown is disabled, AcraServer logs the poison record detection and returns error.
+  Turn on poison record detection, if server's shutdown is disabled, AcraServer logs the poison record detection and returns error.
   Default is `true`.
 
 * `--poison_run_script_file=<filename>`
@@ -84,7 +84,7 @@ weight: 3
 
 * `--sql_parse_on_error_exit_enable={true|false}`
 
-  Stop AcraServer execution in case of SQL query parse error.
+  Stop AcraServer's execution in case of SQL query parse error.
   Default is `false`.
 
 * `--token_db=<filename>`
@@ -296,11 +296,11 @@ weight: 3
 
   Set authentication mode that will be used for TLS connection.
 
-  * `0` — do not request client certificate, ignore it if received
-  * `1` — request client certificate, but don't require it
-  * `2` — expect to receive at least one certificate to continue the handshake
-  * `3` — don't require client certificate, but validate it if client actually sent it
-  * `4` — (default) request and validate client certificate
+  * `0` — do not request client certificate, ignore it if received;
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 
@@ -348,7 +348,7 @@ weight: 3
 * `--tls_client_ca=<filename>`
 
   Path to additional CA certificate for application/AcraConnector certificate validation
-  (setup if application/AcraConnector certificate CA is different from database certificate CA).
+  (setup if CA certificate of application/AcraConnector is different from CA certificate of database).
   Empty by default.
 
 * `--tls_client_id_from_cert={true|false}`
@@ -380,7 +380,7 @@ weight: 3
 * `--tls_database_ca=<filename>`
 
   Path to additional CA certificate for database certificate validation
-  (setup if database certificate CA is different from application/AcraConnector certificate CA).
+  (setup if CA certificate of database is different from CA certificate of application/AcraConnector).
   Empty by default.
 
 * `--tls_database_sni=<SNI>`
@@ -439,15 +439,15 @@ For additional certificate validation flags, see corresponding pages:
 
 ## HTTP API
 
-AcraServer handles HTTP requests that may change internal state of running AcraServer, generate new Zone or fetch data
-related with authentication AcraWebConfig users.
+AcraServer handles HTTP requests that may change its internal state, generates new Zones or fetches data
+related with authentication of AcraWebConfig users.
 
 {{< hint warning >}}
 AcraServer supports only HTTP/1.1 requests without keep-alive.
 {{< /hint >}}
 
 - Endpoint: `/getNewZone`.
-  Description: generates new Zone and return ZoneID with zone public key as the response.
+  Description: generates new Zone and returns ZoneID with zone's public key as the response.
   Response type: JSON object.
   Response example:
   ```json
@@ -461,7 +461,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   ```
 
 - Endpoint: `/resetKeyStorage`.
-  Description: reset AcraServer's cache of encrypted keys from KeyStore configured with `--keystore_cache_size` CLI flag.
+  Description: resets AcraServer's cache of encrypted keys from KeyStore configured with `--keystore_cache_size` CLI flag.
   Response type: empty.
   Error response:
   ```
@@ -471,8 +471,8 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   ```
 
 - Endpoint: `/loadAuthData`.
-  Description: return decrypted authentication data as pairs `<username>:<hash>` for AcraWebConfig. By default, encrypted
-  data stored in `configs/auth.keys` file in `htpasswd` format where each row is entry related to separate user.
+  Description: returns decrypted authentication data as pairs `<username>:<hash>` for AcraWebConfig. By default, encrypted
+  data is stored in `configs/auth.keys` file in `htpasswd` format where each row is actually an entry related to separate user.
   Response type: text.
   Response example:
   ```
@@ -487,7 +487,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   ```
 
 - Endpoint: `/getConfig`.
-  Description: return current AcraServer's configuration that used on startup and may be changed via AcraWebConfig.
+  Description: returns current AcraServer's configuration used while startup (maybe changed via AcraWebConfig).
   Response type: JSON object.
   Response example:
   ```json
@@ -509,8 +509,8 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   ```
 
 - Endpoint: `/setConfig`.
-  Description: set new configuration for AcraServer, dump new configuration to config file that specified from CLI flags.
-  or specified in config file in default file path and gracefully restart AcraServer instance.
+  Description: sets new configuration for AcraServer, dumps new configuration to config file specified from CLI flags
+  or in config file (with default path) and gracefully restarts AcraServer's instance.
   Response type: empty.
   Error response:
   ```

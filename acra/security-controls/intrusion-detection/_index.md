@@ -38,7 +38,7 @@ AcraServer has [a set of flags](/acra/configuring-maintaining/controls-configura
 
 * `--poison_detect_enable={true|false}`
 
-  Turn on poison record detection, if server shutdown is disabled, AcraServer logs the poison record detection and returns decrypted data.
+  Turn on poison record detection, if server's shutdown is disabled, AcraServer logs the poison record detection and returns decrypted data.
   Default is `true`.  
 
 
