@@ -1,7 +1,6 @@
 ---
 title: extract-client-id
-bookCollapseSection: true
-weight: 10
+weight: 8
 ---
 
 # extract-client-id

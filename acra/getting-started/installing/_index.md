@@ -6,7 +6,7 @@ weight: 4
 
 # Installing
 
-## Acra
+## AcraServer, AcraTranslator, AnyProxy
 
 * [Linux packages from the Cossack Labs repository](/acra/getting-started/installing/installing-acra-from-repository/)
 * [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/)

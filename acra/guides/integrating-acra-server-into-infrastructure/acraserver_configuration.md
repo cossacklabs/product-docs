@@ -25,7 +25,7 @@ Different configuration sources can be mixed if that makes sense in your situati
 
 ## Listener
 
-AcraServer will be listening on some default ports if not configured to do otherwise.
+AcraServer will be listening on some default ports (API on `9090`, SQL proxy on `9393`) if not configured to do otherwise.
 Related flags are located [here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#network" >}}).
 As a simple example we can set both host and port like this: `--incoming_connection_string=tcp://127.0.0.1:13306`.
 
@@ -44,11 +44,3 @@ If you are using PostgreSQL, add `--postgresql_enable=true` flag.
 Then, configure the database address with `--db_host` and `--db_port`.
 Don't forget to also [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}):
 set up additional root CA if needed, client certificates and so on.
-
-## Keys
-
-There is no encryption without keys.
-You will need master key and encryption keys for at least one client ID.
-[Here]({{< ref "acra/security-controls/key-management/operations/generation.md#1-setting-up-acraserver" >}})
-you can read more about how to generate them.
-Make sure AcraServer knows where they are located (`--keys_dir`).

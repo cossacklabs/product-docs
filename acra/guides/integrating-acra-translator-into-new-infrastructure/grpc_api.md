@@ -8,7 +8,7 @@ bookCollapseSection: true
 gRPC API is the recommended way of using AcraTranslator for high-load services. Each gRPC request contains a ClientID, a ZoneID, and a crypto container itself.
 Due to some peculiarities of the gRPC protocol, it's required to send a ClientID in every request, so ClientID is a required parameter.
 
-See a gRPC’s [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) request and response structure below:
+Look at gRPC’s [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) request / response structure below:
 
 ```proto
 message DecryptRequest {
@@ -36,7 +36,7 @@ message EncryptResponse {
 }
 ```
 
-gRPC’s request and response structure for [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) look similar but have `Sym`(symmetric) suffix additionally:
+gRPC’s request / response structure for [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) looks similar but has `Sym` (symmetric) suffix additionally:
 
 ```proto
 message DecryptSymRequest {

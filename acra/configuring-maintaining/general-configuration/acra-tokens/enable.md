@@ -1,7 +1,6 @@
 ---
 title: enable
-bookCollapseSection: true
-weight: 10
+weight: 3
 ---
 
 # enable

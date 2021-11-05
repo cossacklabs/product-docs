@@ -1,7 +1,6 @@
 ---
 title: remove
-bookCollapseSection: true
-weight: 10
+weight: 4
 ---
 
 # enable

@@ -1,9 +1,14 @@
 ---
 title: acra-keymaker
-bookCollapseSection: true
+weight: 5
 ---
 
 # acra-keymaker
+
+{{< hint info >}}
+We recommend using [acra-keys](/acra/configuring-maintaining/general-configuration/acra-keys/) for Acra 0.95.0 and newer.
+{{< /hint>}}
+
 
 ## Command line flags
 

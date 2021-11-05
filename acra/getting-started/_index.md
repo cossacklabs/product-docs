@@ -10,25 +10,22 @@ bookCollapseSection: true
 
 We've made sure that this documentation service covers maximum of Acra's capabilities and configuration nuances. However, it is a considerable effort to do thorough study, so there are a few shortcuts for those willing to get their hands dirty faster:
 
-* [Trying Acra](/acra/getting-started/trying/) (many ways to get a fully working Acra from scratch)
-* [Acra Engineering Demo](https://github.com/cossacklabs/acra-engineering-demo#what-is-this) (illustrates different facets of using Acra, from infrastructure integration to certain narrow product security problems)
-* [Installing](/acra/getting-started/installing/) (how to install Acra for normal use)
-* [Acra with Django project](/acra/guides/djangoproject-short-tutorial/)
-* [Acra with Ruby on Rails](/acra/guides/ruby-on-rails-short-tutorial/)
-* [Acra server-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/)
-* [Acra translator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator)
-* Advanced integrations: 
-  * [Running Acra via DO marketplace](/acra/guides/advanced-integrations/digital-ocean-marketplace/)
-  * [Client-side integration with Acra connector](http://127.0.0.1:8088/acra/guides/advanced-integrations/client-side-integration-with-acra-connector/#client-side-acraconnector-and-acrawriter)
+* [Trying Acra](/acra/getting-started/trying/) (many ways to get a fully working Acra from scratch).
+* [Acra Engineering Examples](https://github.com/cossacklabs/acra-engineering-demo#what-is-this) (illustrates different facets of using Acra, from infrastructure integration to certain narrow product security problems).
+* [Installing](/acra/getting-started/installing/) (typical Acra installation ways).
+* [AcraServer-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/).
+* [AcraTranslator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator).
+* [Running Acra via DO marketplace](/acra/guides/acra-on-digital-ocean).
+* [Advanced integrations with client-side encryption](/acra/guides/advanced-integrations/).
 
-## Enterprise
+## Acra Enterprise Edition
 
-To get to learn more about enterprise version, please refer to the ["Acra Enterprise Edition"](/acra/enterprise-edition/) page.
+To get to learn more about enterprise version, please refer to the [Acra Enterprise Edition](/acra/enterprise-edition/) page.
 
-### Evaluation playgrounds and pilots
+Acra Enterprise Edition supports all security features and is tailored for large infrastructures. Acra Enterprise Edition provides key management utils and policies to configure and control Acra automatically. Best for enterprise businesses with multiple apps / databases. You take Enterprise Acra, we assist with configuration, policies, deployment, support.
 
-For qualified potential customers interested in commercial version, we offer free playgrounds built around Acra EE and a number of demo applications - deployed in cloud of your choice, all set up for evaluation. Get your hands dirty without getting your hands dirty first! 
+### Evaluation playgrounds, PoCs and pilots
 
-When certain customer use-cases require requires more effort than it is commercially reasonable to exert for free, we offer paid PoC's / pilots, where we build Acra deployment to your business requirements for a modest consulting fee. 
+For qualified potential customers interested in commercial version, we offer free playgrounds built around Acra EE and a number of demo applications - deployed in cloud of your choice, all set up for evaluation. Get your hands dirty without getting your hands dirty first!
 
-If you're interested in commercial version, please refer to (PLACEHOLDER for whatever the sales conversion funnel will be from here)
+If you're interested in commercial version, refer to [Acra Enterprise Edition](/acra/enterprise-edition/#how-to-evaluate-and-get-started) to learn more or [drop us a line](mailto:sales@cossacklabs.com) describing you use case.

@@ -1,6 +1,5 @@
 ---
 title: acra-server
-bookCollapseSection: true
 weight: 3
 ---
 
@@ -402,8 +401,8 @@ weight: 3
   * `serial_number` — certificate serial number
 
 For additional certificate validation flags, see corresponding pages:
-[OCSP]({{< ref "acra/configuring-maintaining/tls/ocsp.md" >}}) and
-[CRL]({{< ref "acra/configuring-maintaining/tls/crl.md" >}}).
+[OCSP](/acra/configuring-maintaining/tls/ocsp/) and
+[CRL](/acra/configuring-maintaining/tls/crl/).
 
 ### Hashicorp Vault
 

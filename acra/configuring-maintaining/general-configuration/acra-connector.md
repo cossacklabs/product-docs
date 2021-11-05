@@ -1,7 +1,6 @@
 ---
 title: acra-connector
-bookCollapseSection: true
-weight: 4
+weight: 5
 ---
 
 # acra-connector
@@ -280,8 +279,9 @@ Note: TLS related flags work only together with `AcraServer` mode. `AcraTranslat
   Expected Server Name (SNI) from AcraServer
    
 For additional certificate validation flags, see corresponding pages:
-[OCSP]({{< ref "acra/configuring-maintaining/tls/ocsp.md" >}}) and
-[CRL]({{< ref "acra/configuring-maintaining/tls/crl.md" >}}).
+[OCSP](/acra/configuring-maintaining/tls/ocsp/) and
+[CRL](/acra/configuring-maintaining/tls/crl/).
+
 
 ### HashiCorp Vault
 

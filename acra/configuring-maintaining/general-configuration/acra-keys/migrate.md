@@ -1,7 +1,6 @@
 ---
 title: migrate
-bookCollapseSection: true
-weight: 10
+weight: 6
 ---
 
 # migrate

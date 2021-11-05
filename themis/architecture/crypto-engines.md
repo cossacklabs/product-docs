@@ -31,7 +31,7 @@ Check out the page on [building and installing Themis](/themis/installation/inst
 To add support for the new crypto engine to Themis:
 
   - write engine adapter with Soter interface
-    (see [`src/soter/soter.h`](https://github.com/cossacklabs/themis/blob/master/src/soter/soter.h))
+    (see [`src/soter/soter.h`](https://github.com/cossacklabs/themis/blob/master/include/soter/soter.h))
   - put it into `${your_engine}` subdirectory in Soter's root directory
   - add the following engine-selecting block to the Makefile:
     ```bash

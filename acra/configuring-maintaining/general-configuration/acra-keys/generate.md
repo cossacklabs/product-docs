@@ -1,7 +1,6 @@
 ---
 title: generate
-bookCollapseSection: true
-weight: 10
+weight: 2
 ---
 
 # generate
