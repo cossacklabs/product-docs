@@ -42,7 +42,7 @@ you should separate the configuration by using `--tls_client_*` and `--tls_datab
 ### Versions and ciphers
 
 Acra only supports TLS `>= 1.2`, and [only secure cipher suites]({{< ref "acra/getting-started/requirements/#tls" >}}).
-One of the reasons TLS connection may fail is beacuse two peers do not have any TLS version + cipher in common.
+One of the reasons TLS connection may fail is because  two peers do not have any TLS version + cipher in common.
 
 ## Redis
 
