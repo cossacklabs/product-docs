@@ -1,13 +1,12 @@
 ---
 weight: 1
-title:  Updating Acra from 0.77.0 to 0.80.0
+title: Updating Acra from 0.77.0 to 0.80.0
 ---
 
 # Migration guide
 
 Please read the migration guide if at some point you used Acra version 0.77.0 - in Acra 0.80.0 some radical renaming was applied throughout. 
 
-Here is the detailed migration guide.
 
 The migration guide of moving from Acra `0.77.0` to Acra `0.80.0`.
 
@@ -39,7 +38,7 @@ If you were using Acra before `0.80.0` release you might want to update configur
 
 ### AcraServer configuration
 
-Check out the full guide to [AcraServer](/acra/what-is-acra/#how-acraserver-works).
+Check out the full guide to [AcraServer](/acra/acra-in-depth/architecture/acraserver/).
 
 | Old name | New name | Function |
 |-----|-----|-----|
