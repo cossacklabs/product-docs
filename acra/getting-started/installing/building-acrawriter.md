@@ -242,7 +242,7 @@ AcraWriter for iOS supports bitcode and has Themis (and OpenSSL) as dependencies
 Check out the iOS project example using Objective-C in [examples/objc](https://github.com/cossacklabs/acra/tree/master/examples/objc) for generation of an AcraStruct with and without Zones and decrypting them using AcraTranslator via HTTP API.
 
 Check out another iOS project example using Swift in [examples/swift](https://github.com/cossacklabs/acra/tree/master/examples/swift) for generation of an AcraStruct with and without Zones. For decryption please use [Objective-C](https://github.com/cossacklabs/acra/tree/master/examples/objc) example.
-<!---
+
 ### Building AcraWriter for Android
 
 #### Installation
@@ -269,5 +269,5 @@ dependencies {
 
 #### Android examples and tests
 
-See Android project example in [examples/android_java](https://github.com/cossacklabs/acra/tree/master/examples/android_java) for generating AcraStruct with and without Zones, and decrypting them using AcraTranslator via HTTP API.
--->
+See Android project example in [examples/android\_java](https://github.com/cossacklabs/acra/tree/master/examples/android_java)
+for generating AcraStruct with and without Zones, and decrypting them using AcraTranslator via HTTP API.
