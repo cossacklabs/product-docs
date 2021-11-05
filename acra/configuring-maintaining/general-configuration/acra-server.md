@@ -29,7 +29,6 @@ weight: 3
 * `--acrastruct_wholecell_enable={true|false}`
 
   AcraStruct will stored in whole data cell (**deprecated since 0.90.0**, ignored, AcraServer always works in Injected Cell mode).
-
 * `--audit_log_enable={true|false}`
 
   Enable audit log functionality.
@@ -41,7 +40,7 @@ weight: 3
 
 * `--poison_detect_enable={true|false}`
 
-  Turn on poison record detection, if server's shutdown is disabled, AcraServer logs the poison record detection and returns error.
+  Turn on poison record detection. If shutdown is not enabled, AcraServer just logs the poison record detection and returns error.
   Default is `true`.
 
 * `--poison_run_script_file=<filename>`
@@ -123,16 +122,16 @@ weight: 3
 
 * `-d`
 
-  Log everything to stderr.
+  Log to stderr `INFO`, `WARNING`, `ERROR` and `DEBUG` logs.
 
 * `-v`
 
-  Log to stderr all `INFO`, `WARNING` and `ERROR` logs.
+  Log to stderr `INFO`, `WARNING` and `ERROR` logs.
 
 * `--log_to_console={true|false}`
 
-  Log to stderr.
-  Default is `true`.
+  Enable or disable AcraServer's logs.
+  Default is `true` (logs are enabled).
 
 * `--log_to_file=<filename>`
 
@@ -279,11 +278,11 @@ weight: 3
 
 * `--pgsql_escape_bytea={true|false}`
 
-  Escape format for Postgresql bytea data (**deprecated**, ignored).
+  Escape format for Postgresql bytea data (**deprecated since 0.85.0**, ignored).
 
 * `--pgsql_hex_bytea={true|false}`
 
-  Hex format for Postgresql bytea data (**deprecated**, ignored).
+  Hex format for Postgresql bytea data (**deprecated since 0.85.0**, ignored).
 
 * `--postgresql_enable={true|false}`
 
@@ -391,7 +390,7 @@ weight: 3
 * `--tls_db_sni=<SNI>`
 
   Expected Server Name (SNI) from database.
-  Deprecated, use `--tls_database_sni` instead.
+  Deprecated since 0.90.0, use `--tls_database_sni` instead.
 
 * `--tls_identifier_extractor_type=<type>`
 

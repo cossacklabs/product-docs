@@ -176,11 +176,11 @@ while the previous key is archived and used only for decryption.
   
 * `--generate_hmac_key`
   
-  Generate a new key for HMAC calculation and searchable encryption.
+  Generate a new symmetric key for HMAC calculation and searchable encryption.
   
 * `--generate_log_key`
   
-  Generate a new key symmetric key for audit logging.
+  Generate a new symmetric key for audit logging.
   
 * `--generate_poisonrecord_keys`
   

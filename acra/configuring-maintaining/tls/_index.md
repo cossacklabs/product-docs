@@ -13,19 +13,19 @@ Flags related to TLS configuration can be found on page listing all flags of a b
 * [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/#tls)
 * [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#tls)
 
-## Certificate validation for revocation
+## Validating a certificate for revocation
 
-Acra services can be configured to validate other peers certificate during TLS handshake.
+TLS-based transport security of Acra services can be additionally enhanced by validation whether peer's certificate is revoked.
 
 This feature is currently implemented for `acra-connector`, `acra-server` and `acra-translator`.
 
-There are two methods for certificate validation.
-They are configured separately and can be enabled simultaneously.
-Or disabled completely.
+There are two methods for validating the certificate's revocation:
 * [OCSP (Online Certificate Status Protocol)](ocsp)
 * [CRL (Certificate Revocation List)](crl)
 
-By default Acra will perform validation only if the certificate itself contains OCSP or CRL metadata.
+They are configured separately and can be enabled simultaneously.
+
+By default, Acra performs mentioned validation only if the certificate itself contains OCSP or CRL metadata.
 And if certificate does not contain OCSP URLs, it won't be validated using OCSP protocol. Same applies for CRL.
 
 ## PKI

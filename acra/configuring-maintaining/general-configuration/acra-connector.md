@@ -14,17 +14,17 @@ weight: 5
 
 * `--client_id=<id>`
 
-  Provided Client ID identifies Secure Session transport keys for handshake with AcraServer/AcraTranslator and will be sent to AcraServer/AcraTranslator as identifier of encryption keys
+  Provided Client ID identifies Secure Session transport keys for handshake with AcraServer/AcraTranslator and will be sent to AcraServer/AcraTranslator as identifier of encryption keys.
 
 * `--user_check_disable`
 
-  Disable checking that connections from app running from another user
+  Disable checking that connections from app running from another user.
 
 * `--mode`
 
   Expected mode of connection.
-  * `AcraServer` - (default) mode switch AcraConnector to work with `AcraServer`. 
-  * `AcraTranslator` - mode switch AcraConnector to work with `AcraTranslator`. 
+  * `AcraServer` - (default) mode switch AcraConnector to work with `AcraServer`.
+  * `AcraTranslator` - mode switch AcraConnector to work with `AcraTranslator`.
 
 Following table describes flags that work only in appropriate mode:
 
@@ -44,26 +44,25 @@ Following table describes flags that work only in appropriate mode:
 
 * `--acraserver_api_connection_port`
   
-  Port of Acra HTTP API 
-  Default is `9090`
+  Port of AcraServer's HTTP API.
+  Default is `9090`.
 
 * `--acraserver_api_connection_string`
   
-  Connection string to Acra's API like tcp://x.x.x.x:yyyy or unix:///path/to/socket
-
+  Connection string to AcraServer's API like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
 
 * `--acraserver_connection_host`
 
-  IP or domain to AcraServer daemon
+  IP/domain of AcraServer daemon.
 
 * `--acraserver_connection_port`
 
-  Port of AcraServer daemon 
-  Default is `9393`
+  Port of AcraServer daemon.
+  Default is `9393`.
   
 * `--acraserver_connection_string`
 
-  Connection string to AcraServer like tcp://x.x.x.x:yyyy or unix:///path/to/socket
+  Connection string to AcraServer like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
 
 * `--acraserver_securesession_id`
 
@@ -72,7 +71,7 @@ Following table describes flags that work only in appropriate mode:
 
 * `--acraserver_tls_transport_enable`
 
-  Use tls to encrypt transport between AcraServer and AcraConnector/client
+  Use tls to encrypt transport between AcraServer and AcraConnector/client.
 
 * `--acraserver_transport_encryption_disable`
   
@@ -80,21 +79,21 @@ Following table describes flags that work only in appropriate mode:
   
 * `--acratranslator_connection_host`
 
-  IP or domain to AcraTranslator daemon 
-  Default is `"0.0.0.0"`
+  IP/domain of AcraTranslator daemon.
+  Default is `"0.0.0.0"`.
 
 * `--acratranslator_connection_port`
 
-  Port of AcraTranslator daemon 
-  Default is `9696`
+  Port of AcraTranslator daemon.
+  Default is `9696`.
 
 * `--acratranslator_connection_string`
   
-  Connection string to AcraTranslator like grpc://0.0.0.0:9696 or http://0.0.0.0:9595
+  Connection string to AcraTranslator like `grpc://0.0.0.0:9696` or `http://0.0.0.0:9595`.
 
 * `--acratranslator_securesession_id`
 
-  ID that will be sent during secure session handshake with AcraServer.
+  ID that will be sent during secure session handshake with AcraTranslator.
   Default is `acra_translator`.
 
 * `--http_api_enable`
@@ -103,22 +102,22 @@ Following table describes flags that work only in appropriate mode:
 
 * `--incoming_connection_api_port=<port>`
 
-  Port for AcraConnector HTTP API 
-  Default is `9191`
+  Port for AcraConnector HTTP API.
+  Default is `9191`.
 
 * `--incoming_connection_api_string=<url>`
 
-  Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket` 
-  Default is `"tcp://127.0.0.1:9191/"`
+  Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
+  Default is `"tcp://127.0.0.1:9191/"`.
 
 * `--incoming_connection_port=<port>`
 
-  Port to AcraConnector 
-  Default is `9494`
+  Port to AcraConnector.
+  Default is `9494`.
 
 * `--incoming_connection_string`
 
-  Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket` 
+  Connection string like `tcp://x.x.x.x:yyyy` or `unix:///path/to/socket`.
   Default is  `tcp://127.0.0.1:9494/` (built from default host and port).
   
 ### Configuration files
@@ -151,8 +150,8 @@ Following table describes flags that work only in appropriate mode:
 
 * `--log_to_console={true|false}`
 
-  Log to stderr.
-  Default is `true`.
+  Enable or disable AcraConnector's logs.
+  Default is `true` (logs are enabled).
 
 * `--log_to_file=<filename>`
 

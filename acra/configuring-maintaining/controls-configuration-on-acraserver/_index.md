@@ -5,12 +5,11 @@ weight: 3
 
 # Controls configuration on AcraServer
 
-Depending on which security control we are talking about, the exact way of enabling/configuring it may differ.
+Any AcraServer's security control has unique way of enabling / configuring.
 
-Features are configured with CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
+Overall AcraServer's configuration can be performed via CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags)).
 
-
-`--config_file <options.yml>` may be used instead, AcraServer will read options from a file.
+Alternatively, `--config_file <options.yml>` may be used, and AcraServer will read configuration from a file.
 
 * Data protection security controls
 
@@ -19,16 +18,16 @@ Features are configured with CLI flags ([see the whole list](/acra/configuring-m
   Each feature is configured per table column (except the last one).
 
   * [Transparent encryption](/acra/security-controls/encryption/) —
-    AcraServer will silently replace plaintext with its encrypted version before storing data in database
+    AcraServer will silently replace plaintext with its encrypted version before storing data in the database;
   * [Searchable encryption](/acra/security-controls/searchable-encryption/) —
-    makes it possible to find row that contains encrypted value you are searching
+    provides searching capability over encrypted values stored in the database;
   * [Masking](/acra/security-controls/masking/) —
-    similar to encryption, leaves part of plaintext unencrypted
+    provides configurable way of partial or zero-disclosure of sensitive data to unauthorized users;
   * [Tokenization](/acra/security-controls/tokenization/) —
-    stores plain number/text/email in separate storage, while putting random corresponding one in the database
-  * [Zones](/acra/security-controls/zones) —
+    special format-preserving data transformation;
+  * [Zones Feature](/acra/security-controls/zones) —
     allows using zone-specific keys for cryptographic operations;
-    configured in encryptor config, but enabled with `--zonemode_enable`
+    configured in encryptor config, but enabled with `--zonemode_enable`.
 
 * [Intrusion detection](/acra/security-controls/intrusion-detection/)
 
@@ -69,7 +68,7 @@ Features are configured with CLI flags ([see the whole list](/acra/configuring-m
 
 * [SIEM/SOC integration](/acra/security-controls/security-logging-and-events/siem-soc-integration/)
 
-  Export logs and security events as file or direct a stream into your SIEM/SOC software.
+  Exporting logs and security events as file or by direct streaming into your SIEM/SOC software.
 
 * [SQL firewall](/acra/security-controls/sql-firewall/) (aka AcraCensor)
 

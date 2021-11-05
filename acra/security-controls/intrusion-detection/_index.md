@@ -33,12 +33,12 @@ For more technical details you can check out other blog posts related poison rec
 
 ## Command line flags
 
-AcraServer has [a set of flags](/acra/configuring-maintaining/controls-configuration-on-acraserver/) for more precise work configuration with Poison records.
+AcraServer has [a set of flags](/acra/configuring-maintaining/controls-configuration-on-acraserver/) for more precise work configuration with Poison records. Same [flags](/acra/configuring-maintaining/controls-configuration-on-acratranslator/) are available for AcraTranslator.
 
 
 * `--poison_detect_enable={true|false}`
 
-  Turn on poison record detection, if server's shutdown is disabled, AcraServer logs the poison record detection and returns decrypted data.
+  Turn on poison record detection. If shutdown is not enabled, AcraServer just logs the poison record detection and returns decrypted data.
   Default is `true`.  
 
 

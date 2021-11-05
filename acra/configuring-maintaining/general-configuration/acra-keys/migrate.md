@@ -5,7 +5,7 @@ weight: 6
 
 # migrate
 
-**`migrate`** is `acra-keys` subcommand used for migration keys from keystore type `v1` to `v2`.
+**`migrate`** is `acra-keys` subcommand used for migration from keystore type `v1` to `v2`.
 
 ## Command line flags
 
