@@ -29,10 +29,11 @@ To deliver its unique guarantees, Acra relies on the combination of well-known c
 |Use case|Crypto source|
 |--|--|
 |Default crypto-primitive source|OpenSSL|
-|Supported crypto-primitive sources |BoringSSL, LibreSSL, FIPS-compliant, GOST-compliant, HSM|
+|Custom crypto-primitive sources |BoringSSL, LibreSSL, FIPS-compliant, GOST-compliant, HSM|
 |Storage encryption|AES-256-GCM-PKCS#7 + ECDH (AcraStructs) or AES-256-GCM-PKCS#7 (AcraBlocks)|
 |Transport encryption|TLS v1.2+ / Themis Secure Session|
-|KMS integration|Amazon KMS, Google Cloud Platform KMS, Hashicorp Vault, Keywhiz|
+
+Only [Acra Enterprise Edition](/acra/enterprise-edition/) supports custom crypto-primitives sources.
 
 
 ### Themis

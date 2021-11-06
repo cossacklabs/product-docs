@@ -4,7 +4,7 @@ bookCollapseSection: true
 weight: 6
 ---
 
-## AcraCensor — Acra’s firewall
+# AcraCensor — Acra’s firewall
 
 AcraCensor is a separate SQL firewall module for AcraServer that checks every incoming SQL request. 
 
@@ -16,7 +16,7 @@ AcraCensor is compatible with SIEM systems, with logs that can be used for alert
 
 We created [an SQL injections prevention with Acra example project](https://github.com/cossacklabs/acra-engineering-demo/#example-6-sql-injections-prevention-with-acra) to demonstrate how to prevent SQL injections with AcraCensor using [OWASP Mutillidae II example app](https://github.com/webpwnized/mutillidae). You can read engineering details about how we built AcraCensor in [our blog](https://www.cossacklabs.com/blog/how-to-build-sql-firewall-acracensor.html).
 
-### Launching AcraCensor
+## Launching AcraCensor
 
 AcraCensor is a built-in component of AcraServer, so it starts running when AcraServer starts if the path to its configuration file is provided. 
 
@@ -36,7 +36,7 @@ acra-server \
 
 Refer to the [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/) documentation for details on configuration parameters.
 
-### Configuring AcraCensor rules
+## Configuring AcraCensor rules
 
 The configuration file describes how AcraCensor should process the incoming SQL queries – log, pass, block, ignore. Each action is described by the corresponding handler. Handlers are considered in specified order, from top to bottom.
 
@@ -87,7 +87,7 @@ Need help with configuring AcraCensor? Check out the [SQL injections prevention 
 
 
 
-### Configuration versioning
+## Configuration versioning
 
 Starting with Acra [0.85.0 release](https://github.com/cossacklabs/acra/releases/tag/0.85.0) in March 2019, we introduced a more flexible configuration format for AcraCensor rules.
 
@@ -104,8 +104,7 @@ The migration procedure consists of the following steps:
 
 These are all required steps to make your previous configuration file compatible with new AcraServer/AcraCensor versions.
 
-
-### Allowlist and denylist
+## Allowlist and denylist
 
 There are several handler types for AcraCensor:
 
@@ -125,14 +124,14 @@ which decides what to do with the query: either allow or deny it.
 Within each rule, `queries` are matched first,  followed by `tables`, and then `patterns`.
 
 
-### Prepared statements
+## Prepared statements
 
 The root of the SQL injection problem is that the code and the data (withing SQL query) can get mixed up and be mistaken for each other. SQL prepared statements help to separate code execution from the data itself.
 
 AcraCensor has limited support of filtering prepared statements. AcraCensor doesn't apply `allow` and `deny` rules to SQL requests with prepared statements. However, it's possible to use `query_capture` and `query_ignore` to filter the whole statement when necessary (through comparing the incoming SQL char-by-char with the SQL from the config file).
 
 
-### Ignoring specific queries
+## Ignoring specific queries
 
 It might be useful to skip allowlist/denylist rules for certain SQL queries, for example, the queries performed during database connection initialisation.
 If a query is ignored, AcraCensor won't apply any rules to it and will pass this query to the database verbatim.
@@ -151,7 +150,7 @@ To ignore some queries, put them to the `query_ignore` handler. AcraCensor compa
 
 We suggest looking into [`tests/acra-censor_configs`](https://github.com/cossacklabs/acra/tree/master/tests/acra-censor_configs) to see which PostgreSQL and MySQL queries we ignore when running integration tests.
 
-### Handling parsing errors
+## Handling parsing errors
 
 AcraCensor is not a database engine and it might not be able to parse all possible SQL queries.
 It's potentially dangerous to send unrecognized queries to the database as they might contain SQL injections.
@@ -181,7 +180,7 @@ We will look into it and try to help.
 {{< /hint >}}
 
 
-### Logging and masking queries
+## Logging and masking queries
 
 It’s very important that AcraCensor doesn’t log sensitive data. That’s why the first thing AcraCensor does is masking the values in SQL queries’ logs. All values from SQL queries are edited and masked to `replaced` keyword.
 
@@ -193,7 +192,7 @@ insert into hitlog(hostname, ip, browser, referer, `date`) values (:replaced1, :
 insert into accounts(username, password, mysignature) values (:replaced1, :replaced2, :replaced3)
 ```
 
-#### Logging errors
+### Logging errors
 
 Sometimes AcraCensor can't parse a query and it is useful to have a separate log for these
 which comes handy for debugging and configuration.
@@ -208,7 +207,7 @@ Be careful, parse error log contains verbatim queries, without any masking.
 Make sure to avoid exposing sensitive information from this log.
 {{< /hint >}}
 
-#### Logging unique queries
+### Logging unique queries
 
 You might need to have a separate log file that contains all unique queries that AcraCensor processes –
 or even multiple log files, for each stage of processing.
@@ -233,7 +232,7 @@ This is how `query_capture.log` content looks like (real values are being masked
 {"raw_query":"select data from test where id = :replaced1","_blacklisted_by_web_config":false}
 ```
 
-### Security-wise configurations
+## Security-wise configurations
 
 Despite the fact that AcraCensor can be configured in many ways, we suggest the following structure of handlers for better security:
 
