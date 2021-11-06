@@ -33,7 +33,7 @@ To deliver its unique guarantees, Acra relies on the combination of well-known c
 |Storage encryption|AES-256-GCM-PKCS#7 + ECDH (AcraStructs) or AES-256-GCM-PKCS#7 (AcraBlocks)|
 |Transport encryption|TLS v1.2+ / Themis Secure Session|
 
-Only [Acra Enterprise Edition](/acra/enterprise-edition/) support custom crypto-primitives sources.
+Only [Acra Enterprise Edition](/acra/enterprise-edition/) supports custom crypto-primitives sources.
 
 
 ### Themis
