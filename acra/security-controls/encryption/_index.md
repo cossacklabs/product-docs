@@ -8,7 +8,7 @@ weight: 1
 Acra prevents adversaries with access to database from seeing sensitive plaintexts, if it has been configured so.
 Acra does that by encrypting the sensitive data selectively and keeping the keys to itself. In this, Acra acts as security boundary in front of sensitive data. 
 
-What Acra does can be described as [application-level encryption](https://www.infoq.com/articles/ale-software-architects/).
+What Acra does can be described as [application-level encryption](https://www.infoq.com/articles/ale-software-architects/) on field level, or, field-level encryption.
 
 ## Encryption
 
