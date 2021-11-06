@@ -278,11 +278,11 @@ weight: 3
 
 * `--pgsql_escape_bytea={true|false}`
 
-  Escape format for Postgresql bytea data (**deprecated since 0.85.0**, ignored).
+  Escape format for PostgreSQL bytea data (**deprecated since 0.85.0**, ignored).
 
 * `--pgsql_hex_bytea={true|false}`
 
-  Hex format for Postgresql bytea data (**deprecated since 0.85.0**, ignored).
+  Hex format for PostgreSQL bytea data (**deprecated since 0.85.0**, ignored).
 
 * `--postgresql_enable={true|false}`
 

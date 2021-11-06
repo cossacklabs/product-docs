@@ -5,9 +5,8 @@ weight: 4
 
 # Controls configuration on AcraTranslator
 
-AcraTranslator's features can be configured via CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags)).
+AcraTranslator can be configured from command line using CLI flags ([see the whole list](/acra/configuring-maintaining/controls-configuration-on-acratranslator/#command-line-flags)), or from a configuration file which should be defined as `--config_file <options.yml>` .
 
-Alternatively, `--config_file <options.yml>` may be used instead, and AcraTranslator will read options from a file.
 
 * [Key management](/acra/security-controls/key-management/)
 

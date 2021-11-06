@@ -5,11 +5,10 @@ weight: 3
 
 # Controls configuration on AcraServer
 
-Any AcraServer's security control has unique way of enabling / configuring.
+AcraServer's security controls have the exact way of enabling/disabling and configuring them.
 
-Overall AcraServer's configuration can be performed via CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags)).
+AcraServer can be configured from command line using CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags)), or from a configuration file which should be defined as `--config_file <options.yml>` .
 
-Alternatively, `--config_file <options.yml>` may be used, and AcraServer will read configuration from a file.
 
 * Data protection security controls
 
@@ -20,12 +19,12 @@ Alternatively, `--config_file <options.yml>` may be used, and AcraServer will re
   * [Transparent encryption](/acra/security-controls/encryption/) —
     AcraServer will silently replace plaintext with its encrypted version before storing data in the database;
   * [Searchable encryption](/acra/security-controls/searchable-encryption/) —
-    provides searching capability over encrypted values stored in the database;
+    provides searching capability over encrypted values stored in the database without decrypting them;
   * [Masking](/acra/security-controls/masking/) —
     provides configurable way of partial or zero-disclosure of sensitive data to unauthorized users;
   * [Tokenization](/acra/security-controls/tokenization/) —
-    special format-preserving data transformation;
-  * [Zones Feature](/acra/security-controls/zones) —
+    provides a format-preserving way of storing tokens (number, string, email-looking values) while the original data is stored encrypted in a dedicated separate storage (Redis).
+  * [Zones](/acra/security-controls/zones) —
     allows using zone-specific keys for cryptographic operations;
     configured in encryptor config, but enabled with `--zonemode_enable`.
 
