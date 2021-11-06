@@ -122,7 +122,7 @@ INFO[0000] Initialized default env ACRA_MASTER_KEY loader
 
 {{< hint info >}}
 **Note:**
-Currently, not all key kinds are supported for printing via `read` subcommand.
+Currently, only some key kinds are supported for printing via `read` subcommand.
 Here is the list of supported key kinds:
 
 - `poison-public` 

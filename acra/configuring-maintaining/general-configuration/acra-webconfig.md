@@ -5,7 +5,7 @@ weight: 15
 
 # acra-webconfig
 
-`acra-webconfig` is a simple web application providing web UI for AcraServer's runtime configuration.
+`acra-webconfig` is a simple web application that provides web UI for AcraServer's runtime configuration.
 You can adjust the following parameters of AcraServer via `acra-webconfig`:
 * `db_host`
 * `db_port`

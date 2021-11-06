@@ -45,7 +45,7 @@ weight: 4
 
 * `--poison_detect_enable={true|false}`
 
-  Turn on poison record detection, if server shutdown is disabled, AcraTranslator logs the poison record detection and returns error.
+  Turn on poison record detection. If shutdown is not enabled, AcraTranslator just logs the poison record detection and returns error.
   Default is `true`.
 
 * `--poison_run_script_file=<filename>`
@@ -83,7 +83,7 @@ weight: 4
 
 * `--securesession_id=<id>`
 
-  ID that will be sent in secure session handshake.
+  ID that will be sent during secure session handshake.
   Default is `acra_translator`.
 
 ### Configuration files
@@ -108,7 +108,7 @@ weight: 4
 
 * `-d`
 
-  Log everything to stderr.
+  Log to stderr all `DEBUG`, `INFO`, `WARNING` and `ERROR` logs.
 
 * `-v`
 
@@ -116,8 +116,8 @@ weight: 4
 
 * `--log_to_console={true|false}`
 
-  Log to stderr.
-  Default is `true`.
+  Enable or disable AcraTranslator's logs.
+  Default is `true` (logs are enabled).
 
 * `--log_to_file=<filename>`
 
@@ -196,11 +196,11 @@ weight: 4
 
   Set authentication mode that will be used for TLS connection.
 
-  * `0` — do not request client certificate, ignore it if received
-  * `1` — request client certificate, but don't require it
-  * `2` — expect to receive at least one certificate to continue the handshake
-  * `3` — don't require client certificate, but validate it if client actually sent it
-  * `4` — (default) request and validate client certificate
+  * `0` — do not request client certificate, ignore it if received;
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 
