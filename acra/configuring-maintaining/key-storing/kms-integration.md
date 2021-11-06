@@ -67,3 +67,8 @@ You can find out how to configure access to KMS on `HashiCorp Vault` section on 
 ### GCP KMS
 
 [Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.
+
+
+### Keywhiz
+
+[Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.

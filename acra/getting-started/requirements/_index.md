@@ -25,17 +25,34 @@ The requirements are not so strict:
 
 All Acra components require TLS version 1.2+ and deny connections with lower version. Additionally, Acra accepts only 
 cipher suits that uses ECDHE for handshakes and modern strong symmetric key encryption algorithms with authentication, as 
-AES+GCM, ChaCha20+Poly1305. You can find all supported cipher suits [in our code in repository](https://github.com/cossacklabs/acra/blob/release/0.85.0/network/tls_wrapper.go#L33).
+AES+GCM, ChaCha20+Poly1305. 
+
+You can find all supported cipher suits [in our code in repository](https://github.com/cossacklabs/acra/blob/release/0.85.0/network/tls_wrapper.go#L33).
 
 ### Databases
 
 AcraServer works as proxy for [PostgreSQL wire protocol](https://www.postgresql.org/docs/14/protocol.html) and 
-[MySQL wire protocol](https://dev.mysql.com/doc/internals/en/client-server-protocol.html). We regularly run tests with
-MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github.com/cossacklabs/acra/blob/release/0.85.0/.circleci/config.yml)
-and private CI/CD.
-In theory, Acra supports all databases that works over these wire protocols. Some of them we test for our
-enterprise clients with our [Acra Enterprise Edition](/acra/enterprise-edition/).
+[MySQL wire protocol](https://dev.mysql.com/doc/internals/en/client-server-protocol.html). 
+
+We regularly run tests with MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github.com/cossacklabs/acra/blob/release/0.85.0/.circleci/config.yml) and private CI. 
+
+Databases that AcraServer is known to work with: MySQL 5.7+, PostgreSQL 9.4+, MariaDB 10.3, Google Cloud SQL, Amazon RDS, TiDB, CockroachDB. 
+
+Overall, Acra supports all databases that works over these wire protocols. 
+
+Some of them we test for our
+enterprise clients with [Acra Enterprise Edition](/acra/enterprise-edition/).
 Acra Community Edition doesn't support [Protocol X](https://dev.mysql.com/doc/internals/en/x-protocol.html) of MySQL. If this is something important for you, consider writing us [an email](mailto:sales@cossacklabs.com) and checking out [Acra Enterprise Edition](/acra/enterprise-edition/).
+
+### NoSQL / KV data stores
+
+AcraTranslator allows working with any database / data store, as it works as API service, and the client app is responsible for storing data in the storage.
+
+SQL / Cloud RDBMS include: MySQL, PostgreSQL, MariaDB, Google Cloud SQL, Amazon RDS, TiDB, CockroachDB. 
+
+NoSQL / KV data stores include: MongoDB, Redis, Cassandra, TimescaleDB. Any datastore or database with REST API, filesystems, Amazon S3, Google Cloud DataStore.
+
+
 ## Client side
 
 ### Architecture
