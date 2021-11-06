@@ -69,6 +69,8 @@ We provide a great flexibility around Acra Enterprise Edition. Select what is be
 * **Acra managed solution** – we give you Acra and we manage Acra for you in your infrastructure. We act like your Ops team.
 * **Acra custom solution** – we customize Acra for your use case and your infrastructure. Support another database, change tokenization format, produce more logs, build custom modules for your SCADA system – we are in.
 
+Partial licensing is also possible. You can pre-select components that you need and get a license only for them. For example, license AcraTranslator and its required components without AcraServer. Use less, maintain less, pay less.
+
 
 ## How to evaluate and get started
 
