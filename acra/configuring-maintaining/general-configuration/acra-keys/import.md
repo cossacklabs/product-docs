@@ -100,8 +100,7 @@ weight: 5
 ## Usage example
 
 Using **`import`** subcommand of `acra-keys` you can easily exchange keys from different Acra components like AcraServer and AcraConnector.
-First, the public key has to be exported using [**`export`** subcommand]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/export" >}}), 
-with corresponded produced result (`key_bundle_file` and `key_bundle_secret`).
+First, the public key has to be exported using **`export`** subcommand, with corresponded produced result (`key_bundle_file` and `key_bundle_secret`).
 
 ```
 $ acra-keys import --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json"

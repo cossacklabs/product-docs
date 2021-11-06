@@ -108,7 +108,7 @@ INFO[0000] Initialized default env ACRA_MASTER_KEY loader
 
 {{< hint info >}}
 **Note:**
-Currently, not all key kinds are supported for printing via `destroy` subcommand.
+Currently, only some key kinds are supported for destroying via `destroy` subcommand.
 Here is the list of supported key kinds:
 
 - `transport-connector`

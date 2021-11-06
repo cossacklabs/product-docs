@@ -3,7 +3,7 @@ title: remove
 weight: 4
 ---
 
-# enable
+# remove
 
 **`remove`** is `acra-tokens` subcommand used for removing tokens from the storage.
 

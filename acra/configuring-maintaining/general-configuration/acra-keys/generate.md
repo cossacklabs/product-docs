@@ -5,7 +5,7 @@ weight: 2
 
 # generate
 
-**`generate`** is `acra-keys` subcommand used for generating keys for the keystore versions `v1` and `v2`.
+**`generate`** is `acra-keys` subcommand used for generating keys (for both `v1`, `v2` keystore versions).
 
 # Command line flags
 
@@ -155,7 +155,7 @@ while the previous key is archived and used only for decryption.
 
 * `--audit_log_symmetric_key`
 
-  Generate a new key symmetric key for log integrity checks.
+  Generate a new symmetric key for log integrity checks.
 
 * `--poison_record_keys`
 
