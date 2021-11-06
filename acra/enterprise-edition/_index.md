@@ -28,7 +28,9 @@ Review comparison of Acra Community Edition and Acra Enterprise Edition features
   * Additional key management options - different ways to trigger key rotation / revocation / generation that are more characteristic of large-scale commercial use-cases. 
   * Custom key schedules - being able to override some of key management automation attributes. 
   * Customizeable key stores - Acra can store intermediary keys in a number of formats. Acra Enterprise Edition provides even more flexibility when doing so. 
-  * Hardened key lifecycle - we are researching different ways to improve Acra's resilience in hostile environment, including schemes which do not require master key to ever leave HSM/KMS, etc. 
+  * Hardened key lifecycle - we are researching different ways to improve Acra's resilience in hostile environment, including schemes which do not require master key to ever leave HSM/KMS, etc.
+  * Custom crypto-primitives – Acra can be built with FIPS-compliant source of crypto-primivites, GOST-compliant, with BoringSSL, LibreSSL or HSM support. 
+  * More KMS are supported. 
 
 See [Key management guides](/acra/security-controls/key-management/).
 
