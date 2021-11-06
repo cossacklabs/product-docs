@@ -11,14 +11,14 @@ encrypted auth file that stores all users and hashed passwords for basic authent
 
 ## Command line flags
 
-`acra-authamanager` should be called with same `ACRA_MASTER_KEY` that used for `acra-server`. Only these two binaries can
+`acra-authmanager` should be called with same `ACRA_MASTER_KEY` that used for `acra-server`. Only these two binaries can
 read encrypted file with authentication data. 
 
 ### Configuration files
 
 * `--file=<filepath>`
   
-    Path to encrypted file where stored authentication data
+    Path to encrypted file where stored authentication data.
     Default is `configs/auth.keys`
 
 * `--user=<username>`
@@ -118,8 +118,8 @@ read encrypted file with authentication data.
 ``` 
 Each row is separate entry related to distinct user. 
 
-Every password hashed using [Argon2 hash function](https://en.wikipedia.org/wiki/Argon2). You can find current parameter
-values used for hash function in [Acra source code](https://github.com/cossacklabs/acra/blob/release/0.85.0/cmd/constants.go#L34).
+Every password is hashed using [Argon2 hash function](https://en.wikipedia.org/wiki/Argon2). You can find current Argon2's parameter
+values in [Acra source code](https://github.com/cossacklabs/acra/blob/release/0.85.0/cmd/constants.go#L34).
 
 Example of decrypted auth file:
 ```

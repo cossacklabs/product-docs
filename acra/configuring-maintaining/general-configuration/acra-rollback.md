@@ -5,7 +5,7 @@ weight: 13
 
 # acra-rollback
 
-`acra-rollback` is a command-line utility that help you to generate a clean SQL dump from an existing protected one. 
+`acra-rollback` is a command-line utility that helps you to generate a clean SQL dump from an existing protected one.
 Rollback utility especially applicable in case of any DB rollback - keys re-generating, going from a Zoneless mode to Zones or vice-versa etc. 
 
 ## Command line flags
@@ -150,7 +150,7 @@ acra-rollback \
 ```
 
 
-Double-quote syntax::
+Double-quote syntax:
 
 ```
 acra-rollback \

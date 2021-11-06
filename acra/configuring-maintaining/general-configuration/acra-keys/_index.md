@@ -12,28 +12,20 @@ We recommend using acra-keys for Acra 0.95.0 and newer.
 
 
 `acra-keys` is a command-line utility used for different keys operations
-especially for `v2` keystore. It consists of several subcommands each of which is responsible for a separate functionality.
+especially for `v2` keystore. Each functionality is implemented as a separate subcommand:
 
-* [`list`](/acra/configuring-maintaining/general-configuration/acra-keys/list/)
-  List available keys in the keystore
+* [`list`](/acra/configuring-maintaining/general-configuration/acra-keys/list/) - lists available keys in the keystore;
 
-* [`generate`](/acra/configuring-maintaining/general-configuration/acra-keys/generate/)
-  Generate new keys
+* [`generate`](/acra/configuring-maintaining/general-configuration/acra-keys/generate/) - generates new keys;
 
-* [`read`](/acra/configuring-maintaining/general-configuration/acra-keys/read/)
-  Read and print key material in plaintext
+* [`read`](/acra/configuring-maintaining/general-configuration/acra-keys/read/) - reads and prints key material in plaintext;
 
-* [`export`](/acra/configuring-maintaining/general-configuration/acra-keys/export/)
-  Export keys from the keystore
+* [`export`](/acra/configuring-maintaining/general-configuration/acra-keys/export/) - exports keys from the keystore;
 
-* [`import`](/acra/configuring-maintaining/general-configuration/acra-keys/import/)
-  Import keys into the keystore
+* [`import`](/acra/configuring-maintaining/general-configuration/acra-keys/import/) - imports keys into the keystore;
 
-* [`migrate`](/acra/configuring-maintaining/general-configuration/acra-keys/migrate/)
-  Migrate keystore to a different format
+* [`migrate`](/acra/configuring-maintaining/general-configuration/acra-keys/migrate/) - migrates keystore to a different format;
 
-* [`destroy`](/acra/configuring-maintaining/general-configuration/acra-keys/destroy/)
-  Destroy key material
+* [`destroy`](/acra/configuring-maintaining/general-configuration/acra-keys/destroy/) - destroys key material;
 
-* [`extract-client-id`](/acra/configuring-maintaining/general-configuration/acra-keys/extract-client-id/)
-  Extract ClientID from TLS certificate
+* [`extract-client-id`](/acra/configuring-maintaining/general-configuration/acra-keys/extract-client-id/) - extracts ClientID from TLS certificate.
