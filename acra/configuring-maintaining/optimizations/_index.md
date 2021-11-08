@@ -6,9 +6,9 @@ weight: 13
 
 # Optimizations
 
-This section contains a set of specific optimizations and practices for more efficient use of Acra
+This section contains a set of specific optimizations and practices for your applications and infrastructures when using with Acra.
 
-## Management
+## Infrastructure management and configuration
 
 * [Vertical scaling](/acra/configuring-maintaining/optimizations/vertical_scaling/)
 
@@ -30,7 +30,7 @@ This section contains a set of specific optimizations and practices for more eff
 
   Contains few flags that can be used for debugging purposes, but better to be disabled in production.
 
-## Data
+## Data processing optimizations
 
 * [AcraStructs vs AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/)
 
@@ -44,20 +44,20 @@ This section contains a set of specific optimizations and practices for more eff
 
   Describes which things could be cached in memory by Acra and how to enable this caching to improve performance.
 
-## Resources
+## Resources optimizations
 
 * [Connection reuse](/acra/configuring-maintaining/optimizations/connection_reuse/)
 
   Reminds that it is a good practice to reuse opened connections to database as much as possible.
 
+* [Zones performance](/acra/configuring-maintaining/optimizations/zones/)
+
+  Describes how Zones affect performance.
+
 * [Enterprise kickstart](/acra/configuring-maintaining/optimizations/enterprise_kickstart/)
 
   Hints that Acra Enterprise Edition performance is better and describes which troubles your team can avoid when using
   Acra Enterprise Edition.
-
-* [Zones performance](/acra/configuring-maintaining/optimizations/zones/)
-
-  Describes how Zones affect performance.
 
 
 
