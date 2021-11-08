@@ -6,33 +6,62 @@ weight: 13
 
 # Optimizations
 
-[Vertical scaling](/acra/configuring-maintaining/optimizations/vertical_scaling/)
-describes how performance will grow with more CPU cores / memory added.
+This section contains a set of specific optimizations and practices for more efficient use of Acra
 
-[Horizontal scaling](/acra/configuring-maintaining/optimizations/horizontal_scaling/)
-describes how performance will grow with instances being added.
+## Management
 
-[AcraStructs vs AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/)
-describes difference between AcraStructs and AcraBlocks (encryption containers).
+* [Vertical scaling](/acra/configuring-maintaining/optimizations/vertical_scaling/)
 
-[DB indexes](/acra/configuring-maintaining/optimizations/db_indexes/)
-contains important notes regarding proper database indexing while having some encrypted columns.
+  Describes how performance will grow with more CPU cores / memory added.
 
-[TLS configuration](/acra/configuring-maintaining/optimizations/tls_configuration/)
-contains few hints regarding TLS configuration effect on network performance.
+* [Horizontal scaling](/acra/configuring-maintaining/optimizations/horizontal_scaling/)
 
-[Connection reuse](/acra/configuring-maintaining/optimizations/connection_reuse/)
-reminds that it is a good practice to reuse opened connections to database as much as possible.
+  Describes how performance will grow with instances being added.
 
-[Disable debug logs](/acra/configuring-maintaining/optimizations/disable_debug_logs/)
-contains few flags that can be used for debugging purposes, but better to be disabled in production.
+* [TLS configuration](/acra/configuring-maintaining/optimizations/tls_configuration/)
 
-[LRU cache](/acra/configuring-maintaining/optimizations/lru_cache/)
-describes which things could be cached in memory by Acra and how to enable this caching to improve performance.
+  Contains few hints regarding TLS configuration effect on network performance.
 
-[Obtaining metrics](/acra/configuring-maintaining/optimizations/obtaining_metrics/)
-is about metrics you can enable and collect (Prometheus).
+* [Obtaining metrics](/acra/configuring-maintaining/optimizations/obtaining_metrics/)
 
-[Zones performance](/acra/configuring-maintaining/optimizations/zones/) describes how Zones affect performance.
+  Contains detailed overview about metrics you can enable and collect via Prometheus.
 
-[Enterprise kickstart](/acra/configuring-maintaining/optimizations/enterprise_kickstart/) hints that Acra Enterprise Edition performance is better and describes what much troubles your team can avoid when using Acra Enterprise Edition.
+* [Disable debug logs](/acra/configuring-maintaining/optimizations/disable_debug_logs/)
+
+  Contains few flags that can be used for debugging purposes, but better to be disabled in production.
+
+## Data
+
+* [AcraStructs vs AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/)
+
+  Describes difference between AcraStructs and AcraBlocks (encryption containers).
+
+* [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes/)
+
+  Contains important notes regarding proper database indexing while having some encrypted columns.
+
+* [LRU cache](/acra/configuring-maintaining/optimizations/lru_cache/)
+
+  Describes which things could be cached in memory by Acra and how to enable this caching to improve performance.
+
+## Resources
+
+* [Connection reuse](/acra/configuring-maintaining/optimizations/connection_reuse/)
+
+  Reminds that it is a good practice to reuse opened connections to database as much as possible.
+
+* [Enterprise kickstart](/acra/configuring-maintaining/optimizations/enterprise_kickstart/)
+
+  Hints that Acra Enterprise Edition performance is better and describes which troubles your team can avoid when using
+  Acra Enterprise Edition.
+
+* [Zones performance](/acra/configuring-maintaining/optimizations/zones/)
+
+  Describes how Zones affect performance.
+
+
+
+
+
+
+
