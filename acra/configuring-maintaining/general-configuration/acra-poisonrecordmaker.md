@@ -82,3 +82,29 @@ weight: 11
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
+
+## Usage
+
+In general, this tool is used like this:
+
+1) Generate "poison keys" using one of
+   * `acra-keys generate --keystore=vX --poison_record_keys`
+   * `acra-keymaker --keystore=vX --generate_poisonrecord_keys`
+
+2) Use this tool to generate the poison record itself:
+
+   `acra-poisonrecordmaker > poison_record`
+
+   File content will be base64-encoded.
+
+3) Insert generated poison record into the database or any other storage your application interacts with.
+   It should be in the same column as the usual encrypted data
+   (attacker won't be able to distinguish poison records from legitimate data as they look kinda the same).
+   Don't forget to base64 decode before storing it in database if other encrypted data is stored in binary format.
+
+4) As soon as the application attempts to decrypt the poison record
+
+   * through transparent decryption in AcraServer
+   * or through decrypt RPC request in AcraTranslator
+
+   Acra will perform [preconfigured actions]({{< ref "acra/security-controls/intrusion-detection#command-line-flags" >}}).
