@@ -97,8 +97,8 @@ In general, this tool is used like this:
    $ ./acra-poisonrecordmaker --type=acrablock > poison_record_ab
    $ ./acra-poisonrecordmaker --type=acrastruct > poison_record_as
    $ ls -l poison_record*
-   -rw-r--r-- 1 user user 213 лис  9 13:18 poison_record_ab
-   -rw-r--r-- 1 user user 301 лис  9 13:18 poison_record_as
+   -rw-r--r-- 1 user user 213 Nov  9 13:18 poison_record_ab
+   -rw-r--r-- 1 user user 301 Nov  9 13:18 poison_record_as
    ```
 
    File content will be base64-encoded:
