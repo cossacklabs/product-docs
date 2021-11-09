@@ -108,3 +108,13 @@ In general, this tool is used like this:
    * or through decrypt RPC request in AcraTranslator
 
    Acra will perform [preconfigured actions]({{< ref "acra/security-controls/intrusion-detection#command-line-flags" >}}).
+
+{{< hint warning >}}
+There are two types of crypto envelopes (`acrastruct` & `acrablock`),
+and while AcraServer will simply transparently decrypt everything it can,
+AcraTranslator decryption methods are specific for each crypto envelope.
+For example, in HTTP we have `/v2/decrypt` for AcraStructs and `/v2/decryptSym` for AcraBlocks.
+This means you should use the same crypto envelope (`--type` flag for `acra-poisonrecordmaker`)
+as for other data you encrypt before storing in the database.
+Otherwise, you may end up catching RPC decryption errors instead of AcraTranslator catching poison record access and reacting accordingly.
+{{< /hint >}}
