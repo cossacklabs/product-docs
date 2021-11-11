@@ -224,7 +224,7 @@ weight: 3
 
 ### Network
 
-* `--db_host=<host>`
+* `--db_host=<host>` 🔴
 
   Database host for AcraServer → database connections.
   Must be set.
@@ -435,6 +435,8 @@ For additional certificate validation flags, see corresponding pages:
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
 
+
+  🔴 - flags required to be specified.
 
 ## HTTP API
 
