@@ -21,7 +21,7 @@ Wondering what different logs, metrics, traces look like in Acra? Check out the 
 
 ## Configuring logging
 
-Logging mode and verbosity level can be configured for AcraServer, AcraConnector, AcraTranslator and AcraWebConfig in the corresponding `yaml` files or passed as CLI parameter.
+Logging mode and verbosity level can be configured for AcraServer, AcraConnector, AcraTranslator and AcraWebConfig (deprecated and removed after 0.90.0) in the corresponding `yaml` files or passed as CLI parameter.
 
 * `--logging_format`
   
