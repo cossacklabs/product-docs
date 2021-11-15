@@ -444,7 +444,7 @@ AcraServer handles HTTP requests that may change its internal state, generates n
 related with authentication of AcraWebConfig users.
 
 {{< hint warning >}}
-AcraWebConfig and AcraAuthManager are deprecated and will not be available after 0.90.0.
+AcraWebConfig and AcraAuthManager are deprecated and will not be available since 0.91.0.
 {{< /hint >}}
 
 {{< hint warning >}}
@@ -475,7 +475,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   incorrect request
   ```
 
-- Endpoint: `/loadAuthData` (deprecated after 0.90.0).
+- Endpoint: `/loadAuthData` (deprecated since 0.91.0).
   Description: returns decrypted authentication data as pairs `<username>:<hash>` for AcraWebConfig. By default, encrypted
   data is stored in `configs/auth.keys` file in `htpasswd` format where each row is actually an entry related to separate user.
   Response type: text.
@@ -491,7 +491,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   incorrect request
   ```
 
-- Endpoint: `/getConfig` (deprecated after 0.90.0).
+- Endpoint: `/getConfig` (deprecated since 0.91.0).
   Description: returns current AcraServer's configuration used while startup (maybe changed via AcraWebConfig).
   Response type: JSON object.
   Response example:
@@ -513,7 +513,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   incorrect request
   ```
 
-- Endpoint: `/setConfig` (deprecated after 0.90.0).
+- Endpoint: `/setConfig` (deprecated since 0.91.0).
   Description: sets new configuration for AcraServer, dumps new configuration to config file specified from CLI flags
   or in config file (with default path) and gracefully restarts AcraServer's instance.
   Response type: empty.

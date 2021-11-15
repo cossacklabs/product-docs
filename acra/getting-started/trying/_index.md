@@ -39,7 +39,7 @@ Now you can connect to (you can see the default DB name and credentials inside t
 | 9494/tcp | AcraConnector                | present AcraConnector                   |
 | 5432/tcp | PostgreSQL                   | PostgreSQL                              |
 | 3306/tcp | MySQL                        | MySQL                                   |
-| 8000/tcp | AcraWebconfig (deprecated and removed after 0.90.0) | present AcraConnector and SecureSession |
+| 8000/tcp | AcraWebconfig (deprecated and removed since 0.91.0) | present AcraConnector and SecureSession |
 
 Please refer to the [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/) ff you need more information about Docker images.
 
@@ -47,7 +47,7 @@ Please refer to the [Launching Acra from Docker images](/acra/getting-started/in
 
 We want you to be able to easily try the most useful schemes that we prepared as Docker Compose files in the `docker` subdirectory. The name of each Docker Compose file describes its components and their interconnections in a simple form. For example: `docker-compose.pgsql-nossl-server-ssession-proxy.yml` is a scheme with Postgresql DB, AcraServer, and AcraConnector, connected to AcraServer through the Themis Secure Session link.
 
-The examples contain references to `acra-keymaker` and `acra-authmanager` (deprecated and removed after 0.90.0) containers inside. They are used for creation and distribution of the necessary keys. They were included for simplification of the test launch and should not be used in production schemes (where the keys should be generated manually and deployed to an appropriate host according to the security rules of your infrastructure).
+The examples contain references to `acra-keymaker` and `acra-authmanager` (deprecated and removed since 0.91.0) containers inside. They are used for creation and distribution of the necessary keys. They were included for simplification of the test launch and should not be used in production schemes (where the keys should be generated manually and deployed to an appropriate host according to the security rules of your infrastructure).
 
 Check out the [docker folder](https://github.com/cossacklabs/acra/blob/master/docker) for examples of compose files.
 
@@ -99,7 +99,7 @@ export MYSQL_PASSWORD="<user_password>"
 
 In order to access AcraWebConfig HTTP interface, you can define:
 {{< hint warning >}}
-Note that this component will be removed from Acra and docker-compose files after 0.90.0 version.
+Note that this component will be removed from Acra and docker-compose files since 0.91.0 version.
 {{< /hint >}}
 ```bash
 export ACRA_HTTPAUTH_USER=<http_auth_user>

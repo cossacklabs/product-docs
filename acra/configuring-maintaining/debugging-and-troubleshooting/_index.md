@@ -8,7 +8,7 @@ weight: 12
 ## Verbose logging
 
 In order to get more logs from AcraConnector, AcraServer or AcraTranslator, you can add `-v` (or even `-d`) flags to their configuration.
-You can also switch `-d` flag in running AcraServer using [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated after 0.90.0).
+You can also switch `-d` flag in running AcraServer using [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated since 0.91.0).
 
 A lot of things may become clear:
 * wrong hosts/ports in configuration

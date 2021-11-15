@@ -194,7 +194,7 @@ while the previous key is archived and used only for decryption.
 ### AcraServer & AcraAuthManager keys
 
 {{< hint warning >}}
-It is deprecated and will not be available after 0.90.0.
+AcraAuthManager tool is deprecated and will not be available since 0.91.0.
 {{< /hint >}}
 
 * `--generate_acrawebconfig_keys`

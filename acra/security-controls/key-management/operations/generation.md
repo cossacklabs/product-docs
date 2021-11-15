@@ -146,7 +146,7 @@ AcraServer and AcraTranslator check this and will refuse to launch if access to 
 {{< /hint >}}
 
 {{< hint warning >}}
-`auth_key` is deprecated and will not be used after 0.90.0.
+`auth_key` is deprecated and will not be used since 0.91.0.
 {{< /hint >}}
 
 If you are running Acra 0.86+ and wish to try the new [keystore version 2](../../versions/),
@@ -182,7 +182,7 @@ In this case the directory layout will be a bit different:
 ```
 
 {{< hint warning >}}
-`authentication.keyring` is deprecated and will not be used after 0.90.0.
+`authentication.keyring` is deprecated and will not be used since 0.91.0.
 {{< /hint >}}
 
 ## 2. Setting up AcraConnector (optional)

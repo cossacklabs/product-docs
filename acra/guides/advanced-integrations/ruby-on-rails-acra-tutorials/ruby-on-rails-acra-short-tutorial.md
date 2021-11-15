@@ -105,4 +105,4 @@ Congratulations, you've integrated Acra with Ruby Gems.
 
 Additionally, you can look on our [engineering demo](https://github.com/cossacklabs/acra-engineering-demo#example-4-protecting-data-in-a-rails-application) 
 where we show how to run our example with docker-compose with all infrastructure supported by Acra: 
-AcraConnector, AcraWebConfig (deprecated after 0.90.0), AcraAuthManager (deprecated after 0.90.0), Prometheus, Jaeger.
+AcraConnector, AcraWebConfig (deprecated since 0.91.0), AcraAuthManager (deprecated since 0.91.0), Prometheus, Jaeger.

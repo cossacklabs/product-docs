@@ -72,7 +72,7 @@ Read more about connection configuration to [popular KMS](/acra/configuring-main
 ## Privileged operations
 
 {{< hint warning >}}
-It is deprecated and will not be available after 0.90.0.
+AcraWebConfig tool is deprecated and will not be available since 0.91.0.
 {{< /hint >}}
 
 AcraServer supports changing configuration in runtime using [AcraWebConfig's](/acra/configuring-maintaining/general-configuration/acra-webconfig). AcraWebConfig is a simple web UI service that requires HTTP basic authentication.

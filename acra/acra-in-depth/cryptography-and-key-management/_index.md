@@ -13,7 +13,7 @@ Cryptography is widely used across all Acra services for:
 * transport protection and authentication: during mutual authentication and encryption used in 
   [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) and [TLS](/acra/configuring-maintaining/tls/);
 * [audit logging](/acra/security-controls/security-logging-and-events/audit-logging/): when calculating integrity checks of log messages and log chains;
-* [password hashing](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file) of registered users of Acra Web Configuration UI (deprecated and removed after 0.90.0);
+* [password hashing](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file) of registered users of Acra Web Configuration UI (deprecated and removed since 0.91.0);
 * [key management](/acra/security-controls/key-management/): all intermediate keys are encrypted by key encryption keys and Acra Master Key.
 
 
@@ -99,7 +99,7 @@ Additionally, Acra's services accept only TLS 1.2+ connections and cipher suites
 ### Password hashing
 
 {{< hint warning >}}
-Deprecated and will not in use after 0.90.0.
+AcraWebConfig tool is deprecated and removed since 0.91.0. After 0.91.0, Acra components don't store any accounts, thus, don't use password hashing.
 {{< /hint >}}
 
 [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig) web UI supports basic authentication for users. Users' passwords are hashed and stored in the [auth file](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file).
