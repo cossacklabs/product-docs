@@ -34,7 +34,7 @@ Two components can provide tokenization functionality:
 
 {{< hint warning >}}
 Currently, AcraTranslator only supports consistent tokenization.
-If you need inconsistent tokenization, [contact us](mailto:sales@cossacklabs.com) to get this feature in enterprise edition.
+If you need inconsistent tokenization, [contact us](mailto:sales@cossacklabs.com) to get this feature in Acra Enterprise Edition.
 {{< /hint >}}
 
 Both of the require deploying an additional database, Redis by default, to store token<>encrypted data pairs.
