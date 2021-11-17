@@ -193,6 +193,10 @@ while the previous key is archived and used only for decryption.
   
 ### AcraServer & AcraAuthManager keys
 
+{{< hint warning >}}
+AcraAuthManager tool is deprecated and will not be available since 0.91.0.
+{{< /hint >}}
+
 * `--generate_acrawebconfig_keys`
   
   Generate a new symmetric key for encrypting AcraWebconfig's basic authentication credentials.

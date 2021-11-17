@@ -224,7 +224,7 @@ weight: 3
 
 ### Network
 
-* `--db_host=<host>`
+* `--db_host=<host>` 🔴
 
   Database host for AcraServer → database connections.
   Must be set.
@@ -436,10 +436,16 @@ For additional certificate validation flags, see corresponding pages:
   Default is `false`.
 
 
+  🔴 - flags required to be specified.
+
 ## HTTP API
 
 AcraServer handles HTTP requests that may change its internal state, generates new Zones or fetches data
 related with authentication of AcraWebConfig users.
+
+{{< hint warning >}}
+AcraWebConfig and AcraAuthManager are deprecated and will not be available since 0.91.0.
+{{< /hint >}}
 
 {{< hint warning >}}
 AcraServer supports only HTTP/1.1 requests without keep-alive.
@@ -469,7 +475,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   incorrect request
   ```
 
-- Endpoint: `/loadAuthData`.
+- Endpoint: `/loadAuthData` (deprecated since 0.91.0).
   Description: returns decrypted authentication data as pairs `<username>:<hash>` for AcraWebConfig. By default, encrypted
   data is stored in `configs/auth.keys` file in `htpasswd` format where each row is actually an entry related to separate user.
   Response type: text.
@@ -485,7 +491,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   incorrect request
   ```
 
-- Endpoint: `/getConfig`.
+- Endpoint: `/getConfig` (deprecated since 0.91.0).
   Description: returns current AcraServer's configuration used while startup (maybe changed via AcraWebConfig).
   Response type: JSON object.
   Response example:
@@ -507,7 +513,7 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   incorrect request
   ```
 
-- Endpoint: `/setConfig`.
+- Endpoint: `/setConfig` (deprecated since 0.91.0).
   Description: sets new configuration for AcraServer, dumps new configuration to config file specified from CLI flags
   or in config file (with default path) and gracefully restarts AcraServer's instance.
   Response type: empty.

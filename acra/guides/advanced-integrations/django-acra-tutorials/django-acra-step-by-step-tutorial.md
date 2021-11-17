@@ -45,7 +45,7 @@ with - [djangoproject.com](https://github.com/django/djangoproject.com) reposito
 Project to provide cryptographic protection of blog posts.
 
 Additionally, you can look on our [engineering demo](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site) where we show how to run our example with docker-compose with all
-infrastructure supported by Acra: AcraConnector, AcraWebConfig, AcraAuthManager, Prometheus, Jaeger.
+infrastructure supported by Acra: AcraConnector, AcraWebConfig (deprecated since 0.91.0), AcraAuthManager (deprecated since 0.91.0), Prometheus, Jaeger.
 
 
 ## Security model

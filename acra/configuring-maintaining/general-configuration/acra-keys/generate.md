@@ -11,7 +11,7 @@ weight: 2
 
 ### General flags
 
-* `--client_id=<id>`
+* `--client_id=<id>` 🔴
 
   Use provided ClientID as identifier to generate keys or keypairs.
 
@@ -28,7 +28,7 @@ weight: 2
 
   By default, certificate `distinguished_name` is used as ClientID.
 
-* `--keystore=<v1|v2>`
+* `--keystore=<v1|v2>` 🔴
 
   Set keystore format.
   Read more about [keystore versions]({{< ref "/acra/security-controls/key-management/versions/" >}}).
@@ -172,6 +172,10 @@ while the previous key is archived and used only for decryption.
 
 ### AcraServer & AcraAuthManager keys
 
+{{< hint warning >}}
+AcraAuthManager tool is deprecated and will not be available since 0.91.0.
+{{< /hint >}}
+
 * `--acrawebconfig_symmetric_key`
 
   Generate a new symmetric key for encrypting AcraWebconfig's basic authentication credentials.
@@ -192,3 +196,7 @@ while the previous key is archived and used only for decryption.
 * `--zone_id`
 
   Zone ID should be used for `zone_storage_key` generating.
+
+
+  🔴 - flags required to be specified.
+  > Exception: `--client_id` is not required when generating only poison record keys

@@ -22,8 +22,8 @@ There are pre-built images that you can obtain from the [Docker Hub Cossack Labs
 * [`acra-tools`](https://hub.docker.com/r/cossacklabs/acra-tools) – with Acra tools including AcraKeymaker
 * [`acra-keymaker`](https://hub.docker.com/r/cossacklabs/acra-keymaker) – with AcraKeymaker (deprecated in favoe `acra-tools`)
 * [`acra-connector`](https://hub.docker.com/r/cossacklabs/acra-connector) – with AcraConnector
-* [`acra-authmanager`](https://hub.docker.com/r/cossacklabs/acra-authmanager) – with AcraAuthmanager tool
-* [`acra-webconfig`](https://hub.docker.com/r/cossacklabs/acra-webconfig) – with AcraWebconfig component
+* [`acra-authmanager`](https://hub.docker.com/r/cossacklabs/acra-authmanager) (deprecated since 0.91.0)– with AcraAuthmanager tool
+* [`acra-webconfig`](https://hub.docker.com/r/cossacklabs/acra-webconfig) (deprecated since 0.91.0) – with AcraWebconfig component
 
 Docker images have tags. When we build them, we set appropriate tags for each image:
 

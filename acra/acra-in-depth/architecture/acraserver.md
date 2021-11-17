@@ -41,7 +41,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 * Is easy to integrate into existing infrastructure – supports SQL databases, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 * Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
-* Is integrated with [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) - a helper tool for re-configuring at runtime.
+* Is integrated with [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated since 0.91.0) - a helper tool for re-configuring at runtime.
 * Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [SQL firewall](/acra/security-controls/sql-firewall), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) for client-side encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
 
 
@@ -74,7 +74,7 @@ Other connections are optional – for example, you can use Redis as external ke
 
 * [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
 
-* [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) — optional lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
+* [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated since 0.91.0) — optional lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
 
 ## Architectural considerations
 
