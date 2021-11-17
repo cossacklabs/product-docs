@@ -62,4 +62,4 @@ Here are some of the traces and their subtraces collected by Acra services.
   tracks time of SecureSession/TLS handshakes for incoming connections
 
   * `<function>`
-    * if `handleCommandsConnection` — tracks processing time of command from AcraWebConfig
+    * if `handleCommandsConnection` — tracks processing time of requests to HTTP API.

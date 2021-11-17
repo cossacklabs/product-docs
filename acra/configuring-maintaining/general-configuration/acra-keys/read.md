@@ -101,7 +101,7 @@ Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v2`.
 {{< /hint >}}
 
 ```
-$ acra_keys generate --client_id=user1 --keystore=v2 --client_storage_key
+$ acra-keys generate --client_id=user1 --keystore=v2 --client_storage_key
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
@@ -125,10 +125,8 @@ INFO[0000] Initialized default env ACRA_MASTER_KEY loader
 Currently, only some key kinds are supported for printing via `read` subcommand.
 Here is the list of supported key kinds:
 
-- `poison-public` 
-- `poison-private`
-- `storage-public`
-- `storage-private`
-- `zone-public`
-- `zone-private`
+<!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
+- `poison-record` public, private
+- `client/<client ID>/storage` public, private
+- `zone/<zone ID>/storage` public, private
 {{< /hint >}}

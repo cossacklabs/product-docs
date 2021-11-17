@@ -145,6 +145,10 @@ Stored keys should not be world-readable.
 AcraServer and AcraTranslator check this and will refuse to launch if access to the keys is not properly restricted.
 {{< /hint >}}
 
+{{< hint warning >}}
+`auth_key` is deprecated and will not be used since 0.91.0.
+{{< /hint >}}
+
 If you are running Acra 0.86+ and wish to try the new [keystore version 2](../../versions/),
 use `--keystore=v2` option when generating the keys:
 
@@ -176,6 +180,10 @@ In this case the directory layout will be a bit different:
 │           └── translator.keyring
 └── version
 ```
+
+{{< hint warning >}}
+`authentication.keyring` is deprecated and will not be used since 0.91.0.
+{{< /hint >}}
 
 ## 2. Setting up AcraConnector (optional)
 

@@ -17,7 +17,7 @@ Acra contains a set of special CLI utilities and services for specialized use ca
 
 * [`acra-translator`](/acra/configuring-maintaining/general-configuration/acra-translator/) - provides Acra's [security controls](/acra/security-controls/) via HTTP / gRPC API for client-side apps. Also offers client-side SDKs for easier integration
 
-* [`acra-webconfig`](/acra/configuring-maintaining/general-configuration/acra-webconfig/) - provides web UI for AcraServer's runtime configuration
+* [`acra-webconfig`](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated since 0.91.0) - provides web UI for AcraServer's runtime configuration
 
 
 ## Utilities
@@ -31,7 +31,7 @@ Acra contains a set of special CLI utilities and services for specialized use ca
 * [`acra-addzone`](/acra/configuring-maintaining/general-configuration/acra-addzone/)
   - is used for generating new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs
 
-* [`acra-authmanager`](/acra/configuring-maintaining/general-configuration/acra-authmanager/)
+* [`acra-authmanager`](/acra/configuring-maintaining/general-configuration/acra-authmanager/) (deprecated since 0.91.0)
   - is used for [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) user management.
 
 * [`acra-backup`](/acra/configuring-maintaining/general-configuration/acra-backup/)
