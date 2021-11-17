@@ -3,7 +3,7 @@ title: acra-webconfig
 weight: 15
 ---
 
-# acra-webconfig
+# acra-webconfig (deprecated since 0.91.0)
 
 `acra-webconfig` is a simple web application that provides web UI for AcraServer's runtime configuration.
 You can adjust the following parameters of AcraServer via `acra-webconfig`:
