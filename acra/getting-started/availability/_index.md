@@ -18,7 +18,7 @@ Alternatively, you can manually [build Acra from sources](/acra/getting-started/
 
 
 {{< hint info >}}
-The server-side Acra components should not run on Windows OS as host OS, consider using Docker.
+The server-side Acra components should not run on Windows OS as host OS, consider using any kind of full virtualization, including Docker for Windows.
 {{< /hint >}}
 
 
@@ -38,8 +38,8 @@ You can [write to us](mailto:sales@cossacklabs.com) for consultancy of Acra depl
 
 Depending on the planned mode of use, there are three approaches to connecting your application to Acra:
 
-* directly to Acra as a regular SQL client (you [configure and deploy AcraServer](/acra/guides/integrating-acra-server-into-infrastructure/) and connect client-side app to it as if it's SQL database to transparently encrypt, decrypt, (de)tokenise, (de)mask data);
-* directly to Acra via HTTP / gRPC API (you [configure and deploy AcraTranslator](/acra/guides/integrating-acra-translator-into-new-infrastructure/) and call API requests from client-side app to encrypt, decrypt, (de)tokenize data);
+* directly to Acra as a regular SQL client ([configure and deploy AcraServer](/acra/guides/integrating-acra-server-into-infrastructure/) and connect client-side app to it as if it's SQL database to transparently encrypt, decrypt, (de)tokenise, (de)mask data);
+* directly to Acra via HTTP / gRPC API ([configure and deploy AcraTranslator](/acra/guides/integrating-acra-translator-into-new-infrastructure/) and call API requests from client-side app to encrypt, decrypt, (de)tokenize data);
 * integrating [SDK](/acra/acra-in-depth/architecture/sdks/) into your application.
 
 Each option has its own advantages, they are discussed in detail in the [Architecture](/acra/acra-in-depth/architecture/) and [Data flow](/acra/acra-in-depth/data-flow/) sections.
