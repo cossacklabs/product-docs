@@ -72,5 +72,3 @@ AcraServer or AcraTranslator, upon receiving and detecting a valid AcraStruct, i
 - Extracts Random Key (`RK`) for Secure Cell container out of a decrypted envelope;
 - Decrypts Secure Cell, extracts payload;
 - Reconstructs database answer in such a way that AcraStruct is replaced by decrypted data.
-
-If curious check implementation in [decryptor/base/utils.go](https://github.com/cossacklabs/acra/blob/master/decryptor/base/utils.go#L29).

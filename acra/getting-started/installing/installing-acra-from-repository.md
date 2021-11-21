@@ -99,10 +99,22 @@ sudo yum install acra
 
 That's it! You've successfully installed Acra from the Cossack Labs repository.
 
+
+## macOS
+
+Use [Acra as Docker image](/acra/getting-started/installing/launching-acra-from-docker-images/) on macOS.
+
+
+## Windows
+
+The server-side Acra components should not run on Windows OS as host OS, consider using Linux. Of course, there are ways to use intermediate Linux virtual machines over Windows, but we strongly discourage this approach in production.
+
 ---
 
 ## Guides
 
 As further steps, we recommend reading the following sections:
-* [Acra in depth](/acra/acra-in-depth/)
-* [Configuring & maintaining](/acra/configuring-maintaining/)
+* [Guide: Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/).
+* [Guide: Integrating AcraTranslator into infrastructure](/acra/guides/integrating-acra-translator-into-new-infrastructure/).
+* [Acra in depth](/acra/acra-in-depth/).
+* [Configuring & maintaining](/acra/configuring-maintaining/).
