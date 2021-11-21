@@ -102,7 +102,7 @@ That's it! You've successfully installed Acra from the Cossack Labs repository.
 
 ## macOS
 
-Use [Acra as Docker image](/acra/getting-started/installing/launching-acra-from-docker-images/) on macOS.
+Use [Acra as Docker image](/acra/getting-started/installing/launching-acra-from-docker-images/) on macOS. Alternatively, you may use Linux inside virtual machine and [install Linux packages from the Cossack Labs repository](/acra/getting-started/installing/installing-acra-from-repository/).
 
 
 ## Windows
