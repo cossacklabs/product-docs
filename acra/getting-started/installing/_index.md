@@ -6,13 +6,16 @@ weight: 4
 
 # Installing
 
-## AcraServer, AcraTranslator, AnyProxy
+## Server-side components 
 
-* [Linux packages from the Cossack Labs repository](/acra/getting-started/installing/installing-acra-from-repository/)
-* [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/)
+Most Acra components are server-side: AcraServer, AcraTranslator, AnyProxy, AcraConnector.
+
+* [Linux packages from the Cossack Labs repository](/acra/getting-started/installing/installing-acra-from-repository/) (← recommended)
+* [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/) (← recommended for Docker users)
 * [Installing Acra from sources](/acra/getting-started/installing/installing-acra-from-sources/)
 
-## AcraWriter
+
+## Client-side SDKs
 
 * [Building and installing AcraWriter](/acra/getting-started/installing/building-acrawriter/)
 
@@ -21,5 +24,8 @@ weight: 4
 ## Guides
 
 As further steps, we recommend reading the following sections:
-* [Acra in depth](/acra/acra-in-depth/)
-* [Configuring & maintaining](/acra/configuring-maintaining/)
+
+* [Guide: Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/).
+* [Guide: Integrating AcraTranslator into infrastructure](/acra/guides/integrating-acra-translator-into-new-infrastructure/).
+* [Acra in depth](/acra/acra-in-depth/).
+* [Configuring & maintaining](/acra/configuring-maintaining/).

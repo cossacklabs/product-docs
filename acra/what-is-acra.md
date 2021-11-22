@@ -58,8 +58,8 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * **Security enforcement components**: services where "encryption happens". One of them is required.
 * **Key storage:** datastores where Acra keeps encrypted keys: Redis, table in your database, any KV store. One of them is required.
-* **Master key storage:** KMS, Vault. One of them is required.
-* **Additional services and utils:** key management utils, data migration scripts, transport security service, UI configuration service. Any of them are optional.
+* **Master key storage:** KMS, Vault. One of them is strongly recommended..
+* **Additional services and utils:** key management utils, data migration scripts, transport security service, policy management tools. Any of them are optional.
 
 Acra provides security enforcement components in different shapes: 
 

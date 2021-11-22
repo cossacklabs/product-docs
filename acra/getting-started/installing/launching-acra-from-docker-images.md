@@ -54,5 +54,7 @@ make docker-build
 ## Guides
 
 As further steps, we recommend reading the following sections:
-* [Acra in depth](/acra/acra-in-depth/)
-* [Configuring & maintaining](/acra/configuring-maintaining/)
+* [Guide: Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/).
+* [Guide: Integrating AcraTranslator into infrastructure](/acra/guides/integrating-acra-translator-into-new-infrastructure/).
+* [Acra in depth](/acra/acra-in-depth/).
+* [Configuring & maintaining](/acra/configuring-maintaining/).

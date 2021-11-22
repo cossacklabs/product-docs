@@ -5,6 +5,10 @@ weight: 3
 
 # Installing Acra from sources
 
+{{< hint warning >}}
+In most cases, you don't want to install Acra from sources, use [packages](/acra/getting-started/installing/installing-acra-from-repository/) or [Docker](/acra/getting-started/installing/launching-acra-from-docker-images/) instead.
+{{< /hint>}}
+
 These are the instruction for installation of [AcraServer](/acra/acra-in-depth/architecture/acraserver/) from the [Cossack Labs' GitHub repository for Acra](https://github.com/cossacklabs/acra/). You will need the same set of dependencies for each component.
 
 ## Installing the dependencies
@@ -146,5 +150,7 @@ AcraConnector is now listening on the localhost port **9494**. Now try accessing
 ## Guides
 
 As further steps, we recommend reading the following sections:
-* [Acra in depth](/acra/acra-in-depth/)
-* [Configuring & maintaining](/acra/configuring-maintaining/)
+* [Guide: Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/).
+* [Guide: Integrating AcraTranslator into infrastructure](/acra/guides/integrating-acra-translator-into-new-infrastructure/).
+* [Acra in depth](/acra/acra-in-depth/).
+* [Configuring & maintaining](/acra/configuring-maintaining/).
