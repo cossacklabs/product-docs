@@ -1,6 +1,5 @@
 ---
 title: Trying
-bookCollapseSection: true
 weight: 3
 ---
 
@@ -9,6 +8,23 @@ weight: 3
 There are many ways to quickly get working Acra installations which allow you to test the features Acra provides and integration approaches with your applications.
 
 > WARNING! Do not use these configurations to store sensitive data! It is dangerous! They are meant for test-driving purposes only!
+
+## Engineering Examples
+
+For a more detailed study of the Acra's capabilities, we prepared [a collection of complete engineering examples](https://github.com/cossacklabs/acra-engineering-demo#what-is-this). Each one contains a sample application and a docker-compose file, that describes key management procedures and configurations of Acra.
+
+These applications include:
+
+* Integration examples for languages and frameworks: Python, Django, Rails
+* Integration examples for DBs: PostgreSQL and TimescaleDB
+* Launching AcraServer in different behaviors:
+  - AcraServer with transparent encryption
+  - AcraServer with client-side encryption
+* SQL injection prevention
+* Monitoring: metrics and tracing
+* HA / Balancing
+
+and many more.
 
 ## Docker + Docker Compose
 
@@ -113,19 +129,6 @@ Now you can run `docker-compose`:
 
 And connect to ports [described above](#quick-launch).
 
-## Engineering Demos
-
-For a more detailed study of the Acra's capabilities, we prepared [a couple of complete engineering demo repositories](https://github.com/cossacklabs/acra-engineering-demo#what-is-this). These demos include:
-* Integration examples for languages and frameworks: Python, Django, Rails
-* Integration examples for DBs: PostgreSQL and TimescaleDB
-* Launching Acra in different behaviors:
-  - Asymmetric encryption mode
-  - Transparent encryption mode
-* SQL injection prevention
-* Monitoring: metrics and tracing
-* HA / Balancing
-
-and many more.
 
 ## Digital Ocean 1-Click App
 
@@ -134,9 +137,13 @@ For another quick start with Acra, you can get a [minimalistic version of Acra C
 [Refer to the guide](/acra/guides/acra-on-digital-ocean/).
 
 
-## Example application
+## Even more example apps
 
-In the following examples, we assume that the schemes are running and all the environment variables are set as described in the code block below. For your convenience, we recommend that you perform the following actions in two different shell windows:  run the Docker in one and the examples in another.
+<!-- remove these at all? -->
+
+Acra has even more examples that are part of Acra Community Edition repository. 
+
+For your convenience, we recommend that you perform the following actions in two different shell windows: run the Docker in one and the examples in another.
 
 Please define the same set of environment variables in **both** shell windows before proceeding to the next steps:
 ```bash
@@ -149,7 +156,8 @@ export POSTGRES_PASSWORD="dbpassword"
 export ACRA_CLIENT_ID="acraclient"
 ```
 
-### Install the dependencies for the example application
+### Install the dependencies for the example app
+
 (shell window #2)
 
 > Important: You must start with installing Themis encryption library for Acra to work. Please follow either [these instructions]({{< ref "themis/installation/" >}}) or use a simple [script](https://pkgs.cossacklabs.com/scripts/libthemis_install.sh) to install Themis before proceeding.
