@@ -27,21 +27,15 @@ All Acra components require TLS version 1.2+ and deny connections with lower ver
 cipher suits that uses ECDHE for handshakes and modern strong symmetric key encryption algorithms with authentication, as 
 AES+GCM, ChaCha20+Poly1305. 
 
-You can find all supported cipher suits [in our code in repository](https://github.com/cossacklabs/acra/blob/release/0.85.0/network/tls_wrapper.go#L33).
+You can find all supported cipher suits [in Acra Community Edition repository](https://github.com/cossacklabs/acra/blob/release/0.85.0/network/tls_wrapper.go#L33).
 
 ### Databases
 
 AcraServer works as proxy for [PostgreSQL wire protocol](https://www.postgresql.org/docs/14/protocol.html) and 
-[MySQL wire protocol](https://dev.mysql.com/doc/internals/en/client-server-protocol.html). 
+[MySQL wire protocol](https://dev.mysql.com/doc/internals/en/client-server-protocol.html). Overall, Acra supports all databases that works over these protocols. We regularly run tests with MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github.com/cossacklabs/acra/blob/release/0.85.0/.circleci/config.yml) and private CI. 
 
-We regularly run tests with MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github.com/cossacklabs/acra/blob/release/0.85.0/.circleci/config.yml) and private CI. 
+**Databases that AcraServer is known to work with**: MySQL 5.7+, PostgreSQL 9.4+, MariaDB 10.3, Google Cloud SQL, Amazon RDS, TiDB, CockroachDB. 
 
-Databases that AcraServer is known to work with: MySQL 5.7+, PostgreSQL 9.4+, MariaDB 10.3, Google Cloud SQL, Amazon RDS, TiDB, CockroachDB. 
-
-Overall, Acra supports all databases that works over these wire protocols. 
-
-Some of them we test for our
-enterprise clients with [Acra Enterprise Edition](/acra/enterprise-edition/).
 Acra Community Edition doesn't support [Protocol X](https://dev.mysql.com/doc/internals/en/x-protocol.html) of MySQL. If this is something important for you, consider writing us [an email](mailto:sales@cossacklabs.com) and checking out [Acra Enterprise Edition](/acra/enterprise-edition/).
 
 ### NoSQL / KV data stores
@@ -69,14 +63,11 @@ If you want to use [AcraTranslator, encryption-as-a-service](/acra/acra-in-depth
 - Your application uses AcraConnector to connect to AcraTranslator.
   Or it connects directly, TLS is mandatory in this case.
 
-If you need [AcraWriter/AcraReader, in-app SDK for encryption/decryption](/acra/acra-in-depth/architecture/sdks/) (usually used in combination with AcraServer or AcraTranslator):
+If you want to use client-side SDKs ([AcraWriter, AcraReader or AcraTranslator SDK](/acra/acra-in-depth/architecture/sdks/), usually used in combination with AcraServer or AcraTranslator):
 
 - Your application is written in any language supported by the SDK.
-  This currently includes: Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (Android).
-- [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) library is installed for your application
-  that will encrypt the data inside your app ("client side encryption").
-  AcraWriter uses [Themis](/themis/installation/) and OpenSSL/BoringSSL as dependencies.
-  If you prefer "transparent encryption proxy" mode (AcraServer), no additional libraries will be necessary for your app.
+  This currently includes: Ruby, Python, Go, C++, Node.js, PHP, Swift/Objective-C (iOS), or Java (desktop, Android).
+- SDK is installed for your application.
 
 {{< hint info >}}
 Note: Read the documentation before starting out with Acra!
@@ -92,4 +83,4 @@ Also, remember that:
 
 ### Languages
 
-Check [the list of languages for which SDK are available](/acra/getting-started/availability/#sdk--acrawriter).
+Check [the list of languages for which SDK are available](/acra/getting-started/availability/#sdks).

@@ -11,12 +11,10 @@ bookCollapseSection: true
 We've made sure that this documentation service covers maximum of Acra's capabilities and configuration nuances. However, it is a considerable effort to do thorough study, so there are a few shortcuts for those willing to get their hands dirty faster:
 
 * [Trying Acra](/acra/getting-started/trying/) (many ways to get a fully working Acra from scratch).
-* [Acra Engineering Examples](https://github.com/cossacklabs/acra-engineering-demo#what-is-this) (illustrates different facets of using Acra, from infrastructure integration to certain narrow product security problems).
 * [Installing](/acra/getting-started/installing/) (typical Acra installation ways).
-* [AcraServer-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/).
-* [AcraTranslator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator).
-* [Running Acra via DO marketplace](/acra/guides/acra-on-digital-ocean).
-* [Advanced integrations with client-side encryption](/acra/guides/advanced-integrations/).
+* Guides:
+  * [AcraServer-based workflow](/acra/guides/integrating-acra-server-into-infrastructure/#integrating-acra-server-into-infrastructure/).
+  * [AcraTranslator-based workflow](/acra/guides/integrating-acra-translator-into-new-infrastructure/#usage-of-acratranslator).
 
 ## Acra Enterprise Edition
 
