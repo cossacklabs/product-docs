@@ -4,6 +4,7 @@ title: "Acra in a nutshell"
 bookFlatSection: true
 productMenuTitle: "acra"
 Menu: "main"
+searchScope: "acra"
 ---
 
 # Acra in a nutshell

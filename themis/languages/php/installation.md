@@ -1,6 +1,6 @@
 ---
 weight: 2
-title:  Installation
+title: PHP installation
 ---
 
 # Installing PHPThemis

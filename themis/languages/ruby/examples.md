@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title: Ruby examples
 ---
 
 # Example projects with RbThemis

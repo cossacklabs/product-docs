@@ -1,6 +1,6 @@
 ---
 weight: 4
-title:  Examples
+title: Swift examples
 ---
 
 # Example projects with SwiftThemis
