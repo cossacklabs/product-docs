@@ -1,6 +1,6 @@
 ---
 weight: 4
-title:  Features
+title: PHP features
 ---
 
 # Features of PHPThemis

@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title: PHP examples
 ---
 
 # Example projects with PHPThemis

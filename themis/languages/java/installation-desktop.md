@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Installation for desktop
+title: Java desktop installation
 ---
 
 # Installing JavaThemis for desktop development

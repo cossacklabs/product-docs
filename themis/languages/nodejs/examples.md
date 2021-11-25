@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title: Node.js examples
 ---
 
 # Example projects with JsThemis

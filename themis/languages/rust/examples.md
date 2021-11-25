@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title: Rust examples
 ---
 
 # Example projects with RustThemis

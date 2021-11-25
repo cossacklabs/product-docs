@@ -1,6 +1,6 @@
 ---
 weight: 4
-title:  Examples
+title: Kotlin examples
 ---
 
 # Example projects with JavaThemis
