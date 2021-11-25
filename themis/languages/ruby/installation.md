@@ -1,6 +1,6 @@
 ---
 weight: 2
-title:  Installation
+title: Ruby installation
 ---
 
 # Installing RbThemis

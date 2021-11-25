@@ -1,6 +1,6 @@
 ---
 weight: 2
-title:  Installation for Android
+title: Android installation
 ---
 
 # Installing JavaThemis for Android development

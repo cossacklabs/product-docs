@@ -1,6 +1,6 @@
 ---
 weight: 5
-title:  Features
+title: Java features
 ---
 
 # Features of JavaThemis
@@ -893,7 +893,7 @@ It is built around a [_Zero-Knowledge Proof_][ZKP]-based protocol
 ([Socialist Millionaire's Protocol][SMP]),
 with a number of [security enhancements][paper].
 
-[ZKP]: https://www.cossacklabs.com/zero-knowledge-protocols-without-magic.html
+[ZKP]: https://www.cossacklabs.com/blog/zero-knowledge-protocols-without-magic/
 [SMP]: https://en.wikipedia.org/wiki/Socialist_millionaire_problem
 [paper]: https://www.cossacklabs.com/files/secure-comparator-paper-rev12.pdf
 
