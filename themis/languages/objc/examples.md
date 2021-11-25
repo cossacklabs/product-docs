@@ -1,6 +1,6 @@
 ---
 weight: 4
-title:  Examples
+title: ObjC examples
 ---
 
 # Example projects with ObjCThemis

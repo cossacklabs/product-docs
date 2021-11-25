@@ -1,6 +1,6 @@
 ---
 weight: 2
-title:  Installation
+title: Swift/ObjC installation
 ---
 
 # Installing Themis for iOS and macOS

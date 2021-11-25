@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title:  WASM examples
 ---
 
 # Example projects with WasmThemis
