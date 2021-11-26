@@ -11,6 +11,6 @@ This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/
 
 Acra Community Edition runs based on one configuration file. Pretty sophisticated one, but that's still fairly limited. 
 
-To enable Acra to be more flexible security control, apply different policies based on keys, origin and other factors, Acra Enterprise Edition features policy engine. 
+Acra Enterprise Edition features policy engine provides better flexibility for Acra's security controls and allows an appliance of various security policies based on cryptographic keys.
 
 We're in process of revamping configuration syntax and likely in the next release this section will get populated with new syntax.

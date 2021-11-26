@@ -7,7 +7,7 @@ weight: 6
 
 In most libraries/frameworks for working with SQL databases a connection object corresponds directly to
 established and authenticated connection with the database.
-You get a single connection object for every successful connection to the database with approriate credentials.
+You get a single connection object for every successful connection to the database with appropriate credentials.
 It is recommended to **reuse** connection objects as much as possible,
 typically via some sort of *connection pool*.
 

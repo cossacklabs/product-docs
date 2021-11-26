@@ -5,6 +5,6 @@ weight: 10
 
 # Zones performance
 
-If you have a lot of resources to run Acra on, or a small number of users, you can map each user to a separate [Zone](/acra/security-controls/zones/). This will make each user compartmented key-wise.
+For "key-wise" compartmentalization, each Acra's user can be mapped to a separate [Zone](/acra/security-controls/zones/). This recommendation is relevant when overall amount of users is not big and hardware resources dedicated for Acra instances are not limited.
 
 The more Zones and Zone keys you've got, the longer it takes to scan through the database response.
