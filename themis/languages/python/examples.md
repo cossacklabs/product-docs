@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title: Python examples
 ---
 
 # Example projects with PyThemis

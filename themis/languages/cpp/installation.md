@@ -1,6 +1,6 @@
 ---
 weight: 2
-title:  Installation
+title: "C++ installation"
 ---
 
 # Installing ThemisPP

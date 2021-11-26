@@ -4,6 +4,7 @@ title: "Acra in a nutshell"
 bookFlatSection: true
 productMenuTitle: "acra"
 Menu: "main"
+searchScope: "acra"
 ---
 
 # Acra in a nutshell
@@ -25,7 +26,7 @@ If you're just getting started with Acra, please start with [What is Acra page](
 
 ## Latest release and revision 
 
-The latest [Acra Community Edition](https://github.com/cossacklabs/acra/) release is [0.85.0](https://github.com/cossacklabs/acra/releases/tag/0.85.0).
+The latest [Acra Community Edition](https://github.com/cossacklabs/acra/) release is [0.90.0](https://github.com/cossacklabs/acra/releases/tag/0.90.0).
 
 The latest [Acra Enteprise Edition](/acra/enterprise-edition/) release is 0.90.0. Please talk to [your sales representative](mailto:sales@cossacklabs.com) to update Acra EE.
 

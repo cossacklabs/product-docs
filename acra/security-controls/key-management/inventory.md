@@ -200,6 +200,10 @@ As poison records should look like encrypted data, you should generate either sy
 
 ### Authentication storage key
 
+{{< hint warning >}}
+It is deprecated and will not be used since 0.91.0.
+{{< /hint >}}
+
 If you're using [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) to configure AcraServer remotely, the users' credentials are stored encrypted with authentication storage key and are decrypted on AcraServer upon users' login. AcraServer needs to have an authentication storage key.
 
 | Purpose  | Symmetric key  | Stays on

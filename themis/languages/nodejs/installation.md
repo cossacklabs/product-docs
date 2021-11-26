@@ -1,6 +1,6 @@
 ---
 weight: 2
-title:  Installation
+title: Node.js installation
 ---
 
 # Installing JsThemis

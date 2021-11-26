@@ -4,6 +4,7 @@ bookFlatSection: true
 title: "Themis in a nutshell"
 productMenuTitle: "themis"
 Menu: "main"
+searchScope: "themis"
 ---
 
 # Themis in a nutshell

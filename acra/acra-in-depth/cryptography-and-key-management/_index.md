@@ -13,7 +13,7 @@ Cryptography is widely used across all Acra services for:
 * transport protection and authentication: during mutual authentication and encryption used in 
   [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) and [TLS](/acra/configuring-maintaining/tls/);
 * [audit logging](/acra/security-controls/security-logging-and-events/audit-logging/): when calculating integrity checks of log messages and log chains;
-* [password hashing](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file) of registered users of Acra Web Configuration UI;
+* [password hashing](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file) of registered users of Acra Web Configuration UI (deprecated and removed since 0.91.0);
 * [key management](/acra/security-controls/key-management/): all intermediate keys are encrypted by key encryption keys and Acra Master Key.
 
 
@@ -29,10 +29,11 @@ To deliver its unique guarantees, Acra relies on the combination of well-known c
 |Use case|Crypto source|
 |--|--|
 |Default crypto-primitive source|OpenSSL|
-|Supported crypto-primitive sources |BoringSSL, LibreSSL, FIPS-compliant, GOST-compliant, HSM|
+|Custom crypto-primitive sources |BoringSSL, LibreSSL, FIPS-compliant, GOST-compliant, HSM|
 |Storage encryption|AES-256-GCM-PKCS#7 + ECDH (AcraStructs) or AES-256-GCM-PKCS#7 (AcraBlocks)|
 |Transport encryption|TLS v1.2+ / Themis Secure Session|
-|KMS integration|Amazon KMS, Google Cloud Platform KMS, Hashicorp Vault, Keywhiz|
+
+Only [Acra Enterprise Edition](/acra/enterprise-edition/) supports custom crypto-primitives sources.
 
 
 ### Themis
@@ -96,6 +97,10 @@ Additionally, Acra's services accept only TLS 1.2+ connections and cipher suites
 
 
 ### Password hashing
+
+{{< hint warning >}}
+AcraWebConfig tool is deprecated and removed since 0.91.0. After 0.91.0, Acra components don't store any accounts, thus, don't use password hashing.
+{{< /hint >}}
 
 [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig) web UI supports basic authentication for users. Users' passwords are hashed and stored in the [auth file](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file).
 

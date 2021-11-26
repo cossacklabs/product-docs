@@ -1,6 +1,5 @@
 ---
 title: Trying
-bookCollapseSection: true
 weight: 3
 ---
 
@@ -9,6 +8,23 @@ weight: 3
 There are many ways to quickly get working Acra installations which allow you to test the features Acra provides and integration approaches with your applications.
 
 > WARNING! Do not use these configurations to store sensitive data! It is dangerous! They are meant for test-driving purposes only!
+
+## Engineering Examples
+
+For a more detailed study of the Acra's capabilities, we prepared [a collection of complete engineering examples](https://github.com/cossacklabs/acra-engineering-demo#what-is-this). Each one contains a sample application and a docker-compose file, that describes key management procedures and configurations of Acra.
+
+These applications include:
+
+* Integration examples for languages and frameworks: Python, Django, Rails
+* Integration examples for DBs: PostgreSQL and TimescaleDB
+* Launching AcraServer in different behaviors:
+  - AcraServer with transparent encryption
+  - AcraServer with client-side encryption
+* SQL injection prevention
+* Monitoring: metrics and tracing
+* HA / Balancing
+
+and many more.
 
 ## Docker + Docker Compose
 
@@ -37,9 +53,9 @@ Now you can connect to (you can see the default DB name and credentials inside t
 | 9191/tcp | AcraServer/AcraConnector API | zonemode                                |
 | 9393/tcp | AcraServer                   | absent AcraConnector                    |
 | 9494/tcp | AcraConnector                | present AcraConnector                   |
-| 8000/tcp | AcraWebconfig                | present AcraConnector and SecureSession |
 | 5432/tcp | PostgreSQL                   | PostgreSQL                              |
 | 3306/tcp | MySQL                        | MySQL                                   |
+| 8000/tcp | AcraWebconfig (deprecated and removed since 0.91.0) | present AcraConnector and SecureSession |
 
 Please refer to the [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/) ff you need more information about Docker images.
 
@@ -47,7 +63,7 @@ Please refer to the [Launching Acra from Docker images](/acra/getting-started/in
 
 We want you to be able to easily try the most useful schemes that we prepared as Docker Compose files in the `docker` subdirectory. The name of each Docker Compose file describes its components and their interconnections in a simple form. For example: `docker-compose.pgsql-nossl-server-ssession-proxy.yml` is a scheme with Postgresql DB, AcraServer, and AcraConnector, connected to AcraServer through the Themis Secure Session link.
 
-The examples contain references to `acra-keymaker` and `acra-authmanager` containers inside. They are used for creation and distribution of the necessary keys. They were included for simplification of the test launch and should not be used in production schemes (where the keys should be generated manually and deployed to an appropriate host according to the security rules of your infrastructure).
+The examples contain references to `acra-keymaker` and `acra-authmanager` (deprecated and removed since 0.91.0) containers inside. They are used for creation and distribution of the necessary keys. They were included for simplification of the test launch and should not be used in production schemes (where the keys should be generated manually and deployed to an appropriate host according to the security rules of your infrastructure).
 
 Check out the [docker folder](https://github.com/cossacklabs/acra/blob/master/docker) for examples of compose files.
 
@@ -98,6 +114,9 @@ export MYSQL_PASSWORD="<user_password>"
 ```
 
 In order to access AcraWebConfig HTTP interface, you can define:
+{{< hint warning >}}
+Note that this component will be removed from Acra and docker-compose files since 0.91.0 version.
+{{< /hint >}}
 ```bash
 export ACRA_HTTPAUTH_USER=<http_auth_user>
 export ACRA_HTTPAUTH_PASSWORD=<http_auth_password>
@@ -110,19 +129,6 @@ Now you can run `docker-compose`:
 
 And connect to ports [described above](#quick-launch).
 
-## Engineering Demos
-
-For a more detailed study of the Acra's capabilities, we prepared [a couple of complete engineering demo repositories](https://github.com/cossacklabs/acra-engineering-demo#what-is-this). These demos include:
-* Integration examples for languages and frameworks: Python, Django, Rails
-* Integration examples for DBs: PostgreSQL and TimescaleDB
-* Launching Acra in different behaviors:
-  - Asymmetric encryption mode
-  - Transparent encryption mode
-* SQL injection prevention
-* Monitoring: metrics and tracing
-* HA / Balancing
-
-and many more.
 
 ## Digital Ocean 1-Click App
 
@@ -131,9 +137,13 @@ For another quick start with Acra, you can get a [minimalistic version of Acra C
 [Refer to the guide](/acra/guides/acra-on-digital-ocean/).
 
 
-## Example application
+## Even more example apps
 
-In the following examples, we assume that the schemes are running and all the environment variables are set as described in the code block below. For your convenience, we recommend that you perform the following actions in two different shell windows:  run the Docker in one and the examples in another.
+<!-- remove these at all? -->
+
+Acra has even more examples that are part of Acra Community Edition repository. 
+
+For your convenience, we recommend that you perform the following actions in two different shell windows: run the Docker in one and the examples in another.
 
 Please define the same set of environment variables in **both** shell windows before proceeding to the next steps:
 ```bash
@@ -146,7 +156,8 @@ export POSTGRES_PASSWORD="dbpassword"
 export ACRA_CLIENT_ID="acraclient"
 ```
 
-### Install the dependencies for the example application
+### Install the dependencies for the example app
+
 (shell window #2)
 
 > Important: You must start with installing Themis encryption library for Acra to work. Please follow either [these instructions]({{< ref "themis/installation/" >}}) or use a simple [script](https://pkgs.cossacklabs.com/scripts/libthemis_install.sh) to install Themis before proceeding.

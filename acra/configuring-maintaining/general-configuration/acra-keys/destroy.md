@@ -111,7 +111,8 @@ INFO[0000] Initialized default env ACRA_MASTER_KEY loader
 Currently, only some key kinds are supported for destroying via `destroy` subcommand.
 Here is the list of supported key kinds:
 
-- `transport-connector`
-- `transport-server`
-- `transport-translator`
-  {{< /hint >}}
+<!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
+- `client/<client ID>/transport/connector`
+- `client/<client ID>/transport/server`
+- `client/<client ID>/transport/translator`
+{{< /hint >}}

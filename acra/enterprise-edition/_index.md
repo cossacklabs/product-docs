@@ -28,7 +28,9 @@ Review comparison of Acra Community Edition and Acra Enterprise Edition features
   * Additional key management options - different ways to trigger key rotation / revocation / generation that are more characteristic of large-scale commercial use-cases. 
   * Custom key schedules - being able to override some of key management automation attributes. 
   * Customizeable key stores - Acra can store intermediary keys in a number of formats. Acra Enterprise Edition provides even more flexibility when doing so. 
-  * Hardened key lifecycle - we are researching different ways to improve Acra's resilience in hostile environment, including schemes which do not require master key to ever leave HSM/KMS, etc. 
+  * Hardened key lifecycle - we are researching different ways to improve Acra's resilience in hostile environment, including schemes which do not require master key to ever leave HSM/KMS, etc.
+  * Custom crypto-primitives – Acra can be built with FIPS-compliant source of crypto-primivites, GOST-compliant, with BoringSSL, LibreSSL or HSM support. 
+  * More KMS are supported. 
 
 See [Key management guides](/acra/security-controls/key-management/).
 
@@ -68,6 +70,8 @@ We provide a great flexibility around Acra Enterprise Edition. Select what is be
 * **Acra license & support** – we give you Acra, your team has full control around Acra. We provide support when required.
 * **Acra managed solution** – we give you Acra and we manage Acra for you in your infrastructure. We act like your Ops team.
 * **Acra custom solution** – we customize Acra for your use case and your infrastructure. Support another database, change tokenization format, produce more logs, build custom modules for your SCADA system – we are in.
+
+Partial licensing is also possible. You can pre-select components that you need and get a license only for them. For example, license AcraTranslator and its required components without AcraServer. Use less, maintain less, pay less.
 
 
 ## How to evaluate and get started

@@ -1,6 +1,6 @@
 ---
 weight: 3
-title:  Examples
+title: "C++ examples"
 ---
 
 # Example projects with ThemisPP

@@ -26,7 +26,7 @@ Only Acra Master Key loaded securely gives Acra access to intermediate keys and 
 
 The load could happen:
 
-* directly via environment variable (refer to [Configuring and maintaining / General configuration / Necessary preparations](/acra/configuring-maintaining/general-configuration/necessary-preparations/));
+* directly via environment variable (refer to [Security Controls / Key management](/acra/security-controls/key-management/operations/generation/#master-keys));
 
 * directly from KMS (AcraServer/AcraTranslator support KMS integration directly to read Acra Master Key, see [below](#supported-kmss));
 
@@ -65,5 +65,10 @@ You can find out how to configure access to KMS on `HashiCorp Vault` section on 
 
 
 ### GCP KMS
+
+[Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.
+
+
+### Keywhiz
 
 [Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.

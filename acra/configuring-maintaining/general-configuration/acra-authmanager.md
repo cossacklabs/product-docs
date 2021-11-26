@@ -3,7 +3,7 @@ title: acra-authmanager
 weight: 14
 ---
 
-# acra-authmanager
+# acra-authmanager (deprecated since 0.91.0)
 
 `acra-authmanager` is CLI utility for [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) user management.
 Using this utility you can add/update/remove users that should have access to web UI of `acra-webconfig`. It changes 

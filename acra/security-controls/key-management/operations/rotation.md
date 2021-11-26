@@ -347,7 +347,7 @@ Try quering the migrated data to confirm that AcraServer or AcraTranslator are a
 There are some other keys which are not covered here:
 
   - master keys
-  - AcraWebconfig keys
+  - AcraWebconfig keys (deprecated since 0.91.0)
   - poison record keys (do we need to rotate them at all?)
   - various Acra EE keys:
     - search token keys
