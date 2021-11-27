@@ -5,14 +5,14 @@ weight: 9
 
 # Obtaining metrics
 
-Acra services provide Prometheus metrics when configured to do so with `--incoming_connection_prometheus_metrics_string` flag.
+Acra services support Prometheus metrics provision. It can be configured with `--incoming_connection_prometheus_metrics_string` flag.
 
-This includes
+Metrics can be provided by
 [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/#network),
-[AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/#network),
+[AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/#network) and
 [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/).
 
-More info about this on [metrics page](/acra/configuring-maintaining/metrics/).
+More info can be found on [metrics page](/acra/configuring-maintaining/metrics/).
 
 Here is an example of metrics exported:
 ```

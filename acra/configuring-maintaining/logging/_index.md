@@ -6,7 +6,7 @@ weight: 9
 
 # Logging in Acra
 
-Starting with version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats](/acra/configuring-maintaining/logging/formats/)
+Starting from version [`0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), Acra supports [multiple logging formats](/acra/configuring-maintaining/logging/formats/)
 
 - plaintext
 - CEF

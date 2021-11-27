@@ -10,7 +10,7 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
 
 * `--tls_ocsp_url=<url>`
 
-  OCSP service URL.
+  URL of OCSP service.
   Empty by default.
 
   Should point to HTTP server that accepts `application/ocsp-request` MIME type
@@ -20,7 +20,7 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
   passed simultaneously with same value.
 
   For `acra-connector` and `acra-translator` (that can only work as TLS clients)
-  it will set OCSP URL for validation of certificates sent by server.
+  it will set OCSP's URL for validation of certificates sent by the server.
 
 * `--tls_ocsp_client_url=<url>`
 
@@ -48,7 +48,7 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
   * `use` — try URL(s) from certificate after the one from configuration (if set)
   * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-  * `ignore` — completely ignore OCSP URL(s) specified in certificate
+  * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags.
 
@@ -60,13 +60,12 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
   * `false` — (default) validate leaf certificate and all intermediate certificates
 
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
-  Also, even if this flag is `false` but there's no OCSP URL configured and no OCSP URL in intermediate CA certificates,
+  Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know whom to ask about them.
 
-## Make `openssl` include OCSP service URL when signing CSR
+## Including OCSP's URL while signing CSR
 
-When using `openssl` to sign Certificate Signing Requests,
-an extension can be added to make certificate include OCSP service(s) URL(s):
+An additional extension with URL(s) of OCSP service(s) can be included into certificate while signing Certificate Signing Requests via `openssl`:
 ```
 # in section that contains used X.509 v3 extensions
 authorityInfoAccess = @ocsp_section
@@ -74,14 +73,12 @@ authorityInfoAccess = @ocsp_section
 # section that describes OCSP service URL(s)
 [ ocsp_section ]
 OCSP;URI.0 = http://127.0.0.1:8080
-# OCSP;URI.1 = http://host:port and so on for additional OCSP URLs
+# OCSP;URI.1 = http://host:port and so on for additional OCSP's URLs
 ```
 
 ## Running `openssl ocsp` server
 
-If you have custom openssl configuration file, if you are able to run command like
-`openssl ca ...` and have signed certificates appear in certificate database (usually called `index.txt`),
-you can launch this simple yet completely functional OCSP server:
+You can launch simple, yet completely functional OCSP server, following provided [certificate generation example](generate-certificate-with-openssl)
 ```
 openssl ocsp \
     -port 8080 \

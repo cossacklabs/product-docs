@@ -17,17 +17,17 @@ However, for an enterprise environment there are various security and operationa
 
 ## Why Acra Enterprise Edition?
 
-Acra Enterprise Edition ia tailored for enterprise businesses with multiple apps or databases. It's faster, easier to maintain and automate, and is boosted by our years of experience doing data security.
+Acra Enterprise Edition is tailored for enterprise businesses with multiple apps or databases. It's faster, easier to maintain and automate, and is boosted by our years of experience doing data security.
 
-Acra Enteprise Edition is compatible with Acra Community Edition (you can start with Acra Community Edition and migrate to Acra Enteprise Edition later).
+Acra Enterprise Edition is compatible with Acra Community Edition (you can start with Acra Community Edition and migrate to Acra Enteprise Edition later).
 
 Review comparison of Acra Community Edition and Acra Enterprise Edition features on [Cossack Labs site](https://www.cossacklabs.com/acra).
 
 ### Key management
 
   * Additional key management options - different ways to trigger key rotation / revocation / generation that are more characteristic of large-scale commercial use-cases. 
-  * Custom key schedules - being able to override some of key management automation attributes. 
-  * Customizeable key stores - Acra can store intermediary keys in a number of formats. Acra Enterprise Edition provides even more flexibility when doing so. 
+  * Custom key schedules - being able to override some key management automation attributes.
+  * Customizable key stores - Acra can store intermediary keys in a number of formats. Acra Enterprise Edition provides even more flexibility when doing so.
   * Hardened key lifecycle - we are researching different ways to improve Acra's resilience in hostile environment, including schemes which do not require master key to ever leave HSM/KMS, etc.
   * Custom crypto-primitives – Acra can be built with FIPS-compliant source of crypto-primivites, GOST-compliant, with BoringSSL, LibreSSL or HSM support. 
   * More KMS are supported. 
@@ -55,8 +55,8 @@ See [Security automation guides](/acra/security-controls/security-logging-and-ev
 ### Even more convenient infrastructure
 
   * Acra Enterprise Edition separates control plane (configuration management) from data plane (point of enforcing security policy).
-  * Acra Enterprise Edition allows to spawn enforcement nodes (SQL Proxies and APIs) easily and manage their load.
-  * Acra Enterprise Edition allows to more flexibly distribute key storage / management components.
+  * Acra Enterprise Edition allows spawning enforcement nodes (SQL Proxies and APIs) easily and manage their load.
+  * Acra Enterprise Edition allows more flexible distribution of key storage / management components.
 
 
 ## Licensing and form-factors of Acra Enterprise Edition
