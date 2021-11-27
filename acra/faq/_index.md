@@ -21,6 +21,6 @@ We're constantly improving Acra's SQL parser, but we are small company with limi
 
 No. Acra's keys are tightly bound to data structures it operates and cryptographic protocols that these data structures implement. For performance reasons, Acra's keys are much simpler and straightforward than most widely recognized formats.
 
-### What happens if I lost Acra master key?
+### What happens if I lost Acra Master Key?
 
 Uh-oh, we believe that you've backed up the key and it's stored in KMS. Right? Please refer to [Key management / Troubleshooting guide](/acra/security-controls/key-management/troubleshooting/#losing-the-keys) to learn more.

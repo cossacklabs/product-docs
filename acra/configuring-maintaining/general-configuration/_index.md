@@ -19,7 +19,6 @@ Acra contains a set of special CLI utilities and services for specialized use ca
 
 * [`acra-webconfig`](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated since 0.91.0) - provides web UI for AcraServer's runtime configuration
 
-
 ## Utilities
 
 * [`acra-keys`](/acra/configuring-maintaining/general-configuration/acra-keys/)

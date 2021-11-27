@@ -133,7 +133,7 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 
 {{< hint warning >}}
 **Note:**
-Starting with Acra [`v.0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), `acra-rollback` requires Go version >= 1.8.
+Starting from Acra [`v.0.77.0`](https://github.com/cossacklabs/acra/releases/tag/0.77.0), `acra-rollback` requires Go version >= 1.8.
 {{< /hint >}}
 
 

@@ -5,7 +5,7 @@ weight: 10
 
 # Acra and security compliance
 
-Acra provides under-the-hood cryptographic and security processes that are mandated by various data security and privacy compliance requirements. Although a 3rd party companies have not audited acra Community Edition for compliance to any of these, open-source adopters report using it in regulated environments. 
+Acra provides under-the-hood cryptographic and security processes that are mandated by various data security and privacy compliance requirements. Although a 3rd party companies have not audited Acra Community Edition for compliance to any of these, open-source adopters report using it in regulated environments.
 
 
 Check out the data encryption cheatsheet covering several current data privacy regulations in [Cossack Labs blog](https://www.cossacklabs.com/blog/what-we-need-to-encrypt-cheatsheet.html).
@@ -40,7 +40,7 @@ Acra provides “state of the art security of processing” required by article 
 
 > Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk [...]
 
-Also, the components of Acra allow encrypting data on the client-side, which enables the secure transfer of the data in encrypted form through an untrusted channel.
+Also, the components of Acra allow encrypting data on the client-side, which enables the secure transfer of the data in encrypted form through an untrusted communication channel.
 
 ### Logging, Intrusion Detection, and Notification
 
@@ -128,7 +128,7 @@ Acra’s encryption is linked with ClientID – an application identifier – th
 
 **Introduce a mechanism to authenticate ePHI**
 
-All connections that are going through Acra are [logged](/acra/security-controls/security-logging-and-events/) and Acra can generate [a detailed audit trail](/acra/security-controls/security-logging-and-events/audit-logging/). Acra can provide monitoring and [security events]((/acra/security-controls/security-logging-and-events/security-events/) stream that will allow to identify actions and applications who altered or deleted ePHI.
+All connections that are going through Acra are [logged](/acra/security-controls/security-logging-and-events/) and Acra can generate [a detailed audit trail](/acra/security-controls/security-logging-and-events/audit-logging/). Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow to identify actions and applications who altered or deleted ePHI.
 
 **Implement tools for encryption and decryption**
 
