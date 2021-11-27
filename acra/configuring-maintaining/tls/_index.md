@@ -25,8 +25,8 @@ There are two methods for validating the certificate's revocation:
 
 They are configured separately and can be enabled simultaneously.
 
-By default, Acra performs mentioned validation only if the certificate itself contains OCSP or CRL metadata.
-And if certificate does not contain OCSP URLs, it won't be validated using OCSP protocol. Same applies for CRL.
+By default, Acra performs mentioned validations only if the certificate itself contains OCSP / CRL metadata.
+Otherwise, if certificate does not contain URLs of OCSP / CRL, it won't be validated for revocation.
 
 ## PKI
 

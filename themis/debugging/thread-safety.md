@@ -84,5 +84,5 @@ _Secure Cell_ and _Secure Message_ objects were **not thread-safe**,
 contrary to other language wrappers.
 You have to use proper synchronisation if you share those objects between threads.
 
-Starting with Themis 0.13.0,
+Starting from Themis 0.13.0,
 Secure Cell and Secure Message objects are thread-safe in ThemisPP as well.

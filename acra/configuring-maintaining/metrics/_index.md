@@ -5,7 +5,7 @@ title: Metrics
 
 # Metrics in Acra
 
-Starting with version [`0.83.0`](https://github.com/cossacklabs/acra/releases/tag/0.83.0), Acra supports tracking and exporting of the basic metrics of AcraServer, AcraConnector, and AcraTranslator to [` Prometheus`](https://prometheus.io/).
+Starting from version [`0.83.0`](https://github.com/cossacklabs/acra/releases/tag/0.83.0), Acra supports tracking and exporting of the basic metrics of AcraServer, AcraConnector, and AcraTranslator to [` Prometheus`](https://prometheus.io/).
 
 
 ## Metrics configuration
@@ -65,7 +65,7 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 
 5. **Metric**: *acra_api_encryptions_total*
 
-   **Description**: Number of encryptions data to AcraStruct
+   **Description**: Number of data encryption operations (AcraStruct creations) performed
 
    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
 
@@ -73,7 +73,7 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 
 6. **Metric**: *acra_acrastruct_decryptions_total*
 
-    **Description**: Number of AcraStruct decryptions
+    **Description**: Number of AcraStruct decryption operations performed
 
     **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
 

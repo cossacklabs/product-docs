@@ -9,7 +9,6 @@ AcraServer's security controls have the exact way of enabling/disabling and conf
 
 AcraServer can be configured from command line using CLI flags ([see the whole list](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags)), or from a configuration file which should be defined as `--config_file <options.yml>` .
 
-
 * Data protection security controls
 
   There are a couple features that can only be enabled/configured in file passed in `--encryptor_config_file` CLI option.

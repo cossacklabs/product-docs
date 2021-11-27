@@ -6,9 +6,8 @@ weight: 2
 
 # KMS integration
 
-KMS is important part of keys security. For now Acra uses KMS to load Acra Master Key used to encrypt and decrypt intermediate keys.
-Safety of Acra Master Key is important guarantee of keys protection. So Acra has strong requirements to KMS and their security
-guarantees.
+KMS plays an important role for providing cryptographic keys security. Currently, Acra uses KMS to load Acra Master Key used for intermediate keys encrypting / decrypting.
+Since safety of Acra's cryptographic keys directly depends on safety of Acra Master Key, Acra has strong requirements to KMSs and their security guarantees.
 
 Refer to [Acra in depth / Key storage and KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) to learn more about general key storage requirements.
 
@@ -19,7 +18,7 @@ Refer to [Security controls / Key management](/acra/security-controls/key-manage
 
 On startup every Acra service or tool that needs access to intermediate keys should load Acra Master Key. 
 
-They load and store it in memory and use to decrypt intermediate key every time. After using intermediate keys, a service forgets and erases them from memory to leave them in unprotected form as less as possible. 
+They load and store it in a memory and use it to decrypt intermediate key every time. After finishing operations with intermediate keys, a service forgets and erases them from memory to leave them in unprotected form as less as possible.
 
 Only Acra Master Key loaded securely gives Acra access to intermediate keys and sensitive data protected with these keys.
 
@@ -41,7 +40,7 @@ The load could happen:
 especially secrets. Acra uses Hashicorp Vault as storage for master key used to encrypt/decrypt all private keys.
 
 Hashicorp Vault supports a lot of storage backends, that guarantee high availability, scalability, authenticated and 
-secure transport communication. That is why Acra supports is out of the box.
+secure transport communication. That is why Acra supports it out of the box.
 
 
 The following Acra services and tools can load Acra Master Key from this KMS. 
@@ -58,17 +57,18 @@ The following Acra services and tools can load Acra Master Key from this KMS.
 
 You can find out how to configure access to KMS on `HashiCorp Vault` section on the distinct documentation page of these services.
 
-
 ### AWS KMS
 
-[Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.
+Support of AWS KMS is available only in [Acra Enterprise Edition](/acra/enterprise-edition/)
 
 
 ### GCP KMS
 
-[Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.
+Support of GCP KMS is available only in [Acra Enterprise Edition](/acra/enterprise-edition/)
 
 
 ### Keywhiz
 
-[Acra Enterprise Edition](/acra/enterprise-edition/) provides better support of various KMS and more ways to load Acra Master Key.
+Support of Keywhiz is available only in [Acra Enterprise Edition](/acra/enterprise-edition/)
+
+Note that [Acra Enterprise Edition](/acra/enterprise-edition/) provides better KMSs integration and more ways to load Acra Master Key.

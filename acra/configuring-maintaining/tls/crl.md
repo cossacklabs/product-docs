@@ -11,7 +11,7 @@ This means Acra will be able to download CRL, verify it, and search for a certif
 But more advanced features like [CRL extensions](https://datatracker.ietf.org/doc/html/rfc5280#section-5.2)
 (including [delta CRLs](https://datatracker.ietf.org/doc/html/rfc5280#section-5.2.4)) are not handled yet.
 
-CRL-related flags and their description. Works for `acra-connector`, `acra-server` and `acra-translator`.
+CRL-related flags and their descriptions. Works for `acra-connector`, `acra-server` and `acra-translator`.
 
 * `--tls_crl_url=<url>`
 
@@ -26,26 +26,26 @@ CRL-related flags and their description. Works for `acra-connector`, `acra-serve
   passed simultaneously with same value.
 
   For `acra-connector` and `acra-translator` (that can only work as TLS clients)
-  it will set CRL URL for validation of certificates sent by server.
+  it will set CRL's URL for validation of certificates sent by the server.
 
 * `--tls_crl_client_url=<url>`
 
-  CRL URL for incoming TLS connections to check client certificates.
+  CRL's URL for incoming TLS connections to check client certificates.
   Empty by default. Supported on AcraServer only.
 
 * `--tls_crl_database_url=<url>`
 
-  CRL URL for outcoming TLS connections to check database certificates.
+  CRL's URL for outcoming TLS connections to check database certificates.
   Empty by default. Supported on AcraServer only.
 
 * `--tls_crl_from_cert=<policy>`
 
-  How to treat CRL URL described in certificate itself
+  How to treat CRL's URL described in certificate itself
 
   * `use` — try URL(s) from certificate after the one from configuration (if set)
   * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-  * `ignore` — completely ignore CRL URL(s) specified in certificate
+  * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--tls_crl_*_url` flags.
 
@@ -57,7 +57,7 @@ CRL-related flags and their description. Works for `acra-connector`, `acra-serve
   * `false` — (default) validate leaf certificate and all intermediate certificates
 
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
-  Also, even if this flag is `false` but there's no CRL URL configured and no CRL URL in intermediate CA certificates,
+  Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know which CRLs could used for validation.
 
 * `--tls_crl_cache_size=<count>`
@@ -71,10 +71,9 @@ CRL-related flags and their description. Works for `acra-connector`, `acra-serve
   How long to keep CRLs cached, in seconds.
   Use `0` to disable caching. Maximum is `300` seconds. Default is `0`.
 
-## Make `openssl` include CRL URL when signing CSR
+## Including CRL's URL while signing CSR
 
-When using `openssl` to sign Certificate Signing Requests,
-an extension can be added to make certificate include CRL URL:
+An additional extension with URL(s) of CRL service(s) can be included into certificate while signing Certificate Signing Requests via `openssl`:
 ```
 # in section that contains used X.509 v3 extensions
 crlDistributionPoints = @crl_section
@@ -86,9 +85,7 @@ URI.0 = http://127.0.0.1:8080/crl.pem
 
 ## Generating CRL file with `openssl`
 
-If you have custom openssl configuration file, if you are able to run command like
-`openssl ca ...` and have signed certificates appear in certificate database (usually called `index.txt`),
-you can also use `openssl` to generate CRL v1:
+You can generate CRL v1, following provided [certificate generation example](generate-certificate-with-openssl):
 ```
 openssl ca -gencrl -config openssl.cnf -crldays 1 -out crl.pem
 ```

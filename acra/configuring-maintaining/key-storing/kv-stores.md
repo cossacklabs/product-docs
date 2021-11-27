@@ -112,13 +112,13 @@ On the side of AcraServer or AcraTranslator, you use the same flags to make them
 Alternative storage for tokenization (cannot be used to store keys).
 Single-file embedded database.
 Enabled with `--token_db` flag.
-Scales well, has logarithmic acess time complexity, allows multiple reads or single write at the same time.
+Scales well, has logarithmic access time complexity, allows multiple reads or single write at the same time.
 
 ### Files
 
 Default keystore, configured with `--keys_dir` flag.
-Although you can use some additional service to sync keys dir from somewhere, this method is not that flexible.
-You may want to use filesystem keystore if the amount of keys is small and they are not added/rotated often.
+Although you can use some additional service to sync keys' directory from somewhere, this method is not that flexible.
+You may want to use filesystem keystore if the amount of keys is small, and they are not added/rotated often.
 
 ### In-memory
 

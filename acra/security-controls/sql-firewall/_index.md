@@ -89,7 +89,7 @@ Need help with configuring AcraCensor? Check out the [SQL injections prevention 
 
 ## Configuration versioning
 
-Starting with Acra [0.85.0 release](https://github.com/cossacklabs/acra/releases/tag/0.85.0) in March 2019, we introduced a more flexible configuration format for AcraCensor rules.
+Starting from Acra [0.85.0 release](https://github.com/cossacklabs/acra/releases/tag/0.85.0) in March 2019, we introduced a more flexible configuration format for AcraCensor rules.
 
 AcraServer v0.85+ will work with AcraCensor's configuration file versioned 0.85 and above. AcraServer doesn't support configuration files that have an old format, all users must migrate to the new format.
 

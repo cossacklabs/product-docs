@@ -8,15 +8,13 @@ title: Certificate generation with OpenSSL
 Here you will see few tips about how certificates can be generated using `openssl` CLI tool.
 
 {{< hint warning >}}
-This is more like a collection of tips.
-In real world you have to make sure you keep private keys safe.
-Make sure the certificate extensions are properly configured.
-Make sure apps that use these certificates are properly configured.
-A lot of things require attention in order to work as expected and remain secure.
+This is more like a collection of tips, and it doesn't pretend to be exhaustive.
+In production settings, make sure at least that: your private keys are kept safe; certificate extensions are properly configured;
+apps that use these certificates are properly configured. A lot of things require attention in order to work as expected and remain secure.
 {{< /hint >}}
 
 Since there are some parameters we cannot configure with CLI flags, we need to create own configuration file.
-Here it is, simple `openssl.cnf`, without intermediate CAs:
+This is an example of simple `openssl.cnf` configuration file without intermediate CAs:
 ```
 # This section is required by OpenSSL, but we specify DN on the command line,
 # so here an empty placeholder is used.
@@ -69,7 +67,7 @@ emailAddress            = optional
 openssl genrsa -out private_rsa.key.pem 4096
 ```
 Here `4096` is the key size in bits, other popular choices are `2048` and `3072`.
-It is not recommended to use less that 2048 bits due to low security margin of such keys.
+It is not recommended using less that 2048 bits due to low security margin of such keys.
 
 ## Generate EC private key
 
