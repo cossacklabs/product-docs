@@ -34,7 +34,7 @@ If you need to perform multiple parallel operations within single network reques
 
 #### Request
 
-Method: `POST`, `GET` (deprecated since 0.91.0)
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
 
 Path: `/v2/bulkProcessing`
 

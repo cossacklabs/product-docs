@@ -112,7 +112,7 @@ Don't forget to use the same type (str / email / int32 / int64 / bytes).
 
 #### Request
 
-Method: `POST`, `GET` (deprecated since 0.91.0)
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
 
 Path: `/v2/tokenize` for tokenization, `/v2/detokenize` for detokenization
 

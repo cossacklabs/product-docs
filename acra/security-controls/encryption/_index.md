@@ -259,7 +259,7 @@ service ReaderSym {
 
 #### Request
 
-Method: `POST`, `GET` (deprecated since 0.91.0)
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
 
 Mime-Type: `application/json`
 
