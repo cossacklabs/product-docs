@@ -20,12 +20,12 @@ Acra Master Key is securely stored in [key management service (KMS)](/acra/acra-
 
 ## Inventory of keys
 
-Glance through the [inventory of Acra keys](inventory) to learn what keys there are in the keystore, where they are located, and how they are used.
+Glance through the [inventory of Acra keys](inventory) to learn what cryptographic keys are stored in the keystore, where they are located, and how they are used.
 
 
 ## Operations
 
-However, just storing the keys securely is not enough. It is crucial to manage the keys and operate the keystore in a secure way as well. Acra provides tools to many key management operations.
+However, just storing the keys securely is not enough. It is crucial to manage the keys and operate with the keystore securely as well. Acra provides tools for many key management operations.
 
 These are typical operations that you will need to perform:
 
@@ -34,7 +34,7 @@ These are typical operations that you will need to perform:
   - [Rotate keys](operations/rotation) to mitigate leaks and ensure continuous security.
   - [Destroy keys](operations/destruction) when they are no longer used.
 
-If something goes wrong, please refer the the [troubleshooting](troubleshooting) page
+If something goes wrong, please refer to the [troubleshooting](troubleshooting) page
 for instructions on dealing with common issues.
 
 

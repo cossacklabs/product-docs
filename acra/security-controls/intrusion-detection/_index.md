@@ -5,9 +5,10 @@ weight: 8
 
 # Intrusion Detection
 
-Let’s imagine that the client application generates requests and sends them through the chain of Acra’s services to receive decrypted plaintext in the end.
+Let’s imagine that the client application generates requests and sends them through the chain of Acra’s services to receive a decrypted plaintext in the end.
 
-What if the attackers compromise the app deeply and badly enough so they are able to alter its behaviour? From a simple SQL injection to remote/local code execution errors, there are threats, which make your application a source of risk once it's been compromised. Our idea is that since AcraServer is the only entity that decrypts sensitive data and sees all the requests addressed to it, it is AcraServer's responsibility to tell the good behaviour from bad and to take appropriate action.
+What if the attackers could compromise the app in such a way that they are able to alter its behaviour? In this case, a various threats could come from a compromised application (SQL injection, remote/local code execution, etc.).
+Our idea is that since AcraServer is the only entity that decrypts sensitive data and sees all the requests addressed to it, it is AcraServer's responsibility to distinguish good behaviour from bad one and to perform appropriate action.
 
 For intrusion detection, Acra uses **poison records**, also known as [honey tokens](https://en.wikipedia.org/wiki/Honeytoken) (or canarytokens, or trip wires).
 
@@ -15,7 +16,7 @@ _We call them poison records because they look like ordinary encrypted records b
 
 ## Poison records
 
-Poison records are specifically designed to sit quietly in the database and not be queried by legitimate users under normal circumstances. They look like any other encrypted records, and it's impossible to distinguish them from `typical AcraBlocks/AcraStructs`. 
+Poison records are specifically designed to sit quietly in the database; they are never queried by legitimate users under normal circumstances. They look like any other encrypted records, and it's impossible to distinguish them from `typical AcraBlocks/AcraStructs`.
 
 Technically speaking, poison records are encrypted data (binary, strings, int or whatever suits your database design), placed in particular tables/columns/cells.
 
@@ -25,7 +26,7 @@ In this case, poison records will only be included in the outputs of requests fr
 
 When AcraServer or AcraTranslator find that encrypted blob is not a "normal" AcraStruct/AcraBlock, but a poison record, they will inform your Ops team of untypical behaviour and can block suspicious requests.
 
-For more technical details you can check out other blog posts related poison records:
+For more technical details you can check out other blog posts related to poison records:
 
 - [Explain Like I’m Five: Poison Records (Honeypots for Database Tables)](https://hackernoon.com/poison-records-acra-eli5-d78250ef94f)
 - [Poison Records In Acra – Database Honeypots For Intrusion Detection](https://www.cossacklabs.com/blog/acra-poison-records.html)

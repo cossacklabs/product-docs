@@ -10,11 +10,11 @@ Acra is a set of tools designed for protecting data, stored in a database (using
 Some of them are easier to integrate, while others require writing additional code in places where application transmits or stores the sensitive data.
 
 
-Acra allows you to keep various components of the security system outside of your main application architecture, securely keeping apart components that should not leak or become compromised together:
+Acra allows you to keep various components of the security system outside your main application architecture, securely keeping apart components that should not leak or become compromised together:
 
 * Encryption/decryption happens in separate components (proxies and APIs).
 * Keys are stored separately, unpacked / delivered to encryption layer atomically, with key layout minimizing risks of massive leakage. 
-* Privileged key management happens outside of main components. 
+* Privileged key management happens outside main components.
 * Configuration is managed separately, delivered to each Acra component separately. 
 * Audit trail is exportable to independent audit log storage in real-time. 
 
@@ -32,9 +32,9 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * [AcraServer](/acra/acra-in-depth/architecture/acraserver/), also known as SQL Proxy. It's SQL database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate. It supports encryption, searchable encryption, masking, tokenization, SQL firewall, logging & audit logging.
 
-* [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection. AcraTranslator doesn't depend on a database and makes application responsible for actually putting data into storage. It supports encryption, creating searchable hashes, masking, tokenization, logging.
+* [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with a client SDKs and traffic protection. AcraTranslator doesn't depend on a database and makes application responsible for actually putting data into storage. It supports encryption, creating searchable hashes, masking, tokenization, logging.
 
-* [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses so your applications stay "thin clients".
+* [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses, so your applications stay "thin clients".
 
 * [Client-side SDKs](/acra/acra-in-depth/architecture/sdks/). Acra provides optional SDKs for encrypting data (AcraWriter), for decrypting data (AcraReader), or for working with AcraTranslator.
 
@@ -61,7 +61,7 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * [Rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/) – utility that allows to decrypt SQL database back into original format.
 
-* [Poison record maker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/) – utility that creates [poison records]/acra/security-controls/intrusion-detection/) (honey tokens) to place them in the database for intrusion detection.
+* [Poison record maker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/) – utility that creates [poison records](/acra/security-controls/intrusion-detection/) (honey tokens) to place them in the database for intrusion detection.
 
 * [Audit log verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/) – utility that verifies [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/) dumped from AcraServer/AcraTranslator.
 

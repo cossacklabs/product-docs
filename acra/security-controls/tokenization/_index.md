@@ -8,7 +8,7 @@ weight: 4
 
 Tokenization (also known as tokenisation) is a way to transform some sensitive data into pseudo-random representation of same data type. 
 
-A number (32 or 64 bit signed integer) will remain a number.
+A number (32 or 64-bit signed integer) will remain a number.
 String will be string.
 There is also special variant for string that contains email, it will be transformed to email-looking string as well.
 
@@ -22,22 +22,22 @@ The tokenization process has few interesting properties:
 
 * Tokenized value is simply random, it is neither encrypted nor hashed version of the input;
 * Tokenization supports two modes:
-  * Consistent tokenization — result will remain always the same for the same input (`hello` might be tokenized into `wshfwSjdsn`),
+  * Consistent tokenization — result will always remain the same for the same input (`hello` might be tokenized into `wshfwSjdsn`),
   * Inconsistent tokenization — result will be different every time, even for the same input (`hello` might be tokenized into `KishJs` or `KdCbshQoP` or `KeitAyheof`),
 * Tokenization can be reversed, but only for valid (previously returned) values.
 
 Two components can provide tokenization functionality:
 
 * AcraServer — transparent tokenization for `INSERT` and `UPDATE` queries,
-  transparent detokenization for `SELECT` queries, with per column configuration.
-* AcraTranslator — provides gRPC and HTTP API.
+  transparent de-tokenization for `SELECT` queries, with per column configuration.
+* AcraTranslator — provides gRPC and HTTP API for tokenization.
 
 {{< hint warning >}}
 Currently, AcraTranslator only supports consistent tokenization.
 If you need inconsistent tokenization, [contact us](mailto:sales@cossacklabs.com) to get this feature in Acra Enterprise Edition.
 {{< /hint >}}
 
-Both of the require deploying an additional database, Redis by default, to store token<>encrypted data pairs.
+Both tokenization types require deploying an additional database, Redis by default, to store pairs: token <-> encrypted data.
 
 Refer to [Acra in depth / Architecture](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [Configuring and maintaining / Key storing](/acra/configuring-maintaining/key-storing/kv-stores/) to learn more about Redis token storage.
 
@@ -73,7 +73,7 @@ In order to use the translator gRPC API you have to take
 [api.proto](https://github.com/cossacklabs/acra/blob/master/cmd/acra-translator/grpc_api/api.proto)
 and use either `service Tokenizator` or `service BulkProcessing` (with one or more `TokenizeRequest` inside, enterprise only).
 
-Tokenize & detokenize with `service Tokenizator`:
+Tokenize & de-tokenize with `service Tokenizator`:
 ```
 message TokenizeRequest {
     bytes client_id = 1;
@@ -104,7 +104,7 @@ service Tokenizator {
 ```
 
 {{< hint info >}}
-Detokenization is performed by creating `TokenizeRequest` with the token as value and passing it to `Detokenize` method. 
+De-tokenization is performed by creating `TokenizeRequest` with the token as value and passing it to `Detokenize` method.
 Don't forget to use the same type (str / email / int32 / int64 / bytes).
 {{< /hint >}}
 
@@ -114,7 +114,7 @@ Don't forget to use the same type (str / email / int32 / int64 / bytes).
 
 Method: `GET`
 
-Path: `/v2/tokenize` for tokenization, `/v2/detokenize` for detokenization
+Path: `/v2/tokenize` for tokenization, `/v2/detokenize` for de-tokenization
 
 Mime-Type: `application/json`
 
@@ -154,7 +154,7 @@ Body:
 #### Examples
 
 You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-http.yml)
-as a playgroung, it will bring up AcraTranslator and expose its HTTP server at `127.0.0.1:9494`.
+as a playground, it will bring up AcraTranslator and expose its HTTP server at `127.0.0.1:9494`.
 
 Here you can see few examples using `curl`.
 HTTP API allows bulk requests as well as simple ones (one at a time).

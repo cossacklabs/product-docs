@@ -25,10 +25,10 @@ Keep in mind that carelessly renaming files may accidentally overwrite and delet
 
 ## Losing the keys
 
-If you lose the _Acra Master Key_ that’s used for launching AcraServer/AcraTranslator,
+If you lose the _Acra Master Key_ used for launching AcraServer/AcraTranslator,
 they won’t be able to decrypt the data.
 
-Yes, it means that there will be absolutely no way to decrypt your data and you’ll lose it forever.
+Yes, it means that there will be absolutely no way to decrypt your data, and you’ll lose it forever.
 Store the master key safely in a secure storage like KMS!
 Make, refresh, and regularly check backups.
 

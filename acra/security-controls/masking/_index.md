@@ -5,7 +5,7 @@ weight: 3
 
 # Masking
 
-Masking is partial column encryption. Masking hides encrypted part from client apps who don't have right decryption keys.
+Masking is a partial column encryption. Masking hides encrypted part from client apps which don't have right decryption keys.
 In case of decryption failure, encrypted data will be replaced with a placeholder.
 
 Use cases may include:
@@ -16,13 +16,10 @@ Use cases may include:
 
 Masking is "kinda anonymisation". It's helpful when the dataset should be shared with untrusted third parties.
 
-Under the hood, AcraServer/AcraTranslator encrypt the data fully, and concatenate a piece of plaintext (defined by `plaintext_length` variable, see below). So the data itself is stored encrypted into AcraStruct/AcraBlock with a tiny chunk of plaintext data.
+Under the hood, AcraServer/AcraTranslator encrypts the data completely, and concatenates a piece of plaintext (defined by `plaintext_length` variable, see below). So the data itself is stored encrypted into AcraStruct/AcraBlock with a tiny chunk of plaintext data.
 
-One components can provide masking functionality:
-
-* AcraServer — transparent masking for `INSERT` and `UPDATE` queries,
-  transparent demasking for `SELECT` queries, with per column configuration.
-
+AcraServer is the only component that provides transparent masking for `INSERT` and `UPDATE` queries and
+transparent de-masking for `SELECT` queries, with per column configuration.
 
 ## AcraServer configuration
 
@@ -64,12 +61,12 @@ schemas:
         # into AcraBlocks.
         reencrypting_to_acrablocks: false
 ```
-<!-- TODO add link to page where colemn encryption settings are described in general, with client_id, zone_id etc -->
+<!-- TODO add link to page where column encryption settings are described in general, with client_id, zone_id etc -->
 
 ## Examples
 
 Here are few examples of configuration and results it would give.
-The actual encrypted part of data will look differently in database, and will take more bytes.
+The actual encrypted part of data will look differently in a database, and will take more bytes.
 Examples below only illustrate which part of plaintext would be encrypted.
 
 ### Retain first five characters
