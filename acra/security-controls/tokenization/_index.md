@@ -112,7 +112,7 @@ Don't forget to use the same type (str / email / int32 / int64 / bytes).
 
 #### Request
 
-Method: `GET`
+Method: `POST`, `GET` (deprecated since 0.91.0)
 
 Path: `/v2/tokenize` for tokenization, `/v2/detokenize` for detokenization
 
@@ -162,14 +162,14 @@ This example includes few simple ones.
 
 ```
 curl \
-    --request GET \
+    --request POST \
     --header 'Content-Type: application/json' \
     --data '{"zone_id":"","type":3,"data":"hidden message"}' \
     http://127.0.0.1:9494/v2/tokenize
 {"data":"CWce2KYUPVYHlq"}
 
 curl \
-    --request GET \
+    --request POST \
     --header 'Content-Type: application/json' \
     --data '{"zone_id":"","type":5,"data":"me@domain.com"}' \
     http://127.0.0.1:9494/v2/tokenize

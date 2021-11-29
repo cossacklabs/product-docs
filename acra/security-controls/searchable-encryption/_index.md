@@ -173,7 +173,7 @@ And because of this difference you should not mix them, `encrypt`+`decryptSearch
 
 #### Encryption/decryption request
 
-Method: `GET`
+Method: `POST`, `GET` (deprecated since 0.91.0)
 
 Mime-Type: `application/json`
 
@@ -219,7 +219,7 @@ In case of error:
 
 #### Hash generation request
 
-Method: `GET`
+Method: `POST`, `GET` (deprecated since 0.91.0)
 
 Path: `/v2/generateQueryHash`
 
