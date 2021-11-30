@@ -43,7 +43,7 @@ When a column is configured to be encrypted, AcraServer will transparently encry
 You can also encrypt the data manually on the client side using
 [AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/acrawriter/).
 
-Decryption on the other hand is done automatically: AcraServer will detect encrypted data and will attempt
+Decryption on the other hand is done automagically: AcraServer will detect encrypted data and will attempt
 to decrypt it with all known keys.
 
 However, there are some caveats:
