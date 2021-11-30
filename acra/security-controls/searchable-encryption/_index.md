@@ -5,9 +5,9 @@ weight: 2
 
 # Searchable encryption
 
-Store data encrypted in database, yet keep the ability to run simple queries on encrypted fields without decrypting them. 
+Store data encrypted in a database, yet keep the ability to run simple queries over encrypted fields without decrypting them.
 
-A trivial way of searching through rows with encrypted columns would require decrypting
+A trivial way of searching through rows with encrypted columns would require downloading part of encrypted database, decrypting
 all those columns and comparing decrypted values with what is being searched.
 Obviously, this is quite inefficient as it requires one to iterate over the whole table.
 
@@ -26,7 +26,7 @@ will work, but not
 SELECT ... FROM ... WHERE encrypted_column LIKE "prefix%"
 ```
 
-Under the hood, AcraServer/AcraTranslator will calculate a hash of plaintext data (`blind index`), then actually encrypt the data into AcraStruct/AcraBlock, then return `"blind index|AcraStruct or AcraBlock"` envelope to store in a database. Thus, the actual plaintext data is strongly encrypted, searching is based on hashes.
+Under the hood, AcraServer/AcraTranslator will calculate a keyed hash of plaintext data (`blind index`), then actually encrypt the data into AcraStruct/AcraBlock, then return `"blind index|AcraStruct or AcraBlock"` envelope to store in a database. Thus, the actual plaintext data is encrypted and searching is based on keyed hashes.
 
 Two components can provide searchable encryption functionality:
 
@@ -36,7 +36,7 @@ Two components can provide searchable encryption functionality:
 
 
 {{< hint info >}}
-The fact that one can only search for exact value is the consequence of using secure hash function.
+The fact that one can only search for exact value is the consequence of using secure keyed hash function.
 Such functions are very sensitive to the input and will return completely different result even
 with the smallest change of input data (column value in our case).
 {{< /hint >}}
@@ -68,12 +68,12 @@ schemas:
         searchable: true
 ```
 
-Searchable encryption is supported for both [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock).
+Searchable encryption is supported for both [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock).
 
 ## Database configuration
 
-There are also some considerations to take into account when configuring database column to be be both searchable and encrypted.
-See [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes#searchable-encryption/) page for more on that.
+There are also some considerations to take into account when configuring database column to be both searchable and encrypted.
+See [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes#searchable-encryption/) page for more details.
 
 ## AcraTranslator API
 
@@ -168,12 +168,12 @@ service SearchableEncryption {
 
 {{< hint info >}}
 Searchable encryption/decryption is essentially the same as usual encryption/decryption, but uses methods with slightly different names that do slightly different things.
-And because of this difference you should not mix them, `encrypt`+`decryptSearchable` for example will not work as you'd expect.
+Due to this difference you should not mix them, `encrypt`+`decryptSearchable` for example will not work as you'd expect.
 {{< /hint >}}
 
 #### Encryption/decryption request
 
-Method: `GET`
+Method: `POST`(available since 0.91.0), `GET` (deprecated since 0.91.0)
 
 Mime-Type: `application/json`
 
@@ -192,12 +192,12 @@ and `zone_id` is _optional_ field specifying the zone ID you want to associate w
 
 {{< hint info >}}
 Do not attempt to mix operations with two different crypto envelopes.
-It won't work and you will get decryption errors.
+It won't work, and you will get decryption errors.
 
-And remember that these AcraStruct/AcraBlock are the same ones AcraServer can use.
-You can, for example, encrypt something into AcraStruct with AcraTranslator, store it in database,
+Note that these AcraStruct/AcraBlock are the same ones AcraServer can use.
+You can, for example, encrypt something into AcraStruct with AcraTranslator, store it in a database,
 and then AcraServer will be able to transparently decrypt it.
-Or use transparent encryption via AcraServer, then read it manually directly from database,
+Or use transparent encryption via AcraServer, then read it manually directly from a database,
 and ask AcraTranslator to decrypt it.
 {{< /hint >}}
 
@@ -219,7 +219,7 @@ In case of error:
 
 #### Hash generation request
 
-Method: `GET`
+Method: `POST`(available since 0.91.0), `GET` (deprecated since 0.91.0)
 
 Path: `/v2/generateQueryHash`
 
@@ -242,22 +242,22 @@ Body: `{"data":"6xgRpbJLsojSwHgmBHA="}`
 > `data` in this case will contain cryptographic hash of the data passed in the request.
 
 You can later use this hash:
-* For every "searchably encrypted" value, take first N bytes (N = length of hash)
+* Take first N bytes (N = length of hash) for every "encrypted" value that requires further searching,
 * Compare that prefix with the hash
 * If they match, the encrypted data was exactly the same as you've just hashed
 
-Of course, mismatch in client ID or zone ID or the hashed/encrypted data will result in different hashes, and thus non working search.
+Of course, mismatch in client ID or zone ID or the hashed/encrypted data will result in different hashes, so in this case search will not work.
 
 ## Limitations
 
 Acra Community Edition does offer core search functionality, which is sufficiently secure for usage in non-security-critical workloads. 
 
-Acra Community Edition limitations in searchable encryption:
+Acra Community Edition has following limitations for searchable encryption:
 
 * Lack of bloom filters - current Acra Community Edition does not contain bloom-filter based improvements for both security and performance.
 * Lack of rotating searchable encryption keys (not a very big problem unless you use searchable encryption really a lot).
 * Lack of entropy management - Acra Community Edition allows you to generate search indexes as insecure as you want, without warning you. 
-* Inability to store search hashes separate from ciphertext (coming eventually), so search in Acra Community Edition limits you to the databases that support functional indexes.
+* Inability to store search hashes separate from a ciphertext (coming eventually), so search in Acra Community Edition limits you to the databases that support functional indexes.
 * Performance optimisations - the way data is fetched, stored and processed is as straightforward as possible, which has certain performance costs. 
 * Lack of data normalization - in Acra Community Edition, data normalization duties are laid on database administrator / application developer, thus index efficiency is completely dependent on end-user. 
 

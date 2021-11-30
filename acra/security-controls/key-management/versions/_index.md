@@ -16,7 +16,7 @@ Starting from version [0.90.0](/acra/#latest-release-and-revision), all Acra com
 New features include:
 
   - Stronger key integrity validation, preventing even more tampering attempts.
-  - Improved paritioning of the keys, simplifying configuration correctness checks.
+  - Improved partitioning of the keys, simplifying configuration correctness checks.
   - Tracking additional key metadata, such as key validity periods and active states.
   - Compliance with best practices and recommendations,
     such as [NIST SP 800-57](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-57pt1r4.pdf).
@@ -31,7 +31,7 @@ by using the `--keystore=v2` option.
 Acra components can automatically tell which keystore version is currently in use,
 so special attention is necessary only during the initial key generation and exchange.
 
-Of course it is also possible to convert existing key folders into the new format.
+Of course, it is also possible to convert existing key folders into the new format.
 See how to migrate existing Acra deployments [from keystore v1 to v2](migrate-v1-to-v2/).
 
 Keystore version affects mostly the storage format and available key management options.

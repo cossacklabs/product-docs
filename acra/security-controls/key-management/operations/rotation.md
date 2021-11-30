@@ -12,7 +12,7 @@ This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/
 
 All cryptographic keys should have a definite time span – known as **cryptoperiod** –
 during which the key is authorised for usage.
-After the cryptoperiod expires, key should be replaced with a new one.
+After cryptoperiod's expiration, key should be replaced with a new one.
 This regularly performed procedure is known as **key rotation**.
 
 Here we discuss how to approach and perform key rotation in Acra.
@@ -50,7 +50,7 @@ Check [NIST SP 800-57 recommendations](https://csrc.nist.gov/publications/detail
 Acra keeps [a multitude of keys](../../inventory/) which require different approaches.
 
   - **Acra Master Keys** protect other keys in the keystore.
-    Each Acra component has its own set of master keys which can be rotated independently.
+    Each Acra component has its own set of cryptographic keys which can be rotated independently.
     Currently, there's no easy way to rotate Master keys.
 
   - **Data storage keys** protect the data stored in a datastore.
@@ -61,14 +61,14 @@ Acra keeps [a multitude of keys](../../inventory/) which require different appro
 
     - If you're using only AcraServer or AcraTranslator,
       distribute public key to all instances of AcraServer or AcraTranslator
-      or put them into shared keystorage.
+      or put them into shared keystore.
 
     The new key will apply to newly stored data,
     but the old data was encrypted with the previous key and is still unchanged.
     Depending on your key rotation strategy,
     you might need to re-encrypt data with new data storage key.
 
-- **Transport keys** authenticate component identities and provides transport encryption
+- **Transport keys** authenticate component identities and provide transport encryption
     (TLS or Themis Secure Session).
     These keys are easily rotated.
 
@@ -90,7 +90,7 @@ Acra keeps [a multitude of keys](../../inventory/) which require different appro
 
 ## Data re-encryption strategies
 
-There're different strategies of re-encrypting data after rotating **data storage keys**:
+There are different strategies of re-encrypting data after rotating **data storage keys**:
 
   - **No re-encryption**.
     Old data is retained as is, encrypted with old keys,
@@ -109,6 +109,17 @@ There're different strategies of re-encrypting data after rotating **data storag
   - **Partial re-encryption**.
     Re-encrypting data "piece by piece", leaving old keys active for some amount of time.
     This strategy is the best one performance-wise, but requires careful planning.
+
+Note that there are some differences in data re-encryption flow depending on selected cryptographic container type.
+[**AcraStructs**](/acra/acra-in-depth/data-structures/acrastruct/) use ephemeral asymmetric keys to enable applications to encrypt the data but never decrypt it (end-to-end encryption) - the private key
+stays on the AcraServer / AcraTranslator which are the only ones capable of decryption. In case of AcraStruct container you
+can be sure that: 1) even if application used outdated (rotated) key, the data stored in the database is encrypted with a fresh key;
+2) it is impossible to find any correlation between encrypted data and any table row, as the re-encrypted data will look completely different.
+
+[**AcraBlocks**](/acra/acra-in-depth/data-structures/acrablock/) use symmetric keys stored on AcraServer / AcraTranslator for both encryption and decryption. AcraBlocks provide similar properties for encrypted data
+as mentioned for AcraStructs. The only difference is that application is not able to encrypt / decrypt data and operates only with a plaintext. However, it simplifies
+Acra integration into existing infrastructure, since no changes to application source code is required. Moreover, AcraBlocks provide [faster data encryption/decryption](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks) comparing with AcraStructs.
+
 
 ## How to rotate Acra keys
 
@@ -187,7 +198,7 @@ acra-keymaker --client_id=Alice --generate_acraconnector_keys
 
 {{< hint info >}}
 **Note:**
-`acra-keymaker` must be used on the machine that runs the correponding component.
+`acra-keymaker` must be used on the machine that runs the corresponding component.
 For example, AcraConnector keys must be generated only on the machine that runs AcraConnector.
 This ensures that the new private key never leaves the machine that will use it.
 {{< /hint >}}
@@ -256,7 +267,7 @@ the idea is the same:
 
 #### Using client-side encryption
 
-If you using AcraConnector and [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/):
+If you are using AcraConnector and [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/):
 
 1. Make sure that you have the new public key for AcraWriter.
    This key will be used to encrypt the data.
@@ -324,8 +335,7 @@ with each request as required by the API you use.
 
 ### Partial re-encryption
 
-You need to update each and every table and row encrypted with the old key,
-which there may be many.
+You need to update each and every table and row encrypted with the old key (maybe many rows).
 You may want to proceed with migration incrementally,
 processing only some part of the data set at a time.
 Be sure to keep track of the data you have already migrated to avoid duplicating the work.

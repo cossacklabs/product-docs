@@ -9,9 +9,7 @@ bookCollapseSection: true
 Acra uses many keys, but the key hierarchy is built to satisfy both security and usability requirements. Depending on how many features, `ClientID`s, and Acra services you use, your system will operate minimum of 2 keys (one Acra Master key and one storage symmetric key) to hundreds.
 
 
-The key hierarchy can be illustrated as the following.
-
-Used abbreviations: AS – AcraServer; AT – AcraTranslator; AC – AcraConnector; service means one instance of AcraServer or AcraTranslator, or AcraConnector.
+The key hierarchy is illustrated in the table below (with abbreviations used: AS – AcraServer; AT – AcraTranslator; AC – AcraConnector; service means one instance of AcraServer/AcraTranslator/AcraConnector).
 
 | key | where stored | when required | used for | how many | 
 |--|--|--|--|--|
@@ -35,25 +33,25 @@ Do not lose Acra Master Key!
 
 If lost, you won't be able to decrypt associated intermediate keys, thus won't be able to decrypt all data associated with them.
 
-Use backups. Verify that backups actually work. 
+Use key backups and periodically verify that they actually work.
 
 Use trusted KMS.
 {{< /hint >}}
 
 Acra Master Key is the "main key" that is used to protect all the other keys.
-Acra services will refuse to launch without it as well.
+Acra services will refuse to launch without it.
 It is [generated](/acra/security-controls/key-management/operations/generation/#11-generating-master-keys/)
-during deployment of Acra components manually or automatically, then stored KMS.
+during deployment of Acra components manually or automatically, and then it can be stored in the KMS.
 
-We strongly advise to create different Acra Master Keys for independent Acra services. For example, all AcraConnectors should used different Acra Master Keys. If AcraServer and AcraTranslator are used for different data sets (don't encrypt/decrypt data of each other), different Acra Master Keys should be used.
+We strongly advise creating different Acra Master Keys for independent Acra services. For example, all AcraConnectors should use different Acra Master Keys. If AcraServer and AcraTranslator are used for different data sets (don't encrypt/decrypt data of each other), different Acra Master Keys should be used.
 
-During the launch, each Acra service will read Acra Master Key either from environment variable or KMS.
+During the launch, each Acra service will read Acra Master Key either from environment variable or from the KMS.
 
-And if you choose the environment variable, the way it appears there is up to you:
+Apart from loading Acra Master Key from the environment variable, following options are also available:
 
-* Read from file
-* Fetch from somewhere using `wget` or `curl`
-* Fetch from KMS manually and put as env variable before Acra launch
+* Reading from file
+* Fetching from somewhere using `wget` or `curl`
+* Fetching from KMS manually and put as env variable before Acra launch
 * Any other way of securely pulling the master key
 
 After reading it, Acra will store it in memory, although it can be purged and re-requested later.
@@ -62,25 +60,25 @@ After reading it, Acra will store it in memory, although it can be purged and re
 ## Intermediate keys
 
 {{< hint warning >}}
-Do not lose intermediate keys.
+Do not lose intermediate keys!
 
 If lost, you won't be able to decrypt all data associated with them.
 
 [Do not rename the keys](/acra/security-controls/key-management/troubleshooting/#renaming-key-files), or you won't be able to decrypt the data associated with these keys.
 {{< /hint>}}
 
-
-Acra's intermediate keys – are "all other keys that are not Acra Master key and not data encryption keys stored inside AcraStructs/AcraBlocks". Acra's intermediate keys essentially anywhere where some kind of cryptography is involved – in all data protection operations.
+Acra's intermediate keys – are actually all cryptographic keys except Acra Master Key and data encryption keys (DEKs) stored inside AcraStructs/AcraBlocks.
+Intermediate keys are used essentially for all data protection operations (where cryptography is involved).
 
 They are [generated](/acra/security-controls/key-management/operations/generation/#12-generating-transport-and-encryption-keys)
 using `acra-keymaker` tool manually or automatically, just like the master key.
 
 Intermediate keys are stored in [KV store](/acra/configuring-maintaining/key-storing/kv-stores/),
-simply talking it is filesystem directory or Redis database.
+e.g. filesystem directory or Redis database.
 
 All intermediate keys are encrypted by Acra Master Key, that's why you should protect Acra Master Key more than any other one.
 
-When read from the store, these keys will be shortly cached in memory to improve performance.
+These keys are shortly cached in memory to improve performance when they are read from the store.
 This behavior is completely adjustable.
 
 Acra's intermediate keys, unless in special cases, do not leave Acra-controlled ecosystem (Acra and KMS) in plaintext, thus making the key lifecycle easier. In 99% cases, only public key of keypair should leave your backend (for example, public key from storage asymmetric keypair could be used for [client-side data encryption using AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/)).
@@ -89,11 +87,11 @@ There are several types of keys used in Acra.
 
 ### Storage symmetric keys
 
-AcraServer in Transparent proxy mode and AcraTranslator use storage symmetric keys to encrypt/decrypt data into [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock). 
+AcraServer in Transparent proxy mode and AcraTranslator use storage symmetric keys to encrypt/decrypt data into/from [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock).
 
-Used for [encryption/decryption](/acra/security-controls/encryption/), [making/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/), [zones](/acra/security-controls/zones/). These are the default keys, in most cases, you will use them.
+Storage symmetric keys are used for [encryption/decryption](/acra/security-controls/encryption/), [making/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/), [zones](/acra/security-controls/zones/). These are the default keys, in most cases, you will use them.
 
-Under the hood, storage symmetric keys don't actually encrypt the data fields. Data encryption keys (DEKs) are randomly generated each time and used to encrypt every data field. Storage symmetric keys are used encrypt DEK. See [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) for the encryption details.
+Under the hood, storage symmetric keys don't actually encrypt the data fields. Data encryption keys (DEKs) are randomly generated each time and used to encrypt every data field. Storage symmetric keys are used for particular DEK encryption. See [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) for the encryption details.
 
 | Purpose  | Key name  | Stays on
 | --- | --- | --- 
@@ -107,14 +105,13 @@ Storage keys can be represented by either:
 
   - A set of [Zone keys](/acra/security-controls/zones/).
     Each zone represents a unique user or type of users and has corresponding encryption and decryption keys.
-    Using zones complicates unauthorized decryption:
-    the attacker not only needs to get the decryption key but to use a correct Zone ID, too.
+    Using zones complicates unauthorized decryption which requires possession correct Zone ID as well as decryption key.
 
 ### Storage asymmetric keypairs
 
-Same as storage symmetric keys, but used to encrypt/decrypt data into [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct)). As AcraStructs use asymmetric cryptography, storage asymmetric keys are actually keypairs: public key is used for encryption, private key is used for decryption.
+Same as storage symmetric keys, but used to encrypt/decrypt data into [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). As AcraStructs use asymmetric cryptography, storage asymmetric keys are actually keypairs: public key is used for encryption, private key is used for decryption of DEK.
 
-Used for [encryption/decryption](/acra/security-controls/encryption/), [making/demasking](/acra/security-controls/masking/), [zones](/acra/security-controls/zones/). 
+Storage asymmetric keypairs are used for [encryption/decryption](/acra/security-controls/encryption/), [making/demasking](/acra/security-controls/masking/) and [zones](/acra/security-controls/zones/).
 
 AcraServer in Transparent proxy mode and AcraTranslator use storage asymmetric keys to encrypt/decrypt data into [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). 
 
@@ -143,7 +140,7 @@ When [searchable encryption](/acra/security-controls/searchable-encryption/) is 
 
 AcraServer, AcraConnector and AcraTranslator use symmetric keys to generate tamper-proof [audit log](/acra/security-controls/security-logging-and-events/audit-logging). Then [acra-verifier](/acra/security-controls/security-logging-and-events/audit-logging/) utility uses same key to verify signed logs.
 
-Under the hood and HMAC calculations to sign/verify signature of log messages.
+Under the hood this key is used for multiply chained HMAC-calculations to sign/verify log-stream generated by Acra's services.
 
 | Purpose  | Symmetric key  | Stays on
 | --- | --- | --- 
@@ -159,18 +156,19 @@ TLS is an easy & safe option. Acra services support TLS v1.2+.
 Refer to [TLS](/acra/security-controls/transport-security/tls/) section to read how to configure TLS connection. Typically, TLS certificates and CA certificates are stored on AcraServer / AcraTranslator filesystem. 
 
 
-### Transport keypair for AcraConnector for transport encryption
+### Transport encryption via AcraConnector
 
-If you are using [AcraConnector](/acra/security-controls/transport-security/acra-connector/) as transport encryption daemon to securely connect client application with AcraServer/AcraTranslator, it uses TLS or [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) as transport encryption protocols.
+[AcraConnector](/acra/security-controls/transport-security/acra-connector/) is a transport encryption daemon for secure connecting the client application to AcraServer/AcraTranslator. It provides usage of TLS or [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) as transport encryption protocols.
 
 `client app <> AcraConnector < [TLS or Themis Secure Session] > AcraServer`
+
 `client app <> AcraConnector < [TLS or Themis Secure Session] > AcraTranslator`
 
 In TLS mode, Acra uses TLS certificates for AcraServer/AcraTranslator and AcraConnector.
 
 In Themis Secure Session mode, Acra uses transport keypairs: the two parties should exchange public keys, keeping the private keys to themselves.
 
-AcraConnector needs to have its own transport private key and other party transport public key to establish a Themis Secure Session connection. You need put transport public key of AcraServer/AcraTranslator into AcraConnector's key storage, depending on the connection type.
+AcraConnector needs to have its own transport private key and other party transport public key to establish a Themis Secure Session connection. You need to put transport public key of AcraServer/AcraTranslator into AcraConnector's key storage, depending on the connection type.
 
 AcraServer/AcraTranslator will have its own transport private key and AcraConnector's public key.
 
@@ -183,7 +181,7 @@ AcraServer/AcraTranslator will have its own transport private key and AcraConnec
 
 ### Poison record keys
 
-Poison record key are used by AcraServer and AcraTranslator to [detect suspicious data access patterns](/acra/security-controls/intrusion-detection/). First, you should generate poison records using Poison record key, and then place the key to AcraServer/AcraTranslator, and the poison records to the database.
+Poison record keys are used by AcraServer and AcraTranslator to [detect suspicious data access patterns](/acra/security-controls/intrusion-detection/). First, you should generate poison records using Poison record key, and then place the key to AcraServer/AcraTranslator, and the poison records to the database.
 
 As poison records should look like encrypted data, you should generate either symmetric key (when you use AcraBlocks) or asymmetric keypair (when you use AcraStructs).
 
@@ -223,8 +221,8 @@ Correct operation of each Acra's component requires set of cryptographic keys (d
     - Acra Master Key.
     - Storage symmetric keys for encrypting and decrypting AcraBlocks in transparent mode. Necessary only if AcraBlocks are used for encryption, masking, tokenization.
     - Storage asymmetric keypair for encrypting and decrypting AcraStructs. Necessary only if AcraStructs are used for encryption, masking.
-    - Searchable encryption keys. Necessary only if searchable encryption is used. 
-    - Keys for tamper-proof audit logging that prevents editing messages, removing, adding or changing the order of log entries.
+    - Searchable encryption keys. Necessary only if searchable encryption is enabled.
+    - Keys for tamper-proof audit logging that prevents editing messages, removing, adding or changing the order of log entries. Necessary, only if tamper-proof audit logging is enabled.
     - TLS certificates if TLS is used for transport encryption.
     - AcraConnector's transport public key and AcraServer's own transport private key. Necessary only if AcraConnector is used to connect client app with AcraServer and AcraConnector uses Themis Secure Session.
     - Poison record keys to be able to detect poison records in database responses. Necessary only if intrusion detection is used.
@@ -235,4 +233,4 @@ Correct operation of each Acra's component requires set of cryptographic keys (d
 
 - **AcraConnector** needs to have its own transport private key and other party transport public key to establish Themis Secure Session connection. You need put transport public key of AcraServer or AcraTranslator into AcraConnector's key storage, depending on the connection type. Necessary only if AcraConnector is used to connect client app with AcraServer and AcraConnector uses Themis Secure Session.
 
-- **AcraWriter** should have the public key from storage asymmetric keypair. They are necessary for encrypting data into AcraStructs in such a way that would only be readable for AcraServer/AcraTranslator. Necessary only if AcraWriter is used.
+- **AcraWriter** should have the public key from storage asymmetric keypair. It is necessary for encrypting data into AcraStructs in such a way that would only be readable for AcraServer/AcraTranslator. Necessary only if AcraWriter is used.
