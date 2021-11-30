@@ -20,9 +20,9 @@ Read [Security events](/acra/security-controls/security-logging-and-events/secur
 
 You can use certain data streams to detect anomalous security events. To get some ideas where to start: 
 
-* Stream of all SQL queries could hint you at both insider attacks and SQL injections. 
+* Stream of all SQL queries could hint you on both insider attacks and SQL injections.
 * Access events, when correlated with other network and access data, can give you good idea about probing Acra by potential attackers. 
 * Increased number of decryption errors related to the same ClientID might indicate configuration error of this application or its malicious activity.
-* Correlatting database connection errors together with database load could suggest suspicious activity in database cluster.
+* Correlating database connection errors together with database load could suggest suspicious activity in database cluster.
 
 Correlate events from Acra with events from the other part of your system – check CPU/RAM load, monitor for sudden changes in volume of outgoing data from the database – as these might be a signs of data leakage/misconfiguration.

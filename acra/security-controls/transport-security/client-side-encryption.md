@@ -11,7 +11,7 @@ This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/
 
 As we describe in [Acra in depth / Architecture](/acra/acra-in-depth/architecture/), data encryption can happen in client application using [AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/acrawriter/).
 
-AcraWriter SDK allows client application to encrypt data into AcraStructs/AcraBlocks and then send encrypted. It means that even if a client application doesn't use TLS or works in a hostile environment, the data is still sent encrypted. Application can sen it directly to the database omitting AcraServer, or send to the AcraServer (it won't encrypt data twice).
+AcraWriter SDK allows client application to encrypt data into AcraStructs/AcraBlocks and then send encrypted. It means that even if a client application doesn't use TLS or works in a hostile environment, the data is still sent encrypted. Application can send it directly to the database omitting AcraServer, or send to the AcraServer (it won't encrypt data twice).
 
 Client-side encryption is useful for gathering sensitive data from remote devices/telemetry/services, and it protects the data in motion.
 
