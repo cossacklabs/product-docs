@@ -31,7 +31,7 @@ You will also get the ZoneID and the public key application will need for encryp
 
 [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/) can be configured to use a static ZoneID for encryption, flag `zonemode_enable` should be set to `true` (enabled).
 
-When [AcraServer is used with encryptor config](/acra/configuring-maintaining/controls-configuration-on-acraserver/), you can specify which table columns should be encrypted and what Zone that should be used. Application doesn't need to encrypt the data, know the appropriate ZoneID, or store the zone public key. AcraServer will transparently encrypt and decrypt data according to its configuration.
+When [AcraServer is used with encryptor config](/acra/configuring-maintaining/controls-configuration-on-acraserver/), you can specify which table columns should be encrypted and what Zone should be used. Application doesn't need to encrypt the data, know the appropriate ZoneID, or store the zone public key. AcraServer will transparently encrypt and decrypt data according to its configuration.
 
 {{< hint info >}}
 **Note:**
@@ -42,17 +42,17 @@ If you need to change Zone configuration, AcraServer must be restarted to apply 
 
 AcraServer and AcraTranslator support dynamic ZoneID specified on per-request basis.
 
-AcraServer supports encryption usign zones. When using AcraServer, client application should encrypt data with correct zone using AcraWriter. Client application should know ZoneID and generated public key. AcraWriter is used to encrypt data in zone mode which is then stored as usual in the database. Only AcraServer/AcraTranslator will be able to decrypt the data back if it has correct Zone keys.
+AcraServer supports encryption using zones. When using AcraServer, client application should encrypt data with correct zone using AcraWriter. Client application should know ZoneID and generated public key. AcraWriter is used to encrypt data in zone mode which is then stored as usual in the database. Only AcraServer/AcraTranslator will be able to decrypt the data back if it has correct Zone keys.
 
 
-AcraTranslator supports encryption using zones via HTTP or gRPC API. Zone keys are stored on AcraTranslator and you should supply client application with ZoneID. Client application's requests to AcraTranslator must include the appropriate ZoneID, then AcraTranslator will locate the associated keys, encrypt data, and return AcraStruct/AcraBlock with zone.
+AcraTranslator supports encryption using zones via HTTP or gRPC API. Zone keys are stored on AcraTranslator, and you should supply client application with ZoneID. Client application's requests to AcraTranslator must include the appropriate ZoneID, then AcraTranslator will locate the associated keys, encrypt data, and return AcraStruct/AcraBlock with zone.
 
 
 ## How to decrypt data using zones
 
 ### Decrypt with AcraTranslator
 
-AcraTranslator supports decryption of zoned data via HTTP or gRPC API.
+AcraTranslator supports decryption of "zoned" data via HTTP or gRPC API.
 Client application sends the encrypted data along with the associated ZoneID in request and receives decrypted data in response.
 
 The application has to know only the correct ZoneID. Decryption keys are stored on the AcraTranslator which looks them up by the provided ZoneID.
@@ -64,7 +64,7 @@ Client application needs to send appropriate ZoneID along with the query. AcraSe
 
 The application has to know only the correct ZoneID. Decryption keys are stored on the AcraServer which looks them up by the provided ZoneID.
 
-Since the application does not know that it communicates with AcraServer and believes that it communicates with SQL database, it's tricky how it should know about Zones. The SQL query must specify the ZoneID to use in some way, either in the query itself on in the resulting response.
+Since the application does not know that it communicates with AcraServer and believes that it communicates with SQL database, it's tricky how it should know about Zones. The SQL query must specify the ZoneID to use in some way, either in the query itself or in the resulting response.
 
 Several options are supported:
 
@@ -75,7 +75,7 @@ Several options are supported:
 
 One option is to store the ZoneID along with encrypted data directly in the database,
 then you query both of them for decryption.
-This way it's easy to ensure that correct ZoneID is associated with the data but the association itself is naturally disclosed in the database.
+This way it's easy to ensure that correct ZoneID is associated with the data, but the association itself is naturally disclosed in the database.
 
 Here's an example of database schema for PostgreSQL:
 ```sql
@@ -134,7 +134,7 @@ This is why the ZoneID column must precede the encrypted data column in SQL quer
 
 #### Method 2 – ZoneID provided as a literal
 
-It is also possible to not store ZoneID in the database, but instead provide it from other source.
+It is also possible to avoid storing ZoneID in the database, but instead provide it from some another source.
 Application may store ZoneID locally or derive it from user's input.
 In any case, the ZoneID is not stored in the database, only the encrypted data.
 The database schema may look like this for PostgreSQL:

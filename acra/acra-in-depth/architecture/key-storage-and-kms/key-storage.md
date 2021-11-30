@@ -39,7 +39,7 @@ We recommend to start with "files" (keys are stored in files) and switch to Redi
 
 ## Architectural considerations
 
-If you already use Redis for some purposes, it is not recommended to use it for key storage too.
+If you already use Redis for some purposes, it is not recommended using it for key storage too.
 Instead, hosting new instance on a separate machine will provide better security guarantees.
 
 Key storage should be fast ~~and furious~~ and scalable for better throughput.
