@@ -31,7 +31,7 @@ Refer to [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/kms/) to rea
 
 ## Key storage
 
-[AcraServer](/acra/acra-in-depth/architecture/acraserver), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) and [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) require to access encryption keys. 
+[AcraServer](/acra/acra-in-depth/architecture/acraserver), [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/) and [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/) require accessing encryption keys.
 
 Acra relies on a lot of keys that generated per user, per purposes. Also, they may be rotated and at the same time
 may exist several keys for same purpose. This set of keys should be stored somewhere and should support distributed access

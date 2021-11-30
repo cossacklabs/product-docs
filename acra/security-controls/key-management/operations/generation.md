@@ -16,7 +16,7 @@ During the inital setup of Acra you will need to generate new keys for all compo
    Storage keys are the ones responsible for data encryption.
    There are two kinds of crypto containers (AcraStructs and AcraBlocks) and two different kinds of keys for them ([storage symmetric keys](/acra/security-controls/key-management/inventory/#storage-symmetric-keys) and [storage asymmetric keys](/acra/security-controls/key-management/inventory/#storage-asymmetric-keypairs)).
 
-   [Searchable encryption keys](/acra/security-controls/key-management/inventory/#searchable-encryption-keys) are used for encrypting data for search.
+   [Searchable encryption keys](/acra/security-controls/key-management/inventory/#searchable-encryption-keys) are used for searchable encryption functionality as it speaks for itself.
 
 3. Transport keys.
 
@@ -33,7 +33,7 @@ During the inital setup of Acra you will need to generate new keys for all compo
 
 ## Acra Master Keys
 
-Acra uses many keys and most of them are private and thus stored in encrypted form.
+Acra uses many cryptographic keys; most of them are private and thus stored in encrypted form.
 There are very special **Acra Master Keys** that are used by each Acra component to decrypt private keys as necessary.
 Look after the master keys very carefully!
 
