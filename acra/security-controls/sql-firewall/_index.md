@@ -43,7 +43,7 @@ The configuration file describes how AcraCensor should process the incoming SQL 
 We suggest the following structure of handlers for better security: put `query_capture` first to log every query into the `censor.log`, then put `query_ignore` to ignore some database-specific control queries that occur when the database is starting and when the database drives check the connections, then put the `deny` handler to block all the unwanted queries, then put the `allow` handler to allow some specific "normal" queries.
 
 {{< hint info >}}
-Note: any change in the AcraCensor configuration file require AcraServer's restart to apply changes.
+Note: You should restart AcraServer in order to apply changes in the AcraCensor's configuration file.
 {{< /hint >}}
 
 The new configuration file format allows configuring the `allow` and `deny` handlers separately or simultaneously.
@@ -152,12 +152,12 @@ We suggest looking into [`tests/acra-censor_configs`](https://github.com/cossack
 
 ## Handling parsing errors
 
-AcraCensor is not a database engine and it might not be able to parse all possible SQL queries.
+AcraCensor is not a database engine, and it might not be able to parse all possible SQL queries.
 It's potentially dangerous to send unrecognized queries to the database as they might contain SQL injections.
-So for security reasons, by default, AcraCensor blocks any queries it cannot understand.
+So for security reasons, by default, AcraCensor blocks any queries it cannot "understand".
 
 However, some of these queries might be totally legit.
-AcraCensor can be configured to allow the queries it cannot parse to pass through to the database:
+AcraCensor can be configured to allow the queries it cannot parse to pass through AcraServer to the database:
 
 ```yaml
 ignore_parse_error: false
@@ -184,7 +184,7 @@ We will look into it and try to help.
 
 It’s very important that AcraCensor doesn’t log sensitive data. That’s why the first thing AcraCensor does is masking the values in SQL queries’ logs. All values from SQL queries are edited and masked to `replaced` keyword.
 
-This is what the logs from AcraCensor look like:
+This is how the logs from AcraCensor look like:
 
 ```
 select * from accounts where cid = :replaced1
@@ -194,8 +194,8 @@ insert into accounts(username, password, mysignature) values (:replaced1, :repla
 
 ### Logging errors
 
-Sometimes AcraCensor can't parse a query and it is useful to have a separate log for these
-which comes handy for debugging and configuration.
+As mentioned above, sometimes AcraCensor can't parse a particular SQL query, so it is useful to have a separate log for these
+unparsed queries which comes handy for debugging and configuration.
 You can provide a path to this log file with `parse_errors_log`:
 
 ```yaml
