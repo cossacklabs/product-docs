@@ -16,14 +16,14 @@ Acra can export security events to your SIEM. Don't hesitate to use it. Refer to
 
 ## Metadata 
 
-Typically, each event has additional fields giving specific context about what's heppening:
+Typically, each event has additional fields giving specific context about what's happening:
 
 * Timestamp (always present).
 * ClientID for encryption/decryption operations – AcraServer logs the ID of client application that triggered the operation (helpful to analyze amount of errors happening for specific application).
 * ZoneID for encryption/decryption operations related to the specific [Zone](/acra/security-controls/zones/).
 
 
-# List important security events
+# List of important security events
 
 Here are the most important security events for SIEM/SOC analysis. Refer to the full list of [the event codes](https://github.com/cossacklabs/acra/blob/master/logging/event_codes.go).
 

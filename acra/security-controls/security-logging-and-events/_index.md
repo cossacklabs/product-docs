@@ -3,6 +3,12 @@ title: Logging & events
 bookCollapseSection: true
 weight: 9
 ---
+# Logging & events
+
+This section describes Acra's logging facilities from security perspectives. Logging subsystem is quite important part of any secure software or hardware.
+Logs record noteworthy events happened in the past, and they provide a valuable view of past and current state of the system. In conjunction with appropriate tools
+and procedures, logs can be used to reconstruct events, detect intrusions and help while identifying security problems. We highly understand high forensic value of system logs,
+so Acra is designed with comprehensive state-of-the-art security-oriented approach regarding its logging mechanism.
 
 ## Security logging
 
@@ -26,7 +32,7 @@ Refer to [Security events](/acra/security-controls/security-logging-and-events/s
 
 ## Integration with SIEM/SOCs
 
-A list of events might be useless if noone analyses it. Fetch Acra's logs and events and direct them into your SIEM/SOC systems. 
+A list of events might be useless if they can't be analyzed effectively and efficiently. Fetch Acra's logs and events and direct them into your SIEM/SOC systems.
 
 Refer to [SIEM/SOC integration page](/acra/security-controls/security-logging-and-events/siem-soc-integration/) to read about SIEM/SOC integration and anomaly detection suggestions.
 
