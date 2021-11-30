@@ -19,7 +19,7 @@ Masking is "kinda anonymisation". It's helpful when the dataset should be shared
 Under the hood, AcraServer/AcraTranslator encrypts the data completely, and concatenates a piece of plaintext (defined by `plaintext_length` variable, see below). So the data itself is stored encrypted into AcraStruct/AcraBlock with a tiny chunk of plaintext data.
 
 AcraServer is the only component that provides transparent masking for `INSERT` and `UPDATE` queries and
-transparent de-masking for `SELECT` queries, with per column configuration.
+transparent demasking for `SELECT` queries, with per column configuration.
 
 ## AcraServer configuration
 

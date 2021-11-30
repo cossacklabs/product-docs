@@ -5,10 +5,10 @@ weight: 1
 
 # Application-level encryption
 
-Acra can be configured to prevent adversaries with access to database from seeing sensitive plaintexts.
+Acra prevents adversaries with access to database from seeing sensitive data in plaintext.
 Acra selectively encrypts sensitive data using securely stored cryptographic keys. Thus, Acra acts as a security boundary in front of sensitive data.
 
-Essentially, Acra provides [application-level encryption](https://www.infoq.com/articles/ale-software-architects/) by implementing it as a field-level database encryption.
+Essentially, Acra provides [application-level encryption](https://www.infoq.com/articles/ale-software-architects/) by implementing it as a field-level encryption before data gets into the database.
 
 ## Encryption
 

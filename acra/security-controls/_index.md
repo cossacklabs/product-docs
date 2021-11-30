@@ -14,13 +14,13 @@ This section describes how Acra's features are working and how to use them prope
 
 Encrypt data before putting it into your database/datastore.
 
-* [Encryption](/acra/security-controls/encryption/). Use encryption if your goal is to protect confidentiality of sensitive data fields. Acra will encrypt data fields and allow you to store them encrypted as binary blobs in your database/datastore. This is the main feature most Acra users use.
+* [Encryption](/acra/security-controls/encryption/). Use encryption if your goal is to protect confidentiality and integrity of sensitive data fields. Acra will encrypt data fields and allow you to store them encrypted as binary blobs in your database/datastore. This is the main feature most Acra users use.
 
 * [Searchable encryption](/acra/security-controls/searchable-encryption/). If you want to run EQUAL queries (`if email=<anna@acme.com>`) over encrypted fields, use searchable encryption. It has certain limitations but allows searching without revealing data to the database.
 
 * [Masking](/acra/security-controls/masking/). Use masking if your goal is to encrypt and hide data, but leave a part of it in a plaintext (`annXXXXX@acme.com`). Your application controls how to show data – in plaintext for trusted connections, or as a mask for untrusted ones.
 
-* [Tokenization](/acra/security-controls/tokenization/). Use tokenization for data fields when you want a ciphertext to have the same format as plaintext. Acra will create a data token with the same format (int, string, or even email-looking) and store it in the database. Acra will encrypt the data fields and store them in separate storage.
+* [Tokenization](/acra/security-controls/tokenization/). Use tokenization for data fields when you can't change data column format. Acra will create a data token with the same format (int, string, or even email-looking) and store it in the database. Acra will encrypt the data fields and store them in separate storage.
 
 
 ## Protect and filter network connections

@@ -111,12 +111,12 @@ There are different strategies of re-encrypting data after rotating **data stora
     This strategy is the best one performance-wise, but requires careful planning.
 
 Note that there are some differences in data re-encryption flow depending on selected cryptographic container type.
-**AcraStructs** use ephemeral asymmetric keys to enable applications to encrypt the data but never decrypt it (end-to-end encryption) - the private key
+[**AcraStructs**](/acra/acra-in-depth/data-structures/acrastruct/) use ephemeral asymmetric keys to enable applications to encrypt the data but never decrypt it (end-to-end encryption) - the private key
 stays on the AcraServer / AcraTranslator which are the only ones capable of decryption. In case of AcraStruct container you
 can be sure that: 1) even if application used outdated (rotated) key, the data stored in the database is encrypted with a fresh key;
 2) it is impossible to find any correlation between encrypted data and any table row, as the re-encrypted data will look completely different.
 
-**AcraBlocks** use symmetric keys stored on AcraServer / AcraTranslator for both encryption and decryption. AcraBlocks provide similar properties for encrypted data
+[**AcraBlocks**](/acra/acra-in-depth/data-structures/acrablock/) use symmetric keys stored on AcraServer / AcraTranslator for both encryption and decryption. AcraBlocks provide similar properties for encrypted data
 as mentioned for AcraStructs. The only difference is that application is not able to encrypt / decrypt data and operates only with a plaintext. However, it simplifies
 Acra integration into existing infrastructure, since no changes to application source code is required. Moreover, AcraBlocks provide [faster data encryption/decryption](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks) comparing with AcraStructs.
 

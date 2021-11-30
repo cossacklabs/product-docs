@@ -29,7 +29,7 @@ The tokenization process has few interesting properties:
 Two components can provide tokenization functionality:
 
 * AcraServer — transparent tokenization for `INSERT` and `UPDATE` queries,
-  transparent de-tokenization for `SELECT` queries, with per column configuration.
+  transparent detokenization for `SELECT` queries, with per column configuration.
 * AcraTranslator — provides gRPC and HTTP API for tokenization.
 
 {{< hint warning >}}
@@ -73,7 +73,7 @@ In order to use the translator gRPC API you have to take
 [api.proto](https://github.com/cossacklabs/acra/blob/master/cmd/acra-translator/grpc_api/api.proto)
 and use either `service Tokenizator` or `service BulkProcessing` (with one or more `TokenizeRequest` inside, enterprise only).
 
-Tokenize & de-tokenize with `service Tokenizator`:
+Tokenize & detokenize with `service Tokenizator`:
 ```
 message TokenizeRequest {
     bytes client_id = 1;
@@ -104,7 +104,7 @@ service Tokenizator {
 ```
 
 {{< hint info >}}
-De-tokenization is performed by creating `TokenizeRequest` with the token as value and passing it to `Detokenize` method.
+Detokenization is performed by creating `TokenizeRequest` with the token as value and passing it to `Detokenize` method.
 Don't forget to use the same type (str / email / int32 / int64 / bytes).
 {{< /hint >}}
 
@@ -114,7 +114,7 @@ Don't forget to use the same type (str / email / int32 / int64 / bytes).
 
 Method: `GET`
 
-Path: `/v2/tokenize` for tokenization, `/v2/detokenize` for de-tokenization
+Path: `/v2/tokenize` for tokenization, `/v2/detokenize` for detokenization
 
 Mime-Type: `application/json`
 
