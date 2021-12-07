@@ -46,7 +46,7 @@ AcraTranslator encrypts data into selected CryptoEnvelope, and expects only `<Cr
 
 ## Comparison
 
-Let’s consider an example where we’re storing an email in a database and we’d like to encrypt it, “wrapping” it into an CryptoEnvelope. We’d get a table:
+Let’s consider an example where we’re storing an email in a database, and we’d like to encrypt it, “wrapping” it into an CryptoEnvelope. We’d get a table:
 
 | Email        | Column 2     | Column 3     |
 |--------------|--------------|--------------|
@@ -57,6 +57,6 @@ In this case, CryptoEnvelope takes up a whole cell, and we are trying to decrypt
 
 However, in InjectedCell mode a binary [MsgPack](https://msgpack.org/index.html) or [protobuf](https://developers.google.com/protocol-buffers/) could be stored in a table, and partial data encryption is possible (for instance, if only one field of protobuf structure is encrypted).
 
-Such data entity wouldn’t be a single CryptoEnvelope – it would be a data entity that contains an CryptoEnvelope or several CryptoEnvelopes.
+Such data entity would not be a single CryptoEnvelope – it would be a data entity that contains an CryptoEnvelope or several CryptoEnvelopes.
 This means that in the InjectedCell mode we stop assuming that the database cells can only contain complete CryptoEnvelopes.
 CryptoEnvelopes can be inside some other pieces of data and that’s where we’re starting to look for them.

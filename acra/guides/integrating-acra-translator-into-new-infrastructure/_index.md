@@ -13,9 +13,9 @@ This element of Acra is necessary in the use-cases when applications store the e
 By its nature, AcraTranslator is a separate daemon that runs in an isolated environment (separate virtual machine or physical server). AcraTranslator is responsible for holding all the secrets required for data decryption and for actually decrypting the data.
 
 AcraTranslator doesn't care about the source of the data, it accepts [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) via HTTP or gRPC API. An application can conveniently store crypto envelope anywhere: as cells in the database, as files in the file storage (local or cloud storage, like S3).
-An application sends [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) as binary data and receives plaintext (or decryption error) from AcraTranslator.
+An application sends [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) as binary data and receives a plaintext (or decryption error) from AcraTranslator.
 
-However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires usage of [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) encryption channel (which is basically encrypted TCP/UNIX sockets).
+However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires usage of [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) encryption channel (which is basically an encrypted TCP/UNIX sockets).
 To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to direct the traffic through [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/) instead.
 
 
@@ -49,7 +49,7 @@ After AcraTranslator installed you can follow manual configuration steps for [HT
 
 ## Poison records
 
-If the client application is hacked and the attacker is trying to decrypt all the data, you can detect it using [poison records](/acra/security-controls/intrusion-detection/).
+If the client application is hacked, and the attacker is trying to decrypt all the data, you can detect it using [poison records](/acra/security-controls/intrusion-detection/).
 
 AcraTranslator (similarly as AcraServer) has ability to detect poison records and stop executing the query, preventing the data from leaking to an untrusted destination.
 To learn more about AcraTranslator cmd configuration you can refer [here](/acra/configuring-maintaining/general-configuration/acra-translator/).

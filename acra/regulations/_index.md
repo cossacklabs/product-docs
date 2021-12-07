@@ -19,7 +19,7 @@ Acra performs encryption through [Themis](/themis/) with [Secure Cell](/themis/c
 
 Also, Acra follows “secure by default” configuration philosophy and carries out [extensive security and audit logging](/acra/security-controls/security-logging-and-events/) of all its actions “out of the box”.
 
-Using Acra fulfils some of the demands of the articles [25. Data protection by design and by default](https://gdpr-info.eu/art-25-gdpr/) and [32. Security of processing](https://gdpr-info.eu/art-32-gdpr/). Also, Acra assists with compliance with articles [33. Notification of a personal data breach to the supervisory authority](http://gdpr-info.eu/art-33-gdpr/) and [34. Communication of a personal data breach to the data subject](http://gdpr-info.eu/art-34-gdpr/).
+Using Acra fulfils some demands of the articles [25. Data protection by design and by default](https://gdpr-info.eu/art-25-gdpr/) and [32. Security of processing](https://gdpr-info.eu/art-32-gdpr/). Also, Acra assists with compliance with articles [33. Notification of a personal data breach to the supervisory authority](http://gdpr-info.eu/art-33-gdpr/) and [34. Communication of a personal data breach to the data subject](http://gdpr-info.eu/art-34-gdpr/).
 
 ### Data protection by design and by default
 
@@ -36,7 +36,7 @@ This is enabled through the encrypted data transfer between the application, com
 
 [Article 32 of GDPR](https://gdpr-info.eu/art-32-gdpr/).
 
-Acra provides “state of the art security of processing” required by article 32 of GDPR through providing data encryption and integrity checking of the encrypted data.
+Acra provides “state-of-the-art security of processing” required by article 32 of GDPR through providing data encryption and integrity checking of the encrypted data.
 
 > Taking into account the state of the art, the costs of implementation and the nature, scope, context and purposes of processing as well as the risk of varying likelihood and severity for the rights and freedoms of natural persons, the controller and the processor shall implement appropriate technical and organisational measures to ensure a level of security appropriate to the risk [...]
 
@@ -84,7 +84,7 @@ Similarly to how Acra helps reach better compliance with GDPR, Acra can also hel
 
 ## PCI DSS
 
-Acra can solve some of PCI DSS requirements, and can be creatively used to reinforce others: 
+Acra fulfils some PCI DSS requirements, and can be creatively used to reinforce others:
 
 
 **Requirement 1. A firewall configuration must be installed and maintained**
@@ -114,7 +114,7 @@ Acra allows you to put cardholder data in encrypted form into even public databa
 
 Logging: Acra can generate [a detailed audit trail](/acra/security-controls/security-logging-and-events/audit-logging/) regarding all database queries, making it tamper-proof. 
 
-Monitoring: being aware of database/datastore query contents, Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow identifying suspicious queries and users granularly. 
+Monitoring: being aware of database/datastore query contents, Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow granular identification of suspicious queries and users.
 
 
 ## HIPAA
@@ -123,32 +123,32 @@ Acra can satisfy some [HIPAA requirements](https://www.hipaajournal.com/hipaa-co
 
 **Implement a means of access control**
 
-Acra’s encryption is linked with ClientID – an application identifier – that is linked with encryption keys. Applications that provide the wrong TLS certificate or ClientID can’t get decrypted data. As addition, Acra gives more compartmentalization ways of diving access by [Zones](/acra/security-controls/zones/). 
+Acra’s encryption is linked with ClientID – an application identifier – that is linked with encryption keys. Applications that provide the wrong TLS certificate or ClientID can’t get decrypted data. In addition, Acra gives more compartmentalization ways of diving access by [Zones](/acra/security-controls/zones/). 
 
 
 **Introduce a mechanism to authenticate ePHI**
 
-All connections that are going through Acra are [logged](/acra/security-controls/security-logging-and-events/) and Acra can generate [a detailed audit trail](/acra/security-controls/security-logging-and-events/audit-logging/). Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow to identify actions and applications who altered or deleted ePHI.
+All connections that are going through Acra are [logged](/acra/security-controls/security-logging-and-events/) and Acra can generate [a detailed audit trail](/acra/security-controls/security-logging-and-events/audit-logging/). Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow identification of actions and applications which altered or deleted ePHI.
 
 **Implement tools for encryption and decryption**
 
 Acra encrypts ePHI data, providing means to store ePHI encrypted and process it encrypted. Also, the components of Acra allow encrypting data on the client-side, which enables the secure transfer of the data in encrypted form through an untrusted channel.
 
-Decryption happens in Acra only for authorized applications and connections, and Acra produces logs and security events allowing to identify who/when/where has decrypted ePHI.
+Decryption happens in Acra only for authorized applications and connections, and Acra produces logs and security events, which allow identifying who/when/where has decrypted ePHI.
 
 
 **Introduce activity logs and audit controls**
 
 Logging: Acra can generate [a detailed audit trail](/acra/security-controls/security-logging-and-events/audit-logging/) regarding all database queries, making it tamper-proof. 
 
-Monitoring: being aware of database/datastore query contents, Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow identifying suspicious queries and users granularly. 
+Monitoring: being aware of database/datastore query contents, Acra can provide monitoring and [security events](/acra/security-controls/security-logging-and-events/security-events/) stream that will allow granular identification of suspicious queries and users. 
 
 
 **Restricting third-party access**
 
 After Acra’s encryption, ePHI is stored in encrypted form; even in a case of an incident, ePHI is leaked encrypted.
 
-Acra's [Intrusion detection](/acra/security-controls/intrusion-detection/) controls allows to detect and prevent authorized access and SQL injection attacks.
+Acra's [Intrusion detection](/acra/security-controls/intrusion-detection/) controls allow detecting and preventing unauthorized access and SQL injection attacks.
 
 
 **Reporting security incidents**

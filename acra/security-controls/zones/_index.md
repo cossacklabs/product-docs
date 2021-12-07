@@ -25,7 +25,7 @@ There are two ways to encrypt data with zones: using static or dynamic ZoneID.
 In any case, a zone must be created first with [`acra-addzone` tool](/acra/configuring-maintaining/general-configuration/acra-addzone) or using [AcraServer's HTTP API](/acra/configuring-maintaining/general-configuration/acra-server/#http-api).
 
 Newly generated keys should be placed into AcraServer or AcraTranslator keystore so that they are able to decrypt the encrypted data.
-You will also get the ZoneID and the public key application will need for encryption.
+You will also get the ZoneID and the public key required by application to perform encryption.
 
 ### Static ZoneID
 
@@ -45,7 +45,7 @@ AcraServer and AcraTranslator support dynamic ZoneID specified on per-request ba
 AcraServer supports encryption using zones. When using AcraServer, client application should encrypt data with correct zone using AcraWriter. Client application should know ZoneID and generated public key. AcraWriter is used to encrypt data in zone mode which is then stored as usual in the database. Only AcraServer/AcraTranslator will be able to decrypt the data back if it has correct Zone keys.
 
 
-AcraTranslator supports encryption using zones via HTTP or gRPC API. Zone keys are stored on AcraTranslator, and you should supply client application with ZoneID. Client application's requests to AcraTranslator must include the appropriate ZoneID, then AcraTranslator will locate the associated keys, encrypt data, and return AcraStruct/AcraBlock with zone.
+AcraTranslator supports encryption using zones via HTTP or gRPC API. Zone keys are stored on AcraTranslator, and you should supply client application with ZoneID. Client application's requests to AcraTranslator must include the appropriate ZoneID, then AcraTranslator will locate the associated keys, encrypt data, and return AcraStruct/AcraBlock with a zone.
 
 
 ## How to decrypt data using zones

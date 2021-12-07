@@ -7,7 +7,7 @@ weight: 9
 
 For each database instance, you may have as many AcraServer instances as you like.
 However, there's no need to bring up additional nodes if existing ones have enough CPU/memory to process all requests.
-Similar thing with AcraTranslator.
+Same for AcraTranslator.
 
 On the other hand, you may want to have redundant instances:
 * for extremal unpredicted high loads;

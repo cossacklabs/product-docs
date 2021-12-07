@@ -31,9 +31,9 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 * Transparent data encryption/decryption.
 * Searchable encryption.
-* Transparent tokenization/detokenization (it's kind of preudonymization, [read more about tokenization](/acra/security-controls/tokenization/)).
-* Transparent encryption/decryption with masking (leaving some part of data unencrypted,
-  [read more about masking](/acra/security-controls/masking/).
+* Transparent tokenization/detokenization (it's a kind of pseudonymization; [read more about tokenization](/acra/security-controls/tokenization/)).
+* Transparent encryption/decryption with masking (leaving some part of data unencrypted;
+  [read more about masking](/acra/security-controls/masking/)).
 * Encrypted data in the database will remain protected and useless unless AcraServer has access to decryption keys.
 
 
@@ -89,8 +89,8 @@ Anyway, AcraServer won't be able to decrypt data for which it does not have the 
 as well as it won't decrypt data for SQL clients not supposed to access it.
 
 In many cases using SQL proxy would be a desired solution as it is
-[quite easy to integrate into existing infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/)
-and provides a whole complex of data protection stuff.
+[quite easy to integrate into existing infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/).
+Also, it provides a whole complex data protection stuff.
 
 However, in cases when you need to make application the only component that interacts with plaintext,
 AcraServer won't help you, you will have to use things like [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) to encrypt data on application-side before it leaves.

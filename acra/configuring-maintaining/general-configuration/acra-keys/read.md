@@ -4,7 +4,7 @@ weight: 3
 ---
 # read
 
-**`read`** is `acra-keys` subcommand used for reading keys from keystore in plaintext.
+**`read`** is `acra-keys` subcommand used for reading keys from keystore in a plaintext.
 
 ## Command line flags
 
@@ -108,7 +108,7 @@ INFO[0000] Initialized default env ACRA_MASTER_KEY loader
 INFO[0000] Generated client storage key        
 ```
 
-Now we can use `read` subcommand to get `private|public` key of the keypair in plaintext:
+Now we can use `read` subcommand to get `private|public` key of the keypair in a plaintext:
 
 ```
 $ acra-keys read --private client/user1/storage

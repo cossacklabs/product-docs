@@ -7,7 +7,7 @@ weight: 3
 
 AcraTranslator is an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection. AcraTranslator doesn't depend on a database and makes application responsible for actually putting data into storage.
 
-AcraTranslator is your the main choice when your application should make encryption calls, or you use NoSQL/KV datastore.
+AcraTranslator is your main choice when your application should make encryption calls, or you use NoSQL/KV datastore.
 
 Refer to [Integrating AcraTranslator into infrastructure](/acra/guides/integrating-acra-translator-into-new-infrastructure/) to learn how to configure AcraTranslator.
 
@@ -23,13 +23,13 @@ Refer to a [Acra security features](/acra/acra-in-depth/security-features/) to l
 
 ## Functional requirements
 
-Your application explicitly sends data to the AcraTranslator via API. Your application defines AcraTranslator's behavior regarding the data -- for example, encrypt plaintext and return encrypted container. Then your app is responsible for storing the data, or sending it to another services.
+Your application explicitly sends data to the AcraTranslator via API. Your application defines AcraTranslator's behavior regarding the data -- for example, encrypt a plaintext and return encrypted container. Then your app is responsible for storing the data, or sending it to another services.
 
 Your application doesn't need to handle any cryptographic code or have access to any keys.
 
 * Data encryption/decryption as API.
 * Generating searchable hash for search of encrypted value in a database.
-* Tokenization/detokenization as API (it's kind of pseudonymization, [read more about tokenization](/acra/security-controls/tokenization/)).
+* Tokenization/detokenization as API (it's a kind of pseudonymization, [read more about tokenization](/acra/security-controls/tokenization/)).
 * Encrypted data will remain protected and useless unless AcraTranslator has access to decryption keys.
 
 
@@ -76,7 +76,7 @@ Other connections are optional – for example, you can use Redis as external ke
 
 ## Architectural considerations
 
-Similar to [AcraServer's recomendations](/acra/acra-in-depth/architecture/acraserver/#what-are-architectural-considerations), it is strictly recommended to host AcraTranslator on a different machine (virtual or physical),
+Similar to [AcraServer's recommendations](/acra/acra-in-depth/architecture/acraserver/#what-are-architectural-considerations), it is strictly recommended to host AcraTranslator on a different machine (virtual or physical),
 isolated from both client applications and the database.
 
 This comes from the fact that Acra works with a sensitive data (such as encryption keys) and isolation

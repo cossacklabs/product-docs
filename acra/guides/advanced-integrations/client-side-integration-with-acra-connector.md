@@ -27,7 +27,7 @@ Acra needs a trusted agent on the application's side to protect the sensitive de
 
 AcraConnector acts as a local proxy that receives requests from the app and returns decrypted answers. AcraConnector provides an encrypted and authenticated connection to AcraServer, which, in turn, fetches the response to the request from the database and decrypts all the data. AcraServer then returns the data to AcraConnector via a secure connection.
 
-AcraConnector works in a similar fashion with AcraTranslator, redirecting AcraStructs from application to AcraTranslator and delivering the decrypted response back.
+AcraConnector works similarly to AcraTranslator, redirecting AcraStructs from application to AcraTranslator and delivering the decrypted response back.
 
 This enforces maximum secrecy, employing authentication that is easy to manage (pre-shared private keys), and requires minimal intervention into your code for successful implementation!
 
@@ -165,13 +165,13 @@ When you need to retrieve some sensitive data:
    A typical PostgreSQL connection string would look like this:
    `postgresql://user:password@127.0.0.1:9494/db_name`
 
-2. `SELECT` you data as you would do normally.
+2. `SELECT` your data as you would do normally.
 
    AcraServer decrypts database responses automatically
    and AcraConnector ensures that decrypted data remains encrypted until your application receives it.
 
 
-> Note for PostgreSQL: In the current layout, you aren't required to use SSL when trying to connect to the database. Transport protection for sensitive (decrypted) data is provided between AcraServer and AcraConnector via [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/). However, you can setup using SSL connection, too.
+> Note for PostgreSQL: In the current layout, you aren't required to use SSL when trying to connect to the database. Transport protection for sensitive (decrypted) data is provided between AcraServer and AcraConnector via [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/). However, you can set up SSL connection as well.
 
 ## Client-side with Zones
 

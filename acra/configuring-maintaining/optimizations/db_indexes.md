@@ -23,5 +23,5 @@ CREATE INDEX searchable_email ON users (SUBSTR(email, 1, 33))
 where `users` is a table containing column `email` that is being used for searchable encryption.
 
 Also, please note that creating indexes for non-searchable encrypted columns won't give any benefit.
-For database they are just arrays of pseudo-random bytes, with no relation to a value being searched.
+For database, they are just arrays of pseudo-random bytes, with no relation to a value being searched.
 It will even slow down database a bit as it will have to update index on insert/update.

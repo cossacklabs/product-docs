@@ -78,7 +78,7 @@ IiIiIiIiIiJVRUMyAAAALQ82fbECADRBA5i8JVvnrhnoazCXTtw2pce45Yo5su+HNDEOD5EgJwQmVAAA
 ```
 
 {{< hint info >}}
-**NOTE**: The `acra-poisonrecordmaker` key folder must have proper permissions (as set originally by [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker/):
+**NOTE**: The `acra-poisonrecordmaker` key folder must have proper permissions (as set originally by [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker/)):
 
 - folder 700
 - private keys 600

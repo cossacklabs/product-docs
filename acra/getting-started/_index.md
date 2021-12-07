@@ -24,6 +24,6 @@ Acra Enterprise Edition supports all security features and is tailored for large
 
 ### Evaluation playgrounds, PoCs and pilots
 
-For qualified potential customers interested in commercial version, we offer free playgrounds built around Acra EE and a number of demo applications - deployed in cloud of your choice, all set up for evaluation. Get your hands dirty without getting your hands dirty first!
+For qualified potential customers interested in a commercial version, we offer free playgrounds built around Acra EE and a number of demo applications - deployed in cloud of your choice, all set up for evaluation. Get your hands dirty without getting your hands dirty first!
 
-If you're interested in commercial version, refer to [Acra Enterprise Edition](/acra/enterprise-edition/#how-to-evaluate-and-get-started) to learn more or [drop us a line](mailto:sales@cossacklabs.com) describing you use case.
+If you're interested in a commercial version, refer to [Acra Enterprise Edition](/acra/enterprise-edition/#how-to-evaluate-and-get-started) to learn more or [drop us a line](mailto:sales@cossacklabs.com) describing you use case.

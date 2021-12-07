@@ -22,7 +22,7 @@ weight: 5
 
 * `--mode`
 
-  Expected mode of connection.
+  An expected mode of connection.
   * `AcraServer` - (default) mode switch AcraConnector to work with `AcraServer`.
   * `AcraTranslator` - mode switch AcraConnector to work with `AcraTranslator`.
 
@@ -134,7 +134,7 @@ Following table describes flags that work only in appropriate mode:
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-server.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 ### Monitoring
 

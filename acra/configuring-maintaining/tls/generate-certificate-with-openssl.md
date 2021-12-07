@@ -211,7 +211,7 @@ What now?
 
 * `ca.crt.pem` is a CA certificate, can be used for options like `-tls_ca`
 * `cert1.crt.pem` is a leaf certificate signed by CA itself, can be used for `-tls_cert`
-* `cert1.key.pem` is a key corresponsing to `cert1.crt.pem`, can be used for `-tls_key`
+* `cert1.key.pem` is a key corresponding to `cert1.crt.pem`, can be used for `-tls_key`
 
 ## Other useful tools
 

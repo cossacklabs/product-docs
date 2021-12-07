@@ -28,7 +28,7 @@ weight: 3
 
 * `--acrastruct_wholecell_enable={true|false}`
 
-  AcraStruct will stored in whole data cell (**deprecated since 0.90.0**, ignored, AcraServer always works in Injected Cell mode).
+  AcraStruct will be stored in a whole data cell (**deprecated since 0.90.0**, ignored, AcraServer always works in Injected Cell mode).
 * `--audit_log_enable={true|false}`
 
   Enable audit log functionality.
@@ -109,7 +109,7 @@ weight: 3
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-server.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 * `--encryptor_config_file=<filename>`
 
@@ -360,14 +360,14 @@ weight: 3
 
 * `--tls_database_auth=<mode>`
 
-  Set authentication mode that will be used for TLS connection with database.
+  Set authentication mode that will be used for TLS connection with a database.
   Possible values are the same as for `--tls_auth`.
   Overrides the `--tls_auth` setting.
   Default is `-1` which means "take value of `--tls_auth`".
 
 * `--tls_database_key=<filename>`
 
-  Path to private key that will be used for TLS handshake with database.
+  Path to private key that will be used for TLS handshake with a database.
   Should correspond to the certificate configured with `--tls_database_cert`.
   Empty by default.
 
@@ -384,12 +384,12 @@ weight: 3
 
 * `--tls_database_sni=<SNI>`
 
-  Expected Server Name (SNI) from database.
-  Empty by default which means "don't check the SNI sent by database".
+  Expected Server Name (SNI) of a database.
+  Empty by default which means "don't check the SNI sent by a database".
 
 * `--tls_db_sni=<SNI>`
 
-  Expected Server Name (SNI) from database.
+  Expected Server Name (SNI) of a database.
   Deprecated since 0.90.0, use `--tls_database_sni` instead.
 
 * `--tls_identifier_extractor_type=<type>`

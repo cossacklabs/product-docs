@@ -36,8 +36,8 @@ It is also possible to store keys in a Redis database, see
 
 ### Note about Client ID
 
-When generating a key, you will always have to bind it with a [Cliend ID]({{< ref "client_id.md" >}}) or Zone ID.
-AcraServer distinguishes applications by [Cliend ID]({{< ref "client_id.md" >}}) and uses different encryption keys for different clients.
+When generating a key, you will always have to bind it with a [Client ID]({{< ref "client_id.md" >}}) or Zone ID.
+AcraServer distinguishes applications by [Client ID]({{< ref "client_id.md" >}}) and uses different encryption keys for different clients.
 
 ## AcraServer configuration
 
@@ -49,7 +49,7 @@ AcraConnector is as intermediate proxy between the application and AcraServer.
 Why would you need yet another proxy? Well, there are a couple of reasons:
 
 * Providing secure transport to AcraServer:
-  if application does not support TLS, communicates with AcraServer on remote host, and you want to ensure the communication channel is safe
+  if application does not support TLS, does communicate with AcraServer on remote host, and you want to ensure the communication channel is safe
 * Specifying which Client ID to use:
   when using TLS, you will have to use client IDs derived from some certificate properties (such as serial number),
   but with AcraConnector you can use whatever ID you want by simply setting configuration option when launching AcraConnector

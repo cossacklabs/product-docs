@@ -11,7 +11,7 @@ this is one thing that if lost can make your data completely inaccessible to any
 Keystore contents are also *very* sensitive because if leaked,
 your data may become completely *accessible* to anyone.
 
-Therefore it is crucial to make and store backups of the keystore in a secure manner.
+Therefore, it is crucial to make and store backups of the keystore securely.
 Acra has a number of tools to help you with this task.
 
 ## Backing up the master keys

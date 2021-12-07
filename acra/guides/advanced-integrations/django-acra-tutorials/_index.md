@@ -14,4 +14,4 @@ These guides describe a process of tuning up Django application for encrypting d
 
 Refer to a [Integrating Acra with Django app: short tutorial](django-acra-short-tutorial) if you are already familiar with Acra.
 
-Refer to a [Integrating Acra with Django app: setp-by-step tutorial](django-acra-step-by-step-tutorial) for full step-by-step guide.
+Refer to a [Integrating Acra with Django app: step-by-step tutorial](django-acra-step-by-step-tutorial) for full step-by-step guide.

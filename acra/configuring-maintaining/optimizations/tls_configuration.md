@@ -10,15 +10,15 @@ There are some performance differences depending on TLS configuration being used
 ## Ciphers
 
 In most cases AES will be the fastest cipher because of hardware acceleration in all modern CPUs.
-Smaller (128 bit) keys will result in lower CPU load compared to larger (256 bit) keys, altough, difference is not that big.
+Smaller (128 bit) keys will result in lower CPU load compared to larger (256 bit) keys, although, difference is not that big.
 On systems without hardware AES acceleration, ChaCha will show much better results.
 It is recommended to simply allow both of these ciphers on servers and let clients decide which one to use.
-Most recent version of TLS (which is 1.3) offers only these two by the way.
+The most recent version of TLS (which is 1.3) offers only these two by the way.
 
 ## Key agreement
 
 When deciding which key agreement scheme to use, elliptic curve based one is recommended.
-Compared to RSA, it has smaller keys (less data to transmit during handshake), better performance, and at least the same level of security.
+Compared to RSA, it has smaller keys (fewer data to transmit during handshake), better performance, and at least the same level of security.
 The key used during certificate generation and in server configuration should be EC one as well.
 
 ## Certificate revocation checks

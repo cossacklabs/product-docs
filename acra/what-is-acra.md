@@ -6,7 +6,7 @@ title: What is Acra
 
 # What is Acra? An overview.
 
-Acra is a application-level encryption and data security toolkit for modern distributed applications. Acra allows app developers to encrypt sensitive data, manage the keys, apply tokenization, data masking, request filtering, generate audit logs and security events, automate reactions on security boundary. 
+Acra is an application-level encryption and data security toolkit for modern distributed applications. Acra allows app developers to encrypt sensitive data, manage the keys, apply tokenization, data masking, request filtering, generate audit logs and security events, automate reactions on security boundary.
 
 In short, Acra provides you with means to protect the data, detect incidents and respond to them. 
 
@@ -19,7 +19,7 @@ Unlike many security software tools, Acra uses cryptography as main line of defe
 
 * **Secure data vault:** put your sensitive data in a separate database, then protect it with Acra so that high-risk data has separate protection infrastructure built around it. Encrypt, anonymize, mask or tokenize sensitive data. Filter suspicious SQL queries, detect and prevent data leaks, produce tamper-proof audit log. 
 
-* **Quick and transparent integration of encryption:** quickly integrate Acra into your existing applications that rely on MySQL/PostgreSQL-compatible databases with minimum amount of re-engineering effort - days instead of months. Acra will encrypt/decrypt data fields "on the fly", while your application and database don't know that the data is encrypted.
+* **Quick and transparent integration of encryption:** quickly integrate Acra into your existing applications that rely on MySQL/PostgreSQL-compatible databases with a minimum amount of re-engineering effort - days instead of months. Acra will encrypt/decrypt data fields "on the fly", while your application and database don't know that the data is encrypted.
 
 * **Developer-friendly data security module:** integrate security controls in your infrastructure without diving into security detail too deeply. Even in case of the incident, your data is encrypted.
 
@@ -31,7 +31,7 @@ Unlike many security software tools, Acra uses cryptography as main line of defe
 
 * **Detect and prevent incidents:** automate Acra's reactions to detect potential leakage and protect sensitive data and/or keys during security incidents. 
 
-* **Achieve complaince** in data security and privacy while actually increasing practical security posture. (Best of two words: compliance and actual pragmatic security.)
+* **Achieve compliance** in data security and privacy while actually increasing practical security posture. (Best of two words: compliance and actual pragmatic security.)
 
 
 Acra essentially moves security boundary as close to the data itself as possible without sacrificing security and usability, and provides a number of defense-in-depth mechanisms to protect the data. 
@@ -58,16 +58,16 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * **Security enforcement components**: services where "encryption happens". One of them is required.
 * **Key storage:** datastores where Acra keeps encrypted keys: Redis, table in your database, any KV store. One of them is required.
-* **Master key storage:** KMS, Vault. One of them is strongly recommended..
+* **Master key storage:** KMS, Vault. One of them is strongly recommended.
 * **Additional services and utils:** key management utils, data migration scripts, transport security service, policy management tools. Any of them are optional.
 
 Acra provides security enforcement components in different shapes: 
 
 * [AcraServer](/acra/acra-in-depth/architecture/acraserver/), also known as SQL Proxy. It's a database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate.
 
-* [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection.
+* [AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), also known as API service. It's an API server, that exposes most of Acra’s features as HTTP / gRPC API with a client SDKs and traffic protection.
 
-* [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses so your applications stay "thin clients".
+* [AnyProxy](/acra/acra-in-depth/architecture/anyproxy/). It's an API server that works between several API-driven microservices/applications. AnyProxy can transparently forward requests/responses, so your applications stay "thin clients".
 
 * [Client-side SDKs](/acra/acra-in-depth/architecture/sdks/). Acra provides optional SDKs for encrypting data (AcraWriter), for decrypting data (AcraReader), or for working with AcraTranslator.
 
@@ -140,7 +140,7 @@ Since Acra sits on choke point to data access, it can enforce additional securit
 There are following security design principles that you can achieve by using Acra:
 
 * **Defense in depth:** Acra delivers different layers of protection for different parts and stages of the data lifecycle. Acra provides an independent set of security controls aimed at mitigating multiple risks in case of an attacker crossing the outer perimeter.
-* **Trust compartmentalisation** and strong isolation: each data record is encrypted by unique data encryption key, each data encryption key is encrypted by customer/application key. 
+* **Trust compartmentalisation** and strong isolation: each data record is encrypted by unique data encryption key, each data encryption key is encrypted by a customer/application key.
 * **Zero trust:** by default, nobody under no assumptions have access to the sensitive data if it's encrypted with Acra. 
 * **Secure by default:** Acra's default configurations are `more security, less trust`. 
 * **Security controls:** layered blend of protective, detective and responsive controls. 
@@ -155,7 +155,7 @@ Refer to [Acra-in-depth / Security design](/acra/acra-in-depth/security-design/)
 * **Hard to misuse**: world has a multitude of amazing security technologies. Unfortunately, if these technologies can be misused in a way that will lead to lowering of their security impact (with a false sense of security attached), they will be. Acra actively resists misuse that has security impact, where possible – provides secure-by-default options, validates configuration files, notifies on suspicious activity, etc.
 * **Crypto under the hood**: Acra doesn't require deep cryptographic expertise for proper usage. Cryptographic details are abstracted.
 * **Transparent and code-less integration**: in some of Acra's scenarios, it is possible to avoid changing your application code completely. 
-* **Full operational control**: Acra provides logs, events, metrics and 360 degree operational and security overview into Acra's inside processes if you ned that. 
+* **Full operational control**: Acra provides logs, events, metrics and 360 degree operational and security overview into Acra's inside processes if you need that.
 
 
 ## Licensing and form-factors

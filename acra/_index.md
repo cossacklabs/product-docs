@@ -28,9 +28,9 @@ If you're just getting started with Acra, please start with [What is Acra page](
 
 The latest [Acra Community Edition](https://github.com/cossacklabs/acra/) release is [0.90.0](https://github.com/cossacklabs/acra/releases/tag/0.90.0).
 
-The latest [Acra Enteprise Edition](/acra/enterprise-edition/) release is 0.90.0. Please talk to [your sales representative](mailto:sales@cossacklabs.com) to update Acra EE.
+The latest [Acra Enterprise Edition](/acra/enterprise-edition/) release is 0.90.0. Please talk to [your sales representative](mailto:sales@cossacklabs.com) to update Acra EE.
 
 
 ## Acra Enterprise Edition documentation
 
-We are merging Acra Community Edition and [Acra Enteprise Edition](/acra/enterprise-edition/) documentation here, so some sections are marked as "Enterprise Only".
+We are merging Acra Community Edition and [Acra Enterprise Edition](/acra/enterprise-edition/) documentation here, so some sections are marked as "Enterprise Only".

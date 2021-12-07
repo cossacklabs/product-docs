@@ -18,13 +18,13 @@ Data storage keys may be destroyed after you have confirmed that no data is encr
 We strongly recommend to **never destroy the keys** immediately after rotation.
 First you make a backup of the old keys.
 Then you remove the supposedly unused keys from the components that may use them.
-After that you verify that your operations are not affected by this removal.
+After that, you verify that your operations are not affected by this removal.
 Only then you might plan for eventual destruction of the key backup.
 {{< /hint >}}
 
 ## How to destroy Acra keys
 
-In order to destroy historical keys, remove corrensponding files from the `*.old` subdirectories.
+In order to destroy historical keys, remove corresponding files from the `*.old` subdirectories.
 For example, to remove old storage encryption keys:
 
 ```
