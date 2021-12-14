@@ -22,7 +22,7 @@ You will also need utilities like `acra-keys` that come along.
 
 ## Key generation
 
-You will need some keys in order to launch AcraServer, so let's do it first.
+You will need some keys in order to launch AcraTranslator, so let's do it first.
 
 1. [Generate a master key]({{< ref "acra/security-controls/key-management/operations/generation.md#11-generating-acra-master-key">}})
 2. [Generate encryption keys]({{< ref "acra/security-controls/key-management/operations/generation.md#12-generating-transport-and-encryption-keys">}})
@@ -96,7 +96,7 @@ Read more in [Client side encryption with AcraConnector and AcraWriter]({{< ref 
 
 * Teach application to work with AcraTranslator API. Generate code for gRPC client or write own to work with HTTP API
 * Make sure application will accept TLS certificate configured in AcraTranslator in case of usage TLS as transport protection
-* Up and configure AcraConnector close to application in case of usage SecureSession as transport protection
+* Deploy and configure AcraConnector close to application if you can't use TLS and prefer using Themis Secure Session instead as transport protection.
 
 ### AcraWriter integration (optional)
 
