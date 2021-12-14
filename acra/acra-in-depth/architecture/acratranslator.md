@@ -5,7 +5,26 @@ weight: 3
 
 # AcraTranslator, an API service
 
-AcraTranslator is an API server, that exposes most of Acra’s features as HTTP / gRPC API with client SDKs and traffic protection. AcraTranslator doesn't depend on a database and makes application responsible for actually putting data into storage.
+AcraTranslator is an API server, that exposes most of Acra’s features as 
+[HTTP](/acra/guides/integrating-acra-translator-into-new-infrastructure/http_api/) or
+[gRPC](/acra/guides/integrating-acra-translator-into-new-infrastructure/grpc_api/) API with client SDKs and traffic 
+protection. This element of Acra is necessary in the use-cases when applications store the encrypted data as separate blobs (files
+that are not in a database - i.e. in the S3 bucket, local file storage, etc.).
+
+By its nature, AcraTranslator is a separate daemon that runs in an isolated environment (separate virtual machine or
+physical server). AcraTranslator is responsible for holding all the secrets required for data decryption and for
+actually decrypting the data.
+
+AcraTranslator doesn't care about the source of the data, it accepts
+[AcraStructs] or [AcraBlocks] via HTTP or gRPC API. An application can conveniently store crypto envelope anywhere: as
+cells in the database, as files in the file storage (local or cloud storage, like S3).
+An application sends [AcraStructs] or [AcraBlocks] as binary data and receives plaintext (or decryption error) from AcraTranslator.
+
+However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires usage of
+[Themis Secure Session] or [TLS] encryption channel (which is basically
+encrypted TCP/UNIX sockets).
+To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to
+direct the traffic through [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/) instead.
 
 AcraTranslator is your the main choice when your application should make encryption calls, or you use NoSQL/KV datastore.
 
