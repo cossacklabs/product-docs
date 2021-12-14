@@ -51,12 +51,15 @@ different client ID.
 
 Acra design values simplicity as much as security.
 
-1. The application sends [AcraStructs] or [AcraBlocks] via HTTP or gRPC API.
-2. AcraConnector sends that request to AcraTranslator using [Themis Secure Session] (socket protection protocol).
-3. AcraTranslator accepts the request and attempts to decrypt an [AcraStruct] or [AcraBlock]. If the decryption is
-   successful, it sends the resulting plaintext in the response. If decryption fails, AcraTranslator sends out a
-   decryption error.
-4. AcraTranslator returns the data to AcraConnector (via [Themis Secure Session]), which in turn returns it to the application.
+1. The application sends [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct/) or 
+   [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock/) via HTTP or gRPC API.
+2. AcraConnector sends that request to AcraTranslator using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) 
+   (socket protection protocol).
+3. AcraTranslator accepts the request and attempts to decrypt an [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct/) 
+   or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock/). If the decryption is successful, it sends the 
+   resulting plaintext in the response. If decryption fails, AcraTranslator sends out a decryption error.
+4. AcraTranslator returns the data to AcraConnector (via [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)), 
+   which in turn returns it to the application.
 
 AcraTranslator reads decryption keys from key folder and stores them encrypted in memory. It uses LRU cache to increase
 performance by keeping only actively used keys in memory. The size of LRU cache can be configured depending on your
@@ -64,7 +67,7 @@ server's load.
 
 {{< hint warning >}}
 **Note:**
-AcraTranslator supports ability to use [TLS] as encryption channel instead of [Themis Secure Session].
+AcraTranslator supports ability to use [TLS] as encryption channel instead of [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/).
 In such case, you don't need to use AcraConnector, but you should manage all your TLS certificates manually.
 {{< /hint >}}
 
@@ -118,9 +121,3 @@ To learn more about AcraTranslator cmd configuration you can refer [here](/acra/
   describes encryption configuration more precisely, describes how AcraTranslator encrypts/decrypts data on the fly
 * [docker-compose examples](https://github.com/cossacklabs/acra/tree/master/docker)
   may give you various ideas about AcraTranslator integration in docker environment
-
-[AcraTranslator]: /acra/configuring-maintaining/general-configuration/acra-translator/
-[AcraStructs]: /acra/acra-in-depth/data-structures/acrastruct/
-[AcraBlocks]: /acra/acra-in-depth/data-structures/acrablock/
-[Themis Secure Session]: /themis/crypto-theory/cryptosystems/secure-session/
-[TLS]: /acra/configuring-maintaining/general-configuration/acra-translator/#tls

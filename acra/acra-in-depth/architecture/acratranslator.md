@@ -16,13 +16,15 @@ physical server). AcraTranslator is responsible for holding all the secrets requ
 actually decrypting the data.
 
 AcraTranslator doesn't care about the source of the data, it accepts
-[AcraStructs] or [AcraBlocks] via HTTP or gRPC API. An application can conveniently store crypto envelope anywhere: as
+[AcraStructs](/acra/acra-in-depth/data-structures/acrastruct/) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock/) 
+via HTTP or gRPC API. An application can conveniently store crypto envelope anywhere: as
 cells in the database, as files in the file storage (local or cloud storage, like S3).
-An application sends [AcraStructs] or [AcraBlocks] as binary data and receives plaintext (or decryption error) from AcraTranslator.
+An application sends [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct/) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock/) 
+as binary data and receives plaintext (or decryption error) from AcraTranslator.
 
 However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires usage of
-[Themis Secure Session] or [TLS] encryption channel (which is basically
-encrypted TCP/UNIX sockets).
+[Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) 
+encryption channel (which is basically encrypted TCP/UNIX sockets).
 To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to
 direct the traffic through [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/) instead.
 
