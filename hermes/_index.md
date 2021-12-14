@@ -4,6 +4,6 @@ bookFlatSection: true
 title: "Hermes"
 productMenuTitle: "Hermes"
 Menu: "main"
+searchScope: "hermes"
 ---
 
-[comment]: <> (searchScope: "Hermes")
