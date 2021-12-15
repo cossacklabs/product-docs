@@ -10,7 +10,7 @@ weight: 4
 * `--acraconnector_transport_encryption_disable={true|false}`
 
   Use raw transport (tcp/unix socket) between AcraTranslator and client app.
-  It turns off reading trace from client app's side which usually sent by AcraConnector.
+  It turns off reading trace from client app's side which usually sent by AcraConnector (**deprecated since 0.91.0**, will be removed soon).
   Default is `false`.
 
 * `--acratranslator_client_id_from_connection_enable={true|false}`
@@ -84,7 +84,7 @@ weight: 4
 
 * `--securesession_id=<id>`
 
-  ID that will be sent during secure session handshake.
+  ID that will be sent during secure session handshake (**deprecated since 0.91.0**, will be removed soon).
   Default is `acra_translator`.
 
 ### Configuration files
@@ -195,7 +195,7 @@ weight: 4
 
 * `--acratranslator_tls_transport_enable={true|false}`
 
-  Use TLS transport (tcp/unix socket) between AcraTranslator and client app.
+  Use TLS transport (tcp/unix socket) between AcraTranslator and client app (**deprecated since 0.91.0**, will be removed soon).
   Default is `false`.
 
 * `--tls_auth=<mode>`
