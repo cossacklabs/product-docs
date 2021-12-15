@@ -193,6 +193,14 @@ AcraAuthManager tool is deprecated and will not be available since 0.91.0.
 
   Should be provided with `--zone_id` flag.
 
+
+* `--zone_symmetric_key`
+
+  Rotates existing Acra Zone by generating new storage symmetric key and changing current to read-only state, for decryption purposes only.
+
+  Should be provided with `--zone_id` flag.
+
+
 * `--zone_id`
 
   Zone ID should be used for `zone_storage_key` generating.

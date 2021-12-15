@@ -128,5 +128,7 @@ Here is the list of supported key kinds:
 <!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
 - `poison-record` public, private
 - `client/<client ID>/storage` public, private
+- `client/<client ID>/symmetric`
 - `zone/<zone ID>/storage` public, private
+- `zone/<zone ID>/symmetric`
 {{< /hint >}}
