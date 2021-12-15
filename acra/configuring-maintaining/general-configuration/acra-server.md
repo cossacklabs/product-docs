@@ -13,13 +13,13 @@ weight: 3
 
 * `--acraconnector_tls_transport_enable={true|false}`
 
-  Enable TLS to encrypt transport between AcraConnector and AcraServer.
+  Enable TLS to encrypt transport between AcraConnector and AcraServer (**deprecated since 0.91.0**, will be removed soon).
   Default is `false` which means "use SecureSession instead".
 
 * `--acraconnector_transport_encryption_disable={true|false}`
 
   Use raw transport (tcp/unix socket) between AcraTranslator and client app.
-  It turns off reading trace from client app's side which usually sent by AcraConnector.
+  It turns off reading trace from client app's side which usually sent by AcraConnector (**deprecated since 0.91.0**, will be removed soon).
   Default is `false`.
 
 * `--acrastruct_injectedcell_enable={true|false}`
@@ -78,7 +78,7 @@ weight: 3
 
 * `--securesession_id=<id>`
 
-  ID that will be sent during secure session handshake.
+  ID that will be sent during secure session handshake (**deprecated since 0.91.0**, will be removed soon).
   Default is `acra_server`.
 
 * `--sql_parse_on_error_exit_enable={true|false}`
@@ -323,7 +323,7 @@ weight: 3
 
 * `--acraconnector_tls_transport_enable={true|false}`
 
-  Enable TLS to encrypt transport between AcraConnector and AcraServer.
+  Enable TLS to encrypt transport between AcraConnector and AcraServer (**deprecated since 0.91.0**, will be removed soon).
   Default is `false` which means "use SecureSession instead".
 
 * `--tls_client_auth=<mode>`
