@@ -132,7 +132,11 @@ That is, the new key becomes the default for encryption in [AcraServer](/acra/ac
 while the previous key is archived and used only for decryption.
 {{< /hint >}}
 
-### Transport keys
+### Transport keys 
+
+{{< hint warning >}}
+This type of keys deprecated since 0.91.0 and all of these flags will be removed soon.
+{{< /hint >}}
 
 * `--acraconnector_transport_key`
 
@@ -192,6 +196,14 @@ AcraAuthManager tool is deprecated and will not be available since 0.91.0.
   Rotates existing Acra Zone by generating new storage keypair and changing current to read-only state, for decryption purposes only.
 
   Should be provided with `--zone_id` flag.
+
+
+* `--zone_symmetric_key`
+
+  Rotates existing Acra Zone by generating new storage symmetric key and changing current to read-only state, for decryption purposes only.
+
+  Should be provided with `--zone_id` flag.
+
 
 * `--zone_id`
 
