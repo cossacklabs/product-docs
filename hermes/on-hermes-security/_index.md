@@ -63,8 +63,9 @@ Usually, a fuzzer feeds the test data into the STDIN of the app through using a 
 There are two approaches to fuzzing: - fuzzing separate functions that look suspicious, - fuzzing the whole app.
 
 The libFuzzer library was used for fuzzing. For implementing the first approach, a minimal wrapper needs to be written for the application:
-```(fuzz.c) int LLVMFuzzerTestOneInput(const uint8t *Data, sizet Size) { functionForTest(Data, Size); return 0; }```
-
+```
+(fuzz.c)
+int LLVMFuzzerTestOneInput(const uint8t *Data, sizet Size) { functionForTest(Data, Size); return 0; }
 ```
 Compiling the wrapper with the addition of libFuzzer library:
 ```c
