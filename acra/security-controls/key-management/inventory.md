@@ -81,7 +81,7 @@ All intermediate keys are encrypted by Acra Master Key, that's why you should pr
 These keys are shortly cached in memory to improve performance when they are read from the store.
 This behavior is completely adjustable.
 
-Acra's intermediate keys, unless in special cases, do not leave Acra-controlled ecosystem (Acra and KMS) in plaintext, thus making the key lifecycle easier. In 99% cases, only public key of keypair should leave your backend (for example, public key from storage asymmetric keypair could be used for [client-side data encryption using AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/)).
+Acra's intermediate keys, unless in special cases, do not leave Acra-controlled ecosystem (Acra and KMS) in a plaintext, thus making the key lifecycle easier. In 99% cases, only public key of keypair should leave your backend (for example, public key from storage asymmetric keypair could be used for [client-side data encryption using AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/)).
 
 There are several types of keys used in Acra.
 
@@ -215,7 +215,7 @@ If you're using [AcraWebConfig](/acra/configuring-maintaining/general-configurat
 Read more about handling key names in [Losing your keys](/acra/security-controls/key-management/troubleshooting/#losing-the-keys) and [Renaming your keys](/acra/security-controls/key-management/troubleshooting/#renaming-key-files).
 {{< /hint>}}
 
-Correct operation of each Acra's component requires set of cryptographic keys (default keystore is `.acrakeys` filesystem directory).
+Correct operation of each Acra's component requires a set of cryptographic keys (default keystore is `.acrakeys` filesystem directory).
 
 - **AcraServer** needs to have:
     - Acra Master Key.
@@ -226,7 +226,7 @@ Correct operation of each Acra's component requires set of cryptographic keys (d
     - TLS certificates if TLS is used for transport encryption.
     - AcraConnector's transport public key and AcraServer's own transport private key. Necessary only if AcraConnector is used to connect client app with AcraServer and AcraConnector uses Themis Secure Session.
     - Poison record keys to be able to detect poison records in database responses. Necessary only if intrusion detection is used.
-    - Authentication storage key to access AcraWebConfig's credentials and allow update AcraServer's configuration from web. Necessary only if AcraWebConfig is used.
+    - Authentication storage key to access AcraWebConfig's credentials. Allows updating AcraServer's configuration from web. Necessary only if AcraWebConfig is used.
 
 - **AcraTranslator** needs to have same keys as AcraServer except authentication storage key.
 

@@ -29,7 +29,7 @@ We recommend using [acra-keys](/acra/configuring-maintaining/general-configurati
   * `distinguished_name` — certificate Distinguished Name (DN)
   * `serial_number` — certificate serial number
   
-By default certificate Distinguished Name is used as ClientID.
+By default, certificate Distinguished Name is used as ClientID.
 
 * `--keystore=<v1|v2>`
   
@@ -89,7 +89,7 @@ By default certificate Distinguished Name is used as ClientID.
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-keymaker.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 ### HashiCorp Vault
 
@@ -133,7 +133,7 @@ By default certificate Distinguished Name is used as ClientID.
 {{< hint warning >}}
 **Note:**
 Back up all your keys before calling `acra-keymaker` with any flag described below.
-Some keys can be rotated and the previous keys will be retained,
+Some keys can be rotated, and the previous keys will be retained,
 while some keys will be overwritten.
 {{< /hint >}}
 

@@ -13,4 +13,4 @@ These guides describe a process of tuning up Ruby on Rails application for encry
 
 Refer to a [Integrating Acra with RoR app: short tutorial](ruby-on-rails-acra-short-tutorial) if you are already familiar with Acra.
 
-Refer to a [Integrating Acra with RoR app: setp-by-step tutorial](ruby-on-rails-acra-step-by-step-tutorial) for full step-by-step guide.
+Refer to a [Integrating Acra with RoR app: step-by-step tutorial](ruby-on-rails-acra-step-by-step-tutorial) for full step-by-step guide.

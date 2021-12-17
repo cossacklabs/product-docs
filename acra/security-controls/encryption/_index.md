@@ -5,14 +5,14 @@ weight: 1
 
 # Application-level encryption
 
-Acra prevents adversaries with access to database from seeing sensitive data in plaintext.
+Acra prevents adversaries with access to database from seeing sensitive data in a plaintext.
 Acra selectively encrypts sensitive data using securely stored cryptographic keys. Thus, Acra acts as a security boundary in front of sensitive data.
 
 Essentially, Acra provides [application-level encryption](https://www.infoq.com/articles/ale-software-architects/) by implementing it as a field-level encryption before data gets into the database.
 
 ## Encryption
 
-Acra encrypts data using two special cryptographic containers at choice: AcraStructrs and AcraBlocks.
+Acra encrypts data using two special cryptographic containers at choice: AcraStructs and AcraBlocks.
 Refer to [Acra in depth / Data structures](/acra/acra-in-depth/data-structures/) to learn the differences and to select suitable for you (use AcraBlock by default).
 
 There are three ways to encrypt data:
@@ -73,7 +73,7 @@ Many instances can be launched, each responsible for different tables and/or cli
 For example, you can have few clusters, each responsible for
 protection of different data based on its confidentiality level:
 
-* Several AcraServers that process common requests like "find user by email" or "get user name".
+* Several AcraServers that process common requests like "find user by email" or "get username".
 * Dedicated AcraServers for specific geographic regions, with different keys used to
   encrypt user activity based on their location at that moment.
 

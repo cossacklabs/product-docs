@@ -23,7 +23,7 @@ It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` e
 
 * `--audit_log_file_format={plaintext|json|CEF}`
 
-  Expected format of secure log file(s) that should be verified: plaintext, JSON or CEF. 
+  The expected format of secure log file(s) that should be verified are following: plaintext, JSON or CEF.
   Default is  "plaintext".
 
 * `--audit_log_file_list`
@@ -43,7 +43,7 @@ It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` e
 
 * `-d`
 
-  Debug mode, shows order of input files. Useful in pair with `--audit_log_file_list` flag. 
+  Debug mode, shows order of input files. Useful in a pair with `--audit_log_file_list` flag.
   Verifier will print absolute file paths that in the order used during validation. 
 
 ### Logging
@@ -81,7 +81,7 @@ It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` e
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-log-verifier.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 ### Keystore
 
@@ -177,7 +177,7 @@ time="2021-09-02T00:48:15+03:00" level=info msg="End of current audit log chain"
 ```
 
 You can see that starting from 7 row each row has additional attribute `integrity` with hex value. Additionally, this row has `chain=new` attribute that signalize start of secure log chain.
-Previous 6 rows haven't `integrity` because AcraServer didn't initialize Keystore yet and secure logger hasn't access to symmetric key that will be used for signatures.
+Previous 6 rows haven't `integrity` because AcraServer didn't initialize Keystore yet and secure logger does not have access to symmetric key that will be used for signatures.
 
 Then create file with list of files that we want to verify:
 ```

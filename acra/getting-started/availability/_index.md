@@ -31,7 +31,7 @@ Acra is cloud-agnostic. You can deploy Acra from Docker images to any cloud, or 
 
 Acra is actively tested and supported on [Google Cloud Platform](https://cloud.google.com/) (GCP), [Amazon Web Services](https://aws.amazon.com/) (AWS) and [DigitalOcean](https://www.digitalocean.com/) cloud services. 
 
-You can [write to us](mailto:sales@cossacklabs.com) for consultancy of Acra deployment on cloud infrastructure or request [Acra Enterprise Edition](/acra/enterprise-edition/) with demonstration of deployment on any of these services.
+You can [write to us](mailto:sales@cossacklabs.com) for a consultancy of Acra deployment on cloud infrastructure or request [Acra Enterprise Edition](/acra/enterprise-edition/) with demonstration of deployment on any of these services.
 
 
 ## Client side
@@ -61,7 +61,7 @@ Continue with [Guide: Integrating AcraTranslator into infrastructure](/acra/guid
 
 #### AcraWriter
 
-Another way of encrypting data before storing it in database is encrypting it in the application itself and then putting encrypted data in SQL query before executing it.
+Another way of encrypting data before storing it in a database is encrypting it in the application itself and then putting encrypted data in SQL query before executing it.
 
 In this case you don't rely on encryption by AcraServer or AcraTranslator and you can store such encrypted data directly in the database. Client-side encryption is useful for building partially or end-to-end encrypted data flows.
 

@@ -57,7 +57,7 @@ schemas:
         crypto_envelope: "acrastruct"
 
         # (optional, default: false)
-        # If true, data stored in AcraStructs will be transparently reencrypted
+        # If true, data stored in AcraStructs will be transparently re-encrypted
         # into AcraBlocks.
         reencrypting_to_acrablocks: false
 ```

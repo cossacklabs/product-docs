@@ -64,7 +64,7 @@ With Acra we strive to provide 2 main programmatic security guarantees:
 
 - G2: If the attacker alters the app’s behaviour in such a way that makes it request all the protected (encrypted) data 
   from the database, AcraServer detects it and reacts accordingly by triggering pre-set alarms and panic blocks. This is 
-  currently carried out with the help of poison records in the database, which would never have been called up - except 
+  currently carried out with the help of poison records in the database, which would have never been called up - except
   for an event of a hack/breach. In the future, more intrusion detection features besides poison records are planned.
 
 If it is explicitly stated that the output for Zone ID must precede the AcraStruct, AcraServer will search for certain
@@ -85,7 +85,7 @@ In a perfect world, you’d be running different elements of Acra, as well as yo
 machines - one for PostgreSQL, one for AcraServer, and one for AcraConnector + AcraWriter + your Django web app. 
 This implies an immediate introduction of Acra into a real production setting, which we realise is far from a realistic 
 course of events (at least on your very first try of Acra). So this tutorial is more focused on the things you can 
-hands-on try out and tinker with on just 2 or even 1 machine through the creation of different users and containers 
+try out by hands and tinker with on just 2 or even 1 machine through the creation of different users and containers
 (i.e. Docker, a test-only implementation of which for Acra is described at the end of this tutorial).
 
 In this detailed architectural scheme we see how components of Acra, application, and database relate and interact with 
@@ -437,12 +437,12 @@ uses different machines/users.
 To test your Acra setup:
 
 - Connect AcraConnector to AcraServer, send a regular request to your database through AcraConnector. If you see the 
-  answer, AcraConnector and AcraWriter are able to connect and forward signals back and forth. It means that the 
+  answer, AcraConnector and AcraWriter are able to connect and forward signals back and forth. It means that both the
   network and the keys are fine.
 
 
 - Upon integrating AcraWriter into your code, try generating an AcraStruct from some payload. If you succeed in running 
-  AcraWriter code, Themis library is installed properly and the keys are located in the expected places.
+  AcraWriter code, it will mean that 1) Themis library is installed properly and 2) the keys are located in the expected places.
 
 
 - Write a row with AcraStruct into the database, either directly or through AcraConnector. Request this row through 
@@ -461,7 +461,7 @@ psql -h127.0.0.1 -p 5432 -U test --dbname=djangoproject -c "select * from blog_e
 Note: AcraConnector must listen on 5432.
 {{< /hint >}}
 
-If the database returns all the data it contains in encrypted form, everything is working properly and you’ve successfully 
+If the database returns all the data it contains in encrypted form, everything is working properly, and you’ve successfully
 integrated Acra into your Django app!
 
 ## If You Want to Try Acra in Containers First
@@ -492,7 +492,7 @@ After executing this command, you will have a running PostgreSQL with `test:test
 port, AcraServer with keys that you generated above, and AcraConnector that forwards port 9494.
 
 {{< hint info >}}
-Note: Don’t forget to stop your local PostgreSQL if you run it before launching the Docker with PostgreSQL in a container or you’ll get an error from 2 instances of an application trying to listen on the same port.
+Note: Don’t forget to stop your local PostgreSQL if you run it before launching the Docker with PostgreSQL in a container, otherwise you’ll get an error from 2 instances of an application trying to listen on the same port.
 {{< /hint >}}
 
 By default, Docker will create 3 containers with the following names: `docker_acra-server_1`, `docker_acra-connector_1`, and `docker_pg_1`.
@@ -511,7 +511,7 @@ Create a database:
 echo "create database acra with encoding utf8;" | psql -h 127.0.0.1 -p 5432 -U test
 ```    
 
-You’ll be asked to input the password for PostgreSQL (`test`) and you’re ready to proceed.
+You’ll be asked to input the password for PostgreSQL (`test`), and you’re ready to proceed.
 
 ### Using Acra in Docker Without Implementing Zones
 

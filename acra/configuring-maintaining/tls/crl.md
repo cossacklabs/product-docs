@@ -35,12 +35,12 @@ CRL-related flags and their descriptions. Works for `acra-connector`, `acra-serv
 
 * `--tls_crl_database_url=<url>`
 
-  CRL's URL for outcoming TLS connections to check database certificates.
+  CRL's URL for outgoing TLS connections to check database certificates.
   Empty by default. Supported on AcraServer only.
 
 * `--tls_crl_from_cert=<policy>`
 
-  How to treat CRL's URL described in certificate itself
+  How to treat CRL's URL described in a certificate itself
 
   * `use` — try URL(s) from certificate after the one from configuration (if set)
   * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
@@ -58,7 +58,7 @@ CRL-related flags and their descriptions. Works for `acra-connector`, `acra-serv
 
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
-  these intermediate CAs won't be validated since we don't know which CRLs could used for validation.
+  these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
 
 * `--tls_crl_cache_size=<count>`
 
@@ -85,7 +85,7 @@ URI.0 = http://127.0.0.1:8080/crl.pem
 
 ## Generating CRL file with `openssl`
 
-You can generate CRL v1, following provided [certificate generation example](generate-certificate-with-openssl):
+You can generate a CRL v1, following provided [certificate generation example](generate-certificate-with-openssl):
 ```
 openssl ca -gencrl -config openssl.cnf -crldays 1 -out crl.pem
 ```

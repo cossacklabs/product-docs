@@ -25,7 +25,7 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 * `--client_id=<id>`
 
   ClientID that will be used for all encrypted data. 
-  All data returned by query specified in `--select=<select_query>` parameter should be encrypted only with this ClientID.
+  All data returned by a query specified in `--select=<select_query>` parameter should be encrypted only with this ClientID.
 
 * `--connection_string=<connection_string>`
 
@@ -165,7 +165,7 @@ acra-rollback \
 ### ZoneMode
 
 `acra-rollback` supports work with [zones](/acra/security-controls/zones/), you can configure it via `zonemode_enable` flag.
-If zonemode is enabled, make sure you have Zone ID in your `SELECT` query:
+If Zones are enabled, make sure you have Zone ID in your `SELECT` query:
 
 ```
 select zone_id, encrypted_data from some_table;

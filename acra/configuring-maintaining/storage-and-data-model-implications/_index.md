@@ -80,7 +80,7 @@ WHERE `tokenized_number` > 10;
 ## Search
 
 The special case is search of an encrypted value stored in a database.
-You will be able to find the row only if "searchable encryption" was enabled for the column you use
+You will be able to find the row only if "searchable encryption" was enabled for the column you use,
 and you search for the exact same value that was encrypted and stored in searched column.
 
 What will work:

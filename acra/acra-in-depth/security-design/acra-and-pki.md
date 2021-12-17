@@ -7,7 +7,7 @@ weight: 3
 
 We strongly recommend following the best security practices while deployment and using the public key infrastructure (PKI) to provide transport data encryption and authentication between Acra's components. This page contains some useful information about the PKI and links to related resources.
 
-The central component of any PKI is the Certificate Authority (CA). The CA acts as an arbitrator or a third party, whilst the trust relations are established between the two other sides (client and server) that initially do not trust each other. CA holds a cryptographic key (marked green) used for digitally signing certificates (blue and purple envelopes signed by green key of CA) for both client and server. Mutual authentication between client and server can be established by verification of digital signature presented in the certificate if they both trust to cryptographic key of Certificate Authority.
+The central component of any PKI is the Certificate Authority (CA). The CA acts as an arbitrator or a third party, whilst the trust relations are established between the two other sides (client and server) that initially do not trust each other. CA holds a cryptographic key (marked green) used for digitally signing certificates (blue and purple envelopes signed by a green key of CA) for both client and server. Mutual authentication between client and server can be established by verification of digital signature presented in the certificate if they both trust to cryptographic key of Certificate Authority.
 
 ![](/files/wiki/pki-acra-secure-deployment.png)
 
@@ -25,7 +25,7 @@ You can see that security of CA (its cryptographic key) is critical for overall 
 
 They are provided below:
 
-- **Environment variables** — classic and reasonably secure way that is simple, flexible, and can be implemented with system tools. The main known risks of this method are: the possibility to bleed into logs if the deployment was untidy and the possible granting of access to the non-target apps in case of insufficiently fine-tunes access rights differentiation.
+- **Environment variables** — classic and reasonably secure way that is simple, flexible, and can be implemented with system tools. The main known risks of this method are: the possibility to bleed into logs if the deployment was untidy, and the possible granting of access to the non-target apps in case of insufficiently fine-tunes access rights differentiation.
 
 - **Files** — many technologies of secrets’ deployment  use the transfer of secrets in the file format to the app - both for infrastructure management systems and container orchestration systems. This method is usually implemented through a regular creation of files containing secrets (at the moment deployment or by daemons of the key distribution systems), or through mounting from the host system inside a container or virtual file system mounting (Swarm, Kubernetes). The pros and cons and the same as in the variant with the environment variables, with some specifics depending on the exact implementation.
 

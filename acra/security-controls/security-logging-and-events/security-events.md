@@ -7,7 +7,7 @@ weight: 3
 
 Acra’s security log is specifically pre-configured to be helpful to SIEM/SOC operators in building analytics and automation around security events.
 
-All security events have a specific event code that indicates the exact type of the event. As example, `EventCodeErrorCantLoadMasterKey = 512` code means that Acra can't load Acra Master Key during initialisation on startup. Refer to the full list of [the event codes](https://github.com/cossacklabs/acra/blob/master/logging/event_codes.go).
+All security events have a specific event code that indicates the exact type of the event. As example, `EventCodeErrorCantLoadMasterKey = 512` code means that Acra can't load Acra Master Key during initialisation on a startup. Refer to the full list of [the event codes](https://github.com/cossacklabs/acra/blob/master/logging/event_codes.go).
 
 Another example `EventCodeErrorDecryptorRecognizedPoisonRecord = 587` event. This event indicates that AcraServer or AcraTranslator has noticed Poison record (honeytoken / honeypot) in the encrypted data during decryption. These poison records can be inserted to catch situations like malicious SQL client attempting to dump the whole database. [Read more about intrusion detection](/acra/security-controls/intrusion-detection/).
 
@@ -19,7 +19,7 @@ Acra can export security events to your SIEM. Don't hesitate to use it. Refer to
 Typically, each event has additional fields giving specific context about what's happening:
 
 * Timestamp (always present).
-* ClientID for encryption/decryption operations – AcraServer logs the ID of client application that triggered the operation (helpful to analyze amount of errors happening for specific application).
+* ClientID for encryption/decryption operations – AcraServer logs the ID of client application that triggered the operation (helpful to analyze errors happened for specific application).
 * ZoneID for encryption/decryption operations related to the specific [Zone](/acra/security-controls/zones/).
 
 

@@ -7,7 +7,7 @@ weight: 2
 
 Acra is built to provide selective encryption only to the records that require such protection. Thus, such records are sensitive assets that are subject to certain risks and threats, which Acra helps to mitigate.
 
-Depending on the environment where Acra runs and the dataflow of sensitive data, threat models and mitigaions are different. Acra is built as modular system that allows to achieve different security guarantees.
+Depending on the environment where Acra runs and the dataflow of sensitive data, threat models and mitigations are different. Acra is built as modular system that allows to achieve different security guarantees.
 
 Let's quickly model different environments.
 
@@ -25,7 +25,7 @@ Client application, AcraServer, KMS, SQL database. Client application sends data
 
 #### Option 3. Hostile environment
 
-Client application for saving data (Writer) with AcraWriter SDK, client application for reading data (Reader), AcraServer, AcraConnector, Redis, KMS, SQL database. Writer application encrypts data using AcraWriter SDK and sends it to the SQL database via AcraServer. Reader application reads data from the database via AcraServer. Reader application connects to AcraServer via AcraConnector to provide better transport security guarantees. When AcraServer reads records from the database, it checks for poison records (intrusion detection system). AcraServer has Acra's Request Firewall enabled to validate every SQL query. AcraServer has enabled automation to trigger warnings for Ops team. AcraServer produces logs and security events, that go into SIEM. AcraServer produces cryptographically signed audit logs that are being verified automatically by timer. 
+Client application for saving data (Writer) with AcraWriter SDK, client application for reading data (Reader), AcraServer, AcraConnector, Redis, KMS, SQL database. Writer application encrypts data using AcraWriter SDK and sends it to the SQL database via AcraServer. Reader application reads data from the database via AcraServer. Reader application connects to AcraServer via AcraConnector to provide better transport security guarantees. When AcraServer reads records from the database, it checks for poison records (intrusion detection system). AcraServer has Acra's Request Firewall enabled to validate every SQL query. AcraServer has enabled automation to trigger warnings for Ops team. AcraServer produces logs and security events, that go into SIEM. AcraServer produces cryptographically signed audit logs that are being verified automatically by a timer.
 
 `Acra's protection measures`: data encryption, AcraConnector, KMS, intrusion detection, AcraWriter SDK for client-side encryption, logs, security events, automation, crypto-signed audit logs.
 
@@ -51,9 +51,9 @@ There is an additional third guarantee, which is valid while using Zone keys:
 
 To provide Guarantee 1, Acra uses data encryption, where each data field is encrypted into a special cryptographic container. Data encryption could happen on client-side (in case of AcraStructs), AcraServer or AcraTranslator sides. Decryption happens only on AcraServer/AcraTranslator sides, making them the only places to have sufficient secrets to decrypt data.
 
-Asymmetric container: [AcraStruct](/acra/acra-in-depth/data-structures) is based on asymmetric (public-key) cryptography. Allows encrypting data on client-side without risking decryption keys, decrypting only via AcraServer/AcraTranslator.
+Asymmetric container: [AcraStruct](/acra/acra-in-depth/data-structures) is based on asymmetric (public-key) cryptography. It allows encrypting data on client-side without risking decryption keys, decrypting only via AcraServer/AcraTranslator.
 
-Symmetric container: [AcraBlock](/acra/acra-in-depth/data-structures) is based on symmetric (secret-key) cryptography. Encryption/decryption only on AcraServer/AcraTranslator, decryption keys never leave trusted perimeter.
+Symmetric container: [AcraBlock](/acra/acra-in-depth/data-structures) is based on symmetric (secret-key) cryptography. Encryption/decryption is performed only on AcraServer/AcraTranslator, decryption keys never leave trusted perimeter.
 
 
 ### Guarantee 2: Detection and mitigation
@@ -113,7 +113,7 @@ Acra can perform its protective functions properly and protect from the security
 
 ### Possible consequences of security incident
 
-Let’s consider possible consequences of any of separate component being broken (broken as in “fully compromised” when the adversary fully overtakes the work of the component and gains full access to its memory).
+Let’s consider possible consequences of any separate component being broken (broken as in “fully compromised” when the adversary fully overtakes the work of the component and gains full access to its memory).
 
 When a **Database** is broken into, the worst-case scenario is DoS or COA (ciphertext-only attack). Thus, the stability of the system, in this case, is reduced to the stability of the symmetric encryption algorithm (AES-GCM-256).
 

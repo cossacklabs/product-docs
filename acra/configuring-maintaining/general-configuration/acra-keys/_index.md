@@ -18,7 +18,7 @@ especially for `v2` keystore. Each functionality is implemented as a separate su
 
 * [`generate`](/acra/configuring-maintaining/general-configuration/acra-keys/generate/) - generates new keys;
 
-* [`read`](/acra/configuring-maintaining/general-configuration/acra-keys/read/) - reads and prints key material in plaintext;
+* [`read`](/acra/configuring-maintaining/general-configuration/acra-keys/read/) - reads and prints key material in a plaintext;
 
 * [`export`](/acra/configuring-maintaining/general-configuration/acra-keys/export/) - exports keys from the keystore;
 

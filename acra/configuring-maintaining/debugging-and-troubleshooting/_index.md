@@ -69,6 +69,6 @@ you may try to double check their existence:
 * Use [`acra-keys read`]({{< ref "acra/configuring-maintaining/general-configuration/acra-keys/read.md" >}})
   to get information about the particular key
 * Run `redis-cli --scan --pattern '*'` to list what is stored in Redis,
-  if the client/zone ID exists, it will appear in the output (most likeky with some suffix in the "file" name)
+  if the client/zone ID exists, it will appear in the output (most likely with some suffix in the "file" name)
 
 BTW, first two commands work with the usual filesystem keystore as well, just omit the `--redis_host_port` flag.

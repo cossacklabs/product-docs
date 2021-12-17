@@ -11,7 +11,7 @@ You can use containers with Acra. Acra works well with [Docker](https://www.dock
 
 Storing keys safely when using Docker is problematic. Docker is immutable while [Zones](/acra/security-controls/zones/)/[keys](/acra/security-controls/key-management/inventory/) are not. This means that you might want to attach some storage and end up making the keys accessible to attackers.
 
-There are multiple ways to solve this problem and it can be addressed in a convenient and secure fashion depending on your specific infrastructure.
+There are multiple ways to solve this problem, and it can be addressed in a convenient and secure fashion depending on your specific infrastructure.
 
 ## Images
 
@@ -37,7 +37,7 @@ Docker images have tags. When we build them, we set appropriate tags for each im
 
 An image usually has two (commit, version) or four (+ branch, latest/current) tags.
 
-All these images can be used in a traditional manner:
+All these images can be used traditionally:
 
 ```bash
 docker run <options> cossacklabs/<component> <arguments>

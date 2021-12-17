@@ -17,7 +17,7 @@ Prefer AcraStruct when using client-side encryption.
 
 ## Container structure
 
-AcraStruct is a cryptographic container with specific format. The data is encrypted using random symmetric encryption key (DEK) and AES-256-GCM-PKCS#7. Then the encryption key is encrypted using a key derived asymmetrically. For this purposes, encryptor generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over. 
+AcraStruct is a cryptographic container with a specific format. The data is encrypted using random symmetric encryption key (DEK) and AES-256-GCM-PKCS#7. Then the encryption key is encrypted using a key derived asymmetrically. For these purposes, encryptor generates a keypair of throwaway keys that are used in the encryption process and then get zeroed (turned into zeros) in the memory once the process is over.
 
 During decryption, AcraServer/AcraTranslator use own private key for decrypting DEK, and then decrypting data using DEK.
 
@@ -34,7 +34,7 @@ Starting from Acra 0.90.0, AcraStructs and AcraBlocks [support interoperability]
 
 ## Example
 
-AcraStruct example for plaintext: `example`:
+AcraStruct example for the `example` plaintext:
 
 `[34, 34, 34, 34, 34, 34, 34, 34, 85, 69, 67, 50, 0, 0, 0, 45, 17, 107, 171, 101, 3, 5, 207, 103, 32, 150, 35, 237, 58, 19, 79, 215, 123, 254, 205, 12, 154, 149, 16, 116, 80, 130, 110, 20, 249, 80, 253, 209, 219, 167, 55, 50, 135, 32, 39, 4, 38, 84, 0, 0, 0, 0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 32, 0, 0, 0, 63, 95, 208, 109, 191, 139, 244, 155, 230, 168, 180, 64, 234, 84, 240, 17, 116, 147, 64, 73, 253, 86, 60, 226, 127, 240, 170, 251, 229, 234, 145, 85, 88, 142, 29, 221, 12, 230, 72, 4, 254, 95, 243, 71, 174, 9, 126, 41, 221, 0, 127, 202, 160, 42, 53, 72, 218, 86, 141, 248, 51, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 64, 12, 0, 0, 0, 16, 0, 0, 0, 7, 0, 0, 0, 34, 115, 175, 148, 77, 152, 188, 222, 105, 123, 145, 77, 152, 254, 160, 19, 183, 122, 53, 138, 147, 149, 157, 223, 238, 71, 133, 139, 117, 210, 232, 110, 181, 241, 3]`
 
@@ -50,25 +50,25 @@ To generate AcraStructs, AcraServer/AcraTranslator/AcraWriter uses a public key 
 
 The generation contains the following steps:
 
-- Generates a keypair of throwaway keys using Themis EC key generator:<br/>
+- Generate a keypair of throwaway keys using Themis EC key generator:<br/>
   `Throwaway_Keypair = (Throwaway_Public_Key, Throwaway_Private_Key)`.
-- Generates Random Symmetric Key (`RK`), 32 bytes long.
-- Encrypts `RK` using [Secure Message](/themis/crypto-theory/cryptosystems/secure-message) with `Throwaway_Private_Key` and `Acra_Public_Key`(or Zone key – see [Zones](/acra/security-controls/zones/):<br/>
-  `Encrypted_Random_Key = SMessage(RK, Throwaway_Private_Key, Acra_Public_Key)`.
-- Encrypts the payload with [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/) in Seal mode:<br/>
+- Generate Random Symmetric Key (`RK`), 32 bytes long.
+- Encrypt `RK` using [Secure Message](/themis/crypto-theory/cryptosystems/secure-message) with `Throwaway_Private_Key` and `Acra_Public_Key`(or Zone key – see [Zones](/acra/security-controls/zones/):<br/>
+  `Encrypted_Random_Key = SMessage(RK, Throwaway_Private_Key, Acra_Public_Key)`).
+- Encrypt the payload with [Secure Cell](/themis/crypto-theory/cryptosystems/secure-cell/) in Seal mode:<br/>
   `Encrypted_Data = SCell(RK, payload)`.
-- Erases/fills with zeros memory area of the `RK`.
-- Calculates the encrypted payload length and transforms it into little endian 8 bytes long (`Data_Length`).
-- Connects attributes together as described in the original formula.
-- Erases/fills with zeros the memory area containing the `Throwaway_Keypair` and original payload.
+- Erase/fill with zeros memory area of the `RK`.
+- Calculate the encrypted payload length and transforms it into little endian 8 bytes long (`Data_Length`).
+- Connect attributes together as described in the original formula.
+- Erase/fill with zeros the memory area containing the `Throwaway_Keypair` and original payload.
 
 
 ## Decryption
 
 AcraServer or AcraTranslator, upon receiving and detecting a valid AcraStruct, is able to:
 
-- Extracts Throwaway Public Key (`TPK`).
-- Decrypts asymmetric envelope with `TPK` and Acra's Private Key (or [Zone key](/acra/security-controls/zones/).
-- Extracts Random Key (`RK`) for Secure Cell container out of a decrypted envelope;
-- Decrypts Secure Cell, extracts payload;
-- Reconstructs database answer in such a way that AcraStruct is replaced by decrypted data.
+- Extract Throwaway Public Key (`TPK`).
+- Decrypt an asymmetric envelope with `TPK` and Acra's Private Key (or [Zone key](/acra/security-controls/zones/)).
+- Extract Random Key (`RK`) for Secure Cell container out of a decrypted envelope;
+- Decrypt Secure Cell, extracts payload;
+- Reconstruct database answer in such a way that AcraStruct is replaced by decrypted data.

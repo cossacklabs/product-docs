@@ -12,11 +12,11 @@ AcraServer can be configured from command line using CLI flags ([see the whole l
 * Data protection security controls
 
   There are a couple features that can only be enabled/configured in file passed in `--encryptor_config_file` CLI option.
-  If you need any of these, the encryptor config is a must have.
+  If you need any of these, the encryptor config is a must-have.
   Each feature is configured per table column (except the last one).
 
   * [Transparent encryption](/acra/security-controls/encryption/) —
-    AcraServer will silently replace plaintext with its encrypted version before storing data in the database;
+    AcraServer will silently replace a plaintext with its encrypted version before storing data in the database;
   * [Searchable encryption](/acra/security-controls/searchable-encryption/) —
     provides searching capability over encrypted values stored in the database without decrypting them;
   * [Masking](/acra/security-controls/masking/) —
@@ -38,7 +38,7 @@ AcraServer can be configured from command line using CLI flags ([see the whole l
 
 * [Key management](/acra/security-controls/key-management/)
 
-  Telling Acra where the keys are stored so it can perform crypto-related things.
+  Telling Acra where the keys are stored, so it can perform crypto-related things.
 
   The main key, ["Acra Master Key"](/acra/security-controls/key-management/operations/generation/#master-keys)
   is read from `ACRA_MASTER_KEY` environment var, but can also be
