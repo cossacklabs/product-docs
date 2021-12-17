@@ -15,6 +15,719 @@ Currently, [AcraTranslator](/acra/configuring-maintaining/general-configuration/
 For backward compatibility reasons `/v1/*` only supports working with [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). So, if you want to use HTTP API along with [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock), you should take `v2` version.
 {{< /hint >}}
 
+### HTTP API v1
+
+#### Encrypt
+
+##### Request
+
+Method: `POST`
+
+Path: `/v1/encrypt`
+
+URL parameter:
+- `zone_id` [optional] - ZoneID value to use instead of Client ID. If ZoneID empty then used ClientID from connection
+
+Mime-Type: `application/octet-stream`
+
+Body: `<binary plaintext pyaload>`
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/octet-stream`
+
+Body: `<AcraStruct>`
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 404    | `HTTP request doesn't have a body, expected to get data` | Empty payload
+| 404    | `Can't parse body from HTTP request, expected to get data` | Inappropriate Content-Type
+| 422    | `Can't encrypt data` | Something went wrong with encryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Decrypt
+
+##### Request
+
+Method: `POST`
+
+Path: `/v1/decrypt`
+
+URL parameter:
+- `zone_id` [optional] - ZoneID value to use instead of Client ID. If ZoneID empty then used ClientID from connection
+
+Mime-Type: `application/octet-stream`
+
+Body: `<AcraStruct>`
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/octet-stream`
+
+Body: `<plaintext>`
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 404    | `HTTP request doesn't have a body, expected to get data` | Empty payload
+| 404    | `Can't parse body from HTTP request, expected to get data` | Inappropriate Content-Type
+| 422    | `Can't encrypt data` | Something went wrong with encryption process: invalid ZoneID, problems with keys, internal issues
+
+### HTTP API v2
+
+#### Encrypt with AcraStruct
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/encrypt`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg==", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded plaintext to encrypt
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body: 
+```json
+{
+   "data": "JSUl0wAAAAAAAADxIiIiIiIiIiJVRUMyAAAALUMO+pUDtl8vX/Zw2USDP+E/Lp0gsxIQcDpymRPhYXFZw+cY0tAgJwQ..."
+}
+```
+
+> `data` — Base64 encoded AcraStruct
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't encrypt data"}` | Something went wrong with encryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Decrypt AcraStruct
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/decrypt`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "JSUl0wAAAAAAAADxIiIiIiIiIiJVRUMyAAAALUMO+pUDtl8vX/Zw2USDP+E/Lp0gsxIQcDpymRPhYXFZw+cY0tAgJwQ...", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded AcraStruct
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg=="
+}
+```
+
+> `data` — Base64 encoded decrypted plaintext
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't decrypt data"}` | Something went wrong with decryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Encrypt with searchable AcraStruct
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/encryptSearchable`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg==", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded plaintext to encrypt
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "f62rEKgDLJs77Fytfn8GHrXb4E428JQoQLxZtBl5F0PpJSUl0wAAAAAAAADxIiIiIiIiIiJV..."
+}
+```
+
+> `data` — Base64 encoded searchable AcraStruct
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't encrypt data"}` | Something went wrong with encryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Decrypt searchable AcraStruct
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/decryptSearchable`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "f62rEKgDLJs77Fytfn8GHrXb4E428JQoQLxZtBl5F0PpJSUl0wAAAAAAAADxIiIiIiIiIiJV...", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded AcraStruct
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg=="
+}
+```
+
+> `data` — Base64 encoded decrypted plaintext
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't decrypt data"}` | Something went wrong with decryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Encrypt with AcraBlock
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/encryptSym`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg==", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded plaintext to encrypt
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "JSUloAAAAAAAAADwIiIiIpAAAAAAAAAAACdqAEwAAAEBQAwAAAAQAAAAIAAAANw9..."
+}
+```
+
+> `data` — Base64 encoded AcraBlock
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 400    | `{"code":400,"message":"Invalid request data, empty data"}` | Empty string value in data field in JSON object
+| 422    | `{"code":422,"message":"Can't encrypt data"}` | Something went wrong with encryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Decrypt AcraBlock
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/decryptSym`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "JSUloAAAAAAAAADwIiIiIpAAAAAAAAAAACdqAEwAAAEBQAwAAAAQAAAAIAAAANw9...",
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded AcraBlock
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg=="
+}
+```
+
+> `data` — Base64 encoded decrypted plaintext
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't decrypt data"}` | Something went wrong with decryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Encrypt with searchable AcraBlock
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/encryptSymSearchable`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg==", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded plaintext to encrypt
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "f62rEKgDLJs77Fytfn8GHrXb4E428JQoQLxZtBl5F0PpJSUloAAAAAAAAADwIiIiIpAAAAAAAAAAAC..."
+}
+```
+
+> `data` — Base64 encoded searchable AcraBlock
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 400    | `{"code":400,"message":"Invalid request data, empty data"}` | Empty string value in data field in JSON object
+| 422    | `{"code":422,"message":"Can't encrypt data"}` | Something went wrong with encryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Decrypt searchable AcraBlock
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/decryptSymSearchable`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "f62rEKgDLJs77Fytfn8GHrXb4E428JQoQLxZtBl5F0PpJSUloAAAAAAAAADwIiIiIpAAAAAAAAAAAC...",
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded searchable AcraBlock
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg=="
+}
+```
+
+> `data` — Base64 encoded decrypted plaintext
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't decrypt data"}` | Something went wrong with decryption process: invalid ZoneID, problems with keys, internal issues
+
+#### Generate searchable hash
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/generateQueryHash`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "c29tZSBkYXRhCg==", 
+   "zone_id":"DDDDDDDDLCMwagaNUONtEFWy"
+}
+```
+
+> `data` — Base64 encoded plaintext to hash
+
+> `zone_id` [optional] - ZoneID used to encrypt instead of ClientID has got from connection
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+```json
+{
+   "data": "f62rEKgDLJs77Fytfn8GHrXb4E428JQoQLxZtBl5F0Pp"
+}
+```
+
+> `data` — Base64 encoded searchable hash
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 400    | `{"code":400,"message":"Invalid request data, empty data"}` | Empty string value in data field in JSON object
+| 422    | `{"code":422,"message":"Can't calculate hash"}` | Something went wrong with hashing process: invalid ZoneID, problems with keys, internal issues
+
+#### Tokenize data
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/tokenize`
+
+Mime-Type: `application/json`
+
+Body:
+- Int32 value:
+  ```json
+  {
+     "data": 123, 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 1
+  }
+  ```
+- Int64 value:
+  ```json
+  {
+     "data": 123, 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 2
+  }
+  ```
+- String value:
+  ```json
+  {
+     "data": "string value", 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 3
+  }
+  ```
+- Binary Base64 encoded value:
+  ```json
+  {
+     "data": "c29tZSBkYXRhCg==", 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 4
+  }
+  ```
+- E-mail string value:
+  ```json
+  {
+     "data": "some@email.com", 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 5
+  }
+  ```
+
+> `data` — JSON value appropriate to type. Can be: integer, string, string containing binary base64 encoded value, 
+> string with e-mail value.
+
+> `zone_id` [optional] - ZoneID used for tokenization instead of ClientID has got from connection
+
+> `type` - identifier of tokenization type:
+> 
+> 1 - Int32
+> 
+> 2 - Int64
+> 
+> 3 - string
+> 
+> 4 - bytes
+> 
+> 5 - e-mail
+> 
+> [Read more about tokenization](/acra/security-controls/tokenization/)
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+- Int32 value:
+```json
+{
+   "data": 1001178345
+}
+```
+- Int64 value:
+```json
+{
+   "data": -7973202611975177045
+}
+```
+- String value:
+```json
+{
+   "data": "8kastrMORQKZ"
+}
+```
+- Bytes value:
+```json
+{
+   "data": "XWpFrPiMiL85zg=="
+}
+```
+- E-mail value:
+```json
+{
+   "data": "4MmkZ@AITy.edu"
+}
+```
+
+> `data` — JSON value according to tokenization type. Integer for [1, 2] and String for [3, 4, 5].
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 400    | `{"code":400,"message":"Invalid request data, empty data"}` | Missing `data` field in JSON object
+| 422    | `{"code":422,"message":"Can't tokenize data"}` | Something went wrong with tokenization process: invalid ZoneID, problems with keys, internal issues
+
+#### Detokenize
+
+##### Request
+
+Method: `POST` (available since 0.91.0), `GET` (deprecated since 0.91.0)
+
+Path: `/v2/detokenize`
+
+Mime-Type: `application/json`
+
+Body:
+- Int32 value:
+  ```json
+  {
+     "data": 1001178345, 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 1
+  }
+  ```
+- Int64 value:
+  ```json
+  {
+     "data": -7973202611975177045, 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 2
+  }
+  ```
+- String value:
+  ```json
+  {
+     "data": "8kastrMORQKZ", 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 3
+  }
+  ```
+- Binary Base64 encoded value:
+  ```json
+  {
+     "data": "XWpFrPiMiL85zg==", 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 4
+  }
+  ```
+- E-mail string value:
+  ```json
+  {
+     "data": "4MmkZ@AITy.edu", 
+     "zone_id":"DDDDDDDDLCMwagaNUONtEFWy",
+     "type": 5
+  }
+  ```
+
+> `data` — JSON value appropriate to type. Can be: integer, string, string containing binary base64 encoded value,
+> string with e-mail value.
+
+> `zone_id` [optional] - ZoneID used for tokenization instead of ClientID has got from connection
+
+> `type` - identifier of tokenization type:
+>
+> 1 - Int32
+>
+> 2 - Int64
+>
+> 3 - string
+>
+> 4 - bytes
+>
+> 5 - e-mail
+>
+> [Read more about tokenization](/acra/security-controls/tokenization/)
+
+##### Response
+
+Status code: `200`
+
+Mime-Type: `application/json`
+
+Body:
+- Int32 value:
+  ```json
+  {
+     "data": 123 
+  }
+  ```
+- Int64 value:
+  ```json
+  {
+     "data": 123 
+  }
+  ```
+- String value:
+  ```json
+  {
+     "data": "string value" 
+  }
+  ```
+- Binary Base64 encoded value:
+  ```json
+  {
+     "data": "c29tZSBkYXRhCg==" 
+  }
+  ```
+- E-mail string value:
+  ```json
+  {
+     "data": "some@email.com" 
+  }
+  ```
+
+> `data` — JSON value according to tokenization type. Integer for [1, 2] and String for [3, 4, 5].
+
+##### Errors
+
+| Status | Payload | Description
+| ---    |  ---    | ---
+| 400    | `{"code":400,"message":"invalid request body"}` | Empty payload
+| 400    | `{"code":400,"message":"Invalid request data"}` | Inappropriate JSON object in payload
+| 422    | `{"code":422,"message":"Can't detokenize data"}` | Something went wrong with detokenization process: invalid ZoneID, problems with keys, internal issues
+
 ### Bulk processing API [ENTERPRISE]
 
 {{< hint info >}}

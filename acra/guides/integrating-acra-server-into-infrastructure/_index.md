@@ -6,6 +6,11 @@ weight: 1
 
 # Integrating AcraServer into infrastructure
 
+## How AcraServer works
+
+Refer to [AcraServer architecture]({{< ref "/acra/acra-in-depth/architecture/acraserver.md" >}}) page to find out
+deep description of internals and how it works.
+
 ## AcraServer installation
 
 There are multiple ways to install AcraServer.
@@ -70,6 +75,14 @@ As soon as you have running instance of AcraServer, you can try redirecting you 
 * Change the `host:port` part of connection to make application connect to AcraServer
 * Make sure application will accept TLS certificate configured in AcraServer
 * No need to change database credentials
+
+## Poison records
+
+If the client application is hacked and the attacker is trying to decrypt all the data, you can detect it using [poison records](/acra/security-controls/intrusion-detection/).
+
+AcraServer (similarly as AcraTranslator) has ability to detect poison records and stop executing the request,
+preventing the data from leaking to an untrusted destination.
+To learn more about AcraServer cmd configuration you can refer [here](/acra/configuring-maintaining/general-configuration/acra-server/).
 
 ### AcraWriter integration (optional)
 
