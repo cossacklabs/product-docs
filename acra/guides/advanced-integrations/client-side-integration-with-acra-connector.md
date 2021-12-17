@@ -171,7 +171,7 @@ When you need to retrieve some sensitive data:
    and AcraConnector ensures that decrypted data remains encrypted until your application receives it.
 
 
-> Note for PostgreSQL: In the current layout, you aren't required to use SSL when trying to connect to the database. Transport protection for sensitive (decrypted) data is provided between AcraServer and AcraConnector via [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/). However, you can set up SSL connection as well.
+> Note for PostgreSQL: In the current layout, you aren't required to use TLS when trying to connect to the database. Transport protection for sensitive (decrypted) data is provided between AcraServer and AcraConnector via [Secure Session](/themis/crypto-theory/cryptosystems/secure-session/). However, you can set up TLS connection as well.
 
 ## Client-side with Zones
 

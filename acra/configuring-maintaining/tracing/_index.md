@@ -12,7 +12,7 @@ Acra services provide some traces for Jaeger when configured to do so. This incl
 
 ## Traces
 
-Acra services collect following traces and their subtraces.
+Acra services collect the following traces and their subtraces.
 
 <!-- decryptor/postgresql/pg_decryptor.go and decryptor/mysql/response_proxy.go -->
 * `ProxyClientConnection`
