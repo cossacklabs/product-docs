@@ -1,5 +1,6 @@
 ---
 title: Contributing
+bookCollapseSection: true
 ---
 
 # Contributing to Hermes-core
