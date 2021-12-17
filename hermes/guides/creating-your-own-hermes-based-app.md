@@ -1,4 +1,5 @@
 ---
+weight: 1
 title: "Creating your own Hermes-based app"
 ---
 

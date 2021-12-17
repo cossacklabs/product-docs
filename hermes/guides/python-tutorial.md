@@ -1,4 +1,5 @@
 ---
+weight: 3
 title: Python tutorial
 ---
 

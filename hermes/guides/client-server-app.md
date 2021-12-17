@@ -1,4 +1,5 @@
 ---
+weight: 2
 title: Client-server app (Step-by-step creation)
 ---
 
