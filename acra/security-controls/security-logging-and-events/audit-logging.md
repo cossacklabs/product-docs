@@ -77,6 +77,8 @@ and erased from the memory to minimize time of storing in the service's process 
 For each **log entry** that is presented in log stream, we add an element **integrity check**, 
 that is computed iteratively by the following "formal" principle:
 
+<!-- the source of this image is: https://ph.cossacklabs.com/w/audit_log_feature/ . Once we need to change the picture - we can edit the document in phabricator and make screenshot from there-->
+
 ![](/files/acra/audit_log_table.png)
 
 As a result, **secure log** will consist from:
