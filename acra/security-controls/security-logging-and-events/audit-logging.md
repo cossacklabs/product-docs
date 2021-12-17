@@ -77,13 +77,7 @@ and erased from the memory to minimize time of storing in the service's process 
 For each **log entry** that is presented in log stream, we add an element **integrity check**, 
 that is computed iteratively by the following "formal" principle:
 
-|Log entry | Temporary key           | Internal state                                 | Integrity check         |
-| ---      | ---                     | ---                                            | ---                     |
-|`LE[1]`   | `k[1]`                  | `state[1] = HMAC(k[1], LE[1])`                 | `IC[1] = hash(state[1])`|
-|`LE[2]`   | `k[2] = hash(k[1])`     | `state[2] = HMAC(k[2], LE[2] || state[1])`     | `IC[2] = hash(state[2])`|
-|`LE[3]`   | `k[3] = hash(k[2])`     | `state[3] = HMAC(k[3], LE[3] || state[2])`     | `IC[3] = hash(state[3])`|
-| ...      | ...                     | ...                                            | ...|
-|`LE[4]`   | `k[n] = hash(k[n – 1])` | `state[n] = HMAC(k[n], LE[n] || state[n – 1])` | `IC[n] = hash(state[n])`| 
+![](/files/acra/audit_log_table.png)
 
 As a result, **secure log** will consist from:
 
