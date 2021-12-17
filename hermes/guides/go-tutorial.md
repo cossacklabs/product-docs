@@ -1,4 +1,5 @@
 ---
+weight: 5
 title: Go tutorial
 ---
 
