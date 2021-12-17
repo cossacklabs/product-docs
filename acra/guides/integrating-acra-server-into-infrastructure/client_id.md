@@ -6,7 +6,7 @@ weight: 2
 
 # Client ID
 
-Every application wishing to interact with AcraServer shoud provide an identifier called client ID.
+Every application wishing to interact with AcraServer should provide an identifier called client ID.
 Based on the client ID, AcraServer will choose corresponding encryption keys to process client requests.
 
 There are two ways of passing client ID from application to AcraServer:

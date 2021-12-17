@@ -3,7 +3,7 @@ title: acra-connector
 weight: 5
 ---
 
-# acra-connector
+# acra-connector (deprecated since 0.91.0)
 
 ## Command line flags
 

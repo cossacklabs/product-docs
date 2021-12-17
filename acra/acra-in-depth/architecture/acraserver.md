@@ -5,12 +5,23 @@ weight: 2
 
 # AcraServer, an SQL database proxy
 
-AcraServer is also known as SQL Proxy. It's SQL database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate. 
+## How AcraServer works
+
+AcraServer is also known as SQL Proxy. It's an SQL database proxy that exposes Acra’s functionality by parsing SQL traffic between an app and a database and applying security functions where appropriate. 
 
 If you'd like to encrypt the data between your app and SQL database "transparently on-a-fly" then AcraServer should be your main choice.
 
-Refer to [Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/) to learn how configure AcraServer.
+AcraServer sits between your application and MySQL/PostgreSQL database and does the following:
 
+- captures all packets from database driver to database and back
+- recognizes packets related to SQL queries or data transferring
+- passes SQL queries through [AcraCensor SQL firewall]({{< ref "/acra/security-controls/sql-firewall" >}}) before further processing
+- encrypts, tokenizes, masks all recognized plaintext fields according to the [encryptor config]({{< ref "acra/security-controls/encryption/#acraServer-configuration" >}}) 
+  and passes further to the database as it was sent by application
+- decrypts, detokenizes, unmasks data from database to application as it was sent by database
+- checks on intrusion detection via recognizing [poison records]({{<ref "/acra/security-controls/intrusion-detection/" >}})
+
+Refer to [Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/) to learn how configure AcraServer.
 
 ## AcraServer's functionality
 
