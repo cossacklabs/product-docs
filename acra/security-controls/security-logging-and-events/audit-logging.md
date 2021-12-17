@@ -79,6 +79,8 @@ that is computed iteratively by the following "formal" principle:
 
 ![](/files/acra/audit_log_table.png)
 
+<!-- image source: phabricator audit_log_feature wiki -->
+
 As a result, **secure log** will consist from:
 
 - `LE[1] || IC[1]`
