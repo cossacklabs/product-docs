@@ -7,7 +7,7 @@ bookCollapseSection: true
 # Logging error codes
 
 Most errors logged by Acra have their own error code.
-Error codes for different events in Acra services are splitted by groups and service. 
+Error codes for different events in Acra services are divided by groups and service.
 
 List of basic error codes and their groups:
 

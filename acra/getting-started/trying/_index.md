@@ -231,10 +231,10 @@ python examples/python/example_without_zone.py \
     --print
 ```
 
-You will see some incomrehensible string of characters, something like `b'""""""""UEC2\x00\x00\x00-d\x18e\xbc\x03.\x9fi\xecc\xbb\xfe\xa0...`. This is what the data looks like in an encrypted form.
+You will see some incomprehensible string of characters, something like `b'""""""""UEC2\x00\x00\x00-d\x18e\xbc\x03.\x9fi\xecc\xbb\xfe\xa0...`. This is what the data looks like in an encrypted form.
 
 To make sure that the data is really encrypted, you can connect to the database directly and make a pure `select`
-in the psql terminal (you will be asked for password, which you set for variable `POSTGRES_PASSWORD`):
+in the psql terminal (you will be asked for a password, which you set for variable `POSTGRES_PASSWORD`):
 ```bash
 echo "select * from test_example_without_zone" | \
     psql -h127.0.0.1 -p5432 -U${POSTGRES_USER} acra
@@ -271,7 +271,7 @@ rm -rf docker/.acrakeys
 docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector_zonemode.yml up
 ```
 
-**Print data in database**:
+**Print data in a database**:
 (shell window #2)
 Depending on your system configurations, you may be required to change the owner of the `docker/.acrakeys` directory, which is created by the Docker daemon, to have access to it. In this case, use:
 ```bash

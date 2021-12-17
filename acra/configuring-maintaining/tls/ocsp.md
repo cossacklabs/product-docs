@@ -29,7 +29,7 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
 
 * `--tls_ocsp_database_url=<url>`
 
-  OCSP service URL for outcoming TLS connections to check database certificates.
+  OCSP service URL for outgoing TLS connections to check database certificates.
   Empty by default. Supported on AcraServer only.
 
 * `--tls_ocsp_required=<policy>`
@@ -43,7 +43,7 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
 
 * `--tls_ocsp_from_cert=<policy>`
 
-  How to treat OCSP server URL described in certificate itself.
+  How to treat OCSP server URL described in a certificate itself.
 
   * `use` — try URL(s) from certificate after the one from configuration (if set)
   * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks

@@ -12,7 +12,7 @@ encrypted auth file that stores all users and hashed passwords for basic authent
 ## Command line flags
 
 `acra-authmanager` should be called with same `ACRA_MASTER_KEY` that used for `acra-server`. Only these two binaries can
-read encrypted file with authentication data. 
+read an encrypted file with authentication data.
 
 ### Configuration files
 
@@ -52,7 +52,7 @@ read encrypted file with authentication data.
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-addzone.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 ### Logging
 
@@ -110,7 +110,7 @@ read encrypted file with authentication data.
 
 ## Auth file
 
-`acra-authmanager` updates encrypted file where stored rows in format: 
+`acra-authmanager` updates encrypted file where rows are stored in the following format:
 ```
 <user>:<salt>:<hash_function_parameters>:<hash(salt, password, parameters)>
 <user>:<salt>:<hash_function_parameters>:<hash(salt, password, parameters)>

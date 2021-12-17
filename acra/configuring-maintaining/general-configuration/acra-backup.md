@@ -115,7 +115,7 @@ weight: 9
 
 ## Usage example
 
-Using `acra-backup` you can easily migrate keys from different storages. Consider an example of migrating keys from filesystem to Redis-based keystore.
+Using `acra-backup` you can easily migrate keys from different storages. Consider an example of migrating keys from a filesystem to Redis-based keystore.
 First, we need to export keys to file using `export` action:
 
 ```

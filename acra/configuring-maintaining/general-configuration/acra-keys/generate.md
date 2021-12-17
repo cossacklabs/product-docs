@@ -112,7 +112,7 @@ weight: 2
 {{< hint warning >}}
 **Note:**
 Back up all your keys before calling `acra-keys generate` with any flag described below.
-Some keys can be rotated and the previous keys will be retained,
+Some keys can be rotated, and the previous keys will be retained,
 while some keys will be overwritten.
 {{< /hint >}}
 
@@ -189,7 +189,7 @@ AcraAuthManager tool is deprecated and will not be available since 0.91.0.
 
 * `--zone`
 
-  Generates new Zone keypair (without symmetric key).
+  Generates a new Zone keypair (without symmetric key).
 
 * `--zone_storage_key`
 

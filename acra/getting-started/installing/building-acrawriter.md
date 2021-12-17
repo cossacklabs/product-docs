@@ -10,7 +10,7 @@ AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) 
 {{< /hint>}}
 
 [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) wraps plaintext data into encrypted [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct/) – cryptographic containers used by Acra.
-You pass your input data and AcraServer's public key to AcraWriter and it returns you encrypted AcraStruct that will be stored in the database.
+You pass your input data and AcraServer's public key to AcraWriter, and it returns you encrypted AcraStruct that will be stored in the database.
 Once you encrypt data with AcraWriter, only the AcraServer will be able to decrypt it.
 
 AcraWriter (and Acra) use [Themis]({{< ref "/themis/" >}}) cryptographic library.
@@ -83,7 +83,7 @@ Output
 #### Examples
 [With Zones](https://github.com/cossacklabs/acra/blob/master/examples/python/example_with_zone.py) and [without Zones](https://github.com/cossacklabs/acra/blob/master/examples/python/example_without_zone.py).
 
-A real-world example project that protects Django web application and a set of small Python command-line applications is available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site).
+A real-world example project that protects Django web application with a set of small Python command-line applications are available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site).
 
 ### Installing AcraWriter for Ruby
 

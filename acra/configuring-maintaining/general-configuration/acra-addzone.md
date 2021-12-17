@@ -23,7 +23,7 @@ weight: 10
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-addzone.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
   
 ### Logging
 

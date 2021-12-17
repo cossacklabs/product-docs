@@ -62,7 +62,7 @@ In Acra’s [threat model](/acra/acra-in-depth/security-design/threat-models-and
 
 - G2: If the attacker alters the app’s behaviour in such a way that makes it request all the protected (encrypted) data 
   from the database, AcraServer detects it and reacts accordingly by triggering pre-set alarms and panic blocks. This is 
-  currently carried out with the help of poison records in the database, which would never have been called up - except 
+  currently carried out with the help of poison records in the database, which would have never been called up - except
   for an event of a hack/breach. In the future, more intrusion detection features besides poison records are planned.
 
 If it is explicitly stated that the output for Zone ID must precede the AcraStruct, AcraServer will search for certain
@@ -83,8 +83,8 @@ In a perfect world, you’d be running different elements of Acra, as well as yo
 one for PostgreSQL, one for AcraServer, and one for AcraConnector + AcraWriter + your Rails app.
 This implies an immediate introduction of Acra into a real production setting, which we realise is far from a realistic 
 course of events (at least on your very first try of Acra). So this tutorial is more focused on the things you can 
-hands-on try out and tinker with on just 2 or even 1 machine through the creation of different users and containers 
-(i.e. Docker, a test-only implementation of which for Acra is described at the end of this tutorial ("If you want to 
+try out by hands and tinker with on just 2 or even 1 machine through the creation of different users and containers
+(i.e. Docker, a test-only implementation of which for Acra is described at the end of this tutorial (if you want to
 try Acra in containers)).
 
 In this detailed architectural scheme we see how components of Acra, application, and database relate and interact with 
@@ -108,7 +108,7 @@ with 'go' are meant to be executed from 'acra' folder (the folder with the repos
 
 In this tutorial, we assume that you have a fully operational [PostgreSQL](https://www.postgresql.org/docs/current/static/tutorial.html) 
 (as Acra transfers and receives data “as is” to and from PostgreSQL database and then processes it - parses the messages - 
-according to the PostgreSQL protocol) and operate on Linux machines (with with Ruby environment and Rails framework installed). 
+according to the PostgreSQL protocol) and operate on Linux machines (with Ruby environment and Rails framework installed).
 It’s also crucial that you have libssl-dev installed with libcrypto.so in $PATH before proceeding.
 
 This might appear complicated, but in reality, Acra is easy to install. Let’s go!
@@ -153,8 +153,8 @@ include Latin symbols, numbers, "-" (minus symbol), "\_" (underscore), and " " (
 The generator will generate and place the keys into the `.acrakeys` directory (you can change this with `--output` argument).
 
 For a few minutes, let the keys rest where they are - they will be necessary after you have installed AcraServer, 
-AcraProxy, and AcraWriter (if you’d like to read more about the keys, please see 
-[Key Management](/acra/acra-in-depth/cryptography-and-key-management/).
+AcraProxy, and AcraWriter (if you’d like to read more about the keys, please take a look at
+[Key Management](/acra/acra-in-depth/cryptography-and-key-management/)).
 
 ### Step 3. Launch AcraServer
 
@@ -417,11 +417,11 @@ that uses different machines/users.
 To test your Acra setup:
 
 - Connect AcraConnector to AcraServer, send a regular request to your database through AcraConnector. If you see the 
-  answer, AcraConnector and AcraWriter are able to connect and forward signals back and forth. It means that the
+  answer, AcraConnector and AcraWriter are able to connect and forward signals back and forth. It means that both the
   network and the keys are fine.
 
 - Upon integrating AcraWriter into your code, try generating an AcraStruct from some payload. If you succeed in running 
-  AcraWriter code, Themis library is installed properly and the keys are located in the expected places.
+  AcraWriter code, it will mean that: 1) Themis library is installed properly, and 2) the keys are located in the expected places.
 
 - Write a row with AcraStruct into the database, either directly or through AcraConnector. Request this row through 
   AcraConnector. If you see the decrypted payload in the response, the scheme works properly.
@@ -462,7 +462,7 @@ select authors, description, summary from versions where rubygem_id=(select max(
 select unresolved_name from dependencies where rubygem_id = (select max(id) from rubygems);
 ```    
 
-If the database returns all the data it contains in encrypted form, everything is working properly and you’ve 
+If the database returns all the data it contains in encrypted form, everything is working properly, and you’ve
 successfully integrated Acra into your Ruby app!
 
 {{< hint info >}}
@@ -500,8 +500,8 @@ After executing this command, you will have a running PostgreSQL with `test:test
 port, AcraServer with keys that you generated above, and AcraConnector that forwards port 9494.
 
 {{< hint info >}}
-Don’t forget to stop your local PostgreSQL if you run it before launching the Docker with PostgreSQL in a container 
-or you’ll get an error from 2 instances of an application trying to listen on the same port.
+Don’t forget to stop your local PostgreSQL if you run it before launching the Docker with PostgreSQL in a container,
+otherwise you’ll get an error from 2 instances of an application trying to listen on the same port.
 {{< /hint >}}
 
 By default, Docker will create 3 containers with the following names: `docker_acra-server_1`, `docker_acra-connector_1`,
@@ -523,7 +523,7 @@ psql -h127.0.0.1 -U test -c "create database acra with encoding 'utf8'";
 
 {{< hint info >}}
 Note: Either name your database gemcutter_development (to follow the 
-[default rubygems practice](https://github.com/rubygems/rubygems.org/blob/master/config/database.yml.example#L3) or 
+[default rubygems practice](https://github.com/rubygems/rubygems.org/blob/master/config/database.yml.example#L3)) or
 come up with a custom name - in this case the custom name is `acra`. Don’t forget to change the database name in the   
 config/database.yml file afterwards. Use this database name in all the following commands below.
 {{< /hint >}}

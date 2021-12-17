@@ -29,7 +29,7 @@ AcraServer will be listening on some default ports (API on `9090`, SQL proxy on 
 Related flags are located [here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#network" >}}).
 As a simple example we can set both host and port like this: `--incoming_connection_string=tcp://127.0.0.1:13306`.
 
-It is also important to [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}})
+It is also important to [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}),
 so the application/clients will have secure connection to AcraServer.
 In some cases, you may want to use AcraConnector + Themis Secure Session instead of TLS.
 

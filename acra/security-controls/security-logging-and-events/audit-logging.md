@@ -9,14 +9,14 @@ To ensure that security log is secure itself, Acra provides cryptographic protec
 
 Acra supports secure and verifiable logging for [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server), [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator) and [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector).
 
-It is designed to prevent unnoticable tampering of log messages and log files of the mentioned services. Cryptographic design is based on state-of-the-art [scientific work](https://eprint.iacr.org/2008/185.pdf), where the two cryptographic schemes (based on symmetric / asymmetric keys) of secure logging functionality are described. 
+It is designed to prevent unnoticeable tampering of log messages and log files of the mentioned services. Cryptographic design is based on state-of-the-art [scientific work](https://eprint.iacr.org/2008/185.pdf), where the two cryptographic schemes (based on symmetric / asymmetric keys) of secure logging functionality are described.
 
 We have chosen a scheme that is based on symmetric keys according to the following reasons: 
 
 1) high performance; 
 2) simple and boring cryptographic design. Acra uses HMAC-SHA256 to calculate log signatures.
 
-Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator and AcraConnector) and **verifier** ([acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier) that checks and validates dump of logs.
+Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator and AcraConnector) and **verifier** ([acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier)) that checks and validates a dump of logs.
 
 Read more about [cryptographically signed audit logging used in Acra in the blogpost](https://www.cossacklabs.com/blog/crypto-signed-audit-logs.html).
 
@@ -46,18 +46,18 @@ verifier - `acra_log_verifier`. According to the scheme, logs can only be verifi
 
 Common pattern in collecting logs is their rotation related with their size, row counts, time of life, etc. 
 Most often service continue working and should continue logging. Secure logs are stream of entries where every new entry linked
-with previous entry and their content and order fixed into the integrity check signature. For that AcraServer, AcraTranslator and 
-AcraConnector handle SIGUSR1 signal that correctly interrupts current chain of entries with final integrity check and starts new chain.
+with previous entry and their content and order fixed into the integrity check signature. For that, AcraServer, AcraTranslator and
+AcraConnector handle SIGUSR1 signal that correctly interrupts a current chain of entries with final integrity check and starts a new chain.
 
-So, you should integrate logs rotation process with secure logs rotation in Acra services. And send signal to services before
+So, you should integrate logs rotation process with secure logs rotation in Acra services. And send signal to your services before
 rotating files or log stream.
 
 ### Recommendation for secure usage
 
-We propose a following practical measures that can significanly improve the security from practical point of view:
+We propose a following practical measures that can significantly improve the security from practical point of view:
 
 * Perform periodical force resetting of the secure log chain (for this purpose Acra services use a SIGUSR1 system signal);
-* Perform copying of log file to the separate, phisically independent machine, responsible for audit log collecting;
+* Perform copying of log file to the separate, physically independent machine, responsible for audit log collecting;
 * Perform periodical key rotation of HMAC cryptographic key;
 
   {{< hint warning >}}
@@ -77,13 +77,11 @@ and erased from the memory to minimize time of storing in the service's process 
 For each **log entry** that is presented in log stream, we add an element **integrity check**, 
 that is computed iteratively by the following "formal" principle:
 
-|Log entry | Temporable key          | Internal state                                 | Integrity check         |
-| ---      | ---                     | ---                                            | ---                     |
-|`LE[1]`   | `k[1]`                  | `state[1] = HMAC(k[1], LE[1])`                 | `IC[1] = hash(state[1])`|
-|`LE[2]`   | `k[2] = hash(k[1])`     | `state[2] = HMAC(k[2], LE[2] || state[1])`     | `IC[2] = hash(state[2])`|
-|`LE[3]`   | `k[3] = hash(k[2])`     | `state[3] = HMAC(k[3], LE[3] || state[2])`     | `IC[3] = hash(state[3])`|
-| ...      | ...                     | ...                                            | ...|
-|`LE[4]`   | `k[n] = hash(k[n – 1])` | `state[n] = HMAC(k[n], LE[n] || state[n – 1])` | `IC[n] = hash(state[n])`| 
+<!-- the source of this image is: https://ph.cossacklabs.com/w/audit_log_feature/ . Once we need to change the picture - we can edit the document in phabricator and make screenshot from there-->
+
+![](/files/acra/audit_log_table.png)
+
+<!-- image source: phabricator audit_log_feature wiki -->
 
 As a result, **secure log** will consist from:
 
