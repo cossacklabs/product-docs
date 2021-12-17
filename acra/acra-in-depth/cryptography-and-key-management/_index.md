@@ -24,7 +24,7 @@ Acra does not contain any self-made cryptographic primitives or obscure ciphers 
 * [Golang's Argon2 hash function implementation](https://pkg.go.dev/golang.org/x/crypto/argon2). 
 
 
-To deliver its unique guarantees, Acra relies on the combination of well-known ciphers and a smart key management scheme.
+To deliver its unique guarantees, Acra relies on the combination of well-known ciphers, and a smart key management scheme.
 
 |Use case|Crypto source|
 |--|--|
@@ -55,9 +55,9 @@ of your choice (i.e. FIPS, GOST). If you'd like to discuss a custom build [drop 
 
 **[AcraStructs](/acra/acra-in-depth/data-structures/acrastruct)** are built on asymmetric cryptography, and combine ECDH with AES-256-GCM-PKCS#7. That's [Themis Secure Message](/themis/crypto-theory/cryptosystems/secure-message/) and [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
 
-The data is encrypted using AES-256-GCM-PKCS#7 and random symmetric key, which is then encrypted by shared key derived from Acra's public key and encryptor private key (either Acra or client-side application) using ECDH. This scheme is similar to [the HPKE](https://datatracker.ietf.org/doc/draft-irtf-cfrg-hpke/).
+The data is encrypted using AES-256-GCM-PKCS#7 and random symmetric key, which is then encrypted by a shared key derived from Acra's public key and encryptor private key (either Acra or client-side application) using ECDH. This scheme is similar to [the HPKE](https://datatracker.ietf.org/doc/draft-irtf-cfrg-hpke/).
 
-**[AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)** are built on symmetric cryptograhy, and use AES-256-GCM-PKCS#7 twice. That's [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
+**[AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)** are built on symmetric cryptography, and use AES-256-GCM-PKCS#7 twice. That's [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode).
 
 The data is encrypted using AES-256-GCM-PKCS#7 and random symmetric key, which is then encrypted using AES-256-GCM-PKCS#7 by Acra's secret storage key. This scheme is similar to [the key wrapping](https://en.wikipedia.org/wiki/Key_Wrap).
 
@@ -66,7 +66,7 @@ Acra also uses key derivation and key stretching functions to derive cryptograph
 
 ### Searchable encryption
 
-[Searchable encryption](/acra/security-controls/searchable-encryption/) is based on data encryption and generation of search index. Searchable encryption is supported in both [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock). Searchable index is generated using HMAC-SHA256.
+[Searchable encryption](/acra/security-controls/searchable-encryption/) is based on data encryption and generation of search index. Searchable encryption is supported in both [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock). A searchable index is generated using HMAC-SHA256.
 
 
 ### Key management
@@ -80,7 +80,7 @@ Intermediate and secret keys (KEKs) are stored encrypted by Acra Master Key usin
 
 Acra handles TLS connections between: 
 
-* Client application and [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server). TLS is used to protect plaintext from application to AcraServer in [Transparent encryption mode](/acra/configuring-maintaining/general-configuration/acra-server#transparent-encryption-mode), and to protect decrypted plaintext by AcraServer before sending to the application back.
+* Client application and [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server). TLS is used to protect a plaintext from application to AcraServer in [Transparent encryption mode](/acra/configuring-maintaining/general-configuration/acra-server#transparent-encryption-mode), and to protect decrypted plaintext by AcraServer before sending to the application back.
 * Client application and [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator). TLS is used as transport encryption in HTTP and gRPC protocols supported by AcraTranslator.
 * AcraServer and database. TLS is used to protect other data transmitted through AcraServer to database and to be transparent for 
   strictly configured environment with fully protected communication between applications and databases, with mutual 

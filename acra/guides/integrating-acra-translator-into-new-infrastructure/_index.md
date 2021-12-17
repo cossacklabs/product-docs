@@ -107,7 +107,7 @@ that allows data encryption right inside the application for `Encrypt` operation
 
 ## Poison records
 
-If the client application is hacked and the attacker is trying to decrypt all the data, you can detect it using [poison records](/acra/security-controls/intrusion-detection/).
+If the client application is hacked, and the attacker is trying to decrypt all the data, you can detect it using [poison records](/acra/security-controls/intrusion-detection/).
 
 AcraTranslator (similarly as AcraServer) has ability to detect poison records and stop executing the request, 
 preventing the data from leaking to an untrusted destination.

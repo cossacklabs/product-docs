@@ -7,7 +7,7 @@ bookCollapseSection: true
 # Logging formats
 
 Acra services write logs to `stderr`.
-If you need to redirect logs to a file or a log collector service, please redirect `stderr`.
+If you need to redirect logs to a file or to a log collector service, please redirect `stderr`.
 
 ## Plaintext
 

@@ -9,7 +9,7 @@ AcraTranslator can be configured from command line using CLI flags ([see the who
 
 * [Key management](/acra/security-controls/key-management/)
 
-  Telling Acra where the keys are stored so it can perform crypto-related things.
+  Telling Acra where the keys are stored, so it can perform crypto-related things.
 
   The main key, ["Acra Master Key"](/acra/security-controls/key-management/operations/generation/#master-keys)
   is read from `ACRA_MASTER_KEY` environment var, but can also be

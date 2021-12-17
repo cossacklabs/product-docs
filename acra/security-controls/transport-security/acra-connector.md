@@ -13,7 +13,7 @@ AcraConnector supports two types of transport encryption:
 - [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) (enabled by default), provides both transport encryption and mutual authentication,
 - TLS (so, a client app connects to AcraConnector that connects to AcraServer/AcraTranslator via TLS).
 
-Also, compared to TLS, the client identifier `ClientID` (text string that uniquely identifies client and affects which encryption keys will be used when processing this client requests) will be set by AcraConnector, not taken from client TLS certificate.
+Also, compared to TLS, the client identifier `ClientID` (text string that uniquely identifies a client and affects which encryption keys will be used when processing this client requests) will be set by AcraConnector, not taken from client TLS certificate.
 
 Configuration flag for this behavior is `--client_id`.
 

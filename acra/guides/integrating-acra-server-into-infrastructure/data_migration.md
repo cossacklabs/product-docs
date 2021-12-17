@@ -6,11 +6,11 @@ weight: 3
 
 # Data migration
 
-How to prepare database to work with AcraServer
+How to prepare a database to work with AcraServer
 
 ## Binary columns
 
-Although in most cases data stored in database is either text string or a number,
+Although in most cases data stored in a database is either a string or a number,
 encrypted data is always a randomly looking array of bytes.
 So, all the columns that will be used to store encrypted data should be transformed into binary ones
 (types like `bytea`, `BLOB`, `VARBINARY`, depending on which database you are using).

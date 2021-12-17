@@ -12,11 +12,11 @@ Acra services provide some traces for Jaeger when configured to do so. This incl
 
 ## Traces
 
-Here are some of the traces and their subtraces collected by Acra services.
+Acra services collect the following traces and their subtraces.
 
 <!-- decryptor/postgresql/pg_decryptor.go and decryptor/mysql/response_proxy.go -->
 * `ProxyClientConnection`
-  time of processing incoming connection from client, from the moment when SecureSession/TLS
+  time of processing incoming connection from a client, from the moment when SecureSession/TLS
   handshake was done to the moment when connection was closed
 
   * `ProxyClientConnectionLoop` — corresponds to one exact database packet being checked and processed
@@ -42,7 +42,7 @@ Here are some of the traces and their subtraces collected by Acra services.
 
 <!-- network/proxy.go -->
 * `ProxyWithTracing` (AcraConnector-specific)
-  traces how much time connection was proxified, starting after client→AcraConnector SecureSession/TLS
+  traces how much time connection was proxied, starting after client→AcraConnector SecureSession/TLS
   handshake was done and AcraConnector→AcraServer connection was established
 
 <!-- cmd/acra-connector/acra-connector.go -->

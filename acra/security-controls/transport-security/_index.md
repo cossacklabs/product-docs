@@ -8,7 +8,7 @@ weight: 7
 
 So, your client application communicates with AcraServer/AcraTranslator to encrypt the data. But the communication channel between your app and Acra should be protected!
 
-There are few ways how to create encrypted channel between client application and AcraServer/AcraTranslator:
+There are few ways how to create an encrypted channel between client application and AcraServer/AcraTranslator:
 
 * Just use [TLS](/acra/security-controls/transport-security/tls/).
 

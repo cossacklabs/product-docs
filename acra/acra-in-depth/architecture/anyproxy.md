@@ -11,7 +11,7 @@ This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/
 
 AnyProxy is an API server that works between several API-driven microservices/applications. 
 
-AnyProxy can transparently forward requests/responses so your applications stay "thin clients". AnyProxy works between several API-driven microservices/applications, and is, in fact, a remote API party for them.
+AnyProxy can transparently forward requests/responses, so your applications stay "thin clients". AnyProxy works between several API-driven microservices/applications, and is, in fact, a remote API party for them.
 
 The exact feature set of AnyProxy is defined by you and we shape it for you.
 

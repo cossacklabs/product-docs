@@ -141,7 +141,7 @@ Put `someid` and `someid_server.pub` keys into .acrakeys directory for AcraConne
 acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
 ```
 
-If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exists", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step](/acra/security-controls/key-management/operations/generation/).
+If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exist", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step](/acra/security-controls/key-management/operations/generation/).
 
 AcraConnector is now listening on the localhost port **9494**. Now try accessing your database via AcraConnector to make sure that everything actually works after installation.
 

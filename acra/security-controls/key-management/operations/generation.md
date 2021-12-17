@@ -6,7 +6,7 @@ bookCollapseSection: true
 
 # Key generation
 
-During the inital setup of Acra you will need to generate new keys for all components involved.
+During the initial setup of Acra you will need to generate new keys for all components involved.
 
 1. Acra Master Key(s).
 
@@ -20,15 +20,15 @@ During the inital setup of Acra you will need to generate new keys for all compo
 
 3. Transport keys.
 
-   If TLS is used, then key/certificate generation is outside of this topic,
+   If TLS is used, then key/certificate generation is out of this topic's scope,
    although you can get some hints on [certificate generation page](/acra/configuring-maintaining/tls/generate-certificate-with-openssl/).
 
    If you decided to use [AcraConnector with Themis Secure Session](/acra/security-controls/transport-security/acra-connector/), you will need Themis Secure Session transport keys for both AcraConnector and AcraServer/AcraTranslator.
 
 4. Exchange public keys between components.
 
-   * Share TLS certificates (if they were not signed by root CAs), or transport public keys (if using [AcraConnector in Themis Secure Session mode](/acra/security-controls/transport-security/acra-connector/).
-   * Share storage public keys (only if using AcraStructs and [client-side encryption with AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/).
+   * Share TLS certificates (if they were not signed by a root CAs), or transport public keys (if using [AcraConnector in Themis Secure Session mode](/acra/security-controls/transport-security/acra-connector/)).
+   * Share storage public keys (only if using AcraStructs and [client-side encryption with AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/)).
 
 
 ## Acra Master Keys
@@ -414,7 +414,7 @@ You should run `acra-addzone` on AcraServer or AcraTranslator to generate a zone
 acra-addzone
 ```
 
-This creates a new zone and you get a JSON object like this:
+This creates a new zone, and you get a JSON object like this:
 
 ```
 {"id":"DDDDDDDDQHpbUSOgYTzqCktp","public_key":"VUVDMgAAAC3yMBGsAmK/wBXZkL8iBv/C+7hqoQtSZpYoi4fZYMafkJbWe2dL"}

@@ -59,7 +59,7 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * [Policies](/acra/configuring-maintaining/policies-enterprise/) — ready-made recipes for more flexible security controls, applying different behaviour based on keys, origin and other factors.
 
-* [Rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/) – utility that allows to decrypt SQL database back into original format.
+* [Rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/) – utility that allows to decrypt SQL database back into the original format.
 
 * [Poison record maker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/) – utility that creates [poison records](/acra/security-controls/intrusion-detection/) (honey tokens) to place them in the database for intrusion detection.
 

@@ -124,7 +124,7 @@ Acra integration into existing infrastructure, since no changes to application s
 ## How to rotate Acra keys
 
 `acra-keymaker` tool can be used to generate new keys.
-After that you will need to distribute the new public keys.
+After that, you will need to distribute the new public keys.
 Data storage keys may require additional attention.
 
 Make sure you have set up the correct master key before using `acra-keymaker`.
@@ -160,7 +160,7 @@ provide corresponded parameters to `acra-keymaker` to place the keys into shared
 
   - If you're using AcraServer in transparent proxy encryption mode or using AcraTranslator,
     starting from Acra 0.90.0, Acra uses _"rotation without re-encryption"_ strategy by default.
-    If you expect other data re-encryption strategy or you're using older version of Acra,
+    If you expect other data re-encryption strategy, or you're using older version of Acra,
     you need to [re-encrypt your data](#re-encrypting-encrypted-data).
 
 Please refer to the [key exchange guide](../generation/#3-exchanging-public-keys)
@@ -295,7 +295,7 @@ for row in rows:
 ```
 
 Remember that Acra does not encrypt all columns in the database.
-Only binary blobs can be encrypted (`bytea` type)
+Only binary blobs can be encrypted (`bytea` type),
 so you need to select and update only the encrypted columns.
 
 #### Migrating zoned data
@@ -348,7 +348,7 @@ or may limit the effort in case the keys need to be rotated after a suspected se
 
 After you have completed full or partial data re-encryption,
 it is advisable to check that it was successful.
-Try quering the migrated data to confirm that AcraServer or AcraTranslator are able to decrypt it.
+Try querying the migrated data to confirm that AcraServer or AcraTranslator are able to decrypt it.
 
 <!--
 

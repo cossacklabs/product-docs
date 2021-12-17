@@ -50,7 +50,7 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 `App ↔︎ AcraTranslator, App ↔︎ Datastore`
 
-Another classic scenario: your application speaks to the API service to encrypt/decrypt/mask/unmask/tokenize/detokenize data, and then stores it in the datastore or sends to the otehr application.
+Another classic scenario: your application speaks to the API service to encrypt/decrypt/mask/unmask/tokenize/detokenize data, and then stores it in the datastore or sends to another application.
 
 This scenario is also known as Encryption-as-a-service.
 
@@ -89,7 +89,7 @@ Application needs to access sensitive data, which is stored separately encrypted
 
 #### When to use
 
-When sensitive data is isolated into separate database / table, and there're several applications that need to access it in plaintext: typicall apps and BI tools, for example. Instead of teaching these tools to talk to Acra, you create a separate service – DAO, that is responsible for talking to Acra and encrypting/decrypting data. Other apps just talk to DAO.
+When sensitive data is isolated into separate database / table, and there are several applications that need to access it in a plaintext: typical apps and BI tools, for example. Instead of teaching these tools to talk to Acra, you create a separate service – DAO, that is responsible for talking to Acra and encrypting/decrypting data. Other apps just talk to DAO.
 
 Depending on the database that you use, DAO can talk to AcraServer (for SQL databases) or AcraTranslator (NoSQL/KV).
 
@@ -107,7 +107,7 @@ Application sends sensitive fields to DAO to protect. DAO communicates with Acra
 
 `Application → DAO ↔︎ [AcraTranslator, AcraServer, Datastore] → Application`
 
-Application asks DAO for sensitive fields in plaintext. DAO reads encrypted/masked/tokenized fields from the database/datastore, and communicates with AcraServer/AcraTranslator to decrypt/demask/untokenize the fields. DAO receives plaintext fields and sends them back to the application.
+Application asks DAO for sensitive fields in a plaintext. DAO reads encrypted/masked/tokenized fields from the database/datastore, and communicates with AcraServer/AcraTranslator to decrypt/demask/untokenize the fields. DAO receives plaintext fields and sends them back to the application.
 
 
 ---
@@ -158,7 +158,7 @@ Application uses AcraWriter SDK to encrypt data on application side, and sends i
 
 #### When to use
 
-When the system will benefit from client-side encryption and security controls provided by AcraServer. One application can sends encrypted data ("writer"), other can read decrypted data through AcraServer ("readers").
+When the system will benefit from client-side encryption and security controls provided by AcraServer. One application can send encrypted data ("writer"), other can read decrypted data through AcraServer ("readers").
 
 
 #### Which components to use
@@ -202,7 +202,7 @@ When client-side application works in a hostile environment and extra transport 
 
 `Application → AcraConnector → AcraServer → SQL database`
 
-Application sends plaintext data through AcraConnector. AcraConnector uses powerful transport encryption to protect data in plaintext. AcraServer works in [Transparent encryption mode](/acra/configuring-maintaining/controls-configuration-on-acraserver/). AcraServer performs encryption, searchable encryption, masking, tokenization.
+Application sends plaintext data through AcraConnector. AcraConnector uses powerful transport encryption to protect data in a plaintext. AcraServer works in [Transparent encryption mode](/acra/configuring-maintaining/controls-configuration-on-acraserver/). AcraServer performs encryption, searchable encryption, masking, tokenization.
 
 #### Reading
 
@@ -218,7 +218,7 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 A combination of methods above. Application uses AcraWriter SDK to encrypt data on application side. App uses strong transport encryption provided by AcraConnector to connect to AcraServer to send encrypted data. Then AcraServer sends data to the database.
 
-When data is required in plaintext, AcraServer decrypts it and sends (protected) via AcraConnector back to the app.
+When data is required in a plaintext, AcraServer decrypts it and sends (protected) via AcraConnector back to the app.
 
 ![](/files/acra/aw-app-ac-as-db.png)
 
