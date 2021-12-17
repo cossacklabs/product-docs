@@ -8,7 +8,7 @@ bookCollapseSection: true
 
 Acra is a database protection suite with special features:
 
-* multi-layer access compartmentation to secrets for better security and early-stage intrusion detection;
+* multi-layer access compartmentalization to secrets for better security and early-stage intrusion detection;
 * numerous data protection measures – [application-level encryption](/acra/security-controls/encryption/), [masking](/acra/security-controls/masking/), [tokenization](/acra/security-controls/tokenization/) – to ensure that data stays encrypted as long as possible;
 * special modular architecture for better developer usability and security;
 * single point of trust for minimizing the attack surface, inspection of traffic that touches attack surface, and consistent risk management.
@@ -21,7 +21,7 @@ Security controls provided by Acra are improving security without significantly 
 Major security design principles that you can achieve while using Acra: 
 
 * **Defense in depth:** Acra delivers different layers of protection for different parts and stages of the data lifecycle. Acra provides an independent set of security controls aimed at mitigating multiple risks in case of an attacker crossing the outer perimeter.
-* **Trust compartmentalisation** and strong isolation: each data record is encrypted by unique data encryption key, each data encryption key is encrypted by customer/application key. 
+* **Trust compartmentalisation** and strong isolation: each data record is encrypted by unique data encryption key, each data encryption key is encrypted by a customer/application key.
 * **Zero trust:** by default, nobody under no assumptions have access to the sensitive data if it's encrypted with Acra. 
 * **Secure by default:** Acra's default configurations are `more security, less trust`. 
 * **Security controls:** layered blend of protective, detective and responsive controls. 
@@ -53,7 +53,7 @@ Acra changes attack surface to your data significantly, by narrowing it to (1) A
 Acra moves the security boundary closer to the data. Insiders, privileged attackers, DBAs, infrastructure administrators have less opportunity for unauthorized access and there are no implicit "trusted paths" to access the data without authorization/authentication/security control application.
 
 
-## Application-level encryption behefits
+## Application-level encryption benefits
 
 The main Acra's security control is [application-level encryption](https://www.infoq.com/articles/ale-software-architects/). Application-level encryption (ALE) means encrypting data within the application, and not depending on the underlying transport and/or at-rest encryption.
 

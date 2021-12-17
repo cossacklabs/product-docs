@@ -70,7 +70,7 @@ See [AcraServer's command line flag documentation](/acra/configuring-maintaining
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-webconfig.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 ### Logging
 

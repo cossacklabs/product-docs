@@ -16,7 +16,7 @@ where the Client or Zone ID acts as associated data for AEAD.
 
 This means that if you rename any private key file (transport, storage, poison record key, etc.)
 and lose the information about its former name, Acra won’t be able to decrypt the key.
-In this case, it will be impossible to decrypt the data and you will lose access to it.
+In this case, it will be impossible to decrypt the data, so you will lose access to it.
 
 **Do not rename Acra's keys.**
 

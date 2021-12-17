@@ -5,7 +5,7 @@ weight: 1
 
 ## Security logging
 
-Acra services log tons of activities – incoming connections, SQL firewall actions, encryption/decryption errors, key accesses and many more. Logs from AcraServer and AcraTranslator follow the same structure and format, but can have slightly different content (for example, AcraTranslator won't have SQL Request Firewall related logs and it doesn't have integrated SQL Request Firewall module.)
+Acra services log tons of activities – incoming connections, SQL firewall actions, encryption/decryption errors, key accesses and many more. Logs from AcraServer and AcraTranslator follow the same structure and format, but can have slightly different content (for example, AcraTranslator won't have SQL Request Firewall related logs, since it doesn't have integrated SQL Request Firewall module.)
 
 Acra services support logging in different formats (including CEF), and can log to the file or stream.
 
@@ -24,7 +24,7 @@ Information related to network connections:
 
 * Which `hosts:ports` Acra service is listening on, which transport encryption is selected;
 * New clients connected to Acra;
-* Problems with TLS certificates on client/database side;
+* Problems with TLS certificates on a client/database side;
 * Database connection errors, and issues with database protocol.
 
 Key management and key access events:

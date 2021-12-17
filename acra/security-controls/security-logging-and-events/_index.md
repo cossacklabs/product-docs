@@ -25,7 +25,7 @@ Refer to [Audit logging](/acra/security-controls/security-logging-and-events/aud
 
 ## Security events
 
-Acra produces security events related to its internal and external activities – encryption/decryption errors, database connection errors, unauthorized connections, blocked queiries from Acra's Request Firewall and so on.
+Acra produces security events related to its internal and external activities – encryption/decryption errors, database connection errors, unauthorized connections, blocked queries from Acra's Request Firewall and so on.
 
 Refer to [Security events](/acra/security-controls/security-logging-and-events/security-events/) page to see the whole list of security events and their metadata.
 

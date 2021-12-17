@@ -14,7 +14,7 @@ Many Acra features were first published as technologies and papers and were peer
 
 Acra protects the data in your system, but who protects Acra?
 
-[Acra Community Edition](https://github.com/cossacklabs/acra) has many security-specific features that are "targetted inside":
+[Acra Community Edition](https://github.com/cossacklabs/acra) has many security-specific features that are "targeted inside":
 
 - validation and integrity checks of Acra's configuration files: Acra warns if the configuration files are changed or malformed;
 - a short lifecycle of cryptographic keys and assets in memory (Acra stores keys encrypted even in memory and decrypts only before usage), the users can control key exposure in memory by decreasing the size of [the LRU cache](/acra/configuring-maintaining/optimizations/lru_cache);

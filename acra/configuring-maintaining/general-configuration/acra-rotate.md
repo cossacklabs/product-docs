@@ -56,7 +56,7 @@ weight: 8
 
   Generate markdown file with text description of all flags.
   Output file is `configs/markdown_acra-rotate.md`.
-  Works in pair with `--dump_config`.
+  Works in a pair with `--dump_config`.
 
 ### Network
 
@@ -77,7 +77,7 @@ weight: 8
 
 * `--file_map_config=<path>`
 
-  Path to file with map of **ZoneId**: **FilePaths** in json format `{"zone_id1": ["filepath1", "filepath2"], "zone_id2": ["filepath1", "filepath2"]}`.
+  Path to file with a map of **ZoneId**: **FilePaths** in json format `{"zone_id1": ["filepath1", "filepath2"], "zone_id2": ["filepath1", "filepath2"]}`.
 
 #### Redis
 
@@ -138,9 +138,9 @@ weight: 8
 
 ## Usage example
 
-Acra encrypts data using storage encryption keys and these keys support rotation process, which can be done in response to a potential leak or compromise.
+Acra encrypts data using storage encryption keys, and these keys support rotation process, which can be done in response to a potential leak or compromise.
 
-`acra-rotate` generates new storage keypair, reads data from database via AcraServer, decrypts it and re-encrypts with new keys. In this example, new keys overwrite previous ones, so it's important to rotate all data at the same time.
+`acra-rotate` generates new storage keypair, reads data from a database via AcraServer, decrypts it and re-encrypts with new keys. In this example, new keys overwrite previous ones, so it's important to rotate all data at the same time.
 However, it is worth mentioning that previously used keys will be placed to archive folder with `.old` extension and could be used only for decryption.
 
 {{< hint warning >}}

@@ -124,7 +124,7 @@ In general, this tool is used like this:
 3) Insert generated poison record into the database or any other storage your application interacts with.
    It should be in the same column as the usual encrypted data
    (attacker won't be able to distinguish poison records from legitimate data as they look kinda the same).
-   Don't forget to base64 decode before storing it in database if other encrypted data is stored in binary format.
+   Don't forget to base64 decode before storing it in database if other encrypted data is stored in the binary format.
 
 4) As soon as the application attempts to decrypt the poison record
 

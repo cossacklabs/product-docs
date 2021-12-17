@@ -8,7 +8,7 @@ weight: 6
 
 AcraCensor is a separate SQL firewall module for AcraServer that checks every incoming SQL request. 
 
-AcraCensor logs SQL requests directed to the database, allows and denies those requests according to certain rules (configured as allowlist/denylist), or ignores them and logs an exception (this might be useful if some requests can’t be parsed by AcraCensor). AcraCensor can be configured for your exact use case, allowing to setup an allowlist and a denylist for tables, query patterns, and exact queries. AcraCensor's goal is to protect the database from SQL injections and suspicious SQL queries.
+AcraCensor logs SQL requests directed to the database, allows and denies those requests according to certain rules (configured as allowlist/denylist), or ignores them and logs an exception (this might be useful if some requests can’t be parsed by AcraCensor). AcraCensor can be configured for your exact use case, which allows setting up an allowlist / denylist for tables, query patterns, and exact queries. AcraCensor's goal is to protect the database from SQL injections and suspicious SQL queries.
 
 AcraCensor supports SQL database types — MySQL and PostgreSQL (and their flavours i.e. MariaDB). It is built on top of [xwb1989/sqlparser](https://github.com/xwb1989/sqlparser), which we had extended significantly.
 

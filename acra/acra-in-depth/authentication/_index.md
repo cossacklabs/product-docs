@@ -11,18 +11,18 @@ Acra requires authentication for all incoming connections that process data (enc
 
 ### Client app <> AcraServer
 
-[AcraServer](/acra/acra-in-depth/architecture/acraserver/) authenticates each incoming connection from client application. We strongly advice using mutual authentication every time. Authentication happens via:
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/) authenticates each incoming connection from client application. We strongly suggest using mutual authentication every time. Authentication happens via:
 
 - [TLS](/acra/configuring-maintaining/tls/). `client app <> [TLS] <> AcraServer` 
 
-By default, AcraServer will request and validate client TLS certificate. See [AcraServer's TLS configuration flags](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
+By default, AcraServer will request and validate a client's TLS certificate. See [AcraServer's TLS configuration flags](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
 
 - [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector). `client app <> AcraConnector <> [TLS or Themis Secure Session] <> AcraServer`. 
 
 
 AcraServer authenticates connections from AcraConnector. If TLS is used as underlying transport encryption, mutual authentication is desired but optional, if [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session) is used, mutual authentication is enabled by default. See [AcraServer's configuration flags for AcraConnector](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
 
-AcraServer returns error on non-authenticated queries. Authenticated queries can get access only for the data assosiated with client app `ClientID` or for known [ZoneIDs](/acra/security-controls/zones).
+AcraServer returns error on non-authenticated queries. Authenticated queries can get access only for the data associated with client app `ClientID` or for known [ZoneIDs](/acra/security-controls/zones).
 
 
 ### AcraServer <> database
@@ -34,7 +34,7 @@ Refer to [AcraServer TLS configuration params](/acra/configuring-maintaining/gen
 
 Also, AcraServer does not intervene in the PostgreSQL authentication, so you can still use login/password for authentication between the app and the database. We actually encourage you to do that and to add one extra layer of protection against attackers that target your PostgreSQL installation.
 
-We've tested all the authentification methods compatible with PostgreSQL (excluding RADIUS authentication), and found out that all of them are working correctly through Acra.
+We've tested all the authentication methods compatible with PostgreSQL (excluding RADIUS authentication), and found out that all of them are working correctly through Acra.
 
 <!-- to @lagovas: please clarify database authentication options between AS and DB -->
 

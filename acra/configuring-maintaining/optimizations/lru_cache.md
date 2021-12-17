@@ -5,7 +5,7 @@ weight: 8
 
 # LRU cache
 
-Caching is an essential part when we talk about getting best performance from network services.
+Caching is an essential part when we talk about getting the best performance from network services.
 Acra tools provide caching for few things that would otherwise be requested every time:
 
 * Keystore cache

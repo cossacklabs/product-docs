@@ -130,7 +130,7 @@ Check out the full guide to [AcraWebConfig](/acra/configuring-maintaining/genera
 
 ## AcraRollback configuration
 
-Check out the full guite to [AcraRollback](/acra/configuring-maintaining/general-configuration/acra-rollback/).
+Check out the full guide to [AcraRollback](/acra/configuring-maintaining/general-configuration/acra-rollback/).
 
 | Old name | New name | Function |
 |-----|-----|-----|
