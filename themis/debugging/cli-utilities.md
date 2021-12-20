@@ -18,13 +18,6 @@ The tools are located in the
 one for each supported language.
 You will need to install an appropriate Themis language wrapper to use a tool.
 
-{{< hint info >}}
-**Note:**
-You can use [Themis Server](../themis-server/) without installing anything.
-Themis Server supports Secure Cell and Secure Message encryption too,
-so you can use it to cross-check the encryption with the command-line tools.
-{{< /hint >}}
-
 We routinely run [integration tests](https://github.com/cossacklabs/themis/tree/master/tests/_integration)
 that ensure compatibility between command-line utilities across the platforms.
 

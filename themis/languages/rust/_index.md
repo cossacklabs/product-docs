@@ -36,5 +36,4 @@ Here are other things that might interest you:
 
 - [browse API reference](https://docs.rs/themis/latest/themis/)
   and [code samples](examples/) to get a feel of RustThemis API
-- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use RustThemis effectively
