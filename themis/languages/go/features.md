@@ -32,10 +32,6 @@ Algorithm type is chosen according to the generated key type.
 Asymmetric keys are used by [Secure Message](#secure-message)
 and [Secure Session](#secure-session) objects.
 
-For learning purposes,
-you can play with [Themis Interactive Simulator](/themis/debugging/themis-server/)
-to use the keys and simulate the whole client-server communication.
-
 {{< hint warning >}}
 **Warning:**
 When using public keys of other peers, make sure they come from trusted sources

@@ -337,16 +337,3 @@ Secure Cell objects are generally immutable.
 You can safely use them concurrently from multiple threads.
 Read more about [Themis thread safety guarantees](/themis/debugging/thread-safety/).
 
-## Themis Server simulator
-
-[Themis Server](/themis/debugging/themis-server/)
-is an interactive simulator that can be used as a remote debugging aid.
-We built this server to help engineers understand Themis.
-It can come in handy if you're just starting out with this library.
-
-With Themis Server, you can avoid building and installing Themis,
-instead try using Secure Cell interactively from your browser.
-
-Themis Server supports
-[Secure Session](../secure-session/) and [Secure Message](../secure-cell/)
-cryptosystems as well.

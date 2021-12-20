@@ -26,13 +26,6 @@ in [JavaThemis source code](https://github.com/cossacklabs/themis/tree/master/te
 You can read our blog post on [building encrypted chat service](https://www.cossacklabs.com/building-secure-chat),
 which includes Android client using Secure Session and Secure Cell.
 
-## Debugging aids
-
-[Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/java)
-can be used with [Themis Interactive Simulator](/simulator/interactive/):
-you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/themis/debugging/themis-server/).
-
 ## What’s next
 
 [Read the feature guide](../features/)

@@ -21,13 +21,6 @@ There you can find examples of JavaThemis API:
 You can also take a look at unit tests
 in [JavaThemis source code](https://github.com/cossacklabs/themis/tree/master/tests/themis/wrappers/android/com/cossacklabs/themis/test).
 
-## Debugging aids
-
-[Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/java)
-can be used with [Themis Interactive Simulator](/simulator/interactive/):
-you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/themis/debugging/themis-server/).
-
 ## What’s next
 
 [Read the feature guide](../features/)
