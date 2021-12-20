@@ -27,13 +27,6 @@ The [Swift Alps demo project](https://github.com/cossacklabs/theswiftalpsdemo)
 demonstrates the usage of Secure Cell and Secure Session,
 with a live server.
 
-## Debugging aids
-
-[Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/swift)
-can be used with [Themis Interactive Simulator](/simulator/interactive/):
-you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/themis/debugging/themis-server/).
-
 ## What’s next
 
 [Read the feature guide](../features/)

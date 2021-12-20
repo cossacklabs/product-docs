@@ -327,18 +327,3 @@ ssize_t secure_session_receive(
 
 Secure Session requires additional synchronisation to be used concurrently from multiple threads.
 Read more about [Themis thread safety guarantees](/themis/debugging/thread-safety/).
-
-## Themis Server simulator
-
-[Themis Server](/themis/debugging/themis-server/)
-is an interactive simulator that can be used as a remote debugging aid.
-We built this server to help engineers understand Themis.
-It can come in handy if you're just starting out with this library.
-
-Using the Themis Server, you can avoid spending a lot of time and effort
-to build your own client and server, make sure you get the keys right, etc.
-With a simple “remote party simulator” you can try out Secure Session interactively.
-
-Themis Server supports
-[Secure Message](../secure-message/) and [Secure Cell](../secure-cell/)
-cryptosystems as well.

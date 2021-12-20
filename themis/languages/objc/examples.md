@@ -28,14 +28,7 @@ which includes iOS client using Secure Session and Secure Cell.
 
 Another blog post on [usability testing](https://www.cossacklabs.com/02-usability-testing.html)
 explored usage of Secure Message in iOS and Python.
-Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) with the code
-
-## Debugging aids
-
-[Themis Server examples](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/Obj-C)
-can be used with [Themis Interactive Simulator](/simulator/interactive/):
-you can generate the keys and simulate whole client-server communication.
-Read more in the [Themis Server guide](/themis/debugging/themis-server/).
+Here’s the [GitHub repo](https://github.com/cossacklabs/themis-ux-testing) with the code.
 
 ## What’s next
 

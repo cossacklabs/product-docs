@@ -35,5 +35,4 @@ Here are other things that might interest you:
 
 <!-- API references when they are done -->
 - [browse code samples](examples/) to get a feel of RbThemis API
-- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use RbThemis effectively

@@ -27,9 +27,6 @@ Algorithm type is chosen according to the generated key type.
 Asymmetric keys are used by [Secure Message](#secure-message)
 and [Secure Session](#secure-session) objects.
 
-For learning purposes,
-you can play with [Themis Interactive Simulator](/themis/debugging/themis-server/)
-to use the keys and simulate the whole client-server communication.
 
 {{< hint warning >}}
 **Warning:**
@@ -525,9 +522,7 @@ the only difference between the two is in who starts the communication.
 After the session is established, either party can send messages to their peer whenever it wishes to.
 
 {{< hint info >}}
-Take a look at code samples in the [`docs/examples/swift`](https://github.com/cossacklabs/themis/tree/master/docs/examples/swift)
-and [`docs/examples/Themis-server/swift`](https://github.com/cossacklabs/themis/tree/master/docs/examples/Themis-server/swift)
-directories on GitHub.
+Take a look at code samples in the [`docs/examples/swift`](https://github.com/cossacklabs/themis/tree/master/docs/examples/swift) directory on GitHub.
 There you can find examples of Secure Session setup and usage in all modes.
 {{< /hint >}}
 
