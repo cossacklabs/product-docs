@@ -48,5 +48,4 @@ Here are other things that might interest you:
 
 <!-- API docs when they are ready -->
 - [browse code samples](examples/) to get a feel of ObjCThemis API
-- [use interactive simulator](/themis/debugging/themis-server/) to cross-verify your code
 - [read feature guides](features/) to learn how to use ObjCThemis effectively

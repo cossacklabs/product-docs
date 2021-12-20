@@ -77,6 +77,8 @@ Themis uses BoringSSL in a way that is fully thread-safe.
 ## Language wrappers
 
 <!-- TODO: remove this section in 2021 -->
+<!-- Why? -->
+	
 ### ThemisPP (C++)
 
 In ThemisPP 0.12 and earlier,

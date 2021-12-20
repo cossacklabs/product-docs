@@ -1,4 +1,5 @@
 ---
+weight: 6
 title: Hermes-core Client
 ---
 

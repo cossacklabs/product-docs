@@ -6,8 +6,7 @@ title:  Secure Cell examples
 # Secure Cell examples
 
 Now let's look at and dissect sample data protected by Secure Cell.
-You can try it out yourself using [command-line utilities](/themis/debugging/cli-utilities/) if you have Themis installed,
-or with [Themis Server](/themis/debugging/themis-server/) from your web browser.
+You can try it out yourself using [command-line utilities](/themis/debugging/cli-utilities/) if you have Themis installed.
 
 ## Symmetric key encryption
 
