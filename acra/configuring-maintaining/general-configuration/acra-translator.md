@@ -326,3 +326,9 @@ acra-keymaker \
     --generate_acratranslator_keys \
     --keys_output_dir=/tmp/translator_keys
 ```
+
+## POSIX Signals
+
+There are a couple of signals `acra-translator` reacts on:
+- `SIGTERM`, `SIGINT` — graceful shutdown: stop accepting new connections, close existing ones, terminate the process.
+- `SIGHUP` — restart: create new AcraTranslator subprocess and transfer opened listener sockets to it, then terminate the current process.
