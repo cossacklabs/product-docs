@@ -42,8 +42,7 @@ typedef struct hm_rpc_transport_type {
 } hm_rpc_transport_t;
 ```
 
-It also includes a wrapper for transport implementations that uses [Themis' Secure Session](https://docs.cossacklabs.com/pages/secure-session-cryptosystem/) 
-(see `include/hermes/secure_transport/transport.h`). This is done to provide a way to use another (non-Secure Sesion) means of secure transport (i.e. SSL/TLS).
+It also includes a wrapper for transport implementations that uses [Themis Secure Session](https://docs.cossacklabs.com/pages/secure-session-cryptosystem/) (see `include/hermes/secure_transport/transport.h`). This is done to provide a way to use another (non-Secure Sesion) means of secure transport (i.e. SSL/TLS).
 
 * **Communication**
   

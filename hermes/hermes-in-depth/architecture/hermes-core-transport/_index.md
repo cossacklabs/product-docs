@@ -11,7 +11,7 @@ As an abstract framework, Hermes-core doesn't include any communication and stor
 
 There is only one requirement towards the communication between the components of Hermes-core — security.
 
-For this reason, Hermes-core has a built-in wrapper that creates Themis' [Secure Session](https://docs.cossacklabs.com/pages/secure-session-cryptosystem/) communication channel under the abstract transport that needs to be implemented by the user. Such transport can be created using any available mechanism and it must be able to implement the following interface (`include/hermes/rpc/transport.h`):
+For this reason, Hermes-core has a built-in wrapper that creates [Themis Secure Session](https://docs.cossacklabs.com/pages/secure-session-cryptosystem/) communication channel under the abstract transport that needs to be implemented by the user. Such transport can be created using any available mechanism and it must be able to implement the following interface (`include/hermes/rpc/transport.h`):
 
 ```
 typedef uint32_t(*hm_rpc_transport_send_t)(void *transport, const uint8_t *buffer, const size_t buffer_length);

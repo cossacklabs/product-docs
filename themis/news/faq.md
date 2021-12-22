@@ -42,7 +42,7 @@ We provide targeted cryptosystems instead of assorted variants of "encrypt X wit
 
 We're also very flexible in implementations: our architecture allows swapping algorithms underneath the cryptosystems, easily adapting platform-specific implementations (including hardware ones). Such flexibility allows us to build multi-platform solutions easily, utilising the best of available tools and minimising the risks of error propagation.
 
-## Why should I use Themis' Secure Session, not SSL/TLS protection?
+## Why should I use Themis Secure Session, not SSL/TLS protection?
 
 In fact, Secure Message / Secure Session objects sit on a different layer than SSL/TLS. You should use SSL/TLS to connect two Internet hosts with a Secure Session and exchange encrypted traffic based on a requisite all parties trust (i.e. a certificate bound to a network address). However, you can't connect two mobile phones that are communicating through a cloud of servers and relaying their messages and a number of balancing hosts, to exchange protected messages with SSL (well, actually you can, but after a certain amount of hacking).
 

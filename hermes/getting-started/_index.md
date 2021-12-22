@@ -21,7 +21,7 @@ Hermes-core is available on C, however, client side applications are implemented
 
 | Platform | Tutorial | Code example |
 | -------- | -------- | ------------ |
-| C core / C client | [Local CLI tutorial](https://github.com/cossacklabs/hermes-core/wiki/Local-CLI-example) | [docs/examples/c/mid_hermes_low_level](https://github.com/cossacklabs/hermes-core/tree/master/docs/examples/c/mid_hermes_low_level) |
+| C core / C client | [Local CLI tutorial](/hermes/guides/local-cli-example/) | [docs/examples/c/mid_hermes_low_level](https://github.com/cossacklabs/hermes-core/tree/master/docs/examples/c/mid_hermes_low_level) |
 | C core / C client | 	[C tutorial](/hermes/guides/c-tutorial/) | 	[docs/examples/c](https://github.com/cossacklabs/hermes-core/tree/master/docs/examples/c) |
 | C core / Python client | [Python tutorial](/hermes/guides/python-tutorial/) | [docs/examples/python](https://github.com/cossacklabs/hermes-core/tree/master/docs/examples/python) |
 | C core / Go client | 	[Go tutorial](/hermes/guides/go-tutorial/) | [docs/examples/go](https://github.com/cossacklabs/hermes-core/tree/master/docs/examples/go) |

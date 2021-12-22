@@ -1,15 +1,21 @@
 ---
-weight: 3
+weight: 1
 title: Python tutorial
 ---
 
-# PYTHON TUTORIAL FOR HERMES-CORE
+# Python tutorial for Hermes-core
 
-In this tutorial, we are going to launch storage entities for data, public and encryption keys, and will save/delete/edit the data with the help of a Hermes-core console app, as well as grant/revoke access to the data for other users. All this will be carried out cryptographically.
+In this tutorial, we are going to launch storage entities for data, public and encryption keys, and will save/delete/edit the data with the help of a Hermes-core console app, as well as grant/revoke access to the data for other users. 
+
+All this will be carried out cryptographically.
 
 ## Launching the storage entities
 
-The infrastructure of Hermes-core is divided into 3 parts (you can read more about each entity [here](https://docs.cossacklabs.com/pages/documentation-hermes/#abstract-entities-backend-) and in the [scientific paper on Hermes](https://www.cossacklabs.com/files/hermes-theory-paper-rev1.pdf)): - Data store (data storage entity), - Keystore (storage entity for keys with the help of which the data is encrypted), - Credential store (storage entity for the users' public keys with the help of which the authentification and authorization take place).
+The infrastructure of Hermes-core is divided into 3 parts (you can read more about each entity [here](https://docs.cossacklabs.com/pages/documentation-hermes/#abstract-entities-backend-) and in the [scientific paper on Hermes](https://www.cossacklabs.com/files/hermes-theory-paper-rev1.pdf)): 
+
+- Data store (data storage entity), 
+- Keystore (storage entity for keys with the help of which the data is encrypted), 
+- Credential store (storage entity for the users' public keys with the help of which the authentification and authorization take place).
 
 Besides, we provide keypair generator to generate keys for the users.
 
@@ -19,17 +25,17 @@ Let's install the libraries and utilities that we're going to need.
 
 For Debian the command is:
 
-```
+```bash
 sudo apt-get update && sudo apt-get install build-essential libssl-dev git python3-dev
 ```
 
 We need `build-essential` for building binary libraries and `libssl` as backend for [Themis](https://github.com/cossacklabs/themis), and `python-dev` for our client written in Python.
 
-If you're using another OS please refer to the [Installation guide](https://docs.cossacklabs.com/pages/documentation-hermes/#installing-or-building-hermes-core).
+If you're using another OS please refer to the [Installation guide](/hermes/getting-started/installing/hermes-from-repository/).
 
 Let's download and install Themis into your system:
 
-```
+```bash
 git clone https://github.com/cossacklabs/themis
 cd themis
 make && sudo make install
@@ -38,7 +44,7 @@ cd ..
 
 Now you should download and install Hermes-core:
 
-```
+```bash
 git clone https://github.com/cossacklabs/hermes-core
 cd hermes-core
 make && sudo make install
@@ -52,7 +58,7 @@ You can find each component in [docs/examples/c](https://github.com/cossacklabs/
 
 However, we recommend building them all at once:
 
-```
+```bash
 make examples
 ```
 
@@ -60,7 +66,7 @@ make examples
 
 With the following command, we are creating a folder structure in which the services we are creating will store the data:
 
-```
+```bash
 # create folder structure
 mkdir -p db/credential_store
 mkdir -p db/key_store
@@ -71,7 +77,7 @@ mkdir -p db/data_store
 
 The service examples have hardcoded private/public keys. To simplify the first run, we placed the public keys into the repository close to examples. Those files have filenames that are base64-encoded names of services that are declared in `docs/examples/c/mid_hermes/common/config.h` and have binary content of public keys.
 
-```
+```bash
 cp docs/examples/c/service_keys/* db/credential_store/
 ```
 
@@ -79,7 +85,7 @@ cp docs/examples/c/service_keys/* db/credential_store/
 
 `User 1`
 
-```
+```bash
 ./docs/examples/c/key_gen/key_pair_gen user1.priv db/credential_store/$(echo -n user1 | base64)
 ```
 
@@ -93,7 +99,7 @@ Note: It is important that the filename is in the correct `base64` format as con
 
 Let's create another user, this time with `user2` identifier:
 
-```
+```bash
 ./docs/examples/c/key_gen/key_pair_gen user2.priv db/credential_store/$(echo -n user2 | base64)
 ```
 
@@ -105,19 +111,19 @@ This should be done in separate console tabs:
 
 *Credential store*
 
-```
+```bash
 ./docs/examples/c/mid_hermes/credential_store_service/cs
 ```
 
 *Keystore*
 
-```
+```bash
 ./docs/examples/c/mid_hermes/key_store_service/ks
 ```
 
 *Data store*
 
-```
+```bash
 ./docs/examples/c/mid_hermes/data_store_service/ds
 ```
 
@@ -129,7 +135,7 @@ The Python client for Hermes-core supports both Python 2 and Python 3 (Python 2.
 
 To install the Python client for Hermes-core, do the following:
 
-```
+```bash
 sudo apt install python3 virtualenv
 virtualenv --python=python3 hermes_env
 source hermes_env/bin/activate
@@ -144,15 +150,15 @@ Our Client app is ready to be used. Now, this is where the fun begins.
 
 Let's add some data — for example, let's create a file with simple content:
 
-```
+```bash
 echo "some content" > testfile
 ```
 
 ### Folder structure
 
-This is an example folder structure — you probably have something similar right now. Docs/examples/c contains the core components of Hermes-core. The Python client is located in docs/examples/python folder. The database folder db contains encrypted data and access keys / tokens.
+This is an example folder structure — you probably have something similar right now. `Docs/examples/c` contains the core components of Hermes-core. The Python client is located in `docs/examples/python` folder. The database folder db contains encrypted data and access keys / tokens.
 
-```
+```bash
 hermes-core/
 ├── docs/examples/
 |   ├── c/
@@ -176,7 +182,7 @@ hermes-core/
 
 Let's add the first document into database:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --add --meta first-file
 
 # output:
@@ -195,7 +201,7 @@ done
 
 Let's try to read this data by typing the following:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --read
 
 # output:
@@ -204,9 +210,11 @@ done
 ```
 The command remains the same, only `--add` was changed to `--read` and this time we don't have to set the `--meta`. In all the following commands, the changes will most often be about changing the command type and the `--meta` parameter will be added/deleted.
 
-So now the content and the meta data we transferred before is displayed for us. All this data is stored as files in the previously created folder `ls db/data_store` which will contain a folder with the name that matches the filename of the added file in `base64` format — `dGVzdGZpbGU=`. This `ls db/data_store/dGVzdGZpbGU=` folder will contain 3 files:
+So now the content and the meta data we transferred before is displayed for us. All this data is stored as files in the previously created folder `ls db/data_store` which will contain a folder with the name that matches the filename of the added file in `base64` format — `dGVzdGZpbGU=`. 
 
-```
+This `ls db/data_store/dGVzdGZpbGU=` folder will contain 3 files:
+
+```sh
 data
 mac
 meta
@@ -214,7 +222,7 @@ meta
 
 To make sure that your data is truly encrypted, you can display it using:
 
-```
+```bash
 cat db/data_store/dGVzdGZpbGU=/data
 ```
 
@@ -222,13 +230,13 @@ The output will be unprintable because the encrypted data is in binary state and
 
 But let's change the initial file and update it in Hermes-core:
 
-```
+```bash
 echo "some new content" > testfile
 ```
 
 And let's take another look at what is stored in Hermes-core now. The content is not changed, because we haven't pushed new `testfile` to data store.
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --read
 
 # output:
@@ -239,7 +247,7 @@ python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/p
 
 Let's now try updating the data while using the identifier (ID) and the key that belong to a different user — `user2`:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --update --meta first-file
 
 # output:
@@ -251,7 +259,7 @@ hermes.error: MidHermes.delBlock error
 
 As a result, we get an error. But now let's perform the update on behalf of the previous user — `user1` (who was the entity that added the data in the first place):
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --update --meta first-file
 
 # output:
@@ -261,7 +269,7 @@ done
 
 Let's now output (display) the data to make sure it was indeed updated:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --read
 
 # output:
@@ -270,7 +278,7 @@ python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/p
 
 And let's make sure that `user2` has no access to the data:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --read
 
 # output:
@@ -286,7 +294,7 @@ As we can see — `user2` indeed has no access to the data.
 
 Now let's now grant READ permission to `user2`:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --grant_read --for_user=user2
 
 # output:
@@ -298,7 +306,7 @@ Here we added a new argument `--for_user=user2` to indicate, which user we are g
 
 So let's try and read the file using the key belonging to `user2`:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --read
 
 # output:
@@ -307,7 +315,7 @@ python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/p
 
 Making sure that `user2` didn't also receive the UPDATE permissions alongside with READ permissions:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --update --meta first-file
 
 # output:
@@ -323,7 +331,7 @@ Ok, we got an error so everything is functioning as intended.
 
 Now, let's grant the permission to UPDATE to `user2`:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user1 --config=docs/examples/python/config.json --private_key user1.priv --doc testfile --grant_update --for_user=user2
 
 # output:
@@ -335,11 +343,11 @@ done
 
 Let's update the file and read it:
 
-```
+```bash
 echo "user 2 data" > testfile
 ```
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --update --meta first-file
 
 # output:
@@ -347,7 +355,7 @@ updated <testfile> with meta <first-file>
 done
 ```
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --read
 
 # output:
@@ -361,13 +369,13 @@ Let's now add `user3` just as we did before with `user2`, to be able to grant pe
 
 Generating keypair for `user3`:
 
-```
+```bash
 ./docs/examples/c/key_gen/key_pair_gen user3.priv db/credential_store/$(echo -n user3 | base64)
 ```
 
 Granting access/permissions from `user2` to `user3`:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --grant_read --for_user=user3
 
 # output:
@@ -377,7 +385,7 @@ done
 
 Let's try to read the data now as the `user3`:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user3 --config=docs/examples/python/config.json --private_key user3.priv --doc testfile --read
 
 # output:
@@ -387,7 +395,7 @@ done
 
 Making sure that `user3` has no permission to perform UPDATE on the data:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user3 --config=docs/examples/python/config.json --private_key user3.priv --doc testfile --update --meta first-file
 
 # output:
@@ -397,19 +405,19 @@ Traceback (most recent call last):
 hermes.error: MidHermes.delBlock error
 ```
 
-## ROTATING data and keys
+## Rotating data and keys
 
 At this step, let's perform data and key(s) rotation as `user2`. This rotation means re-encrypting the data using new keys. To make sure that the key and data rotation indeed takes place (because the data is binary and it would be hard to tell one batch of encrypted data from another), we need to calculate the hash-sum of the encrypted file before and after rotation and check if they match (they shouldn't). If after rotation we read the data again and get the same decrypted data output, it means that the rotation was successful.
 
 Let's calculate and save the hashsum of the ecnrypted file (which is located in `db/data_store/dGVzdGZpbGU=/data`) into a temporary file:
 
-```
+```bash
 sha256sum db/data_store/dGVzdGZpbGU=/data > /tmp/1.sha
 ```
 
 Perform rotation:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --rotate
 
 # output:
@@ -419,13 +427,13 @@ done
 
 and calculate the hashsum again:
 
-```
+```bash
 sha256sum db/data_store/dGVzdGZpbGU=/data > /tmp/2.sha
 ```
 
 Using the `diff` comand, we'll see that the previous and the new hashsums are different:
 
-```
+```bash
 diff /tmp/1.md5 /tmp/2.md5 
 1c1
 < 9baad30131be8b6beb4453b0ea3aeef1  db/data_store/dGVzdGZpbGU=/data
@@ -437,7 +445,7 @@ If the `diff` command provides some text output, it means that the files (hashsu
 
 To make sure that the data stays the same, let's read the data (as `user3`) again:
 
-```
+```bash
 docs/examples/python/hermes_client.py --id user3 --config=docs/examples/python/config.json --private_key user3.priv --doc testfile --read
 ```
 
@@ -447,7 +455,7 @@ The resulting data is unchanged. Rotation of keys and data worked as intended.
 
 To revoke the read permissions from `user3` (as `user2`), do the following:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --revoke_read --for_user=user3
 
 # output:
@@ -457,7 +465,7 @@ done
 
 Attempting to read the data now as `user3` will predictably lead to an error:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user3 --config=docs/examples/python/config.json --private_key user3.priv --doc testfile --read
 
 # output:
@@ -469,7 +477,7 @@ hermes.error: MidHermes.getBlock error
 
 Let's now have some fun and revoke access to the data from both `user3` *and* `user1`*: revoking access from* `user3`
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --revoke_read --for_user=user3
 
 # output:
@@ -479,7 +487,7 @@ done
 
 *revoking access from* `user1`*, the initial data owner*
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --revoke_read --for_user=user1
 
 # output:
@@ -489,7 +497,7 @@ done
 
 Now only the `user2` has the right to READ/UPDATE/etc. the data:
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --read
 
 # output:
@@ -501,7 +509,7 @@ done
 
 Let's elegantly finish this transfer of rights to the data by deleting the record altogether (acting as `user2`):
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --delete
 
 # output:
@@ -511,7 +519,7 @@ done
 
 And now, let's make sure that the data is **gone indeed** — if it is, we'll see an error while trying to read it as `user2` (or any other user from this tutorial, for that matter):
 
-```
+```bash
 python docs/examples/python/hermes_client.py --id user2 --config=docs/examples/python/config.json --private_key user2.priv --doc testfile --read
 
 # output:
@@ -523,11 +531,11 @@ hermes.error: MidHermes.getBlock error
 
 The `MidHermes.getBlock error` confirms that it's now impossible to get the block as it had been deleted. So the data is gone, deleted by `user2` who gained all the permissions.
 
-# SUMMARY
+## Summary
 
 As you can see, launching the storage entities for data, public and encryption keys for Hermes-core is easy, and the process of granting/revoking permissions (access) to the data between authorised users in Hermes-core is very straightforward and convenient.
 
-We hope that this tutorial was fun and informative and that you now have gained enough understanding of how the things work with Hermes-core — and that now you’ll try using it or [build a Hermes-based app of your own](https://docs.cossacklabs.com/pages/documentation-hermes/#creating-your-own-hermes-based-app).
+We hope that this tutorial was fun and informative and that you now have gained enough understanding of how the things work with Hermes-core — and that now you’ll try using it or [build a Hermes-based app of your own](/hermes/guides/creating-your-own-hermes-based-app-short/).
 
-Similar tutorials are also available for the [C language](https://docs.cossacklabs.com/pages/c-tutorial-hermes/) and [Golang](https://docs.cossacklabs.com/pages/go-tutorial-hermes/).
+Similar tutorials are also available for the [C language](/hermes/guides/c-tutorial/) and [Golang](/hermes/guides/go-tutorial/).
 
