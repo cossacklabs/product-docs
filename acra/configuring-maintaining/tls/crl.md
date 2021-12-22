@@ -85,7 +85,7 @@ URI.0 = http://127.0.0.1:8080/crl.pem
 
 ## Generating CRL file with `openssl`
 
-You can generate a CRL v1, following provided [certificate generation example](generate-certificate-with-openssl):
+You can generate a CRL v1, following provided [certificate generation example](/acra/configuring-maintaining/tls/generate-certificate-with-openssl/):
 ```
 openssl ca -gencrl -config openssl.cnf -crldays 1 -out crl.pem
 ```

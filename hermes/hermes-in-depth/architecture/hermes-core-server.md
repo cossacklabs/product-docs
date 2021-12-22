@@ -1,9 +1,9 @@
 ---
-weight: 7
-title: Hermes-core Server
+weight: 3
+title: Hermes-core server
 ---
 
-# Hermes-core Server
+# Hermes-core server
 
 Hermes-core might be also described as a wrapper around a database where the exact database type used does not matter.
 
@@ -11,7 +11,7 @@ We've designed Hermes-core to be used in a fashion where different stores (Crede
 
 Each of the storage entities for Hermes-core has its own interface: see `include/hermes/data_store/db.h`, `include/hermes/credential_store/db.h`, and `include/hermes/key_store/db.h` respectively.
 
-To create your own Hermes-based app (the one that includes Server, Client, and Transport between the components), use the detailed instructions in [Client-server app (Step by step)](https://docs.cossacklabs.com/pages/create-your-client-server-app-step-by-step/).
+To create your own Hermes-based app (the one that includes Server, Client, and Transport between the components), use the detailed instructions in [Creating your own Hermes-based app (long tutorial)](/hermes/guides/creating-your-own-hermes-based-app-long/).
 
 ## Data store
 
@@ -19,7 +19,7 @@ Hermes-core doesn't have special requirements for the Data store database. Such 
 
 `include/hermes/data_store/db.h`:
 
-```
+```bash
 typedef uint32_t(*hm_ds_db_insert_block)(
         void* db, const uint8_t* block, const size_t block_length,
         const uint8_t* meta, const size_t meta_length,
@@ -65,7 +65,7 @@ A simple filesystem-based data storage implementation can be found in `docs/exam
 
 Hermes-core doesn't have special requirements towards the Credential store database. The database needs to be able to implement the following interface — `include/hermes/credential_store/db.h`:
 
-```
+```bash
 typedef uint32_t(*hm_cs_db_get_pub_by_id_t)(void *db, const uint8_t *id, const size_t id_length, uint8_t **key, size_t *key_length);
 
 typedef struct hm_cs_db_type {
@@ -75,13 +75,13 @@ typedef struct hm_cs_db_type {
 } hm_cs_db_t;
 ```
 
-A simple filesystem-based Credential store implementation can be found in the following examples: `docs/examples/c/mid_hermes/credential_storage_service/db.h` `docs/examples/c/mid_hermes/credential_storage_service/db.c`
+A simple filesystem-based Credential store implementation can be found in the following examples: `docs/examples/c/mid_hermes/credential_storage_service/db.h` and `docs/examples/c/mid_hermes/credential_storage_service/db.c`
 
 ## Keystore
 
 Hermes-core doesn't have special requirements towards the Keystore database. The database needs to be able to implement the following interface (`include/hermes/key_store/db.h`):
 
-```
+```bash
 typedef uint32_t(*hm_ks_db_set_token)(
         void* db, const uint8_t* block_id, const size_t block_id_length,
         const uint8_t* user_id, const size_t user_id_length,

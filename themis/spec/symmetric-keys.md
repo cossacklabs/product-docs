@@ -89,6 +89,6 @@ The recommended approach to generating passphrases is to generate a symmetric ke
 then render it into a mnemonic which is easier for humans to remember.
 For example, you can use a list of 2048 words to convert a 128-bit key into a sequence of 12 words.
 
-[NIST SP 800-63](https://www.nist.gov/itl/tig/projects/special-publication-800-63)
+[NIST SP 800-63b](https://pages.nist.gov/800-63-3/sp800-63b.html)
 suggests using 8 characters as minimum, and up to 64 characters for user-generated passphrases
 (see [NIST SP 800-63b, 5.1.1 Memorized Secrets](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-63b.pdf)).

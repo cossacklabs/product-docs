@@ -153,7 +153,7 @@ Body:
 
 #### Examples
 
-You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-ssession-connector-http.yml)
+You can use [this docker-compose file](https://github.com/cossacklabs/acra/blob/master/docker/docker-compose.translator-tls-http.yml)
 as a playground, it will bring up AcraTranslator and expose its HTTP server at `127.0.0.1:9494`.
 
 Here you can see few examples using `curl`.

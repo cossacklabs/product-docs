@@ -1,9 +1,9 @@
 ---
 weight: 8
-title: Hermes-core Transport
+title: Hermes-core transport
 ---
 
-# Hermes-core Transport
+# Hermes-core transport
 
 The Transport in Hermes-core provides communication between the components.
 
@@ -11,9 +11,9 @@ As an abstract framework, Hermes-core doesn't include any communication and stor
 
 There is only one requirement towards the communication between the components of Hermes-core — security.
 
-For this reason, Hermes-core has a built-in wrapper that creates Themis' [Secure Session](https://docs.cossacklabs.com/pages/secure-session-cryptosystem/) communication channel under the abstract transport that needs to be implemented by the user. Such transport can be created using any available mechanism and it must be able to implement the following interface (`include/hermes/rpc/transport.h`):
+For this reason, Hermes-core has a built-in wrapper that creates [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) communication channel under the abstract transport that needs to be implemented by the user. Such transport can be created using any available mechanism and it must be able to implement the following interface (`include/hermes/rpc/transport.h`):
 
-```
+```bash
 typedef uint32_t(*hm_rpc_transport_send_t)(void *transport, const uint8_t *buffer, const size_t buffer_length);
 
 typedef uint32_t(*hm_rpc_transport_recv_t)(void *transport, uint8_t *buffer, size_t buffer_length);
@@ -30,7 +30,7 @@ typedef struct hm_rpc_transport_type {
 
 There is an already implemented Secure Session transport interface in `include/hermes/secure_transport/transport.h`
 
-```
+```bash
 typedef struct secure_transport_type {
     // transport that will be wrapped
     hm_rpc_transport_t* user_transport;
@@ -59,17 +59,22 @@ hm_rpc_transport_t* create_secure_transport_with_callback(
 ```
 
 A simple TCP/IP socket transport implementation can be found in the following examples:
+
 `docs/examples/c/mid_hermes/common/transport.h`
 `docs/examples/c/mid_hermes/common/transport.c`
 
-Here are the examples of the way to wrap a simple transport into Secure Session: 
+Here are the examples of the way to wrap a simple transport into Secure Session:
+
 `docs/examples/c/mid_hermes/client/hermes_client.c` 
 `docs/examples/c/mid_hermes/credential_store_service/main.c` 
 `docs/examples/c/mid_hermes/key_store_service/main.c` 
 `docs/examples/c/mid_hermes/data_store_service/main.c`
 
-To check out the transport interfaces for Python and Go, see the corresponding examples: - Python examples: [docs/examples/python/hermes_client.py](https://github.com/cossacklabs/hermes-core/blob/master/docs/examples/python/hermes_client.py), - Golang examples: [docs/examples/go/hermes_client.go](https://github.com/cossacklabs/hermes-core/blob/master/docs/examples/go/hermes_client.go).
+To check out the transport interfaces for Python and Go, see the corresponding examples: 
+
+- Python examples: [docs/examples/python/hermes_client.py](https://github.com/cossacklabs/hermes-core/blob/master/docs/examples/python/hermes_client.py), 
+- Golang examples: [docs/examples/go/hermes_client.go](https://github.com/cossacklabs/hermes-core/blob/master/docs/examples/go/hermes_client.go).
 
 Alternatively, you may choose to implement transport using your own preferred means (i.e. TLS or an unencrypted connection).
 
-To see the step-by-step instruction of implementing transport between all the Hermes-core components that need to be connected using transport (with Secure Session) and create your own Hermes-based app, see [Create your client server app](https://docs.cossacklabs.com/pages/create-your-client-server-app-step-by-step/) document.
+To see the step-by-step instruction of implementing transport between all the Hermes-core components that need to be connected using transport (with Secure Session) and create your own Hermes-based app, see [Creating your own Hermes-based app (long tutorial)](/hermes/guides/creating-your-own-hermes-based-app-long/) document.
