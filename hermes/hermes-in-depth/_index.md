@@ -1,6 +1,6 @@
 ---
 title: Hermes in depth
-weight: 3
+weight: 4
 bookCollapseSection: true
 ---
 
