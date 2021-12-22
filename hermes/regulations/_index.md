@@ -3,7 +3,7 @@ weight: 7
 title: Regulations
 ---
 
-## Hermes and GDPR/HIPAA/CCPA
+# Hermes and security compliance
 
 Hermes can help you reach better compliance with the current data privacy regulations, such as:
 
@@ -14,6 +14,6 @@ Hermes can help you reach better compliance with the current data privacy regula
 
 As a framework for cryptographically assured access control and data security, Hermes is a ["state of the art"](https://gdpr-info.eu/art-32-gdpr/) cryptographic tool. Configuring and using Hermes in a designated form will cover most of the demands described in articles 25, 32, 33, and 34 of GDPR and the PII data protection demands of HIPAA and CCPA.
 
-To find out about the exact ways Hermes can help secure the users' data in your product(s)/infrastructure, apply for the [Customer Success Program](https://www.cossacklabs.com/services/customer-success-program/).
+To find out about the exact ways Hermes can help secure the users' data in your product(s)/infrastructure, consider taking a look on Cossack Labs [Product security solutions](https://www.cossacklabs.com/solutions/product-security-ssdlc/).
 
-You may also want to read about the way our [encryption proxy Acra](https://www.cossacklabs.com/acra/) can help you [meet the demands of several GDPR articles at once](https://docs.cossacklabs.com/pages/acra-and-gdpr-compliance/).
+You may also want to read about the way our [encryption proxy Acra](https://www.cossacklabs.com/acra/) can help you [meet the demands of several GDPR articles at once](/acra/regulations/).
