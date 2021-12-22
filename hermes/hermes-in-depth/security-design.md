@@ -1,13 +1,15 @@
 ---
-weight: 9
-title: "Security design"
+weight: 5
+title: Security design
 ---
 
-# Security model
+# Security design
 
 {{< hint info >}}
-Note: This security model describes the security model of Hermes. As Hermes-core is a proof-of-concept implementation of Hermes, everything described below holds similarly true for Hermes-core.
+This security design describes the security model of Hermes. As Hermes-core is a proof-of-concept implementation of Hermes, everything described below holds similarly true for Hermes-core.
 {{< /hint >}}
+
+When used correctly, Hermes allows slicing a single data structure into smaller parts and allowing different parties to access various parts of that data structure with different permissions. This significantly limits the attack surface and threat model on the data. What’s more important, no significant alteration of the infrastructure is necessary. The range of tools used by Hermes was built for complementing the existing relationship models, not for coming up with new ones. Built by expert cryptographers and software engineers, it combines strong security guarantees with an API that is easy to use.
 
 Hermes cryptographically enforces the data access control policy and minimises compromisation risks of a single component. Such enforcements are achieved by:
 
@@ -18,9 +20,17 @@ Hermes cryptographically enforces the data access control policy and minimises c
 
 ## Threat model
 
-Hermes operates in a very restrictive threat model. It is assumed that: - each system entity can be compromised; - protected data can be partially leaked; - a passive/active attacker may be present in communication channels; - Data store can be dumped; - data object model can be leaked.
+Hermes operates in a very restrictive threat model. 
+
+It is assumed that: 
+- each system entity can be compromised; 
+- protected data can be partially leaked; 
+- a passive/active attacker may be present in communication channels; 
+- Data store can be dumped; 
+- data object model can be leaked.
 
 Some possible risks are out of the scope of Hermes, i.e. if authorised users deliberately leak sensitive information via out-of-band channels or when the basic execution environment (hardware and/or operating system) has been compromised.
+
 
 ## Trust model
 
@@ -32,11 +42,20 @@ Some possible risks are out of the scope of Hermes, i.e. if authorised users del
 
 ## Security guarantees
 
-1\) Compromisation of a single entity from the system causes only limited damage; 2) All the sensitive information only appears in plain text in the system user/service’s context exclusively; 3) Data is protected in granular form (per record/document); 4) All communications are protected with end-to-end encryption. 5) Data store imports/stores/exports data in encrypted form only; 6) Keystore imports/stores/exports ACKs in encrypted form only; 7) Credential store imports/stores/exports only system user/service’s public credentials; 8) Each data record is protected with a unique key; 9) Each data record may have its own flexible access control policy.
+1) Compromisation of a single entity from the system causes only limited damage.
+2) All the sensitive information only appears in plain text in the system user/service’s context exclusively.
+3) Data is protected in granular form (per record/document).
+4) All communications are protected with end-to-end encryption. 
+5) Data store imports/stores/exports data in encrypted form only.
+6) Keystore imports/stores/exports ACKs in encrypted form only.
+7) Credential store imports/stores/exports only system user/service’s public credentials.
+8) Each data record is protected with a unique key.
+9) Each data record may have its own flexible access control policy.
 
 ## Additional security reading
 
 For extensive additional information on the security model of Hermes, possible threats, attacks, and mitigations, see:
-- [theoretical paper on Hermes - [Hermes – a framework for cryptographically assured access control and data security](https://www.cossacklabs.com/files/hermes-theory-paper-rev1.pdf) and
 
-* an implementation document - [Implementing Hermes-based Security Systems](https://www.cossacklabs.com/hermes/implementing-hermes-based-systems/).
+- theoretical paper [Hermes – a framework for cryptographically assured access control and data security](https://www.cossacklabs.com/files/hermes-theory-paper-rev1.pdf)
+
+* an implementation document [Implementing Hermes-based Security Systems](https://www.cossacklabs.com/hermes/implementing-hermes-based-systems/).

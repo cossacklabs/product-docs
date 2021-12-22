@@ -9,13 +9,15 @@ You need to start with installing the libraries and utilities that we're going t
 
 For Debian the command is:
 
-`sudo apt-get update && sudo apt-get install build-essential libssl-dev git`
+```bash
+sudo apt-get update && sudo apt-get install build-essential libssl-dev git
+```
 
 We need `build-essential` for building binary libraries and `libssl-dev` as backend for [Themis](https://github.com/cossacklabs/themis).
 
 Let's download and install Themis into your system:
 
-```
+```bash
 git clone https://github.com/cossacklabs/themis
 cd themis
 make && sudo make install
@@ -24,7 +26,7 @@ cd ..
 
 Now you should download and install Hermes-core:
 
-```
+```bash
 git clone https://github.com/cossacklabs/hermes-core
 cd hermes-core
 make && sudo make install
@@ -34,11 +36,13 @@ make && sudo make install
 
 To verify Hermes-core, build and run the tests:
 
-`make test`
+```bash
+make test
+```
 
 You're going to see a similar output on success:
 
-```
+```bash
 == Entering suite #1, "rpc test" ==
 
 --> 3 check(s), 3 ok, 0 failed (0.00%)
