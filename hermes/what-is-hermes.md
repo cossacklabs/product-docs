@@ -46,7 +46,15 @@ Hermes represents a practical scheme that takes into account a number of importa
 
 When at least some of the aforementioned requirements are fulfilled, it significantly increases the security level of the system.
 
-## Some scenarios for using Hermes
+
+## Use cases and industries
+
+|   |   |
+| - | - |
+| Healthcare | Share FHIR and other medical records safely and distribute granular access to personnel in a secure way. Cut HIPAA costs by pushing many security controls to the encryption layer. |
+| Finance | Store and process customer payment data securely, minimise insider threats and enable secure, accountable cross-organisation data exchange. |
+| Enterprise | Protect commercially sensitive data and enforce access control, integrate with existing PKI and IAM stack, enforce group policies and efficient key/storage management – while keeping the data end-to-end encrypted. |
+| B2C: Customer apps | Instill greater trust in your product by implementing end-to-end encryption of customer data. It’s not only E2EE messengers that deserve the right to use user trust as competitive advantage. |
 
 A typical use-case for Hermes: an online medical service where the patients securely interact with the staff of multiple medical institutions. For example, a patient’s records contain a number of results for medical examinations. The patient’s personal physician needs to be able to access all of them, while the employees of the medical institutions need to be able to access only the latest results to adjust their activities towards the patient. Leaving access control management to a medical service opens up a risk of an accidental privilege misplacement or an intentional data leak. Being able to manage the access permissions only from trusted endpoints enables provable security for collaboration of such datasets.
 
@@ -82,15 +90,6 @@ Hermes (and correspondingly, Hermes-core) is built on top of [Themis](https://gi
 | Searchable encryption ᵉ | available for [enterprise customers in a separate license](mailto:info@cossacklabs.com) |
 | Provides pseudonymisation ᵉ | available for [enterprise customers in a separate license](mailto:info@cossacklabs.com) |
 | Audit log protected cryptographically ᵉ | available for [enterprise customers in a separate license](mailto:info@cossacklabs.com) |
-
-## Use cases and industries
-
-|   |   |
-| - | - |
-|     Healthcare     | Share FHIR and other medical records safely and distribute granular access to personnel in a secure way. Cut HIPAA costs by pushing many security controls to the encryption layer. |
-|      Finance       | Store and process customer payment data securely, minimise insider threats and enable secure, accountable cross-organisation data exchange. |
-|     Enterprise     | Protect commercially sensitive data and enforce access control, integrate with existing PKI and IAM stack, enforce group policies and efficient key/storage management – while keeping the data end-to-end encrypted. |
-| B2C: Customer apps | Instill greater trust in your product by implementing end-to-end encryption of customer data. It’s not only E2EE messengers that deserve the right to use user trust as competitive advantage. |
 
 
 ## How Hermes works

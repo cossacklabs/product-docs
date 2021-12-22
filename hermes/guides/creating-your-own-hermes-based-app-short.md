@@ -17,7 +17,7 @@ Depending on these factors, different layouts should be chosen:
 * Integrated, client-server, pieces aligned in a custom way;
 * Compact, single-node.
 
-For example, let's take one typical use-case for Hermes — [an online medical service where the patients securely interact with the staff of multiple medical institutions](https://docs.cossacklabs.com/pages/documentation-hermes/#hermes-usage-ideas). Let's say, we have patient's records that contain a number of medical examination results, and the patient’s personal physician needs to be able to access all of them, while the employees of the medical institutions need to be able to access only the latest results to adjust their activities towards the patient.
+For example, let's take one typical use-case for Hermes — [an online medical service where the patients securely interact with the staff of multiple medical institutions](/hermes/what-is-hermes/#use-cases-and-industries). Let's say, we have patient's records that contain a number of medical examination results, and the patient’s personal physician needs to be able to access all of them, while the employees of the medical institutions need to be able to access only the latest results to adjust their activities towards the patient.
 
 Our goal would be to implement such an encryption scheme, where the patient (User) is the only one who can read his/her every medical record, and is the one who can further distribute the rights to some pieces of data. The User's MD gets access to all of the medical data, a surgeon gets access to most of the User's data, while a nurse can only see a limited number of records necessary for the upcoming procedures. We must also decide where we are going to store the records, tokens, users credentials, etc.
 

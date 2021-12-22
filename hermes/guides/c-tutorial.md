@@ -11,7 +11,7 @@ All this will be carried out cryptographically.
 
 ## Launching the storage entities
 
-The infrastructure of Hermes-core is divided into 3 parts (you can read more about each entity [here](https://docs.cossacklabs.com/pages/documentation-hermes/#abstract-entities-backend-) and in the [scientific paper on Hermes](https://www.cossacklabs.com/files/hermes-theory-paper-rev1.pdf)): 
+The infrastructure of Hermes-core is divided into 3 parts (you can read more about each entity in [Abstract entities](/hermes/hermes-in-depth/architecture/abstract-entities/) and in the [scientific paper on Hermes](https://www.cossacklabs.com/files/hermes-theory-paper-rev1.pdf)): 
 
 - Data store (data storage entity), 
 - Keystore (storage entity for keys with the help of which the data is encrypted), 
