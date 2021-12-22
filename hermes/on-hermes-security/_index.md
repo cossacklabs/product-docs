@@ -1,18 +1,24 @@
 ---
 weight: 5
-title: On Hermes Security
+title: On Hermes security
 ---
 
-# TESTING THE PERFORMANCE OF HERMES-CORE
+# On Hermes security
 
-We thoroughly tested Hermes-core to ensure it tends to be bug-free.
+
+{{< hint info >}}
+This section describes implementation security of Hermes-core.
+If you are looking for security design, threat and trust model, refer to [Hermes in depth / Security Design](/hermes/hermes-in-depth/security-design/).
+{{< /hint >}}
+
+
+We thoroughly tested Hermes-core to ensure it tends to be stable and secure.
 The testing process was subdivided into the following stages:
 
-* [Module testing](https://docs.cossacklabs.com/pages/testing-hermes-core/#module-testing),
-* [Static code analysis](https://docs.cossacklabs.com/pages/testing-hermes-core/#static-code-analysis),
-* [Dynamic code analysis](https://docs.cossacklabs.com/pages/testing-hermes-core/#dynamic-code-analysis).
+* [Module testing](#module-testing),
+* [Static code analysis](#static-code-analysis),
+* [Dynamic code analysis](#dynamic-code-analysis).
 
-Here's what we did and here's how it worked:
 
 ## Module testing
 
@@ -26,7 +32,7 @@ The implementation and tests of backend and transport can be found in the corres
 
 A standard target test was also added to the main Makefile for building tests. This means that you need to type the following command into the command line to build and run the tests:
 
-```
+```bash
 make test
 ```
 
@@ -38,7 +44,7 @@ In addition to unit testing, Hermes-core was also tested using static and dynami
 
 For static code analysis, we used [cppcheck](http://cppcheck.sourceforge.net/) and [clang](https://clang.llvm.org/) static analysis tools.
 
-```
+```bash
 $ cppcheck --force --enable=warning,performance,portability,information,missingInclude --inconclusive --std=posix --std=c89 -I include --error-exitcode=1 ./src
 Checking src/common/buffer.c...
 Checking src/common/buffer.c: DEBUG...
@@ -63,11 +69,16 @@ Usually, a fuzzer feeds the test data into the STDIN of the app through using a 
 There are two approaches to fuzzing: - fuzzing separate functions that look suspicious, - fuzzing the whole app.
 
 The libFuzzer library was used for fuzzing. For implementing the first approach, a minimal wrapper needs to be written for the application:
-```
+
+```c
 (fuzz.c)
-int LLVMFuzzerTestOneInput(const uint8t *Data, sizet Size) { functionForTest(Data, Size); return 0; }
+
+int LLVMFuzzerTestOneInput(const uint8t *Data, sizet Size) { 
+	functionForTest(Data, Size); return 0; 
+}
 ```
 Compiling the wrapper with the addition of libFuzzer library:
+
 ```c
 clang++ -g -fsanitize=address -fsanitize-coverage=trace-pc-guard FTS/tutorial/fuzz.c libFuzzer.a
 ```
@@ -76,7 +87,7 @@ In contrast to AFL, the `libFuzzer.a` library provides the `main` function (whic
 
 After compiling the test, let's launch:
 
-```
+```bash
 $ ./a.out
 ```
 
@@ -84,7 +95,7 @@ If you've read this far into the documentation, congratulations! Contact us via 
 
 For all the tested Hermes-core functions, the result is the same — error-free:
 
-```
+```bash
 INFO: Seed: 3918206239
 INFO: Loaded 1 modules (14 guards): [0x73be00, 0x73be38),
 INFO: -max_len is not provided, using 64

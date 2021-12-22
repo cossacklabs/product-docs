@@ -521,3 +521,9 @@ AcraServer supports only HTTP/1.1 requests without keep-alive.
   ```
   HTTP/1.1 500 Server error
   ```
+
+## POSIX signals
+
+There are a couple of signals `acra-server` reacts on:
+- `SIGTERM`, `SIGINT` — graceful shutdown: stop accepting new connections, close existing ones, terminate the process.
+- `SIGHUP` — restart: create new AcraServer subprocess and transfer opened listener sockets to it, then terminate the current process.
