@@ -1,5 +1,5 @@
 ---
-weight: 1
+weight: 2
 title: Using Hermes
 ---
 
@@ -23,7 +23,9 @@ The transport interface is basically the API. Transport(s) is the `transport_t` 
 
 After implementing the 4 components mentioned above, the assembly of parts of Hermes-core follows. These are the entities you’ll need to implement:
 
-**On Client:** 1. Client. It consists of `mid_hermes` (with all corresponding dependencies) and transport.
+**On Client:** 
+
+1. Client. It consists of `mid_hermes` (with all corresponding dependencies) and transport.
 
 **On Server:**
 
