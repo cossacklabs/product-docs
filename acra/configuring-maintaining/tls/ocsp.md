@@ -78,7 +78,8 @@ OCSP;URI.0 = http://127.0.0.1:8080
 
 ## Running `openssl ocsp` server
 
-You can launch simple, yet completely functional OCSP server, following provided [certificate generation example](generate-certificate-with-openssl)
+You can launch simple, yet completely functional OCSP server, following provided [certificate generation example](/acra/configuring-maintaining/tls/generate-certificate-with-openssl/)
+
 ```
 openssl ocsp \
     -port 8080 \
@@ -88,6 +89,7 @@ openssl ocsp \
     -CA ca.crt.pem \
     -ignore_err
 ```
+
 Flags `-rsigner` and `-rkey` describe certificate and private key of OCSP responder. The key will be used to sign the response.
 OCSP responder should be a certificate signed by the same CA that signed certificates we are responding about.
 In openssl configuration it should have `extendedKeyUsage = OCSPSigning` property.
