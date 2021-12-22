@@ -1,9 +1,16 @@
 ---
 weight: 5
-title: On Hermes Security
+title: On Hermes security
 ---
 
-# Testing Hermes-core
+# On Hermes security
+
+
+{{< hint info >}}
+This section describes implementation security of Hermes-core.
+If you are looking for security design, threat and trust model, refer to [Hermes in depth / Security Design](/hermes/hermes-in-depth/security-design/).
+{{< /hint >}}
+
 
 We thoroughly tested Hermes-core to ensure it tends to be stable and secure.
 The testing process was subdivided into the following stages:

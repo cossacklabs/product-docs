@@ -1,9 +1,10 @@
 ---
-weight: 2
-title: Using Hermes
+title: Integrating Hermes to your app
+weight: 1
+bookCollapseSection: true
 ---
 
-# Using Hermes
+# Integrating Hermes to your app
 
 Hermes is a cryptography-based method of providing protected data storage and sharing that allows enforcing cryptographically checked CRUD permissions to data blocks and doesn't let server that's running Hermes do anything worse than DoS. In other words, Hermes enables collaboration and distributed data sharing through enforcing access control with the help of cryptographic methods. This section is a brief explanation of how you can achieve this.
 

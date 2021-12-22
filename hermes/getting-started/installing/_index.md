@@ -1,7 +1,7 @@
 ---
 title: Installing
 bookCollapseSection: true
-weight: 2
+weight: 1
 ---
 
 # Installing or building Hermes-core
