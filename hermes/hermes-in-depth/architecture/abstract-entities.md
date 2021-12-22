@@ -1,14 +1,14 @@
 ---
 weight: 2
-title: Abstract entities (backend)
+title: Abstract entities
 ---
 
-# Abstract entities (backend)
+# Abstract entities
 
-Hermes-core is divided into the 2 core components:
+Hermes-core is divided into the 2 core pieces:
 
-* Backend or Server-side (Server/storage), which is outlined in this document,
-* Frontend or Client-side (Client), which is outlined in a [separate block](https://docs.cossacklabs.com/pages/documentation-hermes/#hermes-core-client).
+* Backend or Server-side (Server/storage), which is outlined in this document, [Hermes-core server](/hermes/hermes-in-depth/architecture/hermes-core-server/) and [Hermes-core transport](/hermes/hermes-in-depth/architecture/hermes-core-transport/).
+* Frontend or Client-side (Client), which is outlined in a [Hermes-core client](/hermes/hermes-in-depth/architecture/hermes-core-client/).
 
 ## Storage
 
@@ -19,7 +19,7 @@ Storage entity must have 3 separate parts (the parts can be allocated in virtual
 3. Keystore.
 
 
-**Credential store**
+### Credential store
 
 Credential store is a trusted source of user/service public credentials (and possible key/data store public credentials). Users use the Credential store to wrap ACKs for specific users while distributing access control policy for their data. It’s expected that other entities communicate with the Credential store via authenticated channels.
 
@@ -27,7 +27,7 @@ Credential store is used for retrieving public keys by the user identifier (user
 
 Hermes-core does not provide you with Credential store, instead, it suggests integrating with any PKI you've got (i.e. PKI can be a read-only set of keys).
 
-**Data store**
+### Data store
 
 Data store is the main global storage entity for storing sensitive information. In Hermes, each record (block) is stored in an appropriate recordset (document), which can be represented by the following fields:
 
@@ -37,7 +37,7 @@ Data store is the main global storage entity for storing sensitive information. 
 4. MAC
 5. data
 
-**Keystore**
+### Keystore
 
 Keystore is used for storing access control keys/tokens (per user and block):
 
@@ -49,13 +49,12 @@ Keystore is used for storing access control keys/tokens (per user and block):
 
 Each access control key ("token") is stored as a combination of separate tokens: block ID + user ID + token + owner ID. To be able to use the token, a user with the user ID needs his/her private key and a public user key with the owner ID.
 
-#### Storage interfaces
 
-The storage interfaces for Hermes-core are described in detail in the [Hermes-core Server (Building app - Server)](https://docs.cossacklabs.com/pages/documentation-hermes/#hermes-core-server) article in the documentation.
+### Storage interfaces
 
-#### Transport
+The storage interfaces for Hermes-core are described in detail in the [Hermes-core server](/hermes/hermes-in-depth/architecture/hermes-core-server/).
 
-The components of Hermes-core need to have some kind of communication established between them: between Client and Server, between the Server components. This is done with the help of [Transport](https://docs.cossacklabs.com/pages/documentation-hermes/#hermes-core-transport).
 
-The communication channel between the components should be encrypted and mutually authenticated. This can be done using the [Secure Session](https://docs.cossacklabs.com/pages/secure-session-cryptosystem/) from our [Themis cryptographic library](https://github.com/cossacklabs/themis) 
-with our [wrapper](https://github.com/cossacklabs/hermes-core/blob/master/include/hermes/secure_transport/transport.h) over raw transport. Since Secure Session is a stream-oriented protocol, the channel will be also protected from replay attacks and request reordering. Alternatively, you may choose to leave the communication channel unencrypted (which is not recommended for the reasons outlined above) or use a secure transport method of your choice (i.e. TLS, etc.).
+### Transport
+
+The components of Hermes-core need to have some kind of communication established between them: between Client and Server, between the Server components. This is done with the help of [Hermes-core transport](/hermes/hermes-in-depth/architecture/hermes-core-transport/).
