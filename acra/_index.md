@@ -5,6 +5,7 @@ bookFlatSection: true
 productMenuTitle: "acra"
 Menu: "main"
 searchScope: "acra"
+repository: "acra"
 ---
 
 # Acra in a nutshell
