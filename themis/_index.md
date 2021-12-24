@@ -5,6 +5,7 @@ title: "Themis in a nutshell"
 productMenuTitle: "themis"
 Menu: "main"
 searchScope: "themis"
+repository: "themis"
 ---
 
 # Themis in a nutshell
