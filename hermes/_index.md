@@ -5,6 +5,7 @@ title: "Hermes in a nutshell"
 productMenuTitle: "Hermes"
 Menu: "main"
 searchScope: "hermes"
+repository: "hermes-core" 
 ---
 
 
