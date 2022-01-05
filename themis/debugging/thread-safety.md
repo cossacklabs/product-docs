@@ -1,6 +1,6 @@
 ---
-weight: 4
-title:  Thread safety
+weight: 5
+title: Thread safety
 ---
 
 # Thread safety
