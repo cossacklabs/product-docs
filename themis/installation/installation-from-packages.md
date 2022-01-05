@@ -10,6 +10,8 @@ title:  Installation from packages
 The core library is available via Cossack Labs package repositories.
 Follow the instructions below for your operating system.
 
+In case you experience issues during installation, refer to [Troubleshooting installation](/themis/debugging/troubleshooting-installation/) page which contains the wisdom of ages.
+
 ### Debian, Ubuntu
 
 Supported systems:
@@ -29,7 +31,6 @@ You need to import the public key used by Cossack Labs to sign packages:
 wget -qO - https://pkgs-ce.cossacklabs.com/gpg | sudo apt-key add -
 ```
 
-{{< hint info >}}
 If you wish to validate the key fingerprint, it is:
 ```
 $ apt-key list 'Cossack Labs'
@@ -37,7 +38,6 @@ pub   rsa4096 2017-07-14 [SC]
       29CF C579 AD90 8838 3E37  A8FA CE53 BCCA C8FF FACB
 uid           [ unknown] Cossack Labs Limited <dev@cossacklabs.com>
 ```
-{{< /hint >}}
 
 **2. Make sure APT supports HTTPS**
 

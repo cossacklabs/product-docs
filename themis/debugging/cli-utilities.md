@@ -1,6 +1,6 @@
 ---
-weight: 2
-title:  CLI utilities
+weight: 3
+title: CLI utilities
 ---
 
 # Command-line utilities
