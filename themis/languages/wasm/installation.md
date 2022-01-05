@@ -131,13 +131,12 @@ but you will need to install its build dependencies as well.
     (run this from Emscripten SDK directory):
 
     ```bash
-    ./emsdk install  2.0.13
-    ./emsdk activate 2.0.13
+    ./emsdk install  3.0.0
+    ./emsdk activate 3.0.0
     source ./emsdk_env.sh
     ```
 
-    The `2.0.13` is the latest toolchain version
-    which is known to work for WasmThemis.
+    The current version is available in [WasmThemis repository](https://github.com/cossacklabs/themis/blob/stable/src/wrappers/themis/wasm/emscripten/VERSION).
 
     {{< hint info >}}
 Read the [Emscripten documentation](https://emscripten.org/docs/tools_reference/emsdk.html)
