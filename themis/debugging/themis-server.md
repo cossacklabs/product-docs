@@ -1,6 +1,6 @@
 ---
-weight: 3
-title:  Themis Server
+weight: 4
+title: Themis Server
 ---
 
 # Themis Server
