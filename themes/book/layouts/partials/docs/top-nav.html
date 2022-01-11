@@ -1,0 +1,18 @@
+<div class="container top-nav flex backdrop">
+    <div class="">{{ partial "docs/brand" . }}</div>
+    <div class="menu-wrap">
+        {{ partial "docs/main-menu" . }}
+        {{ partial "docs/menu-hugo" .Site.Menus.after }}
+    </div>
+
+    {{ if  .FirstSection.Params.menu }}
+        {{ partial "docs/github-button" . }}
+    {{ end }}
+
+    {{ if .IsHome }}
+        <label for="menu-control">
+            <img src="{{ "svg/menu.svg" | relURL }}" class="book-icon" alt="Menu" />
+        </label>
+    {{ end }}
+
+</div>

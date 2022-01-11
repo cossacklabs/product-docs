@@ -1,0 +1,67 @@
+<footer class="w-full main-footer bg-black relative px-4 lg:px-0">
+    <div class="main-footer__social-wrapper border-b border-coal-gray py-8">
+        <div class="main-footer__social mx-auto flex justify-between flex-wrap content-center"
+             uk-scrollspy="cls: uk-animation-slide-top-small;">
+            {{ range .Site.Menus.footer_social_links }}
+                <a href="{{ .URL }}" class="main-footer__social-link max-w-6 md:max-w-full"><img src="{{ .Pre }}" alt="{{ .Name }}" class="main-footer__social-logo"></a>
+            {{ end }}
+        </div>
+    </div>
+    <div class="container main-footer__nav pt-14 flex flex-wrap lg:flex-nowrap lg:justify-between"
+         uk-scrollspy="cls: uk-animation-slide-bottom-small;">
+        <div class="mr-8 mb-8 lg:mb-0">
+            <h5 class="pb-1">PRODUCTS</h5>
+            <ul class="subtitle--regular--16">
+                {{ range .Site.Menus.footer_products }}
+                    <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="mr-8 mb-8 lg:mb-0">
+            <h5 class="pb-1">CHALLENGES</h5>
+            <ul class="subtitle--regular--16">
+                {{ range .Site.Menus.footer_challenges }}
+                    <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="mr-8 mb-8 lg:mb-0">
+            <h5 class="pb-1">USE CASES</h5>
+            <ul class="subtitle--regular--16">
+                {{ range .Site.Menus.footer_use_cases }}
+                    <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="mr-8 mb-8 lg:mb-0">
+            <h5 class="pb-1">INDUSTRIES</h5>
+            <ul class="subtitle--regular--16">
+                {{ range .Site.Menus.footer_industries }}
+                    <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        <div class="mb-8 lg:mb-0">
+            <h5>COMPANY</h5>
+            <ul class="subtitle--regular--16">
+                {{ range .Site.Menus.footer_company }}
+                    <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+    </div>
+    <div class="container pb-6" uk-scrollspy="cls: uk-animation-slide-bottom-small;">
+
+        <img src="/footer/cossacklabs-logo-white.svg" alt="Cossack Labs" class="max-w-sm mb-2">
+
+        <div class="flex items-center">
+            <p class="text-fisher-gray text-sm">Copyright © 2014-{{ now.Format "2006" }} Cossack Labs Limited</p>
+            <ul class="main-footer__nav-bottom hidden lg:flex">
+                {{ range .Site.Menus.footer_bottom_links }}
+                    <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>
+                {{ end }}
+            </ul>
+        </div>
+        <p class="text-fisher-gray text-sm"><small>Docs are built at {{ now.Format "Jan 2, 2006 at 15:04:03" }}</small>.</p>
+    </div>
+</footer>

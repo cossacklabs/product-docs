@@ -1,1 +1,0 @@
-../java/installation-android.md

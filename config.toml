@@ -1,0 +1,205 @@
+baseURL = "https://docs.cossacklabs.com"
+languageCode = "en-us"
+
+# Leave the line empty if you do not need to use a global title
+title = "Cossack Labs"
+theme = "book"
+publishDir = "html"
+
+[menu]
+[[main]]
+  identifier = "acra"
+  name = "acra"
+  url = "acra"
+  weight = 1
+[[main]]
+  identifier = "themis"
+  name = "themis"
+  url = "themis"
+  weight = 2
+[[main]]
+  identifier = "hermes"
+  name = "hermes"
+  url = "hermes"
+  weight = 3
+[[menu.after]]
+  name = "Blog"
+  url = "https://www.cossacklabs.com/blog/"
+  weight = 2
+[[menu.after]]
+  name = "Whitepapers"
+  url = "https://www.cossacklabs.com/whitepapers/"
+  weight = 3
+[[menu.footer_products]]
+  name = "All products"
+  url = "https://www.cossacklabs.com/all-products/"
+  weight = 1
+[[menu.footer_products]]
+  name = "Themis"
+  url = "https://www.cossacklabs.com/themis/"
+  weight = 2
+[[menu.footer_products]]
+  name = "Acra"
+  url = "https://www.cossacklabs.com/acra/"
+  weight = 3
+[[menu.footer_products]]
+  name = "Hermes"
+  url = "https://www.cossacklabs.com/hermes/"
+  weight = 4
+[[menu.footer_products]]
+  name = "Toughbase"
+  url = "https://www.cossacklabs.com/toughbase/"
+  weight = 5
+[[menu.footer_challenges]]
+  name = "Product security & SSDLC"
+  url = "https://www.cossacklabs.com/solutions/product-security-ssdlc/"
+  weight = 1
+[[menu.footer_challenges]]
+  name = "Security strategy & advisory"
+  url = "https://www.cossacklabs.com/solutions/security-strategy-advisory/"
+  weight = 2
+[[menu.footer_challenges]]
+  name = "Security engineering & architecture"
+  url = "https://www.cossacklabs.com/solutions/security-engineering-architecture/"
+  weight = 3
+[[menu.footer_challenges]]
+  name = "Cryptography engineering"
+  url = "https://www.cossacklabs.com/solutions/applied-crypto-engineering/"
+  weight = 4
+[[menu.footer_challenges]]
+  name = "Data security & privacy compliance"
+  url = "https://www.cossacklabs.com/solutions/security-and-compliance/"
+  weight = 5
+[[menu.footer_use_cases]]
+  name = "Data security"
+  url = "https://www.cossacklabs.com/solutions/data-security/"
+  weight = 1
+[[menu.footer_use_cases]]
+  name = "E2EE / Zero Trust"
+  url = "https://www.cossacklabs.com/solutions/e2ee-zero-trust/"
+  weight = 2
+[[menu.footer_use_cases]]
+  name = "Auditable systems"
+  url = "https://www.cossacklabs.com/solutions/transparency-auditable-systems/"
+  weight = 3
+[[menu.footer_use_cases]]
+  name = "AI & ML security"
+  url = "https://www.cossacklabs.com/solutions/ai-ml-security/"
+  weight = 4
+[[menu.footer_use_cases]]
+  name = "Mobile apps security"
+  url = "https://www.cossacklabs.com/solutions/mobile-apps-security/"
+  weight = 5
+[[menu.footer_industries]]
+  name = "Finance"
+  url = "https://www.cossacklabs.com/solutions/solutions-for-finance/"
+  weight = 1
+[[menu.footer_industries]]
+  name = "Blockchain"
+  url = "https://www.cossacklabs.com/solutions/solutions-for-blockchain/"
+  weight = 2
+[[menu.footer_industries]]
+  name = "Healthcare"
+  url = "https://www.cossacklabs.com/solutions/solutions-for-healthcare/"
+  weight = 3
+[[menu.footer_industries]]
+  name = "SaaS"
+  url = "https://www.cossacklabs.com/solutions/solutions-for-saas/"
+  weight = 4
+[[menu.footer_industries]]
+  name = "Industrial / CNI"
+  url = "https://www.cossacklabs.com/solutions/solutions-for-industrial-cni/"
+  weight = 5
+[[menu.footer_industries]]
+  name = "B2C apps"
+  url = "https://www.cossacklabs.com/solutions/solutions-for-b2c-apps/"
+  weight = 6
+[[menu.footer_company]]
+  name = "About us"
+  url = "https://www.cossacklabs.com/about/"
+  weight = 1
+[[menu.footer_company]]
+  name = "Customer stories"
+  url = "https://www.cossacklabs.com/case-studies/"
+  weight = 2
+[[menu.footer_company]]
+  name = "Blog"
+  url = "https://www.cossacklabs.com/blog/"
+  weight = 3
+[[menu.footer_company]]
+  name = "Whitepapers & research"
+  url = "https://www.cossacklabs.com/whitepapers/"
+  weight = 4
+[[menu.footer_company]]
+  name = "Conferences & events"
+  url = "https://www.cossacklabs.com/conferences/"
+  weight = 5
+[[menu.footer_company]]
+  name = "Partners"
+  url = "https://www.cossacklabs.com/partners/"
+  weight = 6
+[[menu.footer_company]]
+  name = "Jobs"
+  url = "https://www.cossacklabs.com/job/"
+  weight = 7
+[[menu.footer_bottom_links]]
+  name = "Privacy Policy"
+  url = "https://www.cossacklabs.com/privacy-policy/"
+  weight = 1
+[[menu.footer_bottom_links]]
+  name = "Cookie Policy"
+  url = "https://www.cossacklabs.com/cookie-policy/"
+  weight = 2
+[[menu.footer_bottom_links]]
+  name = "Presskit"
+  url = "https://www.cossacklabs.com/press-kit/"
+  weight = 3
+[[menu.footer_bottom_links]]
+  name = "FAQ"
+  url = "https://www.cossacklabs.com/faq/"
+  weight = 4
+[[menu.footer_social_links]]
+  pre = "/footer/akar-icons_github-fill.svg"
+  name = "github"
+  url = "http://www.github.com/cossacklabs"
+  weight = 1
+[[menu.footer_social_links]]
+  pre = "/footer/akar-icons_twitter-fill.svg"
+  name = "twitter"
+  url = "https://twitter.com/cossacklabs"
+  weight = 2
+[[menu.footer_social_links]]
+  pre = "/footer/ant-design_facebook-filled.svg"
+  name = "facebook"
+  url = "https://www.facebook.com/CossackLabs"
+  weight = 3
+[[menu.footer_social_links]]
+  pre = "/footer/ant-design_medium-outlined.svg"
+  name = "medium"
+  url = "https://medium.com/@cossacklabs"
+  weight = 4
+[[menu.footer_social_links]]
+  pre = "/footer/akar-icons_linkedin-fill.svg"
+  name = "linkedin"
+  url = "https://www.linkedin.com/company/cossack-labs/"
+  weight = 5
+[[menu.footer_social_links]]
+  pre = "/footer/bx_bxl-dev-to.svg"
+  name = "Cossack Labs"
+  url = "https://dev.to/cossacklabs"
+  weight = 6
+[[menu.footer_social_links]]
+  pre = "/footer/akar-icons_youtube-fill.svg"
+  name = "youtube"
+  url = "https://www.youtube.com/channel/UCQbAyrwHKJ8QRDTOHs90O0g"
+  weight = 8
+
+[params]
+    BookLogo = "cossacklabs-logo.svg"
+    BookSection = "acra"
+    BookRepo = "https://github.com/cossacklabs/product-docs"
+    BookEditPath = "edit/master"
+    
+
+    
+

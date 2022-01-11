@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}" dir={{ .Site.Language.LanguageDirection }}>
+
+  <head>
+    {{ partial "docs/html-head" . }}
+    {{ partial "docs/inject/head" . }}
+  </head>
+
+  <body {{if .IsHome}}class="main-page"{{ end }} dir={{ .Site.Language.LanguageDirection }}>
+    <div class="top-nav-wrapper">
+      {{ partial "docs/top-nav" . }}
+    </div>
+
+    {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
+    <input type="checkbox" class="hidden" id="toc-control" />
+    {{ end }}
+    <input type="checkbox" class="hidden" id="menu-control" />
+
+    <main class="flex{{if not .IsHome}} container{{ else }} main-page{{ end }}">
+      <!-- left nav menu -->
+      <aside class="book-menu">
+        {{ template "menu" . }}
+      </aside>
+
+      <!-- main container -->
+      <div class="book-page">
+        {{ if .IsHome }}
+          {{ partial "docs/custom-header" . }}
+        {{ else }}
+          <header class="book-header">
+            {{ template "header" . }} <!-- Mobile layout header -->
+          </header>
+        {{end}}
+
+        {{ partial "docs/inject/content-before" . }}
+        {{ template "main" . }} <!-- Page Content -->
+        {{ partial "docs/inject/content-after" . }}
+
+        {{if not .IsHome}}
+          <div class="book-footer">
+            {{ template "footer" . }} <!-- Footer under page content -->
+            {{ partial "docs/inject/footer" . }}
+          </div>
+        {{ end }}
+
+  {{/*      {{ template "comments" . }} <!-- Comments block -->*/}}
+
+        <label for="menu-control" class="hidden book-menu-overlay"></label>
+        <label for="toc-control" class="hidden book-toc-overlay"></label>
+
+      </div>
+
+      <!-- table of contents menu -->
+      {{ if default true (default .Site.Params.BookToC .Params.BookToC) }}
+      <aside class="book-toc">
+        {{ template "toc" . }}
+      </aside>
+      {{ end }}
+    </main>
+
+    <!--  Custom footer -->
+    {{ partial "docs/custom-footer" . }}
+
+    {{ partial "docs/inject/body" . }}
+
+    <!-- custom js -->
+    {{ if not .IsHome }}
+      <script src="/js/git-hub-stars.js" type="text/javascript"></script>
+    {{ end }}
+    <script src="/js/search-tracking.js" type="text/javascript"></script>
+  </body>
+</html>
+
+{{ define "menu" }}
+  {{ partial "docs/menu" . }}
+{{ end }}
+
+{{ define "header" }}
+  {{ partial "docs/header" . }}
+{{ end }}
+
+{{ define "footer" }}
+  {{ partial "docs/footer" . }}
+{{ end }}
+
+{{ define "comments" }}
+  {{ if and .Content (default true (default .Site.Params.BookComments .Params.BookComments)) }}
+  <div class="book-comments">
+    {{- partial "docs/comments" . -}}
+  </div>
+  {{ end }}
+{{ end }}
+
+{{ define "main" }}
+  <article class="markdown">
+    {{- .Content -}}
+  </article>
+{{ end }}
+
+{{ define "toc" }}
+  {{ partial "docs/toc" . }}
+{{ end }}
