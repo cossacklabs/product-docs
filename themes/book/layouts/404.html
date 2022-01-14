@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Lang }}">
+
+  <head>
+    {{ partial "docs/html-head" . }}
+    {{ partial "docs/inject/head" . }}
+    {{ partial "docs/top-nav" . }}
+
+    <style>
+
+      .not-found h1 {
+        margin: 0;
+        opacity: .25;
+        font-size: 25vmin;
+          line-height: 1;
+      }
+    </style>
+  </head>
+
+  <body>
+    <main class="">
+     <div class="not-found container-first-page-header brand-green-lighter">
+
+    <div class="not-found-text">
+        <h1>404</h1>
+        <h2>Page Not Found</h2>
+       
+    </div>
+     {{ partial "docs/search" . }}
+    </div>
+
+    
+    </main>
+    
+    {{ partial "docs/custom-footer" . }}
+
+    {{ partial "docs/inject/body" . }}
+    {{ template "_internal/google_analytics_async.html" . }}
+  </body>
+
+  </html>
