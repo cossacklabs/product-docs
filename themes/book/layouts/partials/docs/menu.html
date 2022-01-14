@@ -1,0 +1,31 @@
+<nav {{ if not .IsHome }}class="with-search"{{ end }}>
+  {{ if not .IsHome }}
+    {{ partial "docs/search" . }}
+  {{ end }}
+
+  <div class="nav-content">
+    {{ if not .IsHome }}
+      {{ partial "docs/inject/menu-before" . }}
+      {{ partial "docs/menu-hugo" .Site.Menus.before }}
+
+      <!--Вывод меню по умолчанию-->
+      {{ if .Site.Params.BookMenuBundle }}
+        {{ partial "docs/menu-bundle" . }}
+      {{ else }}
+        {{ partial "docs/menu-filetree" . }}
+      {{ end }}
+      <hr>
+    {{ end }}
+
+    <!--Добавляет кастомные ссылки меню из config.toml-->
+    {{ partial "docs/main-menu" . }}
+    {{ partial "docs/menu-hugo" .Site.Menus.after }}
+    {{ partial "docs/inject/menu-after" . }}
+    </div>
+</nav>
+
+<!-- Restore menu position as soon as possible to avoid flickering -->
+{{ $script := resources.Get "menu-reset.js" | resources.Minify }}
+{{ with $script.Content }}
+  <script>{{ . | safeJS }}</script>
+{{ end }}
