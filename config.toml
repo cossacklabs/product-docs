@@ -198,7 +198,7 @@ publishDir = "html"
     BookLogo = "cossacklabs-logo.svg"
     BookSection = "acra"
     BookRepo = "https://github.com/cossacklabs/product-docs"
-    BookEditPath = "edit/master"
+    BookEditPath = "edit/master/content"
     
 
     
