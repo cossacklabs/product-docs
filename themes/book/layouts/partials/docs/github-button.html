@@ -1,0 +1,26 @@
+{{ $firstWord := lower .FirstSection.Title }}
+{{ $firstWord := split $firstWord " " }}
+{{ $currentPage := . }}
+
+{{ $repo := "" }}
+{{ if $currentPage.FirstSection.Params.repository  }}
+    {{ $repo = lower $currentPage.FirstSection.Params.repository }}
+{{ else }}
+    {{ $repo = lower $currentPage.FirstSection.Title }}
+{{ end }}
+
+<a class="github-button gh-button" href="https://github.com/cossacklabs/{{ $repo }}/">
+    <div class="button-wrapper">
+        <img src="/icon/git-black.svg" class="button-icon-github-logo" alt="">
+    </div>
+
+    <div class="button-wrapper">
+        <img src="/icon/star.svg" class="button-icon-star-logo" alt="">
+        <span class="button-stat-text"></span>
+    </div>
+</a>
+
+<a class="btn icon header-download book-btn button-wrapper" href="https://github.com/cossacklabs/{{ $repo }}/releases">
+    <img src="/icon/icon-download.svg" class="icon-left" alt="github"/>
+    <span>Download</span>
+</a>

@@ -1,0 +1,28 @@
+{{ $current := . }}
+{{if  $current.FirstSection.Menus}}
+    {{$menu := .FirstSection}}
+{{end}}
+<ul class="main-menu">
+{{ $currentPage := . }}
+
+    {{ range .Site.Menus.main }}
+
+       {{ if .Page.Params.productMenuTitle }}
+        <li>
+            <a class="sidebar-nav-item{{if eq ($currentPage.Section) (.Page.Params.productMenuTitle) }} active{{end}}" href="{{ .URL }}" title="{{ .Page.Params.productMenuTitle }}" data-text="{{ .Page.Params.productMenuTitle }}" >{{ .Page.Params.productMenuTitle }}</a>
+        </li>
+        {{ else }}
+            <a class="sidebar-nav-item{{if  $current.FirstSection.Menus}} active git-repo{{end}}" href="{{ .URL }}" title="{{ .Title }}">{{ .Name }}</a>
+        {{ end }}
+    {{ end }}
+</ul>
+
+
+
+
+
+               
+                   
+                       
+                                   
+                                       
