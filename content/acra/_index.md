@@ -2,10 +2,25 @@
 weight: 1
 title: "Acra in a nutshell"
 bookFlatSection: true
-productMenuTitle: "acra"
+productMenuTitle: "Acra"
 Menu: "main"
 searchScope: "acra"
 repository: "acra"
+product_logo: "/acra-logo.svg"
+product_subtitle: '<p>Database security suite with field level encryption and leakage prevention. Protect sensitive data in databases and distributed applications.</p>'
+product_description: '<ul>
+                          <li><a href="/acra/what-is-acra/">Solves data security for any data storage</a></li>
+                          <li><a href="/acra/what-is-acra/#major-security-features">Provides field level encryption, searchable encryption, data masking, tokenization</a></li>
+                          <li><a href="/acra/getting-started/requirements/#databases">Works with SQL and NoSQL databases</a></li>
+                          <li><a href="/acra/what-is-acra/#architecture">Has 3 modes</a>: database SQL proxy, encryption API, in-app SDKs</li>
+                          <li>Gives cryptographic access control</li>
+                          <li>Has built-in key management procedures</li>
+                          <li>Prevents insider and outsider data leakage</li>
+                          <li><a href="/acra/security-controls/security-logging-and-events/audit-logging/">Supports crypto-signed audit logging</a></li>
+                          <li>Protects from unwanted database queries (<a href="/acra/security-controls/sql-firewall/">SQL firewall</a>)</li>
+                          <li><a href="/acra/getting-started/availability/">Microservice-friendly, containers-friendly</a></li>
+                          <li>On-prem or in the cloud</li>
+                      </ul>'
 ---
 
 # Acra in a nutshell
