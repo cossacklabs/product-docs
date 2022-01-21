@@ -6,6 +6,21 @@ productMenuTitle: "themis"
 Menu: "main"
 searchScope: "themis"
 repository: "themis"
+product_logo: "/themis-logo.svg"
+product_subtitle: '<p>Cross-platform general purpose cryptographic library for securing data during authentication, storage, messaging, network exchange, etc.</p>'
+product_description: '<ul>
+                          <li>Solves 90% use cases for protecting data in mobile apps</li>
+                          <li>Implements application level encryption best practices</li>
+                          <li><a href="/themis/crypto-theory/">Provides strong modern industry-proven cryptography</a></li>
+                          <li>Fits perfectly for multi-platform apps (mobile, web, server)</li>
+                          <li><a href="/themis/getting-started/">100% compatible across all supported languages</a></li>
+                          <li>Prevents developers from making security mistakes</li>
+                          <li><a href="/themis/crypto-theory/cryptosystems/">Gives building blocks for end-to-end encryption</a></li>
+                          <li>Hides cryptographic details</li>
+                          <li>Saves development time</li>
+                          <li><a href="/themis/security/">Documented, audited, supported</a></li>
+                          <li><a rel="noopener" href="https://github.com/OWASP/owasp-mstg/blob/1.1.0/Document/0x06e-Testing-Cryptography.md#third-party-libraries">Recommended by OWASP</a></li>
+                      </ul>'
 ---
 
 # Themis in a nutshell

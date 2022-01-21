@@ -10,6 +10,11 @@ h6{
 
 .mb-0{margin-bottom: 0;}
 .mt-0{margin-top: 0;}
+.mt-auto{margin-top: auto;}
+
+.flex-col {
+    flex-direction: column;
+}
 
 .btn{
     display: inline-block;
@@ -20,7 +25,7 @@ h6{
     border: 1px solid $brand-blue-main;
     border-radius: .25rem;
     cursor: pointer;
-    
+
     &.icon{
         display: -ms-flexbox;
         display: -webkit-flex;
@@ -39,9 +44,9 @@ h6{
         align-content: stretch;
         -webkit-align-items: center;
         -ms-flex-align: center;
-        align-items: center;   
+        align-items: center;
     }
-    
+
     &.header-download img{
         max-height: 14px;
     }
@@ -49,11 +54,11 @@ h6{
     &.header-download span{
         line-height: initial;
     }
-    
+
     img{
         width: 100%;
         max-width: 14px;
-        
+
         &.icon-left{
             margin-right: 10px;
         }
@@ -318,15 +323,20 @@ body[dir="rtl"] {
     display: none
 }
 
-.product-head h2 {
-    color: $black
-}
+.product-head {
+    h2,
+    &-title {
+        color: $black;
+        text-transform: capitalize;
+    }
 
-.product-head a{
-    width: fit-content;
-}
-.product-head a:hover {
-    text-decoration: none
+    a {
+        width: fit-content;
+
+        &:hover {
+            text-decoration: none
+        }
+    }
 }
 
 .grid-container {
