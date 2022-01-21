@@ -2,10 +2,20 @@
 weight: 3
 bookFlatSection: true
 title: "Hermes in a nutshell"
-productMenuTitle: "Hermes"
+productMenuTitle: "hermes"
 Menu: "main"
 searchScope: "hermes"
 repository: "hermes-core" 
+product_logo: "/hermes-logo.svg"
+product_subtitle: '<p>Security framework for enabling multi-user end-to-end encrypted data storage, sharing and access control in the application.</p>'
+product_description: '<ul>
+                          <li>Solves end-to-end encrypted data collaboration</li>
+                          <li>Gives cryptographic access control</li>
+                          <li>Works without re-encrypting an excessive amount of data</li>
+                          <li>Provides cryptographically protected data processing</li>
+                          <li>Prevents insider and outsider data leakage</li>
+                          <li>Prevents data leakage or misuse even if server infrastructure is compromised</li>
+                      </ul>'
 ---
 
 
