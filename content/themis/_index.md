@@ -2,7 +2,7 @@
 weight: 1
 bookFlatSection: true
 title: "Themis in a nutshell"
-productMenuTitle: "Themis"
+productMenuTitle: "themis"
 Menu: "main"
 searchScope: "themis"
 repository: "themis"

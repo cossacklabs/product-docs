@@ -2,7 +2,7 @@
 weight: 3
 bookFlatSection: true
 title: "Hermes in a nutshell"
-productMenuTitle: "Hermes"
+productMenuTitle: "hermes"
 Menu: "main"
 searchScope: "hermes"
 repository: "hermes-core" 

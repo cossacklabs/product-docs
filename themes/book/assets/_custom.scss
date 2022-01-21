@@ -323,15 +323,20 @@ body[dir="rtl"] {
     display: none
 }
 
-.product-head h2 {
-    color: $black
-}
+.product-head {
+    h2,
+    &-title {
+        color: $black;
+        text-transform: capitalize;
+    }
 
-.product-head a{
-    width: fit-content;
-}
-.product-head a:hover {
-    text-decoration: none
+    a {
+        width: fit-content;
+
+        &:hover {
+            text-decoration: none
+        }
+    }
 }
 
 .grid-container {
