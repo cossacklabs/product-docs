@@ -1,107 +1,41 @@
 <div class="container-first-page markdown">
-
     <div class="grid-container">
+        {{ range ( where $.Site.Pages.ByWeight "Params.Menu" "==" "main" ) }}
+            {{ $productTitle := .Params.productMenuTitle }}
+            {{ $productLogo := .Params.product_logo }}
+            {{ $productSubTitle := .Params.product_subtitle }}
+            {{ $productDescription := .Params.product_description }}
+            {{ $productLink := .RelPermalink }}
 
-        <div class="c1 product-head">
-            <a href="/acra/" class="flex">
-                <img src="/acra-logo.svg" alt="">
-                <h2>Acra</h2>
-            </a>
+            <div class="flex flex-col">
+                <div class="product-head">
+                    <a href="{{ $productLink }}" class="flex">
+                        {{ if $productLogo }}
+                            <img src="{{ $productLogo }}" alt="{{ $productTitle }}">
+                        {{ end }}
+
+                        <h2 class="product-head-title">{{ $productTitle }}</h2>
+                    </a>
+                </div>
+
+                <div class="second-title">
+                    {{ $productSubTitle | safeHTML }}
+                </div>
+
+                <div class="product-lists">
+                    {{ $productDescription | safeHTML }}
+                </div>
+
+                <div class="btn-wrapper mt-auto">
+                    <a href="{{ $productLink }}" class="cl-button-primary bg-ghost-links cl-width-extend">Let's go!</a>
+                </div>
+            </div>
+        {{ end }}
+
+        <div>
+            <div class="img-item">
+                <img src="/felix-docserver-main.jpg" alt="Felix">
+            </div>
         </div>
-
-        <div class="c1 second-title">
-            <p>Database security suite with field level encryption and leakage prevention. Protect sensitive data in databases and distributed applications.</p>
-        </div>
-
-        <div class="c1 product-lists">
-            <ul>
-                <li><a href="/acra/what-is-acra/">Solves data security for any data storage</a></li>
-                <li><a href="/acra/what-is-acra/#major-security-features">Provides field level encryption, searchable encryption, data masking, tokenization</a></li>
-                <li><a href="/acra/getting-started/requirements/#databases">Works with SQL and NoSQL databases</a></li>
-                <li><a href="/acra/what-is-acra/#architecture">Has 3 modes</a>: database SQL proxy, encryption API, in-app SDKs</li>
-                <li>Gives cryptographic access control</li>
-                <li>Has built-in key management procedures</li>
-                <li>Prevents insider and outsider data leakage</li>
-                <li><a href="/acra/security-controls/security-logging-and-events/audit-logging/">Supports crypto-signed audit logging</a></li>
-                <li>Protects from unwanted database queries (<a href="/acra/security-controls/sql-firewall/">SQL firewall</a>)</li>
-                <li><a href="/acra/getting-started/availability/">Microservice-friendly, containers-friendly</a></li>
-                <li>On-prem or in the cloud</li>
-            </ul>
-        </div>
-
-        <div class="c1 btn-wrapper">
-            <a href="/acra/" class="cl-button-primary bg-ghost-links cl-width-extend">Let's go!</a>
-        </div>
-
-        <div class="c2 product-head">
-            <a href="/themis/" class="flex">
-                <img src="/themis-logo.svg" alt="">
-                <h2>Themis</h2>
-            </a>
-        </div>
-
-        <div class="c2 second-title">
-            <p>Cross-platform general purpose cryptographic library for securing data during authentication, storage, messaging, network exchange, etc.</p>
-        </div>
-
-        <div class="c2 product-lists">
-            <ul>
-                <li>Solves 90% use cases for protecting data in mobile apps</li>
-                <li>Implements application level encryption best practices</li>
-                <li><a href="/themis/crypto-theory/">Provides strong modern industry-proven cryptography</a></li>
-                <li>Fits perfectly for multi-platform apps (mobile, web, server)</li>
-                <li><a href="/themis/getting-started/">100% compatible across all supported languages</a></li>
-                <li>Prevents developers from making security mistakes</li>
-                <li><a href="/themis/crypto-theory/cryptosystems/">Gives building blocks for end-to-end encryption</a></li>
-                <li>Hides cryptographic details</li>
-                <li>Saves development time</li>
-                <li><a href="/themis/security/">Documented, audited, supported</a></li>
-                <li><a rel='noopener' href='https://github.com/OWASP/owasp-mstg/blob/1.1.0/Document/0x06e-Testing-Cryptography.md#third-party-libraries'>Recommended by OWASP</a></li>
-            </ul>
-        </div>
-
-        <div class="c2 btn-wrapper">
-            <a href="/themis/" class="cl-button-primary bg-ghost-links cl-width-extend">Let's go!</a>
-        </div>
-
-    </div>
-
-    <div class="grid-container">
-
-        <!--        hermes -->
-
-        <div class="c1 product-head">
-            <a href="/hermes/" class="flex">
-            <img src="/hermes-logo.svg" alt="">
-
-                <h2>Hermes</h2>
-            </a>
-        </div>
-
-        <div class="c1 second-title">
-            <p>Security framework for enabling multi-user end-to-end encrypted data storage, sharing and access control in the application.</p>
-        </div>
-
-        <div class="c1 product-lists">
-            <ul>
-                <li>Solves end-to-end encrypted data collaboration</li>
-                <li>Gives cryptographic access control</li>
-                <li>Works without re-encrypting an excessive amount of data</li>
-                <li>Provides cryptographically protected data processing</li>
-                <li>Prevents insider and outsider data leakage</li>
-                <li>Prevents data leakage or misuse even if server infrastructure is compromised</li>
-            </ul>
-        </div>
-
-        <div class="c1 btn-wrapper">
-            <a href="/hermes/" class="cl-button-primary bg-ghost-links cl-width-extend">Let's go!</a>
-        </div>
-
-        <div class="c2 img-item">
-            <img src="/felix-docserver-main.jpg" alt="Felix">
-        </div>
-
-        <!--        hermes end -->
-
     </div>
 </div>
