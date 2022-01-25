@@ -15,8 +15,8 @@ Following tutorials that use already built apps:
 * [C tutorial](/hermes/guides/c-tutorial/), where both Hermes and client app are written in C.
 * [Local CLI tutorial](/hermes/guides/local-cli-example/) how to build and use example CLI apps.
 
-Creating your own Hermes-based app 
-* [Integrating Hermes-core](/hermes/guides/integrating-hermes/).
+Creating your own Hermes-based app:
+
 * [Short tutorial](/hermes/guides/creating-your-own-hermes-based-app-short/).
 * [Long step-by-step tutorial](/hermes/guides/creating-your-own-hermes-based-app-long/).
 
