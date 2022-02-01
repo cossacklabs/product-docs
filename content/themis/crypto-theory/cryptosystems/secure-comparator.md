@@ -17,6 +17,9 @@ Secure Comparator allows two parties to compare a shared secret
 without revealing it to potentially dishonest party
 (as well as to any listening-in third-party, of course).
 
+Secure Comparator uses `ed25519` curve.
+
+
 {{< hint info >}}
 If you want to study security and cryptography of Secure Comparator in depth,
 you might want to consult [our whitepaper](https://cossacklabs.com/files/secure-comparator-paper-rev12.pdf)
