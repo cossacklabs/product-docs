@@ -13,6 +13,11 @@ through the use of asymmetric cryptography.
 Secure Message adds data confidentiality, integrity, and authenticity
 in one go (a single function call).
 
+Secure Message uses `secp256r1` aka `ANSI X9.62 prime 256v1` aka `NIST P-256` curve.
+
+Themis module-based architecture allows switching to the other curve in the compilation time. Follow [#322 issue](https://github.com/cossacklabs/themis/issues/322) to learn details.
+
+
 Some of the features of Secure Message are:
 
   - use of strong cryptography (including ECC)
