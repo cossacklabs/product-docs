@@ -41,7 +41,7 @@ weight: 3
 * `--poison_detect_enable={true|false}`
 
   Turn on poison record detection. If shutdown is not enabled, AcraServer just logs the poison record detection and returns error.
-  Default is `true`.
+  Default is `false` (since 0.92.0).
 
 * `--poison_run_script_file=<filename>`
 
