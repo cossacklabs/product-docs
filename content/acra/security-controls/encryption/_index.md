@@ -13,7 +13,7 @@ Essentially, Acra provides [application-level encryption](https://www.infoq.com/
 ## Encryption
 
 Acra encrypts data using two special cryptographic containers at choice: AcraStructs and AcraBlocks.
-Refer to [Acra in depth / Data structures](/acra/acra-in-depth/data-structures/) to learn the differences and to select suitable for you (use AcraBlock by default).
+Refer to [Acra in depth / Data structures](/acra/acra-in-depth/data-structures/) to learn the differences and to select suitable for you (by default, always use AcraBlock).
 
 There are three ways to encrypt data:
 
@@ -117,8 +117,8 @@ More complete example with non-required options may look like this:
 ```yaml
 defaults:
   # By default, if `crypto_envelope` is not set in column encryption settings,
-  # AcraStruct will be used, but here we switch to the alternative, AcraBlock
-  crypto_envelope: acrablock
+  # AcraBlock will be used, but here we switch to the alternative, AcraStruct
+  crypto_envelope: acrastruct
 
 schemas:
   - table: users
@@ -145,9 +145,9 @@ schemas:
 
       - column: address
 
-        # Invert behavior of "acrablock by default"
+        # Invert behavior of "acrastruct by default"
         # set in the beginning of the file
-        crypto_envelope: "acrastruct"
+        crypto_envelope: "acrablock"
 
       - column: zone_id
 
