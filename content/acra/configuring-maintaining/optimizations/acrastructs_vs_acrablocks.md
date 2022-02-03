@@ -23,4 +23,4 @@ Both cryptographic containers have ability to re-encrypt DEK without touching th
 
 
 However, AcraStruct will generally be slower because it has to perform more computations to decrypt the DEK and encrypt it again with another ephemeral keypair. As it was mentioned above, this is because of asymmetric cryptography being used (need to compute
-shared ECDH secret, generate ECDH keypair, etc).
+shared ECDH secret, generate ECDH keypair, etc). Based on this reason, AcraBlock is the default crypto envelope used by AcraServer.
