@@ -13,7 +13,7 @@ Essentially, Acra provides [application-level encryption](https://www.infoq.com/
 ## Encryption
 
 Acra encrypts data using two special cryptographic containers at choice: AcraStructs and AcraBlocks.
-Refer to [Acra in depth / Data structures](/acra/acra-in-depth/data-structures/) to learn the differences and to select suitable for you.
+Refer to [Acra in depth / Data structures](/acra/acra-in-depth/data-structures/) to learn the differences and to select suitable for you (by default, always use AcraBlock).
 
 There are three ways to encrypt data:
 
