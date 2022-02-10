@@ -3,7 +3,7 @@ title: AcraConnector
 weight: 2
 ---
 
-# AcraConnector
+# AcraConnector (deprecated since 0.91.0)
 
 AcraConnector is a proxy-daemon component that lives nearby client application (perfectly, on the same server /  VM). AcraConnector is an optional components created purely to improve transport security and authentication between client application and AcraServer/AcraTranslator.
 

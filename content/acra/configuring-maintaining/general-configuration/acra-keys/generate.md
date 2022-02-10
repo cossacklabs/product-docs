@@ -132,25 +132,6 @@ That is, the new key becomes the default for encryption in [AcraServer](/acra/ac
 while the previous key is archived and used only for decryption.
 {{< /hint >}}
 
-### Transport keys 
-
-{{< hint warning >}}
-This type of keys deprecated since 0.91.0 and all of these flags will be removed soon.
-{{< /hint >}}
-
-* `--acraconnector_transport_key`
-
-  Generate a new transport keypair for AcraConnector.
-
-* `--acraserver_transport_key`
-
-  Generate a new transport keypair for AcraServer.
-
-* `--acratranslator_transport_key`
-
-  Generate a new transport keypair for AcraTranslator.
-
-
 ### AcraServer & AcraTranslator keys
 
 * `--search_hmac_symmetric_key`

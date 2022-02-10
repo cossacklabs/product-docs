@@ -34,9 +34,7 @@ The main basic components of Acra are:
 - [AcraServer](/acra/acra-in-depth/architecture/acraserver/) - a separate service that runs in an isolated environment (separate virtual machine or physical server), 
   which is responsible for holding all the secrets required to decrypt the data and for actually decrypting this data.
 - [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) - a client-side library, which integrates into the app flow either through ORM or directly, and provides 
-  the means to encrypt the sensitive data via generating AcraStructs.
-- [AcraConnector](/acra/security-controls/transport-security/acra-connector/) - a client-side daemon that runs under a separate user / in a separate container, and which acts as a 
-  database listener that redirects all the queries to AcraServer and feeds the results back to the app.
+  the means to encrypt the sensitive data via generating AcraStructs. (deprecated since 0.91.0)
 
 ![](/files/guides/djangoproject-tutorial/acra_simple_scheme_new.png)
 
@@ -91,19 +89,16 @@ In this detailed architectural scheme we see how components of Acra, application
 each other:
 ![](/files/guides/djangoproject-tutorial/acra-entities-current.png)
 
-Put simply, the application talks to AcraConnector. AcraConnector pretends to be a database listener that uses standard
-PostgreSQL protocol and sends the request to AcraServer using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
-(socket protection protocol). AcraServer sends a request to the database using the regular PostgreSQL protocol and 
+Put simply, the application talks to AcraServer. AcraServer sends a request to the database using the regular PostgreSQL protocol and 
 receives an answer.
 If AcraServer detects the presence of AcraStruct while parsing the answer, it attempts to decrypt it and replace 
 AcraStruct with a plaintext result in the answer (if decryption is unsuccessful, AcraServer will forward the answer as 
-is). AcraServer returns the data to AcraConnector which returns it to the application.
+is). AcraServer returns the data to the application.
 If Zones are used, AcraServer will use a corresponding private key to decrypt the next detected AcraStruct upon detecting 
 ZoneId. AcraServer will ignore the AcraStruct if no Zone ID is detected before the AcraStruct.
 
-All the dependencies mentioned in this tutorial need to be installed on all the machines/containers running Acra (or 
-for both separate users of AcraServer and AcraConnector), unless it’s explicitly specified that some Acra components 
-should only be installed for a separate user/machine running AcraServer or AcraConnector. All the commands starting
+All the dependencies mentioned in this tutorial need to be installed on all the machines/containers running Acra, unless it’s explicitly specified that some Acra components 
+should only be installed for a separate user/machine running AcraServer. All the commands starting
 with 'go' are meant to be executed from 'acra' folder (the folder with the repository code) on any machine.
 
 In this tutorial, we assume that you have a fully operational [PostgreSQL](https://www.postgresql.org/docs/current/static/tutorial.html) 
@@ -130,27 +125,30 @@ Export the key to the environment variable in `base64` format:
 
 ```
 export ACRA_MASTER_KEY=`cat master.key | base64`
-```    
+```   
 
-Generate keys into ./.acrakeys directory structure:
+Generate TLS certificates using some hints on [certificate generation page](/acra/configuring-maintaining/tls/generate-certificate-with-openssl/)
 
-```bash
-/bin/bash $GOPATH/src/github.com/cossacklabs/acra/scripts/generate-keys.sh \
-    --keys_dir ./.acrakeys \
-    --client_id yourID
+After you successful certificate generation, you should use it to generate corresponding storage keys
+
+Generate keys into ./.acrakeys directory structure using [`acra-keymaker`](https://hub.docker.com/r/cossacklabs/acra-keymaker):
+
+```
+acra-keymaker \
+    --client_id='' \
+    --keystore=v1 \
+    --tls_cert=<path-to-generate-certificate> \
+    --generate_acrawriter_keys 
 ```
 
-```bash
-./.acrakeys/yourID_server
-./.acrakeys/yourID_server.pub
-./.acrakeys/yourID_storage
-./.acrakeys/yourID_storage.pub
+```
+./.acrakeys/TLS_CERT_ID_storage
+./.acrakeys/TLS_CERT_ID_storage.pub
 ```    
 
-Here `yourID` is a placeholder for the ID name of your choice. You’re allowed to use 5-256 symbols (inclusively) that
-include Latin symbols, numbers, "-" (minus symbol), "\_" (underscore), and " " (space).
+Here `TLS_CERT_ID` is a placeholder for the ID name extracted from provided TLS certificate.
 
-The generator will generate and place the keys into the `.acrakeys` directory (you can change this with `--output` argument).
+The generator will generate and place the keys into the .acrakeys directory (you can change this with `--keys_output_dir` argument).
 
 For a few minutes, let the keys rest where they are - they will be necessary after you have installed AcraServer, 
 AcraProxy, and AcraWriter (if you’d like to read more about the keys, please take a look at
@@ -162,28 +160,13 @@ AcraProxy, and AcraWriter (if you’d like to read more about the keys, please t
 Yet another reminder that AcraServer needs to be installed on a separate computer/virtual machine/container.
 {{< /hint >}}
 
-AcraServer should have AcraConnector's public transport key,  and  AcraServer's public transport key must be given 
-to AcraConnector. This is necessary for accepting connections via Secure Session from clients.
-
-Put `.acrakeys/yourID.pub` + `.acrakeys/yourID_server` + `.acrakeys/yourID_storage` into AcraServer’s key folder with
-proper permissions (folder 700, private keys 600 - permissions are assigned during the generation process, and permissions
-for AcraConnector and AcraWriter keys are the same).
-
-Before launching AcraServer, you need to perform the following first (the keys for this were generated in Step 4.):
-
-```bash
-/bin/bash $GOPATH/src/github.com/cossacklabs/acra/scripts/generate-keys.sh \
-    --keys_dir ./.acrakeys \
-    --client_id yourID
-```    
-
 Launch AcraServer with:
 
 ```bash
-acra-server --db_host=127.0.0.1
+acra-server --db_host=127.0.0.1  --tls_ca=/ssl/root.crt  --tls_cert=/ssl/acra-server.crt --tls_key=/ssl/acra-server.key
 ```    
 
-The command above can be complemented with `--db_port=5432 -v` to adjust the listener port and to add logs quickly. 
+The command above can be complemented with `-v` to adjust the listener port and to add logs quickly. 
 There are more parameters available, and you can find them in the 
 [documentation page for AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/), but for the present goal - namely, 
 for an easy integration of Acra into a Ruby app, the default parameters will do.
@@ -215,90 +198,25 @@ acra-server --config_file=acra-server.yaml
 Proper logging is set with:
 
 ```bash
-acra-server --db_host=127.0.0.1 -v
+acra-server --db_host=127.0.0.1 --tls_ca=/ssl/root.crt  --tls_cert=/ssl/acra-server.crt --tls_key=/ssl/acra-server.key -v
 ```    
 
-You’ll also need an explicit server_id that is used as an identifier for Secure Session between AcraConnector and AcraServer:
+By default, AcraServer listens on port 9393, but you can set a custom port if there is a need:
 
 ```bash
-acra-server --db_host=127.0.0.1 --securesession_id=server_id_name_of_your_choice
-```     
-
-If you changed the server ID to some `server_id_name_of_your_choice`, specify this ID for AcraConnector using:
-
-```bash
-acra-connector --acraserver_securesession_id=server_id_name_of_your_choice
-```     
-
-By default, AcraServer listens on port 9393, but you can set a custom port (just don’t forget to follow the instructions 
-on specifying a custom port for AcraConnector further in this tutorial) if there is a need:
-
-```bash
-acra-server --db_host=127.0.0.1 --incoming_connection_port=3000
+acra-server 
+    --db_host=127.0.0.1 \
+    --tls_ca=/ssl/root.crt \
+    --tls_cert=/ssl/acra-server.crt \
+    --tls_key=/ssl/acra-server.key \
+    --incoming_connection_port=3000 
 ```
 
 Here `3000` is the customisable part.
 
-### Step 4. Launch AcraConnector
-
-AcraConnector should run under a separate user on the same machine as your Rails app (or in a separate container for 
-testing purposes). All the database requests need to be directed to AcraConnector, which then pretends to be a database
-listener (a local proxy) and relays all the requests to AcraServer (on a separate machine/in a separate container), 
-listens back and returns the responses to the app.
-
-Put `.acrakeys/yourID` + `.acrakeys/yourID_server.pub` to AcraConnector’s key folder (`.acrakeys` or anything you chose 
-in `--keys_output_dir`). AcraConnector’s own public key should already have been given to AcraServer to establish 
-[Themis Secure Session](https://github.com/cossacklabs/themis/wiki/Secure-Session-cryptosystem) connection. Pre-shared public 
-keys enforce maximum secrecy and easy-to-manage authentication, and - as you can see - require minimal intervention on 
-your side or into your code for successful implementation.
-
-Upon launch with the default settings, AcraConnector will start listening on port 9494 and will attempt to connect to 
-AcraServer on port 9393. To initialise, use:
-
-```bash
-acra-connector --acraserver_connection_host=127.0.0.1 --client_id=yourID -v
-```  
-
-Let’s change the port AcraConnector is listening on:
-
-```bash
-acra-connector --client_id=client_name --acraserver_connection_host=acra.server.host --acraserver_connection_port=5432
-```     
-
-Now AcraConnector will be listening on port `5432` (your custom port).
-This is important if you want the launch of AcraConnector to be transparent for the app (if your app connected to PostgreSQL on `5432`).
-
-You can also launch AcraConnector with the options from example config - just copy it from:
-
-```bash
-$REPO_DIR/configs/acra-connector.yaml
-```     
-
-Or from:
-
-```bash
-$GOPATH/src/github.com/cossacklabs/acra/configs/acra-connector.yaml
-```  
-
-If you want, you can generate an example config yourself. Use:
-
-```bash
-acra-connector --dump_config > acra-connector.yaml
-```
-
-And run:
-
-```bash
-acra-connector --config_file=acra-connector.yaml
-```     
-
-These instructions should be enough to get you up and running with AcraConnector, and you can proceed to the actual 
-integration of Acra into a Rails app. For more advanced ways of setting up and launching AcraConnector, please see the 
-corresponding fragment of [Acra documentation](/acra/getting-started/installing/building-acrawriter/).
-
 ## Integration
 
-### Step 5. Integrating Acra with Rails
+### Step 4. Integrating Acra with Rails
 
 Since in our example we’ll be integrating Acra into a Ruby web app - namely RubyGems app running on Ruby on Rails 
 framework - to protect the gem descriptions, i.e. name of the app author, email, summary, license, app description, 
@@ -308,9 +226,7 @@ for Acra looks like:
 
 ![](/files/guides/rubygems-tutorial/rubygem_exmpl.png)
 
-To protect similar fields in your own gems, you need to start with cloning the 
-[rubygems.org repository](https://github.com/rubygems/rubygems.org) (to the same machine/container that is running 
-AcraConnector) with:
+To protect similar fields in your own gems, you need to start with cloning the [rubygems.org repository](https://github.com/rubygems/rubygems.org) with:
 
 ```bash
 git clone https://github.com/rubygems/rubygems.org.git
@@ -357,7 +273,22 @@ Development:
       acra_public_key: VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T # base64
 ```
 
-### Step 7. Use AcraType on the gem fields you want to encrypt
+
+## Step 7. Add TLS configuration to config/secrets.yml
+```yaml
+default: &default
+  ...
+  sslcert: $TLS_CLIENT_CERT
+  sslkey: $TLS_CLIENT_KEY
+  sslrootcert: $TLS_ROOT_CERT
+  sslmode: verify-full
+  timeout: 5000
+development:
+  ....
+```
+
+
+### Step 8. Use AcraType on the gem fields you want to encrypt
 
 Encrypt the unresolved_name field in the Dependency model:
 
@@ -393,7 +324,7 @@ class Version < ActiveRecord::Base
     attribute :summary, AcraType.new
 ```    
 
-### Step 8. Add activerecord_acrawriter to your gemfile
+### Step 9. Add activerecord_acrawriter to your gemfile
 
 Add the `activerecord_acrawriter` dependencies to the project:
 
@@ -416,15 +347,10 @@ that uses different machines/users.
 ## Result and testing
 To test your Acra setup:
 
-- Connect AcraConnector to AcraServer, send a regular request to your database through AcraConnector. If you see the 
-  answer, AcraConnector and AcraWriter are able to connect and forward signals back and forth. It means that both the
-  network and the keys are fine.
-
 - Upon integrating AcraWriter into your code, try generating an AcraStruct from some payload. If you succeed in running 
-  AcraWriter code, it will mean that: 1) Themis library is installed properly, and 2) the keys are located in the expected places.
+  AcraWriter code, it will mean that the keys are located in the expected places.
 
-- Write a row with AcraStruct into the database, either directly or through AcraConnector. Request this row through 
-  AcraConnector. If you see the decrypted payload in the response, the scheme works properly.
+- Write a row with AcraStruct into the database directly. If you see the decrypted payload in the response, the scheme works properly.
 
 And now, let’s test the whole setup through pushing a gem with its info protected by Acra. Use the username, email, and 
 password you entered during the registration.
@@ -487,25 +413,24 @@ git clone https://github.com/cossacklabs/acra
 cd acra
 ```    
 
-And start AcraServer, AcraConnector, and PostgreSQL in separate Docker containers:
+And start AcraServer and PostgreSQL in separate Docker containers:
 
 ```bash
-docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector.yml up -d
+docker-compose -f docker/docker-compose.pgsql-ssl-server-ssl.yml up -d
 ```    
 
 - `-f`  use specified docker-compose*.yml file
 - `-d`  run in background
 
 After executing this command, you will have a running PostgreSQL with `test:test` `user:password` with forwarded 5432 
-port, AcraServer with keys that you generated above, and AcraConnector that forwards port 9494.
+port, AcraServer with keys that you generated above.
 
 {{< hint info >}}
 Don’t forget to stop your local PostgreSQL if you run it before launching the Docker with PostgreSQL in a container,
 otherwise you’ll get an error from 2 instances of an application trying to listen on the same port.
 {{< /hint >}}
 
-By default, Docker will create 3 containers with the following names: `docker_acra-server_1`, `docker_acra-connector_1`,
-and `docker_pg_1`.
+By default, Docker will create 3 containers with the following names: `docker_acra-server_1` and `docker_postgresql_1`.
 
 Install the example application dependencies:
 
@@ -561,24 +486,20 @@ Now the data is encrypted and you see it. Acra is working!
 Shut down the previous active Docker containers before proceeding with this method! Use:
 
 ```bash
-docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector.yml down
+docker-compose -f docker/docker-compose.pgsql-ssl-server-ssl.yml down 
 ```    
 
 Use this .yml file to start AcraServer that supports Zones:
 
 ```  bash
-docker-compose -f docker/docker-compose.pgsql-nossl-server-ssession-connector_zonemode.yml up -d
+docker-compose -f docker/docker-compose.pgsql-ssl-server-ssl_zonemode.yml up -d
 ```    
 
 Create the database in a new container:
 
 ```bash
 psql -h127.0.0.1 -U test -c "create database acra with encoding 'utf8'";
-```    
-
-{{< hint info >}}
-Note: By default, AcraConnector will listen on port 5432.
-{{< /hint >}}
+```
 
 Add a new ZoneId:
 

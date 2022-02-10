@@ -5,6 +5,10 @@ weight: 1
 
 # Client side encryption with AcraConnector and AcraWriter
 
+{{< hint warning >}}
+AcraConnector is deprecated and will not be available since 0.91.0.
+{{< /hint >}}
+
 {{< hint info >}}
 AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
 {{< /hint>}}

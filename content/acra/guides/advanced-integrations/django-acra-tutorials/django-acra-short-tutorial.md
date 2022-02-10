@@ -43,20 +43,46 @@ from base64 import b64decode
 .
 .
 .
-ACRA_SERVER_PUBLIC_KEY = b64decode(SECRETS.get('acra_server_public_key'))
+ACRA_SERVER_PUBLIC_KEY = b64decode(SECRETS.get('acra_storage_public_key'))
 ```
 
 ## Step 4. Create conf/secrets.json and paste AcraServer public key as base64 string
 ```json
 {
     . . .
-    "acra_server_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
+    "acra_storage_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
     . . .
 }
 
 ```
 
-## Step 5. Use model fields from acrawriter.django module
+## Step 5. Add TLS configuration
+
+```python
+# djangoproject/settings/common.py
+DATABASES = {
+    'default': {
+        ...
+        'OPTIONS': {
+            'sslmode': 'verify-full',
+            'sslcert': '<path-to-cert>',
+            'sslkey': '<path-to-key>',
+            'sslrootcert': '<path-to-root-cert>',
+        },
+    },
+    'trac': {
+        ....
+        'OPTIONS': {
+            'sslmode': 'verify-full',
+            'sslcert': '<path-to-cert>',
+            'sslkey': '<path-to-key>',
+            'sslrootcert': '<path-to-root-cert>',
+        },
+    }
+}
+```
+
+## Step 6. Use model fields from acrawriter.django module
 ```python
 # blog/models.py
 . . .
@@ -89,7 +115,7 @@ class IndividualMember(models.Model):
     . . .
 ```
 
-## Step 6. Run migrations
+## Step 7. Run migrations
 
 ```bash
 python manage.py makemigrations
@@ -98,17 +124,17 @@ python manage.py migrate
 
 ### Update database connection settings
 
-Now your app should connect to local AcraConnector. Run AcraConnector on the same port as before and change db_host/trac_db_host in your conf/secrets.conf to 127.0.0.1
+Now your app should connect to local AcraServer. Run AcraServer on the same port as before and change db_host/trac_db_host in your conf/secrets.conf to 127.0.0.1
 ```json
 { 
   "secret_key": "xyz",
   "db_host": "127.0.0.1",
   "trac_db_host": "127.0.0.1",
-  "acra_server_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
+  "acra_storage_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
 }
 ```
 
-## Step 7. Add AcraWriter to requirements/common.txt
+## Step 8. Add AcraWriter to requirements/common.txt
 ```
 . . .
 stripe==1.43.0

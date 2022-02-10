@@ -315,18 +315,6 @@ acra-keymaker \
     --keys_output_dir=/tmp/translator_keys
 ```
 
-### Transport keys
-
-Used in `AcraConnector ↔︎ AcraTranslator` connection with `SecureSession` as transport encryption.
-
-```
-acra-keymaker \
-    --keystore=v2 \
-    --client_id=client1 \
-    --generate_acratranslator_keys \
-    --keys_output_dir=/tmp/translator_keys
-```
-
 ## POSIX Signals
 
 There are a couple of signals `acra-translator` reacts on:

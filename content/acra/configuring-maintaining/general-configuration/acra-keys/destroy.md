@@ -7,6 +7,10 @@ weight: 7
 
 **`destroy`** is `acra-keys` subcommand used for destroying keypair from the keystore.
 
+{{< hint warning >}}
+`acra-keys` **`destroy`** tool is deprecated and will not be available since 0.91.0.
+{{< /hint >}}
+
 ## Command line flags
 
 ### Storage destination

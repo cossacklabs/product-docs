@@ -834,27 +834,6 @@ acra-translator
 --tls_ca=path_to_tls_ca 
 ```
 
-{{< hint info >}}
-**Optional:**
-
-If you want to start AcraTranslator using [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session), make sure you generated corresponding transport keys.
-AcraConnector and AcraTranslator should have appropriate keypairs for initializing the [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) connection. Use the same ClientID as for keys used for generation ([AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock)).
-
-To start AcraConnector:
-```bash
-acra-connector --mode=acratranslator --client_id=client \
- --acratranslator_securesession_id=acra_translator \
- --incoming_connection_string=tcp://127.0.0.1:8000 \
- --acratranslator_connection_string=tcp://127.0.0.1:9595
-```
-
-Start AcraTranslator using HTTP API using Themis Secure Session:
-```bash
-acra-translator --securesession_id:acra_translator \
---incoming_connection_http_string=tcp://127.0.0.1:9595
-```
-{{< /hint >}}
-
 4. Generate [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) or [AcraBlock](/acra/acra-in-depth/data-structures/acrablock) and send HTTP request:
 ```bash
 curl -X POST --data-binary @client.acrastruct \
