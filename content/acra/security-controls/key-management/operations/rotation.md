@@ -189,7 +189,7 @@ Remember to share newly generated public key and zone ID with AcraWriters that n
 ### Rotating transport keys
 
 {{< hint warning >}}
-AcraConnector and transport keys support are deprecated and will not be available since 0.91.0.
+AcraConnector and transport keys support are deprecated and will not be available since 0.91.0. Use TLS instead.
 {{< /hint >}}
 
 This is useful only if you are using [AcraConnector](/acra/security-controls/transport-security/acra-connector/) as transport encryption daemon to securely connect client application with AcraServer/AcraTranslator, and it uses [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) as the transport encryption protocol.
@@ -272,7 +272,7 @@ the idea is the same:
 #### Using client-side encryption
 
 {{< hint warning >}}
-AcraConnector is deprecated and will not be available since 0.91.0.
+AcraConnector is deprecated and will not be available since 0.91.0. Use TLS instead.
 {{< /hint >}}
 
 If you are using AcraConnector and [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/):

@@ -34,7 +34,7 @@ The main basic components of Acra are:
 - [AcraServer](/acra/acra-in-depth/architecture/acraserver/) - a separate service that runs in an isolated environment (separate virtual machine or physical server), 
   which is responsible for holding all the secrets required to decrypt the data and for actually decrypting this data.
 - [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/) - a client-side library, which integrates into the app flow either through ORM or directly, and provides 
-  the means to encrypt the sensitive data via generating AcraStructs. (deprecated since 0.91.0)
+  the means to encrypt the sensitive data via generating AcraStructs.
 
 ![](/files/guides/djangoproject-tutorial/acra_simple_scheme_new.png)
 
@@ -274,15 +274,13 @@ Development:
 ```
 
 
-## Step 7. Add TLS configuration to config/secrets.yml
+## Step 7. Add TLS configuration to config/database.yml
 ```yaml
-default: &default
   ...
   sslcert: $TLS_CLIENT_CERT
   sslkey: $TLS_CLIENT_KEY
   sslrootcert: $TLS_ROOT_CERT
   sslmode: verify-full
-  timeout: 5000
 development:
   ....
 ```

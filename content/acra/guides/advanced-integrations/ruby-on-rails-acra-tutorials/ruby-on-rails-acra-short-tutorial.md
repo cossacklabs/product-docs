@@ -49,9 +49,8 @@ development:
 ```
 
 
-## Step 4. Add TLS configuration to config/secrets.yml
+## Step 4. Add TLS configuration to config/database.yml
 ```yaml
-default: &default
   ...
   sslcert: $TLS_CLIENT_CERT
   sslkey: $TLS_CLIENT_KEY

@@ -20,7 +20,7 @@ During the initial setup of Acra you will need to generate new keys for all comp
 
 3. Transport keys.
    {{< hint warning >}}
-   Transport keys support is deprecated and will not be available since 0.91.0.
+   Transport keys support is deprecated and will not be available since 0.91.0. Use TLS instead.
    {{< /hint >}}
 
    If TLS is used, then key/certificate generation is out of this topic's scope,
@@ -191,7 +191,7 @@ In this case the directory layout will be a bit different:
 ## 2. Setting up AcraConnector (optional)
 
 {{< hint warning >}}
-AcraConnector is deprecated and will not be available since 0.91.0.
+AcraConnector is deprecated and will not be available since 0.91.0. Use TLS instead.
 {{< /hint >}}
 
 This step is required only if you are using AcraConnector in Themis Secure Session mode to provide reliable transport encryption between client app and AcraServer/AcraTranslator.

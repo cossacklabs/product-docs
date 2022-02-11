@@ -159,7 +159,7 @@ Refer to [TLS](/acra/security-controls/transport-security/tls/) section to read 
 ### Transport encryption via AcraConnector
 
 {{< hint warning >}}
-It is deprecated and will not be used since 0.91.0.
+It is deprecated and will not be used since 0.91.0. Use TLS instead.
 {{< /hint >}}
 
 [AcraConnector](/acra/security-controls/transport-security/acra-connector/) is a transport encryption daemon for secure connecting the client application to AcraServer/AcraTranslator. It provides usage of TLS or [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) as transport encryption protocols.

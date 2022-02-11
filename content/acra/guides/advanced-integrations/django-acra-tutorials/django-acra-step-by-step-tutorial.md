@@ -90,7 +90,7 @@ In this detailed architectural scheme we see how components of Acra, application
 each other:
 ![](/files/guides/djangoproject-tutorial/acra-entities-current.png)
 
-Put simply, the application talks to AcraServer.AcraServer sends a request to the database using the regular PostgreSQL protocol and 
+Put simply, the application talks to AcraServer. AcraServer sends a request to the database using the regular PostgreSQL protocol and 
 receives an answer.
 If AcraServer detects the presence of AcraStruct while parsing the answer, it attempts to decrypt it and replace 
 AcraStruct with a plaintext result in the answer (if decryption is unsuccessful, AcraServer will forward the answer as is). 

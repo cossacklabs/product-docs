@@ -5,6 +5,10 @@ weight: 2
 
 # AcraConnector (deprecated since 0.91.0)
 
+{{< hint warning >}}
+Starting from version 0.91.0 Acra only supports TLS as a transport security. Refer to [TLS](/acra/security-controls/transport-security/tls/) section to read how to configure TLS connection.
+{{< /hint >}}
+
 AcraConnector is a proxy-daemon component that lives nearby client application (perfectly, on the same server /  VM). AcraConnector is an optional components created purely to improve transport security and authentication between client application and AcraServer/AcraTranslator.
 
 AcraConnector creates a secure connection to AcraServer/AcraTranslator and listens for connections from the client application on the other side.
