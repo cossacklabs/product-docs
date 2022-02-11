@@ -291,6 +291,23 @@ acra-keymaker \
     --keys_output_dir=/tmp/translator_keys
 ```
 
+### Transport keys
+
+{{< hint warning >}}
+AcraConnector and its transport keys are deprecated since 0.91 and removed since 0.92. Consider migrating to TLS instead.
+{{< /hint >}}
+
+Used in `AcraConnector ↔︎ AcraTranslator` connection with `SecureSession` as transport encryption.
+
+```
+acra-keymaker \
+    --keystore=v2 \
+    --client_id=client1 \
+    --generate_acratranslator_keys \
+    --keys_output_dir=/tmp/translator_keys
+```
+
+
 ### HMAC keys
 
 Required for hashing requests, as well as searchable encryption/decryption.
