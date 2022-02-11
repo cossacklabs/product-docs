@@ -278,33 +278,6 @@ This AcraServer public key needs to be copied and pasted into a conf/secrets.jso
 
 ```
 
-Add TLS configuration:
-
-```python
-# djangoproject/settings/common.py
-DATABASES = {
-    'default': {
-        ...
-        'OPTIONS': {
-            'sslmode': 'verify-full',
-            'sslcert': '<path-to-cert>',
-            'sslkey': '<path-to-key>',
-            'sslrootcert': '<path-to-root-cert>',
-        },
-    },
-    'trac': {
-        ....
-        'OPTIONS': {
-            'sslmode': 'verify-full',
-            'sslcert': '<path-to-cert>',
-            'sslkey': '<path-to-key>',
-            'sslrootcert': '<path-to-root-cert>',
-        },
-    }
-}
-```
-
-
 Next, use model fields from acrawriter.django module:
 
 ```python

@@ -274,19 +274,7 @@ Development:
 ```
 
 
-## Step 7. Add TLS configuration to config/database.yml
-```yaml
-  ...
-  sslcert: $TLS_CLIENT_CERT
-  sslkey: $TLS_CLIENT_KEY
-  sslrootcert: $TLS_ROOT_CERT
-  sslmode: verify-full
-development:
-  ....
-```
-
-
-### Step 8. Use AcraType on the gem fields you want to encrypt
+### Step 7. Use AcraType on the gem fields you want to encrypt
 
 Encrypt the unresolved_name field in the Dependency model:
 
@@ -322,7 +310,7 @@ class Version < ActiveRecord::Base
     attribute :summary, AcraType.new
 ```    
 
-### Step 9. Add activerecord_acrawriter to your gemfile
+### Step 8. Add activerecord_acrawriter to your gemfile
 
 Add the `activerecord_acrawriter` dependencies to the project:
 
@@ -428,7 +416,7 @@ Don’t forget to stop your local PostgreSQL if you run it before launching the 
 otherwise you’ll get an error from 2 instances of an application trying to listen on the same port.
 {{< /hint >}}
 
-By default, Docker will create 3 containers with the following names: `docker_acra-server_1` and `docker_postgresql_1`.
+By default, Docker will create 2 containers with the following names: `docker_acra-server_1` and `docker_postgresql_1`.
 
 Install the example application dependencies:
 
