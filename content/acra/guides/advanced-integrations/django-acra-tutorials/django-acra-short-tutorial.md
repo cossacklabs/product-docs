@@ -56,33 +56,7 @@ ACRA_SERVER_PUBLIC_KEY = b64decode(SECRETS.get('acra_storage_public_key'))
 
 ```
 
-## Step 5. Add TLS configuration
-
-```python
-# djangoproject/settings/common.py
-DATABASES = {
-    'default': {
-        ...
-        'OPTIONS': {
-            'sslmode': 'verify-full',
-            'sslcert': '<path-to-cert>',
-            'sslkey': '<path-to-key>',
-            'sslrootcert': '<path-to-root-cert>',
-        },
-    },
-    'trac': {
-        ....
-        'OPTIONS': {
-            'sslmode': 'verify-full',
-            'sslcert': '<path-to-cert>',
-            'sslkey': '<path-to-key>',
-            'sslrootcert': '<path-to-root-cert>',
-        },
-    }
-}
-```
-
-## Step 6. Use model fields from acrawriter.django module
+## Step 5. Use model fields from acrawriter.django module
 ```python
 # blog/models.py
 . . .
@@ -115,7 +89,7 @@ class IndividualMember(models.Model):
     . . .
 ```
 
-## Step 7. Run migrations
+## Step 6. Run migrations
 
 ```bash
 python manage.py makemigrations

@@ -48,20 +48,7 @@ development:
   acra_public_key: VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T # base64
 ```
 
-
-## Step 4. Add TLS configuration to config/database.yml
-```yaml
-  ...
-  sslcert: $TLS_CLIENT_CERT
-  sslkey: $TLS_CLIENT_KEY
-  sslrootcert: $TLS_ROOT_CERT
-  sslmode: verify-full
-  timeout: 5000
-development:
-  ....
-```
-
-## Step 5. Use AcraType on the fields that you want to encrypt
+## Step 4. Use AcraType on the fields that you want to encrypt
 
 Encrypt unresolved_name field in Dependency model:
 
@@ -97,7 +84,7 @@ class Version < ActiveRecord::Base
     attribute :summary, AcraType.new
 ```
 
-## Step 6. Add activerecord_acrawriter to Gemfile:
+## Step 5. Add activerecord_acrawriter to Gemfile:
 
 ```gemfile
 . . .
