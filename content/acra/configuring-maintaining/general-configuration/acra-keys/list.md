@@ -85,19 +85,19 @@ weight: 1
 ## Usage example
 
 Using **`list`** subcommand of `acra-keys` you can get the description about keys stored in `v2` keystore.
-For example, lets generate several transport keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
+For example, lets generate several keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
 
 {{< hint info >}}
 **Note:**
 Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v2`.
 {{< /hint >}}
 ```
-$ acra-keys generate --client_id=user1 --keystore=v2 --acraconnector_transport_key --acraserver_transport_key
+$ acra-keys generate --client_id=user1 --keystore=v2 --client_storage_symmetric_key --audit_log_symmetric_key
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-INFO[0000] Generated AcraConnector transport key        
-INFO[0000] Generated AcraServer transport key
+INFO[0000] Generated client storage symmetric key       
+INFO[0000] Generated HMAC key for audit log
 ```
 
 Now we can use `list` subcommand to get all keystore keys description:
@@ -107,9 +107,9 @@ $ acra-keys list
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-Key purpose                 | Client/Zone ID | Key ID
-----------------------------+----------------+---------------------------------
-AcraConnector transport key | user1          | client/user1/transport/connector
-AcraServer transport key    | user1          | client/user1/transport/server
+Key purpose                  | Client/Zone ID | Key ID
+-----------------------------+----------------+-------------------------
+audit log signature key      |                | audit-log
+client storage symmetric key | user1          | client/user1/storage-sym
 ```
 

@@ -7,7 +7,7 @@ weight: 1
 
 ## Server side
 
-It is where you can run Acra software that acts like a server (including AcraServer, AcraTranslator, AnyProxy and AcraConnector).
+It is where you can run Acra software that acts like a server (including AcraServer, AcraTranslator, AnyProxy).
 
 In most cases Linux will be used as a host OS, and we have:
 
@@ -46,7 +46,7 @@ Each option has its own advantages, they are discussed in detail in the [Archite
 
 ### SQL client
 
-In this mode Acra looks "transparent" to your application in most cases. The only component needed is AcraServer (and optionally AcraConnector). 
+In this mode Acra looks "transparent" to your application in most cases. The only component needed is AcraServer. 
 
 Continue with [Guide: Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/).
 

@@ -8,7 +8,7 @@ weight: 4
 
 ## Server-side components 
 
-Most Acra components are server-side: AcraServer, AcraTranslator, AnyProxy, AcraConnector.
+Most Acra components are server-side: AcraServer, AcraTranslator, AnyProxy.
 
 * [Linux packages from the Cossack Labs repository](/acra/getting-started/installing/installing-acra-from-repository/) (← recommended)
 * [Launching Acra from Docker images](/acra/getting-started/installing/launching-acra-from-docker-images/) (← recommended for Docker users)

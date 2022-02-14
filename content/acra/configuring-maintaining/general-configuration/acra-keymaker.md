@@ -155,6 +155,10 @@ while the previous key is archived and used only for decryption.
   
 ### Transport keys
 
+{{< hint warning >}}
+Transport keys support is deprecated and will not be available since 0.91.0.
+{{< /hint >}}
+
 * `--generate_acraconnector_keys`
   
   Generate a new transport keypair for AcraConnector.

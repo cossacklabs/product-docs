@@ -41,7 +41,7 @@ This gem adds a new type to Active Record for transparent encryption
 gem install activerecord_acrawriter
 ```
 
-## Step 3. Add AcraServer public key to config/secrets.yml
+## Step 3. Add AcraServer public key to config/database.yml
 ```yaml
 development:
   secret_key_base: 01ade4a4dc594f4e2f1711f225adc0ad38b1f4e0b965191a43eea8a658a97d8d5f7a1255791c491f14ca638d4bbc7d82d8990040e266e3d898670605f2e5676f

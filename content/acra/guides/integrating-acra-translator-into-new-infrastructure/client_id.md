@@ -19,23 +19,11 @@ By default, application have to specify `client ID` in every request was sent to
 required parameter.
 
 It can be changed with `--acratranslator_client_id_from_connection_enable` flag that configures AcraTranslator to 
-extract client ID value from incoming connections. AcraTranslator accepts only TLS connections with mutual authentication
-or proxied through AcraConnector
+extract client ID value from incoming connections. AcraTranslator accepts only TLS connections with mutual authentication.
 
 ## HTTP API
 
-AcraTranslator uses client ID derived from client's certificates in TLS handshakes (mutual authentication required) or
-SecureSession connections through AcraConnector similar to gRPC requests with `--acratranslator_client_id_from_connection_enable`
-flag.
-
-## AcraConnector
-
-AcraTranslator will use client ID sent by AcraConnector for HTTP API by default and for gRPC API if launched with
-[`--acratranslator_client_id_from_connection_enable`]({{< ref "acra/configuring-maintaining/general-configuration/acra-translator.md#command-line-flags" >}}).
-
-When using AcraConnector, set the client ID with `--client_id` flag and connect to AcraConnector instead of AcraServer.
-
-See more information [here]({{< ref "/acra/security-controls/transport-security/acra-connector.md" >}}).
+AcraTranslator uses client ID derived from client's certificates in TLS handshakes (mutual authentication required).
 
 ## TLS certificate
 
