@@ -7,7 +7,7 @@ weight: 2
 
 To ensure that security log is secure itself, Acra provides cryptographic protection/validation of exported logs to prevent tampering. Acra’s audit log covers access, security events, ties sessions to consumers and extends application-level audit log with strong evidence.
 
-Acra supports secure and verifiable logging for [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server), [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator) and [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector).
+Acra supports secure and verifiable logging for [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server), [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator).
 
 It is designed to prevent unnoticeable tampering of log messages and log files of the mentioned services. Cryptographic design is based on state-of-the-art [scientific work](https://eprint.iacr.org/2008/185.pdf), where the two cryptographic schemes (based on symmetric / asymmetric keys) of secure logging functionality are described.
 
@@ -16,7 +16,7 @@ We have chosen a scheme that is based on symmetric keys according to the followi
 1) high performance; 
 2) simple and boring cryptographic design. Acra uses HMAC-SHA256 to calculate log signatures.
 
-Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator and AcraConnector) and **verifier** ([acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier)) that checks and validates a dump of logs.
+Secure logging consists of two parts: **service** that produce secured logs (AcraServer, AcraTranslator) and **verifier** ([acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier)) that checks and validates a dump of logs.
 
 Read more about [cryptographically signed audit logging used in Acra in the blogpost](https://www.cossacklabs.com/blog/crypto-signed-audit-logs.html).
 
@@ -39,15 +39,14 @@ verifier - `acra_log_verifier`. According to the scheme, logs can only be verifi
 ### How setup secure logging
 
 1. Generate symmetric key for **services** and `acra-log-verifier` by [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker) using flag `--generate_log_key`.
-2. Run AcraServer/AcraTranslator/AcraConnector with the flag `--audit_log_enable=true` to turn on secure
+2. Run AcraServer/AcraTranslator with the flag `--audit_log_enable=true` to turn on secure
    logging and save all output into some storage that may be dumped into file or just specify path to file with flag `--log_to_file=<path>` where services will save logs.
 3. Configure your environment to verify logs via [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier) before copying/archiving/backup to be sure that secure log is valid and finalized. 
 4. Configure your alerting on any errors from `acra-log-verifier`. Verifier will finish with **non-zero** exit status on any validation errors.
 
 Common pattern in collecting logs is their rotation related with their size, row counts, time of life, etc. 
 Most often service continue working and should continue logging. Secure logs are stream of entries where every new entry linked
-with previous entry and their content and order fixed into the integrity check signature. For that, AcraServer, AcraTranslator and
-AcraConnector handle SIGUSR1 signal that correctly interrupts a current chain of entries with final integrity check and starts a new chain.
+with previous entry and their content and order fixed into the integrity check signature. For that, AcraServer, AcraTranslator handle SIGUSR1 signal that correctly interrupts a current chain of entries with final integrity check and starts a new chain.
 
 So, you should integrate logs rotation process with secure logs rotation in Acra services. And send signal to your services before
 rotating files or log stream.

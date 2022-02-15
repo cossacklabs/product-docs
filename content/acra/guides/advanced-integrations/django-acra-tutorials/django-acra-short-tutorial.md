@@ -43,14 +43,14 @@ from base64 import b64decode
 .
 .
 .
-ACRA_SERVER_PUBLIC_KEY = b64decode(SECRETS.get('acra_server_public_key'))
+ACRA_SERVER_PUBLIC_KEY = b64decode(SECRETS.get('acra_storage_public_key'))
 ```
 
 ## Step 4. Create conf/secrets.json and paste AcraServer public key as base64 string
 ```json
 {
     . . .
-    "acra_server_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
+    "acra_storage_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
     . . .
 }
 
@@ -98,17 +98,17 @@ python manage.py migrate
 
 ### Update database connection settings
 
-Now your app should connect to local AcraConnector. Run AcraConnector on the same port as before and change db_host/trac_db_host in your conf/secrets.conf to 127.0.0.1
+Now your app should connect to local AcraServer. Run AcraServer on the same port as before and change db_host/trac_db_host in your conf/secrets.conf to 127.0.0.1
 ```json
 { 
   "secret_key": "xyz",
   "db_host": "127.0.0.1",
   "trac_db_host": "127.0.0.1",
-  "acra_server_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
+  "acra_storage_public_key": "VUVDMgAAAC1w3M1uArNP+AWNhmOi6+bR6SXadlPbAh3XFnBuOnLziPeHn70T"
 }
 ```
 
-## Step 7. Add AcraWriter to requirements/common.txt
+## Step 8. Add AcraWriter to requirements/common.txt
 ```
 . . .
 stripe==1.43.0

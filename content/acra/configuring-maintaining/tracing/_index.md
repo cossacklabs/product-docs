@@ -6,7 +6,7 @@ weight: 11
 # Enabling tracing
 
 Acra services provide some traces for Jaeger when configured to do so. This includes
-[AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/#tracing-jaeger),
+[AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/#tracing-jaeger) (deprecated and removed since 0.91.0),
 [AcraServer](/acra/configuring-maintaining/general-configuration/acra-server/#tracing-jaeger),
 [AcraTranslator](/acra/configuring-maintaining/general-configuration/acra-translator/#tracing-jaeger).
 

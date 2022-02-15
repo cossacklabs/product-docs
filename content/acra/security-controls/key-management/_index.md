@@ -10,7 +10,8 @@ Acra uses a multitude of encryption keys for different purposes:
 
   - Acra Master Key – the main key, typically stored in KMS / secure storage, and used to encrypt other keys;
   - storage keys for encrypting/masking/tokenizing the data. Each data field is encrypted by data encryption key (DEK) which is encrypted by `ClientID`-related storage key;
-  - keys for transport encryption: either TLS certificates or special transport encryption keys if [AcraConnector is used with Themis Secure Session](/acra/security-controls/transport-security/acra-connector/);
+  - TLS certificates for transport encryption;
+  - special keys for transport encryption if [AcraConnector is used with Themis Secure Session](/acra/security-controls/transport-security/acra-connector/) — deprecated since 0.91.0, use TLS instead;
   - keys for [searchable encryption](/acra/security-controls/searchable-encryption/) (if used);
   - keys for [tamper-proof audit logging](/acra/security-controls/security-logging-and-events/audit-logging) (if used);
   - poison record keys for [intrusion detection](/acra/security-controls/intrusion-detection/#poison-records) (if used);

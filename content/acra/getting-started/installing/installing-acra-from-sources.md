@@ -116,35 +116,6 @@ If you see an error message `"master key is empty"`, it means that you haven't g
 
 If no `incoming_connection_{http|grpc}_string` is set, AcraTranslator will serve gRPC connections on port **9696** by default.
 
-
-## Set up the environment for AcraConnector
-
-Create a user for AcraConnector:
-
-```bash
-sudo useradd -m acra-connector
-sudo su acra-connector
-cd ~/
-export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
-```
-
-## Build AcraConnector
-
-```bash
-go get github.com/cossacklabs/acra/cmd/acra-connector
-```
-Put `someid` and `someid_server.pub` keys into .acrakeys directory for AcraConnector.
-
-## Run AcraConnector
-
-```bash
-acra-connector --acraserver_connection_host=127.0.0.1 --client_id=someid -v
-```
-
-If you see error message similar to "Configuration error: AcraConnector private key .acrakeys/someid doesn't exist", it means that you haven't generated keys or keys are placed in a wrong folder, please return to the [Key Generation step](/acra/security-controls/key-management/operations/generation/).
-
-AcraConnector is now listening on the localhost port **9494**. Now try accessing your database via AcraConnector to make sure that everything actually works after installation.
-
 ---
 
 ## Guides
