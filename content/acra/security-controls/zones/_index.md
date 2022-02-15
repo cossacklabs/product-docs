@@ -8,7 +8,7 @@ weight: 12
 Zones are a way to cryptographically compartmentalise access to data.
 
 By default, access to encrypted data is compartmentalized by transport authentication.
-Client applications connected to AcraServer or AcraTranslator through TLS or AcraConnector get access only to the data associated with the ClientID of their transport keys. This mode is called **zoneless**. You can think of it as all data implicitly belonging to a single `ClientID` zone.
+Client applications connected to AcraServer or AcraTranslator through TLS get access only to the data associated with the ClientID extracted from TLS certificate. This mode is called **zoneless**. You can think of it as all data implicitly belonging to a single `ClientID` zone.
 
 In **zone mode** applications can explicitly specify a different ZoneID in their SQL queries (through AcraServer) or requests (to AcraTranslator) to access encrypted data related to this zone. Application will need to know the correct ZoneID as well as which data records are encrypted with keys associated with this ZoneID.
 

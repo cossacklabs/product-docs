@@ -6,7 +6,7 @@ weight: 4
 
 # TLS everywhere
 
-TLS is supported by all major Acra components that can act as a server, this includes AcraConnector, AcraServer, AcraTranslator.
+TLS is supported by all major Acra components that can act as a server, this includes AcraServer, AcraTranslator.
 
 Each of them has enough [configuration options]({{< ref "acra/configuring-maintaining/tls/_index.md" >}}) to set up TLS
 with a custom client and/or server certificates, custom root certificates and with optional certificate validation using OCSP and/or CRL.
