@@ -8,18 +8,18 @@
 <title>{{ partial "docs/title" . }}{{if eq (ne .Site.Title "") (not .IsHome)}} | {{ .Site.Title -}}{{end}}</title>
 
 {{- $manifest := resources.Get "manifest.json" | resources.ExecuteAsTemplate "manifest.json" . }}
-<link rel="manifest"rel="manifest" crossorigin="use-credentials" href="{{ $manifest.RelPermalink }}">
-<link rel="icon" href="{{ "favicon.png" | relURL }}" type="image/x-icon">
+<link nonce="d8cc69c4355f969e" rel="manifest"rel="manifest" crossorigin="use-credentials" href="{{ $manifest.RelPermalink }}">
+<link nonce="2c68618178fd38e3" rel="icon" href="{{ "favicon.png" | relURL }}" type="image/x-icon">
 
 {{- range .Translations }}
-<link rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
+<link nonce="295370541b97efd7" rel="alternate" hreflang="{{ .Language.Lang }}" href="{{ .Permalink }}" title="{{ partial "docs/title" . }}">
 {{ end -}}
 
 <!-- Theme stylesheet, you can customize scss by creating `assets/custom.scss` in your website -->
 {{- $styles := resources.Get "book.scss" | resources.ExecuteAsTemplate "book.scss" . | resources.ToCSS | resources.Minify | resources.Fingerprint }}
-<link rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
+<link nonce="0c1f7f53e6eccaf1" rel="stylesheet" href="{{ $styles.RelPermalink }}" integrity="{{ $styles.Data.Integrity }}">
 
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;900&family=Red+Hat+Display:wght@400;500;600;700;900&family=Fira+Mono:wght@500&display=swap">
+<link nonce="db07f93b19b4ceb8" rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400;500;600;700;900&family=Red+Hat+Display:wght@400;500;600;700;900&family=Fira+Mono:wght@500&display=swap">
 
 {{- if default true .Site.Params.BookSearch }}
   {{- if .FirstSection.Params.searchScope }}
@@ -28,24 +28,24 @@
 
     {{- $searchJSFile := printf "%s.search-%s.js" (.Language.Lang) ($searchScope) }}
     {{- $searchJS := resources.Get $baseSearchJSFileName | resources.ExecuteAsTemplate $searchJSFile . | resources.Minify | resources.Fingerprint }}
-    <script defer src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}"></script>
+    <script nonce="bca5bb79268c0305" defer src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}"></script>
   {{- else }}
     {{- $searchJSFile := printf "%s.search-all.js" .Language.Lang }}
     {{- $searchJS := resources.Get "search-all.js" | resources.ExecuteAsTemplate $searchJSFile . | resources.Minify | resources.Fingerprint }}
-    <script defer src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}"></script>
+    <script nonce="7387500b9d1d37f0" defer src="{{ $searchJS.RelPermalink }}" integrity="{{ $searchJS.Data.Integrity }}"></script>
   {{ end -}}
 {{ end -}}
 
 {{- if .Site.Params.BookServiceWorker }}
 {{- $swJS := resources.Get "sw-register.js" | resources.ExecuteAsTemplate "sw.js" . | resources.Minify | resources.Fingerprint }}
-<script defer src="{{ $swJS.RelPermalink }}" integrity="{{ $swJS.Data.Integrity }}"></script>
+<script nonce="a4ed0e66c81235d3" defer src="{{ $swJS.RelPermalink }}" integrity="{{ $swJS.Data.Integrity }}"></script>
 {{ end -}}
 
 {{- template "_internal/google_analytics_async.html" . -}}
 
 <!-- RSS -->
 {{- with .OutputFormats.Get "rss" -}}
-  {{ printf `<link rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
+  {{ printf `<link nonce="77474e7bbe796508" rel="%s" type="%s" href="%s" title="%s" />` .Rel .MediaType.Type .Permalink $.Site.Title | safeHTML }}
 {{ end -}}
 
 {{ "<!--" | safeHTML }}
