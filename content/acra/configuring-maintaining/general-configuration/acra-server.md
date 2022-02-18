@@ -212,7 +212,7 @@ weight: 3
 * `--keystore_cache_size=<count>`
 
   Maximum number of keys stored in in-memory LRU cache in encrypted form. 0 - no limits, -1 - turn off cache
-  Default is `1000` (since 0.92.0).
+  Default is `1000` (since 0.92.0, previous default value is `0`).
 
 * `--keystore_cache_on_start_enable={true|false}`
 
