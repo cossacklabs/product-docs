@@ -26,6 +26,11 @@ in terms that you will be able to manage all the keys from a single place.
 To mitigate the performance penalty of "doing network requests to get each key" you may use in-memory cache of keys,
 configured with `--keystore_cache_size` flag.
 
+{{< hint warning >}}
+**Note:**
+Currently, in-memory cache could be used only for keystore `v1`. Im-memory cache is not supported if keystore `v2` is used, AcraServer/AcraTranslator will be halted.
+{{< /hint>}}
+
 #### Example
 
 One of the easiest ways to launch a Redis instance is to use Docker.
