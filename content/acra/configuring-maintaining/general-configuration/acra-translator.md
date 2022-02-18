@@ -187,9 +187,13 @@ weight: 4
 
 * `--keystore_cache_size=<count>`
 
-  Count of keys that will be stored in in-memory LRU cache in encrypted form.
-  Use `0` to set unlimited size, `-1` to disable caching.
-  Default is `0`.
+  Maximum number of keys stored in in-memory LRU cache in encrypted form. 0 - no limits, -1 - turn off cache
+  Default is `1000`.
+
+* `--keystore_cache_on_start_enable={true|false}`
+
+  Load all keystore keys to cache on start. Should be provided only with enabled keystore cache (`--keystore_cache_size > 0 ).
+  Default is `true`.
 
 ### TLS
 
