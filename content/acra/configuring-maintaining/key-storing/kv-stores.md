@@ -28,7 +28,7 @@ configured with `--keystore_cache_size` flag.
 
 {{< hint warning >}}
 **Note:**
-Currently, in-memory cache could be used only for keystore `v1`. 
+Currently, in-memory cache could be used only for keystore `v1`. For keystore `v2` AcraServer/AcraTranslator will be halted.
 {{< /hint>}}
 
 #### Example
