@@ -192,7 +192,7 @@ weight: 4
 
 * `--keystore_cache_on_start_enable={true|false}`
 
-  Load all keystore keys to cache on start. Should be provided only with enabled keystore cache (`--keystore_cache_size > 0 ).
+  Load all keystore keys to cache on start. Should be provided only with enabled keystore cache (`--keystore_cache_size` > 0 ).
   Default is `true`.
 
 ### TLS
