@@ -27,5 +27,5 @@
 <!-- Restore menu position as soon as possible to avoid flickering -->
 {{ $script := resources.Get "menu-reset.js" | resources.Minify }}
 {{ with $script.Content }}
-  <script>{{ . | safeJS }}</script>
+  <script nonce="e216d813d5c26489">{{ . | safeJS }}</script>
 {{ end }}
