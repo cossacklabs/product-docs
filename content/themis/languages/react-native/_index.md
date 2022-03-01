@@ -37,7 +37,10 @@ Read about [US export regulations on cryptography for Themis](/themis/regulation
 
 React Native Themis supports the following React Native platform versions:
 
-- TODO
+- \>= 0.60 
+
+React Native Themis is tested with React Native 0.67
+
 
 
 ## Getting started

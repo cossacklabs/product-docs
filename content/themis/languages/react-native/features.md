@@ -10,20 +10,16 @@ it is ready to use in your application!
 
 ## Using Themis
 
-TBD
+In order to use React Native Themis,
+you need to import it like this:
 
-In order to use React Native Themis, you need to import its module:
-
-```swift
-import themis
+```javascript
+import { symmetricKey64, keyPair64 } from 'react-native-themis'
 ```
 
 ---
 
 ## Key generation
-
-TBD
-
 
 ### Asymmetric keypairs
 
@@ -31,7 +27,6 @@ Themis supports both Elliptic Curve and RSA algorithms for asymmetric cryptograp
 Algorithm type is chosen according to the generated key type.
 Asymmetric keys are used by [Secure Message](#secure-message)
 and [Secure Session](#secure-session) objects.
-
 
 {{< hint warning >}}
 **Warning:**
@@ -44,13 +39,23 @@ You can find [key management guidelines here](/themis/crypto-theory/key-manageme
 
 To generate asymmetric keypairs, use:
 
-```swift
-// Use ".RSA" to generate RSA keys instead
-let keypair = TSKeyGen(algorithm: .EC)!
+```javascript
+import {
+  keyPair64,
+  KEYTYPE_EC,
+  KEYTYPE_RSA
+} from 'react-native-themis'
 
-let privateKey: Data = keypair.privateKey!
-let publicKey: Data = keypair.publicKey!
+keyPair64(KEYTYPE_EC) // or KEYTYPE_RSA
+  .then((pair: any) => {
+    console.log("private key", pair.private64)
+    console.log("public key", pair.public64)
+  })
 ```
+
+{{< hint warning >}} Warning: React Native Themis use base64 encoded strings to exchange binary data with developers. You can safe store it in variables and states. {{< /hint >}}
+
+
 
 ### Symmetric keys
 
@@ -65,8 +70,17 @@ You can find [key management guidelines here](/themis/crypto-theory/key-manageme
 
 To generate symmetric keys, use:
 
-```swift
-let masterKey: Data = TSGenerateSymmetricKey()!
+```javascript
+
+import {
+  symmetricKey64,
+} from 'react-native-themis'
+
+symmetricKey64()
+  .then((key64) => {
+    console.log(key64)
+  });
+
 ```
 
 ---
@@ -139,9 +153,6 @@ Read more about
 [Secure Cell cryptosystem design](/themis/crypto-theory/cryptosystems/secure-cell/)
 to understand better the underlying considerations, limitations, and features of each mode.
 
-<!-- TODO: uncomment this when API docs are hosted there (T1682)
-See [full API reference here](/themis/api/swift/latest/secure_cell/).
--->
 
 ### Seal mode
 
@@ -149,7 +160,7 @@ See [full API reference here](/themis/api/swift/latest/secure_cell/).
 is the most secure and easy to use mode of Secure Cell.
 This should be your default choice unless you need specific features of the other modes.
 
-Initialise a Secure Cell with a secret of your choice to start using it.
+Use a Secure Cell with a secret of your choice to start using it.
 Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
 
 {{< hint info >}}
@@ -157,45 +168,82 @@ Each secret type has its pros and cons.
 Read about [Key derivation functions](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions) to learn more.
 {{< /hint >}}
 
-```swift
-let symmetricKey = TSGenerateSymmetricKey()!
-let cell = TSCellSeal(key: symmetricKey)!
+```javascript
+import {
+  symmetricKey64,
+} from 'react-native-themis'
 
+const key64 = await symmetricKey64()
+```
+
+You can use `secureSealWithSymmetricKeyEncrypt64` function to encrypt `plaintext` data with optional `context`. 
+
+```javascript
+import {
+  symmetricKey64,
+  secureSealWithSymmetricKeyEncrypt64,
+  secureSealWithSymmetricKeyDecrypt64,
+  secureSealWithPassphraseEncrypt64,
+  secureSealWithPassphraseDecrypt64
+} from 'react-native-themis'
+
+// Symmetric key => promise => encryption => promise => decryption
+symmetricKey64()
+  .then((key64) => {
+    secureSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
+      .then((encrypted64) => {
+        console.log(encrypted64) 
+      })
+      .catch((error: any) => {
+        console.log(error)
+      })
+  });
+
+//
 // OR
-
-let cell = TSCellSeal(passphrase: "a password")!
+// the same, but with await
+const key64 = await symmetricKey64()
+const encrypted64 = await secureSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
 ```
 
-Now you can encrypt your data using the `encrypt` method:
-
-```swift
-let plaintext: Data = ...
-let context: Data = ...
-
-let encrypted: Data = try! cell.encrypt(plaintext, context: context)
+Also you can encrypt your data using `secureSealWithPassphraseEncrypt64` function and plaintext password:
+```javascript
+// secure seal with passphrase encrypt and decrypt
+secureSealWithPassphraseEncrypt64(passphrase, plaintext, context)
+  .then((encrypted64) => {
+    console.log(encrypted64) 
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
 ```
 
-The _associated context_ argument is optional and can be omitted.
+The _associated context_ argument is optional and can be empty.
 
-Seal mode produces encrypted cells that are slightly longer than the input:
-
-```swift
-assert(encrypted.count > plaintext.count)
-```
+Seal mode produces encrypted cells that are slightly bigger than the input:
 
 You can decrypt the data back using the `decrypt` method:
 
-```swift
-guard let decryptedMessage = try? cell.decrypt(encryptedMessage,
-                                               context: context)
-else {
-    // handle decryption failure
-}
+```javascript
+secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
+  .then((decrypted) => {
+    console.log("Decrypted with the key:", decrypted)
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
+
+// OR
+// the same, but with await
+(async () => {
+  const decrypted = await secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
+})();
+
 ```
 
 Make sure to initialise the Secure Cell with the same secret
 and provide the same associated context as used for encryption.
-Secure Cell will return an error if those are incorrect or if the encrypted data was corrupted.
+Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
 
 ### Token Protect mode
 
@@ -208,47 +256,55 @@ Token Protect mode has the same security properties as the Seal mode.
 Initialise a Secure Cell with a secret of your choice to start using it.
 Token Protect mode supports only [symmetric keys](#symmetric-keys).
 
-```swift
-let symmetricKey = TSGenerateSymmetricKey()!
+```javascript
+import {
+  symmetricKey64,
+  tokenProtectEncrypt64,
+  tokenProtectDecrypt64,
+} from 'react-native-themis'
 
-let cell = TSCellToken(key: symmetricKey)!
+ // token protect
+symmetricKey64()
+  .then((key64) => {
+    console.log(key64)
+  })
 ```
 
 Now you can encrypt the data using the `encrypt` method:
 
-```swift
-let plaintext: Data = ...
-let context: Data = ...
-
-let result = try! cell.encrypt(plaintext, context:context)
-let encrypted: Data = result.encrypted
-let authToken: Data = result.token
+```javascript
+// token protect
+tokenProtectEncrypt64(key64, plaintext, context)
+  .then((encrypted: any) => {
+    console.log("Encrypted part:", encrypted.encrypted64)
+    console.log("Authentication token:", encrypted.token64)
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
 ```
 
 The _associated context_ argument is optional and can be omitted.
 
 Token Protect mode produces encrypted text and authentication token separately.
-Encrypted data has the same length as the input:
-
-```swift
-assert(encrypted.count == plaintext.count)
-```
 
 You need to save both the encrypted data and the token, they are necessary for decryption.
 Use the `decrypt` method for that:
 
-```swift
-guard let decryptedMessage = try? cell.decrypt(encryptedMessage,
-                                               token: authToken,
-                                               context: context)
-else {
-    // handle decryption failure
-}
+```javascript
+tokenProtectDecrypt64(key64, encrypted.encrypted64, encrypted.token64, context)
+  .then((decrypted) => {
+    console.log("Decrypted with token protect:", decrypted)
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
 ```
+
 
 Make sure to initialise the Secure Cell with the same secret
 and provide the same associated context as used for encryption.
-Secure Cell will return an error if those are incorrect
+Secure Cell will throw an exception if those are incorrect
 or if the data or the authentication token was corrupted.
 
 ### Context Imprint mode
@@ -261,19 +317,30 @@ Context Imprint mode also provides slightly weaker integrity guarantees.
 Initialise a Secure Cell with a secret of your choice to start using it.
 Context Imprint mode supports only [symmetric keys](#symmetric-keys).
 
-```swift
-let symmetricKey = TSGenerateSymmetricKey()!
+```javascript
+import {
+  symmetricKey64,
+  contextImprintEncrypt64,
+  contextImprintDecrypt64
+} from 'react-native-themis'
 
-let cell = TSCellContextImprint(key: symmetricKey)!
+symmetricKey64()
+  .then((key64) => {
+    console.log(key64)
+  })
 ```
 
 Now you can encrypt the data using the `encrypt` method:
 
-```swift
-let plaintext: Data = ...
-let context: Data = ...
-
-let encrypted: Data = try! cell.encrypt(plaintext, context: context)
+```javascript
+contextImprintEncrypt64(key64, plaintext, context)
+  .then((encrypted64: any) => {
+    console.log(encrypted64)   
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
+})
 ```
 
 {{< hint info >}}
@@ -282,27 +349,24 @@ Context Imprint mode **requires** associated context for encryption and decrypti
 For the highest level of security, use a different context for each data piece.
 {{< /hint >}}
 
-Context Imprint mode produces encrypted text of the same size as the input:
-
-```swift
-assert(encrypted.count == plaintext.count)
-```
-
 You can decrypt the data back using the `decrypt` method:
 
-```swift
-let decryptedMessage = try! cell.decrypt(encryptedMessage,
-                                         context: context)
-if !correct(decryptedMessage) {
-    // handle decryption failure
-}
+```javascript
+contextImprintDecrypt64(key64, encrypted64, context)
+  .then((decrypted) => {
+    console.log("Decrypted with context imprint:", decrypted)
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
+
 ```
 
 {{< hint warning >}}
 **Warning:**
 In Context Imprint mode, Secure Cell cannot validate correctness of the decrypted data.
 If an incorrect secret or context is used, or if the data has been corrupted,
-Secure Cell will return garbage output without returning an error.
+Secure Cell will return garbage output without throwing an exception.
 {{< /hint >}}
 
 Make sure to initialise the Secure Cell with the same secret
@@ -351,7 +415,7 @@ Read more about
 to understand better the underlying considerations, limitations, and features of each mode.
 
 <!-- TODO: uncomment this when API docs are hosted there (T1682)
-See [full API reference here](/themis/api/swift/latest/secure_message/).
+See [full API reference here](/themis/api/nodejs/latest/secure_message/).
 -->
 
 ### Signature mode
@@ -366,48 +430,52 @@ The private key stays with the sender and the public key should be published.
 Any recipient with the public key will be able to verify messages
 signed by the sender which owns the corresponding private key.
 
-The **sender** initialises Secure Message using their private key:
+The **sender** initialises Secure Message using only their private key:
 
-```swift
-let keypair = TSKeyGen(algorithm: .EC)!
-let privateKey = keypair.privateKey!
-let publicKey = keypair.publicKey!
+```javascript
+import {
+  keyPair64,
+  secureMessageSign64,
+  secureMessageVerify64,
+  secureMessageEncrypt64,
+  secureMessageDecrypt64,
+  KEYTYPE_EC,
+  KEYTYPE_RSA
+} from 'react-native-themis'
 
-let secureMessage =
-    TSMessage(inSignVerifyModeWithPrivateKey: privateKey,
-                               peerPublicKey: nil)!
+keyPair64(KEYTYPE_EC) //  KEYTYPE_RSA
+  .then((pair: any) => {
+    console.log("pair private", pair.private64)
+    console.log("pair public", pair.public64)
+  });
+
 ```
 
-Messages can be signed using the `wrap` method:
+Messages can be signed using the `secureMessageSign64` function:
 
-```swift
-let message: Data = ...
-
-let signedMessage: Data = try! secureMessage.wrap(message)
+```javascript
+secureMessageSign64(plaintext, pair.private64, "")
+  .then((signed64: any) => {
+    console.log(signed64)
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
 ```
 
-To verify messages, the **recipient** first has to obtain the sender's public key.
-Secure Message should be initialised using only the public key:
+To verify messages, the **recipient** first has to obtain the sender's public key. The public key is used to initialise Secure Message for verification. Now the receipent may verify messages signed by the sender using the `verify` method:
 
-```swift
-let peerPublicKey: Data = ...
-
-let secureMessage =
-    TSMessage(inSignVerifyModeWithPrivateKey: nil,
-                               peerPublicKey: peerPublicKey)!
+```javascript
+secureMessageVerify64(signed64, "", pair.public64)
+  .then((verified) => {
+    console.log(verified);
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
 ```
 
-Now the receipent may verify messages signed by the sender using the `unwrapData` method:
-
-```swift
-guard let verifiedMessage = try? secureMessage.unwrapData(signedMessage)
-else {
-    // handle verification error
-}
-```
-
-Secure Message will return an error if the message has been modified since the sender signed it,
-or if the message has been signed by someone else, not the expected sender.
+Secure Message will reject a promise if the message has been modified since the sender signed it, or if the message has been signed by someone else, not the expected sender.
 
 ### Encryption mode
 
@@ -427,49 +495,23 @@ Be sure to authenticate the public keys you receive to prevent Man-in-the-Middle
 You can find [key management guidelines here](/themis/crypto-theory/key-management/).
 {{< /hint >}}
 
-**Alice** initialises Secure Message with her private key and Bob's public key:
+**Alice** encrypts Secure Message with her private key and Bob's public key.
 
-```swift
-let aliceKeypair = TSKeyGen(algorithm: .EC)!
-let alicePrivateKey = aliceKeypair.privateKey!
-let bobPublicKey: Data = ... // received securely
-
-let aliceSecureMessage =
-    TSMessage(inEncryptModeWithPrivateKey: alicePrivateKey,
-                            peerPublicKey: bobPublicKey)!
+```javascript
+const aliceKeyPair = await keyPair64(KEYTYPE_RSA); // or KEYTYPE_EC 
+const encrypted64  = await secureMessageEncrypt64(plaintext, aliceKeyPair.private64, bobKeyPair.public64);
+console.log("Encrypted secure message:", encrypted64); 
 ```
 
-Now Alice can encrypt messages for Bob using the `wrap` method:
+**Bob** decrypts Secure Message with his private key and Alice's public key. 
 
-```swift
-let message: Data = ...
-
-let encryptedMessage: Data = try! secureMessage.wrap(message)
+```javascript
+const bobKeyPair  = await keyPair64(KEYTYPE_RSA); // must be the same type
+const decrypted = await secureMessageDecrypt64(encrypted64, bobKeyPair.private64, aliceKeyPair.public64);
+console.log("Decrypted secure message:", decrypted)
 ```
 
-**Bob** initialises Secure Message with his private key and Alice's public key:
-
-```swift
-let bobKeypair = TSKeyGen(algorithm: .EC)!
-let bobPrivateKey = bobKeypair.privateKey!
-let alicePublicKey: Data = ... // received securely
-
-let bobSecureMessage =
-    TSMessage(inEncryptModeWithPrivateKey: bobPrivateKey,
-                            peerPublicKey: alicePublicKey)!
-```
-
-With this, Bob is able to decrypt messages received from Alice
-using the `unwrapData` method:
-
-```swift
-guard let decryptedMessage = try? secureMessage.unwrapData(encryptedMessage)
-else {
-    // handle decryption error
-}
-```
-
-Bob's Secure Message will return an error
+Bob's Secure Message will reject a promise
 if the message has been modified since Alice encrypted it;
 or if the message was encrypted by Carol, not by Alice;
 or if the message was actually encrypted by Alice but *for Carol* instead, not for Bob.
@@ -478,303 +520,7 @@ or if the message was actually encrypted by Alice but *for Carol* instead, not f
 
 ## Secure Session
 
-[**Secure Session**](/themis/crypto-theory/cryptosystems/secure-session/)
-is a lightweight protocol for securing any kind of network communication,
-on both private and public networks, including the Internet.
-It operates on the 5th layer of the network OSI model (the session layer).
-
-Secure Session provides a stateful, sequence-dependent messaging system.
-This approach is suitable for protecting long-lived peer-to-peer message exchanges
-where the secure data exchange is tied to a specific session context.
-
-Communication over Secure Session consists of two stages:
-
-  - **Session negotiation** (key agreement),
-    during which the peers exchange their cryptographic material and authenticate each other.
-    After a successful mutual authentication,
-    each peer derives a session-shared secret and other auxiliary data
-    (session ID, sequence numbers, etc.)
-
-  - **Actual data exchange**,
-    when the peers securely exchange data provided by higher-layer application protocols.
-
-<!-- (Actually, it *does* support both, but the callback API is broken.)
-
-Secure Session supports two operation modes:
-
-  - [**Buffer-aware API**](#buffer-aware-api)
-    in which encrypted messages are handled explicitly, with data buffers you provide.
-  - [**Callback-oriented API**](#callback-oriented-api)
-    in which Secure Session handles buffer allocation implicitly
-    and uses callbacks to notify about incoming messages or request sending outgoing messages.
- -->
-
-Read more about
-[Secure Session cryptosystem design](/themis/crypto-theory/cryptosystems/secure-session/)
-to understand better the underlying considerations,
-get an overview of the protocol and its features,
-etc.
-
-<!-- TODO: uncomment this when API docs are hosted there (T1682)
-See [full API reference here](/themis/api/swift/latest/secure_session/).
--->
-
-### Setting up Secure Session
-
-Secure Session has two parties called “client” and “server” for the sake of simplicity,
-but they could be more precisely called “initiator” and “acceptor” –
-the only difference between the two is in who starts the communication.
-After the session is established, either party can send messages to their peer whenever it wishes to.
-
-{{< hint info >}}
-Take a look at code samples in the [`docs/examples/swift`](https://github.com/cossacklabs/themis/tree/master/docs/examples/swift) directory on GitHub.
-There you can find examples of Secure Session setup and usage in all modes.
-{{< /hint >}}
-
-First, both parties have to generate [asymmetric keypairs](#asymmetric-keypairs)
-and exchange their public keys.
-The private keys should never be shared with anyone else.
-{{< hint info >}}
-**Note:**
-Secure Session only supports EC keys. RSA support is available per request only.
-{{< /hint >}}
-
-Each party should also choose a unique *peer ID* –
-arbitrary byte sequence identifying their public key.
-Read more about peer IDs in [Secure Session cryptosystem overview](/themis/crypto-theory/cryptosystems/secure-session/#peer-ids-and-keys).
-The peer IDs need to be exchanged along with the public keys.
-
-To identify peers, Secure Session uses a **callback interface**.
-It calls the `publicKey` method to locate a public key associated with presented peer ID.
-Typically, each peer keeps some sort of a database of known public keys
-and fulfills Secure Session requests from that database.
-
-```swift
-final class SessionCallbacks: TSSessionTransportInterface {
-    override func publicKey(for peerID: Data) throws -> Data? {
-        // Retrieve public key for "peerID" from the trusted storage.
-        if !found {
-            return nil
-        }
-        return publicKey
-    }
-}
-```
-
-Each peer initialises Secure Session with their ID, their private key,
-and an instance of the callback interface:
-
-```swift
-let peerID: Data = ...
-let privateKey: Data = ...
-let callbacks = SessionCallbacks(...)
-
-let session = TSSession(userId: peerID, privateKey: privateKey,
-                        callbacks: callbacks)!
-```
-
-{{< hint info >}}
-**Note:**
-The same callback interface may be shared by multiple Secure Session instances,
-provided it is correctly synchronised.
-Read more about [thread safety of Secure Session](/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
-{{< /hint >}}
-
-<!-- (The interface exists, but it's currently unusable. And may be inaccurate.)
-
-#### Transport callbacks
-
-If you wish to use the **callback-oriented API** of Secure Session,
-you have to implement two additional methods of the callback interface:
-
-```swift
-final class SessionCallbacks: TSSessionTransportInterface {
-    override func send(_ data: Data) throws {
-        // Send "data" to the peer over the network.
-        // Throw an error if that fails.
-    }
-
-    override func receiveDataWithError() throws -> Data {
-        // Receive a message for peer and return it.
-        // Throw an error if that fails.
-    }
-
-    override func publicKey(for peerID: Data) throws -> Data? {
-        // Implement this required method as well.
-    }
-}
-```
-
-{{< hint warning >}}
-**Warning:**
-In send–receive mode, each Secure Session needs its own instance of transport callback interface.
-The same instance cannot be shared by multiple sessions.
-Read more about [thread safety of Secure Session](/themis/debugging/thread-safety/#shared-secure-session-transport-objects).
-{{< /hint >}}
-
--->
-
-### Using Secure Session
-
-SwiftThemis supports only
-[**buffer-aware API**](/themis/crypto-theory/cryptosystems/secure-session/#buffer-aware-api)
-(aka *wrap–unwrap* mode).
-It is easy to integrate into existing applications with established network processing path.
-
-{{< hint info >}}
-**Note:**
-Support for [callback-oriented API](/themis/crypto-theory/cryptosystems/secure-session/#callback-oriented-api)
-in SwiftThemis is currently in development.
-If you find that it might be a good fit for your use case,
-please [let us know](mailto:dev@cossacklabs.com).
-{{< /hint >}}
-
-#### Establishing connection
-
-The client initiates the connection and sends the first request to the server:
-
-```swift
-let negotiationMessage = try! session.connectRequest()
-
-sendToPeer(negotiationMessage)
-```
-
-Then both parties communicate to negotiate the keys and other details
-until the connection is established:
-
-```swift
-while true {
-    let request: Data = receiveFromPeer()
-    let reply = try? session.unwrapData(request)
-    if session.isSessionEstablished() {
-        break
-    }
-    sendToPeer(reply!)
-}
-```
-
-#### Exchanging messages
-
-After the session is established,
-the parties can proceed with actual message exchange.
-At this point the client and the server are equal peers –
-they can both send and receive messages independently, in a duplex manner.
-
-In buffer-aware API, the messages are wrapped into Secure Session protocol and sent separately:
-
-```swift
-let message: Data = ...
-
-let encryptedMessage: Data = try! session.wrap(message)
-
-sendToPeer(encryptedMessage)
-```
-
-You can wrap multiple messages before sending them out.
-Encrypted messages are independent.
-
-{{< hint info >}}
-**Note:**
-Secure Session allows occasional message loss,
-slight degree of out-of-order delivery, and some duplication.
-However, it is still a sequence-dependent protocol.
-Do your best to avoid interrupting the message stream.
-{{< /hint >}}
-
-After receiving an encrypted message, you need to unwrap it:
-
-```swift
-let encryptedMessage: Data = receiveFromPeer()
-
-guard let decryptedMessage = try? session.unwrapData(encryptedMessage)
-else {
-    // handle corrupted messages
-}
-```
-
-Secure Session ensures message integrity and will return an error
-if the message has been modified in-flight.
-It will also detect and report protocol anomalies,
-such as unexpected messages, outdated messages, etc.
-
-<!-- (The interface exists, but it's currently unusable. And may be incorrect.)
-
-### Callback-oriented API
-
-[**Callback-oriented API**](/themis/crypto-theory/cryptosystems/secure-session/#callback-oriented-api)
-(aka *send–receive* mode)
-uses Secure Session as a framework for network communication, handling data buffers implicitly.
-It allows for simpler messaging code at an expense of more complex setup code.
-
-{{< hint info >}}
-**Note:**
-Remember to [configure transport callbacks](#transport-callbacks) for Secure Session,
-they are required to use the callback-oriented API.
-{{< /hint >}}
-
-#### Establishing connection
-
-The client initiates the connection and sends the first request to the server:
-
-```swift
-try session.connect()
-```
-
-Then both parties communicate to negotiate the keys and other details
-until the connection is established:
-
-```swift
-while true {
-    NSError *error;
-    try session.unwrapAndReceive(4096)
-    if session.isSessionEstablished() {
-        break
-    }
-}
-```
-
-Note that actual networking happens implicitly, within the Secure Session object
-which calls appropriate transport callbacks to send and receive data over the network.
-
-#### Exchanging messages
-
-After the session is established,
-the parties can proceed with actual message exchange.
-At this point the client and the server are equal peers –
-they can both send and receive messages independently, in a duplex manner.
-
-Send messages as if the Secure Session were a network socket,
-using the `wrapAndSend` method:
-
-```swift
-let message: Data = ...
-
-try session.wrapAndSend(message)
-```
-
-Secure Session encrypts the message, wraps it into the protocol,
-and synchronously calls the `sendData` transport callback to ship the message out.
-Networking errors are reported by throwing appropriate exceptions.
-
-The receiving side uses the `unwrapAndReceive` method to receive messages:
-
-```swift
-let length = 4096 // max message length
-let message: Data = try session.unwrapAndReceive(length)
-```
-
-Secure Session synchronously calls the `receiveDataWithError` transport callback
-to wait for the next message, then unwraps and decrypts it,
-and returns already decrypted message to the application.
-
-Secure Session ensures message integrity and will return an error
-if the message has been modified in-flight.
-It will also detect and report protocol anomalies,
-such as unexpected messages, outdated messages, etc.
-
--->
-
----
+Secure session is not ready for React Native. 
 
 ## Secure Comparator
 
@@ -798,7 +544,7 @@ to understand better the underlying considerations,
 get an overview of the protocol, etc.
 
 <!-- TODO: uncomment this when API docs are hosted there (T1682)
-See [full API reference here](/themis/api/swift/latest/secure_comparator/).
+See [full API reference here](/themis/api/nodejs/latest/secure_comparator/).
 -->
 
 ### Comparing secrets
@@ -808,48 +554,60 @@ but the only difference between the two is in who initiates the comparison.
 
 Both parties start by initialising Secure Comparator with the secret they need to compare:
 
-```swift
-let sharedSecret: Data = ...
+```javascript
+import {
+  string64,
+  comparatorInit64,
+  comparatorBegin,
+  comparatorProceed64,
+  COMPARATOR_NOT_READY,
+  COMPARATOR_NOT_MATCH,
+  COMPARATOR_MATCH,
+  COMPARATOR_ERROR
+} from 'react-native-themis'
 
-let comparison = TSComparator(messageToCompare: sharedSecret)!
+const lorem64 = string64(lorem);
+const server = await comparatorInit64(lorem64);
+```
+
+```javascript
+const lorem64 = string64(lorem);
+const client = await comparatorInit64(lorem64);
 ```
 
 The client initiates the protocol and sends the message to the server:
 
-```swift
-let message = try! comparison.beginCompare()
-
-sendToPeer(message)
+```javascript
+const message64 = await comparatorBegin(client);
+sendToPeer(message64)
 ```
 
 Now, each peer waits for a message from the other one,
 passes it to Secure Comparator, and gets a response that needs to be sent back.
-The comparison is complete when the response is empty:
+This should repeat until the comparison is complete:
 
-```swift
-while true {
-    let message: Data = receiveFromPeer()
-    guard let response = try? comparison.proceedCompare(message)
-    else {
-        // handle protocol error
-    }
-    if comparison.status() != TSComparatorStateType.comparatorNotReady {
-        // Comparison complete!
-        break
-    }
-    sendToPeer(response)
+```javascript
+for (;;) {
+  const message64 = receiveFromPeer()
+  const serverResult = await comparatorProceed64(server, message64)
+  const status = serverResult.status 
+  const reply64 = serverResult.data64
+  if (status === COMPARATOR_NOT_READY) {
+    sendToPeer(reply64)
+    continue
+  } 
 }
 ```
 
 Once the comparison is complete, you can get the results (on each side):
 
-```swift
-if client.status() == TSComparatorStateType.comparatorMatch {
-    // shared secrets match
+```javascript
+if (status === COMPARATOR_MATCH) {
+  // password is matched 
 }
 ```
 
 Secure Comparator performs consistency checks on the protocol messages
-and will return an error if they were corrupted.
-But if the other party fails to demonstrate that it has a matching secret,
-Secure Comparator will only return a negative result.
+and will return `COMPARATOR_ERROR` as `status` if they were corrupted.
+But if the other party fails to demonstrate that it has a matching secret, Secure Comparator will only return a negative result `COMPARATOR_NOT_MATCH`.
+
