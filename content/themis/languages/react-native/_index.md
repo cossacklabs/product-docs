@@ -39,7 +39,7 @@ React Native Themis supports the following React Native platform versions:
 
 - \>= 0.60 
 
-React Native Themis is tested with React Native 0.67
+React Native Themis is tested with React Native 0.67.
 
 
 

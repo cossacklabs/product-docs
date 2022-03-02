@@ -9,8 +9,7 @@ Once you have [installed React Native Themis](../installation/), it’s time to 
 
 ## Code samples
 
-Some code samples for React Native Themis features are available at [`docs/examples/react-native`](https://github.com/cossacklabs/themis/tree/master/docs/examples/react-native)
-on GitHub:
+Some code samples for React Native Themis features are available at [`docs/examples/react-native`](https://github.com/cossacklabs/themis/tree/master/docs/examples/react-native) on GitHub:
 
   - key generation 
   - data encryption using Secure Cell
