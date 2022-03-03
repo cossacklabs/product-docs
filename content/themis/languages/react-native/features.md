@@ -176,21 +176,21 @@ import {
 const key64 = await symmetricKey64()
 ```
 
-You can use `secureSealWithSymmetricKeyEncrypt64` function to encrypt `plaintext` data with optional `context`. 
+You can use `secureCellSealWithSymmetricKeyEncrypt64` function to encrypt `plaintext` data with optional `context`. 
 
 ```javascript
 import {
   symmetricKey64,
-  secureSealWithSymmetricKeyEncrypt64,
-  secureSealWithSymmetricKeyDecrypt64,
-  secureSealWithPassphraseEncrypt64,
-  secureSealWithPassphraseDecrypt64
+  secureCellSealWithSymmetricKeyEncrypt64,
+  secureCellSealWithSymmetricKeyDecrypt64,
+  secureCellSealWithPassphraseEncrypt64,
+  secureCellSealWithPassphraseDecrypt64
 } from 'react-native-themis'
 
 // Symmetric key => promise => encryption => promise => decryption
 symmetricKey64()
   .then((key64) => {
-    secureSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
+    secureCellSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
       .then((encrypted64) => {
         console.log(encrypted64) 
       })
@@ -203,13 +203,13 @@ symmetricKey64()
 // OR
 // the same, but with await
 const key64 = await symmetricKey64()
-const encrypted64 = await secureSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
+const encrypted64 = await secureCellSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
 ```
 
-Also you can encrypt your data using `secureSealWithPassphraseEncrypt64` function and plaintext password:
+Also you can encrypt your data using `secureCellSealWithPassphraseEncrypt64` function and plaintext password:
 ```javascript
 // secure seal with passphrase encrypt and decrypt
-secureSealWithPassphraseEncrypt64(passphrase, plaintext, context)
+secureCellSealWithPassphraseEncrypt64(passphrase, plaintext, context)
   .then((encrypted64) => {
     console.log(encrypted64) 
   })
@@ -225,7 +225,7 @@ Seal mode produces encrypted cells that are slightly bigger than the input:
 You can decrypt the data back using the `decrypt` method:
 
 ```javascript
-secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
+secureCellSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
   .then((decrypted) => {
     console.log("Decrypted with the key:", decrypted)
   })
@@ -236,7 +236,7 @@ secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
 // OR
 // the same, but with await
 (async () => {
-  const decrypted = await secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
+  const decrypted = await secureCellSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
 })();
 
 ```
@@ -259,8 +259,8 @@ Token Protect mode supports only [symmetric keys](#symmetric-keys).
 ```javascript
 import {
   symmetricKey64,
-  tokenProtectEncrypt64,
-  tokenProtectDecrypt64,
+  secureCellTokenProtectEncrypt64,
+  secureCellTokenProtectDecrypt64,
 } from 'react-native-themis'
 
  // token protect
@@ -274,7 +274,7 @@ Now you can encrypt the data using the `encrypt` method:
 
 ```javascript
 // token protect
-tokenProtectEncrypt64(key64, plaintext, context)
+secureCellTokenProtectEncrypt64(key64, plaintext, context)
   .then((encrypted: any) => {
     console.log("Encrypted part:", encrypted.encrypted64)
     console.log("Authentication token:", encrypted.token64)
@@ -292,7 +292,7 @@ You need to save both the encrypted data and the token, they are necessary for d
 Use the `decrypt` method for that:
 
 ```javascript
-tokenProtectDecrypt64(key64, encrypted.encrypted64, encrypted.token64, context)
+secureCellTokenProtectDecrypt64(key64, encrypted.encrypted64, encrypted.token64, context)
   .then((decrypted) => {
     console.log("Decrypted with token protect:", decrypted)
   })
@@ -320,8 +320,8 @@ Context Imprint mode supports only [symmetric keys](#symmetric-keys).
 ```javascript
 import {
   symmetricKey64,
-  contextImprintEncrypt64,
-  contextImprintDecrypt64
+  secureCellContextImprintEncrypt64,
+  secureCellContextImprintDecrypt64
 } from 'react-native-themis'
 
 symmetricKey64()
@@ -333,7 +333,7 @@ symmetricKey64()
 Now you can encrypt the data using the `encrypt` method:
 
 ```javascript
-contextImprintEncrypt64(key64, plaintext, context)
+secureCellContextImprintEncrypt64(key64, plaintext, context)
   .then((encrypted64: any) => {
     console.log(encrypted64)   
   })
@@ -352,7 +352,7 @@ For the highest level of security, use a different context for each data piece.
 You can decrypt the data back using the `decrypt` method:
 
 ```javascript
-contextImprintDecrypt64(key64, encrypted64, context)
+secureCellContextImprintDecrypt64(key64, encrypted64, context)
   .then((decrypted) => {
     console.log("Decrypted with context imprint:", decrypted)
   })
