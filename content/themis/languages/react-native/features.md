@@ -53,7 +53,7 @@ keyPair64(KEYTYPE_EC) // or KEYTYPE_RSA
   })
 ```
 
-{{< hint warning >}} Warning: React Native Themis use base64 encoded strings to exchange binary data with developers. You can safe store it in variables and states. {{< /hint >}}
+{{< hint warning >}}**Warning:** React Native Themis use base64 encoded strings (binary data encoded as base64) as input to functions and output from them. You can work with base64 encoded strings and store them in variables. {{< /hint >}}
 
 
 
@@ -160,7 +160,7 @@ to understand better the underlying considerations, limitations, and features of
 is the most secure and easy to use mode of Secure Cell.
 This should be your default choice unless you need specific features of the other modes.
 
-Use a Secure Cell with a secret of your choice to start using it.
+Create a secret and then initialise Secure Cell with it to encrypt/decrypt data.
 Seal mode supports [symmetric keys](#symmetric-keys) and passphrases.
 
 {{< hint info >}}
@@ -168,15 +168,7 @@ Each secret type has its pros and cons.
 Read about [Key derivation functions](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions) to learn more.
 {{< /hint >}}
 
-```javascript
-import {
-  symmetricKey64,
-} from 'react-native-themis'
-
-const key64 = await symmetricKey64()
-```
-
-You can use `secureSealWithSymmetricKeyEncrypt64` function to encrypt `plaintext` data with optional `context`. 
+Generate a long strong key and use `secureSealWithSymmetricKeyEncrypt64` function to encrypt `plaintext` data with optional `context`. 
 
 ```javascript
 import {
@@ -187,62 +179,71 @@ import {
   secureSealWithPassphraseDecrypt64
 } from 'react-native-themis'
 
-// Symmetric key => promise => encryption => promise => decryption
+// generate symmetric key => promise => call encryption => log encrypted data
 symmetricKey64()
   .then((key64) => {
     secureSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
-      .then((encrypted64) => {
-        console.log(encrypted64) 
+      .then((encryptedDataBase64) => {
+        console.log(encryptedDataBase64) 
       })
       .catch((error: any) => {
         console.log(error)
       })
   });
+```
 
-//
-// OR
-// the same, but with await
+The same steps (key generation, encryption) but using await:
+
+```javascript
+// same as above but using await
 const key64 = await symmetricKey64()
 const encrypted64 = await secureSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
 ```
 
-Also you can encrypt your data using `secureSealWithPassphraseEncrypt64` function and plaintext password:
+Also you can encrypt data using passphrase, which Themis will transform into [cryptographic key using PBKDF](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions). Use `secureSealWithPassphraseEncrypt64` function:
+
 ```javascript
-// secure seal with passphrase encrypt and decrypt
+// password-base API for Secure Cell Seal to encrypt data
 secureSealWithPassphraseEncrypt64(passphrase, plaintext, context)
-  .then((encrypted64) => {
-    console.log(encrypted64) 
+  .then((encryptedDataBase64) => {
+    console.log(encryptedDataBase64) 
   })
   .catch((error: any) => {
     console.log(error)
   })
 ```
 
-The _associated context_ argument is optional and can be empty.
+The _associated context_ argument is optional and can be empty. Seal mode produces encrypted cells that are slightly bigger than the input. Read details on [Secure Cell modes](/themis/crypto-theory/cryptosystems/secure-cell/#secure-cell-modes).
 
-Seal mode produces encrypted cells that are slightly bigger than the input:
 
 You can decrypt the data back using the `decrypt` method:
 
 ```javascript
-secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
+secureSealWithSymmetricKeyDecrypt64(key64, encryptedDataBase64, context)
   .then((decrypted) => {
-    console.log("Decrypted with the key:", decrypted)
+    console.log("Decrypted with the key: ", decrypted)
   })
   .catch((error: any) => {
     console.log(error)
   })
 
 // OR
-// the same, but with await
+// same as above but using await
 (async () => {
-  const decrypted = await secureSealWithSymmetricKeyDecrypt64(key64, encrypted64, context)
+  const decrypted = await secureSealWithSymmetricKeyDecrypt64(key64, encryptedDataBase64, context)
 })();
 
+// OR decrypt data that was encrypted with passphrase
+secureSealWithPassphraseDecrypt64(passphrase, encryptedDataBase64, context)
+  .then((decrypted) => {
+    console.log("Decrypted with the passphrase: ", decrypted)
+  })
+  .catch((error: any) => {
+    console.log(error)
+  })
 ```
 
-Make sure to initialise the Secure Cell with the same secret
-and provide the same associated context as used for encryption.
+Make sure to initialise the Secure Cell with the same secret and provide the same associated context as used for encryption.
 Secure Cell will throw an exception if those are incorrect or if the encrypted data was corrupted.
 
 ### Token Protect mode
@@ -255,6 +256,8 @@ Token Protect mode has the same security properties as the Seal mode.
 
 Initialise a Secure Cell with a secret of your choice to start using it.
 Token Protect mode supports only [symmetric keys](#symmetric-keys).
+
+Generate the cryptographic key:
 
 ```javascript
 import {
@@ -270,14 +273,14 @@ symmetricKey64()
   })
 ```
 
-Now you can encrypt the data using the `encrypt` method:
+Encrypt the data using the `tokenProtectEncrypt64` method:
 
 ```javascript
 // token protect
 tokenProtectEncrypt64(key64, plaintext, context)
-  .then((encrypted: any) => {
-    console.log("Encrypted part:", encrypted.encrypted64)
-    console.log("Authentication token:", encrypted.token64)
+  .then((encryptedDataBase64) => {
+    console.log("Encrypted part: ", encryptedDataBase64.encrypted64)
+    console.log("Authentication token: ", encryptedDataBase64.token64)
   })
   .catch((error: any) => {
     console.log(error)
@@ -289,12 +292,12 @@ The _associated context_ argument is optional and can be omitted.
 Token Protect mode produces encrypted text and authentication token separately.
 
 You need to save both the encrypted data and the token, they are necessary for decryption.
-Use the `decrypt` method for that:
+Use the `tokenProtectDecrypt64` method for that:
 
 ```javascript
-tokenProtectDecrypt64(key64, encrypted.encrypted64, encrypted.token64, context)
+tokenProtectDecrypt64(key64, encryptedDataBase64.encrypted64, encryptedDataBase64.token64, context)
   .then((decrypted) => {
-    console.log("Decrypted with token protect:", decrypted)
+    console.log("Decrypted with token protect: ", decrypted)
   })
   .catch((error: any) => {
     console.log(error)
@@ -302,10 +305,8 @@ tokenProtectDecrypt64(key64, encrypted.encrypted64, encrypted.token64, context)
 ```
 
 
-Make sure to initialise the Secure Cell with the same secret
-and provide the same associated context as used for encryption.
-Secure Cell will throw an exception if those are incorrect
-or if the data or the authentication token was corrupted.
+Make sure to initialise the Secure Cell with the same secret and provide the same associated context as used for encryption.
+Secure Cell will throw an exception if those are incorrect or if the data or the authentication token was corrupted.
 
 ### Context Imprint mode
 
@@ -330,12 +331,12 @@ symmetricKey64()
   })
 ```
 
-Now you can encrypt the data using the `encrypt` method:
+Now you can encrypt the data using the `contextImprintEncrypt64` method:
 
 ```javascript
 contextImprintEncrypt64(key64, plaintext, context)
-  .then((encrypted64: any) => {
-    console.log(encrypted64)   
+  .then((encryptedDataBase64) => {
+    console.log(encryptedDataBase64)   
   })
   .catch((error: any) => {
     console.log(error)
@@ -349,12 +350,12 @@ Context Imprint mode **requires** associated context for encryption and decrypti
 For the highest level of security, use a different context for each data piece.
 {{< /hint >}}
 
-You can decrypt the data back using the `decrypt` method:
+You can decrypt the data back using the `contextImprintDecrypt64` method:
 
 ```javascript
-contextImprintDecrypt64(key64, encrypted64, context)
+contextImprintDecrypt64(key64, encryptedDataBase64, context)
   .then((decrypted) => {
-    console.log("Decrypted with context imprint:", decrypted)
+    console.log("Decrypted with context imprint: ", decrypted)
   })
   .catch((error: any) => {
     console.log(error)
@@ -369,8 +370,7 @@ If an incorrect secret or context is used, or if the data has been corrupted,
 Secure Cell will return garbage output without throwing an exception.
 {{< /hint >}}
 
-Make sure to initialise the Secure Cell with the same secret
-and provide the same associated context as used for encryption.
+Make sure to initialise the Secure Cell with the same secret and provide the same associated context as used for encryption.
 You should also do some sanity checks after decryption.
 
 ---
@@ -443,10 +443,11 @@ import {
   KEYTYPE_RSA
 } from 'react-native-themis'
 
-keyPair64(KEYTYPE_EC) //  KEYTYPE_RSA
-  .then((pair: any) => {
-    console.log("pair private", pair.private64)
-    console.log("pair public", pair.public64)
+// generate keypair
+keyPair64(KEYTYPE_EC) // or KEYTYPE_RSA
+  .then((keypair: any) => {
+    console.log("keypair private key", keypair.private64)
+    console.log("keypair public key", keypair.public64)
   });
 
 ```
@@ -454,21 +455,21 @@ keyPair64(KEYTYPE_EC) //  KEYTYPE_RSA
 Messages can be signed using the `secureMessageSign64` function:
 
 ```javascript
-secureMessageSign64(plaintext, pair.private64, "")
-  .then((signed64: any) => {
-    console.log(signed64)
+secureMessageSign64(plaintext, keypair.private64, "")
+  .then((signedMessageBase64: any) => {
+    console.log(signedMessageBase64)
   })
   .catch((error: any) => {
     console.log(error)
   })
 ```
 
-To verify messages, the **recipient** first has to obtain the sender's public key. The public key is used to initialise Secure Message for verification. Now the receipent may verify messages signed by the sender using the `verify` method:
+To verify messages, the **recipient** first has to obtain the sender's public key. The public key is used to initialise Secure Message for verification. Now the receipent may verify messages signed by the sender using the `secureMessageVerify64` method:
 
 ```javascript
-secureMessageVerify64(signed64, "", pair.public64)
-  .then((verified) => {
-    console.log(verified);
+secureMessageVerify64(signedMessageBase64, "", keypair.public64)
+  .then((verifiedMessage) => {
+    console.log(verifiedMessage);
   })
   .catch((error: any) => {
     console.log(error)
@@ -498,17 +499,17 @@ You can find [key management guidelines here](/themis/crypto-theory/key-manageme
 **Alice** encrypts Secure Message with her private key and Bob's public key.
 
 ```javascript
-const aliceKeyPair = await keyPair64(KEYTYPE_RSA); // or KEYTYPE_EC 
-const encrypted64  = await secureMessageEncrypt64(plaintext, aliceKeyPair.private64, bobKeyPair.public64);
-console.log("Encrypted secure message:", encrypted64); 
+const aliceKeyPair     = await keyPair64(KEYTYPE_EC); // or KEYTYPE_RSA 
+const encryptedBase64  = await secureMessageEncrypt64(plaintext, aliceKeyPair.private64, bobKeyPair.public64);
+console.log("Encrypted secure message: ", encryptedBase64); 
 ```
 
 **Bob** decrypts Secure Message with his private key and Alice's public key. 
 
 ```javascript
-const bobKeyPair  = await keyPair64(KEYTYPE_RSA); // must be the same type
-const decrypted = await secureMessageDecrypt64(encrypted64, bobKeyPair.private64, aliceKeyPair.public64);
-console.log("Decrypted secure message:", decrypted)
+const bobKeyPair  = await keyPair64(KEYTYPE_EC); // or KEYTYPE_RSA,  must be the same type
+const decrypted   = await secureMessageDecrypt64(encryptedBase64, bobKeyPair.private64, aliceKeyPair.public64);
+console.log("Decrypted secure message: ", decrypted)
 ```
 
 Bob's Secure Message will reject a promise
@@ -520,7 +521,10 @@ or if the message was actually encrypted by Alice but *for Carol* instead, not f
 
 ## Secure Session
 
-Secure session is not ready for React Native. 
+{{< hint warning >}}
+For now, Secure Session is not supported in Themis React Native. We might add it later.
+{{< /hint >}}
+
 
 ## Secure Comparator
 
@@ -552,7 +556,9 @@ See [full API reference here](/themis/api/nodejs/latest/secure_comparator/).
 Secure Comparator has two parties called “client” and “server” for the sake of simplicity,
 but the only difference between the two is in who initiates the comparison.
 
-Both parties start by initialising Secure Comparator with the secret they need to compare:
+Both parties start by initialising Secure Comparator with the secret they need to compare.
+
+Initialisation on the server side:
 
 ```javascript
 import {
@@ -566,13 +572,15 @@ import {
   COMPARATOR_ERROR
 } from 'react-native-themis'
 
-const lorem64 = string64(lorem);
-const server = await comparatorInit64(lorem64);
+const sharedSecret64 = string64(sharedSecret);
+const server = await comparatorInit64(sharedSecret64);
 ```
 
+Initialisation on the client side:
+
 ```javascript
-const lorem64 = string64(lorem);
-const client = await comparatorInit64(lorem64);
+const sharedSecret64 = string64(sharedSecret);
+const client = await comparatorInit64(sharedSecret64);
 ```
 
 The client initiates the protocol and sends the message to the server:
