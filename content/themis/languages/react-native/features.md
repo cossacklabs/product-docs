@@ -11,13 +11,20 @@ it is ready to use in your application!
 ## Using Themis
 
 In order to use React Native Themis,
-you need to import it like this:
+you need to import it like this (import functions you need to use, see example below):
 
 ```javascript
-import { symmetricKey64, keyPair64 } from 'react-native-themis'
+import { symmetricKey64 } from 'react-native-themis'
 ```
 
 ---
+
+## Data format
+
+React Native Themis use base64 encoded strings (binary data encoded as base64) as input to functions and output from them. You can work with base64 encoded strings and store them in variables. 
+
+`64` at the end of function names means that this function returns Base64 string.
+
 
 ## Key generation
 
@@ -47,9 +54,9 @@ import {
 } from 'react-native-themis'
 
 keyPair64(KEYTYPE_EC) // or KEYTYPE_RSA
-  .then((pair: any) => {
-    console.log("private key", pair.private64)
-    console.log("public key", pair.public64)
+  .then((keypair: any) => {
+    console.log("keypair private key", keypair.private64)
+    console.log("keypair public key", keypair.public64)
   })
 ```
 
@@ -68,7 +75,7 @@ When handling symmetric keys of your users, make sure the keys are sufficiently 
 You can find [key management guidelines here](/themis/crypto-theory/key-management/).
 {{< /hint >}}
 
-To generate symmetric keys, use:
+To generate a symmetric cryptographic key, use:
 
 ```javascript
 
@@ -77,8 +84,8 @@ import {
 } from 'react-native-themis'
 
 symmetricKey64()
-  .then((key64) => {
-    console.log(key64)
+  .then((keyBase64) => {
+    console.log(keyBase64)
   });
 
 ```
@@ -181,8 +188,8 @@ import {
 
 // generate symmetric key => promise => call encryption => log encrypted data
 symmetricKey64()
-  .then((key64) => {
-    secureCellSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
+  .then((keyBase64) => {
+    secureCellSealWithSymmetricKeyEncrypt64(keyBase64, plaintext, context)
       .then((encryptedDataBase64) => {
         console.log(encryptedDataBase64) 
       })
@@ -196,8 +203,8 @@ The same steps (key generation, encryption) but using await:
 
 ```javascript
 // same as above but using await
-const key64 = await symmetricKey64()
-const encrypted64 = await secureCellSealWithSymmetricKeyEncrypt64(key64, plaintext, context)
+const keyBase64 = await symmetricKey64()
+const encryptedDataBase64 = await secureCellSealWithSymmetricKeyEncrypt64(keyBase64, plaintext, context)
 ```
 
 Also you can encrypt data using passphrase, which Themis will transform into [cryptographic key using PBKDF](/themis/crypto-theory/cryptosystems/secure-cell/#key-derivation-functions). Use `secureCellSealWithPassphraseEncrypt64` function:
@@ -219,7 +226,7 @@ The _associated context_ argument is optional and can be empty. Seal mode produc
 You can decrypt the data back using the `decrypt` method:
 
 ```javascript
-secureCellSealWithSymmetricKeyDecrypt64(key64, encryptedDataBase64, context)
+secureCellSealWithSymmetricKeyDecrypt64(keyBase64, encryptedDataBase64, context)
   .then((decrypted) => {
     console.log("Decrypted with the key: ", decrypted)
   })
@@ -230,7 +237,7 @@ secureCellSealWithSymmetricKeyDecrypt64(key64, encryptedDataBase64, context)
 // OR
 // same as above but using await
 (async () => {
-  const decrypted = await secureCellSealWithSymmetricKeyDecrypt64(key64, encryptedDataBase64, context)
+  const decrypted = await secureCellSealWithSymmetricKeyDecrypt64(keyBase64, encryptedDataBase64, context)
 })();
 
 // OR decrypt data that was encrypted with passphrase
@@ -268,8 +275,8 @@ import {
 
  // token protect
 symmetricKey64()
-  .then((key64) => {
-    console.log(key64)
+  .then((keyBase64) => {
+    console.log(keyBase64)
   })
 ```
 
@@ -277,7 +284,7 @@ Encrypt the data using the `secureCellTokenProtectEncrypt64` method:
 
 ```javascript
 // token protect
-secureCellTokenProtectEncrypt64(key64, plaintext, context)
+secureCellTokenProtectEncrypt64(keyBase64, plaintext, context)
   .then((encryptedDataBase64) => {
     console.log("Encrypted part: ", encryptedDataBase64.encrypted64)
     console.log("Authentication token: ", encryptedDataBase64.token64)
@@ -295,7 +302,7 @@ You need to save both the encrypted data and the token, they are necessary for d
 Use the `secureCellTokenProtectDecrypt64` method for that:
 
 ```javascript
-secureCellTokenProtectDecrypt64(key64, encryptedDataBase64.encrypted64, encryptedDataBase64.token64, context)
+secureCellTokenProtectDecrypt64(keyBase64, encryptedDataBase64.encrypted64, encryptedDataBase64.token64, context)
   .then((decrypted) => {
     console.log("Decrypted with token protect: ", decrypted)
   })
@@ -326,15 +333,15 @@ import {
 } from 'react-native-themis'
 
 symmetricKey64()
-  .then((key64) => {
-    console.log(key64)
+  .then((keyBase64) => {
+    console.log(keyBase64)
   })
 ```
 
 Now you can encrypt the data using the `secureCellContextImprintEncrypt64` method:
 
 ```javascript
-secureCellContextImprintEncrypt64(key64, plaintext, context)
+secureCellContextImprintEncrypt64(keyBase64, plaintext, context)
   .then((encryptedDataBase64) => {
     console.log(encryptedDataBase64)   
   })
@@ -353,14 +360,13 @@ For the highest level of security, use a different context for each data piece.
 You can decrypt the data back using the `secureCellContextImprintDecrypt64` method:
 
 ```javascript
-secureCellContextImprintDecrypt64(key64, encryptedDataBase64, context)
+secureCellContextImprintDecrypt64(keyBase64, encryptedDataBase64, context)
   .then((decrypted) => {
     console.log("Decrypted with context imprint: ", decrypted)
   })
   .catch((error: any) => {
     console.log(error)
   })
-
 ```
 
 {{< hint warning >}}
