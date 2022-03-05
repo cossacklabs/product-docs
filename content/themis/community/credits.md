@@ -11,6 +11,7 @@ and Andrey Mnazakanov ([@mnaza](https://www.github.com/mnaza)).
 
 As for 2021, Themis is supported by core crew:
 
+- [@radetsky](https://github.com/radetsky) as React Native engineer.
 - [@iamnotacake](https://github.com/iamnotacake) as hands-on software engineer.
 - [@ilammy](https://github.com/ilammy) who joined as a Rust contributor,
   but ended up bringing joy and order to the whole repository.
@@ -19,11 +20,12 @@ As for 2021, Themis is supported by core crew:
 - [@lagovas](https://github.com/Lagovas) as a C, Go, Python developer.
 - [@shadinua](https://github.com/shadinua) as an infrastructure engineer.
 - [@gene-eu](https://github.com/gene-eu) as the mastermind.
-- [@storojs72](https://github.com/storojs72) as a crypto engineer.
 - [@julepka](https://github.com/julepka) as a tamer of Apple ecosystem.
 
 A special thank you goes to the awesome contributors that help us make Themis better:
 
+- [@radetsky](https://github.com/radetsky) for researching, implementing and supporting Themis React Native making it 15th supported platform / language ([#902](https://github.com/cossacklabs/themis/pull/902)).
+- [@storojs72](https://github.com/storojs72) as a crypto engineer who is supporting Themis for multiple years.
 - [@G1gg1L3s](https://github.com/G1gg1L3s) for adding new Themis benchmarks so we know how fast (or slow) Themis is ([#821](https://github.com/cossacklabs/themis/pull/821)).
 - [@maxammann](https://github.com/maxammann) for improvements in WasmThemis code, documentation, and triggering discussions ([#779](https://github.com/cossacklabs/themis/issues/779), [#781](https://github.com/cossacklabs/themis/pull/781), [#783](https://github.com/cossacklabs/themis/pull/783)).
 - [@julepka](https://github.com/julepka) for updating iOS and macOS examples, and bringing Themis SPM to real life ([#823](https://github.com/cossacklabs/themis/pull/823), [#817](https://github.com/cossacklabs/themis/pull/817), [#806](https://github.com/cossacklabs/themis/pull/806), [#726](https://github.com/cossacklabs/themis/pull/726), [#724](https://github.com/cossacklabs/themis/pull/724), [#723](https://github.com/cossacklabs/themis/pull/723)).

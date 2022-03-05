@@ -63,6 +63,7 @@ However, Secure Comparator is already available in multiple languages:
   - [Objective-C](/themis/languages/objc/features/#secure-comparator)
   - [Swift](/themis/languages/swift/features/#secure-comparator)
   - [Python](/themis/languages/python/features/#secure-comparator)
+  - [React Native](/themis/languages/react-native/features/#secure-comparator)
   - [Ruby](/themis/languages/ruby/features/#secure-comparator)
   - [Rust](/themis/languages/rust/features/#secure-comparator)
 
