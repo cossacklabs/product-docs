@@ -28,6 +28,7 @@ Secure Cell is available in all languages supported by Themis:
   - [Python](/themis/languages/python/features/#secure-cell)
   - [Ruby](/themis/languages/ruby/features/#secure-cell)
   - [Rust](/themis/languages/rust/features/#secure-cell)
+  - [React Native](/themis/languages/react-native/features/#secure-cell)
 
 ## Usage model
 

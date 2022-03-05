@@ -65,6 +65,7 @@ However, Secure Comparator is already available in multiple languages:
   - [Python](/themis/languages/python/features/#secure-comparator)
   - [Ruby](/themis/languages/ruby/features/#secure-comparator)
   - [Rust](/themis/languages/rust/features/#secure-comparator)
+  - [React Native](/themis/languages/react-native/features/#secure-comparator)
 
 ## Protocol description
 

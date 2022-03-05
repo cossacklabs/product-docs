@@ -31,7 +31,7 @@ with [SRP](https://en.wikipedia.org/wiki/Secure_Remote_Password_protocol).
 
 ## Availability in Themis
 
-Secure Session is available in all languages supported by Themis:
+Secure Session is available in all languages supported by Themis, except React Native:
 
   - [C++](/themis/languages/cpp/features/#secure-session)
   - [Go](/themis/languages/go/features/#secure-session)
