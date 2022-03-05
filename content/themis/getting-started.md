@@ -12,9 +12,9 @@ Themis supports following CPU architectures: x86_64/i386, ARM, various Android a
 We build and verify Themis on the latest stable OS versions:
 
   - Debian (9, 10), CentOS (7, 8), Ubuntu (16.04, 18.04, 20.04)
-  - macOS (10.12–10.15, 11)
-  - Android (4–11)
-  - iOS (10–14), iPadOS
+  - macOS (10.12–10.15, 11.*)
+  - Android (7–12)
+  - iOS (11–15)
   - Windows (experimenal MSYS2 support)
 
 We plan to expand this list with a broader set of platforms.
@@ -32,6 +32,7 @@ Pick your language and read about Themis API, HowTos, code examples, etc.
 
 | Platform | Documentation |
 | :----- | :----- |
+| ⚛️ React Native (iOS, Android) | [React Native HowTo](/themis/languages/react-native/) |
 | 🔶 Swift (iOS, macOS) | [Swift HowTo](/themis/languages/swift/)|
 | 📱 Objective-C (iOS, macOS) | [Objective-C HowTo](/themis/languages/objc/) |
 | 📞 Kotlin (Android) | [Kotlin HowTo](/themis/languages/kotlin/) |

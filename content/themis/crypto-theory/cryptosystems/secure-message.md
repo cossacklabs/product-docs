@@ -38,6 +38,7 @@ Secure Message is available in all languages supported by Themis:
   - [Swift](/themis/languages/swift/features/#secure-message)
   - [PHP](/themis/languages/php/features/#secure-message)
   - [Python](/themis/languages/python/features/#secure-message)
+  - [React Native](/themis/languages/react-native/features/#secure-message)
   - [Ruby](/themis/languages/ruby/features/#secure-message)
   - [Rust](/themis/languages/rust/features/#secure-message)
 
