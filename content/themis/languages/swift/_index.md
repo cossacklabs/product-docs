@@ -23,7 +23,7 @@ bookCollapseSection: true
   without disclosing anything about the secret to anyone —
   using _[zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof)_.
 
-Themis can also be used with [Objective-C](../objc/).
+Themis can also be used with [Objective-C](../objc/) and [React Native](../react-native/).
 
 {{< hint warning >}}
 **Important:**
