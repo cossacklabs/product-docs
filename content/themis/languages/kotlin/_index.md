@@ -23,7 +23,7 @@ bookCollapseSection: true
   without disclosing anything about the secret to anyone —
   using _[zero-knowledge proofs](https://en.wikipedia.org/wiki/Zero-knowledge_proof)_.
 
-Themis can also be used with [Java](../java/).
+Themis can also be used with [Java](../java/) and [React Native](../react-native/).
 
 ## Supported Java versions
 
