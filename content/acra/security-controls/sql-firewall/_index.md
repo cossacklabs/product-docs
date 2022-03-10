@@ -227,10 +227,20 @@ To activate query logging, define `query_capture` handler with the log file path
 This is how `query_capture.log` content looks like (real values are being masked):
 
 ```
+{"raw_query":"commit"}
+{"raw_query":"update pg_settings set setting = :replaced1 where name = :replaced2"}
+{"raw_query":"select data from test where id = :replaced1"}
+```
+
+{{< hint info >}}
+**Note:**
+Before the 0.93.0, the logs included an extra boolean field `_blacklisted_by_web_config`:
+```
 {"raw_query":"commit","_blacklisted_by_web_config":false}
 {"raw_query":"update pg_settings set setting = :replaced1 where name = :replaced2","_blacklisted_by_web_config":false}
 {"raw_query":"select data from test where id = :replaced1","_blacklisted_by_web_config":false}
 ```
+{{< /hint >}}
 
 ## Security-wise configurations
 
