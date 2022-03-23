@@ -55,7 +55,7 @@ AcraServer has [a set of flags](/acra/configuring-maintaining/controls-configura
 
 ## Usage example
 
-AcraServer's key storage contains a special key, which is used for recognition of poison records. This key is generated either after a query passes through AcraServer, or upon running poison record generation utility [`acra-pisonrecordmaker`](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker) (but you will have to move the keys into AcraServer's key storage manually).
+AcraServer's key storage contains a special key, which is used for recognition of poison records. This key is generated either with [`acra-keys`](/acra/configuring-maintaining/general-configuration/acra-keys), or upon running poison record generation utility [`acra-pisonrecordmaker`](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker) (but you will have to move the keys into AcraServer's key storage manually).
 
 Before running any commands, make sure you have [installed](/acra/getting-started/installing/installing-acra-from-repository/) `acra-poisonrecordmaker` utility and **`ACRA_MASTER_KEY`** stored as an environmental variable.
 
@@ -65,7 +65,7 @@ If you haven't generated keys before, checkout out [key generation](/acra/securi
 export ACRA_MASTER_KEY=$(echo -n "My_Very_Long_Key_Phrase_ge_32_chars" | base64)
 ```
 
-Running simple `acra-poisonrecordmaker` binary command: 
+Running simple `acra-poisonrecordmaker` binary command:
 
 ```
 acra-poisonrecordmaker
