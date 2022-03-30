@@ -151,7 +151,7 @@ publishDir = "html"
   url = "https://www.cossacklabs.com/cookie-policy/"
   weight = 2
 [[menu.footer_bottom_links]]
-  name = "Presskit"
+  name = "Press"
   url = "https://www.cossacklabs.com/press-kit/"
   weight = 3
 [[menu.footer_bottom_links]]
