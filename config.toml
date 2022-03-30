@@ -64,7 +64,7 @@ publishDir = "html"
   weight = 3
 [[menu.footer_challenges]]
   name = "Cryptography engineering"
-  url = "https://www.cossacklabs.com/solutions/applied-crypto-engineering/"
+  url = "https://www.cossacklabs.com/solutions/cryptography-engineering/"
   weight = 4
 [[menu.footer_challenges]]
   name = "Data security & privacy compliance"
@@ -75,8 +75,8 @@ publishDir = "html"
   url = "https://www.cossacklabs.com/solutions/data-security/"
   weight = 1
 [[menu.footer_use_cases]]
-  name = "E2EE / Zero Trust"
-  url = "https://www.cossacklabs.com/solutions/e2ee-zero-trust/"
+  name = "End-to-end encryption"
+  url = "https://www.cossacklabs.com/solutions/end-to-end-encryption/"
   weight = 2
 [[menu.footer_use_cases]]
   name = "Auditable systems"
@@ -91,28 +91,28 @@ publishDir = "html"
   url = "https://www.cossacklabs.com/solutions/mobile-apps-security/"
   weight = 5
 [[menu.footer_industries]]
-  name = "Finance"
-  url = "https://www.cossacklabs.com/solutions/solutions-for-finance/"
+  name = "Fintech"
+  url = "https://www.cossacklabs.com/solutions/fintech-data-security/"
   weight = 1
 [[menu.footer_industries]]
   name = "Blockchain"
-  url = "https://www.cossacklabs.com/solutions/solutions-for-blockchain/"
+  url = "https://www.cossacklabs.com/solutions/blockchain-security/"
   weight = 2
 [[menu.footer_industries]]
   name = "Healthcare"
-  url = "https://www.cossacklabs.com/solutions/solutions-for-healthcare/"
+  url = "https://www.cossacklabs.com/solutions/healthcare-data-security/"
   weight = 3
 [[menu.footer_industries]]
   name = "SaaS"
-  url = "https://www.cossacklabs.com/solutions/solutions-for-saas/"
+  url = "https://www.cossacklabs.com/solutions/saas-security/"
   weight = 4
 [[menu.footer_industries]]
   name = "Industrial / CNI"
-  url = "https://www.cossacklabs.com/solutions/solutions-for-industrial-cni/"
+  url = "https://www.cossacklabs.com/solutions/cni-security/"
   weight = 5
 [[menu.footer_industries]]
-  name = "B2C apps"
-  url = "https://www.cossacklabs.com/solutions/solutions-for-b2c-apps/"
+  name = "Consumer apps"
+  url = "https://www.cossacklabs.com/solutions/consumer-apps-security/"
   weight = 6
 [[menu.footer_company]]
   name = "About us"
