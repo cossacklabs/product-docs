@@ -37,7 +37,7 @@ AcraServer accepts connections while also connects to the database.
 
 If certificates used on different sides of AcraServer are signed by different authorities,
 you should separate the configuration by using `--tls_client_*` and `--tls_database_*`
-[flags]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}) respectively.
+[flags]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#tls" >}}) respectively.
 
 ### Versions and ciphers
 
