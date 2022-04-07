@@ -71,9 +71,10 @@ Required: `false`
 
 Type: `string` 
 
-Default value: `acrastruct`
+Default value: `acrablock`
 
-Description: set encryption algorithm and envelope for ciphertext. Supports: `acrablock` (default), `acrastruct`. 
+Description: select which cryptographic algorithm and crypto envelope to use to encrypt fields. Don't change if you 
+don't know what it means. Supports: `acrablock` (default), `acrastruct`. 
 [Read more](/acra/acra-in-depth/data-structures/) about crypto envelopes, their purpose and difference.
 
 ### **reencrypting_to_acrablocks**
@@ -88,10 +89,10 @@ Default value: `false`
 Description: turns on the re-encryption of AcraStructs generated on application side to AcraBlocks before passing it to database. 
 It replaces less performant AcraStructs to the [more performant AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/).
 
-If application generates AcraStructs, writes once and reads often then `reencrypting_to_acrablocks: true` makes slower 
-writes due to decryption AcraStructs generated on application side and encrypting into AcraBlocks on AcraServer side, 
-but significantly improves read operations performance due to faster decryption KEK with symmetric cryptography in comparison
-with asymmetric.
+If application generates AcraStructs, writes once and reads often then we suggest to set `reencrypting_to_acrablocks: true`.
+It makes slower write operations due to decryption AcraStructs generated on application side and encrypting into 
+AcraBlocks on AcraServer side. But it significantly improves read operations performance due to faster decryption KEK 
+with symmetric cryptography in comparison with asymmetric.
 
 If application doesn't generate AcraStructs and rely only on transparent encryption on AcraServer side then we suggest
 turn it off. AcraServer will not try to recognize AcraStruct on every AcraBlock matching failure and slightly improve
@@ -143,8 +144,8 @@ Without declared columns AcraServer **will not** support these kinds of queries.
 
 ### **encrypted**
 
-This section declares security controls like `encryption`, `searchable encryption`, `masking`, `tokenization` on per-column basis for specified
-table.
+This section declares security controls like `encryption`, `searchable encryption`, `masking`, `tokenization` on 
+per-column basis for specified table.
 
 ```
 schemas:
