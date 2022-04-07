@@ -193,8 +193,13 @@ This section allows to configure several groups of settings:
 
 <!-- TODO maybe it hard to understand and should be rephrased. -->
 Options from `common` group can be used together with options from other groups. But options from different groups 
-cannot be used together except `common`. Several can be used for several groups. One column can be configured only with 
-options from the one group and from `common`. 
+cannot be used together except `common` (options from `masking` cannot be used together with `tokenization` or 
+`searchable encryption`). 
+
+Some of them can be used for several groups (for example `data_type` can be used for 
+`masking`, `encryption`, `searchable encryption`, but not for `tokenization`). 
+
+One column can be configured only with options from the one group and from `common`. 
 
 #### **column**
 
