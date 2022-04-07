@@ -5,16 +5,15 @@ weight: 1
 
 # Encryptor config
 
-This config responsible for configuration proactive security controls of AcraServer and can be specified
+This config is responsible for configuration of proactive security controls of AcraServer and can be specified
 via `--encryptor_config=<path>` CLI parameter or `encryptor_config` key in YAML configuration file for AcraServer.
 
-Next security controls can be configured:
+The following security controls can be configured:
 - Transparent encryption
 - Searchable encryption
 - Masking
 - Tokenization
 
-Each of them has common and specific only for that feature configuration parameters.
 
 There is full example of configuration file with all options:
 
@@ -38,10 +37,10 @@ schemas:
         crypto_envelope: "<acrablock|acrastruct>" # [optional]
         reencrypting_to_acrablocks: <false|true> # [optional] [default=false]
         data_type: "<str|bytes|int32|int64>" # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
-        default_data_value: "<string value>" # [optional] [required_with=data_type] may be string literal or valid int32/int64 yaml values
+        default_data_value: "<string value>" # [optional] [required_with=data_type] may be a string literal or a valid int32/int64 value
         
         # Tokenization
-        token_type: "<int64|int32|str|bytes|email>" # [optional] [required_with=tokenized | consistent_tokenization] 
+        token_type: "<email|str|bytes|int32|int64>" # [optional] [required_with=tokenized | consistent_tokenization] 
         tokenized: true # [optional] [default=false] [required_with=token_type]
         consistent_tokenization: true # [optional] [default=false] [required_with=token_type]
         
@@ -56,10 +55,9 @@ schemas:
 
 It has two top-level sections: `defaults` and `schemas`.
 
-## **defaults**
+## **defaults section**
 
-Allows to specify common parameters for whole configuration file to not repeat it for each field. For now 
-this section supports `crypto_envelope` and `reencrypting_to_acrablocks` options. 
+The **defaults** section allows to specify common parameters for the whole configuration file, all the tables and columns, not to repeat it for each column. This section supports `crypto_envelope` and `reencrypting_to_acrablocks` options. 
 
 ```
 defaults:
@@ -76,7 +74,7 @@ Type: `string`
 Default value: `acrastruct`
 
 Description: set encryption algorithm and envelope for ciphertext. Supports: `acrablock` (default), `acrastruct`. 
-[Read more](/acra/acra-in-depth/data-structures/) about crypto envelopes.
+[Read more](/acra/acra-in-depth/data-structures/) about crypto envelopes, their purpose and difference.
 
 ### **reencrypting_to_acrablocks**
 
@@ -87,8 +85,8 @@ Type: `boolean`
 Default value: `false`
 
 
-Description: turns on re-encryption AcraStructs generated on application side to AcraBlock before passing it to database. 
-It replaces less performant AcraStructs to [more performant AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/).
+Description: turns on the re-encryption of AcraStructs generated on application side to AcraBlocks before passing it to database. 
+It replaces less performant AcraStructs to the [more performant AcraBlocks](/acra/configuring-maintaining/optimizations/acrastructs_vs_acrablocks/).
 
 If application generates AcraStructs, writes once and reads often then `reencrypting_to_acrablocks: true` makes slower 
 writes due to decryption AcraStructs generated on application side and encrypting into AcraBlocks on AcraServer side, 
@@ -99,9 +97,10 @@ If application doesn't generate AcraStructs and rely only on transparent encrypt
 turn it off. AcraServer will not try to recognize AcraStruct on every AcraBlock matching failure and slightly improve
 performance for write operations.
 
-## **schemas**
+[Read more](/acra/acra-in-depth/data-structures/) about crypto envelopes, their purpose and difference.
+## **schemas section**
 
-This section defines information about table's columns should be processed by AcraServer. This field is array
+This section defines the table schema, and how AcraServer should process each column field. This field is array
 with items:
 ```
 schemas:
@@ -113,18 +112,18 @@ schemas:
     encrypted: <array of structured items>
 ```
 
-### **table**
+### **table section**
 
 Required: `true`
 
 Type: `string`
 
-Description: table for which should be applied security controls.
+Description: a table name which columns will be processed (encrypted, tokenized, etc).
 {{< hint warning >}}
-Keep in mind that till 0.93.0 AcraServer processes table name as case-sensitive identifier
+Keep in mind that AcraServer 0.93.0 and earlier processes table name as case-sensitive identifier. Thus, "emails" and "Emails" are processed as different tables.
 {{</ hint  >}}
 
-### **columns**
+### **columns section**
 
 Required: `false`
 
@@ -180,7 +179,7 @@ Required: `true`
 
 Type: `array of items`
 
-Description: defines which security controls apply on column's data. There is can be configured [transparent encryption](/acra/security-controls/encryption/), 
+Description: defines which security controls to apply on column's data. Several options are possible: [transparent encryption](/acra/security-controls/encryption/), 
 [masking](/acra/security-controls/masking/), [searchable encryption](/acra/security-controls/searchable-encryption/), 
 [tokenization](/acra/security-controls/tokenization/).
 
