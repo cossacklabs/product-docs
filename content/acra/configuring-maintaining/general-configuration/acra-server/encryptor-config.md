@@ -99,6 +99,7 @@ turn it off. AcraServer will not try to recognize AcraStruct on every AcraBlock 
 performance for write operations.
 
 [Read more](/acra/acra-in-depth/data-structures/) about crypto envelopes, their purpose and difference.
+
 ## **schemas section**
 
 This section defines the table schema, and how AcraServer should process each column field. This field is array
@@ -130,13 +131,10 @@ Required: `false`
 
 Type: `array of strings`
 
-Description: defines all table's columns in order how they were declared in the database. AcraServer doesn't require
-access to the database or configuring access to database. So it can't get database's metadata with tables' schemas
-and works fully as transparent SQL proxy. 
+Description: defines all table's columns in order how they were declared in the database. AcraServer works as fully transparent proxy and doesn't access to the database's metadata with tables' schemas. 
 
-So, it's important to declare correct order of columns due to it is only one way how to process queries like 
-`SELECT * FROM table1` or `INSERT INTO table1 VALUES (...)`. In first query it helps to understand how much and 
-which columns expect from the database, how to expand `*` value. In the second query it helps support `INSERT` command without explicitly 
+It's important to declare a correct order of columns as it is the only way to process queries like 
+`SELECT * FROM table1` or `INSERT INTO table1 VALUES (...)`. For the first query, correct order helps to understand how much and which columns are expected from the database, how to expand `*` value. For the second query, it helps to support `INSERT` command without explicitly 
 declared columns due to omitted section between table name `table1` and `VALUES` as it could be 
 `INSERT INTO table1 (column1, column2) VALUES(<value1>, <value2>)` with explicitly declared columns and order. 
 
@@ -145,7 +143,7 @@ Without declared columns AcraServer **will not** support these kinds of queries.
 ### **encrypted**
 
 This section declares security controls like `encryption`, `searchable encryption`, `masking`, `tokenization` on 
-per-column basis for specified table.
+per-column basis for the specified table.
 
 ```
 schemas:
@@ -192,9 +190,7 @@ This section allows to configure several groups of settings:
 - **tokenization**
 
 <!-- TODO maybe it hard to understand and should be rephrased. -->
-Options from `common` group can be used together with options from other groups. But options from different groups 
-cannot be used together except `common` (options from `masking` cannot be used together with `tokenization` or 
-`searchable encryption`). 
+Options from `common` group can be used together with options from other groups. But options from other groups cannot be used together, for example, options for `masking` are unique only for masking and cannot be used together with `tokenization` or `searchable encryption`, and vice versa. 
 
 Some of them can be used for several groups (for example `data_type` can be used for 
 `masking`, `encryption`, `searchable encryption`, but not for `tokenization`). 
@@ -275,7 +271,7 @@ Type: `boolean`
 
 Group: `searchable encryption`
 
-Description: turns on encryption with [ability to run simple](/acra/security-controls/searchable-encryption/) queries over 
+Description: turns on searchable encryption with [ability to run simple queries](/acra/security-controls/searchable-encryption/) over 
 encrypted data. Final ciphertext will store more data with additional hash value at the beginning of data. Searchable encryption
 supports `acrablock` and `acrastruct` crypto envelopes. This option cannot be used together with masking or tokenization
 related options.
@@ -330,6 +326,8 @@ Group: `tokenization`
 
 Description: turns on tokenization for column.
 
+[Read more](/acra/security-controls/tokenization/) about tokenization.
+
 #### **token_type**
 
 Required: `false`
@@ -381,7 +379,9 @@ Depends on: `tokenized`
 
 Group: `tokenization`
 
-Description: turns on consistent tokenization. By default (`consistent_tokenization: false`), Acra generates new value 
+Description: turns on consistent tokenization. Consistent tokenization means that the same plaintext will ALWAYS result in the same token. When disabled, the same plaintext will result in different tokens.
+
+By default (`consistent_tokenization: false`), Acra generates new value 
 for every input value. For example, if application sends query `INSERT INTO table1 (age) values (25)` then Acra will
 generate 25 new values (if `token_type: int32` or `int64`) and replace `25` with new values. If `consistent_tokenization: true`
 then Acra will generate one random output value per input value. For `25` it will generate `76982` (just for example) and
@@ -397,10 +397,11 @@ Depends on: `plaintext_length`, `plaintext_side`
 
 Group: `masking`
 
-Description: turns on masking and specify pattern that will replace ciphertext. For example: masked `1234-5678-9123-4567`
-value with `plaintext_length: 4`, `plaintext_side: left` and `masking: "-XXXX-XXXX-XXXX"`. Value in the database will look like `1234<ciphertext>` where
-`<ciphertext>` is AcraStruct or AcraBlock. If user has access to data, it will get `1234-5678-9123-4567` after unmasking.
-If user doesn't have permission then will get `1234-XXXX-XXXX-XXXX`.
+Description: turns on masking and specify pattern that will replace ciphertext. For example, a value `1234-5678-9123-4567` which is masked with `plaintext_length: 4`, `plaintext_side: left` and `masking: "-XXXX-XXXX-XXXX"`, will look like `1234<ciphertext>` in the database, where
+`<ciphertext>` is AcraStruct or AcraBlock. If the user has access to data, they will get `1234-5678-9123-4567` after unmasking.
+If the user doesn't have permission, they will get masked value `1234-XXXX-XXXX-XXXX`.
+
+[Read more](/acra/security-controls/masking/) about masking.
 
 #### **plaintext_length**
 
@@ -428,8 +429,8 @@ Depends on: `plaintext_side`, `plaintext_length`
 Group: `masking`
 
 Description: configures side of plaintext that will be left untouched according to `plaintext_length`. 
-- `left` - value will be stored as `<plaintext[:plaintext_length]><ciphertext>`.
-- `right` - value will be stored as `<ciphertext[:plaintext_length]><plaintext>`.
+- `left` - value will be stored as `<plaintext[:plaintext_length]><ciphertext>`, for example "helloXXXX".
+- `right` - value will be stored as `<ciphertext[:plaintext_length]><plaintext>`, for example "XXXXl.com".
 
 ### **Matrix of options compatibility**
 
