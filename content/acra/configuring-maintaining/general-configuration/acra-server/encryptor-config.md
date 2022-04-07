@@ -53,7 +53,7 @@ schemas:
         searchable: true # [optional] [default=false]
 ```
 
-It has two top-level sections: `defaults` and `schemas`.
+The encryption configuration file has two top-level sections: `defaults` and `schemas`.
 
 ## **defaults section**
 
