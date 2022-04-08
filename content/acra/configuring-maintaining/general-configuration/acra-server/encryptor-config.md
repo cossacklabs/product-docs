@@ -19,38 +19,71 @@ There is full example of configuration file with all options:
 
 ```
 defaults:
-  crypto_envelope: "<acrablock|acrastruct>" # [optional] [default=acrablock] 
-  reencrypting_to_acrablocks: false # [optional] [default=false]
+  # [optional] [default=acrablock]
+  crypto_envelope: "<acrablock|acrastruct>"
+
+  # [optional] [default=false]  
+  reencrypting_to_acrablocks: false 
 
 schemas:
   - table: example_table
     columns:
       - id
       - data_column
-     
+
     encrypted:
       - column: data_column
-      
+
+        ##
         # General options
-        client_id: "<string>" # [optional] [conflicts_with=zone_id]
-        zone_id: "<string>" # [optional] [conflicts_with=client_id]
-        crypto_envelope: "<acrablock|acrastruct>" # [optional]
-        reencrypting_to_acrablocks: <false|true> # [optional] [default=false]
-        data_type: "<str|bytes|int32|int64>" # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
-        default_data_value: "<string value>" # [optional] [required_with=data_type] may be a string literal or a valid int32/int64 value
-        
+        ##
+        # [optional] [conflicts_with=zone_id]
+        client_id: "<string>"
+
+        # [optional] [conflicts_with=client_id] 
+        zone_id: "<string>"
+
+        # [optional]
+        crypto_envelope: "<acrablock|acrastruct>"
+
+        # [optional] [default=false] 
+        reencrypting_to_acrablocks: <false|true>
+
+        # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization] 
+        data_type: "<str|bytes|int32|int64>"
+
+        # [optional] [required_with=data_type] may be a string literal or a valid int32/int64 value
+        default_data_value: "<string value>"
+
+        ##
         # Tokenization
-        token_type: "<email|str|bytes|int32|int64>" # [optional] [required_with=tokenized | consistent_tokenization] 
-        tokenized: true # [optional] [default=false] [required_with=token_type]
-        consistent_tokenization: true # [optional] [default=false] [required_with=token_type]
-        
+        ##
+        # [optional] [required_with=tokenized | consistent_tokenization]
+        token_type: "<email|str|bytes|int32|int64>"
+
+        # [optional] [default=false] [required_with=token_type]  
+        tokenized: true
+
+        # [optional] [default=false] [required_with=token_type]
+        consistent_tokenization: true
+
+        ##
         # Masking
-        masking: "xxxx" # [optional] [required_with=plaintext_length | plaintext_side]
-        plaintext_length: 9  # [optional] [required_with=masking | plaintext_side]
-        plaintext_side: "<right|left>" # [optional] [required_with=masking | plaintext_side]
-        
+        ##
+        # [optional] [required_with=plaintext_length | plaintext_side]
+        masking: "xxxx"
+
+        # [optional] [required_with=masking | plaintext_side]
+        plaintext_length: 9
+
+        # [optional] [required_with=masking | plaintext_side]
+        plaintext_side: "<right|left>"
+
+        ##
         # Searching
-        searchable: true # [optional] [default=false]
+        ##
+        # [optional] [default=false]
+        searchable: true
 ```
 
 The encryption configuration file has two top-level sections: `defaults` and `schemas`.
@@ -140,7 +173,9 @@ which columns expect from the database, how to expand `*` value. In the second q
 declared columns due to omitted section between table name `table1` and `VALUES` as it could be 
 `INSERT INTO table1 (column1, column2) VALUES(<value1>, <value2>)` with explicitly declared columns and order. 
 
+{{< hint warning >}}
 Without declared columns AcraServer **will not** support these kinds of queries.
+{{</ hint >}}
 
 ### **encrypted**
 
@@ -295,10 +330,13 @@ storing data as blobs, AcraServer allow change type on DB protocol level. After 
 Text/Integer/Binary data types for application. 
 
 How AcraServer maps types from configuration file to DB specific type:
-- `str` - [text](https://www.postgresql.org/docs/current/datatype-character.html) (PostgreSQL, [oid](https://www.postgresql.org/docs/current/datatype-oid.html)=25); [MYSQL_TYPE_STRING](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (MySQL, 0xfe)
-- `int32` - [integer](https://www.postgresql.org/docs/current/datatype-numeric.html) (PostgreSQL, oid=23), [MYSQL_TYPE_LONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (MySQL, 0x03)
-- `int64` - [bigint](https://www.postgresql.org/docs/current/datatype-numeric.html) (PostgreSQL, oid=20), [MYSQL_TYPE_LONGLONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (MySQL, 0x08)
-- `bytes` - [bytea](https://www.postgresql.org/docs/current/datatype-binary.html) (PostgreSQL, oid=17), [MYSQL_TYPE_BLOB](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (MySQL, 0xfc)
+
+| Data type | PostgreSQL                                                                                                                                    | MySql                                                                                                                          |
+| --------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| `str`     | [text](https://www.postgresql.org/docs/current/datatype-character.html) ([oid](https://www.postgresql.org/docs/current/datatype-oid.html)=25) | [MYSQL_TYPE_STRING](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0xfe)   |
+| `int32`   | [integer](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=23)                                                             | [MYSQL_TYPE_LONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0x03)     |
+| `int64`   | [bigint](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=20)                                                              | [MYSQL_TYPE_LONGLONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0x08) |
+| `bytes`   | [bytea](https://www.postgresql.org/docs/current/datatype-binary.html) (oid=17)                                                                | [MYSQL_TYPE_BLOB](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0xfc)     |
 
 #### **default_data_value**
 
