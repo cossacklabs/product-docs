@@ -21,9 +21,9 @@ This behavior is controlled by
 ## TLS certificate
 
 When AcraServer or AcraTranslator is launched with 
-[`--tls_client_id_from_cert` flag]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}),
+[`--tls_client_id_from_cert` flag]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#tls" >}}),
 client IDs will be derived from TLS certificates provided by the client during handshake.
 
 The exact behavior will also depend on value from
-[`--tls_identifier_extractor_type` flag]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}),
+[`--tls_identifier_extractor_type` flag]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#tls" >}}),
 see its description for more on that.
