@@ -9,7 +9,7 @@ weight: 1
 Here we describe how to set up AcraServer to reach a state where it can process queries.
 
 List of all command line flags for AcraServer is located
-[here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md" >}}).
+[here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/" >}}).
 
 ## Configuration file
 
@@ -26,10 +26,10 @@ Different configuration sources can be mixed if that makes sense in your situati
 ## Listener
 
 AcraServer will be listening on some default ports (API on `9090`, SQL proxy on `9393`) if not configured to do otherwise.
-Related flags are located [here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#network" >}}).
+Related flags are located [here]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#network" >}}).
 As a simple example we can set both host and port like this: `--incoming_connection_string=tcp://127.0.0.1:13306`.
 
-It is also important to [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}),
+It is also important to [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#tls" >}}),
 so the application/clients will have secure connection to AcraServer.
 
 ## Database
@@ -41,5 +41,5 @@ If you are using MySQL or MariaDB, add `--mysql_enable=true` flag.
 If you are using PostgreSQL, add `--postgresql_enable=true` flag.
 
 Then, configure the database address with `--db_host` and `--db_port`.
-Don't forget to also [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server.md#tls" >}}):
+Don't forget to also [configure TLS]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#tls" >}}):
 set up additional root CA if needed, client certificates and so on.
