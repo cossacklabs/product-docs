@@ -52,7 +52,11 @@ schemas:
         # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization] 
         data_type: "<str|bytes|int32|int64>"
 
-        # [optional] [required_with=data_type] may be a string literal or a valid int32/int64 value
+        # [optional] [required_with=data_type]
+        response_on_fail: "<ciphertext|default_value|error>"
+
+        # [optional] [required_with=data_type and response_on_fail=default_value]
+        # may be a string literal or a valid int32/int64 value
         default_data_value: "<string value>"
 
         ##
@@ -193,6 +197,7 @@ schemas:
       zone_id: "<string>" # [optional] [conflicts_with=client_id]
       crypto_envelope: "<acrablock|acrastruct>" # [optional]
       data_type: "<str|bytes|int32|int64>" # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
+      response_on_fail: "<ciphertext|default_value|error>" # [optional] [required_with=data_type and]
       default_data_value: "<string value>" # [optional] [required_with=data_type] may be string literal or valid int32/int64 yaml values
 
       # Tokenization
@@ -334,17 +339,56 @@ How AcraServer maps types from configuration file to DB specific type:
 | `int64`   | [bigint](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=20)                                                              | [MYSQL_TYPE_LONGLONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0x08) |
 | `bytes`   | [bytea](https://www.postgresql.org/docs/current/datatype-binary.html) (oid=17)                                                                | [MYSQL_TYPE_BLOB](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0xfc)     |
 
+
+#### **response_on_fail**
+
+Required: `false`
+
+Type: `ciphertext`, `default_value`, `error`
+
+Depends on: `data_type`
+
+<!-- TODO: is it correct? -->
+Group: `encryption`, `searchable encryption`, `masking` (`int32`, `int64` not supported for masking)
+
+Descryption: specifies which action should be performed in case of a failure of some operation (decryption error, wrong data type, etc.).
+
+The `ciphertext` means that the raw (possibly encrypted) data should be returned to a client.
+
+The `default_value` requires `default_data_value` and specifies that some default value should be returned instead.
+
+The `error` will produce a db-specific error, which could be handled on the client side. The message will look like `encoding error in "column_name"`.
+
+If not specified, the default value for `response_on_fail` is `ciphertext`, unless `default_data_value` is defined. In that case, the `response_on_fail` would implicitly become `default_value`:
+
+```yaml
+# ...
+encrypted:
+  - column: implicit_ciphertext
+    data_value: str
+    # implicitly:
+    # response_on_fail: ciphertext
+  
+  - column: implicit_default_value
+    data_value: str
+    default_data_value: some_string
+    # default_data_value is defined so implicitly:
+    # response_on_fail: default_value
+```
+
 #### **default_data_value**
 
 Required: `false`
 
 Type: `string`, `integer`, `base64`
 
-Depends on: `data_type`
+Depends on: `data_type`, `response_on_fail`
 
 Group: `encryption`, `searchable encryption`, `masking` (`int32`, `int64` not supported for masking)
 
-Description: configures default value if data cannot be decrypted. Type of value depends on `data_type`. 
+Description: configures default value if data cannot be decrypted. Requires `response_on_fail: default_value`. Type of value depends on `data_type`. 
+
+If the `response_on_fail` is not defined, and `default_data_value` is, then the `response_on_fail` will be implicitly set to `default_value`.
 
 For `int32` and `int64` types should be integer YAML literal. For example: `123`, `-321`, `0`. Value should be in the proper range
 according to the type. `int32` has range &#91;-2^31, 2^31-1&#93;, `int64` has range &#91;-2^63, 2^63-1&#93;.
@@ -476,19 +520,22 @@ Here is matrix of all options supported in the `encrypted` section where showed 
 which cannot be. 
 
 
-| ---                     | client_id | zone_id | crypto_envelope | data_type[bytes] | data_type[str] | data_type[int32] | data_type[int64] | data_default_value | token_type | tokenized | consistent_tokenization | masking | plaintext_length | plaintext_side |
-|-------------------------|-----------|---------|-----------------|------------------|----------------|------------------|------------------|--------------------|------------|-----------|-------------------------|---------|------------------|----------------|
-| client_id               | +         | -       | +               | +                | +              | +                | +                | +                  | +          | +         | +                       | +       | +                | +              |
-| zone_id                 | -         | +       | +               | +                | +              | +                | +                | +                  | +          | +         | +                       | +       | +                | +              |
-| crypto_envelope         | +         | +       | +               | +                | +              | +                | +                | +                  | -          | -         | -                       | +       | +                | +              |
-| data_type[bytes]        | +         | +       | +               | +                | -              | -                | -                | +                  | -          | -         | -                       | +       | +                | +              |
-| data_type[str]          | +         | +       | +               | -                | +              | -                | -                | +                  | -          | -         | -                       | +       | +                | +              |
-| data_type[int32]        | +         | +       | +               | -                | -              | +                | -                | +                  | -          | -         | -                       | -       | -                | -              |
-| data_type[int64]        | +         | +       | +               | -                | -              | -                | +                | +                  | -          | -         | -                       | -       | -                | -              |
-| data_default_value      | +         | +       | +               | +                | +              | +                | +                | +                  | -          | -         | -                       | -       | -                | -              |
-| token_type              | +         | +       | -               | -                | -              | -                | -                | -                  | +          | +         | +                       | -       | -                | -              |
-| tokenized               | +         | +       | -               | -                | -              | -                | -                | -                  | +          | +         | +                       | -       | -                | -              |
-| consistent_tokenization | +         | +       | -               | -                | -              | -                | -                | -                  | +          | +         | +                       | -       | -                | -              |
-| masking                 | +         | +       | +               | +                | +              | -                | -                | -                  | -          | -         | -                       | +       | +                | +              |
-| plaintext_length        | +         | +       | +               | +                | +              | -                | -                | -                  | -          | -         | -                       | +       | +                | +              |
-| plaintext_side          | +         | +       | +               | +                | +              | -                | -                | -                  | -          | -         | -                       | +       | +                | +              |
+| ---                             | client_id | zone_id | crypto_envelope | data_type[bytes] | data_type[str] | data_type[int32] | data_type[int64] | response_on_fail[ciphertext] | response_on_fail[default_value] | response_on_fail[error] | data_default_value | token_type | tokenized | consistent_tokenization | masking | plaintext_length | plaintext_side |
+| ------------------------------- | --------- | ------- | --------------- | ---------------- | -------------- | ---------------- | ---------------- | ---------------------------- | ------------------------------- | ----------------------- | ------------------ | ---------- | --------- | ----------------------- | ------- | ---------------- | -------------- |
+| client_id                       | +         | -       | +               | +                | +              | +                | +                | +                            | +                               | +                       | +                  | +          | +         | +                       | +       | +                | +              |
+| zone_id                         | -         | +       | +               | +                | +              | +                | +                | +                            | +                               | +                       | +                  | +          | +         | +                       | +       | +                | +              |
+| crypto_envelope                 | +         | +       | +               | +                | +              | +                | +                | +                            | +                               | +                       | +                  | -          | -         | -                       | +       | +                | +              |
+| data_type[bytes]                | +         | +       | +               | +                | -              | -                | -                | +                            | +                               | +                       | +                  | -          | -         | -                       | +       | +                | +              |
+| data_type[str]                  | +         | +       | +               | -                | +              | -                | -                | +                            | +                               | +                       | +                  | -          | -         | -                       | +       | +                | +              |
+| data_type[int32]                | +         | +       | +               | -                | -              | +                | -                | +                            | +                               | +                       | +                  | -          | -         | -                       | -       | -                | -              |
+| data_type[int64]                | +         | +       | +               | -                | -              | -                | +                | +                            | +                               | +                       | +                  | -          | -         | -                       | -       | -                | -              |
+| response_on_fail[ciphertext]    | +         | +       | +               | +                | +              | +                | +                | +                            | -                               | -                       | -                  | -          | -         | -                       | -       | -                | -              |
+| response_on_fail[default_value] | +         | +       | +               | +                | +              | +                | +                | -                            | +                               | -                       | +                  | -          | -         | -                       | -       | -                | -              |
+| response_on_fail[error]         | +         | +       | +               | +                | +              | +                | +                | -                            | -                               | +                       | -                  | -          | -         | -                       | -       | -                | -              |
+| data_default_value              | +         | +       | +               | +                | +              | +                | +                | -                            | +                               | -                       | +                  | -          | -         | -                       | -       | -                | -              |
+| token_type                      | +         | +       | -               | -                | -              | -                | -                | -                            | -                               | -                       | -                  | +          | +         | +                       | -       | -                | -              |
+| tokenized                       | +         | +       | -               | -                | -              | -                | -                | -                            | -                               | -                       | -                  | +          | +         | +                       | -       | -                | -              |
+| consistent_tokenization         | +         | +       | -               | -                | -              | -                | -                | -                            | -                               | -                       | -                  | +          | +         | +                       | -       | -                | -              |
+| masking                         | +         | +       | +               | +                | +              | -                | -                | -                            | -                               | -                       | -                  | -          | -         | -                       | +       | +                | +              |
+| plaintext_length                | +         | +       | +               | +                | +              | -                | -                | -                            | -                               | -                       | -                  | -          | -         | -                       | +       | +                | +              |
+| plaintext_side                  | +         | +       | +               | +                | +              | -                | -                | -                            | -                               | -                       | -                  | -          | -         | -                       | +       | +                | +              |
