@@ -357,7 +357,7 @@ The `ciphertext` means that the raw (possibly encrypted) data should be returned
 
 The `default_value` requires `default_data_value` and specifies that some default value should be returned instead.
 
-The `error` will produce a db-specific error, which could be handled on the client side. The message will look like `encoding error in "column_name"`.
+The `error` will produce a db-specific error, which could be handled on the client side. The message will look like `encoding error in "<column_name>"`.
 
 If not specified, the default value for `response_on_fail` is `ciphertext`, unless `default_data_value` is defined. In that case, the `response_on_fail` would implicitly become `default_value`:
 
