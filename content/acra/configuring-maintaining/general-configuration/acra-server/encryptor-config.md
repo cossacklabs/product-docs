@@ -197,7 +197,7 @@ schemas:
       zone_id: "<string>" # [optional] [conflicts_with=client_id]
       crypto_envelope: "<acrablock|acrastruct>" # [optional]
       data_type: "<str|bytes|int32|int64>" # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
-      response_on_fail: "<ciphertext|default_value|error>" # [optional] [required_with=data_type and]
+      response_on_fail: "<ciphertext|default_value|error>" # [optional] [required_with=data_type]
       default_data_value: "<string value>" # [optional] [required_with=data_type] may be string literal or valid int32/int64 yaml values
 
       # Tokenization
