@@ -348,7 +348,6 @@ Type: `ciphertext`, `default_value`, `error`
 
 Depends on: `data_type`
 
-<!-- TODO: is it correct? -->
 Group: `encryption`, `searchable encryption`, `masking`
 
 Descryption: specifies which action should be performed in case of a failure of some operation (decryption error, wrong data type, etc.).
