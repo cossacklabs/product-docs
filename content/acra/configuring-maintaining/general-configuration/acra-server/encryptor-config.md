@@ -62,10 +62,10 @@ schemas:
         ##
         # Tokenization
         ##
-        # [optional] [required_with=tokenized | consistent_tokenization]
+        # [optional] [required_with=tokenized (before 0.93.0)]
         token_type: "<email|str|bytes|int32|int64>"
 
-        # [optional] [default=false] [required_with=token_type]  
+        # [optinal] [deprecated since 0.93.0] [default=false] [required_with=token_type]  
         tokenized: true
 
         # [optional] [default=false] [required_with=token_type]
@@ -201,8 +201,8 @@ schemas:
       default_data_value: "<string value>" # [optional] [required_with=data_type] may be string literal or valid int32/int64 yaml values
 
       # Tokenization
-      token_type: "<int64|int32|str|bytes|email>" # [optional] [required_with=tokenized | consistent_tokenization]
-      tokenized: true # [optional] [default=false] [required_with=token_type]
+      token_type: "<int64|int32|str|bytes|email>" # [optional]
+      tokenized: true # [deprecated] [default=false] [required_with=token_type]
       consistent_tokenization: true # [optional] [default=false] [required_with=token_type]
 
       # Masking
@@ -397,7 +397,7 @@ Type `str` accepts string literals `"string value"`.
 Type `bytes` accepts string literals with base64 values. For example to set binary array `{0, 1, 2, 3}` we should 
 encode it to base64: `"AAECAw=="`. AcraServer will decode base64 values and pass it as binary array according to database's protocol.
 
-#### **tokenized**
+#### **tokenized** (deprecated since 0.93.0)
 
 Required: `false`
 
@@ -405,7 +405,7 @@ Type: `boolean`
 
 Group: `tokenization`
 
-Description: turns on tokenization for column.
+Description: turns on tokenization for column. Deprecated since 0.93.0 - use non-empty `token_type` instead.
 
 [Read more](/acra/security-controls/tokenization/) about tokenization.
 
@@ -417,11 +417,11 @@ Type: `string`
 
 Values: `str`, `email`, `int64`, `int32`, `bytes`, `int32_string`, `int64_string`
 
-Depends on: `tokenized`
+Depends on: `tokenized` (before 0.93.0)
 
 Group: `tokenization`
 
-Description: configures type of [tokens](/acra/security-controls/tokenization/). Works only together with `tokenized` option. 
+Description: configures type of [tokens](/acra/security-controls/tokenization/). Works only together with `tokenized` option (before 0.93.0). 
 AcraServer catches values in queries from application to a database, encrypts them, stores in separate token
 database. Then generates new random value instead of encrypted and pass it to a database. In opposite direction it catches
 tokenized value, finds it in the token database, decrypts source value and returns it to the application if it has permission
@@ -456,7 +456,7 @@ Required: `false`
 
 Type: `boolean`
 
-Depends on: `tokenized`
+Depends on: `token_type`
 
 Group: `tokenization`
 
