@@ -456,7 +456,7 @@ Required: `false`
 
 Type: `boolean`
 
-Depends on: `token_type`
+Depends on: `token_type` (since 0.93.0), previously `tokenized` (before 0.93.0).
 
 Group: `tokenization`
 
