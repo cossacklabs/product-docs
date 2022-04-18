@@ -405,7 +405,7 @@ Type: `boolean`
 
 Group: `tokenization`
 
-Description: turns on tokenization for column. Deprecated since 0.93.0 - use non-empty `token_type` instead.
+Description: turns on tokenization for column. Since Acra 0.93.0 this flag is deprecated. It's enough to specify `token_type` value for a column to enable tokenization for that column with specified data type.
 
 [Read more](/acra/security-controls/tokenization/) about tokenization.
 
