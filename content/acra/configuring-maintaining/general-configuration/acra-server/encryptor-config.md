@@ -65,7 +65,7 @@ schemas:
         # [optional] [required_with=tokenized (before 0.93.0)]
         token_type: "<email|str|bytes|int32|int64>"
 
-        # [optinal] [deprecated since 0.93.0] [default=false] [required_with=token_type]  
+        # [optional] [deprecated since 0.93.0] [default=false] [required_with=token_type]  
         tokenized: true
 
         # [optional] [default=false] [required_with=token_type]
