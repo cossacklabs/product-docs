@@ -5,7 +5,7 @@ weight: 1
 
 # list
 
-**`list`** is `acra-keys` subcommand used for describing keys of the keystore version `v2`.
+**`list`** is `acra-keys` subcommand used for describing keys of the keystore versions `v1|v2`.
 
 ## Command line flags
 
@@ -84,15 +84,15 @@ weight: 1
 
 ## Usage example
 
-Using **`list`** subcommand of `acra-keys` you can get the description about keys stored in `v2` keystore.
-For example, lets generate several keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
+Using **`list`** subcommand of `acra-keys` you can get the description about keys stored in a keystore.
+For example, let's generate several keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
 
 {{< hint info >}}
 **Note:**
-Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v2`.
+Make sure you have set `ACRA_MASTER_KEY` env variable for the keystore `v1`.
 {{< /hint >}}
 ```
-$ acra-keys generate --client_id=user1 --keystore=v2 --client_storage_symmetric_key --audit_log_symmetric_key
+$ acra-keys generate --client_id=user1 --keystore=v1 --client_storage_symmetric_key --audit_log_symmetric_key
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
@@ -107,9 +107,10 @@ $ acra-keys list
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-Key purpose                  | Client/Zone ID | Key ID
------------------------------+----------------+-------------------------
-audit log signature key      |                | audit-log
-client storage symmetric key | user1          | client/user1/storage-sym
+Key purpose     | Client/Zone ID | Key ID
+----------------+----------------+------------------
+audit_log       | secure         | secure_log_key
+storage_sym_key | user1          | user1_storage_sym
+audit_log       | secure         | secure_log_key
+storage_sym_key | user1          | user1_storage_sym
 ```
-
