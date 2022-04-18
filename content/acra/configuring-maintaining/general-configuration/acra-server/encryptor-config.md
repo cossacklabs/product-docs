@@ -417,7 +417,7 @@ Type: `string`
 
 Values: `str`, `email`, `int64`, `int32`, `bytes`, `int32_string`, `int64_string`
 
-Depends on: `tokenized` (before 0.93.0)
+Depends on: nothing (since 0.93.0), previously `tokenized` (before 0.93.0)
 
 Group: `tokenization`
 
