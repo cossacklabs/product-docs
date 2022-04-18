@@ -421,7 +421,7 @@ Depends on: nothing (since 0.93.0), previously `tokenized` (before 0.93.0)
 
 Group: `tokenization`
 
-Description: configures type of [tokens](/acra/security-controls/tokenization/). Works only together with `tokenized` option (before 0.93.0). 
+Description: configures type of [tokens](/acra/security-controls/tokenization/). Configure a data type to enable tokenization for a column, Acra will create tokens with specified data type. Before Acra 0.93.0 `token_type` worked only if `tokenized` option was enabled. Since 0.93.0, `token_type` doesn't require `tokenized` flag at all to simplify the config file.
 AcraServer catches values in queries from application to a database, encrypts them, stores in separate token
 database. Then generates new random value instead of encrypted and pass it to a database. In opposite direction it catches
 tokenized value, finds it in the token database, decrypts source value and returns it to the application if it has permission
