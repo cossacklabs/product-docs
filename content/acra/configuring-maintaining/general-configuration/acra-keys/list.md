@@ -109,8 +109,6 @@ INFO[0000] Initializing ACRA_MASTER_KEY loader...
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
 Key purpose     | Client/Zone ID | Key ID
 ----------------+----------------+------------------
-audit_log       | secure         | secure_log_key
-storage_sym_key | user1          | user1_storage_sym
-audit_log       | secure         | secure_log_key
+audit_log       |                | secure_log_key
 storage_sym_key | user1          | user1_storage_sym
 ```
