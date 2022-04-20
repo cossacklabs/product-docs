@@ -97,11 +97,11 @@ For example, lets generate storage keys using [`generate`]({{< ref "/acra/config
 
 {{< hint info >}}
 **Note:**
-Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v2`.
+Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v1`.
 {{< /hint >}}
 
 ```
-$ acra-keys generate --client_id=user1 --keystore=v2 --client_storage_key
+$ acra-keys generate --client_id=user1 --keystore=v1 --client_storage_key
 
 INFO[0000] Initializing ACRA_MASTER_KEY loader...       
 INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
