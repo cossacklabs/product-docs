@@ -290,7 +290,7 @@ Required for encrypt/decrypt requests.
 
 ```
 acra-keymaker \
-    --keystore=v2 \
+    --keystore=v1 \
     --client_id=client1 \
     --generate_acrawriter_key \
     --keys_output_dir=/tmp/translator_keys
@@ -306,7 +306,7 @@ Used in `AcraConnector ↔︎ AcraTranslator` connection with `SecureSession` as
 
 ```
 acra-keymaker \
-    --keystore=v2 \
+    --keystore=v1 \
     --client_id=client1 \
     --generate_acratranslator_keys \
     --keys_output_dir=/tmp/translator_keys
@@ -319,7 +319,7 @@ Required for hashing requests, as well as searchable encryption/decryption.
 
 ```
 acra-keymaker \
-    --keystore=v2 \
+    --keystore=v1 \
     --client_id=client1 \
     --generate_hmac_key \
     --keys_output_dir=/tmp/translator_keys
@@ -331,7 +331,7 @@ Required for tokenization/detokenization requests.
 
 ```
 acra-keymaker \
-    --keystore=v2 \
+    --keystore=v1 \
     --client_id=client1 \
     --generate_symmetric_storage_key \
     --keys_output_dir=/tmp/translator_keys
