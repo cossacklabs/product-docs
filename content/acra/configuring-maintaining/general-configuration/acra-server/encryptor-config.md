@@ -350,7 +350,7 @@ Depends on: `data_type`
 
 Group: `encryption`, `searchable encryption`, `masking`
 
-Descryption: specifies which action should be performed in case of a failure of some operation (decryption error, wrong data type, etc.).
+Description: specifies which action should be performed in case of a failure of some operation (decryption error, wrong data type, etc.).
 
 The `ciphertext` means that the raw (possibly encrypted) data should be returned to a client.
 
@@ -374,6 +374,30 @@ encrypted:
     # default_data_value is defined so implicitly:
     # response_on_fail: default_value
 ```
+
+{{< hint warning >}}
+There is one pitfall with `error` option if you use transactions in Postgres. The state of a transaction is stored on the database side and is changed in case of an error. When the state is changed, `COMMIT` statement does a rollback:
+```
+test=# BEGIN;
+BEGIN
+test=*# SELECT 1/0;
+ERROR:  division by zero
+test=!# COMMIT;
+ROLLBACK
+```
+
+The way Acra works is by intercepting and changing packets between a user and a database. Therefore, if there is a decryption error, it happens purely on the Acra side. The latter sends an error packet to the user instead of a data row. But unfortunately, it cannot and doesn't change the state of the database:
+```
+test=# BEGIN;
+BEGIN
+test=*# SELECT data FROM testtable;
+ERROR:  encoding error in column "data"
+test=# COMMIT;
+COMMIT
+```
+
+Though most of the db-drivers do an explicit `ROLLBACK` in case of an error, so it should not be a problem.
+{{< /hint >}}
 
 #### **default_data_value**
 
