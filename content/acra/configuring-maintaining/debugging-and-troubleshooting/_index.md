@@ -73,7 +73,7 @@ you may try to double check their existence:
 
 BTW, first two commands work with the usual filesystem keystore as well, just omit the `--redis_host_port` flag.
 
-## Postgresql
+## PostgreSQL
 
 ### Acra's custom errors in transactions
 There is one pitfall with `response_on_fail: error` option if you use transactions in Postgres. The state of a transaction is stored on the database side and is changed in case of an error. When the state is changed, `COMMIT` statement does a rollback:
