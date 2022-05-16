@@ -376,27 +376,7 @@ encrypted:
 ```
 
 {{< hint warning >}}
-There is one pitfall with `error` option if you use transactions in Postgres. The state of a transaction is stored on the database side and is changed in case of an error. When the state is changed, `COMMIT` statement does a rollback:
-```
-test=# BEGIN;
-BEGIN
-test=*# SELECT 1/0;
-ERROR:  division by zero
-test=!# COMMIT;
-ROLLBACK
-```
-
-The way Acra works is by intercepting and changing packets between a user and a database. Therefore, if there is a decryption error, it happens purely on the Acra side. The latter sends an error packet to the user instead of a data row. But unfortunately, it cannot and doesn't change the state of the database:
-```
-test=# BEGIN;
-BEGIN
-test=*# SELECT data FROM testtable;
-ERROR:  encoding error in column "data"
-test=# COMMIT;
-COMMIT
-```
-
-Though most of the db-drivers do an explicit `ROLLBACK` in case of an error, so it should not be a problem.
+There is one issue related to using the `error` option and transactions in Postgres. More details on the [Debugging and troubleshooting](/acra/configuring-maintaining/debugging-and-troubleshooting/#acras-custom-errors-in-transactions) page. 
 {{< /hint >}}
 
 #### **default_data_value**
