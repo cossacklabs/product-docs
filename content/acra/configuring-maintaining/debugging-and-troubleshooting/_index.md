@@ -90,7 +90,7 @@ COMMIT
 
 Though most of the db-drivers do an explicit `ROLLBACK` in case of an error, so it should not be a problem.
 
-## Data types
+### PostgreSQL data types
 
 AcraServer only supports storing AcraStructs/AcraBlocks in `bytea` column types and supports 3 types of binary data encoding from PostgreSQL:
 [hex](https://www.postgresql.org/docs/current/datatype-binary.html#AEN5755),
