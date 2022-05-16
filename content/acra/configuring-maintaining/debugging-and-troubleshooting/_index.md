@@ -20,14 +20,6 @@ A lot of things may become clear:
 When requests are taking much more time that you have expected,
 [analyzing traces](/acra/configuring-maintaining/tracing/) may give you hints about which place is the bottleneck.
 
-
-## PostgreSQL data types
-
-AcraServer only supports storing AcraStructs/AcraBlocks in `bytea` column types and supports 3 types of binary data encoding from PostgreSQL:
-[hex](https://www.postgresql.org/docs/current/datatype-binary.html#AEN5755),
-[escape](https://www.postgresql.org/docs/current/datatype-binary.html#AEN5764),
-and `binary` (when client libraries use [extended query protocol](https://www.postgresql.org/docs/current/protocol-overview.html#PROTOCOL-QUERY-CONCEPTS) with the [binary](https://www.postgresql.org/docs/current/protocol-overview.html#PROTOCOL-FORMAT-CODES) format).
-
 ## TLS
 
 ### Configuration
@@ -72,3 +64,35 @@ you may try to double check their existence:
   if the client/zone ID exists, it will appear in the output (most likely with some suffix in the "file" name)
 
 BTW, first two commands work with the usual filesystem keystore as well, just omit the `--redis_host_port` flag.
+
+## PostgreSQL
+
+### Acra's custom errors in transactions
+There is one pitfall with `response_on_fail: error` option if you use transactions in Postgres. The state of a transaction is stored on the database side and is changed in case of an error. When the state is changed, `COMMIT` statement does a rollback:
+```
+test=# BEGIN;
+BEGIN
+test=*# SELECT 1/0;
+ERROR:  division by zero
+test=!# COMMIT;
+ROLLBACK
+```
+
+The way Acra works is by intercepting and changing packets between a user and a database. Therefore, if there is a decryption error, it happens purely on the Acra side. The latter sends an error packet to the user instead of a data row. But unfortunately, it cannot and doesn't change the state of the database:
+```
+test=# BEGIN;
+BEGIN
+test=*# SELECT data FROM testtable;
+ERROR:  encoding error in column "data"
+test=# COMMIT;
+COMMIT
+```
+
+Though most of the db-drivers do an explicit `ROLLBACK` in case of an error, so it should not be a problem.
+
+## Data types
+
+AcraServer only supports storing AcraStructs/AcraBlocks in `bytea` column types and supports 3 types of binary data encoding from PostgreSQL:
+[hex](https://www.postgresql.org/docs/current/datatype-binary.html#AEN5755),
+[escape](https://www.postgresql.org/docs/current/datatype-binary.html#AEN5764),
+and `binary` (when client libraries use [extended query protocol](https://www.postgresql.org/docs/current/protocol-overview.html#PROTOCOL-QUERY-CONCEPTS) with the [binary](https://www.postgresql.org/docs/current/protocol-overview.html#PROTOCOL-FORMAT-CODES) format).

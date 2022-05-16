@@ -350,7 +350,7 @@ Depends on: `data_type`
 
 Group: `encryption`, `searchable encryption`, `masking`
 
-Descryption: specifies which action should be performed in case of a failure of some operation (decryption error, wrong data type, etc.).
+Description: specifies which action should be performed in case of a failure of some operation (decryption error, wrong data type, etc.).
 
 The `ciphertext` means that the raw (possibly encrypted) data should be returned to a client.
 
@@ -374,6 +374,10 @@ encrypted:
     # default_data_value is defined so implicitly:
     # response_on_fail: default_value
 ```
+
+{{< hint warning >}}
+There is one issue related to using the `error` option and transactions in Postgres. More details on the [Debugging and troubleshooting](/acra/configuring-maintaining/debugging-and-troubleshooting/#acras-custom-errors-in-transactions) page. 
+{{< /hint >}}
 
 #### **default_data_value**
 
