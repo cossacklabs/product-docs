@@ -49,7 +49,9 @@ tokenization for any field of any table, if that field has tokenizable type.
 
 These options are accepted:
 
-* `tokenized` — boolean, use `true` to enable tokenization
+* `tokenized` — boolean, use `true` to enable tokenization.
+  
+  **Deprecated since 0.93.0**: just specify `token_type` instead, and it will automatically enable the tokenization.
 * `consistent_tokenization` — boolean, use `true` to make tokenization consistent
 * `token_type` — string representing type of token:
   * `int32` — 32-bit signed integer
