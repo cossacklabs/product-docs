@@ -6,11 +6,6 @@ weight: 6
 
 ## acra-keys
 
-{{< hint info >}}
-We recommend using acra-keys for Acra 0.95.0 and newer.
-{{< /hint>}}
-
-
 `acra-keys` is a command-line utility used for different keys operations
 especially for `v2` keystore. Each functionality is implemented as a separate subcommand:
 
