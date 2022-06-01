@@ -22,9 +22,9 @@ There are several approaches for **schema migration**:
 
 **Encrypting the existing data**:
 
-- A. Write script that will query data from database and then pass them through Acra via UPDATE command that save same data. Acra will change plaintext in UPDATE command with ciphertext transparently. We have dummy scripts, they require populating with real schema.
-- B. Write script that query data from database, encrypt it using AcraTranslator Bulk API and save encrypted data to database. It will require temporary launching AcraTranslator instance, and destroying it after migration.
-- C. [Acra EE only](/acra/enterprise-edition/) Use [acra-rotate utility](/acra/configuring-maintaining/general-configuration/acra-rotate/), write a script that iterates over all tables that need encryption, and pass `SELECT` query that fetch plaintext and `UPDATE` query that change same data in the table with encrypted. AcraRotate will query plaintext data, encrypt it and use `UPDATE` query to save it in database.
+- A. Write script that will query data from database and then pass them through Acra via UPDATE command. Acra will change plaintext in UPDATE command with ciphertext transparently. We have dummy scripts, they require populating with real schema.
+- B. Write a script that queries data from the database, encrypts it using AcraTranslator Bulk API and saves encrypted data to the database. It will require temporary launching AcraTranslator instance, and destroying it after migration.
+- C. [Acra EE only](/acra/enterprise-edition/) Use [acra-rotate utility](/acra/configuring-maintaining/general-configuration/acra-rotate/), write a script that iterates over all tables that need encryption, and passes `SELECT` query that fetches plaintext and `UPDATE` query that replaces the same data in the table with encrypted. AcraRotate will query plaintext data, encrypt it and use `UPDATE` query to save it in database.
 
 Each approach has its pros and cons: more/less downtime, more/less app changes, more/less duplicated storage volume, more/less preparations.
 
