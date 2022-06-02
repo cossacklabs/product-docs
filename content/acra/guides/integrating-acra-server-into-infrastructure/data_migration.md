@@ -12,13 +12,13 @@ How to prepare a database to work with AcraServer.
 
 Any data migration strategies have two main steps: (1) migrate data schema and (2) encrypt existing data.
 
-Schema migration includes changing column's types to `binary` (`bytea`) for using data encryption via Acra (not required for tokenization).
+Schema migration includes changing column's types to `binary` (`bytea`/`blob`) for using data encryption via Acra (not required for tokenization).
 
 There are several approaches for **schema migration**:
 
 - A. Stop application and producing data, change column's types with ALTER TABLE, resume the application.
 - B. Create neighbour column “neighbour_column_name" with required column type, migrate here all existing data with type converting, lock database and switch columns with each other. Rename “column_name" to “_column_name" and “neighbour_column_name" to “column_name".
-- C. Create new database with required schema, migrate parallel current data with type converting, lock the current database and migrate the remaining data. Switch to a new database.
+- C. Create new database with required schema, migrate current data with type converting, lock the current database and migrate the remaining data. Switch to a new database.
 
 **Encrypting the existing data**:
 
