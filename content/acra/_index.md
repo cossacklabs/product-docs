@@ -11,7 +11,7 @@ product_subtitle: '<p>Database security suite with field level encryption and le
 product_description: '<ul>
                           <li><a href="/acra/what-is-acra/">Solves data security for any data storage</a></li>
                           <li><a href="/acra/what-is-acra/#major-security-features">Provides field level encryption, searchable encryption, data masking, tokenization</a></li>
-                          <li><a href="/acra/getting-started/requirements/#databases">Works with SQL and NoSQL databases</a></li>
+                          <li><a href="/acra/getting-started/availability/#databases">Works with SQL and NoSQL databases</a></li>
                           <li><a href="/acra/what-is-acra/#architecture">Has 3 modes</a>: database SQL proxy, encryption API, in-app SDKs</li>
                           <li>Gives cryptographic access control</li>
                           <li>Has built-in key management procedures</li>
