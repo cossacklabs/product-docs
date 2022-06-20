@@ -34,6 +34,28 @@ Acra is actively tested and supported on [Google Cloud Platform](https://cloud.g
 You can [write to us](mailto:sales@cossacklabs.com) for a consultancy of Acra deployment on cloud infrastructure or request [Acra Enterprise Edition](/acra/enterprise-edition/) with demonstration of deployment on any of these services.
 
 
+## Databases
+
+### SQL databases
+
+AcraServer works as proxy for [PostgreSQL wire protocol](https://www.postgresql.org/docs/14/protocol.html) and 
+[MySQL wire protocol](https://dev.mysql.com/doc/internals/en/client-server-protocol.html). Overall, Acra supports all databases that works over these protocols. We regularly run tests with MySQL, PostgreSQL and MariaDB on every new commit in our [public](https://github.com/cossacklabs/acra/blob/release/0.85.0/.circleci/config.yml) and private CI. 
+
+**SQL databases that AcraServer is known to work with**: MySQL 5.7+, PostgreSQL 9.4+, MariaDB 10.3, Google Cloud SQL, Amazon RDS, TiDB, CockroachDB. 
+
+Acra Community Edition doesn't support [Protocol X](https://dev.mysql.com/doc/internals/en/x-protocol.html) of MySQL. If this is something important for you, consider writing us [an email](mailto:sales@cossacklabs.com) and checking out [Acra Enterprise Edition](/acra/enterprise-edition/).
+
+
+### NoSQL / KV data stores
+
+AcraTranslator allows working with any database / data store, as it works as API service, and the client app is responsible for storing data in the storage.
+
+**SQL / Cloud RDBMS include:** MySQL, PostgreSQL, MariaDB, Google Cloud SQL, Amazon RDS, TiDB, CockroachDB. 
+
+**NoSQL / KV data stores include:** MongoDB, Redis, Cassandra, TimescaleDB. Any datastore or database with REST API, filesystems, Amazon S3, Google Cloud DataStore.
+
+
+
 ## Client side
 
 Depending on the planned mode of use, there are three approaches to connecting your application to Acra:
