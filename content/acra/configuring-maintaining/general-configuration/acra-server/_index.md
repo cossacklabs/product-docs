@@ -249,7 +249,7 @@ weight: 3
 
   Enable HTTP API.
 
-* `--http_api_use_tls={true|false}`
+* `--http_api_tls_transport_enable={true|false}`
 
   Enables the TLS for the HTTP API. Use together with the `--http_api_enable=true`.  Uses the same key and certificates as the Acra proxy.
 
@@ -257,7 +257,7 @@ weight: 3
 
   {{< hint warning >}}
   **Note:**
-  The default configuration with `--http_api_use_tls=false` is **insecure**. Enable TLS whenever possible.
+  The default configuration with `--http_api_tls_transport_enable=false` is **insecure**. Enable TLS whenever possible.
   {{< /hint >}}
 
 * `--incoming_connection_api_port=<port>`
