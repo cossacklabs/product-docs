@@ -575,3 +575,35 @@ which cannot be.
 | masking                         | +         | +       | +               | +                | +              | -                | -                | -                            | -                               | -                       | -                  | -          | -         | -                       | +       | +                | +              |
 | plaintext_length                | +         | +       | +               | +                | +              | -                | -                | -                            | -                               | -                       | -                  | -          | -         | -                       | +       | +                | +              |
 | plaintext_side                  | +         | +       | +               | +                | +              | -                | -                | -                            | -                               | -                       | -                  | -          | -         | -                       | +       | +                | +              |
+
+## Table/column matching logic
+
+This section describes how AcraServer extracts table/column names from SQL queries to match them with values inside encryptor config.
+The behavior is slightly different depending on the database type, SQL query itself, and possibly some database configuration options.
+
+Case-insensitive below means the identifier is converted to lowercase before comparing with values from encryptor config.
+Thus, encryptor config should contain lowercase version of column/table name for matching to work.
+
+Case-sensitive means identifiers are compared with values from encryptor config "as is".
+Encryptor config should contain exactly the same identifier as in database schema (of course, excluding quotes if there are any).
+Even the smallest mismatch will result in Acra skipping the table/column and forwarding values without encryption/decryption.
+
+### PostgreSQL
+
+- Raw identifiers are case-insensitive
+
+  `table1`, `Table1`, `TABLE1` are all the same and need `table1` in encryptor config; same applies to columns
+
+- Identifiers wrapped with double quotes are case-sensitive
+
+  `table1` and `"table1"` need `table1` in encryptor config, while `"Table1"` and `"TABLE1"` need `Table1` and `TABLE1` respectively; same applies to columns
+
+### MySQL
+
+- Column identifiers are always case-insensitive
+
+  `userID`, `userid`, `` `userID` `` are all the same and need `userid` in encryptor config
+
+- Table names are case-insensitive by default, could be changed with `case_sensitive_table_identifiers` option mentioned above
+
+Backquotes do not affect case sensitivity.
