@@ -18,6 +18,11 @@ The following security controls can be configured:
 There is full example of configuration file with all options:
 
 ```
+database_settings:
+  mysql:
+    # [optional] [default=false]  
+    case_sensitive_table_identifiers: true
+
 defaults:
   # [optional] [default=acrablock]
   crypto_envelope: "<acrablock|acrastruct>"
@@ -91,6 +96,34 @@ schemas:
 ```
 
 The encryption configuration file has two top-level sections: `defaults` and `schemas`.
+
+## **database_settings section**
+
+This section is used to tell Acra some details about database configuration so that they can properly interact.
+
+### **mysql**
+
+Contains MySQL/MariaDB-specific settings.
+
+#### **case_sensitive_table_identifiers**
+
+Required: `false`
+
+Type: `bool`
+
+When set to `false` (default), Acra will convert table names from SQL queries lowercase before searching this name in `schemas`.
+
+When set to `true`, Acra will use table names from SQL query "as is", mismatch with table name inside `schemas` list
+will result in no encryption/decryption being performed, even if there is sumilar table name, just with wifferent case of some characters.
+
+Should match with database behavior so that Acra will understand SQL queries the same way as the database does.
+TL;DR is that in MySQL case sensitivity of table names usually depends on case sensitivity of filesystem where data is stored,
+but can also be affected by configuration option.
+[Read more in `Identifier Case Sensibility` section of MySQL docs](https://dev.mysql.com/doc/refman/8.0/en/identifier-case-sensitivity.html).
+
+### **postgresql**
+
+Reserved for future, should contain PostgreSQL-specific settings, is currently empty.
 
 ## **defaults section**
 
