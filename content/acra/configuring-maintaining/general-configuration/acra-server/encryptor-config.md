@@ -99,7 +99,7 @@ The encryption configuration file has two top-level sections: `defaults` and `sc
 
 ## **database_settings section**
 
-This section is used to tell Acra some details about database configuration so that they can properly interact.
+This section tells Acra some details about database configuration so that they can properly interact.
 
 ### **mysql**
 
