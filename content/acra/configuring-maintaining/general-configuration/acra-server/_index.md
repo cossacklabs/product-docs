@@ -419,6 +419,24 @@ For additional certificate validation flags, see corresponding pages:
 [OCSP](/acra/configuring-maintaining/tls/ocsp/) and
 [CRL](/acra/configuring-maintaining/tls/crl/).
 
+### KMS
+
+* `--kms_type=<type>`
+
+  KMS type for using.
+  Currently, supported only:
+  * `aws` - AWS Key Management Service 
+
+* `--kms_credentials_path=<filepath>`
+
+  KMS credentials file path in JSON format.
+
+  Example of KMS config:
+* **AWS**:
+  ```json
+     {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
+  ```
+
 ### Hashicorp Vault
 
 * `--vault_connection_api_string=<url>`
