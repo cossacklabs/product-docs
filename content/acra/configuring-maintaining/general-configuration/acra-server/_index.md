@@ -423,13 +423,13 @@ For additional certificate validation flags, see corresponding pages:
 
 * `--kms_type=<type>`
 
-  KMS type for using.
-  Currently, supported only:
+  Specify your KMS.
+  Currently supported KMS types:
   * `aws` - AWS Key Management Service 
 
 * `--kms_credentials_path=<filepath>`
 
-  KMS credentials file path in JSON format.
+  A path to a file with KMS credentials JSON format.
 
   Example of KMS config:
 * **AWS**:
