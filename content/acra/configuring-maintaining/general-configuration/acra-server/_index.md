@@ -249,6 +249,17 @@ weight: 3
 
   Enable HTTP API.
 
+* `--http_api_tls_transport_enable={true|false}`
+
+  Enables the TLS for the HTTP API. Use together with the `--http_api_enable=true`.  Uses the same key and certificates as the Acra proxy.
+
+  Default is `false`.
+
+  {{< hint warning >}}
+  **Note:**
+  The default configuration with `--http_api_tls_transport_enable=false` is **insecure**. Enable TLS whenever possible.
+  {{< /hint >}}
+
 * `--incoming_connection_api_port=<port>`
 
   Port for AcraServer for HTTP API.
@@ -452,33 +463,38 @@ related with authentication of AcraWebConfig users.
 AcraWebConfig and AcraAuthManager are deprecated and will not be available since 0.91.0.
 {{< /hint >}}
 
-{{< hint warning >}}
-AcraServer supports only HTTP/1.1 requests without keep-alive.
-{{< /hint >}}
-
 - Endpoint: `/getNewZone`.
-  Description: generates new Zone and returns ZoneID with zone's public key as the response.
-  Response type: JSON object.
-  Response example:
-  ```json
-  {"id":"DDDDDDDDnAdXLIcBPDlQPYpl","public_key":"VUVDMgAAAC2BgJJUA//O+rVRGTSC7xAyFa1qIL8eANBtnvgQnMZyHOXHfgCE"}
-  ```
-  Error response:
-  ```
-  HTTP/1.1 404 Not Found
-
-  incorrect request
-  ```
+  
+  Generates new Zone and returns ZoneID with zone's public key as the response.
+  - Response example:
+    - Status: 200
+    - Content-Type: `application/json`
+    - Body:
+      ```json
+      {"id":"DDDDDDDDnAdXLIcBPDlQPYpl","public_key":"VUVDMgAAAC2BgJJUA//O+rVRGTSC7xAyFa1qIL8eANBtnvgQnMZyHOXHfgCE"}
+      ```
+  - Error response:
+    - Status: 404
+    - Content-Type: `text/plain; charset=utf-8`
+    - Body:
+      ```
+      incorrect request
+      ```
 
 - Endpoint: `/resetKeyStorage`.
-  Description: resets AcraServer's cache of encrypted keys from KeyStore configured with `--keystore_cache_size` CLI flag.
-  Response type: empty.
-  Error response:
-  ```
-  HTTP/1.1 404 Not Found
-
-  incorrect request
-  ```
+  
+  Resets AcraServer's cache of encrypted keys from KeyStore configured with `--keystore_cache_size` CLI flag.
+  - Response example:
+    - Status: 200
+    - Content-Type: `text/plain; charset=utf-8`
+    - Body: *empty*.
+  - Error response:
+    - Status: 404
+    - Content-Type: `text/plain; charset=utf-8`
+    - Body:
+      ```
+      incorrect request
+      ```
 
 - Endpoint: `/loadAuthData` (deprecated since 0.91.0).
   Description: returns decrypted authentication data as pairs `<username>:<hash>` for AcraWebConfig. By default, encrypted
