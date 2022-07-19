@@ -46,6 +46,11 @@ Rest assured, OpenSSL 1.1.1 is getting security updates at least until September
 Status of Themis migration to OpenSSL 3.0 can be tracked [on GitHub](https://github.com/cossacklabs/themis/issues/873).
 {{< /hint >}}
 
+{{< hint warning >}}
+**Note:**
+At the moment Themis can not be built on M1 processors from source. But works from packages well.
+{{< /hint >}}
+
 ### Building with Make
 
 Start with getting the latest Themis source code from GitHub:
