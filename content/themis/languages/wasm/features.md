@@ -53,7 +53,11 @@ When handling private keys of your users, make sure the keys are sufficiently pr
 You can find [key management guidelines here](/themis/crypto-theory/key-management/).
 {{< /hint >}}
 
-To generate asymmetric keypairs, use:
+{{< hint warning >}}
+**Important** WasmThemis can not generate RSA asymmetric keys, but supports existing RSA keys.
+{{< /hint >}}
+
+To generate Elliptic Curve asymmetric keypairs, use:
 
 ```javascript
 const themis = require('wasm-themis')
