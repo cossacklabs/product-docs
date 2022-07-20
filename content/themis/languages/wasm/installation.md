@@ -20,6 +20,10 @@ npm install wasm-themis
 
 Once WasmThemis is installed, you can [try out code examples](../examples/).
 
+## Installing WasmThemis to ReactJS application
+To use WasmThemis with ReactJS application [read the tutorial](../reactjs/)
+
+
 ## Deploying apps with WasmThemis
 
 WasmThemis is distributed as Node.js package which is compatible with many JavaScript module bundlers
