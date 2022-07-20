@@ -48,7 +48,7 @@ Status of Themis migration to OpenSSL 3.0 can be tracked [on GitHub](https://git
 
 {{< hint warning >}}
 **Note:**
-At the moment Themis can not be built on M1 processors from source. But works from packages well.
+At the moment, Themis doesn't support building from source on Apple M1 processors. Please see [Homebrew installation instead](/themis/installation/installation-from-packages/#macos).
 {{< /hint >}}
 
 ### Building with Make
