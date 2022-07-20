@@ -54,7 +54,7 @@ You can find [key management guidelines here](/themis/crypto-theory/key-manageme
 {{< /hint >}}
 
 {{< hint warning >}}
-**Important** WasmThemis can not generate RSA asymmetric keys, but supports existing RSA keys.
+**Important** WasmThemis doesn't generate RSA asymmetric keys, but supports existing RSA keys. We suggest using ECC keys.
 {{< /hint >}}
 
 To generate Elliptic Curve asymmetric keypairs, use:
