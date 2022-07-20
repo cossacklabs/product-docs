@@ -8,7 +8,7 @@ title:  WASM & ReactJS
 
 This article is addressed application developers on React who want to use Themis to make cryptographic features in their products.
 
-The key problem is configuring Webpack to use Themis.
+The key step is configuring Webpack to use Themis.
 
 ### Why this is the problem?
 
