@@ -20,6 +20,11 @@ npm install wasm-themis
 
 Once WasmThemis is installed, you can [try out code examples](../examples/).
 
+## Installing WasmThemis to ReactJS application
+
+To use WasmThemis with ReactJS application [read the tutorial](../reactjs/).
+
+
 ## Deploying apps with WasmThemis
 
 WasmThemis is distributed as Node.js package which is compatible with many JavaScript module bundlers
@@ -28,12 +33,16 @@ like Browserify, webpack, and Electron framework packager.
 However, in addition to JavaScript code, WasmThemis also includes the compiled WebAssembly bytecode.
 The bytecode is located in `node_modules/wasm-themis/src/libthemis.wasm` file,
 which will be loaded by the browser separately.
+
+### Copy libthemis.wasm
+
 Make sure that `libthemis.wasm` is placed next to the produced JavaScript bundle
-by copying it from `node_modules` directory when building your application.
+by copying it from `node_modules/wasm-themis/src/libthemis.wasm` directory when building your application.
+
 
 ### Bundler specifics
 
-If you are using **webpack**,
+If you are using **Webpack**,
 you may also need to add the following declaration to your `webpack.config.js`:
 
 ```javascript
