@@ -171,6 +171,13 @@ brew tap cossacklabs/tap
 brew install libthemis
 ```
 
+If you have issues with finding header or library files on macOS 12 (Monterey) or M1 processors you may add the following lines to your .zshrc or equivalent.
+```bash
+export PATH=$PATH:/opt/homebrew/bin
+export CPATH=$CPATH:/opt/homebrew/include
+export LIBRARY_PATH=$LIBRARY_PATH:/opt/homebrew/lib
+```
+
 Congratulations! You're done!
 
 
