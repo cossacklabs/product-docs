@@ -53,7 +53,7 @@ Acra consists of several services and utilities. Depending on your architecture 
 
 * [AcraWebConfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) (deprecated since 0.91.0) — a lightweight HTTP web server for managing AcraServer's certain configuration options at runtime by clicking rather than updating configuration files manually.
 
-* [AcraConnector](/acra/security-controls/transport-security/acra-connector) — additional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+. Connects client app with AcraServer/AcraTranslator.
+* [AcraConnector](/acra/security-controls/transport-security/acra-connector) (deprecated since 0.91.0) — additional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+. Connects client app with AcraServer/AcraTranslator.
 
 * [Configuration files](/acra/configuring-maintaining/general-configuration/) – AcraServer and AcraTranslator use configuration files to setup connections to the app and database, keys, TLS options, even encryption options.
 

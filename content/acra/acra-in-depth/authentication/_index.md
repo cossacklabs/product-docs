@@ -17,7 +17,7 @@ Acra requires authentication for all incoming connections that process data (enc
 
 By default, AcraServer will request and validate a client's TLS certificate. See [AcraServer's TLS configuration flags](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
 
-- [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector). `client app <> AcraConnector <> [TLS or Themis Secure Session] <> AcraServer`. 
+- [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector) (deprecated since 0.91.0). `client app <> AcraConnector <> [TLS or Themis Secure Session] <> AcraServer`. 
 
 
 AcraServer authenticates connections from AcraConnector. If TLS is used as underlying transport encryption, mutual authentication is desired but optional, if [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session) is used, mutual authentication is enabled by default. See [AcraServer's configuration flags for AcraConnector](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
@@ -72,7 +72,7 @@ Read more about connection configuration to [popular KMS](/acra/configuring-main
 ## Privileged operations
 
 {{< hint warning >}}
-AcraWebConfig tool is deprecated and will not be available since 0.91.0.
+AcraWebConfig tool and AcraConnector are deprecated and will not be available since 0.91.0.
 {{< /hint >}}
 
 AcraServer supports changing configuration in runtime using [AcraWebConfig's](/acra/configuring-maintaining/general-configuration/acra-webconfig). AcraWebConfig is a simple web UI service that requires HTTP basic authentication.

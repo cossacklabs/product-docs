@@ -11,7 +11,7 @@ Cryptography is widely used across all Acra services for:
   [searchable encryption](/acra/security-controls/searchable-encryption/), 
   [masking](/acra/security-controls/masking/) and [tokenization](/acra/security-controls/tokenization/);
 * transport protection and authentication: during mutual authentication and encryption used in 
-  [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) and [TLS](/acra/configuring-maintaining/tls/);
+  [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) (deprecated since 0.91.0) and [TLS](/acra/configuring-maintaining/tls/);
 * [audit logging](/acra/security-controls/security-logging-and-events/audit-logging/): when calculating integrity checks of log messages and log chains;
 * [password hashing](/acra/configuring-maintaining/general-configuration/acra-authmanager#auth-file) of registered users of Acra Web Configuration UI (deprecated and removed since 0.91.0);
 * [key management](/acra/security-controls/key-management/): all intermediate keys are encrypted by key encryption keys and Acra Master Key.
@@ -31,7 +31,7 @@ To deliver its unique guarantees, Acra relies on the combination of well-known c
 |Default crypto-primitive source|OpenSSL|
 |Custom crypto-primitive sources |BoringSSL, LibreSSL, FIPS-compliant, GOST-compliant, HSM|
 |Storage encryption|AES-256-GCM-PKCS#7 + ECDH (AcraStructs) or AES-256-GCM-PKCS#7 (AcraBlocks)|
-|Transport encryption|TLS v1.2+ / Themis Secure Session|
+|Transport encryption|TLS v1.2+ / Themis Secure Session (deprecated since 0.91.0)|
 
 Only [Acra Enterprise Edition](/acra/enterprise-edition/) supports custom crypto-primitives sources.
 
@@ -45,7 +45,7 @@ Themis uses the best available [open-source implementations](/themis/crypto-theo
 
 Acra uses [GoThemis](/themis/languages/go/) (Go-language wrapper for Themis) in AcraServer, AcraTranslator and key management utility. AcraWriters per each platform rely on Themis wrappers built for that platform (for example, AcraWriter for iOS uses ObjCThemis for iOS). 
 
-Acra uses [Themis Secure Message](/themis/crypto-theory/cryptosystems/secure-message/), [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode) and [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) cryptosystems. 
+Acra uses [Themis Secure Message](/themis/crypto-theory/cryptosystems/secure-message/), [Themis Secure Cell Seal](/themis/crypto-theory/cryptosystems/secure-cell/#seal-mode) and [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) (deprecated since 0.91.0) cryptosystems. 
 
 [Acra Enterprise Edition](/acra/enterprise-edition/) can be built on the certified crypto-libraries 
 of your choice (i.e. FIPS, GOST). If you'd like to discuss a custom build [drop us an email](mailto:sales@cossacklabs.com).
@@ -85,11 +85,11 @@ Acra handles TLS connections between:
 * AcraServer and database. TLS is used to protect other data transmitted through AcraServer to database and to be transparent for 
   strictly configured environment with fully protected communication between applications and databases, with mutual 
   TLS authentication.
-* [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector) and AcraServer. 
+* [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector) (deprecated since 0.91.0) and AcraServer. 
   Used as one of supported transport encryption between AcraConnector and AcraServer for same reasons as for 
   communication between application and AcraServer. AcraConnector may be used with applications that cannot
   be extended with TLS protection.
-* [Hashicorp Vault](https://www.vaultproject.io/) and AcraServer/AcraTranslator/AcraConnector. All Acra's services use encrypted private keys encrypted with symmetric key `ACRA_MASTER_KEY` that may be safely loaded from Hashicorp Vault.
+* [Hashicorp Vault](https://www.vaultproject.io/) and AcraServer/AcraTranslator/AcraConnector (deprecated since 0.91.0). All Acra's services use encrypted private keys encrypted with symmetric key `ACRA_MASTER_KEY` that may be safely loaded from Hashicorp Vault.
 
 To increase security, we extended [TLS processing](/acra/configuring-maintaining/tls/) with additional [OCSP](/acra/configuring-maintaining/tls/ocsp) and [CRL](/acra/configuring-maintaining/tls/crl) validation. It is possible to configure validator to check either OCSP server specified while Acra startup or specified in TLS certificate. A couple of additional settings are presented that allow ignoring or enforcing of particular validations.
 
@@ -109,4 +109,4 @@ AcraWebConfig tool is deprecated and removed since 0.91.0. After 0.91.0, Acra co
 
 ### Cryptographically signed audit logs
 
-AcraServer, AcraConnector and AcraTranslator use symmetric keys and HMAC-SHA256 for generating [audit logs](/acra/security-controls/security-logging-and-events/audit-logging) and signing log messages.
+AcraServer, AcraConnector (deprecated since 0.91.0) and AcraTranslator use symmetric keys and HMAC-SHA256 for generating [audit logs](/acra/security-controls/security-logging-and-events/audit-logging) and signing log messages.

@@ -80,7 +80,6 @@ AcraServer can be configured from command line using CLI flags ([see the whole l
 
   For TLS, there are a plenty of
   [`--tls_*` options](/acra/configuring-maintaining/general-configuration/acra-server/#tls).
-  You can use TLS for both sides, but there is also Secure Session you can use if clients
-  use AcraConnector to connect to AcraServer.
+  You can use TLS for both sides.
   Also, make sure you know what [client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id/)
   is as it's something Acra-related, not a part of TLS or SQL.
