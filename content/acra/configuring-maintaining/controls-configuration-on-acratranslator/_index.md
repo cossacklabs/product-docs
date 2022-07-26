@@ -32,9 +32,8 @@ AcraTranslator can be configured from command line using CLI flags ([see the who
 
   Configuring secure connection between AcraTranslator and clients.
 
-  For TLS, there are a plenty of
+  You can use TLS. For TLS, there are a plenty of
   [`--tls_*` options](/acra/configuring-maintaining/general-configuration/acra-translator/#tls).
-  You can use either TLS (for direct connections from clients).
   Also, make sure you know what [client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id/)
   is as it's something Acra-related, not a part of TLS or SQL.
   There are multiple ways of specifying client ID, including TLS certificate metadata, or
