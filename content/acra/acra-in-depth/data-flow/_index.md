@@ -180,6 +180,117 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 ---
 
+### Using AcraConnector and AcraServer
+
+`App ↔︎ AcraConnector ↔︎ AcraServer ↔︎ SQL database`
+
+{{< hint warning >}}
+AcraConnector is deprecated since 0.91.0 and is not available since 0.92.0. 
+{{< /hint >}}
+
+Similar to the classic scenario the [simplest dataflow with AcraServer](/acra/acra-in-depth/data-flow/#simplest-version-with-sql-proxy), but the application uses AcraConnector for transport encryption.
+
+[AcraConnector](/acra/security-controls/transport-security/acra-connector) uses TLS or Themis Secure Session to provide additional transport encryption and mutual authentication for apps that work in hostile environments.
+
+![](/files/acra/ac-app-as-db.png)
+
+#### When to use
+
+When client-side application works in a hostile environment and extra transport security is required.
+
+#### Which components to use
+
+[AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
+
+#### Writing
+
+`Application → AcraConnector → AcraServer → SQL database`
+
+Application sends plaintext data through AcraConnector. AcraConnector uses powerful transport encryption to protect data in a plaintext. AcraServer works in [Transparent encryption mode](/acra/configuring-maintaining/controls-configuration-on-acraserver/). AcraServer performs encryption, searchable encryption, masking, tokenization.
+
+#### Reading
+
+`Application → AcraConnector → AcraServer → SQL database → AcraServer → AcraConnector → Application`
+
+Application requests data from a database through AcraServer. AcraServer transparently decrypts/detokenizes/unmasks data and passes it safely to the application using AcraConnector.
+
+---
+
+### Using AcraWriter, AcraConnector and AcraServer
+
+`App [AcraWriter] ↔︎ AcraConnector ↔︎ AcraServer ↔︎ SQL database`
+
+{{< hint warning >}}
+AcraConnector is deprecated since 0.91.0 and is not available since 0.92.0.
+{{< /hint >}}
+{{< hint info >}}
+AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
+
+A combination of methods above. Application uses AcraWriter SDK to encrypt data on application side. App uses strong transport encryption provided by AcraConnector to connect to AcraServer to send encrypted data. Then AcraServer sends data to the database.
+
+When data is required in a plaintext, AcraServer decrypts it and sends (protected) via AcraConnector back to the app.
+
+![](/files/acra/aw-app-ac-as-db.png)
+
+#### When to use
+
+When client-side application works in a hostile environment. Client-app performs data encryption and then uses strong transport encryption to send data to the AcraServer / database.
+
+#### Which components to use
+
+[AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraServer](/acra/acra-in-depth/architecture/acraserver/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
+
+#### Writing
+
+`Application [AcraWriter] → AcraConnector → AcraServer → SQL database`
+
+Application locally encrypts sensitive data using AcraWriter. The app is responsible for accessing Acra's encryption keys. Then the app sends data to the database directly or to the AcraServer. Encrypted data is sent to AcraServer through AcraConnector that protects it using TLS or Themis Secure Session.
+
+
+#### Reading
+
+`Application → AcraConnector → AcraServer → SQL database → AcraServer → AcraConnector → Application`
+
+Application requests data from a database through AcraServer. AcraServer transparently decrypts/detokenizes/unmasks data and passes it safely to the application using AcraConnector.
+
+
+
+---
+
+### Using AcraConnector and AcraTranslator
+
+`App ↔︎ AcraConnector ↔︎ AcraTranslator, App ↔︎ Datastore`
+
+{{< hint warning >}}
+AcraConnector is deprecated since 0.91.0 and is not available since 0.92.0.
+{{< /hint >}}
+
+Similar to the classic scenario the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api-service), but the application uses AcraConnector for transport encryption.
+
+![](/files/acra/app-ac-at-app-db.png)
+
+
+#### When to use
+
+When client-side application works in a hostile environment and extra transport security is required.
+
+#### Which components to use
+
+[AcraTranslator](/acra/acra-in-depth/architecture/acratranslator/), [Key management utilities](/acra/security-controls/key-management/), [Key storage](/acra/acra-in-depth/architecture/key-storage-and-kms/), [KMS](/acra/acra-in-depth/architecture/key-storage-and-kms/) and [AcraConnector](/acra/security-controls/transport-security/acra-connector).
+
+#### Writing
+
+`Application → AcraConnector → AcraTranslator → AcraConnector → Application → Datastore`
+
+Application knows which fields to encrypt/mask/tokenize. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends protected data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session.
+
+#### Reading
+
+`Application → Datastore → Application → AcraConnector → AcraTranslator → AcraConnector → Application`
+
+Application reads encrypted data from the storage or the other application and needs to decrypt/demask/detokenize it. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends original data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session.
+
 ## Data flow with Zones
 
 Data flow with [zones](/acra/security-controls/zones) are similar for schemas described above except several additional steps at the beginning:
