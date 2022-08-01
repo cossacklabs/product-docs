@@ -55,6 +55,24 @@ weight: 4
 
   Password to Redis database.
 
+### KMS
+
+* `--kms_type=<type>`
+
+  Specify your KMS.
+  Currently supported KMS types:
+  * `aws` - AWS Key Management Service
+
+* `--kms_credentials_path=<filepath>`
+
+  A path to a file with KMS credentials JSON format.
+
+  Example of KMS config:
+* **AWS**:
+  ```json
+     {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
+  ```
+
 
 #### HashiCorp Vault
 

@@ -59,8 +59,26 @@ You can find out how to configure access to KMS on `HashiCorp Vault` section on 
 
 ### AWS KMS
 
-Support of AWS KMS is available only in [Acra Enterprise Edition](/acra/enterprise-edition/)
+[AWS KMS](https://aws.amazon.com/kms/) is a managed service that makes it easy for you to create and control the
+cryptographic keys that are used to protect your data. Acra use AWS KMS manged keys to decrypt Acra Master Key.
 
+AWS KMS is a popular solution for centralized key management, managing encryption for AWS services, and data encryption
+in the client application. That is why Acra is trying to provide the closest possible integration with it.
+
+The following Acra services and tools can load Acra Master Key from this KMS.
+
+* [acra-server](/acra/configuring-maintaining/general-configuration/acra-server/#hashicorp-vault),
+* [acra-translator](/acra/configuring-maintaining/general-configuration/acra-translator/#hashicorp-vault),
+* [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker/#hashicorp-vault),
+* [acra-rotate](/acra/configuring-maintaining/general-configuration/acra-rotate/#hashicorp-vault),
+* [acra-addzone](/acra/configuring-maintaining/general-configuration/acra-addzone/#hashicorp-vault),
+* [acra-backup](/acra/configuring-maintaining/general-configuration/acra-backup/#hashicorp-vault),
+* [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/#hashicorp-vault),
+* [acra-poisonrecordmaker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/#hashicorp-vault),
+* [acra-rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/#hashicorp-vault).
+
+You can find out how to configure access to KMS on `KMS` section on the distinct documentation page of these
+services.
 
 ### GCP KMS
 
