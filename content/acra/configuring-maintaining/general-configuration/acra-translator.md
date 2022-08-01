@@ -15,7 +15,7 @@ weight: 4
 
 * `--acratranslator_client_id_from_connection_enable={true|false}`
 
-  Use clientID from TLS certificates or secure session handshake for gRPC requests. It doesn't change clientID usage
+  Use clientID from TLS certificates or secure session handshake (before 0.92.0) for gRPC requests. It doesn't change clientID usage
   for HTTP API requests.
   Default is `false` which means "use the one passed in gRPC methods".
 
@@ -241,6 +241,26 @@ weight: 4
 For additional certificate validation flags, see corresponding pages:
 [OCSP](/acra/configuring-maintaining/tls/ocsp/) and
 [CRL](/acra/configuring-maintaining/tls/crl/).
+
+
+### KMS
+
+* `--kms_type=<type>`
+
+  Specify your KMS.
+  Currently supported KMS types:
+  * `aws` - AWS Key Management Service
+
+* `--kms_credentials_path=<filepath>`
+
+  A path to a file with KMS credentials JSON format.
+
+  Example of KMS config:
+* **AWS**:
+  ```json
+     {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
+  ```
+  
 
 ### HashiCorp Vault
 

@@ -184,6 +184,10 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 `App ↔︎ AcraConnector ↔︎ AcraServer ↔︎ SQL database`
 
+{{< hint warning >}}
+AcraConnector is deprecated since 0.91.0 and is not available since 0.92.0. 
+{{< /hint >}}
+
 Similar to the classic scenario the [simplest dataflow with AcraServer](/acra/acra-in-depth/data-flow/#simplest-version-with-sql-proxy), but the application uses AcraConnector for transport encryption.
 
 [AcraConnector](/acra/security-controls/transport-security/acra-connector) uses TLS or Themis Secure Session to provide additional transport encryption and mutual authentication for apps that work in hostile environments.
@@ -215,6 +219,13 @@ Application requests data from a database through AcraServer. AcraServer transpa
 ### Using AcraWriter, AcraConnector and AcraServer
 
 `App [AcraWriter] ↔︎ AcraConnector ↔︎ AcraServer ↔︎ SQL database`
+
+{{< hint warning >}}
+AcraConnector is deprecated since 0.91.0 and is not available since 0.92.0.
+{{< /hint >}}
+{{< hint info >}}
+AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+{{< /hint>}}
 
 A combination of methods above. Application uses AcraWriter SDK to encrypt data on application side. App uses strong transport encryption provided by AcraConnector to connect to AcraServer to send encrypted data. Then AcraServer sends data to the database.
 
@@ -251,6 +262,10 @@ Application requests data from a database through AcraServer. AcraServer transpa
 
 `App ↔︎ AcraConnector ↔︎ AcraTranslator, App ↔︎ Datastore`
 
+{{< hint warning >}}
+AcraConnector is deprecated since 0.91.0 and is not available since 0.92.0.
+{{< /hint >}}
+
 Similar to the classic scenario the [simplest dataflow with AcraTranslator](/acra/acra-in-depth/data-flow/#simplest-version-with-api-service), but the application uses AcraConnector for transport encryption.
 
 ![](/files/acra/app-ac-at-app-db.png)
@@ -268,14 +283,13 @@ When client-side application works in a hostile environment and extra transport 
 
 `Application → AcraConnector → AcraTranslator → AcraConnector → Application → Datastore`
 
-Application knows which fields to encrypt/mask/tokenize. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends protected data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session. 
+Application knows which fields to encrypt/mask/tokenize. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends protected data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session.
 
 #### Reading
 
 `Application → Datastore → Application → AcraConnector → AcraTranslator → AcraConnector → Application`
 
-Application reads encrypted data from the storage or the other application and needs to decrypt/demask/detokenize it. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends original data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session. 
-
+Application reads encrypted data from the storage or the other application and needs to decrypt/demask/detokenize it. Application sends these fields to AcraTranslator via gRPC or HTTP API. AcraTranslator performs required function and sends original data back to the app. All data is sent through AcraConnector to protect plaintext data from application to AcraTranslator via TLS or Themis Secure Session.
 
 ## Data flow with Zones
 
