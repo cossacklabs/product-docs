@@ -15,7 +15,7 @@ weight: 4
 
 * `--acratranslator_client_id_from_connection_enable={true|false}`
 
-  Use clientID from TLS certificates or secure session handshake for gRPC requests. It doesn't change clientID usage
+  Use clientID from TLS certificates or secure session handshake (before 0.92.0) for gRPC requests. It doesn't change clientID usage
   for HTTP API requests.
   Default is `false` which means "use the one passed in gRPC methods".
 

@@ -11,7 +11,7 @@ Acra contains a set of special CLI utilities and services for specialized use ca
 
 ## Services
 
-* [`acra-connector`](/acra/configuring-maintaining/general-configuration/acra-connector/) - provides encrypted and authenticated connection to AcraServer/AcraTranslator via TLS or [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
+* [`acra-connector`](/acra/configuring-maintaining/general-configuration/acra-connector/) (deprecated since 0.91.0) - provides encrypted and authenticated connection to AcraServer/AcraTranslator via TLS or [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/)
 
 * [`acra-server`](/acra/configuring-maintaining/general-configuration/acra-server/) - provides Acra's [security controls](/acra/security-controls/) as SQL proxy between client-side app and the database. It is responsible for performing actual data processing operations and managing secrets required for them
 

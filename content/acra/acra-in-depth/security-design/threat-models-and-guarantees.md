@@ -121,6 +121,6 @@ When the **Client application** gets broken, the worst-case scenario is that the
 
 And finally, if AcraServer/AcraTranslator gets broken, the adversary can fully compromise the system.
 
-It is worth mentioning that in absence of reliable public key infrastructure, the communication channel between the client application and AcraServer/AcraTranslator is also vulnerable. In this case, the resistance ability of the system comes down to the security of the TLS or Themis’ Secure Session protocols. In all the other communication channels the data is encrypted so, in the worst case (when TLS is not used) the security of the system comes down to the security of the symmetric encryption algorithm (AES-GCM-256).
+It is worth mentioning that in absence of reliable public key infrastructure, the communication channel between the client application and AcraServer/AcraTranslator is also vulnerable. In this case, the resistance ability of the system comes down to the security of the TLS. In all the other communication channels the data is encrypted so, in the worst case (when TLS is not used) the security of the system comes down to the security of the symmetric encryption algorithm (AES-GCM-256).
 
 Refer to the [PKI overview for Acra](/acra/acra-in-depth/security-design/acra-and-pki/) section to learn our recommendations regarding PKI.

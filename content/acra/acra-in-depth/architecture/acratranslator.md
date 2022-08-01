@@ -23,7 +23,7 @@ An application sends [AcraStructs](/acra/acra-in-depth/data-structures/acrastruc
 as binary data and receives plaintext (or decryption error) from AcraTranslator.
 
 However, sending plaintext data via a non-secure channel is a bad idea, so AcraTranslator requires usage of
-[Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) 
+[Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session/) (deprecated since 0.91.0) or [TLS](/acra/configuring-maintaining/general-configuration/acra-translator/#tls) 
 encryption channel (which is basically encrypted TCP/UNIX sockets).
 To establish a Themis Secure Session connection, an application doesn't need to include the crypto-code itself, only to
 direct the traffic through [AcraConnector](/acra/configuring-maintaining/general-configuration/acra-connector/) instead.
@@ -58,7 +58,7 @@ Your application doesn't need to handle any cryptographic code or have access to
 
 * Is easy to use from any application – AcraTranslator supports HTTP and gRPC API, [supports SIEMs](/acra/security-controls/security-logging-and-events/siem-soc-integration/), [supports KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 * Is available as a package for common server Linux distros, available as Docker image. See [Getting started](/acra/getting-started/).
-* Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [AcraConnector](/acra/security-controls/transport-security/acra-connector) for better transport encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
+* Supports a whole set of additional modules and tools - [key management](/acra/security-controls/key-management/), [AcraConnector](/acra/security-controls/transport-security/acra-connector) (deprecated since 0.91.0) for better transport encryption, [cryptographically-signed audit logs](/acra/security-controls/security-logging-and-events/audit-logging/).
 
 
 ## Dataflows
@@ -92,7 +92,7 @@ Other connections are optional – for example, you can use Redis as external ke
 
 * [AcraWriter](/acra/acra-in-depth/architecture/sdks/acrawriter/), [AcraReader](/acra/acra-in-depth/architecture/sdks/acrareader/) – optional client-side SDKs to encrypt or decrypt AcraBlocks/AcraStructs without AcraTranslator.
 
-* [AcraConnector](/acra/security-controls/transport-security/acra-connector) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
+* [AcraConnector](/acra/security-controls/transport-security/acra-connector) (deprecated since 0.91.0) – optional client-side service/daemon that implements transport security and authentication for client application that doesn't support TLS 1.2+.
 
 
 ## Architectural considerations
