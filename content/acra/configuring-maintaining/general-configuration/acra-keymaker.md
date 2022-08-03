@@ -87,6 +87,34 @@ By default, certificate Distinguished Name is used as ClientID.
   Output file is `configs/markdown_acra-keymaker.md`.
   Works in a pair with `--dump_config`.
 
+
+### KMS
+
+* `--kms_type=<type>`
+
+  Specify your KMS.
+  Currently supported KMS types:
+  * `aws` - AWS Key Management Service
+
+* `--kms_key_policy=<policy>`
+
+  KMS usage key policy. 
+  Supported key policies:
+  * `create` - create a key encryption key on KMS with name **acra_master_key** (***exit with code 1 if the key already exists***). Being used only with `generate_master_key` flag.
+  
+  Default is `create`
+
+* `--kms_credentials_path=<filepath>`
+
+  A path to a file with KMS credentials JSON format.
+
+  Example of KMS config:
+* **AWS**:
+  ```json
+     {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
+  ```
+
+
 ### HashiCorp Vault
 
 `acra-keymaker` can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.

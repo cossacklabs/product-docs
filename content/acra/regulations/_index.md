@@ -26,8 +26,7 @@ Using Acra fulfils some demands of the articles [25. Data protection by design a
 [Article 25 of GDPR](https://gdpr-info.eu/art-25-gdpr/).
 
 The default configuration of Acra uses the most secure settings to provide “secure by default” state of the system.
-This is enabled through the encrypted data transfer between the application, components of Acra, and the database
-([TLS/SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) and [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session) are supported).
+This is enabled through the encrypted data transfer between the application, components of Acra, and the database. [TLS/SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) and [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session)(deprecated and not used since 0.92.0) are supported.
 
 > The controller shall implement appropriate technical and organisational measures for ensuring that, by default, only personal data which are necessary for each specific purpose of the processing are processed [...] In particular, such measures shall ensure that by default personal data are not made accessible without the individual’s intervention to an indefinite number of natural persons.
 
