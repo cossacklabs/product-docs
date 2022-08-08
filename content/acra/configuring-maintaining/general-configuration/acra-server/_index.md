@@ -586,4 +586,4 @@ AcraWebConfig and AcraAuthManager are deprecated and will not be available since
 
 There are a couple of signals `acra-server` reacts on:
 - `SIGTERM`, `SIGINT` — graceful shutdown: stop accepting new connections, close existing ones, terminate the process.
-- `SIGHUP` — restart: create new AcraServer subprocess and transfer opened listener sockets to it, then terminate the current process._
+- `SIGHUP` — restart: create new AcraServer subprocess and transfer opened listener sockets to it, then terminate the current process.
