@@ -73,6 +73,10 @@ weight: 4
      {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
   ```
 
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_key|kms_per_client>` flags.
+{{< /hint >}}
 
 #### HashiCorp Vault
 
@@ -110,6 +114,11 @@ weight: 4
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
+
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<vault_master_key>` flag.
+{{< /hint >}}
 
   🔴 - flags required to be specified.
 

@@ -1,4 +1,4 @@
----
+_---
 title: acra-server
 weight: 3
 ---
@@ -220,6 +220,17 @@ weight: 3
   Currently, supported only for keystore `v1` and will fail to start for keystore `v2`.
   Default is `true`.
 
+* `--keystore_encryption_type=<strategy>`
+
+  Keystore encryption strategy.
+  Currently supported strategies:
+  * **`master_key`** (**Default**) - Keystore using Acra Master Key, loaded from ENV (`ACRA_MASTER_KEY`) variable;
+  * **`vault_master_key`** -  Keystore using Acra Master Key, loaded from Hashicorp Vault
+  * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and decrypted
+    via KMS key-encryption key.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+
+
 ### MySQL
 
 * `--mysql_enable={true|false}`
@@ -437,6 +448,11 @@ For additional certificate validation flags, see corresponding pages:
      {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
   ```
 
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_key|kms_per_client>` flags.
+{{< /hint >}}
+
 ### Hashicorp Vault
 
 * `--vault_connection_api_string=<url>`
@@ -468,6 +484,11 @@ For additional certificate validation flags, see corresponding pages:
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
+
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<vault_master_key>` flag.
+{{< /hint >}}
 
 
   🔴 - flags required to be specified.
@@ -565,4 +586,4 @@ AcraWebConfig and AcraAuthManager are deprecated and will not be available since
 
 There are a couple of signals `acra-server` reacts on:
 - `SIGTERM`, `SIGINT` — graceful shutdown: stop accepting new connections, close existing ones, terminate the process.
-- `SIGHUP` — restart: create new AcraServer subprocess and transfer opened listener sockets to it, then terminate the current process.
+- `SIGHUP` — restart: create new AcraServer subprocess and transfer opened listener sockets to it, then terminate the current process._

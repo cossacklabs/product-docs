@@ -87,6 +87,11 @@ weight: 2
      {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
   ```
 
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_key|kms_per_client>` flags.
+{{< /hint >}}
+
 ### HashiCorp Vault
 
 `acra-keys` can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.
@@ -123,6 +128,11 @@ weight: 2
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
+
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<vault_master_key>` flag.
+{{< /hint >}}
 
 ## Generating keys
 
