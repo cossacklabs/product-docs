@@ -77,7 +77,7 @@ weight: 9
 
   Keystore encryption strategy.
   Currently supported strategies:
-  * **`master_key`** (**Default**) - Keystore using Acra Master Key, loaded from ENV (`ACRA_MASTER_KEY`) variable;
+  * **`env_master_key`** (**Default**) - Keystore using Acra Master Key, loaded from ENV (`ACRA_MASTER_KEY`) variable;
   * **`vault_master_key`** -  Keystore using Acra Master Key, loaded from Hashicorp Vault
   * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and decrypted
     via KMS key-encryption key.
