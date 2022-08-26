@@ -75,19 +75,19 @@ weight: 10
 
 * `--redis_tls_client_ca=<filename>`
 
-  Path to additional CA certificate for Redis' certificate validation (overrides `--tls_ca`).
+  Path to additional CA certificate for Redis' certificate validation.
   Empty by default.
 
 
 * `--redis_tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to Redis (overrides `--tls_cert`).
+  Path to server TLS certificate presented to Redis.
   Empty by default.
 
 
 * `--redis_tls_client_key=<filename>`
 
-  Path to private key of the TLS certificate presented to Redis (overrides `--tls_key`).
+  Path to private key of the TLS certificate presented to Redis.
   Empty by default.
 
 
