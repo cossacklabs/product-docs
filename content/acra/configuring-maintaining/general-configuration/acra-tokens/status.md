@@ -121,7 +121,7 @@ weight: 1
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_crl_*_url` flags.
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags.
 
 
 * `--redis_tls_crl_client_url=<url>`
@@ -159,7 +159,7 @@ weight: 1
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags.
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags.
 
 
 * `--redis_tls_ocsp_client_required=<policy>`
