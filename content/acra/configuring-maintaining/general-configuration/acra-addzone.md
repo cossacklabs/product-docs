@@ -64,7 +64,6 @@ weight: 10
 
   Set authentication mode that will be used for TLS connection with Redis.
 
-  * `-1` — not specified, common `--tls_ca` value will be used.
   * `0` — do not request client certificate, ignore it if received;
   * `1` — request client certificate, but don't require it;
   * `2` — expect to receive at least one certificate to continue the handshake;

@@ -49,7 +49,6 @@ Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will 
 
   Set authentication mode that will be used for TLS connection with Redis.
 
-  * `-1` — not specified, common `--tls_ca` value will be used.
   * `0` — do not request client certificate, ignore it if received;
   * `1` — request client certificate, but don't require it;
   * `2` — expect to receive at least one certificate to continue the handshake;
@@ -60,19 +59,19 @@ Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will 
 
 * `--redis_tls_client_ca=<filename>`
 
-  Path to additional CA certificate for Redis' certificate validation (overrides `--tls_ca`).
+  Path to additional CA certificate for Redis' certificate validation.
   Empty by default.
 
 
 * `--redis_tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to Redis (overrides `--tls_cert`).
+  Path to server TLS certificate presented to Redis.
   Empty by default.
 
 
 * `--redis_tls_client_key=<filename>`
 
-  Path to private key of the TLS certificate presented to Redis (overrides `--tls_key`).
+  Path to private key of the TLS certificate presented to Redis.
   Empty by default.
 
 
