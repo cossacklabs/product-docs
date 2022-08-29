@@ -107,6 +107,16 @@ It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` e
 
   Password to Redis database.
 
+* `--keystore_encryption_type=<strategy>`
+
+  Keystore encryption strategy.
+  Currently supported strategies:
+  * **`env_master_key`** (**Default**) - Keystore using Acra Master Key, loaded from ENV (`ACRA_MASTER_KEY`) variable;
+  * **`vault_master_key`** -  Keystore using Acra Master Key, loaded from Hashicorp Vault
+  * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and decrypted
+    via KMS key-encryption key.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+
 
 ### KMS
 
@@ -125,6 +135,11 @@ It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` e
   ```json
      {"access_key_id":"<access_key_id>","secret_access_key":"<secret_access_key>","region":"<region>"}
   ```
+
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_key|kms_per_client>` flags.
+{{< /hint >}}
   
 
 ### HashiCorp Vault
@@ -161,6 +176,11 @@ It expects symmetric key to decrypt keys from keystore from  `ACRA_MASTER_KEY` e
 
   Use TLS to encrypt transport with HashiCorp Vault.
   Default is `false`.
+
+{{< hint info >}}
+**Note**:
+Should be provided only with `--keystore_encryption_type=<vault_master_key>` flag.
+{{< /hint >}}
   
 ## Usage example
 
