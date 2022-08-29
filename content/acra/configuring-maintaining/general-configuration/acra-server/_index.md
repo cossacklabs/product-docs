@@ -495,7 +495,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--consul_tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to Consul.
+  Path to client TLS certificate presented to Consul.
   Empty by default.
 
 
