@@ -71,7 +71,7 @@ weight: 2
 
 * `--redis_tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to Redis.
+  Path to AcraServer TLS certificate presented to Redis (AcraServer works as "client" when communicating with Redis).
   Empty by default.
 
 
