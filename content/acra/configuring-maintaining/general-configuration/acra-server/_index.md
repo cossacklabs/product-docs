@@ -43,7 +43,7 @@ weight: 3
   Storage type used for `encryptor_config` loading.
 
   * `filesystem` — use YAML configuration file format; filename should be specified via `--encryptor_config_file` flag;
-  * `consul` — use [HashiCorp Consul](/acra/configuring-maintaining/general-configuration/acra-server/#hashicorp-consul) KV storage;.
+  * `consul` — use [HashiCorp Consul](/acra/configuring-maintaining/general-configuration/acra-server/#hashicorp-consul) KV storage;
   
   Default is `filesystem`.
 
