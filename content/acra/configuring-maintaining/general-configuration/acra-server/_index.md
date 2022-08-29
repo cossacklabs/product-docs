@@ -622,7 +622,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--consul_tls_client_cert=<filename>`
 
-  Path to client TLS certificate presented to Consul.
+  Path to AcraServer TLS certificate presented to Consul (AcraServer works as "client" when communicating with Consul).
   Empty by default.
 
 
