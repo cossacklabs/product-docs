@@ -1,4 +1,4 @@
-_---
+---
 title: acra-server
 weight: 3
 ---
