@@ -5,8 +5,13 @@ weight: 1
 
 # Encryptor config
 
-This config is responsible for configuration of proactive security controls of AcraServer and can be specified
-via `--encryptor_config=<path>` CLI parameter or `encryptor_config` key in YAML configuration file for AcraServer.
+This config is responsible for configuration of proactive security controls of AcraServer. AcraServer supports several
+types of storages for `encryptor_config` loading: [`HashiCorp Consul KV storage`](https://www.consul.io/) and `Filesystem`.
+
+Storage type can be specified via `--encryptor_config_storage_type=<filesystem|consul>` flag.
+
+To configure filesystem as storage type, specify `--encryptor_config=<path>` CLI parameter or `encryptor_config` key in
+YAML configuration file for AcraServer. For `HashiCorp Consul` configuration, please reference [Consul configuration block](/acra/configuring-maintaining/general-configuration/acra-server/#hashicorp-consul).
 
 The following security controls can be configured:
 - Transparent encryption
