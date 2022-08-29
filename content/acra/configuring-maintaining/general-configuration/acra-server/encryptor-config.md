@@ -6,7 +6,7 @@ weight: 1
 # Encryptor config
 
 This config is responsible for configuration of proactive security controls of AcraServer. AcraServer supports several
-types of storages for `encryptor_config` loading - `HashiCorp Consul KV storage` and `Filesystem`.
+types of storages for `encryptor_config` loading: [`HashiCorp Consul KV storage`](https://www.consul.io/) and `Filesystem`.
 
 Storage type can be specified via `--encryptor_config_storage_type=<filesystem|consul>` flag.
 
