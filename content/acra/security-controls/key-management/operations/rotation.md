@@ -192,6 +192,10 @@ to learn where the keys are stored and how to exchange them correctly and secure
 
 #### Rotating zone keys
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 If you are using [zones](/acra/security-controls/zones/),
 run `acra-addzone` on AcraServer or AcraTranslator to generate a new zone with a new key:
 

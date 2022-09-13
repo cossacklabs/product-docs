@@ -6,7 +6,11 @@ weight: 13
 # acra-rollback
 
 `acra-rollback` is a command-line utility that helps you to generate a clean SQL dump from an existing protected one.
-Rollback utility especially applicable in case of any DB rollback - keys re-generating, going from a Zoneless mode to Zones or vice-versa etc. 
+Rollback utility especially applicable in case of any DB rollback - keys re-generating, going from a Zoneless mode to Zones or vice-versa etc.
+
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
 
 ## Command line flags
 
@@ -41,7 +45,7 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
 
 * `--zonemode_enable={true|false}`
 
-  Turn on zone mode.
+  Turn on zone mode (deprecated since 0.94.0, will be removed in 0.95.0).
   Default is `false`.
 
 * `--execute={true|false}`
@@ -102,7 +106,7 @@ Rollback utility especially applicable in case of any DB rollback - keys re-gene
   * **`vault_master_key`** - Keystore using Acra Master Key, loaded from Hashicorp Vault
   * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and
     decrypted via KMS key-encryption key.
-  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 
 
 ### KMS
@@ -130,7 +134,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 ### HashiCorp Vault
 
-`acra-addzone` can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.
+`acra-addzone` (deprecated since 0.94.0, will be removed in 0.95.0) can read `ACRA_MASTER_KEY` from HashiCorp Vault instead of environment variable.
 
 * `--vault_connection_api_string=<url>`
 
@@ -204,6 +208,10 @@ acra-rollback \
 ```
 
 ### ZoneMode
+
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
 
 `acra-rollback` supports work with [zones](/acra/security-controls/zones/), you can configure it via `zonemode_enable` flag.
 If Zones are enabled, make sure you have Zone ID in your `SELECT` query:

@@ -89,7 +89,7 @@ There are several types of keys used in Acra.
 
 AcraServer in Transparent proxy mode and AcraTranslator use storage symmetric keys to encrypt/decrypt data into/from [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock).
 
-Storage symmetric keys are used for [encryption/decryption](/acra/security-controls/encryption/), [making/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/), [zones](/acra/security-controls/zones/). These are the default keys, in most cases, you will use them.
+Storage symmetric keys are used for [encryption/decryption](/acra/security-controls/encryption/), [making/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/), [zones](/acra/security-controls/zones/) (deprecated since 0.94.0, will be removed in 0.95.0). These are the default keys, in most cases, you will use them.
 
 Under the hood, storage symmetric keys don't actually encrypt the data fields. Data encryption keys (DEKs) are randomly generated each time and used to encrypt every data field. Storage symmetric keys are used for particular DEK encryption. See [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock) for the encryption details.
 
@@ -98,12 +98,16 @@ Under the hood, storage symmetric keys don't actually encrypt the data fields. D
 | AcraBlock encryption + decryption | `${ClientID}_storage_sym` | AcraServer, AcraTranslator
 | AcraBlock encryption + decryption with Zones | `${ZoneID}_zone_sym` | AcraServer, AcraTranslator
 
+{{< hint warning >}}
+Zones and zone keys are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 Storage keys can be represented by either:
 
   - One keypair for each [Client ID](/acra/guides/integrating-acra-server-into-infrastructure/client_id/),
     which is used for encryption by AcraWriter and decryption by AcraServer and AcraTranslator.
 
-  - A set of [Zone keys](/acra/security-controls/zones/).
+  - A set of [Zone keys](/acra/security-controls/zones/) (deprecated since 0.94.0, will be removed in 0.95.0).
     Each zone represents a unique user or type of users and has corresponding encryption and decryption keys.
     Using zones complicates unauthorized decryption which requires possession correct Zone ID as well as decryption key.
 

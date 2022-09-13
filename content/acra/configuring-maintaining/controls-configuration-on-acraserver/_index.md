@@ -25,7 +25,7 @@ AcraServer can be configured from command line using CLI flags ([see the whole l
     provides a format-preserving way of storing tokens (number, string, email-looking values) while the original data is stored encrypted in a dedicated separate storage (Redis).
   * [Zones](/acra/security-controls/zones) —
     allows using zone-specific keys for cryptographic operations;
-    configured in encryptor config, but enabled with `--zonemode_enable`.
+    configured in encryptor config, but enabled with `--zonemode_enable` (deprecated since 0.94.0, will be removed in 0.95.0).
 
 * [Intrusion detection](/acra/security-controls/intrusion-detection/)
 
@@ -44,7 +44,7 @@ AcraServer can be configured from command line using CLI flags ([see the whole l
   is read from `ACRA_MASTER_KEY` environment var, but can also be
   [fetched from HashiCorp Vault](/acra/configuring-maintaining/general-configuration/acra-server/#hashicorp-vault) or [other KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 
-  Then, there are client- and zone-specific keys, AcraServer can read them
+  Then, there are client-specific keys, AcraServer can read them
   [from filesystem (`--keys_dir`)](/acra/configuring-maintaining/general-configuration/acra-server/#keystore) or
   [from Redis (`--redis_*` flags)](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
 

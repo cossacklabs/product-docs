@@ -219,7 +219,7 @@ weight: 3
 
 * `--zonemode_enable={true|false}`
 
-  Turn on zone mode.
+  Turn on zone mode (zones are deprecated since 0.94.0, will be removed in 0.95.0).
   Default is `false`.
 
 ### Configuration files
@@ -355,7 +355,7 @@ weight: 3
   * **`vault_master_key`** -  Keystore using Acra Master Key, loaded from Hashicorp Vault
   * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and decrypted
     via KMS key-encryption key.
-  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 
 
 ### MySQL
@@ -624,6 +624,10 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 
 AcraServer handles HTTP requests that may change its internal state, generates new Zones or fetches data
 related with authentication of AcraWebConfig users.
+
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
 
 {{< hint warning >}}
 AcraWebConfig and AcraAuthManager are deprecated and will not be available since 0.91.0.

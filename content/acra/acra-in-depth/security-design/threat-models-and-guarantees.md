@@ -46,6 +46,10 @@ There is an additional third guarantee, which is valid while using Zone keys:
 
 **Guarantee 3:** If the attacker compromises the system in such a way that they modify the app's behaviour to extract all the protected records, and these records are protected using Zone keys, the attacker will need to reverse-engineer both the storage model and the Zone identification to be able to request all of them correctly. This guarantee should be achieved cryptographically, not programmatically.
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 
 ### Guarantee 1: Cryptographic model
 
@@ -79,6 +83,11 @@ By differentiating the sensitive data via [Zones](/acra/security-controls/zones/
 - Zone keys are used for encrypting the AcraStructs. In this case, AcraServer will only be able to pick the right key and decrypt the data by knowing the correct zone. This limits the leak scope for every private key, even if AcraServer is partially compromised.
 
 - Zone IDs are used as context when encrypting data using Themis Secure Cell, providing additional protection.
+
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0. 
+AcraEnterprise provides approach of differentiating ClientID dynamically via SQL.
+{{< /hint >}}
 
 
 ## Security model for Acra

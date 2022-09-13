@@ -77,6 +77,10 @@ See [DB indexes](/acra/configuring-maintaining/optimizations/db_indexes#searchab
 
 ## AcraTranslator API
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0. ZoneID parameters will be removed or ignored. AcraTranslator will expect explicitly specified ClientID in gRPC API or will use ClientID from TLS certificates.
+{{< /hint >}}
+
 ### gRPC API
 
 Encrypt and decrypt data with `service SearchableEncryption`:

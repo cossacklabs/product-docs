@@ -70,6 +70,10 @@ However, there are some caveats:
 You don't have to run a single AcraServer instance and give it all the keys.
 Many instances can be launched, each responsible for different tables and/or clients and/or zones.
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 For example, you can have few clusters, each responsible for
 protection of different data based on its confidentiality level:
 
@@ -169,6 +173,9 @@ rather than encryption configuration, you can read more about them on their page
   one of the approaches to make Acra using different encryption keys for different data,
   depending on zone ID specified in the request or stored in column
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0. Related parameters will be removed and ignored too.
+{{< /hint >}}
 
 ## AcraTranslator API
 

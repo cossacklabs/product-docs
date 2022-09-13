@@ -71,6 +71,10 @@ Refer to [Storage models](/acra/acra-in-depth/data-structures/storage-models) pa
 
 ## Zone Ids
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 Zone Ids are identifiers of EC keys used for matching Zones to cryptographic keys. The current format is 8 bytes "begin tag" + 16 symbols a-zA-Z. For example: `DDDDDDDDzxzXVyBBaNclkgPS` where `DDDDDDDD` is "begin tag" and `zxzXVyBBaNclkgPS` is unique key identifier. 
 
 Learn more about [Zones](/acra/security-controls/zones/).

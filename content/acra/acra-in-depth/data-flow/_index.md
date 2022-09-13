@@ -293,6 +293,10 @@ Application reads encrypted data from the storage or the other application and n
 
 ## Data flow with Zones
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 Data flow with [zones](/acra/security-controls/zones) are similar for schemas described above except several additional steps at the beginning:
 
 * Zone generation via [acra-addzone](/acra/configuring-maintaining/general-configuration/acra-addzone) utility or [AcraServer's HTTP API](/acra/configuring-maintaining/general-configuration/acra-server/).

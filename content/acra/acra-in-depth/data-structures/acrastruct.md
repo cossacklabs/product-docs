@@ -48,6 +48,10 @@ AcraStruct example for the `example` plaintext:
 
 To generate AcraStructs, AcraServer/AcraTranslator/AcraWriter uses a public key generated for every ClientID/ZoneID.
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 The generation contains the following steps:
 
 - Generate a keypair of throwaway keys using Themis EC key generator:<br/>

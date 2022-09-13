@@ -3,7 +3,7 @@ title: acra-addzone
 weight: 10
 ---
 
-# acra-addzone
+# acra-addzone (deprecated since 0.94.0)
 
 `acra-addzone` is a command-line utility that generates new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs.
 

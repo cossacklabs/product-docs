@@ -5,7 +5,7 @@ weight: 8
 
 # acra-rotate
 
-`acra-rotate` is a command-line utility that rotates intermediate keys or [Zone](/acra/security-controls/zones) keys and re-encrypt data stored in database or as files.
+`acra-rotate` is a command-line utility that rotates intermediate keys or [Zone](/acra/security-controls/zones) (zones are deprecated since 0.94.0, will be removed in 0.95.0) keys and re-encrypt data stored in database or as files.
 
 ## Command line flags
 
@@ -24,7 +24,7 @@ weight: 8
 
 * `--zonemode_enable={true|false}`
 
-  Turn on zone mode.
+  Turn on zone mode (deprecated since 0.94.0, will be removed in 0.95.0).
   Default is `true`.
 
 * `--sql_select=<query>`
@@ -234,7 +234,7 @@ weight: 8
   * **`vault_master_key`** - Keystore using Acra Master Key, loaded from Hashicorp Vault
   * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and
     decrypted via KMS key-encryption key.
-  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 
 
 ### KMS
