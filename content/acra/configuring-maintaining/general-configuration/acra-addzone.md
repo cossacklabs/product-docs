@@ -269,7 +269,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to private key of the TLS certificate presented to Vault.
+  Path to AcraServer TLS certificate's private key of the TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
   Empty by default.
 
 
