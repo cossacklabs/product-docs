@@ -255,6 +255,12 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 
+* `--vault_tls_ca_path=<filename>`
+
+  Path to CA certificate for HashiCorp Vault certificate validation.
+  Default is empty (deprecated since 0.94.0, use `vault_tls_client_ca` instead).
+
+
 * `--vault_tls_client_ca=<filename>`
 
   Path to AcraServer TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
