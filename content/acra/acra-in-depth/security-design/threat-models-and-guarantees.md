@@ -86,7 +86,7 @@ By differentiating the sensitive data via [Zones](/acra/security-controls/zones/
 
 {{< hint warning >}}
 Zones are deprecated since 0.94.0, will be removed in 0.95.0. 
-AcraEnterprise provides approach of differentiating ClientID dynamically via SQL.
+[Acra Enterprise Edition](https://docs.cossacklabs.com/acra/enterprise-edition/) provides a better approach of differentiating ClientID dynamically via SQL.
 {{< /hint >}}
 
 
