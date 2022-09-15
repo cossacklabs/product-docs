@@ -110,7 +110,7 @@ read an encrypted file with authentication data.
 
 * `--vault_tls_client_ca=<filename>`
 
-  Path to additional CA certificate for Vault certificate validation.
+  Path to AcraServer TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
   Empty by default.
 
 
@@ -122,7 +122,7 @@ read an encrypted file with authentication data.
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to private key of the TLS certificate presented to Vault.
+  Path to AcraServer TLS certificate's private key of the TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
   Empty by default.
 
 

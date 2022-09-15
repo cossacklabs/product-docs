@@ -298,11 +298,8 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_ca=<filename>`
 
-  * `0` — do not request client certificate, ignore it if received;
-  * `1` — request client certificate, but don't require it;
-  * `2` — expect to receive at least one certificate to continue the handshake;
-  * `3` — don't require client certificate, but validate it if client actually sent it;
-  * `4` — (default) request and validate client certificate.
+  Path to AcraServer TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
+  Empty by default.
 
 
 * `--vault_tls_client_cert=<filename>`
@@ -313,7 +310,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to private key of the TLS certificate presented to Vault.
+  Path to AcraServer TLS certificate's private key of the TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
   Empty by default.
 
 
