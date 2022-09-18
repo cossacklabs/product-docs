@@ -40,6 +40,7 @@ set @app.client_id TO 'client_id'
 This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only starting from 0.93.
 {{< /hint>}}
 
+Sometimes it's useful NOT to add encryption/decryption for certain applications ("clients" in Acra terms). Now you can configure a list of "Ignored ClientIDs": a traffic coming from them won't be parsed, encrypted or decrypted.
 AcraServer also supports the ability to ignore and skip encryption/decryption for specified ClientIDs. TLS-extracted, SQL detected ClientIDs are applicable to ignore by AcraServer.
 
 Ignored ClientIDs should be declared as the part of `encryptor_config` in the `defaults.ignore_client_ids` section.
