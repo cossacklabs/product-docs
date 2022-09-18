@@ -11,8 +11,7 @@ This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/
 
 AcraServer supports the ability to retrieve the ClientID from SQL in the runtime dynamically.
 
-AcraServer uses a default behavior in which the ClientID is retrieved from TLS
-certificates [`--tls_client_id_from_cert` flag]({{< ref "acra/configuring-maintaining/general-configuration/acra-server/#tls" >}}), provided by the client during handshake.
+AcraServer encrypts/decrypts data per client (application, user or group of users). To distinguish the clients, AcraServer uses "ClientID" which it retrieves from TLS certificate provided by the client during handshake (use flag [`--tls_client_id_from_cert`](/acra/configuring-maintaining/general-configuration/acra-server/#tls)).
 
 To enable SQL ClientID detection, provide `--client_id_sql_varname=<variable>` flag which set SQL variable name to use
 as ClientID in session scope. After SQL ClientID detection is ON, AcraServer expect `SET` SQL command to extract
