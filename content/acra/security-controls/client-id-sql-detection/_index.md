@@ -6,7 +6,7 @@ weight: 12
 ## ClientID Detection from SQL
 
 {{< hint info >}}
-This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only starting from 0.93.
 {{< /hint>}}
 
 AcraServer supports the ability to retrieve the ClientID from SQL in the runtime dynamically.
