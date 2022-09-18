@@ -37,7 +37,7 @@ set @app.client_id TO 'client_id'
 ## ClientID Ignoring
 
 {{< hint info >}}
-This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
+This feature is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only starting from 0.93.
 {{< /hint>}}
 
 AcraServer also supports the ability to ignore and skip encryption/decryption for specified ClientIDs. TLS-extracted, SQL detected ClientIDs are applicable to ignore by AcraServer.
