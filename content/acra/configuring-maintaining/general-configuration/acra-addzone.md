@@ -5,7 +5,7 @@ weight: 10
 
 # acra-addzone (deprecated since 0.94.0)
 
-`acra-addzone` is a command-line utility that generates new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs.
+`acra-addzone` is a command-line utility that generates new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs. Zones are deprecated since 0.94.0, but if you are looking for a flexible approach of differentiating clients, check the differentiating ClientID dynamically via SQL [page](/acra/security-controls/client-id-sql-detection/).
 
 ## Command line flags
 
