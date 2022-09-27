@@ -21,6 +21,10 @@ There are three ways to encrypt data:
 * AcraTranslator: encryption happens as a result of gRPC or HTTP API call from client application.
 * [Client-side encryption using AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/acrawriter/): it is possible to generate AcraStructs/AcraBlocks using AcraWriter library inside your application using appropriate keys.
 
+{{< hint warning >}}
+Read detailed technical blogpost about [transparent data encryption for SQL databases](https://www.cossacklabs.com/blog/acra-transparent-data-encryption-for-sql-databases/).
+{{</ hint >}}
+
 ## Decryption
 
 There are three ways to decrypt data from AcraStructs/AcraBlocks back into a plaintext:
