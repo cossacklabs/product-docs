@@ -1115,23 +1115,40 @@ tbody td a{
 
 /*header banner - start*/
 .banner {
-    padding: 10px 1em;
+    margin-top: -$padding-16;
+    margin-bottom: $padding-16;
+    padding: 8px;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    background-color: $white;
+    color: $gray-2;
+    font-family: 'Maven Pro', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    transition: .3s ease-in-out;
+    border: 1px solid $brand-orange-main;
+    border-top: none;
+    border-radius: 0px 0px 8px 8px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
 
-    &Wrap {
-        background-color: $brand-blue-main;
-        display: block;
-        color: $white;
-        font-family: 'Maven Pro', Arial, sans-serif;
-        font-size: 14px;
-        line-height: 20px;
-        transition: .3s ease-in-out;
+    &:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
 
-        &:hover {
-            background-color: $brand-blue-darker;
-        }
+    @media screen and (min-width: $mobile-breakpoint) {
+        margin-top: -$padding-16 * 2;
+        margin-bottom: $padding-16 * 2;
+    }
+
+    @media screen and (min-width: $container-max-width) {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        margin: 0;
+        padding-left: 56px;
+        padding-right: 56px;
     }
 
     &__text {
@@ -1144,7 +1161,7 @@ tbody td a{
         }
 
         &-logo {
-            margin-right: 10px;
+            margin-right: 12px;
         }
     }
 

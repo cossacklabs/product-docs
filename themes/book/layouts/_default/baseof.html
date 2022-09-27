@@ -7,8 +7,6 @@
   </head>
 
   <body {{if .IsHome}}class="main-page"{{ end }} dir={{ .Site.Language.LanguageDirection }}>
-    {{ partial "docs/banner" . }}
-
     <div class="top-nav-wrapper">
       {{ partial "docs/top-nav" . }}
     </div>
@@ -26,6 +24,8 @@
 
       <!-- main container -->
       <div class="book-page">
+        {{ partial "docs/banner" . }}
+
         {{ if .IsHome }}
           {{ partial "docs/custom-header" . }}
         {{ else }}
