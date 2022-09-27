@@ -23,6 +23,10 @@ AcraServer sits between your application and MySQL/PostgreSQL database and does 
 
 Refer to [Integrating AcraServer into infrastructure](/acra/guides/integrating-acra-server-into-infrastructure/) to learn how configure AcraServer.
 
+{{< hint warning >}}
+Read detailed technical blogpost about [transparent data encryption for SQL databases](https://www.cossacklabs.com/blog/acra-transparent-data-encryption-for-sql-databases/).
+{{</ hint >}}
+
 ## AcraServer's functionality
 
 It performs different [data protection operations](/acra/acra-in-depth/security-features/), like [encryption/decryption](/acra/security-controls/encryption), [searchable encryption](/acra/security-controls/searchable-encryption/), [masking/demasking](/acra/security-controls/masking/), [tokenization/detokenization](/acra/security-controls/tokenization/). 
