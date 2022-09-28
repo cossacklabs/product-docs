@@ -257,6 +257,10 @@ Now you will see the decrypted data via Acra in the `data` column, i.e. `b'data1
 ### Using Acra in Docker with Zones
 
 > WARNING: Shutdown the previous containers and delete `docker/.acrakeys` first!
+ 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
 
 Use:
 (shell window #1)

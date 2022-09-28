@@ -5,7 +5,7 @@ bookCollapseSection: true
 
 ## gRPC API
 
-gRPC API is the recommended way of using AcraTranslator for high-load services. Each gRPC request contains a ClientID, a ZoneID, and a crypto container itself.
+gRPC API is the recommended way of using AcraTranslator for high-load services. Each gRPC request contains a ClientID, a ZoneID (zones are deprecated since 0.94.0, will be removed in 0.95.0), and a crypto container itself.
 Due to some peculiarities of the gRPC protocol, it's required to send a ClientID in every request, so ClientID is a required parameter.
 
 Look at gRPC’s [AcraStruct](/acra/acra-in-depth/data-structures/acrastruct) request / response structure below:
@@ -81,7 +81,7 @@ If you need to perform multiple parallel operations within single network reques
 
 1. Create bulk processing request;
 2. Put any amount of encryption/decryption/tokenization/detokenization/etc operations inside:
-   * Each operation will have own input data, client ID, zone ID, just like in usual requests;
+   * Each operation will have own input data, client ID, zone ID (deprecated since 0.94.0, will be ignored in 0.95.0), just like in usual requests;
    * In addition to that, each operation will be marked with an identifier, `request_id`, so when the response is processed you will know what is what;
      (reordering is possible due to parallel processing of all requests);
 3. Send the bulk processing request;

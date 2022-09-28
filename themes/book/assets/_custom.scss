@@ -1112,3 +1112,74 @@ button{
 tbody td a{
     word-break: break-all;
 }
+
+/*header banner - start*/
+.banner {
+    margin-top: -$padding-16;
+    margin-bottom: $padding-16;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $brand-blue-main;
+    color: $white;
+    font-family: 'Maven Pro', Arial, sans-serif;
+    font-size: 14px;
+    line-height: 20px;
+    transition: .3s ease-in-out;
+    border-radius: 0px 0px 8px 8px;
+    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    }
+
+    @media screen and (min-width: $mobile-breakpoint) {
+        margin-top: -$padding-16 * 2;
+        margin-bottom: $padding-16 * 2;
+    }
+
+    @media screen and (min-width: $container-max-width) {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        width: 79%;
+        padding-left: 56px;
+        padding-right: 56px;
+        margin: 0 auto;
+    }
+
+    &__text {
+        margin: 0;
+
+        &Wrap {
+            display: flex;
+            align-items: center;
+            padding-right: 20px;
+        }
+
+        &-logo {
+            margin-right: 12px;
+        }
+    }
+
+    &__btn {
+        color: $white;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        white-space: nowrap;
+
+        &:after{
+            margin-left: 7px;
+            content: '';
+            background: url(icon/arrow-white.svg) no-repeat center center;
+            width: 6px;
+            height: 11px;
+            background-size: 13px;
+            margin-top: 1px;
+        }
+    }
+}
+/*header banner - end*/

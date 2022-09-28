@@ -21,6 +21,10 @@ There are three ways to encrypt data:
 * AcraTranslator: encryption happens as a result of gRPC or HTTP API call from client application.
 * [Client-side encryption using AcraWriter SDK](/acra/acra-in-depth/architecture/sdks/acrawriter/): it is possible to generate AcraStructs/AcraBlocks using AcraWriter library inside your application using appropriate keys.
 
+{{< hint warning >}}
+Read detailed technical blogpost about [transparent data encryption for SQL databases](https://www.cossacklabs.com/blog/acra-transparent-data-encryption-for-sql-databases/).
+{{</ hint >}}
+
 ## Decryption
 
 There are three ways to decrypt data from AcraStructs/AcraBlocks back into a plaintext:
@@ -69,6 +73,10 @@ However, there are some caveats:
 
 You don't have to run a single AcraServer instance and give it all the keys.
 Many instances can be launched, each responsible for different tables and/or clients and/or zones.
+
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
 
 For example, you can have few clusters, each responsible for
 protection of different data based on its confidentiality level:
@@ -169,6 +177,9 @@ rather than encryption configuration, you can read more about them on their page
   one of the approaches to make Acra using different encryption keys for different data,
   depending on zone ID specified in the request or stored in column
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0. Related parameters will be removed and ignored too.
+{{< /hint >}}
 
 ## AcraTranslator API
 

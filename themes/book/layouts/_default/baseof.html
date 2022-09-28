@@ -24,6 +24,8 @@
 
       <!-- main container -->
       <div class="book-page">
+        {{ partial "docs/banner" . }}
+
         {{ if .IsHome }}
           {{ partial "docs/custom-header" . }}
         {{ else }}

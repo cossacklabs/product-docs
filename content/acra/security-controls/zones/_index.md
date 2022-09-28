@@ -3,7 +3,7 @@ title: Zones
 weight: 12
 ---
 
-# Zones
+# Zones (deprecated since 0.94.0, will be removed in 0.95.0)
 
 Zones are a way to cryptographically compartmentalise access to data.
 

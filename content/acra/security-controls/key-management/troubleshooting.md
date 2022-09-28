@@ -9,7 +9,7 @@ bookCollapseSection: true
 ## Renaming key files
 
 Acra stores intermediate keys in encrypted form (only public keys are not encrypted).
-Each key has a special name associated with its Client or Zone ID.
+Each key has a special name associated with its Client or Zone ID (zone keys are deprecated since 0.94.0, will be removed in 0.95.0).
 
 The keys are encrypted using Authenticated Encryption with Associated Data (AEAD),
 where the Client or Zone ID acts as associated data for AEAD.

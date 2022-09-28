@@ -52,7 +52,7 @@ This section contains a set of specific optimizations and practices for your app
 
 * [Zones performance](/acra/configuring-maintaining/optimizations/zones/)
 
-  Describes how Zones affect performance.
+  Describes how Zones affect performance (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 
 * [Enterprise kickstart](/acra/configuring-maintaining/optimizations/enterprise_kickstart/)
 
