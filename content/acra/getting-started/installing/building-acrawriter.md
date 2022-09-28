@@ -83,6 +83,10 @@ Output
 #### Examples
 [With Zones](https://github.com/cossacklabs/acra/blob/master/examples/python/example_with_zone.py) and [without Zones](https://github.com/cossacklabs/acra/blob/master/examples/python/example_without_zone.py).
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 A real-world example project that protects Django web application with a set of small Python command-line applications are available in [Acra example projects](https://github.com/cossacklabs/acra-engineering-demo#examples-1-2-protecting-data-on-django-based-web-site).
 
 ### Installing AcraWriter for Ruby

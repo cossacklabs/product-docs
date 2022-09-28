@@ -19,6 +19,10 @@ Prefer using AcraBlocks anytime.
 
 To generate AcraBlocks, AcraServer/AcraTranslator uses symmetric keys generated for every ClientID/ZoneID.
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 First, AcraServer/AcraTranslator generates a random symmetric data encryption key (DEK) and encrypts the data with it. Then it uses one more symmetric layer to encrypt the DEK, the same key will be used for both encryption and decryption.
 
 `AcraBlock = Begin_Tag + Rest_AcraBlock_Length + Key_Encryption_Backend_Identifier + Key_Encryption_Key_ID + Data_Encryption_Backend_Identifier + Data_Encryption_Key_Length + Encrypted_Data_Encryption_Key + Encrypted_Data`

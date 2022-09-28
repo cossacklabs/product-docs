@@ -15,7 +15,7 @@ AcraTranslator can be configured from command line using CLI flags ([see the who
   is read from `ACRA_MASTER_KEY` environment var, but can also be
   [fetched from HashiCorp Vault](/acra/configuring-maintaining/general-configuration/acra-translator/#hashicorp-vault) or [other KMS](/acra/configuring-maintaining/key-storing/kms-integration/).
 
-  Then, there are client- and zone-specific keys, AcraTranslator can read them
+  Then, there are client-specific keys, AcraTranslator can read them
   [from filesystem (`--keys_dir`)](/acra/configuring-maintaining/general-configuration/acra-translator/#keystore) or
   [from Redis (`--redis_*` flags)](/acra/configuring-maintaining/general-configuration/acra-translator/#command-line-flags).
 

@@ -414,6 +414,10 @@ acra-keys read --client_id=Alice storage-public > public-key.dat
 
 ## Generating and exchanging zone keys
 
+{{< hint warning >}}
+Zones and zone keys are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 Generating zone keys is different from generating usual AcraStruct encryption keys.
 You should run `acra-addzone` on AcraServer or AcraTranslator to generate a zone:
 

@@ -13,7 +13,7 @@ You can adjust the following parameters of AcraServer via `acra-webconfig`:
 * `d`
 * `poison_run_script_file`
 * `poison_shutdown_enable`
-* `zonemode_enable`
+* `zonemode_enable` (zones are deprecated since 0.94.0, will be removed in 0.95.0)
 
 {{< hint info >}}
 See [AcraServer's command line flag documentation](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).

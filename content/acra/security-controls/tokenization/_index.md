@@ -69,6 +69,10 @@ Among all the crypto-related operations, AcraTranslator includes tokenization.
 Both protocols (gRPC and HTTP) provide the same functionality, but from different angles.
 You decide which one fits best for your application.
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0. ZoneID parameters will be removed or ignored. AcraTranslator will expect explicitly specified ClientID in gRPC API or will use ClientID from TLS certificates.
+{{< /hint >}}
+
 ### gRPC
 
 In order to use the translator gRPC API you have to take

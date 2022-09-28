@@ -15,6 +15,10 @@ A lot of things may become clear:
 * problems with TLS certificates
 * inability to find keys for clients/zones
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 ## Tracing
 
 When requests are taking much more time that you have expected,

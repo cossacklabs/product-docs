@@ -122,7 +122,7 @@ Acra can satisfy some [HIPAA requirements](https://www.hipaajournal.com/hipaa-co
 
 **Implement a means of access control**
 
-Acra’s encryption is linked with ClientID – an application identifier – that is linked with encryption keys. Applications that provide the wrong TLS certificate or ClientID can’t get decrypted data. In addition, Acra gives more compartmentalization ways of diving access by [Zones](/acra/security-controls/zones/). 
+Acra’s encryption is linked with ClientID – an application identifier – that is linked with encryption keys. Applications that provide the wrong TLS certificate or ClientID can’t get decrypted data.  
 
 
 **Introduce a mechanism to authenticate ePHI**
