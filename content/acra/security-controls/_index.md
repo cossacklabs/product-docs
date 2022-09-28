@@ -38,7 +38,7 @@ Connect Acra to your KMS or follow BYOK to encrypt customers’ data with their 
 
 * [Key management](/acra/security-controls/key-management). Learn how to generate encryption keys and connect Acra to your KMS. Acra allows using different set of keys for each of your applications, or per customer.
 
-* [Zones](/acra/security-controls/zones). Configure even more precise access control - only connections from a certain _zone_ can decrypt data related to that Zone. 
+* [Zones](/acra/security-controls/zones) (deprecated since 0.94.0, will be removed in 0.95.0). Configure even more precise access control - only connections from a certain _zone_ can decrypt data related to that Zone. 
 
 
 ## Detect anomalies and prevent attacks

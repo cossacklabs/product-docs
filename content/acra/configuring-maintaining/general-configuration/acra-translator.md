@@ -369,7 +369,6 @@ For additional certificate validation flags, see corresponding pages:
 [OCSP](/acra/configuring-maintaining/tls/ocsp/) and
 [CRL](/acra/configuring-maintaining/tls/crl/).
 
-
 ### KMS
 
 * `--kms_type=<type>`
@@ -398,7 +397,7 @@ For additional certificate validation flags, see corresponding pages:
   * **`vault_master_key`** - Keystore using Acra Master Key, loaded from Hashicorp Vault
   * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and
     decrypted via KMS key-encryption key.
-  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 
 
 ### KMS

@@ -41,7 +41,7 @@ It is also possible to store keys in a Redis database, see
 
 ### Note about Client ID
 
-When generating a key, you will always have to bind it with a [Cliend ID]({{< ref "client_id.md" >}}) or Zone ID.
+When generating a key, you will always have to bind it with a [Cliend ID]({{< ref "client_id.md" >}}) or Zone ID (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 AcraTranslator distinguishes requests by [Client ID]({{< ref "client_id.md" >}}) and uses different encryption keys for 
 different client ID.
 

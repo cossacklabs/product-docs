@@ -307,6 +307,10 @@ encryption keys related to specified ClientID. This option overrides ClientID fr
 
 #### **zone_id**
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 Required: `false`
 
 Type: `string`

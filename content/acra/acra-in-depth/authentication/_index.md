@@ -22,7 +22,7 @@ By default, AcraServer will request and validate a client's TLS certificate. See
 
 AcraServer authenticates connections from AcraConnector. If TLS is used as underlying transport encryption, mutual authentication is desired but optional, if [Themis Secure Session](/themis/crypto-theory/cryptosystems/secure-session) is used, mutual authentication is enabled by default. See [AcraServer's configuration flags for AcraConnector](/acra/configuring-maintaining/general-configuration/acra-server/#command-line-flags).
 
-AcraServer returns error on non-authenticated queries. Authenticated queries can get access only for the data associated with client app `ClientID` or for known [ZoneIDs](/acra/security-controls/zones).
+AcraServer returns error on non-authenticated queries. Authenticated queries can get access only for the data associated with client app `ClientID` or for known [ZoneIDs](/acra/security-controls/zones) (deprecated since 0.94.0, will be removed in 0.95.0).
 
 
 ### AcraServer <> database

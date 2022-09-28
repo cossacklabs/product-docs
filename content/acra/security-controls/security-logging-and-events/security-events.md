@@ -20,7 +20,7 @@ Typically, each event has additional fields giving specific context about what's
 
 * Timestamp (always present).
 * ClientID for encryption/decryption operations – AcraServer logs the ID of client application that triggered the operation (helpful to analyze errors happened for specific application).
-* ZoneID for encryption/decryption operations related to the specific [Zone](/acra/security-controls/zones/).
+* ZoneID for encryption/decryption operations related to the specific [Zone](/acra/security-controls/zones/) (zones are deprecated since 0.94.0, will be removed in 0.95.0).
 
 
 # List of important security events

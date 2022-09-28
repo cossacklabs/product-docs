@@ -9,6 +9,10 @@ weight: 2
 AcraWriter is available in [Acra Enterprise Edition](/acra/enterprise-edition/) only.
 {{< /hint>}}
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 This tutorial is an extensive step-by-step guide for those who have never used Themis and Acra before. 
 There is also a [much shorter version](/acra/guides/advanced-integrations/django-acra-tutorials/django-acra-short-tutorial/) for the experienced 
 Acra users. If it’s your very first encounter with Acra, keep reading.

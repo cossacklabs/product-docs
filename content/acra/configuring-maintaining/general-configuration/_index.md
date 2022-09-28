@@ -28,7 +28,7 @@ Acra contains a set of special CLI utilities and services for specialized use ca
   - is used for various token operations
 
 * [`acra-addzone`](/acra/configuring-maintaining/general-configuration/acra-addzone/)
-  - is used for generating new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs
+  - is used for generating new [Zone keys](/acra/security-controls/zones/) for AcraBlocks/AcraStructs (deprecated since 0.94.0, will be removed in 0.95.0)
 
 * [`acra-authmanager`](/acra/configuring-maintaining/general-configuration/acra-authmanager/) (deprecated since 0.91.0)
   - is used for [acra-webconfig](/acra/configuring-maintaining/general-configuration/acra-webconfig/) user management.
@@ -49,4 +49,4 @@ Acra contains a set of special CLI utilities and services for specialized use ca
   - helps you to generate a clean SQL dump from an existing encrypted one (thus decrypting the data)
 
 * [`acra-rotate`](/acra/configuring-maintaining/general-configuration/acra-rotate/)
-  - is used for rotating private/[Zone](/acra/security-controls/zones) keys and re-encrypting data stored in database or as a file
+  - is used for rotating private/[Zone](/acra/security-controls/zones) (zones are deprecated since 0.94.0, will be removed in 0.95.0) keys and re-encrypting data stored in database or as a file

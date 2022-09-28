@@ -49,6 +49,6 @@ Key storage should be fast ~~and furious~~ and scalable for better throughput.
 
 We recommend deploying a dedicated Redis database as key storage and token storage, and configure AcraServer, AcraTranslator, AnyProxy to connect to it and use it.
 
-When AcraServer/AcraTranslator/AnyProxy need a key, they ask key storage for it. Each key has its purpose (transport, encryption, audit log, HMAC) and is bound to a specific client ID or zone. Read more about [key management](/acra/security-controls/key-management/).
+When AcraServer/AcraTranslator/AnyProxy need a key, they ask key storage for it. Each key has its purpose (transport, encryption, audit log, HMAC) and is bound to a specific client ID or zone (deprecated since 0.94.0, will be removed in 0.95.0). Read more about [key management](/acra/security-controls/key-management/).
 
 AcraServer and AcraTranslator will require key storage for tokenization. When [tokenization](/acra/security-controls/tokenization/) is performed, the key storage will contain data needed for consistent tokenization (return same result for same input next time) and for detokenization (reverse operation).

@@ -186,7 +186,7 @@ weight: 3
   * **`vault_master_key`** -  Keystore using Acra Master Key, loaded from Hashicorp Vault
   * **`kms_encrypted_master_key`** - Keystore using Acra Master Key, loaded from ENV `ACRA_MASTER_KEY` variable and decrypted
     via KMS key-encryption key.
-  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID.
+  * **`kms_per_client`** - Keystore using KMS for decryption Acra keys per ClientID and ZoneID (zones are deprecated since 0.94.0, will be removed in 0.95.0).
     Create new KMS zone key-encryption key if not present on KMS.
 
 ### KMS
@@ -403,6 +403,6 @@ Here is the list of supported key kinds:
 - `poison-record` public, private
 - `client/<client ID>/storage` public, private
 - `client/<client ID>/symmetric`
-- `zone/<zone ID>/storage` public, private
-- `zone/<zone ID>/symmetric`
+- `zone/<zone ID>/storage` public, private (deprecated since 0.94.0)
+- `zone/<zone ID>/symmetric` (deprecated since 0.94.0)
 {{< /hint >}}

@@ -15,6 +15,10 @@ Currently, [AcraTranslator](/acra/configuring-maintaining/general-configuration/
 For backward compatibility reasons `/v1/*` only supports working with [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct). So, if you want to use HTTP API along with [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock), you should take `v2` version.
 {{< /hint >}}
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0. ZoneID parameter will be removed and ignored. Acra will use only ClientID from the TLS certificates or value from `--client_id` flag.
+{{< /hint >}}
+
 ### HTTP API v1
 
 #### Encrypt

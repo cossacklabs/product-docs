@@ -179,6 +179,10 @@ When you need to retrieve some sensitive data:
 
 ## Client-side with Zones
 
+{{< hint warning >}}
+Zones are deprecated since 0.94.0, will be removed in 0.95.0.
+{{< /hint >}}
+
 Zone-based encryption is the best way to cryptographically compartmentalise the data that comes from different sources, following the user's choice. Cryptographically, the Zones are a mechanism for modifying the AcraServer key according to the Zone Id and for mapping Zone's private keys during the decryption. In theory, you could use a new key for every record. However, it would introduce an unwanted overhead on AcraServer's performance.
 
 ### Writing
