@@ -46,7 +46,7 @@ sudo make install
 ## Build the key generator and generate the keys
 
 ```bash
-go get github.com/cossacklabs/acra/cmd/acra-keymaker
+go install github.com/cossacklabs/acra/cmd/acra-keymaker@latest
 ```
 
 Then [generate the keys](/acra/security-controls/key-management/operations/generation/) and distribute them across the infrastructure.
@@ -66,7 +66,7 @@ export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
 ## Build AcraServer
 
 ```bash
-go get github.com/cossacklabs/acra/cmd/acra-server
+go install github.com/cossacklabs/acra/cmd/acra-server@latest
 ```    
 
 Place `someid.pub`, `someid_storage` and `someid_server` keys to .acrakeys directory for AcraServer.
@@ -100,7 +100,7 @@ export PATH=$PATH:${GOBIN:-${GOPATH:-$HOME}/go/bin}
 ## Build AcraTranslator
 
 ```bash
-go get github.com/cossacklabs/acra/cmd/acra-translator
+go install github.com/cossacklabs/acra/cmd/acra-translator@latest
 ```    
 
 Place `someid_translator.pub` and `someid_translator` keys to .acrakeys directory for AcraTranslator.
