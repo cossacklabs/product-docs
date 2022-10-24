@@ -30,7 +30,54 @@ SELECT ... FROM ... WHERE encrypted_column LIKE "prefix%"
 AcraServer supports `SELECT/UPDATE/INSERT/DELETE` SQL statements for searchable encryption queries.
 {{< /hint >}}
 
+AcraServer/AcraTranslator also provide the ability to join tables rows using `JOIN` queries through searchable functionality.
+
+For example, queries like that:
+```
+SELECT ... FROM ... join table on table.searchable_encrypted_column = "value"
+```
+
+Moreover, table rows could be joined not only via `ON searchable_encrypted_column = <value>`, but via the searchable column of another table as well.
+```
+SELECT ... FROM table1 join table on table1.searchable_encrypted_column = table2.searchable_encrypted_column
+```
+
+In such cases, it is important to have searchable data in both tables encrypted via the same ClientID to have the same calculated keyed hash, otherwise, rows won't be joined.
+
+Consider an example of modification of the searchable query received in AcraServer/AcraTranslator.
+
+Initial query received by AcraServer/AcraTranslator:
+```
+SELECT ... FROM ... WHERE searchable_column = "value"
+```
+
 Under the hood, AcraServer/AcraTranslator will calculate a keyed hash of plaintext data (`blind index`), then actually encrypt the data into AcraStruct/AcraBlock, then return `"blind index|AcraStruct or AcraBlock"` envelope to store in a database. Thus, the actual plaintext data is encrypted and searching is based on keyed hashes.
+
+The left expression of the WHERE statement is changed on `substring` operator over the searchable binary data column to extract and check matching with the calculated hash, represented as the right side expression.
+
+Ultimately, the final view of the searchable query constructed by AcraServer/AcraTranslator and sent to the database will look like this:
+```
+SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = X'HASH_value'`
+```
+
+If the query is a parameterized prepared statement query:
+```
+SELECT ... FROM ... WHERE searchable_column = $1
+```
+
+then AcraServer/AcraTranslator reconstruct the query in the same manner but calculates the keyed hash during the processing of bound values for prepared statements.
+```
+SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = $1
+```
+
+{{< hint info >}}
+Due to MySQL have ambiguous behaviour with filtering over binary data in text format, for MySQL added explicit casting search hash to bytes:
+
+```
+SELECT ... FROM ... WHERE convert(substr(searchable_column, ...), binary) = 0xFFFFF
+```
+{{< /hint >}}
+
 
 Two components can provide searchable encryption functionality:
 
