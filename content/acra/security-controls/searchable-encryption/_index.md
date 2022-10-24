@@ -34,12 +34,12 @@ AcraServer/AcraTranslator also provide the ability to join tables rows using `JO
 
 For example, queries like that:
 ```
-SELECT ... FROM ... join table on table.searchable_encrypted_column = "value"
+SELECT ... FROM ... JOIN table ON table.searchable_encrypted_column = "value"
 ```
 
 Moreover, table rows could be joined not only via `ON searchable_encrypted_column = <value>`, but via the searchable column of another table as well.
 ```
-SELECT ... FROM table1 join table on table1.searchable_encrypted_column = table2.searchable_encrypted_column
+SELECT ... FROM table1 JOIN table ON table1.searchable_encrypted_column = table2.searchable_encrypted_column
 ```
 
 In such cases, it is important to have searchable data in both tables encrypted via the same ClientID to have the same calculated keyed hash, otherwise, rows won't be joined.
@@ -57,7 +57,12 @@ The left expression of the WHERE statement is changed on `substring` operator ov
 
 Ultimately, the final view of the searchable query constructed by AcraServer/AcraTranslator and sent to the database will look like this:
 ```
-SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = X'HASH_value'`
+SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = '\x<HASH_value>` (PostgreSQL)
+```
+
+Due to MySQL has ambiguous behaviour with filtering over binary data in text format, for MySQL added explicit casting search hash to bytes:
+```
+SELECT ... FROM ... WHERE convert(substr(searchable_column, ...), binary) = 0xFFFFF (MySQL)
 ```
 
 If the query is a parameterized prepared statement query:
@@ -69,14 +74,6 @@ then AcraServer/AcraTranslator reconstruct the query in the same manner but calc
 ```
 SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = $1
 ```
-
-{{< hint info >}}
-Due to MySQL has ambiguous behaviour with filtering over binary data in text format, for MySQL added explicit casting search hash to bytes:
-
-```
-SELECT ... FROM ... WHERE convert(substr(searchable_column, ...), binary) = 0xFFFFF
-```
-{{< /hint >}}
 
 
 Two components can provide searchable encryption functionality:
