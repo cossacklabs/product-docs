@@ -26,6 +26,10 @@ will work, but not
 SELECT ... FROM ... WHERE encrypted_column LIKE "prefix%"
 ```
 
+{{< hint info >}}
+AcraServer supports `SELECT/UPDATE/INSERT/DELETE` SQL statements for searchable encryption queries.
+{{< /hint >}}
+
 Under the hood, AcraServer/AcraTranslator will calculate a keyed hash of plaintext data (`blind index`), then actually encrypt the data into AcraStruct/AcraBlock, then return `"blind index|AcraStruct or AcraBlock"` envelope to store in a database. Thus, the actual plaintext data is encrypted and searching is based on keyed hashes.
 
 Two components can provide searchable encryption functionality:
