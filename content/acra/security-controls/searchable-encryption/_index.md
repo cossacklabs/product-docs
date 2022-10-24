@@ -71,7 +71,7 @@ SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = $1
 ```
 
 {{< hint info >}}
-Due to MySQL have ambiguous behaviour with filtering over binary data in text format, for MySQL added explicit casting search hash to bytes:
+Due to MySQL has ambiguous behaviour with filtering over binary data in text format, for MySQL added explicit casting search hash to bytes:
 
 ```
 SELECT ... FROM ... WHERE convert(substr(searchable_column, ...), binary) = 0xFFFFF
