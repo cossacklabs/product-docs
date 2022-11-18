@@ -32,6 +32,24 @@ Two components can provide tokenization functionality:
   transparent detokenization for `SELECT` queries, with per column configuration.
 * AcraTranslator — provides gRPC and HTTP API for tokenization.
 
+Consistent tokenization might be applied similarly to [searchable encryption](/acra/security-controls/searchable-encryption/) to search tokenized data in DB. 
+
+Under the hood, if the field marked with the `consistent_tokenization` option AcraServer will detect all queries with WHERE equal clauses 
+(all types of statements could be used SELECT/UPDATE/INSERT/DELETE) and transform them to apply to search.
+
+AcraServer extract right expression in WHERE condition and replace it with tokenized data.
+
+This means queries like:
+```
+SELECT/UPDATE/INSERT/DELETE ... FROM ... WHERE consistent_tokenized_column = "value"
+```
+
+eventually in DB, will look like:
+```
+SELECT/UPDATE/INSERT/DELETE ... FROM ... WHERE consistent_tokenized_column = <consistent_tokenized_value>
+```
+
+
 {{< hint warning >}}
 Currently, AcraTranslator only supports consistent tokenization.
 If you need inconsistent tokenization, [contact us](mailto:sales@cossacklabs.com) to get this feature in Acra Enterprise Edition.
