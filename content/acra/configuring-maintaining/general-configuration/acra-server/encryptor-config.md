@@ -62,7 +62,7 @@ schemas:
         # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization] 
         data_type: "<str|bytes|int32|int64>"
         
-        # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization] 
+        # [optional] [conflicts_with=data_type|token_type|tokenized|consistent_tokenization] 
         data_type_db_identifier: <uint>
 
         # [optional] [required_with=<data_type|data_type_db_identifier>]
@@ -238,7 +238,7 @@ schemas:
       zone_id: "<string>" # [optional] [conflicts_with=client_id]
       crypto_envelope: "<acrablock|acrastruct>" # [optional]
       data_type: "<str|bytes|int32|int64>" # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
-      data_type_db_identifier: "<uint>"    # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
+      data_type_db_identifier: "<uint>"    # [optional] [conflicts_with=data_type|token_type|tokenized|consistent_tokenization]
       response_on_fail: "<ciphertext|default_value|error>" # [optional] [required_with=<data_type|data_type_db_identifier>]
       default_data_value: "<string value>" # [optional] [required_with=<data_type|data_type_db_identifier>] may be string literal or valid int32/int64 yaml values
 
@@ -372,9 +372,14 @@ Values: `str`, `int64`, `int32`, `bytes`
 
 Group: `encryption`, `searchable encryption`, `masking` (`int32`, `int64` not supported for masking)
 
-Description: configures how AcraServer will replace the real type of data stored in the database with application's type. Due to
-storing data as blobs, AcraServer allows change type on DB protocol level. After that binary data will look like
-Text/Integer/Binary data types for application.
+Description: configures how AcraServer will replace the real type of data stored in the database with application's
+type. Encrypted fields are stored as blobs (binary data), but application doesn't want to work with blobs, it wants to
+work with integer or strings.
+
+AcraServer allows changing data type on the database protocol level. AcraServer will encode decrypted data to a type
+suitable for the application: Text, Integer, Varchar, etc.
+
+**data_type_db_identifier** and **data_type** are interchangeable options.
 
 How AcraServer maps types from configuration file to DB specific type:
 
@@ -394,7 +399,7 @@ Type: `uint32`
 
 Values: `supported DB type identifiers`
 
-Group: `encryption`, `searchable encryption`, `masking` ( `interger` IDs not supported for masking)
+Group: `encryption`, `searchable encryption`, `masking` ( `integer` IDs not supported for masking)
 
 Description: configures how AcraServer will replace the real type of data stored in the database with application's type. Due to
 storing data as blobs, AcraServer allows change type on DB protocol level. After that binary data will look like
