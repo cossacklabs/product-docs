@@ -61,11 +61,14 @@ schemas:
 
         # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization] 
         data_type: "<str|bytes|int32|int64>"
+        
+        # [optional] [conflicts_with=data_type|token_type|tokenized|consistent_tokenization] 
+        data_type_db_identifier: <uint>
 
-        # [optional] [required_with=data_type]
+        # [optional] [required_with=<data_type|data_type_db_identifier>]
         response_on_fail: "<ciphertext|default_value|error>"
 
-        # [optional] [required_with=data_type and response_on_fail=default_value]
+        # [optional] [required_with=<data_type|data_type_db_identifier> and response_on_fail=default_value]
         # may be a string literal or a valid int32/int64 value
         default_data_value: "<string value>"
 
@@ -235,8 +238,9 @@ schemas:
       zone_id: "<string>" # [optional] [conflicts_with=client_id]
       crypto_envelope: "<acrablock|acrastruct>" # [optional]
       data_type: "<str|bytes|int32|int64>" # [optional] [conflicts_with=token_type|tokenized|consistent_tokenization]
-      response_on_fail: "<ciphertext|default_value|error>" # [optional] [required_with=data_type]
-      default_data_value: "<string value>" # [optional] [required_with=data_type] may be string literal or valid int32/int64 yaml values
+      data_type_db_identifier: "<uint>"    # [optional] [conflicts_with=data_type|token_type|tokenized|consistent_tokenization]
+      response_on_fail: "<ciphertext|default_value|error>" # [optional] [required_with=<data_type|data_type_db_identifier>]
+      default_data_value: "<string value>" # [optional] [required_with=<data_type|data_type_db_identifier>] may be string literal or valid int32/int64 yaml values
 
       # Tokenization
       token_type: "<int64|int32|str|bytes|email>" # [optional]
@@ -368,18 +372,47 @@ Values: `str`, `int64`, `int32`, `bytes`
 
 Group: `encryption`, `searchable encryption`, `masking` (`int32`, `int64` not supported for masking)
 
-Description: configures how AcraServer will replace real type of data stored in database with application's type. Due to
-storing data as blobs, AcraServer allow change type on DB protocol level. After that binary data will look like 
-Text/Integer/Binary data types for application. 
+Description: configures how AcraServer will replace the real type of data stored in the database with application's
+type. Encrypted fields are stored as blobs (binary data), but application doesn't want to work with blobs, it wants to
+work with integer or strings.
+
+AcraServer allows changing data type on the database protocol level. AcraServer will encode decrypted data to a type
+suitable for the application: Text, Integer, Varchar, etc.
+
+**data_type_db_identifier** and **data_type** are interchangeable options.
 
 How AcraServer maps types from configuration file to DB specific type:
 
 | Data type | PostgreSQL                                                                                                                                    | MySql                                                                                                                          |
 | --------- | --------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| `str`     | [text](https://www.postgresql.org/docs/current/datatype-character.html) ([oid](https://www.postgresql.org/docs/current/datatype-oid.html)=25) | [MYSQL_TYPE_STRING](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0xfe)   |
-| `int32`   | [integer](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=23)                                                             | [MYSQL_TYPE_LONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0x03)     |
-| `int64`   | [bigint](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=20)                                                              | [MYSQL_TYPE_LONGLONG](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0x08) |
-| `bytes`   | [bytea](https://www.postgresql.org/docs/current/datatype-binary.html) (oid=17)                                                                | [MYSQL_TYPE_BLOB](https://dev.mysql.com/doc/internals/en/com-query-response.html#packet-Protocol::ColumnDefinition) (0xfc)     |
+| `str`     | [text](https://www.postgresql.org/docs/current/datatype-character.html) ([oid](https://www.postgresql.org/docs/current/datatype-oid.html)=25) | [MYSQL_TYPE_STRING](https://dev.mysql.com/doc/dev/mysql-server/latest/namespaceclassic__protocol_1_1field__type.html) (0xfe)   |
+| `int32`   | [integer](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=23)                                                             | [MYSQL_TYPE_LONG](https://dev.mysql.com/doc/dev/mysql-server/latest/namespaceclassic__protocol_1_1field__type.html) (0x03)     |
+| `int64`   | [bigint](https://www.postgresql.org/docs/current/datatype-numeric.html) (oid=20)                                                              | [MYSQL_TYPE_LONGLONG](https://dev.mysql.com/doc/dev/mysql-server/latest/namespaceclassic__protocol_1_1field__type.html) (0x08) |
+| `bytes`   | [bytea](https://www.postgresql.org/docs/current/datatype-binary.html) (oid=17)                                                                | [MYSQL_TYPE_BLOB](https://dev.mysql.com/doc/dev/mysql-server/latest/namespaceclassic__protocol_1_1field__type.html) (0xfc)     |
+
+
+#### **data_type_db_identifier**
+
+Required: `false`
+
+Type: `uint32`
+
+Values: `supported DB type identifiers`
+
+Group: `encryption`, `searchable encryption`, `masking` ( `integer` IDs not supported for masking)
+
+Description: configures how AcraServer will replace the real type of data stored in the database with application's type. Due to
+storing data as blobs, AcraServer allows change type on DB protocol level. After that binary data will look like
+Text/Integer/Binary data types for application. **data_type_db_identifier** and **data_type** are interchangeable options.
+
+By using **data_type_db_identifier** AcraServer uses identifiers from configuration file as DB specific type. 
+
+Currently, AcraServer supports DB identifiers for using described in the table for [data_type](/acra/configuring-maintaining/general-configuration/acra-server/encryptor-config/#data_type) option.
+
+{{< hint info >}}
+**Note**:
+[Acra Enterprise Edition](/acra/enterprise-edition/) supports a larger set of DB identifiers of concrete types for PostgreSQL and MySQL.
+{{< /hint >}}
 
 
 #### **response_on_fail**
@@ -388,7 +421,7 @@ Required: `false`
 
 Type: `ciphertext`, `default_value`, `error`
 
-Depends on: `data_type`
+Depends on: `data_type` or `data_type_db_identifier`
 
 Group: `encryption`, `searchable encryption`, `masking`
 
@@ -427,11 +460,11 @@ Required: `false`
 
 Type: `string`, `integer`, `base64`
 
-Depends on: `data_type`, `response_on_fail`
+Depends on: <`data_type`|`data_type_db_identifier`>, `response_on_fail`
 
 Group: `encryption`, `searchable encryption`, `masking` (`int32`, `int64` not supported for masking)
 
-Description: configures default value if data cannot be decrypted. Requires `response_on_fail: default_value`. Type of value depends on `data_type`. 
+Description: configures default value if data cannot be decrypted. Requires `response_on_fail: default_value`. Type of value depends on `data_type` or `data_type_db_identifier`. 
 
 If the `response_on_fail` is not defined, and `default_data_value` is, then the `response_on_fail` will be implicitly set to `default_value`.
 
