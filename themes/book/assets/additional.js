@@ -5,19 +5,26 @@ function get_github_info(name){
         }})
         .then(response => response.json())
         .then( data => {
+            const monthNames = [
+                "Jan",
+                "Feb",
+                "Mar",
+                "Apr",
+                "May",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dec"
+            ];
             let date = new Date(data[0].commit.committer.date),
                 day = date.getDate(),
-                month = date.getMonth() + 1,
+                month = date.getMonth(),
                 year = date.getFullYear();
 
-            if ( day < 10 ) {
-                day = '0' + day;
-            }
-            if ( month < 10 ) {
-                month = '0' + month;
-            }
-
-            document.getElementById('last_'+name+'_commit').innerHTML = 'Last Commit: <strong>' + day + '.' + month + '.' + year + '</strong>';
+            document.getElementById('last_'+name+'_commit').innerHTML = 'Last Commit: <strong>' + monthNames[month] + ' ' + day + ', ' + year + '</strong>';
         })
         .catch( error => console.error(error));
 
