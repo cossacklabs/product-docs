@@ -7,14 +7,31 @@
             {{ $productDescription := .Params.product_description }}
             {{ $productLink := .RelPermalink }}
 
+            {{ $repo := "" }}
+            {{ if .FirstSection.Params.repository  }}
+                {{ $repo = lower .FirstSection.Params.repository }}
+            {{ else }}
+                {{ $repo = lower .FirstSection.Title }}
+            {{ end }}
+
             <div class="flex flex-col">
                 <div class="product-head">
-                    <a href="{{ $productLink }}" class="flex">
+                    <a href="{{ $productLink }}" class="flex align-center">
                         {{ if $productLogo }}
                             <img src="{{ $productLogo }}" alt="{{ $productTitle }}">
                         {{ end }}
 
-                        <h2 class="product-head-title">{{ $productTitle }}</h2>
+                        <div>
+                            <h2 class="product-head-title">{{ $productTitle }}</h2>
+                            <div class="product-head-git">
+                                <div id="last_{{ $repo }}_commit" class="product-head-git-commit"></div>
+                                <div id="last_{{ $repo }}_release" class="product-head-git-release"></div>
+
+                                <script>
+                                    get_github_info({{ $repo }});
+                                </script>
+                            </div>
+                        </div>
                     </a>
                 </div>
 

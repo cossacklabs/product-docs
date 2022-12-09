@@ -9,6 +9,15 @@
     {{ $repo = lower $currentPage.FirstSection.Title }}
 {{ end }}
 
+<div class="product-head-git in-header">
+    <div id="last_{{ $repo }}_commit" class="product-head-git-commit is-vertical"></div>
+    <div id="last_{{ $repo }}_release" class="product-head-git-release is-vertical"></div>
+
+    <script>
+        get_github_info({{ $repo }});
+    </script>
+</div>
+
 <a class="github-button gh-button" href="https://github.com/cossacklabs/{{ $repo }}/">
     <div class="button-wrapper">
         <img src="/icon/git-black.svg" class="button-icon-github-logo" alt="">

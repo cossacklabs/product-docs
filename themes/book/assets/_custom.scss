@@ -90,7 +90,7 @@ h6{
         padding-left: 0;
     }
     .menu-wrap .main-menu li{
-        margin-right: 2rem;
+        margin-right: 1rem;
     }
     // trick: fix shifting on hover
     .menu-wrap li a::before {
@@ -381,9 +381,43 @@ body[dir="rtl"] {
     }
 }
 
-.product-head h2 {
-    line-height: 3rem;
-    margin: 0 0 0 0;
+.product-head {
+    h2 {
+        margin: 0 0 0 0;
+    }
+
+    &-git {
+        display: flex;
+        color: $body-font-color;
+        font-weight: 400;
+        font-style: italic;
+        font-size: $font-size-12;
+
+        &.in-header {
+            margin-left: auto;
+            display: none;
+
+            @media screen and (min-width: 600px) {
+                display: flex;
+            }
+        }
+
+        &-commit {
+            margin-right: .5rem;
+
+            &.is-vertical {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+
+        &-release {
+            &.is-vertical {
+                display: flex;
+                flex-direction: column;
+            }
+        }
+    }
 }
 
 .container-first-page-header{
