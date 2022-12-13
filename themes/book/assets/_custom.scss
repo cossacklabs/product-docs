@@ -391,7 +391,6 @@ body[dir="rtl"] {
         display: flex;
         color: $body-font-color;
         font-weight: 400;
-        font-family: 'Maven Pro';
         line-height: 1.2;
 
         strong {
@@ -402,6 +401,7 @@ body[dir="rtl"] {
             margin-left: auto;
             display: none;
             font-size: $font-size-12;
+            font-family: 'Maven Pro';
 
             @media screen and (min-width: 600px) {
                 display: flex;
