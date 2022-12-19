@@ -28,7 +28,7 @@ SELECT ... FROM ... WHERE encrypted_column LIKE "prefix%"
 
 {{< hint info >}}
 **Note**:
-[Acra Enterprise Edition](/acra/enterprise-edition/) supports functionality of searchable encryption with `like` and `ilike` (PostgreSQL only) statements.
+[Acra Enterprise Edition](/acra/enterprise-edition/) supports functionality of searchable encryption with `like` and `ilike` (PostgreSQL only) statements since 0.94.0.
 {{< /hint >}}
 
 AcraServer/AcraTranslator also provide the ability to join tables rows using `JOIN` queries through searchable functionality.
@@ -97,7 +97,7 @@ with the smallest change of input data (column value in our case).
 
 [Acra Enterprise Edition](/acra/enterprise-edition/) also provide the ability of searchable encryption with `like`/`ilike` queries over encrypted fields.
 
-By specifying `searchable_prefix: <number>` config property under the column should be used in dynamic search, AcraServer/AcraTranslator will generate and store additional search hashes.
+By specifying `searchable_prefix: <number>` config property under the column should be used in dynamic search, AcraServer will generate and store additional search hashes.
 
 Consider an example of the workflow of searchable encryption with `like` query:
 
@@ -122,7 +122,7 @@ On query:
 INSERT INTO table_name (search_field) VALUES ('value');
 ```
 
-Instead of generating one search hash of the `value`, AcraServer/AcraTranslator will generate number of `searchable_prefix` hashes:
+Instead of generating one search hash of the `value`, AcraServer will generate number of `searchable_prefix` hashes:
 
 `hash('v')` + `hash('va')` + `hash('val')`
 
@@ -134,7 +134,7 @@ SELECT ... FROM table_name WHERE search_field like 'va%'
 
 ```
 
-AcraServer/AcraTranslator will dynamically shift exact number of bytes to match with `hash(val)`/`hash(va)` and transform to:
+AcraServer will dynamically shift exact number of bytes to match with `hash(val)`/`hash(va)` and transform to:
 
 ```
 SELECT ... FROM table_name WHERE search_field substring(search_field, len('val') * <HMAC_size> + 1 , <HMAC_size>) = 'hash(val)`
@@ -180,7 +180,7 @@ schemas:
         # simply set `searchable` property to `true`,
         # this feature is disabled by default
         searchable: true
-        # In order to make column searchable with like (applied for AcraEE only)
+        # In order to make column searchable with like (applies for AcraEE only)
         searchable_prefix: <number>
 ```
 
