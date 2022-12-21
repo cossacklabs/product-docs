@@ -27,7 +27,8 @@ SELECT ... FROM ... WHERE encrypted_column LIKE "prefix%"
 ```
 
 {{< hint info >}}
-AcraServer supports `SELECT/UPDATE/INSERT/DELETE` SQL statements for searchable encryption queries.
+**Note**:
+[Acra Enterprise Edition](/acra/enterprise-edition/) supports functionality of searchable encryption with `like` and `ilike` (PostgreSQL only) statements since 0.94.0.
 {{< /hint >}}
 
 AcraServer/AcraTranslator also provide the ability to join tables rows using `JOIN` queries through searchable functionality.
@@ -75,6 +76,9 @@ then AcraServer/AcraTranslator reconstruct the query in the same manner but calc
 SELECT ... FROM ... WHERE substring(searchable_column, 1, <HMAC_size>) = $1
 ```
 
+{{< hint info >}}
+AcraServer supports `SELECT/UPDATE/INSERT/DELETE` SQL statements for searchable encryption queries.
+{{< /hint >}}
 
 Two components can provide searchable encryption functionality:
 
@@ -87,6 +91,68 @@ Two components can provide searchable encryption functionality:
 The fact that one can only search for exact value is the consequence of using secure keyed hash function.
 Such functions are very sensitive to the input and will return completely different result even
 with the smallest change of input data (column value in our case).
+{{< /hint >}}
+
+## Searchable encryption with like
+
+[Acra Enterprise Edition](/acra/enterprise-edition/) also provide the ability of searchable encryption with `like`/`ilike` queries over encrypted fields.
+
+By specifying `searchable_prefix: <number>` config property under the column should be used in dynamic search, AcraServer will generate and store additional search hashes.
+
+Consider an example of the workflow of searchable encryption with `like` query:
+
+* `search_field` - expected field to be searched with `like` query;
+
+Example of encryptor config with `searchable` and `searchable_prefix` options:
+ ```yaml
+schemas:
+  - table: table_name
+    columns:
+      - search_field
+
+    encrypted:
+      - column: search_field
+        searchable: true
+        searchable_prefix: 3
+```
+
+On query:
+
+```
+INSERT INTO table_name (search_field) VALUES ('value');
+```
+
+Instead of generating one search hash of the `value`, AcraServer will generate number of `searchable_prefix` hashes:
+
+`hash('v')` + `hash('va')` + `hash('val')`
+
+When searching:
+```
+SELECT ... FROM table_name WHERE search_field like 'val%'
+
+SELECT ... FROM table_name WHERE search_field like 'va%'
+
+```
+
+AcraServer will dynamically shift exact number of bytes to match with `hash(val)`/`hash(va)` and transform to:
+
+```
+SELECT ... FROM table_name WHERE search_field substring(search_field, len('val') * <HMAC_size> + 1 , <HMAC_size>) = 'hash(val)`
+ 
+SELECT ... FROM table_name WHERE search_field substring(search_field, len('va') * <HMAC_size> + 1 , <HMAC_size>) = 'hash(va)`
+```
+
+Currently, its only possible to make queries with `%` sign on the right.
+
+```
+SELECT ... FROM .... WHERE search_field like 'value%' - OK
+SELECT ... FROM .... WHERE search_field like '%value' - NOT OK
+SELECT ... FROM .... WHERE search_field like 'val%ue' - NOT OK
+```
+
+{{< hint info >}}
+**Note**:
+Dynamic searchable encryption with `like` queries has additional storage overhead, as the number of search hashes increases from one to number of `searchable_prefix`
 {{< /hint >}}
 
 
@@ -114,6 +180,8 @@ schemas:
         # simply set `searchable` property to `true`,
         # this feature is disabled by default
         searchable: true
+        # In order to make column searchable with like (applies for AcraEE only)
+        searchable_prefix: <number>
 ```
 
 Searchable encryption is supported for both [AcraStructs](/acra/acra-in-depth/data-structures/acrastruct) and [AcraBlocks](/acra/acra-in-depth/data-structures/acrablock).
