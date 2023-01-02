@@ -55,7 +55,7 @@
         <img src="/footer/cossacklabs-logo-white.svg" alt="Cossack Labs" class="max-w-sm mb-2">
 
         <div class="flex items-center">
-            <p class="text-fisher-gray text-sm">Copyright © 2014-{{ now.Format "2006" }} Cossack Labs Limited</p>
+            <p class="text-fisher-gray text-sm">Copyright © 2014-<span id="current_year">{{ now.Format "2006" }}</span> Cossack Labs Limited</p>
             <ul class="main-footer__nav-bottom hidden lg:flex">
                 {{ range .Site.Menus.footer_bottom_links }}
                     <li><a href="{{ .URL }}" title="{{ .Name }}">{{ .Name }}</a></li>

@@ -13,6 +13,11 @@
       let d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
       g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
   })();
+
+  document.addEventListener("DOMContentLoaded", function (){
+      let currentYear = new Date().getFullYear();
+      document.getElementById('current_year').innerText = currentYear;
+  });
 </script>
 <noscript><p><img src="//matomo.cossacklabs.com/matomo.php?idsite=4&amp;rec=1" style="border:0;" alt="" /></p></noscript>
 <!-- End Matomo Code -->
