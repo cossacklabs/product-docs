@@ -30,13 +30,11 @@ CRL-related flags and their descriptions. Works for `acra-connector`, `acra-serv
 
 * `--tls_crl_client_url=<url>`
 
-  CRL's URL for incoming TLS connections to check client certificates.
-  Empty by default. Supported on AcraServer only.
+  Works as `--tls_crl_url` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_crl_url` flag. **Supported on AcraServer only.**
 
 * `--tls_crl_database_url=<url>`
 
-  CRL's URL for outgoing TLS connections to check database certificates.
-  Empty by default. Supported on AcraServer only.
+  Works as `--tls_crl_url` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_crl_url` flag. **Supported on AcraServer only.**
 
 * `--tls_crl_from_cert=<policy>`
 
@@ -49,6 +47,14 @@ CRL-related flags and their descriptions. Works for `acra-connector`, `acra-serv
 
   "URL from configuration" above means the one configured with `--tls_crl_*_url` flags.
 
+* `--tls_ocsp_client_from_cert=<policy>`
+
+  Works as `--tls_ocsp_from_cert` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_from_cert` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_from_cert=<policy>`
+
+  Works as `--tls_ocsp_from_cert` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_from_cert` flag. **Supported on AcraServer only.**
+
 * `--tls_crl_check_only_leaf_certificate={true|false}`
 
   This flag controls behavior of validator in cases when certificate chain contains at least one intermediate certificate.
@@ -60,16 +66,40 @@ CRL-related flags and their descriptions. Works for `acra-connector`, `acra-serv
   Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
 
+* `--tls_ocsp_client_check_only_leaf_certificate=<policy>`
+
+  Works as `--tls_ocsp_check_only_leaf_certificate` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_check_only_leaf_certificate` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_check_only_leaf_certificate=<policy>`
+
+  Works as `--tls_ocsp_check_only_leaf_certificate` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_check_only_leaf_certificate` flag. **Supported on AcraServer only.**
+
 * `--tls_crl_cache_size=<count>`
 
   How many CRLs to cache in memory.
   Use `0` to disable caching. Maximum is `1000000`. Default is `16`.
   Cache uses [LRU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) policy.
 
+* `--tls_ocsp_client_cache_size=<policy>`
+
+  Works as `--tls_ocsp_cache_size` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_cache_size` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_cache_size=<policy>`
+
+  Works as `--tls_ocsp_cache_size` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_cache_size` flag. **Supported on AcraServer only.**
+
 * `--tls_crl_cache_time=<seconds>`
 
   How long to keep CRLs cached, in seconds.
   Use `0` to disable caching. Maximum is `300` seconds. Default is `0`.
+
+* `--tls_ocsp_client_cache_time=<policy>`
+
+  Works as `--tls_ocsp_cache_time` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_cache_time` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_cache_time=<policy>`
+
+  Works as `--tls_ocsp_cache_time` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_cache_time` flag. **Supported on AcraServer only.**
 
 ## Including CRL's URL while signing CSR
 
