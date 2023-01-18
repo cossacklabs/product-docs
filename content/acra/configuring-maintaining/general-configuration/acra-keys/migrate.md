@@ -78,7 +78,7 @@ weight: 6
 
 * `--{src|dst}_redis_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Redis (AcraServer works as "client" when communicating with Redis).
+  Path to AcraServer TLS certificate presented to Redis (acra-keys works as "client" when communicating with Redis).
   Empty by default.
 
 
@@ -265,7 +265,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--{src|dst}_vault_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to AcraServer TLS certificate presented to Vault (acra-keys works as "client" when communicating with Vault).
   Empty by default.
 
 

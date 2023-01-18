@@ -104,7 +104,7 @@ weight: 4
 
 * `--redis_tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to Redis.
+  Path to TLS certificate presented to Redis.
   Empty by default.
   If not specified, AcraTranslator uses value from `--tls_cert` flag.
 
@@ -453,21 +453,21 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_ca=<filename>`
 
-  Path to AcraServer TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
+  Path to AcraTranslator TLS certificate's CA certificate for Vault certificate validation (AcraTranslator works as "client" when communicating with Vault).
   Empty by default.
   If not specified, AcraTranslator uses value from `--tls_ca` flag.
 
 
 * `--vault_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to AcraTranslator TLS certificate presented to Vault (AcraTranslator works as "client" when communicating with Vault).
   Empty by default.
   If not specified, AcraTranslator uses value from `--tls_cert` flag.
 
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to AcraServer TLS certificate's private key of the TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to AcraTranslator TLS certificate's private key of the TLS certificate presented to Vault (AcraTranslator works as "client" when communicating with Vault).
   Empty by default.
   If not specified, AcraTranslator uses value from `--tls_key` flag.
 

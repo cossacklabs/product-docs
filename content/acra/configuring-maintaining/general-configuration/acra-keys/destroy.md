@@ -66,7 +66,7 @@ Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will 
 
 * `--redis_tls_client_cert=<filename>`
 
-  Path to server TLS certificate presented to Redis.
+  Path to TLS certificate presented to Redis.
   Empty by default.
   If not specified, acra-keys uses value from `--tls_cert` flag.
 
@@ -262,14 +262,14 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_ca=<filename>`
 
-  Path to acra-keys TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
+  Path to acra-keys TLS certificate's CA certificate for Vault certificate validation (acra-keys works as "client" when communicating with Vault).
   Empty by default.
   If not specified, acra-keys uses value from `--tls_ca` flag.
 
 
 * `--vault_tls_client_cert=<filename>`
 
-  Path to acra-keys TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to acra-keys TLS certificate presented to Vault (acra-keys works as "client" when communicating with Vault).
   Empty by default.
   If not specified, acra-keys uses value from `--tls_cert` flag.
 
@@ -292,7 +292,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   How many CRLs to cache in memory in connections to Vault.
   Use `0` to disable caching. Maximum is `1000000`. Default is `16`.
   Cache uses [LRU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) policy.
-  If not specified, AcraServer uses value from `--tls_crl_cache_size` flag.
+  If not specified, acra-keys uses from `--tls_crl_cache_size` flag.
 
 
 * `--vault_tls_crl_client_cache_time=<seconds>`
