@@ -111,11 +111,11 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   Set authentication mode that will be used for TLS connection with Vault.
 
-    * `0` — do not request client certificate, ignore it if received;
-    * `1` — request client certificate, but don't require it;
-    * `2` — expect to receive at least one certificate to continue the handshake;
-    * `3` — don't require client certificate, but validate it if client actually sent it;
-    * `4` — (default) request and validate client certificate.
+  * `0` — do not request client certificate, ignore it if received;
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 
@@ -127,19 +127,19 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_ca=<filename>`
 
-  Path to AcraServer TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
+  Path to acra-poisonrecordmaker TLS certificate's CA certificate for Vault certificate validation (acra-poisonrecordmaker works as "client" when communicating with Vault).
   Empty by default.
 
 
 * `--vault_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to acra-poisonrecordmaker TLS certificate presented to Vault (acra-poisonrecordmaker works as "client" when communicating with Vault).
   Empty by default.
 
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to AcraServer TLS certificate's private key of the TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to acra-poisonrecordmaker TLS certificate's private key of the TLS certificate presented to Vault (acra-poisonrecordmaker works as "client" when communicating with Vault).
   Empty by default.
 
 
@@ -166,8 +166,8 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   This flag controls behavior of validator in cases when Vault certificate chain contains at least one intermediate certificate.
 
-    * `true` — validate only leaf certificate
-    * `false` — (default) validate leaf certificate and all intermediate certificates
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
 
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
@@ -178,10 +178,10 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   How to treat CRL's URL described in a certificate from Vault server/agent
 
-    * `use` — try URL(s) from certificate after the one from configuration (if set)
-    * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
-    * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-    * `ignore` — completely ignore CRL's URL(s) specified in certificate
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--vault_tls_crl_client_url` flags.
 
@@ -196,8 +196,8 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   This flag controls behavior of validator in cases when Vault certificate chain contains at least one intermediate certificate.
 
-    * `true` — validate only leaf certificate
-    * `false` — (default) validate leaf certificate and all intermediate certificates
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
 
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
@@ -208,10 +208,10 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   How to treat OCSP server URL described in a certificate from Vault server.
 
-    * `use` — try URL(s) from certificate after the one from configuration (if set)
-    * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
-    * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-    * `ignore` — completely ignore OCSP's URL(s) specified in certificate
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--vault_tls_ocsp_client_url` flags.
 
