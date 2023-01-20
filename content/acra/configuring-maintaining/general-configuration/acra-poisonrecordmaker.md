@@ -241,7 +241,7 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 In general, this tool is used like this:
 
 1) Generate "poison keys" using one of
-   * `acra-poisonrecordmaker generate --keystore=vX --poison_record_keys`
+   * `acra-keys generate --keystore=vX --poison_record_keys`
    * `acra-keymaker --keystore=vX --generate_poisonrecord_keys`
 
 2) Use this tool to generate the poison record itself:
