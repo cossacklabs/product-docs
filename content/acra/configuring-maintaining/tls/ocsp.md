@@ -24,13 +24,11 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
 
 * `--tls_ocsp_client_url=<url>`
 
-  OCSP service URL for incoming TLS connections to check client certificates.
-  Empty by default. Supported on AcraServer only.
+  Works as `--tls_ocsp_url` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_url` flag. **Supported on AcraServer only.**
 
 * `--tls_ocsp_database_url=<url>`
 
-  OCSP service URL for outgoing TLS connections to check database certificates.
-  Empty by default. Supported on AcraServer only.
+  Works as `--tls_ocsp_url` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_url` flag. **Supported on AcraServer only.**
 
 * `--tls_ocsp_required=<policy>`
 
@@ -40,6 +38,14 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
   * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
   * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and
     continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+
+* `--tls_ocsp_client_required=<policy>`
+
+  Works as `--tls_ocsp_required` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_required` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_required=<policy>`
+
+  Works as `--tls_ocsp_required` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_required` flag. **Supported on AcraServer only.**
 
 * `--tls_ocsp_from_cert=<policy>`
 
@@ -52,6 +58,14 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
 
   "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags.
 
+* `--tls_ocsp_client_from_cert=<policy>`
+
+  Works as `--tls_ocsp_from_cert` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_from_cert` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_from_cert=<policy>`
+
+  Works as `--tls_ocsp_from_cert` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_from_cert` flag. **Supported on AcraServer only.**
+
 * `--tls_ocsp_check_only_leaf_certificate={true|false}`
 
   This flag controls behavior of validator in cases when certificate chain contains at least one intermediate certificate.
@@ -62,6 +76,14 @@ OCSP-related flags and their description. Works for `acra-connector`, `acra-serv
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know whom to ask about them.
+
+* `--tls_ocsp_client_check_only_leaf_certificate={true|false}`
+
+  Works as `--tls_ocsp_check_only_leaf_certificate` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_check_only_leaf_certificate` flag. **Supported on AcraServer only.**
+
+* `--tls_ocsp_database_check_only_leaf_certificate={true|false}`
+
+  Works as `--tls_ocsp_check_only_leaf_certificate` flag but applied only for connections between application and AcraServer. If not specified, AcraServer uses value from `--tls_ocsp_check_only_leaf_certificate` flag. **Supported on AcraServer only.**
 
 ## Including OCSP's URL while signing CSR
 

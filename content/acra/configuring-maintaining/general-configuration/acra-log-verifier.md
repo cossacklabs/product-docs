@@ -181,19 +181,19 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_ca=<filename>`
 
-  Path to AcraServer TLS certificate's CA certificate for Vault certificate validation (AcraServer works as "client" when communicating with Vault).
+  Path to acra-log-verifier TLS certificate's CA certificate for Vault certificate validation (acra-log-verifier works as "client" when communicating with Vault).
   Empty by default.
 
 
 * `--vault_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to acra-log-verifier TLS certificate presented to Vault (acra-log-verifier works as "client" when communicating with Vault).
   Empty by default.
 
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to AcraServer TLS certificate's private key of the TLS certificate presented to Vault (AcraServer works as "client" when communicating with Vault).
+  Path to acra-log-verifier TLS certificate's private key of the TLS certificate presented to Vault (acra-log-verifier works as "client" when communicating with Vault).
   Empty by default.
 
 
@@ -276,8 +276,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
   * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
-  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and
-    continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
 
 
 * `--vault_tls_ocsp_client_url=<url>`

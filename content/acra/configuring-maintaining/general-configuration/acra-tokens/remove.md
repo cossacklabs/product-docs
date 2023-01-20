@@ -67,7 +67,7 @@ weight: 4
 
   Set authentication mode that will be used for TLS connection with Redis.
 
-  * `0` — do not request client certificate, ignore it if received;
+  * `-1` — not specified, common `--tls_ca` value will be used.
   * `1` — request client certificate, but don't require it;
   * `2` — expect to receive at least one certificate to continue the handshake;
   * `3` — don't require client certificate, but validate it if client actually sent it;
@@ -83,7 +83,7 @@ weight: 4
 
 * `--redis_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Redis (AcraServer works as "client" when communicating with Redis).
+  Path to TLS certificate presented to Redis.
   Empty by default.
 
 
@@ -133,7 +133,7 @@ weight: 4
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags.
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
 
 
 * `--redis_tls_crl_client_url=<url>`
@@ -171,7 +171,7 @@ weight: 4
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags.
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
 
 
 * `--redis_tls_ocsp_client_required=<policy>`
@@ -180,8 +180,7 @@ weight: 4
 
   * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
   * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
-  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and
-    continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
 
 
 * `--redis_tls_ocsp_client_url=<url>`
