@@ -90,7 +90,7 @@ Zones are deprecated since 0.94.0, will be removed in 0.95.0.
 
   Set authentication mode that will be used for TLS connection.
 
-  * `0` — do not request client certificate, ignore it if received;
+  * `-1` — not specified, common `--tls_ca` value will be used.
   * `1` — request client certificate, but don't require it;
   * `2` — expect to receive at least one certificate to continue the handshake;
   * `3` — don't require client certificate, but validate it if client actually sent it;
@@ -100,22 +100,17 @@ Zones are deprecated since 0.94.0, will be removed in 0.95.0.
 
 * `--tls_key=<filename>`
 
-  Path to private key that will be used for TLS handshake.
-  Should correspond to the certificate configured with `--tls_cert`.
+  Path to acra-rollback TLS certificate's private key of the TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_cert=<filename>`
 
-  Path to TLS certificate that will be sent to other peers during handshake.
-  It will be sent to the client application (or AcraConnector if it's used between client app and AcraServer) and to the
-  database server.
+  Path to acra-rollback TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_ca=<filename>`
 
-  Path to additional CA certificate for application and database certificates validation.
-  It will be used to validate the client application's certificate (or AcraConnector's if it's used between client app
-  and AcraServer) and the database server ones.
+  Path to acra-rollback TLS certificate's CA certificate for Database certificate validation (acra-rollback works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_crl_url=<url>`
@@ -204,20 +199,21 @@ Zones are deprecated since 0.94.0, will be removed in 0.95.0.
 
 * `--tls_database_key=<filename>`
 
-  Path to private key that will be used for TLS handshake with a database.
-  Should correspond to the certificate configured with `--tls_database_cert`.
+  Path to acra-rollback TLS certificate's private key of the TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
   Empty by default.
+  If not specified, acra-rollback uses value from `--tls_key` flag.
 
 * `--tls_database_cert=<filename>`
 
-  Path to client TLS certificate shown to database during TLS handshake (overrides `--tls_cert`).
+  Path to acra-rollback TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
   Empty by default.
+  If not specified, acra-rollback uses value from `--tls_cert` flag.
 
 * `--tls_database_ca=<filename>`
 
-  Path to additional CA certificate for database certificate validation
-  (setup if CA certificate of database is different from CA certificate of application/AcraConnector).
+  Path to acra-rollback TLS certificate's CA certificate for Database certificate validation (acra-rollback works as "client" when communicating with Database).
   Empty by default.
+  If not specified, acra-rollback uses value from `--tls_ca` flag.
 
 * `--tls_crl_database_from_cert=<policy>`
 
@@ -285,8 +281,7 @@ Zones are deprecated since 0.94.0, will be removed in 0.95.0.
 
   * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
   * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
-  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and
-    continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
 
 #### Redis
 
