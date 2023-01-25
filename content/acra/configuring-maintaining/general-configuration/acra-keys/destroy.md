@@ -8,7 +8,7 @@ weight: 7
 **`destroy`** is `acra-keys` subcommand used for destroying keypair from the keystore.
 
 {{< hint warning >}}
-Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will be extended in subsequent versions.
+From 0.91.0 to 0.94.0 `acra-keys` **`destroy`** doesn't support destroying keys and will be extended in subsequent versions.
 {{< /hint >}}
 
 ## Command line flags
@@ -367,20 +367,17 @@ Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v1`.
 {{< /hint >}}
 
 ```
-$ acra-keys generate --client_id=user1 --keystore=v1 --acraconnector_transport_key --acraserver_transport_key
+$ acra-keys generate --client_id=user1 --keystore=v1 --search_hmac_symmetric_key
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-INFO[0000] Generated AcraConnector transport key        
-INFO[0000] Generated AcraServer transport key
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+INFO[0000] Generated HMAC key for searchable encryption
 ```
 
 To destroy the keypair use the following command:
 ```
-$ acra-keys destroy client/user1/transport/connector
+$ acra-keys destroy client/user1/searchable
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
 ```
 
 {{< hint info >}}
@@ -389,7 +386,13 @@ Currently, only some key kinds are supported for destroying via `destroy` subcom
 Here is the list of supported key kinds:
 
 <!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
-- `client/<client ID>/transport/connector`
-- `client/<client ID>/transport/server`
-- `client/<client ID>/transport/translator`
+- `client/<client ID>/searchable`
+- `client/<client ID>/storage`
+- `client/<client ID>/symmetric`
+- `poison-record`
+- `poison-record-symmetric`
+
+- `client/<client ID>/transport/connector` - (deprecated) used until version 0.91.0
+- `client/<client ID>/transport/server` - (deprecated) used until version 0.91.0
+- `client/<client ID>/transport/translator` - (deprecated) used until version 0.91.0
 {{< /hint >}}
