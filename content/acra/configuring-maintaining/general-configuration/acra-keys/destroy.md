@@ -5,7 +5,7 @@ weight: 7
 
 # destroy
 
-**`destroy`** is `acra-keys` subcommand used for destroying keypair from the keystore.
+**`destroy`** is `acra-keys` subcommand used for destroying keys from the keystore `v1` or `v2`.
 
 {{< hint warning >}}
 From 0.91.0 to 0.94.0 `acra-keys` **`destroy`** doesn't support destroying keys and will be extended in subsequent versions.
@@ -359,7 +359,7 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 
 ## Usage example
 
-For example, lets generate several transport keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
+For example, lets generate hmac symmetric key used for searchable encryption using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
 
 {{< hint info >}}
 **Note:**
@@ -382,7 +382,6 @@ INFO[0000] Initializing default env ACRA_MASTER_KEY loader
 
 {{< hint info >}}
 **Note:**
-Currently, only some key kinds are supported for destroying via `destroy` subcommand.
 Here is the list of supported key kinds:
 
 <!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
