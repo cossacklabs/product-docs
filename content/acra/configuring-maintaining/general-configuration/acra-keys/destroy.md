@@ -8,7 +8,8 @@ weight: 7
 **`destroy`** is `acra-keys` subcommand used for destroying keys from the keystore `v1` or `v2`.
 
 {{< hint warning >}}
-From 0.91.0 to 0.94.0 `acra-keys` **`destroy`** doesn't support destroying keys and will be extended in subsequent versions.
+Before 0.91.0 `acra-keys` **`destroy`** was used to destroy only transport keys. Since 0.91.0 transport keys support is deprecated, `acra-keys` **`destroy`** is unused.
+Starting from 0.95.0 `acra-keys` **`destroy`** is extended to delete any types of keys.
 {{< /hint >}}
 
 ## Command line flags
