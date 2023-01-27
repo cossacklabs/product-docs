@@ -5,10 +5,11 @@ weight: 7
 
 # destroy
 
-**`destroy`** is `acra-keys` subcommand used for destroying keypair from the keystore.
+**`destroy`** is `acra-keys` subcommand used for destroying keys from the keystore `v1` or `v2`.
 
 {{< hint warning >}}
-Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will be extended in subsequent versions.
+Before 0.91.0 `acra-keys` **`destroy`** was used to destroy only transport keys. Since 0.91.0 transport keys support is deprecated, `acra-keys` **`destroy`** is unused.
+Starting from 0.95.0 `acra-keys` **`destroy`** is extended to delete any types of keys.
 {{< /hint >}}
 
 ## Command line flags
@@ -359,7 +360,7 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 
 ## Usage example
 
-For example, lets generate several transport keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
+For example, lets generate hmac symmetric key used for searchable encryption using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
 
 {{< hint info >}}
 **Note:**
@@ -367,29 +368,31 @@ Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v1`.
 {{< /hint >}}
 
 ```
-$ acra-keys generate --client_id=user1 --keystore=v1 --acraconnector_transport_key --acraserver_transport_key
+$ acra-keys generate --client_id=user1 --keystore=v1 --search_hmac_symmetric_key
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-INFO[0000] Generated AcraConnector transport key        
-INFO[0000] Generated AcraServer transport key
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+INFO[0000] Generated HMAC key for searchable encryption
 ```
 
 To destroy the keypair use the following command:
 ```
-$ acra-keys destroy client/user1/transport/connector
+$ acra-keys destroy client/user1/searchable
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
 ```
 
 {{< hint info >}}
 **Note:**
-Currently, only some key kinds are supported for destroying via `destroy` subcommand.
 Here is the list of supported key kinds:
 
 <!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
-- `client/<client ID>/transport/connector`
-- `client/<client ID>/transport/server`
-- `client/<client ID>/transport/translator`
+- `client/<client ID>/searchable`
+- `client/<client ID>/storage`
+- `client/<client ID>/symmetric`
+- `poison-record`
+- `poison-record-symmetric`
+
+- `client/<client ID>/transport/connector` - (deprecated) used until version 0.91.0
+- `client/<client ID>/transport/server` - (deprecated) used until version 0.91.0
+- `client/<client ID>/transport/translator` - (deprecated) used until version 0.91.0
 {{< /hint >}}
