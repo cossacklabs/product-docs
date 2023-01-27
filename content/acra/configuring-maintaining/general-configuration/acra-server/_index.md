@@ -416,6 +416,8 @@ weight: 3
   {{< hint warning >}}
   **Note:**
   The default configuration with `--http_api_tls_transport_enable=false` is **insecure**. Enable TLS whenever possible.
+  
+  Starting from `0.96.0` the `--http_api_tls_transport_enable` value will be `true` by default.
   {{< /hint >}}
 
 * `--incoming_connection_api_port=<port>`
