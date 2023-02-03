@@ -18,7 +18,7 @@ Currently, all [the images we provide](/acra/getting-started/installing/launchin
 ### Build from sources
 
 The requirements are not so strict:
-* Golang compiler (we support the latest 3 minor versions) should be able to build binaries for your OS/CPU (though Windows is not supported)
+* Golang compiler (we support and test the only latest stable version) should be able to build binaries for your OS/CPU (though Windows is not supported)
 * [Themis](https://github.com/cossacklabs/themis/#availability) crypto libraries should be installed on target system
 
 ### TLS
