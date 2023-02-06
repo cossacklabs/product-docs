@@ -378,7 +378,7 @@ To export all keys into one output file, you can specify `all` flag:
 $ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" --all
 ```
 
-To export private keys(symmetric and private asymmetric keys) into one output file, you can specify `--private_keys`
+To export private keys (symmetric and private asymmetric keys) into one output file, you can specify `--private_keys`
 flag:
 
 ```
