@@ -6,6 +6,10 @@ weight: 5
 # import
 
 **`import`** is `acra-keys` subcommand used for importing keys into the keystore version `v2`.
+{{< hint info >}}
+**Note**:
+Starting from `0.95.0` `acra-keys` **`import`** supports keys importing for keystore version `v1`.
+{{< /hint >}}
 
 ## Command line flags
 
@@ -372,7 +376,7 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 ## Usage example
 
 Using **`import`** subcommand of `acra-keys` you can easily exchange keys from different Acra components like AcraServer and AcraConnector.
-First, the public key has to be exported using **`export`** subcommand, with corresponded produced result (`key_bundle_file` and `key_bundle_secret`).
+First, keys have to be exported using **`export`** subcommand, with corresponded produced result (`key_bundle_file` and `key_bundle_secret`).
 
 ```
 $ acra-keys import --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json"
