@@ -385,7 +385,7 @@ flag:
 $ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" --private_keys
 ```
 
-Specified keys could be exported via key path(relative from the keys dir `--keys_dir` path) :
+Specified keys could be exported via key path (relative from the keys dir `--keys_dir` path) :
 
 ```
 # V2:
