@@ -143,6 +143,42 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 #### AcraServer
 
 ```
+# HELP acra_decryptions_total number of decryptions AcraStruct/AcraBlock
+# TYPE acra_decryptions_total counter
+acra_decryptions_total{status="fail",type="acrablock"} 7
+acra_decryptions_total{status="fail",type="acrastruct"} 1
+acra_decryptions_total{status="success",type="acrablock"} 21
+acra_decryptions_total{status="success",type="acrastruct"} 1
+# HELP acra_detokenizations_total number of detokenizations for token_type
+# TYPE acra_detokenizations_total counter
+acra_detokenizations_total{status="success",token_type="Bytes"} 2
+acra_detokenizations_total{status="success",token_type="Email"} 2
+acra_detokenizations_total{status="success",token_type="Int32"} 2
+acra_detokenizations_total{status="success",token_type="Int64"} 2
+acra_detokenizations_total{status="success",token_type="String"} 2
+acra_detokenizations_total{status="fail",token_type="Bytes"} 1
+acra_detokenizations_total{status="fail",token_type="Email"} 1
+acra_detokenizations_total{status="fail",token_type="Int32"} 1
+acra_detokenizations_total{status="fail",token_type="Int64"} 1
+acra_detokenizations_total{status="fail",token_type="String"} 1
+# HELP acra_encryptions_total number of encryptions AcraStruct/AcraBlock
+# TYPE acra_encryptions_total counter
+acra_encryptions_total{status="fail",type="acrablock"} 7
+acra_encryptions_total{status="fail",type="acrastruct"} 1
+acra_encryptions_total{status="success",type="acrablock"} 21
+acra_encryptions_total{status="success",type="acrastruct"} 1
+# HELP acra_tokenizations_total number of tokenizations for token_type
+# TYPE acra_tokenizations_total counter
+acra_tokenizations_total{status="success",token_type="Bytes"} 1
+acra_tokenizations_total{status="success",token_type="Email"} 1
+acra_tokenizations_total{status="success",token_type="Int32"} 1
+acra_tokenizations_total{status="success",token_type="Int64"} 1
+acra_tokenizations_total{status="success",token_type="String"} 1
+acra_tokenizations_total{status="fail",token_type="Bytes"} 1
+acra_tokenizations_total{status="fail",token_type="Email"} 1
+acra_tokenizations_total{status="fail",token_type="Int32"} 1
+acra_tokenizations_total{status="fail",token_type="Int64"} 1
+acra_tokenizations_total{status="fail",token_type="String"} 1
  HELP acra_acrastruct_decryptions_total number of AcraStruct decryptions
 # TYPE acra_acrastruct_decryptions_total counter
 acra_acrastruct_decryptions_total{status="success"} 40
@@ -214,6 +250,50 @@ acraconnector_version_minor 85
 #### AcraTranslator
 
 ```
+# HELP acra_decryptions_total number of decryptions AcraStruct/AcraBlock
+# TYPE acra_decryptions_total counter
+acra_decryptions_total{status="fail",type="acrablock"} 7
+acra_decryptions_total{status="fail",type="acrastruct"} 1
+acra_decryptions_total{status="fail",type="acrablock_searchable"} 1
+acra_decryptions_total{status="fail",type="acrastruct_searchable"} 1
+acra_decryptions_total{status="success",type="acrablock"} 21
+acra_decryptions_total{status="success",type="acrastruct"} 1
+acra_decryptions_total{status="success",type="acrablock_searchable"} 1
+acra_decryptions_total{status="success",type="acrastruct_searchable"} 1
+# HELP acra_detokenizations_total number of detokenizations for token_type
+# TYPE acra_detokenizations_total counter
+acra_detokenizations_total{status="success",token_type="Bytes"} 2
+acra_detokenizations_total{status="success",token_type="Email"} 2
+acra_detokenizations_total{status="success",token_type="Int32"} 2
+acra_detokenizations_total{status="success",token_type="Int64"} 2
+acra_detokenizations_total{status="success",token_type="String"} 2
+acra_detokenizations_total{status="fail",token_type="Bytes"} 1
+acra_detokenizations_total{status="fail",token_type="Email"} 1
+acra_detokenizations_total{status="fail",token_type="Int32"} 1
+acra_detokenizations_total{status="fail",token_type="Int64"} 1
+acra_detokenizations_total{status="fail",token_type="String"} 1
+# HELP acra_encryptions_total number of encryptions AcraStruct/AcraBlock
+# TYPE acra_encryptions_total counter
+acra_encryptions_total{status="fail",type="acrablock"} 7
+acra_encryptions_total{status="fail",type="acrastruct"} 1
+acra_encryptions_total{status="fail",type="acrablock_searchable"} 1
+acra_encryptions_total{status="fail",type="acrastruct_searchable"} 1
+acra_encryptions_total{status="success",type="acrablock"} 21
+acra_encryptions_total{status="success",type="acrastruct"} 1
+acra_encryptions_total{status="success",type="acrablock_searchable"} 1
+acra_encryptions_total{status="success",type="acrastruct_searchable"} 1
+# HELP acra_tokenizations_total number of tokenizations for token_type
+# TYPE acra_tokenizations_total counter
+acra_tokenizations_total{status="success",token_type="Bytes"} 1
+acra_tokenizations_total{status="success",token_type="Email"} 1
+acra_tokenizations_total{status="success",token_type="Int32"} 1
+acra_tokenizations_total{status="success",token_type="Int64"} 1
+acra_tokenizations_total{status="success",token_type="String"} 1
+acra_tokenizations_total{status="fail",token_type="Bytes"} 1
+acra_tokenizations_total{status="fail",token_type="Email"} 1
+acra_tokenizations_total{status="fail",token_type="Int32"} 1
+acra_tokenizations_total{status="fail",token_type="Int64"} 1
+acra_tokenizations_total{status="fail",token_type="String"} 1
 # HELP acratranslator_build_info 
 # TYPE acratranslator_build_info counter
 acratranslator_build_info{edition="ce",version="0.85.0"} 1
