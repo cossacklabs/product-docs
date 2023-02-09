@@ -63,7 +63,7 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 
    **Buckets**: 0.000001, 0.00001, 0.00002, 0.00003, 0.00004, 0.00005, 0.00006, 0.00007, 0.00008, 0.00009, 0.0001, 0.0005, 0.001, 0.005, 0.01, 1, 3, 5, 10
 
-5. **Metric**: *acra_api_encryptions_total*
+5. **Metric**: *acra_api_encryptions_total* (Deprecated since 0.94.0)
 
    **Description**: Number of data encryption operations (AcraStruct creations) performed
 
@@ -71,7 +71,7 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 
    **Labels**: `status`
 
-6. **Metric**: *acra_acrastruct_decryptions_total*
+6. **Metric**: *acra_acrastruct_decryptions_total* (Deprecated since 0.94.0)
 
     **Description**: Number of AcraStruct decryption operations performed
 
@@ -105,6 +105,37 @@ Additional metrics registration info could be found in [`prometheus.go`](https:/
 
     **Labels**: `edition`, `version`
 
+11. **Metric**: *acra_decryptions_total* (Available since 0.94.0)
+
+    **Description**: Number of decryptions AcraStruct/AcraBlock
+
+    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+    **Labels**: `status`, `type`
+
+12. **Metric**: *acra_encryptions_total* (Available since 0.94.0)
+
+    **Description**: Number of encryptions AcraStruct/AcraBlock
+
+    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+    **Labels**: `status`, `type`
+
+13. **Metric**: *acra_tokenizations_total* (Available since 0.94.0)
+
+    **Description**: Number of tokenizations for token_type
+
+    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+    **Labels**: `status`, `token_type`
+
+14. **Metric**: *acra_detokenizations_total* (Available since 0.94.0)
+
+    **Description**: Number of detokenizations for token_type
+
+    **Type**: [`Counter`](https://prometheus.io/docs/concepts/metric_types/#counter)
+
+    **Labels**: `status`, `token_type`
 
 ### Metrics example
 
