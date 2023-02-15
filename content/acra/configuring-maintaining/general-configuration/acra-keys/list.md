@@ -9,6 +9,12 @@ weight: 1
 
 ## Command line flags
 
+### General flags
+
+* `--rotated-keys`
+
+  List rotated keys if present in keystore (available since 0.95.0).
+
 ### Storage destination
 
 #### Filesystem
@@ -385,4 +391,23 @@ Key purpose     | Client/Zone ID | Key ID
 ----------------+----------------+------------------
 audit_log       |                | secure_log_key
 storage_sym_key | user1          | user1_storage_sym
+```
+
+{{< hint info >}}
+**Note:**
+Since 0.95.0 `list` subcommand also support displaying rotated keys for V1/V2 keystore.
+{{< /hint >}}
+
+```
+$ acra-keys list --rotated-keys
+
+Rotated keys: 
+Key purpose                  | Client | Creation Time                 | Key ID
+-----------------------------+--------+-------------------------------+-----------------------
+audit log signature key      |        | 2023-02-13 12:36:49 +0000 UTC | audit-log
+encrypted search HMAC key    | client | 2023-02-13 12:36:49 +0000 UTC | client/client/hmac-sym
+client storage key           | client | 2023-02-13 12:49:27 +0000 UTC | client/client/storage
+client storage symmetric key | client | 2023-02-13 12:36:49 +0000 UTC | client/client/storage-sym
+poison-record-sym            |        | 2023-02-13 12:36:49 +0000 UTC | poison-record-sym
+poison-record                |        | 2023-02-13 12:36:49 +0000 UTC | poison-record
 ```
