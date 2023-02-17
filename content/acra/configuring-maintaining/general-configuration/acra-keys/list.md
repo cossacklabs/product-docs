@@ -9,6 +9,12 @@ weight: 1
 
 ## Command line flags
 
+### General flags
+
+* `--rotated-keys`
+
+  List rotated keys if present in keystore (available since 0.95.0).
+
 ### Storage destination
 
 #### Filesystem
@@ -376,13 +382,56 @@ INFO[0000] Generated HMAC key for audit log
 
 Now we can use `list` subcommand to get all keystore keys description:
 
+{{< hint info >}}
+``Index`` - is a virtual index in the keystore, `1` represents the current key. Rotated keys will have incrementally increasing index always greater than `1`.
+{{< /hint >}}
+
 ```
 $ acra-keys list
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-Key purpose     | Client/Zone ID | Key ID
-----------------+----------------+------------------
-audit_log       |                | secure_log_key
-storage_sym_key | user1          | user1_storage_sym
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+Index | Key purpose                  | Client | Key ID
+-----------------------------+--------+--------------------------
+1     | audit log signature key      |        | audit-log
+1     | encrypted search HMAC key    | client | client/client/hmac-sym
+```
+
+{{< hint info >}}
+**Note:**
+Since 0.95.0 `list` subcommand also supports displaying rotated keys for V1/V2 keystore additionally to keystore keys.
+{{< /hint >}}
+
+```
+$ acra-keys list --rotated-keys
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+Index | Key purpose                  | Client | Key ID
+-----------------------------+--------+--------------------------
+1     | audit log signature key      |        | audit-log
+1     | encrypted search HMAC key    | client | client/client/hmac-sym
+
+
+Rotated keys: 
+Index | Key purpose                  | Client | Creation Time                 | Key ID
+-----------------------------+--------+-------------------------------+-----------------------
+2     | audit log signature key      |        | 2023-02-13 12:36:49 +0000 UTC | audit-log
+3     | audit log signature key      |        | 2023-02-13 12:49:27 +0000 UTC | audit-log
+2     | encrypted search HMAC key    | client | 2023-02-13 12:36:49 +0000 UTC | client/client/hmac-sym
+3     | encrypted search HMAC key    | client | 2023-02-13 12:49:27 +0000 UTC | client/client/hmac-sym
+```
+
+To display all keys in JSON format:
+
+```
+$ acra-keys list --rotated-keys --json
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+[
+{"Index":1,"KeyID":"audit-log","State":"current","Purpose":"audit log signature key","CreationTime":"2023-02-13T13:08:09Z"},
+ {"Index":1,"KeyID":"client/client/hmac-sym","State":"current","Purpose":"encrypted search HMAC key","ClientID":"client","CreationTime":"2023-02-13T13:08:09Z"},
+ {"Index":2,"KeyID":"audit-log","State":"rotated","Purpose":"audit log signature key","CreationTime":"2023-02-13T12:36:49Z"},
+ {"Index":3,"KeyID":"audit-log","State":"rotated","Purpose":"audit log signature key","CreationTime":"2023-02-13T12:49:27Z"},
+ {"Index":2,"KeyID":"client/client/hmac-sym","State":"rotated","Purpose":"encrypted search HMAC key","ClientID":"client","CreationTime":"2023-02-13T12:36:49Z"},
+ {"Index":3,"KeyID":"client/client/hmac-sym","State":"rotated","Purpose":"encrypted search HMAC key","ClientID":"client","CreationTime":"2023-02-13T12:49:27Z"}
+]
 ```
