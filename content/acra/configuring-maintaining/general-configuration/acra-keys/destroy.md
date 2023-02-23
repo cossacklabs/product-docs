@@ -405,11 +405,6 @@ Here is the list of supported key kinds:
 - `client/<client ID>/transport/translator` - (deprecated) used until version 0.91.0
 {{< /hint >}}
 
-destroy
---keys_dir=/home/zhars/cossacklabs/acra/.acrakeysv2
---index=4
-poison-record
-
 {{< hint info >}}
 **Note:**
 Since 0.95.0 `destroy` subcommand also supports destroying rotated keys for V1/V2 keystore additionally to keystore keys.
