@@ -14,6 +14,14 @@ Starting from 0.95.0 `acra-keys` **`destroy`** is extended to delete any types o
 
 ## Command line flags
 
+### General flags
+
+* `--index=<idx>`
+
+  Index of key to destroy (1 - represents current key, 2..n - rotated key).
+  Default is `1`. (available since 0.95.0)
+  
+
 ### Storage destination
 
 #### Filesystem
@@ -396,3 +404,53 @@ Here is the list of supported key kinds:
 - `client/<client ID>/transport/server` - (deprecated) used until version 0.91.0
 - `client/<client ID>/transport/translator` - (deprecated) used until version 0.91.0
 {{< /hint >}}
+
+destroy
+--keys_dir=/home/zhars/cossacklabs/acra/.acrakeysv2
+--index=4
+poison-record
+
+{{< hint info >}}
+**Note:**
+Since 0.95.0 `destroy` subcommand also supports destroying rotated keys for V1/V2 keystore additionally to keystore keys.
+{{< /hint >}}
+
+List all available keys in the keystore:
+```
+$ acra-keys list --rotated-keys --keys_dir=./.acrakeysv2
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+Index | Key purpose                  | Client | Key ID
+-----------------------------+--------+--------------------------
+1     | encrypted search HMAC key    | client | client/client/hmac-sym
+
+
+Rotated keys: 
+Index | Key purpose                  | Client | Creation Time                 | Key ID
+-----------------------------+--------+-------------------------------+-----------------------
+2     | encrypted search HMAC key    | client | 2023-02-13 12:36:49 +0000 UTC | client/client/hmac-sym
+3     | encrypted search HMAC key    | client | 2023-02-13 12:49:27 +0000 UTC | client/client/hmac-sym
+```
+
+
+Destroy searchable hmac key by index (1 - represents current key, 2..n - rotated key):
+```
+$ acra-keys destroy --keys_dir=./.acrakeysv2 --index=2 client/client/searchable
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+```
+
+```
+$ acra-keys list --rotated-keys --keys_dir=./.acrakeysv2
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+Index | Key purpose                  | Client | Key ID
+-----------------------------+--------+--------------------------
+1     | encrypted search HMAC key    | client | client/client/hmac-sym
+
+
+Rotated keys: 
+Index | Key purpose                  | Client | Creation Time                 | Key ID
+-----------------------------+--------+-------------------------------+-----------------------
+2     | encrypted search HMAC key    | client | 2023-02-13 12:49:27 +0000 UTC | client/client/hmac-sym
+```
