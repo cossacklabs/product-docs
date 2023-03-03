@@ -6,6 +6,10 @@ weight: 4
 # export
 
 **`export`** is `acra-keys` subcommand used for exporting keys of the keystore version `v2`.
+{{< hint info >}}
+**Note**:
+Starting from `0.95.0` `acra-keys` **`export`** supports keys exporting for keystore version `v1`.
+{{< /hint >}}
 
 ## Command line flags
 
@@ -22,6 +26,10 @@ weight: 4
 * `--all`
 
   Export all keys from keystore to output file.
+
+* `--private_keys`
+
+  Export private key data (symmetric and private asymmetric keys).
 
 ### Storage destination
 
@@ -361,7 +369,7 @@ Using **`export`** subcommand of `acra-keys` you can easily exchange keys from d
 Before [`keys import`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/import" >}}), you should export keys to produce output file with exported keys(`key_bundle_file` and `key_bundle_secret`):
 
 ```
-$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/user/transport/server
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/user/storage
 ```
 
 To export all keys into one output file, you can specify `all` flag:
@@ -369,6 +377,42 @@ To export all keys into one output file, you can specify `all` flag:
 ```
 $ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" --all
 ```
+
+To export private keys (symmetric and private asymmetric keys) into one output file, you can specify `--private_keys`
+flag:
+
+```
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" --private_keys
+```
+
+Specified keys could be exported via key path (relative from the keys dir `--keys_dir` path) :
+
+```
+# V2:
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/{client_id}/storage client/{client_id}/hmac-sym
+
+# V1:
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client_id_storage client_id_hmac
+```
+
+or symbolic key kind:
+
+```
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/<client ID>/storage poison-record-symmetric
+```
+
+{{< hint info >}}
+**Note:**
+Here is the list of supported key kinds for export:
+
+<!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
+
+- `client/<client ID>/searchable`
+- `client/<client ID>/storage`
+- `client/<client ID>/symmetric`
+- `poison-record`
+- `poison-record-symmetric`
+  {{< /hint >}}
 
 {{< hint info >}}
 **Note:**
