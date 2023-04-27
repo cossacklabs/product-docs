@@ -52,6 +52,14 @@ Currently we build packages for a multitude of Linux distributions.
     If you use other build tools (e.g., Ant, Maven, SBT, etc.),
     see [Maven Central](https://search.maven.org/artifact/com.cossacklabs.com/java-themis) for configuration snippets.
 
+  4. Locate Java library
+ 
+  By default, the `themis.jni` library might be installed into different location than Java expects 
+  them, for example, to `/usr/lib/x86_64-linux-gnu/...`.
+  Some Java installations do not search this location, thus you will get an error message that library cannot be located.
+
+  You will need to either add it to the "java.library.path" property on application startup, or to move libthemis_jni.so manually to one of these locations so that Java could find it. For example, into `/usr/lib/`.
+    
 Once JavaThemis is installed, you can [try out examples on your machine](../examples/).
 
 ## Installing stable version on macOS
@@ -138,15 +146,18 @@ in [Oracle documentation](https://docs.oracle.com/cd/E19182-01/820-7851/inst_cli
     Some Java installations do not search this location.
     You will get a warning if that’s the case for your system:
 
+        ```
         Your Java installation does not seem to have "/usr/local/lib" in its
         search path for JNI libraries:
 
             /usr/java/packages/lib
             /usr/lib/x86
-
-        You will need to either add it to the "java.library.path" property
-        on application startup, or to move libthemis_jni.so manually
-        to one of these locations so that Java could find it.
+        ```    
+    
+    You will need to either add it to the "java.library.path" property
+    on application startup, or to move libthemis_jni.so manually
+    to one of these locations so that Java could find it.
+        
 
 #### Specifying JDK location
 
