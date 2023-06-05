@@ -25,7 +25,7 @@ bookCollapseSection: true
 
 ## Supported Node.js versions
 
-JsThemis is tested and supported on the current LTS versions of Node.js: v12, v16 and some of the 18.x versions.
+JsThemis is tested and supported on the current LTS versions of Node.js: v12, v14, v16 and some of the 18.x versions.
 
 ## Getting started
 
