@@ -13,6 +13,10 @@ Themis Core is available as a system package for Linux and macOS.
 Usually you want to install the stable package to benefit from automatic dependency management and security updates.
 However, you can also build and install the latest JsThemis from the source code.
 
+  {{< hint warning >}}
+  **Note**: Due to some issues with Openssl statically linked into Nodejs, for correct JsThemis operation, you need to ensure that the Nodejs and system Openssl versions match. Otherwise, you may encounter failures or crashes at runtime. Refer to [Matching Openssl versions](#matching-openssl-versions) for more details.
+  {{< /hint >}}
+
 ## Installing stable version on Linux
 
 The easiest way to install Themis on Linux is to use package repositories for your system.
@@ -89,3 +93,38 @@ you can manually build and install the latest version of Themis from source code
     ```bash
     npm install /path/to/jsthemis.tgz
     ```
+
+## Matching Openssl versions
+
+JsThemis is a simple addon to Nodejs that provides bindings to the Themis library, which is itself installed as a shared library in the system. In turn, Themis depends on Openssl installed in the system.
+
+However, [Nodejs often comes with its own Openssl version](https://github.com/nodejs/TSC/blob/main/OpenSSL-Strategy.md) included in the binary. This is a problem for JsThemis, because due to how linkage works, some Openssl functions will be linked directly from Nodejs and the others will come from the system's Openssl. If these Openssl versions are not the same, JsThemis will not work correctly or crash.
+
+```
+                          +-----> Node openssl
+                          |
+jsthemis ----> libthemis -+
+                          |
+                          +-----> System openssl
+```
+
+For these reasons, before installing JsThemis, it is critical to ensure that the Nodejs and system Openssl versions are the same. To do so, you can check the output of these commands:
+
+```bash
+$ openssl version
+OpenSSL 3.0.2 15 Mar 2022 (Library: OpenSSL 3.0.2 15 Mar 2022)
+$ node -e "console.log(process.versions['openssl'])"
+3.0.2+quic
+```
+
+If the semantic versions are the same, you are good to go! If they differ, however, there are a few ways to resolve the situation, but there is no easy answer:
+
+1. Choose the Nodejs version with the Openssl that matches with your systems' one or that has no Openssl built in (there may be versions of Nodejs that use shared Openssl). For example, Ubuntu Jammy has Openssl 3.0.2, so the only versions of Nodejs suitable for it are v18.0 and v18.1.
+
+2. Try another distribution with Openssl that matches Nodejs.
+
+3. Try to install Openssl version that matches your Nodejs. Probably, it will require building Openssl from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new Openssl.
+
+4. You can try to build Themis and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
+
+However, none of these options are ideal because they can lock you to specific versions of software and disable the ability to update components and dependencies.
