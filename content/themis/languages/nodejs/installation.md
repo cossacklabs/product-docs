@@ -119,7 +119,7 @@ $ node -e "console.log(process.versions['openssl'])"
 
 If the semantic versions are the same, you are good to go! If they differ, however, there are a few ways to resolve the situation, but there is no easy answer:
 
-1. Choose the Nodejs version with the OpenSSL that matches with your systems' one or that has no OpenSSL built in (there may be versions of Nodejs that use shared OpenSSL).
+1. Choose the Node.js version with the OpenSSL that matches with your systems' one or that has no OpenSSL built in (there may be versions of Node.js that use shared OpenSSL).
 
    For example, Ubuntu Jammy Jellyfish (22.04) has OpenSSL 3.0.2, so the only Nodejs versions suitable for it are v18.0 and v18.1. On the other hand, Ubuntu Focal Fossa (20.04) has OpenSSL 1.1.1, which is compatible with Node LTS v14 and v12. However, be aware that OpenSSL 1.1.1 [will be unsupported after September 2023](https://www.openssl.org/blog/blog/2023/03/28/1.1.1-EOL/).
 
