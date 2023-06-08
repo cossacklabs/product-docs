@@ -108,7 +108,7 @@ jsthemis ----> libthemis -+
                           +-----> System openssl
 ```
 
-For these reasons, before installing JsThemis, it is critical to ensure that the Nodejs and system OpenSSL versions are the same. To do so, you can check the output of these commands:
+For these reasons, before installing JsThemis, it is critical to ensure that the Node.js and system OpenSSL versions are the same. To do so, you can check the output of these commands:
 
 ```bash
 $ openssl version
