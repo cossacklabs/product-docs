@@ -129,6 +129,6 @@ Furthermore, here is how community solves this issue:
 
 1. Try to install OpenSSL version that matches your Node.js. Probably, it will require building OpenSSL from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new OpenSSL.
 
-2. You can try to build Themis and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
+2. You can try to build and install Themis Core and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
 
 However, none of these options are ideal because they can lock you to specific versions of software and disable the ability to update components and dependencies.
