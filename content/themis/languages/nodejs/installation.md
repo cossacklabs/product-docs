@@ -117,7 +117,7 @@ $ node -e "console.log(process.versions['openssl'])"
 3.0.2+quic
 ```
 
-If the semantic versions are the same, you are good to go! If they differ, however, there are a few ways to resolve the situation, but there is no easy answer:
+If the semantic versions are the same, you are good to go! If they differ, however, there are a few ways to resolve the situation, but there is no easy answer. For instance, here is what we use while testing Themis in CI:
 
 1. Choose the Node.js version with the OpenSSL that matches with your systems' one or that has no OpenSSL built in (there may be versions of Node.js that use shared OpenSSL).
 
@@ -125,8 +125,10 @@ If the semantic versions are the same, you are good to go! If they differ, howev
 
 2. Try another distribution with OpenSSL that matches Node.js.
 
-3. Try to install OpenSSL version that matches your Node.js. Probably, it will require building OpenSSL from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new OpenSSL.
+Furthermore, here is how community solves this issue:
 
-4. You can try to build Themis and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
+1. Try to install OpenSSL version that matches your Node.js. Probably, it will require building OpenSSL from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new OpenSSL.
+
+2. You can try to build Themis and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
 
 However, none of these options are ideal because they can lock you to specific versions of software and disable the ability to update components and dependencies.
