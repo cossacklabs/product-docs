@@ -125,7 +125,7 @@ If the semantic versions are the same, you are good to go! If they differ, howev
 
 2. Try another distribution with OpenSSL that matches Node.js.
 
-3. Try to install OpenSSL version that matches your Nodejs. Probably, it will require building OpenSSL from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new OpenSSL.
+3. Try to install OpenSSL version that matches your Node.js. Probably, it will require building OpenSSL from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new OpenSSL.
 
 4. You can try to build Themis and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
 
