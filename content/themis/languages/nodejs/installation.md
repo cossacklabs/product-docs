@@ -123,7 +123,7 @@ If the semantic versions are the same, you are good to go! If they differ, howev
 
    For example, Ubuntu Jammy Jellyfish (22.04) has OpenSSL 3.0.2, so the only Nodejs versions suitable for it are v18.0 and v18.1. On the other hand, Ubuntu Focal Fossa (20.04) has OpenSSL 1.1.1, which is compatible with Node LTS v14 and v12. However, be aware that OpenSSL 1.1.1 [will be unsupported after September 2023](https://www.openssl.org/blog/blog/2023/03/28/1.1.1-EOL/).
 
-2. Try another distribution with OpenSSL that matches Nodejs.
+2. Try another distribution with OpenSSL that matches Node.js.
 
 3. Try to install OpenSSL version that matches your Nodejs. Probably, it will require building OpenSSL from the sources. Then, you will have to rebuild [Themis and JsThemis from sources](#building-latest-version-from-source). Don't forget to [specify the path](../../../installation/installation-from-sources/#cryptographic-backends) to the new OpenSSL.
 
