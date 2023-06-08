@@ -96,7 +96,7 @@ you can manually build and install the latest version of Themis from source code
 
 ## Matching OpenSSL versions
 
-JsThemis is a simple addon to Nodejs that provides bindings to the Themis library, which is itself installed as a shared library in the system. In turn, Themis depends on OpenSSL installed in the system.
+JsThemis is a simple library to Node.js that provides bindings to the Themis Core library, which is itself installed as a shared library in the system. In turn, Themis Core depends on OpenSSL installed in the system.
 
 However, [Nodejs often comes with its own OpenSSL version](https://github.com/nodejs/TSC/blob/main/OpenSSL-Strategy.md) included in the binary. This is a problem for JsThemis, because due to how linkage works, some OpenSSL functions will be linked directly from Nodejs and the others will come from the system's OpenSSL. If these OpenSSL versions are not the same, JsThemis will not work correctly or crash.
 
