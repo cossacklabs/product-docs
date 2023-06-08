@@ -14,7 +14,7 @@ Usually you want to install the stable package to benefit from automatic depende
 However, you can also build and install the latest JsThemis from the source code.
 
   {{< hint warning >}}
-  **Note**: Due to some issues with OpenSSL statically linked into Nodejs, for correct JsThemis operation, you need to ensure that the Nodejs and system OpenSSL versions match. Otherwise, you may encounter failures or crashes at runtime. Refer to [Matching OpenSSL versions](#matching-openssl-versions) for more details.
+  **Note**: Due to some issues with OpenSSL statically linked into Node.js, for correct JsThemis operation, you need to ensure that the Node.js and system OpenSSL versions match. Otherwise, you may encounter failures or crashes at runtime. Refer to [Matching OpenSSL versions](#matching-openssl-versions) for more details.
   {{< /hint >}}
 
 ## Installing stable version on Linux
@@ -98,7 +98,7 @@ you can manually build and install the latest version of Themis from source code
 
 JsThemis is a simple library to Node.js that provides bindings to the Themis Core library, which is itself installed as a shared library in the system. In turn, Themis Core depends on OpenSSL installed in the system.
 
-However, [Nodejs often comes with its own OpenSSL version](https://github.com/nodejs/TSC/blob/main/OpenSSL-Strategy.md) included in the binary. This is a problem for JsThemis, because due to how linkage works, some OpenSSL functions will be linked directly from Nodejs and the others will come from the system's OpenSSL. If these OpenSSL versions are not the same, JsThemis could become confused and crash.
+However, [Node.js often comes with its own OpenSSL version](https://github.com/nodejs/TSC/blob/main/OpenSSL-Strategy.md) included in the binary. This is a problem for JsThemis, because due to how linkage works, some OpenSSL functions will be linked directly from Node.js and the others will come from the system's OpenSSL. If these OpenSSL versions are not the same, JsThemis could become confused and crash.
 
 ```
                           +-----> Node openssl
@@ -121,7 +121,7 @@ If the semantic versions are the same, you are good to go! If they differ, howev
 
 1. Choose the Node.js version with the OpenSSL that matches with your systems' one or that has no OpenSSL built in (there may be versions of Node.js that use shared OpenSSL).
 
-   For example, Ubuntu Jammy Jellyfish (22.04) has OpenSSL 3.0.2, so the only Nodejs versions suitable for it are v18.0 and v18.1. On the other hand, Ubuntu Focal Fossa (20.04) has OpenSSL 1.1.1, which is compatible with Node LTS v14 and v12. However, be aware that OpenSSL 1.1.1 [will be unsupported after September 2023](https://www.openssl.org/blog/blog/2023/03/28/1.1.1-EOL/).
+   For example, Ubuntu Jammy Jellyfish (22.04) has OpenSSL 3.0.2, so the only Node.js versions suitable for it are v18.0 and v18.1. On the other hand, Ubuntu Focal Fossa (20.04) has OpenSSL 1.1.1, which is compatible with Node LTS v14 and v12. However, be aware that OpenSSL 1.1.1 [will be unsupported after September 2023](https://www.openssl.org/blog/blog/2023/03/28/1.1.1-EOL/).
 
 2. Try another distribution with OpenSSL that matches Node.js.
 
