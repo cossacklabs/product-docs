@@ -31,6 +31,7 @@ The minimum supported Rust version (MSRV) depends on RustThemis release.
 
 | RustThemis | Required Rust |
 | ---------- | ------------- |
+| 0.15.0     | 1.58.0        |
 | 0.14.0     | 1.47.0        |
 | 0.13.0     | 1.47.0        |
 | 0.12.0     | 1.31.0        |
