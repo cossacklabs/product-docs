@@ -198,7 +198,7 @@ If you wish to explicitly require OpenSSL, set `ENGINE=openssl` when building Th
 
 Starting from version [0.15.0](https://github.com/cossacklabs/themis/releases/tag/0.15.0), Themis supports OpenSSL 3.0. Consider using it instead of OpenSSL 1.1.1, as its end of life is [September 2023](https://www.openssl.org/blog/blog/2023/03/28/1.1.1-EOL/).
 
-Even so, currently we only test OpenSSL 3.0.2 which comes with the Ubuntu Jammy. However, as more distributions start implementing OpenSSL 3.x, the list of the tested versions will grow.
+Although as part of our CI, we only test OpenSSL 3.0.2 which comes with Ubuntu Jammy. However, as more distributions start implementing OpenSSL 3.x, the list of tested versions will grow.
 {{< /hint >}}
 
 #### BoringSSL
