@@ -21,7 +21,7 @@ Supported systems:
   - Debian 11 “Bullseye”
   - Ubuntu 16.04 LTS “Xenial Xerus”
   - Ubuntu 18.04 LTS “Bionic Beaver”
-  - Ubuntu 20.04 LTS “Focal Focca”
+  - Ubuntu 20.04 LTS “Focal Fossa”
 
 **1. Import Cossack Labs public key**
 
@@ -73,7 +73,7 @@ We currently build packages for the following OS_NAME and RELEASE combinations:
   - `debian bullseye` — Debian 11 “Bullseye”
   - `ubuntu xenial` — Ubuntu 16.04 LTS “Xenial Xerus”
   - `ubuntu bionic` — Ubuntu 18.04 LTS “Bionic Beaver”
-  - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Focca”
+  - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Fossa”
 
 For example, if you are running _Debian 11 “Bullseye”_, run:
 
