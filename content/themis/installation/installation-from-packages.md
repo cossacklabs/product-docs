@@ -22,6 +22,7 @@ Supported systems:
   - Ubuntu 16.04 LTS “Xenial Xerus”
   - Ubuntu 18.04 LTS “Bionic Beaver”
   - Ubuntu 20.04 LTS “Focal Fossa”
+  - Ubuntu 22.04 LTS “Jammy Jellyfish”
 
 **1. Import Cossack Labs public key**
 
@@ -74,6 +75,7 @@ We currently build packages for the following OS_NAME and RELEASE combinations:
   - `ubuntu xenial` — Ubuntu 16.04 LTS “Xenial Xerus”
   - `ubuntu bionic` — Ubuntu 18.04 LTS “Bionic Beaver”
   - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Fossa”
+  - `ubuntu jammy` — Ubuntu 22.04 LTS “Jammy Jellyfish”
 
 For example, if you are running _Debian 11 “Bullseye”_, run:
 
