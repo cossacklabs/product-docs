@@ -16,12 +16,15 @@ In case you experience issues during installation, refer to [Troubleshooting ins
 
 Supported systems:
 
-  - Debian 9 “Stretch”
   - Debian 10 “Buster”
   - Debian 11 “Bullseye”
-  - Ubuntu 16.04 LTS “Xenial Xerus”
   - Ubuntu 18.04 LTS “Bionic Beaver”
-  - Ubuntu 20.04 LTS “Focal Focca”
+  - Ubuntu 20.04 LTS “Focal Fossa”
+  - Ubuntu 22.04 LTS “Jammy Jellyfish”
+
+Previously supported systems:
+- Debian 9 “Stretch” — prior to Themis 0.15.
+- Ubuntu 16.04 LTS “Xenial Xerus” — prior to Themis 0.15.
 
 **1. Import Cossack Labs public key**
 
@@ -73,7 +76,8 @@ We currently build packages for the following OS_NAME and RELEASE combinations:
   - `debian bullseye` — Debian 11 “Bullseye”
   - `ubuntu xenial` — Ubuntu 16.04 LTS “Xenial Xerus”
   - `ubuntu bionic` — Ubuntu 18.04 LTS “Bionic Beaver”
-  - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Focca”
+  - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Fossa”
+  - `ubuntu jammy` — Ubuntu 22.04 LTS “Jammy Jellyfish”
 
 For example, if you are running _Debian 11 “Bullseye”_, run:
 
