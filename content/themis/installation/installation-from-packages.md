@@ -23,8 +23,8 @@ Supported systems:
   - Ubuntu 22.04 LTS “Jammy Jellyfish”
 
 Previously supported systems:
-- Debian 9 “Stretch” - prior to Themis 0.15.
-- Ubuntu 16.04 LTS “Xenial Xerus” - prior to Themis 0.15.
+- Debian 9 “Stretch” — prior to Themis 0.15.
+- Ubuntu 16.04 LTS “Xenial Xerus” — prior to Themis 0.15.
 
 **1. Import Cossack Labs public key**
 
