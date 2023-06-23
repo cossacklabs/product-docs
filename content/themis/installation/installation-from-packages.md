@@ -16,13 +16,15 @@ In case you experience issues during installation, refer to [Troubleshooting ins
 
 Supported systems:
 
-  - Debian 9 “Stretch”
   - Debian 10 “Buster”
   - Debian 11 “Bullseye”
-  - Ubuntu 16.04 LTS “Xenial Xerus”
   - Ubuntu 18.04 LTS “Bionic Beaver”
   - Ubuntu 20.04 LTS “Focal Fossa”
   - Ubuntu 22.04 LTS “Jammy Jellyfish”
+
+Previously supported systems:
+- Debian 9 “Stretch” - prior to Themis 0.15.
+- Ubuntu 16.04 LTS “Xenial Xerus” - prior to Themis 0.15.
 
 **1. Import Cossack Labs public key**
 
