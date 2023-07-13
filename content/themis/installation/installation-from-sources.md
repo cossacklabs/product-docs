@@ -39,15 +39,6 @@ In either case, we **strongly** recommend that you use the most recent version o
 
 {{< hint warning >}}
 **Note:**
-At the moment Themis is not fully compatible with OpenSSL 3.0.
-Please use the latest OpenSSL 1.1.1 unless you know what you are doing.
-Rest assured, OpenSSL 1.1.1 is getting security updates at least until September 2023.
-
-Status of Themis migration to OpenSSL 3.0 can be tracked [on GitHub](https://github.com/cossacklabs/themis/issues/873).
-{{< /hint >}}
-
-{{< hint warning >}}
-**Note:**
 At the moment, Themis doesn't support building from source on Apple M1 processors. Please see [Homebrew installation instead](/themis/installation/installation-from-packages/#macos).
 {{< /hint >}}
 
@@ -202,10 +193,12 @@ OpenSSL is the default cryptographic engine on most platforms.
 Themis will automatically detect and use OpenSSL installed in your system.
 If you wish to explicitly require OpenSSL, set `ENGINE=openssl` when building Themis.
 
-{{< hint warning >}}
+{{< hint info >}}
 **Note:**
-At the moment Themis supports only OpenSSL 1.0.2 and 1.1.x branches.
-OpenSSL 3.0 is still not fully supported.
+
+Starting from version [0.15.0](https://github.com/cossacklabs/themis/releases/tag/0.15.0), Themis supports OpenSSL 3.0. Consider using it instead of OpenSSL 1.1.1, as its end of life is [September 2023](https://www.openssl.org/blog/blog/2023/03/28/1.1.1-EOL/).
+
+Although as part of our CI, we only test OpenSSL 3.0.2 which comes with Ubuntu Jammy. However, as more distributions start implementing OpenSSL 3.x, the list of tested versions will grow.
 {{< /hint >}}
 
 #### BoringSSL
