@@ -107,7 +107,7 @@ docker run --rm -it -v $(pwd):/projects cossacklabs/android-build \
 ```
 
 The resulting Android library (AAR) will be placed into
-`src/wrappers/themis/android/build/outputs/aar/android.aar`.
+`src/wrappers/themis/android/build/outputs/aar/android-release.aar`.
 You can then rename it and add to your project.
 
 ### Manual setup
@@ -150,9 +150,10 @@ You don’t need the full Android Studio to build Themis, just the command line 
 
     ```bash
     $ANDROID_HOME/tools/bin/sdkmanager --update
-    $ANDROID_HOME/tools/bin/sdkmanager 'build-tools;27.0.3' \
-                                       'platforms;android-27' \
-                                       'ndk-bundle'
+    $ANDROID_HOME/tools/bin/sdkmanager 'build-tools;30.0.3' \
+                                        'cmake;3.22.1' \
+                                        'platforms;android-30' \
+                                        'ndk;25.0.8775105'
     ```
 
  3. Since BoringSSL is included as a submodule,
@@ -169,7 +170,7 @@ You don’t need the full Android Studio to build Themis, just the command line 
     ```
 
    The resulting Android library (AAR) will be placed into
-   `src/wrappers/themis/android/build/outputs/aar/android.aar`.
+   `src/wrappers/themis/android/build/outputs/aar/android-release.aar`.
    You can then rename it and add to your project.
 
 If you wish, you can run JavaThemis test suite on the connected device or emulator.
