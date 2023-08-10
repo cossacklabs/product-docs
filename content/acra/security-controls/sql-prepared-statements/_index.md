@@ -47,13 +47,7 @@ To apply any security controls on data provided by `SET` queries. AcraServer exp
 {table_from_encryptor_config}{delimiter}{column_from_encryptor_config}:
 ```
 
-For example with query
-
-```
-SET @users__name = 'value'
-```
-
-and encryptor config:
+For encryptor config:
 
 ```
 schemas:
@@ -63,6 +57,12 @@ schemas:
       - name
     encrypted:
       - column: name
+```
+
+and query:
+
+```
+SET @users__name = 'value'
 ```
 
 AcraServer will detect and apply pure encryption for column `name` from `users` table.
@@ -76,7 +76,12 @@ database_settings:
     prepared_statements_set_arg_delimiter: '&&'
 
 schemas:
- .....
+  - table: users
+    columns:
+      - id
+      - name
+    encrypted:
+      - column: name
 ```
 
 It is also possible to use [searchable encryption](/acra/security-controls/searchable-encryption/) with SQL prepared
@@ -88,7 +93,7 @@ PREPARE stmt1 FROM 'SELECT * FROM test_table WHERE searchable_field = ?';
 ```
 
 ```
-PREPARE stmt1 FROM 'SELECT * FROM test_table WHERE substr(searchable_field, <search HASH size>, 1) = substr(?, <search HASH size>, 1)';
+PREPARE stmt1 FROM 'SELECT * FROM test_table WHERE substr(searchable_field, 1, <search HASH size>) = substr(?, 1, <search HASH size>,)';
 ```
 
 And
@@ -98,6 +103,6 @@ PREPARE stmt1 FROM 'SELECT * FROM test_table WHERE searchable_field = 'value';
 ```
 
 ```
-PREPARE stmt1 FROM 'SELECT * FROM test_table WHERE substr(searchable_field, <search HASH size>, 1) = '<searchable HASH>';
+PREPARE stmt1 FROM 'SELECT * FROM test_table WHERE substr(searchable_field, 1, <search HASH size>) = '<searchable HASH>';
 ```
 
