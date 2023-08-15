@@ -26,7 +26,7 @@ For Prepare query like:
 PREPARE fooplan (int, text, bool, numeric) AS INSERT INTO foo VALUES($1, $2, $3, $4);
 ```
 
-AcraServer will detect the prepared statement query and store it destructed for further processing.
+AcraServer will detect the prepared statement query and store it decomposed for further processing.
 
 For Execute query like:
 
