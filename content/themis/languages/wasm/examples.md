@@ -19,8 +19,10 @@ on GitHub:
   - a simple chat server and client using Secure Session
   - password authentication using Secure Comparator
 
-You can also take a look at unit tests
-in [WasmThemis source code](https://github.com/cossacklabs/themis/tree/master/src/wrappers/themis/wasm/test).
+You can also take a look at the Themis examples for WASM [`docs/examples/wasm`](https://github.com/cossacklabs/themis/tree/master/docs/examples/wasm) on GitHub.
+
+And WASM unit tests in [WasmThemis source code](https://github.com/cossacklabs/themis/tree/master/src/wrappers/themis/wasm/test).
+
 
 ## Debugging aids
 
