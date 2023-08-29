@@ -146,8 +146,3 @@ function App() {
 ```
 
 We recommend to initialize Themis in `useEffect()` hook or `componentDidMount()` method.
-
-
-## Next steps
-
-You are good to go! Next [browse code samples](examples/) or [read feature guides](features/) to learn how to use WasmThemis effectively.
