@@ -150,4 +150,4 @@ We recommend to initialize Themis in `useEffect()` hook or `componentDidMount()`
 
 ## Next steps
 
-You are good to go! Next [browse code samples](examples/) or [read feature guides](features/) to learn how to use WasmThemis effectively.
+You are good to go! Next [browse code samples](https://github.com/cossacklabs/themis/tree/master/docs/examples/wasm) to learn how to use WasmThemis effectively.
