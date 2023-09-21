@@ -80,6 +80,12 @@ you can manually build and install the latest version of Themis from source code
 
  2. Install RbThemis package from the source code:
 
+    {{< hint info >}}
+    **Note:**
+    If build fails due to some `.h` files missing, you may need to install additional development package.
+    On Debian/Ubuntu it's `ruby-dev` while on Fedora it's called `ruby-devel`.
+    {{< /hint >}}
+
     ```bash
     make rbthemis_install
     ```
