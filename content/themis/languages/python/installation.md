@@ -80,9 +80,6 @@ you can manually build and install the latest version of Themis from source code
 
  2. Create a "wheel" package
 
-    <!-- FIXME: For some reason (missing install tools in venv?) the build fails when venv is activated,
-                resolve this or if that's not an issue, just remove this comment -->
-    Run this command outside of virtual environment:
     ```bash
     make pythemis_make_wheel
     ```
@@ -92,15 +89,16 @@ you can manually build and install the latest version of Themis from source code
     Result: src/wrappers/themis/python/dist/pythemis-0.14.0-py2.py3-none-any.whl
     ```
 
- 3. Install PyThemis in your virtual environment
+ 3. Install PyThemis into virtual environment
 
     Activate your virtual environment and run
     ```bash
-    pip install src/wrappers/themis/python/dist/pythemis-0.14.0-py2.py3-none-any.whl
+    make pythemis_install_wheel
     ```
 
-If the virtual environment already contained PyThemis,
-add `--force-reinstall` option to `pip install` to rewrite the previous version
+    Or run `pip install pythemis-...-none-any.whl` (the package file previously created).
+    If the virtual environment already contained PyThemis of the same version,
+    add `--force-reinstall` option to rewrite the previous package.
 
 <!-- DRAFT FOR OS PACKAGES FOR PROPER GLOBAL INSTALLATION
 To install PyThemis globally, you need to create a system package first:
