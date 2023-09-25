@@ -105,7 +105,7 @@ you can manually build and install the latest version of Themis from source code
     make prepare_tests_all test_ruby
     ```
 
-## Removal
+## Uninstalling
 
 To remove system-wide RbThemis installation, run `sudo gem uninstall rbthemis`.
 For user-specific installation, run `gem uninstall rbthemis`.
