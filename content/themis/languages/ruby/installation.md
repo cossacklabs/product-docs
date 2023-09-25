@@ -80,6 +80,12 @@ you can manually build and install the latest version of Themis from source code
 
  2. Install RbThemis package from the source code:
 
+    {{< hint info >}}
+    **Note:**
+    If build fails due to some `.h` files missing, you may need to install additional development package.
+    On Debian/Ubuntu it's `ruby-dev` while on Fedora it's called `ruby-devel`.
+    {{< /hint >}}
+
     ```bash
     make rbthemis_install
     ```
@@ -98,3 +104,10 @@ you can manually build and install the latest version of Themis from source code
     ```bash
     make prepare_tests_all test_ruby
     ```
+
+## Uninstalling
+
+To remove system-wide RbThemis installation, run `sudo gem uninstall rbthemis`.
+For user-specific installation, run `gem uninstall rbthemis`.
+
+There is also `make rbthemis_uninstall` command available that does exactly the same.
