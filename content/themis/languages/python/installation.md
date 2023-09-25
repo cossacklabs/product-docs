@@ -120,8 +120,8 @@ For Debian/Ubuntu it's a `.deb` file, install with `sudo dpkg -i <filename>`.
 [PEP 668](https://peps.python.org/pep-0668/) changed the way Python packages are managed.
 It is now recommended to use `pip install` to only install packages into isolated virtual environments
 while installing things system-wide should be done using OS package manager (like `apt` or `rpm`).
-This means running `sudo make pythemis_install` is no longer recommended as it copies files
-into system-managed Python directory that is no longer maintained by `pip`.
+This means running `sudo make pythemis_old_install` is no longer recommended as it copies files
+into system-managed Python directory (like `/usr/lib/python3.X/site-packages`) that is no longer maintained by `pip`.
 Consider building a `.whl` and installing it into your venv instead.
 {{< /hint >}}
 
@@ -131,7 +131,7 @@ Consider building a `.whl` and installing it into your venv instead.
  2. Install PyThemis package from the source code:
 
     ```bash
-    make pythemis_install
+    sudo make pythemis_old_install
     ```
 
     The package will be installed globally into the system.
@@ -141,3 +141,8 @@ Consider building a `.whl` and installing it into your venv instead.
     ```bash
     make prepare_tests_all test_python
     ```
+
+To remove PyThemis after using `pythemis_old_install`, run
+```bash
+sudo pip uninstall --break-system-packages pythemis
+```
