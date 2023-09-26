@@ -78,7 +78,21 @@ you can manually build and install the latest version of Themis from source code
  1. [Build and install Themis Core library](/themis/installation/installation-from-sources/)
     into your system.
 
- 2. Create a "wheel" package
+ 2. Install Python dependencies
+
+    For Debian, Ubuntu:
+
+    ```bash
+    sudo apt install python3-setuptools python3-wheel python3-pip python3-venv
+    ```
+
+    For CentOS, RHEL:
+
+    ```bash
+    sudo yum install python3-setuptools python3-wheel python3-pip python3-venv
+    ```
+
+ 3. Create a "wheel" package
 
     ```bash
     make pythemis_make_wheel
@@ -89,30 +103,29 @@ you can manually build and install the latest version of Themis from source code
     Result: src/wrappers/themis/python/dist/pythemis-0.14.0-py2.py3-none-any.whl
     ```
 
- 3. Install PyThemis into virtual environment
+ 4. Install PyThemis into virtual environment
 
     Activate your virtual environment and run
     ```bash
     make pythemis_install_wheel
     ```
 
-    Or run `pip install pythemis-...-none-any.whl` (the package file previously created).
+    Or manually run `pip install path/to/pythemis-...-none-any.whl` (the package file previously created).
     If the virtual environment already contained PyThemis of the same version,
     add `--force-reinstall` option to rewrite the previous package.
 
-<!-- DRAFT FOR OS PACKAGES FOR PROPER GLOBAL INSTALLATION
 To install PyThemis globally, you need to create a system package first:
-```bash
-make pythemis_make_os_pkg
-```
 
-The result will be located at `src/wrappers/themis/python`.
+* For Debian, Ubuntu:
 
-For Debian/Ubuntu it's a `.deb` file, install with `sudo dpkg -i <filename>`.
+  ```bash
+  make pythemis_deb
+  ```
 
-*TODO: Add more package types*
+  The result will be located at `build/deb/python3-pythemis_..._all.deb`.
+  Install with `sudo dpkg -i <filename>`. Remove with `sudo apt remove python3-pythemis`.
 
--->
+<!-- TODO: Add description about .rpm packages -->
 
 ## Building latest version from source (deprecated)
 
