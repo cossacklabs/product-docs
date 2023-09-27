@@ -114,16 +114,22 @@ you can manually build and install the latest version of Themis from source code
     If the virtual environment already contained PyThemis of the same version,
     add `--force-reinstall` option to rewrite the previous package.
 
-To install PyThemis globally, you need to create a system package first:
+Alternatively, you could install PyThemis system-wide.
 
 * For Debian, Ubuntu:
 
   ```bash
-  make pythemis_deb
+  make pythemis_install_deb
   ```
 
+  This will create a `.deb` package and install it with `sudo apt install`.
+
+  Or run `make pythemis_deb` to just generate the package.
   The result will be located at `build/deb/python3-pythemis_..._all.deb`.
-  Install with `sudo dpkg -i <filename>`. Remove with `sudo apt remove python3-pythemis`.
+  There are two ways of installing it:
+  1. `sudo apt install ./path/to/package.deb` (the `./` is important here!)
+  2. `sudo dpkg -i path/to/package.deb`
+  The first one is preferred as it will install dependencies along with PyThemis itself, while `dpkg` might just complain and exit.
 
 <!-- TODO: Add description about .rpm packages -->
 
