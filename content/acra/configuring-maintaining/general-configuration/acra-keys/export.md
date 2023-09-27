@@ -67,11 +67,11 @@ Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keysto
 
   Set authentication mode that will be used for TLS connection with Redis.
 
-    * `-1` — not specified, common `--tls_ca` value will be used.
-    * `1` — request client certificate, but don't require it;
-    * `2` — expect to receive at least one certificate to continue the handshake;
-    * `3` — don't require client certificate, but validate it if client actually sent it;
-    * `4` — (default) request and validate client certificate.
+  * `-1` — not specified, common `--tls_ca` value will be used.
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 
@@ -114,16 +114,13 @@ Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keysto
 
 * `--redis_tls_crl_client_check_only_leaf_certificate={true|false}`
 
-  This flag controls behavior of validator in cases when Redis' certificate chain contains at least one intermediate
-  certificate.
+  This flag controls behavior of validator in cases when Redis' certificate chain contains at least one intermediate certificate.
 
-    * `true` — validate only leaf certificate
-    * `false` — (default) validate leaf certificate and all intermediate certificates
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
 
-  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the
-  time.
-  Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA
-  certificates,
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
 
 
@@ -131,13 +128,12 @@ Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keysto
 
   How to treat CRL's URL described in a certificate from Redis server
 
-    * `use` — try URL(s) from certificate after the one from configuration (if set)
-    * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
-    * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-    * `ignore` — completely ignore CRL's URL(s) specified in certificate
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags.
-  See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
 
 
 * `--redis_tls_crl_client_url=<url>`
@@ -150,22 +146,19 @@ Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keysto
 
   Turns on/off TLS for connection with Redis to `--redis_host_port` endpoint.
 
-    * `true` — turns on
-    * `false` — (default) turns off.
+  * `true` — turns on
+  * `false` — (default) turns off.
 
 
 * `--redis_tls_ocsp_client_check_only_leaf_certificate={true|false}`
 
-  This flag controls behavior of validator in cases when Redis' certificate chain contains at least one intermediate
-  certificate.
+  This flag controls behavior of validator in cases when Redis' certificate chain contains at least one intermediate certificate.
 
-    * `true` — validate only leaf certificate
-    * `false` — (default) validate leaf certificate and all intermediate certificates
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
 
-  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the
-  time.
-  Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA
-  certificates,
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know whom to ask about them.
 
 
@@ -173,23 +166,21 @@ Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keysto
 
   How to treat OCSP server URL described in a certificate from Redis server
 
-    * `use` — try URL(s) from certificate after the one from configuration (if set)
-    * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
-    * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-    * `ignore` — completely ignore OCSP's URL(s) specified in certificate
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags,
-  see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
 
 
 * `--redis_tls_ocsp_client_required=<policy>`
 
   How to handle situation when OCSP server doesn't know about requested Redis' certificate and returns "Unknown".
 
-    * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
-    * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
-    * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS
-      handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
+  * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
+  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
 
 
 * `--redis_tls_ocsp_client_url=<url>`
@@ -203,7 +194,7 @@ Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keysto
 
   Specify your KMS.
   Currently supported KMS types:
-    * `aws` - AWS Key Management Service
+  * `aws` - AWS Key Management Service
 
 * `--kms_credentials_path=<filepath>`
 
@@ -238,18 +229,18 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   Turns on/off TLS for connection with vault to `--vault_connection_api_string` endpoint.
 
-    * `true` — turns on
-    * `false` — (default) turns off.
+  * `true` — turns on
+  * `false` — (default) turns off.
 
 * `--vault_tls_client_auth=<mode>`
 
   Set authentication mode that will be used for TLS connection with Vault.
 
-    * `0` — do not request client certificate, ignore it if received;
-    * `1` — request client certificate, but don't require it;
-    * `2` — expect to receive at least one certificate to continue the handshake;
-    * `3` — don't require client certificate, but validate it if client actually sent it;
-    * `4` — (default) request and validate client certificate.
+  * `0` — do not request client certificate, ignore it if received;
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
 
@@ -261,8 +252,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_ca=<filename>`
 
-  Path to acra-keys TLS certificate's CA certificate for Vault certificate validation (acra-keys works as "client" when
-  communicating with Vault).
+  Path to acra-keys TLS certificate's CA certificate for Vault certificate validation (acra-keys works as "client" when communicating with Vault).
   Empty by default.
 
 
@@ -274,8 +264,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_client_key=<filename>`
 
-  Path to acra-keys TLS certificate's private key of the TLS certificate presented to Vault (acra-keys works as "client"
-  when communicating with Vault).
+  Path to acra-keys TLS certificate's private key of the TLS certificate presented to Vault (acra-keys works as "client" when communicating with Vault).
   Empty by default.
 
 
@@ -300,16 +289,13 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_crl_client_check_only_leaf_certificate={true|false}`
 
-  This flag controls behavior of validator in cases when Vault certificate chain contains at least one intermediate
-  certificate.
+  This flag controls behavior of validator in cases when Vault certificate chain contains at least one intermediate certificate.
 
-    * `true` — validate only leaf certificate
-    * `false` — (default) validate leaf certificate and all intermediate certificates
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
 
-  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the
-  time.
-  Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA
-  certificates,
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
 
 
@@ -317,10 +303,10 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   How to treat CRL's URL described in a certificate from Vault server/agent
 
-    * `use` — try URL(s) from certificate after the one from configuration (if set)
-    * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
-    * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-    * `ignore` — completely ignore CRL's URL(s) specified in certificate
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--vault_tls_crl_client_url` flags.
 
@@ -333,16 +319,13 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--vault_tls_ocsp_client_check_only_leaf_certificate={true|false}`
 
-  This flag controls behavior of validator in cases when Vault certificate chain contains at least one intermediate
-  certificate.
+  This flag controls behavior of validator in cases when Vault certificate chain contains at least one intermediate certificate.
 
-    * `true` — validate only leaf certificate
-    * `false` — (default) validate leaf certificate and all intermediate certificates
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
 
-  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the
-  time.
-  Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA
-  certificates,
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know whom to ask about them.
 
 
@@ -350,10 +333,10 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   How to treat OCSP server URL described in a certificate from Vault server.
 
-    * `use` — try URL(s) from certificate after the one from configuration (if set)
-    * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
-    * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
-    * `ignore` — completely ignore OCSP's URL(s) specified in certificate
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--vault_tls_ocsp_client_url` flags.
 
@@ -362,10 +345,9 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   How to handle situation when OCSP server doesn't know about requested Vault certificate and returns "Unknown".
 
-    * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
-    * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
-    * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS
-      handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
+  * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
+  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
 
 
 * `--vault_tls_ocsp_client_url=<url>`
@@ -380,12 +362,11 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 
 🔴 - flags required to be specified.
 
+
 ## Usage example
 
-Using **`export`** subcommand of `acra-keys` you can easily exchange keys from different Acra components like AcraServer
-and AcraConnector.
-Before [`keys import`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/import" >}}), you should
-export keys to produce output file with exported keys(`key_bundle_file` and `key_bundle_secret`):
+Using **`export`** subcommand of `acra-keys` you can easily exchange keys from different Acra components like AcraServer and AcraConnector.
+Before [`keys import`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/import" >}}), you should export keys to produce output file with exported keys(`key_bundle_file` and `key_bundle_secret`):
 
 ```
 $ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/user/storage
@@ -435,8 +416,7 @@ Here is the list of supported key kinds for export:
 
 {{< hint info >}}
 **Note:**
-For more detailed information about keys exchanging you can reference [key management]({{< ref "
-/acra/security-controls/key-management/operations/backup#3-exchanging-public-keys" >}}) section.
+For more detailed information about keys exchanging you can reference [key management]({{< ref "/acra/security-controls/key-management/operations/backup#3-exchanging-public-keys" >}}) section.
 {{< /hint >}}
 
 
