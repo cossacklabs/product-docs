@@ -9,7 +9,7 @@ weight: 4
 
 {{< hint info >}}
 **Note**:
-Before `0.95.0` `acra-keys` **`export`** supports keys exporting only for keystore version `v2`.
+Starting from `0.95.0` `acra-keys` **export** supports exporting keys from keystore `v1` and `v2`. Older versions of `acra-keys` support only `v2` keystore.
 {{< /hint >}}
 
 ## Command line flags
