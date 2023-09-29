@@ -92,11 +92,13 @@ you can manually build and install the latest version of Themis from source code
       sudo apt install python3-setuptools python3-wheel
       ```
 
+<!--
       For CentOS, RHEL:
 
       ```bash
       sudo yum install python3-setuptools python3-wheel
       ```
+-->
 
     * Or install into virtualenv
 
@@ -118,6 +120,7 @@ you can manually build and install the latest version of Themis from source code
       sudo gem install fpm
       ```
 
+<!--
       For CentOS, RHEL:
 
       ```bash
@@ -127,6 +130,7 @@ you can manually build and install the latest version of Themis from source code
 
     On RHEL you also need to have working `pip` command. If it's not, and you only got `pip3`,
     create a symlink like this: `sudo ln -s $(which pip3) /usr/bin/pip`.
+-->
 
  3. Create a PyThemis package
 
@@ -154,14 +158,16 @@ you can manually build and install the latest version of Themis from source code
       make pythemis_deb
       ```
 
+<!--
       For CentOS, RHEL:
 
       ```bash
       make pythemis_rpm
       ```
 
-      The result will be located at `build/deb/python3-pythemis_..._all.deb`
+      The result will be located at `build/rpm/python3-pythemis_..._all.rpm`
       or `build/rpm/python3-pythemis_..._all.rpm` respectively.
+-->
 
  4. Install PyThemis
 
@@ -178,20 +184,23 @@ you can manually build and install the latest version of Themis from source code
 
     * Install system package
 
+      For Debian, Ubuntu:
+
       ```bash
       make pythemis_install_deb
       ```
+
       For manual installation, there are two ways:
       1. `sudo apt install ./path/to/package.deb` (the `./` is important here!)
       2. `sudo dpkg -i path/to/package.deb`
 
+<!--
       For CentOS, RHEL:
 
       ```bash
       make pythemis_install_rpm
       ```
-
-<!-- TODO: Add description about .rpm packages -->
+-->
 
 ## Building latest version from source (deprecated)
 
