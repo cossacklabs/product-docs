@@ -5,10 +5,11 @@ weight: 4
 
 # export
 
-**`export`** is `acra-keys` subcommand used for exporting keys of the keystore version `v2`.
+**`export`** is `acra-keys` subcommand used for exporting keys.
+
 {{< hint info >}}
 **Note**:
-Starting from `0.95.0` `acra-keys` **`export`** supports keys exporting for keystore version `v1`.
+Starting from `0.95.0` `acra-keys` **export** supports exporting keys from keystore `v1` and `v2`. Older versions of `acra-keys` support only `v2` keystore.
 {{< /hint >}}
 
 ## Command line flags
@@ -37,13 +38,12 @@ Starting from `0.95.0` `acra-keys` **`export`** supports keys exporting for keys
 
 * `--keys_dir=<path>`
 
-  Path to keystore folder. 
+  Path to keystore folder.
   Default is `.acrakeys`.
 
 * `--keys_dir_public=<path>`
 
   Path to key folder for public keys.
-
 
 #### Redis
 
@@ -360,7 +360,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 Should be provided only with `--keystore_encryption_type=<vault_master_key>` flag.
 {{< /hint >}}
 
-  🔴 - flags required to be specified.
+🔴 - flags required to be specified.
 
 
 ## Usage example
