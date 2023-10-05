@@ -5,13 +5,24 @@ weight: 7
 
 # destroy
 
-**`destroy`** is `acra-keys` subcommand used for destroying keypair from the keystore.
+**`destroy`** is `acra-keys` subcommand used for destroying keys.
 
 {{< hint warning >}}
-Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will be extended in subsequent versions.
+**Note**:
+Before 0.91.0 `acra-keys` **`destroy`** was used to destroy only transport keys. Since 0.91.0 transport keys support is deprecated, `acra-keys` **`destroy`** is unused.
+
+Starting from 0.95.0 `acra-keys` **`destroy`** is extended to delete any types of keys.
 {{< /hint >}}
 
 ## Command line flags
+
+### General flags
+
+* `--index=<idx>`
+
+  Index of key to destroy (1 - represents current key, 2..n - rotated key).
+  Default is `1`. (available since 0.95.0)
+  
 
 ### Storage destination
 
@@ -121,7 +132,7 @@ Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will 
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_crl_*_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
   If not specified, acra-keys uses value from `--tls_crl_from_cert` flag.
 
 
@@ -162,7 +173,7 @@ Since 0.91.0 `acra-keys` **`destroy`** doesn't support destroying keys and will 
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
   If not specified, acra-keys uses value from `--tls_ocsp_from_cert` flag.
 
 
@@ -384,7 +395,7 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 
 ## Usage example
 
-For example, lets generate several transport keys using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
+For example, lets generate hmac symmetric key used for searchable encryption using [`generate`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/generate" >}}) subcommand:
 
 {{< hint info >}}
 **Note:**
@@ -392,29 +403,76 @@ Make sure you have set `ACRA_MASTER_KEY` env variable for keystore `v1`.
 {{< /hint >}}
 
 ```
-$ acra-keys generate --client_id=user1 --keystore=v1 --acraconnector_transport_key --acraserver_transport_key
+$ acra-keys generate --client_id=user1 --keystore=v1 --search_hmac_symmetric_key
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader 
-INFO[0000] Generated AcraConnector transport key        
-INFO[0000] Generated AcraServer transport key
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+INFO[0000] Generated HMAC key for searchable encryption
 ```
 
 To destroy the keypair use the following command:
 ```
-$ acra-keys destroy client/user1/transport/connector
+$ acra-keys destroy client/user1/searchable
 
-INFO[0000] Initializing ACRA_MASTER_KEY loader...       
-INFO[0000] Initialized default env ACRA_MASTER_KEY loader
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
 ```
 
 {{< hint info >}}
 **Note:**
-Currently, only some key kinds are supported for destroying via `destroy` subcommand.
 Here is the list of supported key kinds:
 
 <!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
-- `client/<client ID>/transport/connector`
-- `client/<client ID>/transport/server`
-- `client/<client ID>/transport/translator`
+- `client/<client ID>/searchable`
+- `client/<client ID>/storage`
+- `client/<client ID>/symmetric`
+- `poison-record`
+- `poison-record-symmetric`
+
+- `client/<client ID>/transport/connector` - (deprecated) used until version 0.91.0
+- `client/<client ID>/transport/server` - (deprecated) used until version 0.91.0
+- `client/<client ID>/transport/translator` - (deprecated) used until version 0.91.0
 {{< /hint >}}
+
+{{< hint info >}}
+**Note:**
+Since 0.95.0 `destroy` subcommand also supports destroying rotated keys for V1/V2 keystore additionally to keystore keys.
+{{< /hint >}}
+
+List all available keys in the keystore:
+```
+$ acra-keys list --rotated-keys --keys_dir=./.acrakeysv2
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+Index | Key purpose                  | Client | Key ID
+-----------------------------+--------+--------------------------
+1     | encrypted search HMAC key    | client | client/client/hmac-sym
+
+
+Rotated keys: 
+Index | Key purpose                  | Client | Creation Time                 | Key ID
+-----------------------------+--------+-------------------------------+-----------------------
+2     | encrypted search HMAC key    | client | 2023-02-13 12:36:49 +0000 UTC | client/client/hmac-sym
+3     | encrypted search HMAC key    | client | 2023-02-13 12:49:27 +0000 UTC | client/client/hmac-sym
+```
+
+
+Destroy searchable hmac key by index (1 - represents current key, 2..n - rotated key):
+```
+$ acra-keys destroy --keys_dir=./.acrakeysv2 --index=2 client/client/searchable
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+```
+
+```
+$ acra-keys list --rotated-keys --keys_dir=./.acrakeysv2
+
+INFO[0000] Initializing default env ACRA_MASTER_KEY loader 
+Index | Key purpose                  | Client | Key ID
+-----------------------------+--------+--------------------------
+1     | encrypted search HMAC key    | client | client/client/hmac-sym
+
+
+Rotated keys: 
+Index | Key purpose                  | Client | Creation Time                 | Key ID
+-----------------------------+--------+-------------------------------+-----------------------
+2     | encrypted search HMAC key    | client | 2023-02-13 12:49:27 +0000 UTC | client/client/hmac-sym
+```

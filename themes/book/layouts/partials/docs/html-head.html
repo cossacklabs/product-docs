@@ -41,6 +41,9 @@
 <script nonce="a4ed0e66c81235d3" defer src="{{ $swJS.RelPermalink }}" integrity="{{ $swJS.Data.Integrity }}"></script>
 {{ end -}}
 
+{{- $additionalJS := resources.Get "additional.js" | resources.Minify | resources.Fingerprint }}
+<script nonce="d2a3f3a3aa7dfba7" src="{{ $additionalJS.RelPermalink }}" integrity="{{ $additionalJS.Data.Integrity }}"></script>
+
 {{- template "_internal/google_analytics_async.html" . -}}
 
 <!-- RSS -->

@@ -5,7 +5,12 @@ weight: 4
 
 # export
 
-**`export`** is `acra-keys` subcommand used for exporting keys of the keystore version `v2`.
+**`export`** is `acra-keys` subcommand used for exporting keys.
+
+{{< hint info >}}
+**Note**:
+Starting from `0.95.0` `acra-keys` **export** supports exporting keys from keystore `v1` and `v2`. Older versions of `acra-keys` support only `v2` keystore.
+{{< /hint >}}
 
 ## Command line flags
 
@@ -23,19 +28,22 @@ weight: 4
 
   Export all keys from keystore to output file.
 
+* `--private_keys`
+
+  Export private key data (symmetric and private asymmetric keys).
+
 ### Storage destination
 
 #### Filesystem
 
 * `--keys_dir=<path>`
 
-  Path to keystore folder. 
+  Path to keystore folder.
   Default is `.acrakeys`.
 
 * `--keys_dir_public=<path>`
 
   Path to key folder for public keys.
-
 
 #### Redis
 
@@ -131,7 +139,7 @@ weight: 4
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_crl_*_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
   If not specified, acra-keys uses value from `--tls_crl_from_cert` flag.
 
 
@@ -172,7 +180,7 @@ weight: 4
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
   If not specified, acra-keys uses value from `--tls_ocsp_from_cert` flag.
 
 
@@ -377,7 +385,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 Should be provided only with `--keystore_encryption_type=<vault_master_key>` flag.
 {{< /hint >}}
 
-  🔴 - flags required to be specified.
+🔴 - flags required to be specified.
 
 
 ## Usage example
@@ -386,7 +394,7 @@ Using **`export`** subcommand of `acra-keys` you can easily exchange keys from d
 Before [`keys import`]({{< ref "/acra/configuring-maintaining/general-configuration/acra-keys/import" >}}), you should export keys to produce output file with exported keys(`key_bundle_file` and `key_bundle_secret`):
 
 ```
-$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/user/transport/server
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/user/storage
 ```
 
 To export all keys into one output file, you can specify `all` flag:
@@ -394,6 +402,42 @@ To export all keys into one output file, you can specify `all` flag:
 ```
 $ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" --all
 ```
+
+To export private keys (symmetric and private asymmetric keys) into one output file, you can specify `--private_keys`
+flag:
+
+```
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" --private_keys
+```
+
+Specified keys could be exported via key path (relative from the keys dir `--keys_dir` path) :
+
+```
+# V2:
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/{client_id}/storage client/{client_id}/hmac-sym
+
+# V1:
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client_id_storage client_id_hmac
+```
+
+or symbolic key kind:
+
+```
+$ acra-keys export --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json" client/<client ID>/storage poison-record-symmetric
+```
+
+{{< hint info >}}
+**Note:**
+Here is the list of supported key kinds for export:
+
+<!-- cmd/acra-keys/keys/command-line.go func ParseKeyKind -->
+
+- `client/<client ID>/searchable`
+- `client/<client ID>/storage`
+- `client/<client ID>/symmetric`
+- `poison-record`
+- `poison-record-symmetric`
+  {{< /hint >}}
 
 {{< hint info >}}
 **Note:**

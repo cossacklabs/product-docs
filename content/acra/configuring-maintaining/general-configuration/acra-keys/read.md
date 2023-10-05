@@ -126,7 +126,7 @@ weight: 3
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_crl_*_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
   If not specified, acra-keys uses value from `--tls_crl_from_cert` flag.
 
 
@@ -167,7 +167,7 @@ weight: 3
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
   If not specified, acra-keys uses value from `--tls_ocsp_from_cert` flag.
 
 

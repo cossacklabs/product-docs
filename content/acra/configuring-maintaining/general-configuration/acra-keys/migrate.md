@@ -78,7 +78,7 @@ weight: 6
 
 * `--{src|dst}_redis_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Redis (acra-keys works as "client" when communicating with Redis).
+  Path to TLS certificate presented to Redis (acra-keys works as "client" when communicating with Redis).
   Empty by default.
 
 
@@ -166,7 +166,7 @@ weight: 6
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags.
+  "URL from configuration" above means the one configured with `--{src|dst}_redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
 
 
 * `--{src|dst}_redis_tls_ocsp_client_required=<policy>`
@@ -265,7 +265,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
 * `--{src|dst}_vault_tls_client_cert=<filename>`
 
-  Path to AcraServer TLS certificate presented to Vault (acra-keys works as "client" when communicating with Vault).
+  Path to TLS certificate presented to Vault (acra-keys works as "client" when communicating with Vault).
   Empty by default.
 
 

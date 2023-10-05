@@ -26,7 +26,18 @@ bookCollapseSection: true
 ## Supported Rust versions
 
 RustThemis is tested and supported on the stable Rust compiler.
-Rust 1.31 or later is required.
+
+The minimum supported Rust version (MSRV) depends on RustThemis release.
+
+| RustThemis | Required Rust |
+| ---------- | ------------- |
+| 0.15.0     | 1.58.0        |
+| 0.14.0     | 1.47.0        |
+| 0.13.0     | 1.47.0        |
+| 0.12.0     | 1.31.0        |
+
+The latest 3 stable versions are always supported.
+For example, if Rust 1.67 is the current stable version then RustThemis is guaranteed to work with Rust 1.65, 1.66, 1.67.
 
 ## Getting started
 

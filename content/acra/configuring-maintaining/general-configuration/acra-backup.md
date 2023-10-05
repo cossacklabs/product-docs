@@ -3,9 +3,13 @@ title: acra-backup
 weight: 9
 ---
 
-# acra-backup
+# acra-backup (deprecated since 0.96.0)
 
 `acra-backup` is a command-line utility used for storing and managing the keystore [backups](/acra/security-controls/key-management/operations/backup).
+
+{{< hint warning >}}
+`acra-backup` is deprecated since 0.96.0 and will be removed in 0.97.0. Please, use [`acra-keys`]((/acra/configuring-maintaining/general-configuration/acra-keys)) instead.
+{{< /hint >}}
 
 ## Command line flags
 

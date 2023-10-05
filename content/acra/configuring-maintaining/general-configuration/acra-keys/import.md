@@ -5,7 +5,12 @@ weight: 5
 
 # import
 
-**`import`** is `acra-keys` subcommand used for importing keys into the keystore version `v2`.
+**`import`** is `acra-keys` subcommand used for importing keys into the keystore.
+
+{{< hint info >}}
+**Note**:
+Starting from `0.95.0` `acra-keys` **import** supports exporting keys from keystore `v1` and `v2`. Older versions of `acra-keys` support only `v2` keystore.
+{{< /hint >}}
 
 ## Command line flags
 
@@ -132,7 +137,7 @@ weight: 5
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_crl_*_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
+  "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
   If not specified, acra-keys uses value from `--tls_crl_from_cert` flag.
 
 
@@ -173,7 +178,7 @@ weight: 5
   * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
-  "URL from configuration" above means the one configured with `--tls_ocsp_*_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
+  "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
   If not specified, acra-keys uses value from `--tls_ocsp_from_cert` flag.
 
 
@@ -397,7 +402,7 @@ Should be provided only with `--keystore_encryption_type=<vault_master_key>` fla
 ## Usage example
 
 Using **`import`** subcommand of `acra-keys` you can easily exchange keys from different Acra components like AcraServer and AcraConnector.
-First, the public key has to be exported using **`export`** subcommand, with corresponded produced result (`key_bundle_file` and `key_bundle_secret`).
+First, keys have to be exported using **`export`** subcommand, with corresponded produced result (`key_bundle_file` and `key_bundle_secret`).
 
 ```
 $ acra-keys import --key_bundle_file "encrypted-keys.dat" --key_bundle_secret "access-keys.json"
