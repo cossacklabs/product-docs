@@ -27,6 +27,112 @@ weight: 2
 
   Limit action to tokens created before specified date.
 
+#### TLS (available since 0.96.0)
+
+* `--tls_auth=<mode>`
+
+  Set authentication mode that will be used for TLS connection.
+
+  * `0` — do not request client certificate, ignore it if received;
+  * `1` — request client certificate, but don't require it;
+  * `2` — expect to receive at least one certificate to continue the handshake;
+  * `3` — don't require client certificate, but validate it if client actually sent it;
+  * `4` — (default) request and validate client certificate.
+
+  These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
+
+* `--tls_key=<filename>`
+
+  Path to acra-rollback TLS certificate's private key of the TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
+  Empty by default.
+
+* `--tls_cert=<filename>`
+
+  Path to acra-rollback TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
+  Empty by default.
+
+* `--tls_ca=<filename>`
+
+  Path to acra-rollback TLS certificate's CA certificate for Database certificate validation (acra-rollback works as "client" when communicating with Database).
+  Empty by default.
+
+* `--tls_crl_url=<url>`
+
+  URL of the Certificate Revocation List (CRL) to use.
+  Empty by default.
+
+  Can be either `http://` or `file://` (for local files).
+  When using local file, Acra will simply read the file and won't monitor filesystem for changes afterwards.
+  Usual caching rules apply (see `--tls_crl_cache_time`).
+
+* `--tls_crl_from_cert=<policy>`
+
+  How to treat CRL's URL described in a certificate itself
+
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try first URL from certificate, if it does not contain checked certificate, stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore CRL's URL(s) specified in certificate
+
+* `--tls_crl_cache_size=<count>`
+
+  How many CRLs to cache in memory.
+  Use `0` to disable caching. Maximum is `1000000`. Default is `16`.
+  Cache uses [LRU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) policy.
+
+* `--tls_crl_cache_time=<seconds>`
+
+  How long to keep CRLs cached, in seconds.
+  Use `0` to disable caching. Maximum is `300` seconds. Default is `0`.
+
+* `--tls_crl_check_only_leaf_certificate={true|false}`
+
+  This flag controls behavior of validator in cases when certificate chain contains at least one intermediate certificate.
+
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
+
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
+  these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
+
+* `--tls_ocsp_required=<policy>`
+
+  How to handle situation when OCSP server doesn't know about requested certificate and returns "Unknown".
+
+  * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
+  * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
+  * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and
+    continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+
+* `--tls_ocsp_url=<url>`
+
+  URL of OCSP service.
+  Empty by default.
+
+  Should point to HTTP server that accepts `application/ocsp-request` MIME type
+  and responds with `application/ocsp-response`.
+
+* `--tls_ocsp_from_cert=<policy>`
+
+  How to treat OCSP server URL described in a certificate itself.
+
+  * `use` — try URL(s) from certificate after the one from configuration (if set)
+  * `trust` — try URL(s) from certificate, if server returns "Valid", stop further checks
+  * `prefer` — (default) try URL(s) from certificate before the one from configuration (if set)
+  * `ignore` — completely ignore OCSP's URL(s) specified in certificate
+
+* `--tls_ocsp_check_only_leaf_certificate={true|false}`
+
+  This flag controls behavior of validator in cases when certificate chain contains at least one intermediate certificate.
+
+  * `true` — validate only leaf certificate
+  * `false` — (default) validate leaf certificate and all intermediate certificates
+
+  This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
+  Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
+  these intermediate CAs won't be validated since we don't know whom to ask about them.
+
 ### Storage destination
 
 #### Redis
