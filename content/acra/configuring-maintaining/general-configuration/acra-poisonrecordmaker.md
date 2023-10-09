@@ -47,17 +47,17 @@ weight: 11
 
 * `--tls_key=<filename>`
 
-  Path to acra-rollback TLS certificate's private key of the TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
+  Path to acra-poisonrecordmaker TLS certificate's private key of the TLS certificate presented to Database (acra-poisonrecordmaker works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_cert=<filename>`
 
-  Path to acra-rollback TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
+  Path to acra-poisonrecordmaker TLS certificate presented to Database (acra-poisonrecordmaker works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_ca=<filename>`
 
-  Path to acra-rollback TLS certificate's CA certificate for Database certificate validation (acra-rollback works as "client" when communicating with Database).
+  Path to acra-poisonrecordmaker TLS certificate's CA certificate for Database certificate validation (acra-poisonrecordmaker works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_crl_url=<url>`

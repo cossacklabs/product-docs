@@ -15,9 +15,15 @@ weight: 2
 
   Use provided ClientID as identifier to generate keys or keypairs.
 
-* `--tls_cert=<path>`
+* `--tls_cert=<path>` (deprecated since 0.96.0)
 
   Path to TLS certificate to use as ClientID identifier. Works only when passed empty ClientID: `--client_id=""`.
+  Use `--tls_client_id_cert` instead.
+
+* `--tls_client_id_cert=<path>`
+
+  Path to TLS certificate to use as ClientID identifier. Works only when passed empty ClientID: `--client_id=""`.
+  Should be used instead of `--tls_cert`.
 
 * `--tls_identifier_extractor_type={distinguished_name|serial_number}`
 

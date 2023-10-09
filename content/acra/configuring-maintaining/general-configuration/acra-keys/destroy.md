@@ -39,17 +39,17 @@ Starting from 0.95.0 `acra-keys` **`destroy`** is extended to delete any types o
 
 * `--tls_key=<filename>`
 
-  Path to acra-rollback TLS certificate's private key of the TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
+  Path to acra-keys TLS certificate's private key of the TLS certificate presented to Database (acra-keys works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_cert=<filename>`
 
-  Path to acra-rollback TLS certificate presented to Database (acra-rollback works as "client" when communicating with Database).
+  Path to acra-keys TLS certificate presented to Database (acra-keys works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_ca=<filename>`
 
-  Path to acra-rollback TLS certificate's CA certificate for Database certificate validation (acra-rollback works as "client" when communicating with Database).
+  Path to acra-keys TLS certificate's CA certificate for Database certificate validation (acra-keys works as "client" when communicating with Database).
   Empty by default.
 
 * `--tls_crl_url=<url>`
