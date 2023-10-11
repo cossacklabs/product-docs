@@ -75,14 +75,16 @@ Once PyThemis is installed, you can [try out code examples](../examples/).
 If the stable package version does not suit your needs,
 you can manually build and install the latest version of Themis from source code.
 
+### Python wheel
+
+A package suitable for installation in Python virtual environments
+
  1. [Build and install Themis Core library](/themis/installation/installation-from-sources/)
     into your system.
 
  2. Install Python dependencies
 
-    Depending on how you want to install PyThemis, there are different requirements.
-
-    To create a `.whl` package for installation inside virtualenv, you'll need `setuptools` and `wheel`
+    You'll need `setuptools` and `wheel`
 
     * Install globally
 
@@ -105,97 +107,95 @@ you can manually build and install the latest version of Themis from source code
       pip install setuptools wheel
       ```
 
-    ---
-
-    To create a system package (i.e. `.deb` one for Debian) you will need `pip` and `fpm`
-
-    * Install globally
-
-      For Debian, Ubuntu:
-
-      ```bash
-      sudo apt install lsb-release python3-pip ruby
-      sudo gem install fpm
-      ```
-
-      For CentOS, RHEL:
-
-      ```bash
-      sudo yum install redhat-lsb-core python3-pip ruby rpm-build
-      sudo gem install fpm
-      ```
-
-    On RHEL you also need to have working `pip` command. If it's not, and you only got `pip3`,
-    create a symlink like this: `sudo ln -s $(which pip3) /usr/bin/pip`.
--->
-
  3. Create a PyThemis package
 
-    * Create a "wheel" for virtualenv
+    {{< hint info >}}
+   If you installed dependencies globally, virtualenv should not be activated during wheel
+   generation since needed packages won't be visible in an isolated environment.
+    {{< /hint >}}
 
-      {{< hint info >}}
-      If you installed dependencies globally, virtualenv should not be activated during wheel
-      generation since needed packages won't be visible in an isolated environment.
-      {{< /hint >}}
+    ```bash
+    make pythemis_make_wheel
+    ```
 
-      ```bash
-      make pythemis_make_wheel
-      ```
-
-      Result package filename will be printed at the end, like this:
-      ```
-      Result: src/wrappers/themis/python/dist/pythemis-0.14.0-py2.py3-none-any.whl
-      ```
-
-    * Create package for your distro
-
-      For Debian, Ubuntu:
-
-      ```bash
-      make deb_python
-      ```
-
-      For CentOS, RHEL:
-
-      ```bash
-      make rpm_python
-      ```
-
-      The result will be located at `build/deb/python3-pythemis_...all.deb`
-      or `build/rpm/python3-pythemis_...all.rpm` respectively.
+    Result package filename will be printed at the end, like this:
+    ```
+    Result: src/wrappers/themis/python/dist/pythemis-0.14.0-py2.py3-none-any.whl
+    ```
 
  4. Install PyThemis
 
-    * Install a wheel into virtualenv
+    ```bash
+    # activate virtualenv if not done yet
+    make pythemis_install_wheel
+    ```
 
-      ```bash
-      # activate virtualenv if not done yet
-      make pythemis_install_wheel
-      ```
+    Or manually run `pip install path/to/pythemis-...-none-any.whl` (the package file previously created).
+    If the virtual environment already contained PyThemis of the same version,
+    add `--force-reinstall` option to rewrite the previous package.
 
-      Or manually run `pip install path/to/pythemis-...-none-any.whl` (the package file previously created).
-      If the virtual environment already contained PyThemis of the same version,
-      add `--force-reinstall` option to rewrite the previous package.
+### OS package
 
-    * Install system package
+A package for system-wide installation, for Debian-like and RHEL-like distros
 
-      For Debian, Ubuntu:
+ 1. [Build and install Themis Core library](/themis/installation/installation-from-sources/)
+    into your system.
 
-      ```bash
-      sudo make pythemis_install_deb
-      ```
+ 2. Install Python dependencies
 
-      For manual installation, there are two ways:
-      1. `sudo apt install ./path/to/package.deb` (the `./` is important here!)
-      2. `sudo dpkg -i path/to/package.deb` (need `apt install python3-six` beforehands)
+    For Debian, Ubuntu:
 
-      For CentOS, RHEL:
+    ```bash
+    sudo apt install lsb-release python3-pip ruby
+    sudo gem install fpm
+    ```
 
-      ```bash
-      sudo make pythemis_install_rpm
-      ```
+    For CentOS, RHEL:
 
-      Or manually run `sudo yum install ./path/to/package.rpm`
+    ```bash
+    sudo yum install redhat-lsb-core python3-pip ruby rpm-build
+    sudo gem install fpm
+    ```
+
+    On RHEL you also need to have working `pip` command. If it's not, and you only got `pip3`,
+    create a symlink like this: `sudo ln -s $(which pip3) /usr/bin/pip`.
+
+ 3. Create a PyThemis package
+
+    For Debian, Ubuntu:
+
+    ```bash
+    make deb_python
+    ```
+
+    For CentOS, RHEL:
+
+    ```bash
+    make rpm_python
+    ```
+
+    The result will be located at `build/deb/python3-pythemis_...all.deb`
+    or `build/rpm/python3-pythemis_...all.rpm` respectively.
+
+ 4. Install PyThemis
+
+    For Debian, Ubuntu:
+
+    ```bash
+    sudo make pythemis_install_deb
+    ```
+
+    For manual installation, there are two ways:
+    1. `sudo apt install ./path/to/package.deb` (the `./` is important here)
+    2. `sudo dpkg -i path/to/package.deb` (need to install `python3-six` and `libthemis` beforehands)
+
+    For CentOS, RHEL:
+
+    ```bash
+    sudo make pythemis_install_rpm
+    ```
+
+    Or manually run `sudo yum install ./path/to/package.rpm`
 
 ## Building latest version from source (deprecated)
 
