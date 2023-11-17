@@ -5,10 +5,11 @@ weight: 5
 
 # import
 
-**`import`** is `acra-keys` subcommand used for importing keys into the keystore version `v2`.
+**`import`** is `acra-keys` subcommand used for importing keys into the keystore.
+
 {{< hint info >}}
 **Note**:
-Starting from `0.95.0` `acra-keys` **`import`** supports keys importing for keystore version `v1`.
+Starting from `0.95.0` `acra-keys` **import** supports exporting keys from keystore `v1` and `v2`. Older versions of `acra-keys` support only `v2` keystore.
 {{< /hint >}}
 
 ## Command line flags

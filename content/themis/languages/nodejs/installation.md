@@ -69,6 +69,14 @@ The easiest way to install Themis on macOS is to use Homebrew.
     npm install jsthemis
     ```
 
+    JsThemis is a native addon for nodejs. During the installation process, all package files and all its dependencies are copied to the node_modules directory of your project. After copying, npm will start compiling the addon in your environment. If the compiler shows a compilation error, try adding the following variables before retrying the npm install. Locate the directories where the `libthemis.a` and `themis/themis.h` files are located and change the values of the CPPFLAGS, LDFLAGS variables to the appropriate values.
+
+    ```bash
+    export CPPFLAGS="-I/opt/homebrew/include"
+    export LDFLAGS="-L/opt/homebrew/lib"
+    npm install jsthemis
+    ```
+
 Once JsThemis is installed, you can [try out code examples](../examples/).
 
 ## Building latest version from source
@@ -94,7 +102,7 @@ you can manually build and install the latest version of Themis from source code
     npm install /path/to/jsthemis.tgz
     ```
 
-## Matching OpenSSL versions
+## Troubleshooting Themis, Node and OpenSSL
 
 JsThemis is a simple library to Node.js that provides bindings to the Themis Core library, which is itself installed as a shared library in the system. In turn, Themis Core depends on OpenSSL installed in the system.
 
@@ -132,3 +140,89 @@ Furthermore, here is how community solves this issue:
 2. You can try to build and install Themis Core and JsThemis from the sources with [Boringssl engine](../../../installation/installation-from-sources/#boringssl).
 
 However, none of these options are ideal because they can lock you to specific versions of software and disable the ability to update components and dependencies.
+
+### Example of errors
+Here are examples of errors you may encounter if the versions of OpenSSL on the system and NodeJS do not match.
+
+#### Ubuntu 22.04 basic installation.
+```
+# node -v
+v12.22.9
+# openssl version
+OpenSSL 3.0.2 15 Mar 2022 (Library: OpenSSL 3.0.2 15 Mar 2022)
+# node -e "console.log(process.versions.openssl)"
+1.1.1m
+```
+This is a vivid example of a fatal coincidence. Old version of `node`.
+And as a result trying to run code with themis will crashed with SIGSEGV.
+
+The very simple code example of JsThemis
+```
+const themis = require('jsthemis');
+
+const masterKey = new themis.SymmetricKey();
+console.log(masterKey);
+
+const keypair = new themis.KeyPair()
+console.log(keypair);
+```
+
+The example of crash.
+```
+$ node ./index.js
+<Buffer 80 9f 1a 70 9c ae 20 e6 c6 76 64 44 48 52 32 4d 5b 42 a2 fc b5 9b 33 57 a1 de ec 02 52 5d c6 de>
+Segmentation fault (core dumped)
+```
+
+Another example:
+```
+# node ./index.js
+<Buffer 93 74 61 d0 6b e7 dc be f1 46 32 2f 8d 67 f6 0d e8 05 c8 f1 0d a5 80 47 6b 21 2d ad f8 aa 5e 0d>
+/root/test/index.js:6
+const keypair = new themis.KeyPair()
+                ^
+
+Error: Key Pair generation failed: failure
+    at Object.<anonymous> (/root/test/index.js:6:17)
+    at Module._compile (internal/modules/cjs/loader.js:999:30)
+    at Object.Module._extensions..js (internal/modules/cjs/loader.js:1027:10)
+    at Module.load (internal/modules/cjs/loader.js:863:32)
+    at Function.Module._load (internal/modules/cjs/loader.js:708:14)
+    at Function.executeUserEntryPoint [as runMain] (internal/modules/run_main.js:60:12)
+    at internal/main/run_main_module.js:17:47 {
+  code: 11
+}
+```
+
+Let's try to install LTS version of node. Remember, that even node 16 works with OpenSSL 1.1.1.
+
+```
+# npm install -g n
+# n lts
+# hash -r
+# node -v
+v20.9.0
+# node -e "console.log(process.versions.openssl)"
+3.0.10+quic
+# node ./index.js
+Segmentation fault (core dumped)
+```
+
+Another variant of error:
+```
+node ./index.js
+/root/jsthemis/index.js:3
+let keypair = new themis.KeyPair()
+              ^
+
+Error: Key Pair generation failed: invalid parameter
+    at Object.<anonymous> (/root/jsthemis/index.js:3:15)
+    at Module._compile (node:internal/modules/cjs/loader:1241:14)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1295:10)
+    at Module.load (node:internal/modules/cjs/loader:1091:32)
+    at Module._load (node:internal/modules/cjs/loader:938:12)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:83:12)
+    at node:internal/main/run_main_module:23:47 {
+  code: 12
+}
+```
