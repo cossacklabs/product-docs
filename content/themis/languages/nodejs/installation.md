@@ -66,8 +66,14 @@ The easiest way to install Themis on macOS is to use Homebrew.
  3. Install JsThemis via npm for your project:
 
     ```bash
-    export CPPFLAGS="-I/opt/homebrew/Cellar/libthemis/0.15.1/include"
-    export LDFLAGS="-L/opt/homebrew/Cellar/libthemis/0.15.1/lib"
+    npm install jsthemis
+    ```
+    
+    JsThemis is a native addon for nodejs. During the installation process, all package files and all its dependencies are copied to the node_modules directory of your project. After copying, npm will start compiling the addon in your environment. If the compiler shows a compilation error, try adding the following variables before retrying the npm install. Locate the directories where the `libthemis.a` and `themis/themis.h` files are located and change the values of the CPPFLAGS, LDFLAGS variables to the appropriate values.  
+
+    ```bash
+    export CPPFLAGS="-I/opt/homebrew/include"
+    export LDFLAGS="-L/opt/homebrew/lib"
     npm install jsthemis
     ```
 
