@@ -50,7 +50,7 @@ The following Acra services and tools can load Acra Master Key from this KMS.
 * [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker/#hashicorp-vault),
 * [acra-rotate](/acra/configuring-maintaining/general-configuration/acra-rotate/#hashicorp-vault), 
 * [acra-addzone](/acra/configuring-maintaining/general-configuration/acra-addzone/#hashicorp-vault) (deprecated since 0.94.0, will be removed in 0.95.0),
-* [acra-backup](/acra/configuring-maintaining/general-configuration/acra-backup/#hashicorp-vault),
+* [acra-backup](/acra/configuring-maintaining/general-configuration/acra-backup/#hashicorp-vault) (deprecated since 0.96.0, will be removed in 0.97.0),
 * [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/#hashicorp-vault),
 * [acra-poisonrecordmaker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/#hashicorp-vault),
 * [acra-rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/#hashicorp-vault).
@@ -72,7 +72,7 @@ The following Acra services and tools can load Acra Master Key from this KMS.
 * [acra-keymaker](/acra/configuring-maintaining/general-configuration/acra-keymaker/#hashicorp-vault),
 * [acra-rotate](/acra/configuring-maintaining/general-configuration/acra-rotate/#hashicorp-vault),
 * [acra-addzone](/acra/configuring-maintaining/general-configuration/acra-addzone/#hashicorp-vault) (deprecated since 0.94.0, will be removed in 0.95.0),
-* [acra-backup](/acra/configuring-maintaining/general-configuration/acra-backup/#hashicorp-vault),
+* [acra-backup](/acra/configuring-maintaining/general-configuration/acra-backup/#hashicorp-vault)  (deprecated since 0.96.0, will be removed in 0.97.0),
 * [acra-log-verifier](/acra/configuring-maintaining/general-configuration/acra-log-verifier/#hashicorp-vault),
 * [acra-poisonrecordmaker](/acra/configuring-maintaining/general-configuration/acra-poisonrecordmaker/#hashicorp-vault),
 * [acra-rollback](/acra/configuring-maintaining/general-configuration/acra-rollback/#hashicorp-vault).
