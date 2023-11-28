@@ -197,7 +197,11 @@ A package for system-wide installation, for Debian-like and RHEL-like distros
 
     Or manually run `sudo yum install ./path/to/package.rpm`
 
-## Building latest version from source (deprecated)
+## Building Themis < 0.15 version from sources (deprecated)
+
+{{< hint warning >}}
+The instructions below are relevant only for Themis older than 0.15. Most likely, you don't need to follow them, and should install the latest Themis instead.
+{{< /hint >}}
 
 {{< hint warning >}}
 [PEP 668](https://peps.python.org/pep-0668/) changed the way Python packages are managed.
