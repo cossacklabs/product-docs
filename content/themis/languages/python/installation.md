@@ -73,7 +73,7 @@ Once PyThemis is installed, you can [try out code examples](../examples/).
 ## Building latest version from source
 
 If the stable package version does not suit your needs,
-you can manually build and install the latest version of Themis from source code.
+you can manually build python wheel or `.deb`/`.rpm` package and install the latest version of Themis from source code.
 
 ### Python wheel
 
