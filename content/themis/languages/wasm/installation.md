@@ -168,6 +168,9 @@ to learn more about managing toolchain versions.
     emmake make wasmthemis
     ```
 
+    Be aware that build may fail if non-WASM Themis was previously build in this same directory.
+    In that case, run `make clean` before building WasmThemis.
+
 The resulting package will be placed into `build/wasm-themis.tgz`
 in Themis source tree.
 
