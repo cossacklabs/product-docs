@@ -165,7 +165,6 @@ weight: 3
   "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
   If not specified, AcraServer uses value from `--tls_crl_from_cert` flag.
 
-
 * `--redis_tls_crl_client_url=<url>`
 
   CRL's URL for outcoming TLS connections to Redis.
@@ -516,7 +515,7 @@ weight: 3
 
 * `--tls_client_cert=<filename>`
 
-  Path to TLS certificate presented to applications/AcraConnectors.
+  Path to server TLS certificate presented to applications/AcraConnectors.
   Empty by default.
   If not specified, AcraServer uses value from `--tls_cert` flag.
 
