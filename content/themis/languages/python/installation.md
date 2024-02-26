@@ -72,67 +72,20 @@ Once PyThemis is installed, you can [try out code examples](../examples/).
 
 ## Building latest version from source
 
-If the stable package version does not suit your needs,
-you can manually build python wheel or `.deb`/`.rpm` package and install the latest version of Themis from source code.
+If the stable package version does not suit your needs, you can install the latest version of Themis from source code.
+Either by installing into activated virtualenv or by building and installing `.deb`/`.rpm` package on your system.
 
-### Python wheel
-
-A package suitable for installation in Python virtual environments
+### Installing into virtualenv
 
  1. [Build and install Themis Core library](/themis/installation/installation-from-sources/)
     into your system.
-
- 2. Install Python dependencies
-
-    You'll need `setuptools` and `wheel`
-
-    * Install globally
-
-      For Debian, Ubuntu:
-
-      ```bash
-      sudo apt install python3-setuptools python3-wheel
-      ```
-
-      For CentOS, RHEL:
-
-      ```bash
-      sudo yum install python3-setuptools python3-wheel
-      ```
-
-    * Or install into virtualenv
-
-      ```bash
-      # create and activate virtualenv if not done yet
-      pip install setuptools wheel
-      ```
-
- 3. Create a PyThemis package
-
-    {{< hint info >}}
-   If you installed dependencies globally, virtualenv should not be activated during wheel
-   generation since needed packages won't be visible in an isolated environment.
-    {{< /hint >}}
-
-    ```bash
-    make pythemis_make_wheel
-    ```
-
-    Result package filename will be printed at the end, like this:
-    ```
-    Result: src/wrappers/themis/python/dist/pythemis-0.14.0-py2.py3-none-any.whl
-    ```
 
  4. Install PyThemis
 
     ```bash
     # activate virtualenv if not done yet
-    make pythemis_install_wheel
+    make pythemis_install
     ```
-
-    Or manually run `pip install path/to/pythemis-...-none-any.whl` (the package file previously created).
-    If the virtual environment already contained PyThemis of the same version,
-    add `--force-reinstall` option to rewrite the previous package.
 
 ### OS package
 
