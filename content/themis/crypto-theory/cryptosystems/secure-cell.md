@@ -125,7 +125,7 @@ To select the best mode for your needs, consult the following table:
 | Features               | Seal | Token Protect | Context Imprint |
 | ---------------------- | -- | -- | -- |
 | Encryption algorithm   | AES-GCM-256 | AES-GCM-256 | AES-CTR-256 |
-| Passphrase support     | ✅ | ✅ | ✅ |
+| Passphrase support     | ✅ | ❌ | ❌ |
 | Preserve text length   | ❌ | ✅ <sup>*</sup> | ✅ |
 | Required context data  | ❌ | ❌ | ✅ |
 | Integrity verification | ✅ | ✅ | ❌ |

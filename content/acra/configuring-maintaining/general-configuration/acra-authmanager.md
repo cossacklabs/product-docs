@@ -168,7 +168,6 @@ read an encrypted file with authentication data.
 
   "URL from configuration" above means the one configured with `--vault_tls_crl_client_url` flags.
 
-
 * `--vault_tls_crl_client_url=<url>`
 
   CRL's URL for outcoming TLS connections to Vault.

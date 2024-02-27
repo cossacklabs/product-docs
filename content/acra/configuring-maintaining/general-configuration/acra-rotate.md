@@ -317,18 +317,21 @@ weight: 8
 
   Path to additional CA certificate for Redis' certificate validation.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_ca` flag.
 
 
 * `--redis_tls_client_cert=<filename>`
 
   Path to TLS certificate presented to Redis.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_cert` flag.
 
 
 * `--redis_tls_client_key=<filename>`
 
   Path to private key of the TLS certificate presented to Redis.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_key` flag.
 
 
 * `--redis_tls_client_sni=<SNI>`
@@ -342,12 +345,14 @@ weight: 8
   How many CRLs to cache in memory in connections to Redis.
   Use `0` to disable caching. Maximum is `1000000`. Default is `16`.
   Cache uses [LRU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) policy.
+  If not specified, acra-rotate uses value from `--tls_crl_cache_size` flag.
 
 
 * `--redis_tls_crl_client_cache_time=<seconds>`
 
   How long to keep CRLs cached, in seconds for connections to Redis.
   Use `0` to disable caching. Maximum is `300` seconds. Default is `0`.
+  If not specified, acra-rotate uses value from `--tls_crl_cache_time` flag.
 
 
 * `--redis_tls_crl_client_check_only_leaf_certificate={true|false}`
@@ -360,6 +365,7 @@ weight: 8
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
+  If not specified, acra-rotate uses value from `--tls_crl_check_only_leaf_certificate` flag.
 
 
 * `--redis_tls_crl_client_from_cert=<policy>`
@@ -372,12 +378,14 @@ weight: 8
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--redis_tls_crl_client_url` flags. See [Configuring & maintaining > TLS > CRL](/acra/configuring-maintaining/tls/crl/).
+  If not specified, acra-rotate uses value from `--tls_crl_from_cert` flag.
 
 
 * `--redis_tls_crl_client_url=<url>`
 
   CRL's URL for outcoming TLS connections to Redis.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_crl_url` flag.
 
 
 * `--redis_tls_enable=<true|false>`
@@ -398,6 +406,7 @@ weight: 8
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know whom to ask about them.
+  If not specified, acra-rotate uses value from `--tls_ocsp_check_only_leaf_certificate` flag.
 
 
 * `--redis_tls_ocsp_client_from_cert=<policy>`
@@ -410,6 +419,7 @@ weight: 8
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--redis_tls_ocsp_client_url` flags, see [Configuring & maintaining > TLS > OCSP](/acra/configuring-maintaining/tls/ocsp/).
+  If not specified, acra-rotate uses value from `--tls_ocsp_from_cert` flag.
 
 
 * `--redis_tls_ocsp_client_required=<policy>`
@@ -419,12 +429,14 @@ weight: 8
   * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
   * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
   * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  If not specified, acra-rotate uses value from `--tls_ocsp_required` flag.
 
 
 * `--redis_tls_ocsp_client_url=<url>`
 
   OCSP service URL for outgoing TLS connections to check Redis' certificates.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_ocsp_url` flag.
 
 
 ### Keystore
@@ -495,6 +507,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   * `4` — (default) request and validate client certificate.
 
   These values correspond to [crypto.tls.ClientAuthType](https://golang.org/pkg/crypto/tls/#ClientAuthType).
+  If not specified, acra-rotate uses value from `--tls_auth` flag.
 
 * `--vault_tls_ca_path=<filename>`
 
@@ -506,18 +519,21 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
 
   Path to acra-rotate TLS certificate's CA certificate for Vault certificate validation (acra-rotate works as "client" when communicating with Vault).
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_ca` flag. (since 0.96.0)
 
 
 * `--vault_tls_client_cert=<filename>`
 
   Path to acra-rotate TLS certificate presented to Vault (acra-rotate works as "client" when communicating with Vault).
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_cert` flag. (since 0.96.0)
 
 
 * `--vault_tls_client_key=<filename>`
 
   Path to acra-rotate TLS certificate's private key of the TLS certificate presented to Vault (acra-rotate works as "client" when communicating with Vault).
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_key` flag. (since 0.96.0)
 
 
 * `--vault_tls_client_sni=<SNI>`
@@ -531,12 +547,14 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   How many CRLs to cache in memory in connections to Vault.
   Use `0` to disable caching. Maximum is `1000000`. Default is `16`.
   Cache uses [LRU](https://en.wikipedia.org/wiki/Cache_replacement_policies#Least_recently_used_(LRU)) policy.
+  If not specified, acra-rotate uses value from `--tls_crl_cache_size` flag. (since 0.96.0)
 
 
 * `--vault_tls_crl_client_cache_time=<seconds>`
 
   How long to keep CRLs cached, in seconds for connections to Vault.
   Use `0` to disable caching. Maximum is `300` seconds. Default is `0`.
+  If not specified, acra-rotate uses value from `--tls_crl_cache_time` flag. (since 0.96.0)
 
 
 * `--vault_tls_crl_client_check_only_leaf_certificate={true|false}`
@@ -549,6 +567,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no CRL's URL configured and there is no CRL's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know which CRLs could be used for validation.
+  If not specified, acra-rotate uses value from `--tls_crl_check_only_leaf_certificate` flag. (since 0.96.0)
 
 
 * `--vault_tls_crl_client_from_cert=<policy>`
@@ -561,12 +580,14 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   * `ignore` — completely ignore CRL's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--vault_tls_crl_client_url` flags.
+  If not specified, acra-rotate uses value from `--tls_crl_from_cert` flag. (since 0.96.0)
 
 
 * `--vault_tls_crl_client_url=<url>`
 
   CRL's URL for outcoming TLS connections to Vault.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_crl_url` flag. (since 0.96.0)
 
 
 * `--vault_tls_ocsp_client_check_only_leaf_certificate={true|false}`
@@ -579,6 +600,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   This option may be enabled in cases when intermediate CAs are trusted and there is no need to verify them all the time.
   Also, even if this flag is `false` but there is no OCSP's URL configured and there is no OCSP's URL in intermediate CA certificates,
   these intermediate CAs won't be validated since we don't know whom to ask about them.
+  If not specified, acra-rotate uses value from `--tls_ocsp_check_only_leaf_certificate` flag. (since 0.96.0)
 
 
 * `--vault_tls_ocsp_client_from_cert=<policy>`
@@ -591,6 +613,7 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   * `ignore` — completely ignore OCSP's URL(s) specified in certificate
 
   "URL from configuration" above means the one configured with `--vault_tls_ocsp_client_url` flags.
+  If not specified, acra-rotate uses value from `--tls_ocsp_from_cert` flag. (since 0.96.0)
 
 
 * `--vault_tls_ocsp_client_required=<policy>`
@@ -600,12 +623,14 @@ Should be provided only with `--keystore_encryption_type=<kms_encrypted_master_k
   * `denyUnknown` — (default) consider "Unknown" response an error, certificate will be rejected
   * `allowUnknown` — reverse of `denyUnknown`, allow certificates unknown to OCSP server
   * `requireGood` — require all known OCSP servers to respond "Good" in order to allow certificate and continue TLS handshake, this includes all URLs validator can use, from certificate (if not ignored) and from configuration
+  If not specified, acra-rotate uses value from `--tls_ocsp_required` flag. (since 0.96.0)
 
 
 * `--vault_tls_ocsp_client_url=<url>`
 
   OCSP service URL for outgoing TLS connections to check Vaults' certificates.
   Empty by default.
+  If not specified, acra-rotate uses value from `--tls_ocsp_url` flag. (since 0.96.0)
 
 {{< hint info >}}
 **Note**:
