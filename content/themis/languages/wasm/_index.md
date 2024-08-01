@@ -7,7 +7,7 @@ bookCollapseSection: true
 # Using Themis in JavaScript with WebAssembly
 
 **WasmThemis** package provides access to features of Themis cryptographic library
-for the [WebAssembly](https://webassembly.org/) platorm:
+for the [WebAssembly](https://webassembly.org/) platform:
 
 - **[Key generation](features/#key-generation)**:
   securely generate strong key pairs and symmetric keys.
