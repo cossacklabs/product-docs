@@ -18,13 +18,15 @@ Supported systems:
 
   - Debian 10 “Buster”
   - Debian 11 “Bullseye”
-  - Ubuntu 18.04 LTS “Bionic Beaver”
+  - Debian 12 “Bookworm”
   - Ubuntu 20.04 LTS “Focal Fossa”
   - Ubuntu 22.04 LTS “Jammy Jellyfish”
+  - Ubuntu 24.04 LTS “Noble Numbat”
 
 Previously supported systems:
 - Debian 9 “Stretch” — prior to Themis 0.15.
 - Ubuntu 16.04 LTS “Xenial Xerus” — prior to Themis 0.15.
+- Ubuntu 18.04 LTS “Bionic Beaver” — prior to Themis 0.15.
 
 **1. Import Cossack Labs public key**
 
@@ -64,25 +66,24 @@ deb https://pkgs-ce.cossacklabs.com/stable/${OS_NAME} ${RELEASE} main
 where
 
   - `${OS_NAME}` should be `debian` or `ubuntu`
-  - `${RELEASE}` should be Debian or Ubuntu release name (like `focal`)
+  - `${RELEASE}` should be Debian or Ubuntu release name (like `noble`)
 
      You can determine this by running `lsb_release -cs`,
      if you have `lsb_release` installed (`lsb-release` package).
 
 We currently build packages for the following OS_NAME and RELEASE combinations:
 
-  - `debian stretch` — Debian 9 “Stretch”
   - `debian buster` — Debian 10 “Buster”
   - `debian bullseye` — Debian 11 “Bullseye”
-  - `ubuntu xenial` — Ubuntu 16.04 LTS “Xenial Xerus”
-  - `ubuntu bionic` — Ubuntu 18.04 LTS “Bionic Beaver”
+  - `debian bookworm` — Debian 12 “Bookworm”
   - `ubuntu focal` — Ubuntu 20.04 LTS “Focal Fossa”
   - `ubuntu jammy` — Ubuntu 22.04 LTS “Jammy Jellyfish”
+  - `ubuntu noble` — Ubuntu 22.04 LTS “Noble Numbat”
 
-For example, if you are running _Debian 11 “Bullseye”_, run:
+For example, if you are running _Debian 12 “Bookworm”_, run:
 
 ```bash
-echo "deb https://pkgs-ce.cossacklabs.com/stable/debian bullseye main" | \
+echo "deb https://pkgs-ce.cossacklabs.com/stable/debian bookworm main" | \
   sudo tee /etc/apt/sources.list.d/cossacklabs.list
 ```
 
@@ -104,11 +105,8 @@ sudo apt install libthemis-dev
 
 Supported systems:
 
-  - RHEL 7
   - RHEL 8
-  - OEL 7
   - OEL 8
-  - CentOS 7
   - CentOS 8
 
 {{< hint info >}}
