@@ -226,3 +226,64 @@ Error: Key Pair generation failed: invalid parameter
   code: 12
 }
 ```
+
+### Verified example how to fix it.
+You need to install `OpenSSL` and `Themis` native library from the source code and install the `jsthemis` package.
+This is a source code of Dockerfile. You may copy and build, and run it.
+```Dockerfile
+FROM ubuntu:22.04
+
+RUN apt update
+RUN apt install -y git wget npm gcc make tar
+
+ARG OPENSSL_VERSION=3.0.10
+ARG OPENSSL_PREFIX=/opt/openssl-${OPENSSL_VERSION}
+
+RUN wget https://www.openssl.org/source/openssl-${OPENSSL_VERSION}.tar.gz && \
+    apt purge -y openssl  && \
+    mkdir ${OPENSSL_PREFIX} -p && \
+    tar xf openssl-${OPENSSL_VERSION}.tar.gz && \
+    cd openssl-${OPENSSL_VERSION} && \
+    ./Configure --prefix=${OPENSSL_PREFIX} && \
+    make && \
+    make install
+
+RUN apt install -y npm
+RUN npm install -g n
+RUN n lts
+
+ENV LD_LIBRARY_PATH=${OPENSSL_PREFIX}/lib64
+ENV PKG_CONFIG_PATH=${OPENSSL_PREFIX}/lib64/pkgconfig
+ENV PATH=${OPENSSL_PREFIX}/bin:${PATH}
+
+RUN git clone https://github.com/cossacklabs/themis.git && \
+    cd themis && \
+    make ENGINE_INCLUDE_PATH=${OPENSSL_PREFIX}/include ENGINE_LIB_PATH=${OPENSSL_PREFIX}/lib64 && \
+    make install
+
+WORKDIR /jsthemis
+RUN npm init -y -f && npm install jsthemis
+RUN echo "const themis = require('jsthemis');"           >> index.js \
+    && echo "let keypair = new themis.KeyPair();"        >> index.js \
+    && echo ""                                           >> index.js \
+    && echo "// Keys are Buffers"                        >> index.js \
+    && echo "let privateKey = keypair.private();"        >> index.js \
+    && echo "let publicKey = keypair.public();"          >> index.js \
+    && echo "let masterKey = new themis.SymmetricKey();" >> index.js \
+    && echo ""                                           >> index.js \
+    && echo "console.log(privateKey);"                   >> index.js \
+    && echo "console.log(publicKey);"                    >> index.js \
+    && echo "console.log(masterKey);"                    >> index.js
+
+ENTRYPOINT ["node", "index.js"]
+```
+
+As a result you will see similar three lines of keys: private, public and symmetric keys.
+```
+<Buffer 52 45 43 32 00 00 00 2d e0 10 7b f5 00 bd 06 82 af 38 25 d1 d9 d1 33 64 93 14 59 b7 d5 4e c3 f8 3a 9c 73 da 70 bc 42 a6 32 94 cb f5 70>
+<Buffer 55 45 43 32 00 00 00 2d 36 1a 7f 94 02 b6 76 7a 5f cb d7 b5 80 e0 b9 b7 54 e9 e9 bf d0 1a 86 dd 61 df 53 0b e3 c1 b7 ca ea 18 57 21 92>
+<Buffer 3f 5e e1 90 09 10 a9 4d 4a 63 a6 fc 34 51 69 a1 55 73 2a 1f 45 f7 1c e4 3c 68 4b 2d b3 4c 70 4e>
+```
+If you see something similar, then you have done everything right and can transfer this recipe for installing `jsthemis` to your system.
+If you see an error, please create an issue on GitHub and we will try to help you.
+
